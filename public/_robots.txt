@@ -1,0 +1,7 @@
+User-agent: *
+Allow: /
+
+# Update this to your canonical domain if different
+Sitemap: https://edu.turkish/sitemap.xml
+
+

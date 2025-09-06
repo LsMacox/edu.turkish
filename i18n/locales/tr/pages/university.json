@@ -1,0 +1,86 @@
+{
+  "universityDetail": {
+    "applyButton": "Üniversiteye Başvur",
+    "whatsappButton": "WhatsApp ile İletişime Geç",
+    "keyInformation": {
+      "title": "Anahtar Bilgiler",
+      "subtitle": "Üniversite hakkında bilmeniz gereken her şey",
+      "city": "Şehir",
+      "foundedYear": "Kuruluş Yılı",
+      "cost": "Maliyet",
+      "costFrom": "yılda {cost}'dan itibaren",
+      "languages": "Eğitim Dilleri",
+      "students": "Öğrenciler",
+      "accommodation": "Konaklama",
+      "ranking": "Sıralama",
+      "internationalStudents": "Uluslararası Öğrenciler"
+    },
+    "accommodationValue": {
+      "has": "Kampüs içinde yurt",
+      "none": "Yurt yok"
+    },
+    "rankingNotSpecified": "Sıralama belirtilmemiş",
+    "rankingValue": "Türkiye'de Top-{rank}",
+    "internationalCount": "{count}+ öğrenci",
+    "programDuration": {
+      "durationYears": "{count} yıl"
+    }
+    ,
+    "aboutUniversity": {
+      "title": "Üniversite Hakkında",
+      "history": "Tarih ve Misyon",
+      "campus": "Kampüs Özellikleri",
+      "strongPrograms": "Güçlü Programlar",
+      "advantages": "Uluslararası Öğrenciler için Avantajlar"
+    },
+    "universityType": {
+      "state": "Devlet Üniversitesi",
+      "private": "Vakıf Üniversitesi",
+      "tech": "Teknik Üniversite",
+      "elite": "Elit Üniversite"
+    },
+    "campusLife": {
+      "title": "Kampüs Yaşamı",
+      "subtitle": "Çalışma ve dinlenme için modern imkanlar",
+      "infrastructure": "Kampüs Altyapısı",
+      "facilities": {
+        "library": {
+          "name": "Kütüphane",
+          "description": "24/7 erişim, 500.000'den fazla kitap ve dergi"
+        },
+        "laboratories": {
+          "name": "Laboratuvarlar",
+          "description": "Modern bilimsel ekipman"
+        },
+        "sportsCenter": {
+          "name": "Spor Merkezi",
+          "description": "Fitness salonu, yüzme havuzu, spor sahaları"
+        },
+        "dormitories": {
+          "name": "Yurtlar",
+          "description": "Öğrenciler için konforlu odalar"
+        },
+        "cafeteria": {
+          "name": "Kafeterya",
+          "description": "Çeşitli menü, helal mutfak"
+        },
+        "wifi": {
+          "name": "Kampüs genelinde Wi-Fi",
+          "description": "Yüksek hızlı internet"
+        },
+        "medicalCenter": {
+          "name": "Tıp Merkezi",
+          "description": "Tıbbi yardım ve danışmanlık"
+        },
+        "transport": {
+          "name": "Ulaşım",
+          "description": "Şehir merkezine otobüsler"
+        },
+        "studentClubs": {
+          "name": "Öğrenci Kulüpleri",
+          "description": "İlgi alanlarına göre 50'den fazla kulüp"
+        }
+      }
+    }
+  }
+}

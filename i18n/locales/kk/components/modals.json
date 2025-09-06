@@ -1,0 +1,57 @@
+{
+  "modal": {
+    "consultation_title": "Тегін кеңес",
+    "your_name": "Сіздің атыңыз",
+    "required": "*",
+    "phone": "WhatsApp нөмірі",
+    "email": "Email",
+    "direction": "Оқыту бағыты",
+    "additional_info": "Қосымша ақпарат",
+    "name_placeholder": "Атыңызды енгізіңіз",
+    "phone_placeholder": "+1234567890",
+    "email_placeholder": "Email мекенжайыңызды енгізіңіз",
+    "direction_placeholder": "Бағытты таңдаңыз",
+    "message_placeholder": "Мақсаттарыңыз, қала бойынша қалауларыңыз, бюджетіңіз туралы айтыңыз...",
+    "directions": {
+      "medicine": "Медицина",
+      "engineering": "Инженерия",
+      "business": "Бизнес",
+      "it": "IT",
+      "architecture": "Архитектура",
+      "psychology": "Психология",
+      "arts": "Өнер",
+      "other": "Басқа"
+    },
+    "preferences_title": "Сіздің қалауларыңыз:",
+    "source_title": "Өтініш көзі:",
+    "preference_labels": {
+      "user_type": "Пайдаланушы түрі:",
+      "university": "Университет:",
+      "language": "Оқыту тілі:",
+      "scholarship": "Стипендия:"
+    },
+    "user_types": {
+      "student": "Студент",
+      "parent": "Ата-ана"
+    },
+    "university_chosen": {
+      "yes": "Аллақашан таңдалған",
+      "no": "Таңдауда көмек қажет"
+    },
+    "languages": {
+      "turkish": "Түрік тілі",
+      "english": "Ағылшын тілі"
+    },
+    "scholarship": {
+      "yes": "Стипендиямен көмек қажет",
+      "no": "Өзім төлеуге дайынмын"
+    },
+    "agreement": "Жеке деректерді өңдеуге және ақпараттық хабарламаларды алуға келісемін",
+    "submit_button": "Кеңес алу",
+    "submitting": "Жібереміз...",
+    "success_title": "Өтініш жіберілді",
+    "success_message": "Біз сізбен 30 минут ішінде байланысамыз.",
+    "error_title": "Жіберу қатесі",
+    "error_message": "Қайта көріңіз немесе бізбен тікелей байланысыңыз."
+  }
+}

@@ -1,0 +1,116 @@
+<template>
+  <section id="final-cta" class="py-20 bg-gradient-to-r from-primary to-red-600">
+    <div class="container mx-auto px-4 lg:px-6 text-center">
+      <div class="max-w-4xl mx-auto text-white">
+        <h2 class="text-4xl lg:text-5xl font-bold mb-6">
+          {{ t('home.final_cta.title') }}
+        </h2>
+        <p class="text-xl mb-8 opacity-90">
+          {{ t('home.final_cta.subtitle', { days: timeLeft.days }) }}
+        </p>
+        
+        <!-- Countdown Timer -->
+        <div class="flex justify-center space-x-8 mb-8">
+          <div class="text-center">
+            <div class="text-3xl font-bold bg-white text-primary rounded-xl p-4 w-16 h-16 flex items-center justify-center">
+              {{ timeLeft.days }}
+            </div>
+            <p class="text-sm mt-2">{{ t('home.final_cta.days') }}</p>
+          </div>
+          <div class="text-center">
+            <div class="text-3xl font-bold bg-white text-primary rounded-xl p-4 w-16 h-16 flex items-center justify-center">
+              {{ timeLeft.hours }}
+            </div>
+            <p class="text-sm mt-2">{{ t('home.final_cta.hours') }}</p>
+          </div>
+          <div class="text-center">
+            <div class="text-3xl font-bold bg-white text-primary rounded-xl p-4 w-16 h-16 flex items-center justify-center">
+              {{ timeLeft.minutes }}
+            </div>
+            <p class="text-sm mt-2">{{ t('home.final_cta.minutes') }}</p>
+          </div>
+        </div>
+        
+        <div class="space-y-4">
+          <button 
+            @click="modal.openModal()"
+            class="bg-white text-primary px-12 py-4 rounded-xl font-bold text-xl hover:bg-gray-100 transition-all transform hover:scale-105 shadow-2xl"
+          >
+            {{ t('home.final_cta.button') }}
+          </button>
+          <p class="text-sm opacity-80">
+            {{ t('home.final_cta.guarantee') }}
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+</template>
+
+<script setup lang="ts">
+interface Props {
+  deadline?: string | Date
+  fallbackDays?: number
+  fallbackHours?: number
+  fallbackMinutes?: number
+}
+
+const props = withDefaults(defineProps<Props>(), {
+  deadline: '2025-11-15T23:59:59',
+  fallbackDays: 45,
+  fallbackHours: 12,
+  fallbackMinutes: 35
+})
+
+import { useApplicationModalStore } from '~/stores/applicationModal'
+
+const { t } = useI18n()
+const modal = useApplicationModalStore()
+
+// Force reactivity update every minute
+const forceUpdate = ref(0)
+
+// Calculate time left to deadline
+const calculateTimeLeft = () => {
+  const now = new Date().getTime()
+  const deadline = new Date(props.deadline).getTime()
+  const distance = deadline - now
+  
+  if (distance > 0) {
+    const result = {
+      days: Math.floor(distance / (1000 * 60 * 60 * 24)),
+      hours: Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60)),
+      minutes: Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60))
+    }
+    return result
+  } else {
+    return {
+      days: 0,
+      hours: 0,
+      minutes: 0
+    }
+  }
+}
+
+// Reactive computed property for time left
+const timeLeft = computed(() => {
+  // Include forceUpdate to trigger reactivity every minute
+  forceUpdate.value
+  return calculateTimeLeft()
+})
+
+// Update countdown on mount and every minute
+onMounted(() => {
+  const interval = setInterval(() => {
+    forceUpdate.value++
+  }, 60000)
+  
+  onUnmounted(() => {
+    clearInterval(interval)
+  })
+})
+</script>
+
+<style scoped>
+/* Additional styles for gradient and animations */
+</style>

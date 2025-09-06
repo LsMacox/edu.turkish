@@ -1,0 +1,88 @@
+{
+  "universityDetail": {
+    "applyButton": "Apply to University",
+    "whatsappButton": "Contact via WhatsApp",
+    "keyInformation": {
+      "title": "Key Information",
+      "subtitle": "Everything you need to know about the university",
+      "city": "City",
+      "foundedYear": "Founded Year",
+      "cost": "Cost",
+      "costFrom": "from {cost} per year",
+      "languages": "Languages of Instruction",
+      "students": "Students",
+      "accommodation": "Accommodation",
+      "ranking": "Ranking",
+      "internationalStudents": "International Students"
+    },
+    "accommodationValue": {
+      "has": "On-campus dormitory",
+      "none": "No dormitory"
+    },
+    "rankingNotSpecified": "Ranking not specified",
+    "rankingValue": "Top-{rank} in Turkey",
+    "internationalCount": "{count}+ students",
+    "programDuration": {
+      "durationYears": "{count} year | {count} years"
+    }
+    ,
+    "aboutUniversity": {
+      "title": "About University",
+      "history": "History and Mission",
+      "campus": "Campus Features",
+      "strongPrograms": "Strong Programs",
+      "advantages": "Advantages for International Students"
+    },
+    "universityType": {
+      "state": "State University",
+      "private": "Private University",
+      "tech": "Technical University",
+      "elite": "Elite University"
+    },
+    "campusLife": {
+      "title": "Campus Life",
+      "subtitle": "Modern facilities for study and recreation",
+      "infrastructure": "Campus Infrastructure",
+      "capacity": "Capacity",
+      "area": "Area",
+      "facilities": {
+        "library": {
+          "name": "Library",
+          "description": "24/7 access, over 500,000 books and journals"
+        },
+        "laboratories": {
+          "name": "Laboratories",
+          "description": "Modern scientific equipment"
+        },
+        "sportsCenter": {
+          "name": "Sports Center",
+          "description": "Fitness gym, swimming pool, sports courts"
+        },
+        "dormitories": {
+          "name": "Dormitories",
+          "description": "Comfortable rooms for students"
+        },
+        "cafeteria": {
+          "name": "Cafeteria",
+          "description": "Diverse menu, halal cuisine"
+        },
+        "wifi": {
+          "name": "Wi-Fi throughout campus",
+          "description": "High-speed internet"
+        },
+        "medicalCenter": {
+          "name": "Medical Center",
+          "description": "Medical assistance and consultations"
+        },
+        "transport": {
+          "name": "Transportation",
+          "description": "Buses to city center"
+        },
+        "studentClubs": {
+          "name": "Student Clubs",
+          "description": "Over 50 clubs by interests"
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,208 @@
+{
+  "about": {
+    "meta": {
+      "title": "Hakkımızda - Edu.turkish",
+      "description": "Edu.turkish, öğrencilerin Türkiye'deki üniversitelere kabul edilmelerine yardımcı olan bir ekiptir. 5+ yıl deneyim, 1000+ başarılı kabul."
+    },
+    "hero": {
+      "title": "Hakkımızda",
+      "subtitle": "Edu.turkish, öğrencilerin Türkiye'deki üniversitelere kabul edilmelerine yardımcı olan bir ekiptir",
+      "experienced_team": "Deneyimli ekip",
+      "students_enrolled": "500+ öğrenci kabul edildi",
+      "official_contracts": "Sözleşmeli resmi çalışma"
+    },
+    "who_we_are": {
+      "title": "Biz kimiz",
+      "subtitle": "Türkiye'deki üniversitelere kabule uzmanlaşmış uzun yıllara dayanan deneyime sahip bir eğitim ajansıyız",
+      "experienced_agency": "Deneyimli ajans",
+      "experienced_agency_desc": "Eğitim danışmanlığı alanında 6+ yıl başarılı çalışma. Türk üniversitelerine kaydın tüm inceliklerini biliyoruz.",
+      "students_enrolled": "500+ öğrenci kabul edildi",
+      "students_enrolled_desc": "Yıllar içinde BDT ülkelerinden 500'den fazla öğrencinin Türkiye'nin en iyi üniversitelerine girmesine yardımcı olduk.",
+      "official_work": "Sözleşmeli resmi çalışma",
+      "official_work_desc": "Tüm hizmetlerimiz net garantiler ve yükümlülükler içeren resmi sözleşme temelinde sağlanır.",
+      "comprehensive_help": "Türkiye'de yerleşim desteği",
+      "comprehensive_help_desc": "Belge hazırlamadan ikamet izni almaya kadar kapsamlı destek."
+    },
+    "team": {
+      "title": "Ekibimiz",
+      "subtitle": "Türk üniversitelerine kabul hakkında her şeyi bilen profesyoneller",
+      "ceo_founder": "Ajansın kurucusu ve müdürü",
+      "bachelor_consultant": "Lisans danışmanı",
+      "master_consultant": "Yüksek lisans danışmanı",
+      "university_manager": "Üniversitelerle çalışma müdürü",
+      "document_specialist": "Belge uzmanı",
+      "support_manager": "Müşteri destek müdürü",
+      "consultant": "Danışman",
+      "manager": "Müdür",
+      "specialist": "Uzman",
+      "support": "Destek",
+      "aliya_description": "Boğaziçi Üniversitesi mezunu. Eğitim danışmanlığında 8+ yıl deneyim. 500+ öğrencinin kabul edilmesine yardımcı oldu.",
+      "dmitry_description": "Lisans programları uzmanı. ODTÜ Ankara mezunu. Türkçe, İngilizce ve Rusça biliyor.",
+      "aigul_description": "Yüksek lisans ve doktora programları uzmanı. İstanbul Üniversitesi mezunu. Tıp bölümlerinde uzmanlaşmış.",
+      "mehmet_description": "Türk üniversitelerinin kabul komisyonlarıyla çalışmayı koordine ediyor. İstanbul'da yaşıyor, üniversitelerle doğrudan bağlantıları var.",
+      "anna_description": "Belgelerin hazırlanması ve çevirisinden sorumlu. Hukuk eğitimi, eğitim belgeleriyle çalışma deneyimi 6 yıl.",
+      "artem_description": "Öğrencilerin 7/24 desteğinden sorumlu. WhatsApp, Telegram ve diğer mesajlaşma uygulamalarında sorulara yanıt vermeye her zaman hazır."
+    },
+    "guarantees": {
+      "title": "Garantilerimiz",
+      "subtitle": "Sonuç için sorumluluk alıyor ve hizmetlerimizin kalitesini garanti ediyoruz",
+      "contract_work": "Sözleşmeli çalışıyoruz",
+      "contract_work_desc": "Tüm hizmetler net koşullar ve garantiler içeren resmi sözleşme temelinde sağlanır",
+      "transparent_terms": "Şeffaf koşullar",
+      "transparent_terms_desc": "Gizli ödeme yok. Tüm masraflar önceden görüşülür ve sözleşmede sabitleştirilir",
+      "full_support": "Tüm aşamalarda destek",
+      "full_support_desc": "İlk danışmanlıktan vize alımına ve üniversitede adaptasyona kadar",
+      "fast_response": "Hızlı ve Türkçe yanıt veriyoruz",
+      "fast_response_desc": "WhatsApp ve Telegram'da 7/24 destek. Çalışma saatlerinde 30 dakika içinde yanıt",
+      "admission_guarantee": "Kabul garantisi",
+      "admission_guarantee_desc": "Bizim hatamızdan dolayı seçtiğiniz üniversiteye girmekte size yardımcı olamazsak, hizmet ücretinin %100'ünü iade ederiz",
+      "success_rate": "%98 başarılı kabul",
+      "money_back": "Başarısızlık durumunda iade"
+    },
+    "story": {
+      "title": "Hikayemiz",
+      "subtitle": "Bir fikirden Türk üniversitelerine kabul için önde gelen eğitim ajansına olan yolculuk",
+      "imageAlt": "Edu.turkish gelişim tarihi - küçük bir startup'tan önde gelen ajansa",
+      "timeline": {
+        "step1": {
+          "title": "Başlangıç (2019)",
+          "description": "BDT öğrencilerinin Türk üniversitelerine kaydolmasına yardımcı olmak amacıyla şirketi kurduk"
+        },
+        "step2": {
+          "title": "İlk Başarılar (2020)",
+          "description": "İlk 50 öğrencinin kaydolmasına yardımcı olduk, kilit üniversitelerle ilişkiler kurduk"
+        },
+        "step3": {
+          "title": "Ölçeklendirme (2021-2022)",
+          "description": "Ekibi genişlettik, İstanbul'da ofis açtık, partner üniversite sayısını artırdık"
+        },
+        "step4": {
+          "title": "Liderlik (2023-2024)",
+          "description": "Önde gelen ajanslardan biri olduk, 1000'den fazla öğrencinin kaydolmasına yardımcı olduk"
+        }
+      },
+      "stats": {
+        "students": "Öğrenci kaydoldu",
+        "universities": "Partner üniversite",
+        "success": "Başarı oranı"
+      }
+    },
+    "whyChooseUs": {
+      "title": "Neden Bizi Seçiyorlar",
+      "subtitle": "Edu.turkish ile çalışmanın eşsiz avantajları",
+      "imageAlt": "Türk üniversitelerinden kabul mektupları ile mutlu öğrenciler",
+      "advantages": {
+        "personal": {
+          "title": "Kişisel Yaklaşım",
+          "description": "Her başvuru sahibiyle kişisel bir danışmanlık yapılır ve tüm talepler dikkate alınarak Türkiye'ye kabul için bireysel bir plan belirlenir."
+        },
+        "direct": {
+          "title": "Üniversitelerle Doğrudan Bağlantı",
+          "description": "İstanbul'daki ofisimiz ve kabul komisyonlarıyla doğrudan iletişimimiz hızlı belge başvurusu sağlar."
+        },
+        "multilingual": {
+          "title": "Çok Dilli Destek",
+          "description": "Ekibimiz Rusça, Kazakça, Türkçe ve İngilizce dillerini profesyonel seviyede konuşur."
+        },
+        "support": {
+          "title": "Tüm aşamalarda destek",
+          "description": "Tam yerleşimden sonra da, ilk 6 ay boyunca öğrencilerimizin uyum sağlamasına yardımcı oluyoruz."
+        },
+        "scholarships": {
+          "title": "Burs Yardımı",
+          "description": "Maksimum indirim ve bursları nasıl alacağınızı biliyoruz. Öğrencilerimizin ortalama bursu %60'tır."
+        }
+      },
+      "database": {
+        "title": "Eşsiz Veritabanı",
+        "description": "Yıllar boyunca tüm Türk üniversitelerinin gereksinimlerini, başvuru tarihlerini, kabul özelliklerini ve başarılı kayıt sırlarını içeren eşsiz bir veritabanı oluşturduk.",
+        "exclusive": "Halka açık olmayan özel bilgiler",
+        "features": {
+          "universities": "Veritabanında 20+ üniversite",
+          "programs": "30+ eğitim programı",
+          "scholarships": "Güncel burs bilgileri"
+        }
+      }
+    },
+    "contact": {
+      "title": "Bizimle İletişim",
+      "subtitle": "Sorularınızı yanıtlamaya ve kabul işlemlerinde size yardımcı olmaya her zaman hazırız",
+      "channels": {
+        "whatsapp": {
+          "description": "Her zaman hızlı yanıtlar",
+          "button": "WhatsApp'a Yaz"
+        },
+        "telegram": {
+          "description": "Mesajlaşma ile rahat iletişim",
+          "button": "Telegram'a Yaz"
+        },
+        "email": {
+          "button": "E-posta Gönder"
+        }
+      },
+      "offices": {
+        "title": "Ofislerimiz",
+        "almaty": {
+          "city": "Almatı, Kazakistan",
+          "address": "Dostık Cad, 123, ofis 456",
+          "phone": "+7 (727) 123-45-67"
+        },
+        "istanbul": {
+          "city": "İstanbul, Türkiye",
+          "address": "Levent Mahallesi, İstanbul",
+          "phone": "+90 212 123 45 67"
+        },
+        "moscow": {
+          "city": "Moskova, Rusya",
+          "address": "Tverskaya Cad, 1, ofis 789",
+          "phone": "+7 (495) 123-45-67"
+        }
+      },
+      "schedule": {
+        "title": "Çalışma Saatleri",
+        "weekdays": "Pazartesi - Cuma",
+        "weekdays_time": "09:00 - 18:00",
+        "saturday": "Cumartesi",
+        "saturday_time": "10:00 - 16:00",
+        "sunday": "Pazar",
+        "sunday_time": "Kapalı",
+        "support_24_7": "WhatsApp Desteği 24/7"
+      }
+    },
+    "testimonials": {
+      "title": "Müşterilerimiz Ne Diyor",
+      "subtitle": "Geleceklerini bize emanet eden öğrenci ve velilerin dürüst yorumları",
+      "imageAlt": {
+        "student": "Öğrenci fotoğrafı",
+        "parent": "Veli fotoğrafı"
+      },
+      "reviews": {
+        "anna": {
+          "quote": "\"Stressiz kabul için yardımınız için teşekkürler. Aliya her zaman ulaşılabilirdi ve tüm sorunları anında çözdü!\"",
+          "name": "Anna Ivanova",
+          "university": "Istanbul University, 2024"
+        },
+        "dmitry": {
+          "quote": "\"İlk aramadan itibaren her şey şeffaf ve anlaşılırdı. Gizli ödeme veya hoş olmayan sürprizler yoktu.\"",
+          "name": "Dmitry Kozlov",
+          "university": "Bogazici University, 2023"
+        },
+        "elena": {
+          "quote": "\"Kızım Edu.turkish ekibi sayesinde kabul edildi. Profesyonel yaklaşım ve insani ilişki.\"",
+          "name": "Elena Petrova",
+          "role": "METU öğrencisinin annesi"
+        },
+        "arman": {
+          "quote": "\"Ekip sayesinde %75 burs aldım! Maksimum burs şansı için hangi üniversitelere başvuru yapılacağını biliyorlardı.\"",
+          "name": "Arman Nurlanov",
+          "university": "Sabanci University, 2024"
+        },
+        "maria": {
+          "quote": "\"Kabulden sonra bile yardım etmeye devam ediyorlar. Konut bulmaya yardım ettiler, öğrenci kartı nasıl alınacağını açıkladılar. Çok minnettarım!\"",
+          "name": "Maria Volkova",
+          "university": "Koc University, 2023"
+        }
+      }
+    }
+  }
+}

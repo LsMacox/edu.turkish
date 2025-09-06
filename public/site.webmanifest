@@ -1,0 +1,16 @@
+{
+  "name": "EDU.Turkish",
+  "short_name": "EDU.T",
+  "description": "EDU.Turkish — онлайн‑курсы турецкого языка",
+  "id": "/",
+  "start_url": "/",
+  "scope": "/",
+  "icons": [
+    { "src": "/android-chrome-192x192.png", "sizes": "192x192", "type": "image/png" },
+    { "src": "/android-chrome-512x512.png", "sizes": "512x512", "type": "image/png" }
+  ],
+  "theme_color": "#EF3C24",
+  "background_color": "#FFFFFF",
+  "display": "standalone",
+  "orientation": "portrait"
+}

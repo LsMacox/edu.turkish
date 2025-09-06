@@ -1,0 +1,197 @@
+{
+  "universities_page": {
+    "meta": {
+      "title": "Türkiye Üniversiteleri Kataloğu - Edu.turkish",
+      "description": "Türkiye'nin 150+ üniversitesi arasından hayalinizdeki üniversiteyi bulun. Şehir, dil, maliyet ve eğitim seviyesine göre filtreleyin."
+    },
+    "hero": {
+      "title": "Üniversiteler Kataloğu",
+      "subtitle": "Filtrelerle hayalinizdeki üniversiteyi bulun veya detaylar için herhangi bir kartı açın",
+      "stats": {
+        "universities": "Üniversite",
+        "cities": "Şehir",
+        "programs": "Program",
+        "cost_from": "Başlangıç ücreti"
+      }
+    },
+    "filters": {
+      "search_label": "İsime göre ara",
+      "search_placeholder": "Üniversite adını girin...",
+      "city_label": "Şehir",
+      "all_cities": "Tüm şehirler",
+      "cities": {
+        "istanbul": "İstanbul",
+        "ankara": "Ankara",
+        "izmir": "İzmir",
+        "antalya": "Antalya",
+        "bursa": "Bursa",
+        "kocaeli": "Kocaeli"
+      },
+      "language_label": "Eğitim dili",
+      "languages": {
+        "turkish": "Türkçe",
+        "english": "İngilizce"
+      },
+      "type_label": "Tür",
+      "all_types": "Tüm türler",
+      "types": {
+        "state": "Devlet",
+        "private": "Özel",
+        "tech": "Teknik",
+        "elite": "Elit"
+      },
+      "level_label": "Seviye",
+      "all_levels": "Tüm seviyeler",
+      "levels": {
+        "bachelor": "Lisans",
+        "master": "Yüksek Lisans",
+        "doctorate": "Doktora"
+      },
+      "price_label": "Yıllık ücret (USD)",
+      "reset_button": "Sıfırla",
+      "apply_button": "Uygula"
+    },
+    "sort": {
+      "found_text": "Bulundu",
+      "universities_text": "üniversite",
+      "sort_label": "Sıralama:",
+      "options": {
+        "popularity": "Popülerliğe göre",
+        "price_asc": "Fiyata göre (artan)",
+        "price_desc": "Fiyata göre (azalan)",
+        "alphabetical": "Alfabetik",
+        "english_first": "Önce İngilizce"
+      }
+    },
+    "card": {
+      "types": {
+        "state": "Devlet",
+        "private": "Özel",
+        "tech": "Teknik",
+        "elite": "Elit"
+      },
+      "badges": {
+        "scholarships": "Burslar Mevcut",
+        "top_ranking": "En İyi Sıralama",
+        "technical": "Teknik Mükemmellik"
+      },
+      "from_price": "$",
+      "per_year": "/yıl'dan başlayarak",
+      "details_button": "Detaylar",
+      "apply_button": "Başvuru yap",
+      "application_description": "Üniversite kartından başvuru:"
+    },
+    "load_more": "Daha fazla göster",
+    "how_to_choose": {
+      "title": "Üniversite nasıl seçilir?",
+      "subtitle": "Doğru üniversite seçimi için bilgi rehberi",
+      "tips": {
+        "location": {
+          "title": "Şehir ve maliyeti kontrol edin",
+          "description": "Yaşam giderlerini, iklimi ve evden uzaklığı göz önünde bulundurun"
+        },
+        "language": {
+          "title": "Eğitim diline dikkat edin",
+          "description": "Türkçe daha ucuz, İngilizce daha fazla fırsat sunar"
+        },
+        "dormitory": {
+          "title": "Yurt imkanlarını araştırın",
+          "description": "Devlet yurtları daha ucuz, özel yurtlar daha konforlu"
+        },
+        "rating": {
+          "title": "Sıralamaları karşılaştırın",
+          "description": "Uluslararası sıralamalar mezuniyet sonrası istihdamı etkiler"
+        }
+      }
+    },
+    "popular_programs": {
+      "title": "Popüler Bölümler",
+      "subtitle": "Türk üniversitelerinde en çok tercih edilen uzmanlık alanları",
+      "programs": {
+        "it": {
+          "title": "Bilişim Teknolojileri",
+          "description": "Programlama, siber güvenlik, yapay zeka",
+          "universities_count": "45+ üniversite",
+          "price_from": "$3,500/yıl'dan başlayarak"
+        },
+        "medicine": {
+          "title": "Tıp",
+          "description": "Genel tıp, diş hekimliği, eczacılık, veterinerlik",
+          "universities_count": "28+ üniversite",
+          "price_from": "$8,000/yıl'dan başlayarak"
+        },
+        "engineering": {
+          "title": "Mühendislik",
+          "description": "Makine mühendisliği, elektrik mühendisliği, inşaat mühendisliği",
+          "universities_count": "52+ üniversite",
+          "price_from": "$4,200/yıl'dan başlayarak"
+        },
+        "business": {
+          "title": "İşletme ve Ekonomi",
+          "description": "MBA, uluslararası işletme, finans, pazarlama",
+          "universities_count": "38+ üniversite",
+          "price_from": "$3,800/yıl'dan başlayarak"
+        },
+        "design": {
+          "title": "Tasarım ve Mimarlık",
+          "description": "Grafik tasarım, mimarlık, endüstriyel tasarım",
+          "universities_count": "32+ üniversite",
+          "price_from": "$5,500/yıl'dan başlayarak"
+        },
+        "international": {
+          "title": "Uluslararası İlişkiler",
+          "description": "Diplomasi, siyaset bilimi, uluslararası hukuk",
+          "universities_count": "25+ üniversite",
+          "price_from": "$4,000/yıl'dan başlayarak"
+        }
+      }
+    },
+    "scholarships": {
+      "title": "Burslar ve Hibeler",
+      "subtitle": "Eğitim için finansal destek alma fırsatları",
+      "types": {
+        "government": {
+          "title": "Türkiye Bursları",
+          "description": "Devlet bursu %100 eğitim ücreti + konaklama sağlar",
+          "benefits": {
+            "full_tuition": "Tam eğitim ücreti karşılama",
+            "monthly_allowance": "Aylık burs",
+            "health_insurance": "Sağlık sigortası"
+          }
+        },
+        "university": {
+          "title": "Üniversite Bursları",
+          "description": "Eğitim ücretinde %25'ten %75'e kadar kısmi indirimler",
+          "benefits": {
+            "tuition_discount": "Eğitim ücreti indirimi",
+            "academic_merit": "Akademik başarılar",
+            "sports_achievement": "Sportif başarılar"
+          }
+        }
+      }
+    },
+    "not_found": {
+      "title": "Uygun üniversite bulamadınız mı?",
+      "subtitle": "Başvuru bırakın — kriterlerinize ve tercihlerinize göre üniversite seçelim. Uzmanlarımız Türk üniversitelerine kabul sürecinin tüm inceliklerini biliyor.",
+      "features": {
+        "consultation": "Kişisel danışmanlık",
+        "selection": "Kriterlerinize göre seçim",
+        "quick_response": "24 saat içinde yanıt"
+      },
+      "button": "Seçim al"
+    },
+    "final_cta": {
+      "title": "Başvuru yapmaya hazır mısınız?",
+      "subtitle": "Türkiye'de eğitim hayalinizi ertelemeyin. 24 saat içinde iletişime geçip her şeyi anlatacağız.",
+      "benefits_title": "Neler alacaksınız:",
+      "benefits": {
+        "consultation": "Ücretsiz danışmanlık",
+        "university_selection": "Üniversite seçimi",
+        "cost_calculation": "Maliyet hesaplama",
+        "admission_plan": "Kabul planı"
+      },
+      "button": "Formu doldur",
+      "guarantee": "Ücretsiz danışmanlık • Yükümlülük yok • 24 saat içinde yanıt"
+    }
+  }
+}

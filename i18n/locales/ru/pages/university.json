@@ -1,0 +1,88 @@
+{
+  "universityDetail": {
+    "applyButton": "Подать заявку в университет",
+    "whatsappButton": "Связаться в WhatsApp",
+    "keyInformation": {
+      "title": "Ключевая информация",
+      "subtitle": "Все что нужно знать об университете",
+      "city": "Город",
+      "foundedYear": "Год основания",
+      "cost": "Стоимость",
+      "costFrom": "от {cost} в год",
+      "languages": "Языки обучения",
+      "students": "Студенты",
+      "accommodation": "Проживание",
+      "ranking": "Рейтинг",
+      "internationalStudents": "Международные студенты"
+    },
+    "accommodationValue": {
+      "has": "Общежитие на кампусе",
+      "none": "Нет общежития"
+    },
+    "rankingNotSpecified": "Рейтинг не указан",
+    "rankingValue": "Топ-{rank} в Турции",
+    "internationalCount": "{count}+ студентов",
+    "programDuration": {
+      "durationYears": "{count} год | {count} года | {count} лет"
+    }
+    ,
+    "aboutUniversity": {
+      "title": "Об университете",
+      "history": "История и миссия",
+      "campus": "Особенности кампуса",
+      "strongPrograms": "Сильные направления",
+      "advantages": "Преимущества для иностранных студентов"
+    },
+    "universityType": {
+      "state": "Государственный университет",
+      "private": "Частный университет",
+      "tech": "Технический университет",
+      "elite": "Элитный университет"
+    },
+    "campusLife": {
+      "title": "Жизнь в кампусе",
+      "subtitle": "Современные условия для учебы и отдыха",
+      "infrastructure": "Инфраструктура кампуса",
+      "capacity": "Вместимость",
+      "area": "Площадь",
+      "facilities": {
+        "library": {
+          "name": "Библиотека",
+          "description": "24/7 доступ, более 500,000 книг и журналов"
+        },
+        "laboratories": {
+          "name": "Лаборатории",
+          "description": "Современное научное оборудование"
+        },
+        "sportsCenter": {
+          "name": "Спортивный центр",
+          "description": "Фитнес-зал, бассейн, спортивные площадки"
+        },
+        "dormitories": {
+          "name": "Общежития",
+          "description": "Комфортабельные комнаты для студентов"
+        },
+        "cafeteria": {
+          "name": "Столовая",
+          "description": "Разнообразное меню, халяльная кухня"
+        },
+        "wifi": {
+          "name": "Wi-Fi по всему кампусу",
+          "description": "Высокоскоростной интернет"
+        },
+        "medicalCenter": {
+          "name": "Медицинский центр",
+          "description": "Медицинская помощь и консультации"
+        },
+        "transport": {
+          "name": "Транспорт",
+          "description": "Автобусы до центра города"
+        },
+        "studentClubs": {
+          "name": "Студенческие клубы",
+          "description": "Более 50 клубов по интересам"
+        }
+      }
+    }
+  }
+}

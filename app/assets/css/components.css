@@ -1,0 +1,172 @@
+/* Enhanced component styles for edu.turkish application */
+
+@layer components {
+  /* Card hover effects */
+  .card-hover {
+    @apply transition-all duration-300 hover:shadow-xl hover:-translate-y-1;
+  }
+  
+  .card-hover-soft {
+    @apply transition-all duration-300 hover:shadow-lg hover:-translate-y-0.5;
+  }
+  
+  /* Input focus states */
+  .input-focus {
+    @apply focus:ring-2 focus:ring-primary focus:border-transparent transition-all duration-200;
+  }
+  
+  .input-focus-error {
+    @apply focus:ring-2 focus:ring-error focus:border-error transition-all duration-200;
+  }
+  
+  .input-focus-success {
+    @apply focus:ring-2 focus:ring-success focus:border-success transition-all duration-200;
+  }
+  
+  /* Text gradients */
+  .text-gradient {
+    @apply bg-gradient-to-r from-primary to-red-600 bg-clip-text text-transparent;
+  }
+  
+  .text-gradient-success {
+    @apply bg-gradient-to-r from-success to-green-600 bg-clip-text text-transparent;
+  }
+  
+  .text-gradient-info {
+    @apply bg-gradient-to-r from-info to-blue-600 bg-clip-text text-transparent;
+  }
+  
+  /* Button enhancements */
+  .btn-hover-lift {
+    @apply transition-all duration-200 hover:-translate-y-0.5 hover:shadow-button-hover active:translate-y-0;
+  }
+  
+  .btn-focus-ring {
+    @apply focus:outline-none focus:ring-2 focus:ring-offset-2 focus-visible:ring-2;
+  }
+  
+  /* Animation utilities */
+  .animate-on-scroll {
+    @apply opacity-0 translate-y-4 transition-all duration-700 ease-out;
+  }
+  
+  .animate-on-scroll.in-view {
+    @apply opacity-100 translate-y-0;
+  }
+  
+  /* Loading states */
+  .skeleton {
+    @apply animate-pulse bg-gray-200 rounded;
+  }
+  
+  .skeleton-text {
+    @apply h-4 bg-gray-200 rounded animate-pulse;
+  }
+  
+  /* Enhanced focus styles for accessibility */
+  .focus-ring {
+    @apply focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2 focus-visible:ring-2 focus-visible:ring-primary;
+  }
+  
+  .focus-ring-error {
+    @apply focus:outline-none focus:ring-2 focus:ring-error focus:ring-offset-2 focus-visible:ring-2 focus-visible:ring-error;
+  }
+  
+  .focus-ring-success {
+    @apply focus:outline-none focus:ring-2 focus:ring-success focus:ring-offset-2 focus-visible:ring-2 focus-visible:ring-success;
+  }
+  
+  /* Screen reader utilities */
+  .sr-only-focusable {
+    @apply sr-only;
+  }
+  
+  .sr-only-focusable:focus {
+    @apply not-sr-only absolute top-0 left-0 z-50 p-2 bg-white border border-gray-300 rounded shadow-lg;
+  }
+  
+  /* FAQ Content Formatting */
+  .faq-tip {
+    @apply bg-blue-50 border-l-4 border-blue-400 p-4 my-4 rounded;
+  }
+  
+  .faq-timeline {
+    @apply bg-gray-50 p-4 rounded-lg my-4;
+  }
+  
+  .faq-timeline p {
+    @apply mb-2 last:mb-0;
+  }
+  
+  .faq-important {
+    @apply bg-yellow-50 border-l-4 border-yellow-400 p-4 my-4 rounded;
+  }
+  
+  .faq-content {
+    @apply prose prose-gray max-w-none;
+  }
+  
+  .faq-content ul {
+    @apply list-disc ml-6 space-y-1;
+  }
+  
+  .faq-content ol {
+    @apply list-decimal ml-6 space-y-1;
+  }
+  
+  .faq-content h4 {
+    @apply font-medium text-gray-900 mb-2 mt-4 first:mt-0;
+  }
+  
+  .faq-content p {
+    @apply text-gray-700 mb-3 last:mb-0;
+  }
+}
+
+@layer utilities {
+  /* Custom loading animation */
+  @keyframes loading-dots {
+    0%, 80%, 100% {
+      transform: scale(0);
+    }
+    40% {
+      transform: scale(1.0);
+    }
+  }
+  
+  .loading-dots::after {
+    content: '';
+    position: absolute;
+    width: 4px;
+    height: 4px;
+    background-color: currentColor;
+    border-radius: 50%;
+    animation: loading-dots 1.4s infinite ease-in-out both;
+  }
+  
+  /* Enhanced transitions */
+  .transition-smooth {
+    transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+  }
+  
+  .transition-bounce-in {
+    transition-timing-function: cubic-bezier(0.68, -0.55, 0.265, 1.55);
+  }
+  
+  /* Safe area utilities for mobile */
+  .pt-safe {
+    padding-top: env(safe-area-inset-top);
+  }
+  
+  .pb-safe {
+    padding-bottom: env(safe-area-inset-bottom);
+  }
+  
+  .pl-safe {
+    padding-left: env(safe-area-inset-left);
+  }
+  
+  .pr-safe {
+    padding-right: env(safe-area-inset-right);
+  }
+}

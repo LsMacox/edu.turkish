@@ -1,0 +1,204 @@
+{
+  "about": {
+    "meta": {
+      "title": "About us - Edu.turkish",
+      "description": "Edu.turkish is a team that helps students get admitted to universities in Turkey. 5+ years of experience, 1000+ successful admissions."
+    },
+    "hero": {
+      "title": "About us",
+      "subtitle": "Edu.turkish is a team that helps students get admitted to universities in Turkey",
+      "experienced_team": "Experienced team",
+      "students_enrolled": "500+ students enrolled",
+      "official_contracts": "Official work under contracts"
+    },
+    "who_we_are": {
+      "title": "Who we are",
+      "subtitle": "We are an educational agency with years of experience specializing in admission to Turkish universities",
+      "experienced_agency": "Experienced agency",
+      "experienced_agency_desc": "6+ years of successful work in educational consulting. We know all the nuances of admission to Turkish universities.",
+      "students_enrolled": "500+ students enrolled",
+      "students_enrolled_desc": "Over the years, we have helped more than 500 students from CIS countries get into the best universities in Turkey.",
+      "official_work": "Official work under contracts",
+      "official_work_desc": "All our services are provided on the basis of an official contract with clear guarantees and obligations.",
+      "comprehensive_help": "Relocation support in Turkey",
+      "comprehensive_help_desc": "Comprehensive support from document preparation to obtaining a residence permit."
+    },
+    "team": {
+      "title": "Our team",
+      "subtitle": "Professionals who know everything about admission to Turkish universities",
+      "ceo_founder": "Founder and head of the agency",
+      "bachelor_consultant": "Bachelor's consultant",
+      "master_consultant": "Master's consultant",
+      "university_manager": "University relations manager",
+      "document_specialist": "Document specialist",
+      "support_manager": "Customer support manager",
+      "consultant": "Consultant",
+      "manager": "Manager",
+      "specialist": "Specialist",
+      "support": "Support",
+      "aliya_description": "Graduate of Bogazici University. 8+ years of experience in educational consulting. Helped 500+ students to enroll.",
+      "dmitry_description": "Bachelor's programs specialist. Graduate of METU Ankara. Speaks Turkish, English and Russian.",
+      "aigul_description": "Expert in master's and doctoral programs. Graduate of Istanbul University. Specializes in medical fields.",
+      "mehmet_description": "Coordinates work with admission committees of Turkish universities. Lives in Istanbul, has direct connections with universities.",
+      "anna_description": "Responsible for document preparation and translation. Legal education, 6 years of experience with educational documents.",
+      "artem_description": "Responsible for 24/7 student support. Always ready to answer questions in WhatsApp, Telegram and other messengers."
+    },
+    "guarantees": {
+      "title": "Our guarantees",
+      "subtitle": "We take responsibility for the result and guarantee the quality of our services",
+      "contract_work": "We work under contract",
+      "contract_work_desc": "All services are provided on the basis of an official contract with clear conditions and guarantees",
+      "transparent_terms": "Transparent terms",
+      "transparent_terms_desc": "No hidden fees. All expenses are discussed in advance and fixed in the contract",
+      "full_support": "Support at all stages",
+      "full_support_desc": "From the first consultation to obtaining a visa and adaptation at the university",
+      "fast_response": "We respond quickly and in English",
+      "fast_response_desc": "24/7 support in WhatsApp and Telegram. Response within 30 minutes during business hours",
+      "admission_guarantee": "Admission guarantee",
+      "admission_guarantee_desc": "If we cannot help you get into your chosen university due to our fault, we will refund 100% of the service cost",
+      "success_rate": "98% successful admissions",
+      "money_back": "Refund on failure"
+    },
+    "story": {
+      "title": "Our Story",
+      "subtitle": "The journey from an idea to a leading educational agency for admission to Turkish universities",
+      "imageAlt": "History of Edu.turkish development - from a small startup to a leading agency",
+      "timeline": {
+        "step1": {
+          "title": "The Beginning (2019)",
+          "description": "Founded the company with the goal of helping CIS students enroll in Turkish universities"
+        },
+        "step2": {
+          "title": "First Successes (2020)",
+          "description": "Helped the first 50 students enroll, established relationships with key universities"
+        },
+        "step3": {
+          "title": "Scaling (2021-2022)",
+          "description": "Expanded the team, opened an office in Istanbul, increased the number of partner universities"
+        },
+        "step4": {
+          "title": "Leadership (2023-2024)",
+          "description": "Became one of the leading agencies, helped more than 1000 students enroll"
+        }
+      },
+      "stats": {
+        "students": "Students enrolled",
+        "universities": "Partner universities",
+        "success": "Success rate"
+      }
+    },
+    "whyChooseUs": {
+      "title": "Why Choose Us",
+      "subtitle": "Unique advantages of working with Edu.turkish",
+      "imageAlt": "Happy students with Turkish university acceptance letters",
+      "advantages": {
+        "personal": {
+          "title": "Personal Approach",
+          "description": "Each applicant receives a personal consultation, and we define an individual admission plan to Turkey, taking all requests into account."
+        },
+        "direct": {
+          "title": "Direct University Connections",
+          "description": "Direct contacts with universities ensure fast review of our students' documents."
+        },
+        "multilingual": {
+          "title": "Multilingual Support",
+          "description": "Our team speaks Russian, Turkish and English at a professional level."
+        },
+        "support": {
+          "title": "Support at all stages",
+          "description": "After full settling-in, we help our students adapt during the first 6 months."
+        }
+      },
+      "database": {
+        "title": "Unique Database",
+        "description": "Over the years, we have compiled a unique database of requirements for all Turkish universities, application deadlines, admission features and secrets of successful enrollment.",
+        "exclusive": "Exclusive information not available in public access",
+        "features": {
+          "universities": "20+ universities in database",
+          "programs": "30+ study programs",
+          "scholarships": "Up-to-date scholarship information"
+        }
+      }
+    },
+    "contact": {
+      "title": "How to Contact Us",
+      "subtitle": "We are always ready to answer your questions and help with admission",
+      "channels": {
+        "whatsapp": {
+          "description": "Quick responses anytime",
+          "button": "Write to WhatsApp"
+        },
+        "telegram": {
+          "description": "Convenient messaging communication",
+          "button": "Write to Telegram"
+        },
+        "email": {
+          "button": "Send Email"
+        }
+      },
+      "offices": {
+        "title": "Our Offices",
+        "almaty": {
+          "city": "Almaty, Kazakhstan",
+          "address": "Dostyk Ave, 123, office 456",
+          "phone": "+7 (727) 123-45-67"
+        },
+        "istanbul": {
+          "city": "Istanbul, Turkey",
+          "address": "Levent Mahallesi, Istanbul",
+          "phone": "+90 212 123 45 67"
+        },
+        "moscow": {
+          "city": "Moscow, Russia",
+          "address": "Tverskaya St, 1, office 789",
+          "phone": "+7 (495) 123-45-67"
+        }
+      },
+      "schedule": {
+        "title": "Working Hours",
+        "weekdays": "Monday - Friday",
+        "weekdays_time": "09:00 - 18:00",
+        "saturday": "Saturday",
+        "saturday_time": "10:00 - 16:00",
+        "sunday": "Sunday",
+        "sunday_time": "Closed",
+        "support_24_7": "WhatsApp Support 24/7"
+      }
+    },
+    "testimonials": {
+      "title": "What Our Clients Say",
+      "subtitle": "Honest reviews from students and parents who trusted us with their future",
+      "imageAlt": {
+        "student": "Student photo",
+        "parent": "Parent photo"
+      },
+      "reviews": {
+        "anna": {
+          "quote": "\"Thank you for helping with stress-free admission. Aliya was always available and solved all issues instantly!\"",
+          "name": "Anna Ivanova",
+          "university": "Istanbul University, 2024"
+        },
+        "dmitry": {
+          "quote": "\"Everything was transparent and clear from the first call. No hidden fees or unpleasant surprises.\"",
+          "name": "Dmitry Kozlov",
+          "university": "Bogazici University, 2023"
+        },
+        "elena": {
+          "quote": "\"My daughter was admitted thanks to the Edu.turkish team. Professional approach and human attitude.\"",
+          "name": "Elena Petrova",
+          "role": "Mother of METU student"
+        },
+        "arman": {
+          "quote": "\"Got a 75% scholarship thanks to the team! They knew which universities to apply to for maximum scholarship chances.\"",
+          "name": "Arman Nurlanov",
+          "university": "Sabanci University, 2024"
+        },
+        "maria": {
+          "quote": "\"They continue to help even after admission. Helped find housing, explained how to get a student card. Very grateful!\"",
+          "name": "Maria Volkova",
+          "university": "Koc University, 2023"
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,247 @@
+{
+  "locale": "ru",
+  "countryCode": "TUR",
+  "countryName": "Турция",
+  "title": "İstanbul Kültür Üniversitesi",
+  "description": "Качественный частный университет в западной части Стамбула с широким выбором программ на английском и турецком, активной международной жизнью и гибкой системой скидок для иностранных студентов.",
+  "slug": "istanbul-kultur-university",
+  "city": "Стамбул",
+  "foundedYear": 1997,
+  "type": "private",
+  "tuitionRange": {
+    "min": 5950,
+    "currency": "USD"
+  },
+  "totalStudents": 14000,
+  "hasAccommodation": true,
+  "hasScholarships": true,
+  "about": {
+    "history": "İstanbul Kültür Üniversitesi (IKÜ) основан в 1997 году при Фонде образования Kültür College. Университет сочетает современное образование, теоретическую базу и практические навыки, ориентируясь на международные стандарты.",
+    "mission": "Обеспечивать качественное образование, развивать прикладные навыки студентов и поддерживать их международную мобильность и карьерный рост.",
+    "advantages": [
+      "Возможность обучения на английском языке по многим программам",
+      "Доступные цены относительно многих частных вузов с учётом скидок",
+      "Система поддержки: языковые подготовительные курсы и офис международных студентов",
+      "Широкий выбор факультетов и специальностей",
+      "Участие в программах Erasmus+ и международных обменах",
+      "Дополнительные скидки на обучение при высоком GPA"
+    ]
+  },
+  "strong_programs": [
+    {
+      "category": "Инженерия",
+      "programs": [
+        "Computer Engineering",
+        "Software Engineering",
+        "Electrical and Electronics Engineering",
+        "Industrial Engineering",
+        "Civil Engineering"
+      ]
+    },
+    {
+      "category": "Архитектура и дизайн",
+      "programs": [
+        "Architecture",
+        "Interior Architecture and Environmental Design"
+      ]
+    },
+    {
+      "category": "Экономика и управление",
+      "programs": [
+        "Business Administration",
+        "International Relations",
+        "Economics",
+        "International Trade and Finance"
+      ]
+    },
+    {
+      "category": "Социальные и гуманитарные науки",
+      "programs": [
+        "Psychology",
+        "English Language Teaching"
+      ]
+    },
+    {
+      "category": "Искусство и медиа",
+      "programs": [
+        "Animation",
+        "Communication Design",
+        "Communication Arts",
+        "Radio Television and Cinema",
+        "New Media and Communication",
+        "Digital Game Design"
+      ]
+    }
+  ],
+  "key_info_texts": {
+    "city_label": "Город",
+    "city_note": "Стамбул (европейская часть)",
+    "founded_year_label": "Год основания",
+    "founded_year_note": "1997",
+    "tuition_label": "Стоимость",
+    "tuition_note": "бакалавриат от $5,950 в год; скидки до 50%",
+    "languages_label": "Языки обучения",
+    "languages_note": "Турецкий, Английский",
+    "total_students_label": "Студенты",
+    "total_students_note": "≈14,000",
+    "international_students_label": "Международные студенты",
+    "international_students_note": "из 70–80 стран",
+    "accommodation_label": "Проживание",
+    "accommodation_note": "Студенческие общежития",
+    "ranking_label": "Рейтинг",
+    "ranking_text": "Хорошие позиции среди частных вузов Турции; крепкие тематические места в регионе",
+    "type_label": "Тип университета",
+    "type_note": "частный"
+  },
+  "campus_life": {
+    "facilities": [
+      { "name": "Студенческие общежития", "icon": "ph:bed" },
+      { "name": "Библиотеки", "description": "Печатные и электронные ресурсы", "icon": "ph:books" },
+      { "name": "Инженерные и дизайнерские лаборатории", "icon": "ph:flask" },
+      { "name": "Спортивные и культурные объекты", "icon": "ph:barbell" },
+      { "name": "Столовые и кафе", "icon": "ph:fork-knife" },
+      { "name": "Wi‑Fi и интернет-услуги", "icon": "ph:wifi-high" },
+      { "name": "Медицинский пункт", "icon": "ph:first-aid" },
+      { "name": "Удобные транспортные связи", "icon": "ph:bus" },
+      { "name": "Международный офис и Erasmus+", "icon": "ph:globe" },
+      { "name": "Многочисленные студенческие клубы", "icon": "ph:users-three" },
+      { "name": "Несколько кампусов (Ataköy, Şirinevler, Yeşilköy, Başakşehir)", "icon": "ph:buildings" }
+    ]
+  },
+  "admission": {
+    "requirements": [
+      {
+        "category": "exam",
+        "requirement": "TR-YÖS или SAT",
+        "details": "Не обязательны; могут потребоваться для отдельных факультетов или стипендий"
+      },
+      {
+        "category": "language",
+        "requirement": "Английский: TOEFL iBT 72+, PTE Academic 55+",
+        "details": "Возможен внутренний экзамен университета или языковая подготовка"
+      }
+    ],
+    "documents": [
+      {
+        "name": "Аттестат о среднем образовании",
+        "description": "Апостиль и нотариальный перевод",
+        "format_requirements": ["PDF"]
+      },
+      {
+        "name": "Заграничный паспорт",
+        "description": "Срок действия не менее 2 лет",
+        "format_requirements": ["PDF"]
+      },
+      {
+        "name": "Фотографии",
+        "description": "4 шт, размер 4.5×6 см, белый фон"
+      },
+      {
+        "name": "Denklik belgesi",
+        "description": "На турецком, 100-балльная шкала",
+        "format_requirements": ["PDF"]
+      }
+    ],
+    "scholarships": [
+      {
+        "name": "Скидки на обучение по успеваемости",
+        "type": "university",
+        "coverage_percentage": 50,
+        "eligibility_criteria": ["Высокий GPA", "Результаты внутренних/внешних экзаменов"]
+      }
+    ]
+  },
+  "programs": [
+    { "degree_type": "bachelor", "name": "English Language Teaching", "language": "en", "tuition_per_year": 6900, "duration_years": 4 },
+    { "degree_type": "bachelor", "name": "Preschool Education", "language": "tr", "tuition_per_year": 5950, "duration_years": 4 },
+    { "degree_type": "bachelor", "name": "Psychological Counseling and Guidance", "language": "tr", "tuition_per_year": 5950, "duration_years": 4 },
+    { "degree_type": "bachelor", "name": "English Language and Literature", "language": "en", "tuition_per_year": 6900, "duration_years": 4 },
+    { "degree_type": "bachelor", "name": "Mathematics and Computer Science", "language": "tr", "tuition_per_year": 5950, "duration_years": 4 },
+    { "degree_type": "bachelor", "name": "Molecular Biology and Genetics", "language": "tr", "tuition_per_year": 5950, "duration_years": 4 },
+    { "degree_type": "bachelor", "name": "Psychology", "language": "tr", "tuition_per_year": 5950, "duration_years": 4 },
+    { "degree_type": "bachelor", "name": "Turkish Language and Literature", "language": "tr", "tuition_per_year": 5950, "duration_years": 4 },
+    { "degree_type": "bachelor", "name": "Law", "language": "tr", "tuition_per_year": 12580, "duration_years": 4 },
+    { "degree_type": "bachelor", "name": "Entrepreneurship", "language": "tr", "tuition_per_year": 5950, "duration_years": 4 },
+    { "degree_type": "bachelor", "name": "Economics", "language": "en", "tuition_per_year": 6900, "duration_years": 4 },
+    { "degree_type": "bachelor", "name": "Economics", "language": "tr", "tuition_per_year": 5950, "duration_years": 4 },
+    { "degree_type": "bachelor", "name": "Business Administration", "language": "tr", "tuition_per_year": 5950, "duration_years": 4 },
+    { "degree_type": "bachelor", "name": "Business Administration", "language": "en", "tuition_per_year": 6900, "duration_years": 4 },
+    { "degree_type": "bachelor", "name": "International Relations", "language": "en", "tuition_per_year": 6900, "duration_years": 4 },
+    { "degree_type": "bachelor", "name": "International Trade and Finance", "language": "en", "tuition_per_year": 6900, "duration_years": 4 },
+    { "degree_type": "bachelor", "name": "International Trade and Finance", "language": "tr", "tuition_per_year": 5950, "duration_years": 4 },
+    { "degree_type": "bachelor", "name": "Architecture", "language": "en", "tuition_per_year": 7500, "duration_years": 4 },
+    { "degree_type": "bachelor", "name": "Interior Architecture and Environmental Design", "language": "tr", "tuition_per_year": 5950, "duration_years": 4 },
+    { "degree_type": "bachelor", "name": "Interior Architecture and Environmental Design", "language": "en", "tuition_per_year": 7300, "duration_years": 4 },
+    { "degree_type": "bachelor", "name": "Computer Engineering", "language": "en", "tuition_per_year": 6900, "duration_years": 4 },
+    { "degree_type": "bachelor", "name": "Software Engineering", "language": "en", "tuition_per_year": 7600, "duration_years": 4 },
+    { "degree_type": "bachelor", "name": "Electrical and Electronics Engineering", "language": "en", "tuition_per_year": 6900, "duration_years": 4 },
+    { "degree_type": "bachelor", "name": "Industrial Engineering", "language": "en", "tuition_per_year": 6900, "duration_years": 4 },
+    { "degree_type": "bachelor", "name": "Civil Engineering", "language": "en", "tuition_per_year": 6900, "duration_years": 4 },
+    { "degree_type": "bachelor", "name": "Animation", "language": "tr", "tuition_per_year": 5950, "duration_years": 4 },
+    { "degree_type": "bachelor", "name": "Communication Design", "language": "tr", "tuition_per_year": 5950, "duration_years": 4 },
+    { "degree_type": "bachelor", "name": "Communication Arts", "language": "tr", "tuition_per_year": 5950, "duration_years": 4 },
+    { "degree_type": "bachelor", "name": "Radio Television and Cinema", "language": "tr", "tuition_per_year": 5950, "duration_years": 4 },
+    { "degree_type": "bachelor", "name": "New Media and Communication", "language": "tr", "tuition_per_year": 5950, "duration_years": 4 },
+    { "degree_type": "bachelor", "name": "Digital Game Design", "language": "en", "tuition_per_year": 6900, "duration_years": 4 },
+    { "degree_type": "bachelor", "name": "Nutrition and Dietetics", "language": "tr", "tuition_per_year": 5950, "duration_years": 4 },
+    { "degree_type": "bachelor", "name": "Physiotherapy and Rehabilitation", "language": "tr", "tuition_per_year": 5950, "duration_years": 4 },
+    { "degree_type": "bachelor", "name": "Nursing", "language": "tr", "tuition_per_year": 5950, "duration_years": 4 },
+
+    { "degree_type": "master", "name": "Computer Engineering", "language": "tr", "tuition_per_year": 5200, "duration_years": 2 },
+    { "degree_type": "master", "name": "Innovation Management", "language": "tr", "tuition_per_year": 4000, "duration_years": 2 },
+    { "degree_type": "master", "name": "Educational Management and Planning", "language": "tr", "tuition_per_year": 5200, "duration_years": 2 },
+    { "degree_type": "master", "name": "Preschool Education", "language": "tr", "tuition_per_year": 5200, "duration_years": 2 },
+    { "degree_type": "master", "name": "Electrical and Electronics Engineering", "language": "tr", "tuition_per_year": 5200, "duration_years": 2 },
+    { "degree_type": "master", "name": "Engineering Management", "language": "tr", "tuition_per_year": 5200, "duration_years": 2 },
+    { "degree_type": "master", "name": "Engineering Management", "language": "en", "tuition_per_year": 6240, "duration_years": 2 },
+    { "degree_type": "master", "name": "Physics", "language": "tr", "tuition_per_year": 5200, "duration_years": 2 },
+    { "degree_type": "master", "name": "Interior and Environmental Design", "language": "tr", "tuition_per_year": 4550, "duration_years": 2 },
+    { "degree_type": "master", "name": "Interior Design", "language": "tr", "tuition_per_year": 6240, "duration_years": 2 },
+    { "degree_type": "master", "name": "Environmental Design", "language": "tr", "tuition_per_year": 5200, "duration_years": 2 },
+    { "degree_type": "master", "name": "Managerial Economics", "language": "tr", "tuition_per_year": 5200, "duration_years": 2 },
+    { "degree_type": "master", "name": "Money and Capital Markets", "language": "tr", "tuition_per_year": 5200, "duration_years": 2 },
+    { "degree_type": "master", "name": "Production Economics", "language": "tr", "tuition_per_year": 4550, "duration_years": 2 },
+    { "degree_type": "master", "name": "International Economics and Finance", "language": "en", "tuition_per_year": 6240, "duration_years": 2 },
+    { "degree_type": "master", "name": "Communication Arts", "language": "tr", "tuition_per_year": 5200, "duration_years": 2 },
+    { "degree_type": "master", "name": "Communication and Design", "language": "tr", "tuition_per_year": 5200, "duration_years": 2 },
+    { "degree_type": "master", "name": "English Language and Literature", "language": "en", "tuition_per_year": 5000, "duration_years": 2 },
+    { "degree_type": "master", "name": "Geotechnics", "language": "tr", "tuition_per_year": 6240, "duration_years": 2 },
+    { "degree_type": "master", "name": "Geomatics", "language": "tr", "tuition_per_year": 5200, "duration_years": 2 },
+    { "degree_type": "master", "name": "Project Management", "language": "tr", "tuition_per_year": 5200, "duration_years": 2 },
+    { "degree_type": "master", "name": "Structural Engineering", "language": "tr", "tuition_per_year": 5200, "duration_years": 2 },
+    { "degree_type": "master", "name": "Real Estate and Development", "language": "tr", "tuition_per_year": 5000, "duration_years": 2 },
+    { "degree_type": "master", "name": "Structural Engineering", "language": "en", "tuition_per_year": 5200, "duration_years": 2 },
+    { "degree_type": "master", "name": "Business Administration", "language": "tr", "tuition_per_year": 6500, "duration_years": 2 },
+    { "degree_type": "master", "name": "MBA", "language": "en", "tuition_per_year": 7800, "duration_years": 2 },
+    { "degree_type": "master", "name": "Quality and Production Management", "language": "tr", "tuition_per_year": 5200, "duration_years": 2 },
+    { "degree_type": "master", "name": "Occupational Health and Safety", "language": "tr", "tuition_per_year": 4680, "duration_years": 2 },
+    { "degree_type": "master", "name": "Management", "language": "tr", "tuition_per_year": 5200, "duration_years": 2 },
+    { "degree_type": "master", "name": "Public Law", "language": "tr", "tuition_per_year": 7500, "duration_years": 2 },
+    { "degree_type": "master", "name": "European Human Rights Law", "language": "tr", "tuition_per_year": 5200, "duration_years": 2 },
+    { "degree_type": "master", "name": "Mathematics and Computer Science", "language": "tr", "tuition_per_year": 5200, "duration_years": 2 },
+    { "degree_type": "master", "name": "Architecture", "language": "tr", "tuition_per_year": 5200, "duration_years": 2 },
+    { "degree_type": "master", "name": "Architectural Engineering", "language": "tr", "tuition_per_year": 5200, "duration_years": 2 },
+    { "degree_type": "master", "name": "Architectural Design", "language": "tr", "tuition_per_year": 5200, "duration_years": 2 },
+    { "degree_type": "master", "name": "Construction Management and Technologies", "language": "tr", "tuition_per_year": 5200, "duration_years": 2 },
+    { "degree_type": "master", "name": "Urban Planning", "language": "tr", "tuition_per_year": 5200, "duration_years": 2 },
+    { "degree_type": "master", "name": "History of Architecture and Restoration", "language": "tr", "tuition_per_year": 5200, "duration_years": 2 },
+    { "degree_type": "master", "name": "Urban Design", "language": "tr", "tuition_per_year": 4550, "duration_years": 2 },
+    { "degree_type": "master", "name": "Molecular Biology and Genetics", "language": "tr", "tuition_per_year": 5200, "duration_years": 2 },
+    { "degree_type": "master", "name": "Private Law", "language": "tr", "tuition_per_year": 7500, "duration_years": 2 },
+    { "degree_type": "master", "name": "Sports Law", "language": "tr", "tuition_per_year": 4550, "duration_years": 2 },
+    { "degree_type": "master", "name": "Industrial and Organizational Psychology", "language": "tr", "tuition_per_year": 5200, "duration_years": 2 },
+    { "degree_type": "master", "name": "Clinical Psychology", "language": "tr", "tuition_per_year": 13500, "duration_years": 2 },
+    { "degree_type": "master", "name": "Turkish Language and Literature", "language": "tr", "tuition_per_year": 5000, "duration_years": 2 },
+    { "degree_type": "master", "name": "International Relations", "language": "en", "tuition_per_year": 6240, "duration_years": 2 },
+    { "degree_type": "master", "name": "European Studies", "language": "en", "tuition_per_year": 5200, "duration_years": 2 },
+    { "degree_type": "master", "name": "Physiotherapy and Rehabilitation", "language": "tr", "tuition_per_year": 5200, "duration_years": 2 },
+    { "degree_type": "master", "name": "New Media and Communication", "language": "tr", "tuition_per_year": 5200, "duration_years": 2 },
+    { "degree_type": "master", "name": "Innovation Management", "language": "tr", "tuition_per_year": 5200, "duration_years": 2 },
+    { "degree_type": "master", "name": "Logistics (Distance)", "language": "tr", "tuition_per_year": 4680, "duration_years": 2 },
+    { "degree_type": "master", "name": "Radio Television and Cinema", "language": "tr", "tuition_per_year": 5200, "duration_years": 2 },
+    { "degree_type": "master", "name": "Arts Management", "language": "tr", "tuition_per_year": 4550, "duration_years": 2 },
+    { "degree_type": "master", "name": "Directing", "language": "tr", "tuition_per_year": 4550, "duration_years": 2 }
+  ]
+}
+
+

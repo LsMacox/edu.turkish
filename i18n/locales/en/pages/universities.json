@@ -1,0 +1,197 @@
+{
+  "universities_page": {
+    "meta": {
+      "title": "Universities Catalog in Turkey - Edu.turkish",
+      "description": "Find your dream university among 150+ Turkish universities. Filter by city, language, cost, and education level."
+    },
+    "hero": {
+      "title": "Universities Catalog",
+      "subtitle": "Find your dream university using filters or explore any card for details",
+      "stats": {
+        "universities": "Universities",
+        "cities": "Cities",
+        "programs": "Programs",
+        "cost_from": "From cost"
+      }
+    },
+    "filters": {
+      "search_label": "Search by name",
+      "search_placeholder": "Enter university name...",
+      "city_label": "City",
+      "all_cities": "All cities",
+      "cities": {
+        "istanbul": "Istanbul",
+        "ankara": "Ankara",
+        "izmir": "Izmir",
+        "antalya": "Antalya",
+        "bursa": "Bursa",
+        "kocaeli": "Kocaeli"
+      },
+      "language_label": "Language of instruction",
+      "languages": {
+        "turkish": "Turkish",
+        "english": "English"
+      },
+      "type_label": "Type",
+      "all_types": "All types",
+      "types": {
+        "state": "State",
+        "private": "Private",
+        "tech": "Technical",
+        "elite": "Elite"
+      },
+      "level_label": "Level",
+      "all_levels": "All levels",
+      "levels": {
+        "bachelor": "Bachelor",
+        "master": "Master",
+        "doctorate": "Doctorate"
+      },
+      "price_label": "Cost per year (USD)",
+      "reset_button": "Reset",
+      "apply_button": "Apply"
+    },
+    "sort": {
+      "found_text": "Found",
+      "universities_text": "universities",
+      "sort_label": "Sort by:",
+      "options": {
+        "popularity": "By popularity",
+        "price_asc": "By price (ascending)",
+        "price_desc": "By price (descending)",
+        "alphabetical": "Alphabetically",
+        "english_first": "English first"
+      }
+    },
+    "card": {
+      "types": {
+        "state": "State",
+        "private": "Private",
+        "tech": "Technical",
+        "elite": "Elite"
+      },
+      "badges": {
+        "scholarships": "Scholarships Available",
+        "top_ranking": "Top Ranking",
+        "technical": "Technical Excellence"
+      },
+      "from_price": "from $",
+      "per_year": "/year",
+      "details_button": "Details",
+      "apply_button": "Apply",
+      "application_description": "Application from university card:"
+    },
+    "load_more": "Load more",
+    "how_to_choose": {
+      "title": "How to choose a university?",
+      "subtitle": "Info guide for making the right university choice",
+      "tips": {
+        "location": {
+          "title": "Check city and cost",
+          "description": "Consider living expenses, climate and distance from home"
+        },
+        "language": {
+          "title": "Pay attention to language of instruction",
+          "description": "Turkish is cheaper, English opens more opportunities"
+        },
+        "dormitory": {
+          "title": "Check dormitory availability",
+          "description": "State dormitories are cheaper, private ones more comfortable"
+        },
+        "rating": {
+          "title": "Compare ratings",
+          "description": "International ratings affect employment after graduation"
+        }
+      }
+    },
+    "popular_programs": {
+      "title": "Popular Programs",
+      "subtitle": "Most in-demand specializations in Turkish universities",
+      "programs": {
+        "it": {
+          "title": "Information Technology",
+          "description": "Programming, cybersecurity, artificial intelligence",
+          "universities_count": "42 universities",
+          "price_from": "from $3,500/year"
+        },
+        "medicine": {
+          "title": "Medicine",
+          "description": "General medicine, dentistry, pharmacy, veterinary",
+          "universities_count": "28 universities",
+          "price_from": "from $8,000/year"
+        },
+        "engineering": {
+          "title": "Engineering",
+          "description": "Mechanical engineering, electrical engineering, civil engineering",
+          "universities_count": "52 universities",
+          "price_from": "from $4,200/year"
+        },
+        "business": {
+          "title": "Business and Economics",
+          "description": "MBA, international business, finance, marketing",
+          "universities_count": "38 universities",
+          "price_from": "from $3,800/year"
+        },
+        "design": {
+          "title": "Design and Architecture",
+          "description": "Graphic design, architecture, industrial design",
+          "universities_count": "32 universities",
+          "price_from": "from $4,500/year"
+        },
+        "international": {
+          "title": "International Relations",
+          "description": "Diplomacy, political science, international law",
+          "universities_count": "25 universities",
+          "price_from": "from $4,000/year"
+        }
+      }
+    },
+    "scholarships": {
+      "title": "Scholarships and Grants",
+      "subtitle": "Opportunities to receive financial support for education",
+      "types": {
+        "government": {
+          "title": "Türkiye Scholarships",
+          "description": "Government scholarship covers 100% tuition + accommodation",
+          "benefits": {
+            "full_tuition": "Full tuition coverage",
+            "monthly_allowance": "Monthly stipend",
+            "health_insurance": "Health insurance"
+          }
+        },
+        "university": {
+          "title": "University Scholarships",
+          "description": "Partial discounts from 25% to 75% on tuition",
+          "benefits": {
+            "tuition_discount": "Tuition discount",
+            "academic_merit": "Academic achievements",
+            "sports_achievement": "Sports achievements"
+          }
+        }
+      }
+    },
+    "not_found": {
+      "title": "Didn't find a suitable university?",
+      "subtitle": "Submit an application — we'll select a university according to your criteria and preferences. Our experts know all the details of admission to Turkish universities.",
+      "features": {
+        "consultation": "Personal consultation",
+        "selection": "Selection based on your criteria",
+        "quick_response": "Response within 24 hours"
+      },
+      "button": "Get selection"
+    },
+    "final_cta": {
+      "title": "Ready to apply?",
+      "subtitle": "Don't postpone your dream of education in Turkey. We'll contact you within 24 hours and tell you everything.",
+      "benefits_title": "What you'll get:",
+      "benefits": {
+        "consultation": "Free consultation",
+        "university_selection": "University selection",
+        "cost_calculation": "Cost calculation",
+        "admission_plan": "Admission plan"
+      },
+      "button": "Fill out form",
+      "guarantee": "Free consultation • No obligations • Response within 24 hours"
+    }
+  }
+}

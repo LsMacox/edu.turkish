@@ -1,0 +1,74 @@
+{
+  "clear": "Очистить",
+  "step": "Шаг",
+  "cta": {
+    "apply": "Подать заявку"
+  },
+  "academicPrograms": {
+    "title": "Программы обучения",
+    "subtitle": "Выберите подходящий уровень образования",
+    "tabs": {
+      "bachelor": "Бакалавриат",
+      "master": "Магистратура",
+      "phd": "Докторантура"
+    },
+    "table": {
+      "programName": "Название программы",
+      "language": "Язык",
+      "duration": "Длительность",
+      "costPerYear": "Стоимость в год"
+    },
+    "emptyState": {
+      "title": "Программы не найдены",
+      "description": "Для выбранного уровня образования программы не найдены."
+    }
+  },
+  "applicationCTA": {
+    "title": "Подайте заявку в {universityName} уже сегодня!",
+    "subtitle": "Не упустите дедлайны. Мы свяжемся с вами и подготовим все документы.",
+    "form": {
+      "name_label": "Ваше имя *",
+      "name_placeholder": "Введите ваше имя",
+      "phone_label": "Номер whatsapp",
+      "phone_placeholder": "+1234567890",
+      "email_label": "Email",
+      "email_placeholder": "Ваш email адрес",
+      "program_label": "Интересующая программа",
+      "program_placeholder": "Выберите программу",
+      "program_other": "Другая",
+      "level_label": "Уровень образования",
+      "level_bachelor": "Бакалавриат",
+      "level_master": "Магистратура",
+      "comment_label": "Комментарий",
+      "comment_placeholder": "Расскажите о ваших целях и вопросах...",
+      "privacy_agreement": "Я согласен на обработку персональных данных и получение информации",
+      "submit_button": "Отправить заявку",
+      "submitting": "Отправка...",
+      "response_time": "Мы ответим в течение 2 часов"
+    }
+  },
+  "footer": {
+    "about_us": "О нас",
+    "who_we_are": "Кто мы",
+    "our_team": "Наша команда",
+    "contacts": "Контакты",
+    "universities": "Университеты",
+    "istanbul": "Стамбул",
+    "ankara": "Анкара",
+    "izmir": "Измир",
+    "antalya": "Анталия",
+    "all_universities": "Все университеты",
+    "support": "Поддержка",
+    "faq": "FAQ",
+    "reviews": "Отзывы",
+    "contract": "Договор",
+    "privacy_policy": "Политика конфиденциальности",
+    "social_networks": "Мы в соцсетях:",
+    "copyright": "© 2025 Edu.turkish. Все права защищены.",
+    "licensed_agency": "Лицензированное образовательное агентство"
+  },
+  "back_to_home": "На главную",
+  "loading": "Загрузка...",
+  "universityInformation": "Информация об университете",
+  "backToUniversities": "Вернуться к списку университетов"
+}

@@ -1,0 +1,88 @@
+{
+  "universityDetail": {
+    "applyButton": "Университетке өтініш беру",
+    "whatsappButton": "WhatsApp арқылы байланысу",
+    "keyInformation": {
+      "title": "Негізгі ақпарат",
+      "subtitle": "Университет туралы білу қажет барлық нәрсе",
+      "city": "Қала",
+      "foundedYear": "Құрылған жылы",
+      "cost": "Құны",
+      "costFrom": "{cost}-тан жылына",
+      "languages": "Оқыту тілдері",
+      "students": "Студенттер",
+      "accommodation": "Тұрғын үй",
+      "ranking": "Рейтинг",
+      "internationalStudents": "Халықаралық студенттер"
+    },
+    "accommodationValue": {
+      "has": "Кампуста жатақхана",
+      "none": "Жатақхана жоқ"
+    },
+    "rankingNotSpecified": "Рейтинг көрсетілмеген",
+    "rankingValue": "Түркиядағы үздік-{rank}",
+    "internationalCount": "{count}+ студент",
+    "programDuration": {
+      "durationYears": "{count} жыл"
+    }
+    ,
+    "aboutUniversity": {
+      "title": "Университет туралы",
+      "history": "Тарих және миссия",
+      "campus": "Кампустың ерекшеліктері",
+      "strongPrograms": "Күшті бағыттар",
+      "advantages": "Шетелдік студенттер үшін артықшылықтар"
+    },
+    "universityType": {
+      "state": "Мемлекеттік университет",
+      "private": "Жеке университет",
+      "tech": "Техникалық университет",
+      "elite": "Элиталық университет"
+    },
+    "campusLife": {
+      "title": "Кампус өмірі",
+      "subtitle": "Оқу мен демалу үшін заманауи жағдайлар",
+      "infrastructure": "Кампус инфрақұрылымы",
+      "capacity": "Сыйымдылық",
+      "area": "Аудан",
+      "facilities": {
+        "library": {
+          "name": "Кітапхана",
+          "description": "24/7 қолжетімділік, 500,000-нан астам кітап пен журнал"
+        },
+        "laboratories": {
+          "name": "Зертханалар",
+          "description": "Заманауи ғылыми жабдықтар"
+        },
+        "sportsCenter": {
+          "name": "Спорт орталығы",
+          "description": "Фитнес зал, бассейн, спорт алаңдары"
+        },
+        "dormitories": {
+          "name": "Жатақханалар",
+          "description": "Студенттер үшін ыңғайлы бөлмелер"
+        },
+        "cafeteria": {
+          "name": "Асхана",
+          "description": "Түрлі мәзір, халал ас"
+        },
+        "wifi": {
+          "name": "Бүкіл кампуста Wi-Fi",
+          "description": "Жоғары жылдамдықты интернет"
+        },
+        "medicalCenter": {
+          "name": "Медициналық орталық",
+          "description": "Медициналық көмек пен кеңестер"
+        },
+        "transport": {
+          "name": "Көлік",
+          "description": "Қала орталығына автобустар"
+        },
+        "studentClubs": {
+          "name": "Студенттік клубтар",
+          "description": "Қызығушылықтары бойынша 50-ден астам клуб"
+        }
+      }
+    }
+  }
+}

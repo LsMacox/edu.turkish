@@ -1,0 +1,74 @@
+{
+  "clear": "Temizle",
+  "step": "Adım",
+  "cta": {
+    "apply": "Başvuru yap"
+  },
+  "academicPrograms": {
+    "title": "Akademik Programlar",
+    "subtitle": "Uygun eğitim seviyesini seçin",
+    "tabs": {
+      "bachelor": "Lisans",
+      "master": "Yüksek Lisans",
+      "phd": "Doktora"
+    },
+    "table": {
+      "programName": "Program Adı",
+      "language": "Dil",
+      "duration": "Süre",
+      "costPerYear": "Yıllık maliyet"
+    },
+    "emptyState": {
+      "title": "Program bulunamadı",
+      "description": "Seçilen eğitim seviyesi için program bulunamadı."
+    }
+  },
+  "applicationCTA": {
+    "title": "{universityName} üniversitesine bugün başvurun!",
+    "subtitle": "Son tarihleri kaçırmayın. Sizinle iletişime geçeceğiz ve tüm belgeleri hazırlayacağız.",
+    "form": {
+      "name_label": "Adınız *",
+      "name_placeholder": "Adınızı girin",
+      "phone_label": "WhatsApp numarası *",
+      "phone_placeholder": "+1234567890",
+      "email_label": "E-posta",
+      "email_placeholder": "E-posta adresinizi yazın",
+      "program_label": "İlgilendiğiniz program",
+      "program_placeholder": "Program seçin",
+      "program_other": "Diğer",
+      "level_label": "Eğitim seviyesi",
+      "level_bachelor": "Lisans",
+      "level_master": "Yüksek lisans",
+      "comment_label": "Yorum",
+      "comment_placeholder": "Hedefleriniz ve sorularınız hakkında anlatın...",
+      "privacy_agreement": "Kişisel verilerin işlenmesini ve bilgi alınmasını kabul ediyorum",
+      "submit_button": "Başvuru gönder",
+      "submitting": "Gönderiliyor...",
+      "response_time": "2 saat içinde geri döneceğiz"
+    }
+  },
+  "footer": {
+    "about_us": "Hakkımızda",
+    "who_we_are": "Biz kimiz",
+    "our_team": "Ekibimiz",
+    "contacts": "İletişim",
+    "universities": "Üniversiteler",
+    "istanbul": "İstanbul",
+    "ankara": "Ankara",
+    "izmir": "İzmir",
+    "antalya": "Antalya",
+    "all_universities": "Tüm üniversiteler",
+    "support": "Destek",
+    "faq": "SSS",
+    "reviews": "Yorumlar",
+    "contract": "Sözleşme",
+    "privacy_policy": "Gizlilik Politikası",
+    "social_networks": "Sosyal medyada bizi takip edin:",
+    "copyright": "© 2025 Edu.turkish. Tüm hakları saklıdır.",
+    "licensed_agency": "Lisanslı eğitim ajansı"
+  },
+  "back_to_home": "Ana Sayfaya Dön",
+  "loading": "Yükleniyor...",
+  "universityInformation": "Üniversite bilgileri",
+  "backToUniversities": "Üniversitelere geri dön"
+}

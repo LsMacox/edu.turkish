@@ -1,0 +1,11 @@
+{
+  "contract": {
+    "title": "Hizmet Sözleşmesi",
+    "services_title": "Hizmetlerimiz",
+    "services": "Türk üniversitelerine başvurular için kapsamlı eğitim danışmanlığı hizmetleri sunuyoruz. Hizmetlerimiz üniversite seçimi konusunda rehberlik, başvuru belgesi hazırlama, vize yardımı ve kabul süreci boyunca sürekli destek içerir.",
+    "payment_title": "Ödeme Koşulları",
+    "payment": "Ödeme koşulları ve iade politikaları, gerekli olan özel hizmetlere bağlı olarak her müşteriyle bireysel olarak görüşülür. Gizli ücret olmayan şeffaf fiyatlandırma sunuyoruz. Ayrıntılı koşullar danışmanlık sırasında sağlanır.",
+    "contact_title": "Sözleşme Soruları",
+    "contact": "Hizmet sözleşmemiz, hizmet koşullarımız hakkında sorular veya özel ihtiyaçlarınızı görüşmek için edu.turkish2018{'@'}gmail.com adresinden veya resmi iletişim kanallarımız üzerinden bizimle iletişime geçin."
+  }
+}

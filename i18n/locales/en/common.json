@@ -1,0 +1,74 @@
+{
+  "clear": "Clear",
+  "step": "Step",
+  "cta": {
+    "apply": "Apply"
+  },
+  "academicPrograms": {
+    "title": "Academic Programs",
+    "subtitle": "Choose the appropriate education level",
+    "tabs": {
+      "bachelor": "Bachelor's",
+      "master": "Master's",
+      "phd": "PhD"
+    },
+    "table": {
+      "programName": "Program Name",
+      "language": "Language",
+      "duration": "Duration",
+      "costPerYear": "Cost per year"
+    },
+    "emptyState": {
+      "title": "No programs found",
+      "description": "No programs found for the selected education level."
+    }
+  },
+  "footer": {
+    "about_us": "About us",
+    "who_we_are": "Who we are",
+    "our_team": "Our team",
+    "contacts": "Contacts",
+    "universities": "Universities",
+    "istanbul": "Istanbul",
+    "ankara": "Ankara",
+    "izmir": "Izmir",
+    "antalya": "Antalya",
+    "all_universities": "All universities",
+    "support": "Support",
+    "faq": "FAQ",
+    "reviews": "Reviews",
+    "contract": "Contract",
+    "privacy_policy": "Privacy Policy",
+    "social_networks": "Follow us on social media:",
+    "copyright": "© 2025 Edu.turkish. All rights reserved.",
+    "licensed_agency": "Licensed educational agency"
+  },
+  "applicationCTA": {
+    "title": "Apply to {universityName} today!",
+    "subtitle": "Don't miss the deadlines. We will contact you and prepare all documents.",
+    "form": {
+      "name_label": "Your name *",
+      "name_placeholder": "Enter your name",
+      "phone_label": "WhatsApp number *",
+      "phone_placeholder": "+1234567890",
+      "email_label": "Email",
+      "email_placeholder": "Your email adress",
+      "program_label": "Program of interest",
+      "program_placeholder": "Choose program",
+      "program_other": "Other",
+      "level_label": "Education level",
+      "level_bachelor": "Bachelor's",
+      "level_master": "Master's",
+      "comment_label": "Comment",
+      "comment_placeholder": "Tell us about your goals and questions...",
+      "privacy_agreement": "I agree to the processing of personal data and receiving information",
+      "submit_button": "Submit application",
+      "submitting": "Submitting...",
+      "response_time": "We will respond within 2 hours"
+    }
+  },
+  "back_to_home": "Back to Home",
+  "loading": "Loading...",
+  "universityInformation": "University information",
+  "backToUniversities": "Back to universities"
+}

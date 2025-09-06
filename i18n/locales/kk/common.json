@@ -1,0 +1,74 @@
+{
+  "clear": "Тазалау",
+  "step": "Қадам",
+  "cta": {
+    "apply": "Өтінім беру"
+  },
+  "applicationCTA": {
+    "title": "{universityName} университетіне бүгін ақ өтініш беріңіз!",
+    "subtitle": "Мерзімдерді жіберіп алмаңыз. Біз сізбен байланысып, барлық құжаттарды дайындаймыз.",
+    "form": {
+      "name_label": "Сіздің атыңыз *",
+      "name_placeholder": "Атыңызды енгізіңіз",
+      "phone_label": "WhatsApp нөмірі",
+      "phone_placeholder": "+1234567890",
+      "email_label": "Email",
+      "email_placeholder": "Сіздің email мекенжайыңыз",
+      "program_label": "Қызықтыратын бағдарлама",
+      "program_placeholder": "Бағдарламаны таңдаңыз",
+      "program_other": "Басқа",
+      "level_label": "Білім деңгейі",
+      "level_bachelor": "Бакалавриат",
+      "level_master": "Магистратура",
+      "comment_label": "Түсініктеме",
+      "comment_placeholder": "Мақсаттарыңыз бен сұрақтарыңыз туралы айтыңыз...",
+      "privacy_agreement": "Мен жеке деректерді өңдеуге және ақпарат алуға келісемін",
+      "submit_button": "Өтініш жіберу",
+      "submitting": "Жіберілуде...",
+      "response_time": "Біз 2 сағат ішінде жауап береміз"
+    }
+  },
+  "academicPrograms": {
+    "title": "Академиялық бағдарламалар",
+    "subtitle": "Тиісті білім деңгейін таңдаңыз",
+    "tabs": {
+      "bachelor": "Бакалавриат",
+      "master": "Магистратура",
+      "phd": "Докторантура"
+    },
+    "table": {
+      "programName": "Бағдарлама атауы",
+      "language": "Тіл",
+      "duration": "Ұзақтығы",
+      "costPerYear": "Жылдық құны"
+    },
+    "emptyState": {
+      "title": "Бағдарламалар табылмады",
+      "description": "Таңдалған білім деңгейі үшін бағдарламалар табылмады."
+    }
+  },
+  "footer": {
+    "about_us": "Біз туралы",
+    "who_we_are": "Біз кіммыз",
+    "our_team": "Біздің команда",
+    "contacts": "Байланыстар",
+    "universities": "Университеттер",
+    "istanbul": "Стамбул",
+    "ankara": "Анкара",
+    "izmir": "Измир",
+    "antalya": "Анталья",
+    "all_universities": "Барлық университеттер",
+    "support": "Қолдау",
+    "faq": "FAQ",
+    "reviews": "Пікірлер",
+    "contract": "Шарт",
+    "privacy_policy": "Жеке өмір саясаты",
+    "social_networks": "Біз әлеуметтік желілерде:",
+    "copyright": "© 2025 Edu.turkish. Барлық құқықтар қорғалған.",
+    "licensed_agency": "Лицензияланған білім агенттігі"
+  },
+  "back_to_home": "Басты бетке қайту",
+  "loading": "Жүктелуде...",
+  "universityInformation": "Университет туралы ақпарат",
+  "backToUniversities": "Университеттер тізіміне оралу"
+}

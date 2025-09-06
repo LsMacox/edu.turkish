@@ -1,0 +1,57 @@
+{
+  "modal": {
+    "consultation_title": "Free consultation",
+    "your_name": "Your name",
+    "required": "*",
+    "phone": "WhatsApp number",
+    "email": "Email",
+    "direction": "Field of study",
+    "additional_info": "Additional information",
+    "name_placeholder": "Enter your name",
+    "phone_placeholder": "+1234567890",
+    "email_placeholder": "Enter your email",
+    "direction_placeholder": "Select field of study",
+    "message_placeholder": "Tell us about your goals, city preferences, budget...",
+    "directions": {
+      "medicine": "Medicine",
+      "engineering": "Engineering",
+      "business": "Business",
+      "it": "IT",
+      "architecture": "Architecture",
+      "psychology": "Psychology",
+      "arts": "Arts",
+      "other": "Other"
+    },
+    "preferences_title": "Your preferences:",
+    "source_title": "Application source:",
+    "preference_labels": {
+      "user_type": "User type:",
+      "university": "University:",
+      "language": "Language of study:",
+      "scholarship": "Scholarship:"
+    },
+    "user_types": {
+      "student": "Student",
+      "parent": "Parent"
+    },
+    "university_chosen": {
+      "yes": "Already chosen",
+      "no": "Need help choosing"
+    },
+    "languages": {
+      "turkish": "Turkish",
+      "english": "English"
+    },
+    "scholarship": {
+      "yes": "Scholarship assistance required",
+      "no": "Ready to pay independently"
+    },
+    "agreement": "I agree to the processing of personal data and receiving information messages",
+    "submit_button": "Get consultation",
+    "submitting": "Submitting...",
+    "success_title": "Application sent",
+    "success_message": "We will contact you within 30 minutes.",
+    "error_title": "Submission error",
+    "error_message": "Please try again or contact us directly."
+  }
+}
