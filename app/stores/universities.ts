@@ -103,7 +103,7 @@ export const useUniversitiesStore = defineStore('universities', () => {
         price_max: effectiveFilters.price?.[1] !== undefined && effectiveFilters.price?.[1] !== 20000 ? effectiveFilters.price[1] : undefined,
         sort: (options?.overrides?.sort || sort.value) !== 'pop' ? (options?.overrides?.sort || sort.value) : undefined,
         page: options?.page ?? 1,
-        limit: options?.limit ?? 100, // Default large for client-side filtering; override on home
+        limit: options?.limit ?? 6, // Default 6 universities per page
         lang: locale.value
       }
       
@@ -112,7 +112,16 @@ export const useUniversitiesStore = defineStore('universities', () => {
         query: queryParams
       })
       
-      universities.value = response.data
+      // If this is page 1, replace universities. If page > 1, append new universities
+      if (options?.page && options.page > 1) {
+        // Avoid duplicates when loading more
+        const existingIds = new Set(universities.value.map(u => u.id))
+        const newUniversities = response.data.filter(u => !existingIds.has(u.id))
+        universities.value = [...universities.value, ...newUniversities]
+      } else {
+        universities.value = response.data
+      }
+      
       totalUniversities.value = response.meta.total
       availableFilters.value = response.filters
       if (process.client) console.debug('[universities] fetched', response.data?.length)
@@ -127,7 +136,10 @@ export const useUniversitiesStore = defineStore('universities', () => {
   }
 
   const updateURL = () => {
-    if (isUpdatingFromURL.value) return
+    if (isUpdatingFromURL.value) {
+      isUpdatingFromURL.value = false
+      return
+    }
     
     const router = useRouter()
     const defaults = getDefaultFilters()
@@ -172,10 +184,19 @@ export const useUniversitiesStore = defineStore('universities', () => {
       })
     }
     
-    // Fetch new data after URL update
-    nextTick(() => {
-      fetchUniversities()
-    })
+    // Don't fetch if only page parameter changed (this is handled by loadMore)
+    const route = useRoute()
+    const { page: _page, ...currentFilters } = route.query
+    const { page: _newPage, ...newFilters } = query
+    
+    // Only fetch if filters actually changed, not just page
+    const filtersChanged = JSON.stringify(currentFilters) !== JSON.stringify(newFilters)
+    
+    if (filtersChanged) {
+      nextTick(() => {
+        fetchUniversities()
+      })
+    }
   }
 
   function setFilter<K extends keyof UniversityFilters>(key: K, value: UniversityFilters[K]) {
@@ -254,6 +275,7 @@ export const useUniversitiesStore = defineStore('universities', () => {
     error,
     totalUniversities,
     availableFilters,
+    isUpdatingFromURL,
     
     // Getters
     filteredUniversities,

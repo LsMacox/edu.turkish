@@ -75,7 +75,7 @@
 </template>
 
 <script setup lang="ts">
-import { computed, ref, onMounted, watch } from 'vue'
+import { computed, ref, onMounted, watch, nextTick } from 'vue'
 import { storeToRefs } from 'pinia'
 import { useApplicationModalStore } from '~/stores/applicationModal'
 import { useUniversitiesStore } from '~/stores/universities'
@@ -91,11 +91,12 @@ const router = useRouter()
 const universitiesStore = useUniversitiesStore()
 
 const page = ref(Number((route.query.page as string) || 1) || 1)
-const pageSize = 12
+const pageSize = 6
+const isLoadingMore = ref(false)
 
 // SSR prefetch: initialize and fetch on server for every request
 if (import.meta.server) {
-  await universitiesStore.initAndFetchSSR()
+  await universitiesStore.initAndFetchSSR({ limit: pageSize, page: page.value })
 }
 onMounted(() => {
   universitiesStore.initializeFilters()
@@ -108,36 +109,79 @@ watch(
     return rest
   },
   () => {
-    universitiesStore.initializeFilters()
-    page.value = Number((route.query.page as string) || 1) || 1
+    // Only reset if we're on page 1 to avoid interfering with pagination
+    if (page.value === 1) {
+      universitiesStore.initializeFilters()
+    }
   },
   { deep: true }
 )
 
 // Keep page in sync with URL query without triggering filter re-fetch
 watch(page, (newPage) => {
-  const nextQuery: Record<string, any> = { ...route.query }
-  if (newPage && newPage > 1) {
-    nextQuery.page = newPage
-  } else {
-    // Remove page from query when returning to first page
-    if ('page' in nextQuery) delete nextQuery.page
+  // Only update URL if page has actually changed to prevent infinite loops
+  const currentPage = Number(route.query.page) || 1
+  if (newPage !== currentPage) {
+    const currentScrollY = typeof window !== 'undefined' ? window.scrollY : 0
+    const nextQuery: Record<string, any> = { ...route.query }
+    if (newPage && newPage > 1) {
+      nextQuery.page = newPage
+    } else {
+      // Remove page from query when returning to first page
+      if ('page' in nextQuery) delete nextQuery.page
+    }
+    
+    // Use router.replace but preserve scroll position for pagination
+    // Set flag to prevent fetchUniversities from being called in store
+    universitiesStore.isUpdatingFromURL = true
+    router.replace({ query: nextQuery }).then(() => {
+      if (typeof window !== 'undefined') {
+        // Force scroll position after route update completes
+        requestAnimationFrame(() => {
+          window.scrollTo(0, currentScrollY)
+          universitiesStore.isUpdatingFromURL = false
+        })
+      }
+    })
   }
-  router.replace({ query: nextQuery })
 })
 
 const sorted = computed(() => universitiesStore.filteredUniversities)
 
-const paged = computed(() => sorted.value.slice(0, page.value * pageSize))
-const hasMore = computed(() => sorted.value.length > paged.value.length)
+// Show all universities that have been loaded so far
+const paged = computed(() => sorted.value)
 
-function loadMore() {
-  page.value += 1
+// Check if there are more universities to load from the server
+const hasMore = computed(() => sorted.value.length < totalUniversities.value)
+
+async function loadMore() {
+  if (isLoadingMore.value) return
+  
+  const nextPage = page.value + 1
+  
+  // Check if we've already loaded all universities
+  if (sorted.value.length >= totalUniversities.value) {
+    return
+  }
+  
+  isLoadingMore.value = true
+  
+  try {
+    page.value = nextPage
+    
+    // Fetch more universities from the server with the new page
+    await fetchUniversities({ 
+      limit: pageSize, 
+      page: nextPage 
+    })
+  } finally {
+    isLoadingMore.value = false
+  }
 }
 
 // Destructure store properties for template usage
-const { filteredUniversities, filters, sort } = storeToRefs(universitiesStore)
-const { setFilter, setSort, initializeFilters } = universitiesStore
+const { filteredUniversities, filters, sort, totalUniversities } = storeToRefs(universitiesStore)
+const { setFilter, setSort, initializeFilters, fetchUniversities } = universitiesStore
 
 // Modal state for template
 const modalState = {

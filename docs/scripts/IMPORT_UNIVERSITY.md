@@ -69,7 +69,6 @@ shopt -u nullglob
 
 if (( ${#files[@]} == 0 )); then
   echo "No JSON files found in $DIR" >&2
-  exit 1
 fi
 
 echo "Found ${#files[@]} JSON file(s) in $DIR; upsert-by=$UPSERT_BY"
@@ -86,7 +85,6 @@ echo "\nSummary: $(( ${#files[@]} - ${#failures[@]} )) succeeded, ${#failures[@]
 if (( ${#failures[@]} > 0 )); then
   printf '%s\n' "Failed files:" >&2
   for f in "${failures[@]}"; do printf ' - %s\n' "$f" >&2; done
-  exit 1
 fi
 ```
 

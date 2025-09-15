@@ -289,8 +289,8 @@ export class UniversityRepository {
         // Мета данные
         languages: Array.from(new Set(languageCodes)),
         slug: this.getSlugForLocaleFromTranslations(uni.translations as any[], locale),
-        image: uni.heroImage || uni.image || '',
-        heroImage: uni.heroImage,
+        image: uni.image || '',
+        heroImage: uni.heroImage || uni.image,
         // Use lite badge that doesn't rely on unloaded relations
         badge: this.generateBadgeLite(uni, locale)
       }
@@ -386,8 +386,8 @@ export class UniversityRepository {
       hasAccommodation: keyInfo.hasAccommodation,
       languages: keyInfo.languages,
       slug: this.getSlugForLocaleFromTranslations(university.translations as any[], locale),
-      image: university.heroImage || university.image || '',
-      heroImage: university.heroImage,
+      image: university.image || '',
+      heroImage: university.heroImage || university.image,
       badge: this.generateBadge(university, locale),
       keyInfo: keyInfo,
       about: {
@@ -603,7 +603,7 @@ export class UniversityRepository {
         languages: Array.from(new Set(languageCodes)),
         // Use lite badge for list query
         badge: this.generateBadgeLite(uni as any, locale),
-        image: uni.heroImage || uni.image || '',
+        image: uni.image || '',
         type: uni.type as UniversityType,
         slug: this.getSlugForLocaleFromTranslations(uni.translations as any[], locale),
         foundedYear: uni.foundedYear || 0
