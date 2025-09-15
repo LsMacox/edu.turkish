@@ -8,10 +8,16 @@
   "city": "Стамбул",
   "foundedYear": 2008,
   "type": "private",
-  "tuitionRange": { "min": 3500, "max": 11500, "currency": "USD" },
+  "tuitionRange": {
+    "min": 3500,
+    "max": 11500,
+    "currency": "USD"
+  },
   "totalStudents": 20000,
   "hasAccommodation": true,
   "hasScholarships": true,
+  "heroImage": "/images/universities/gelisim-bg.jpg",
+  "image": "/images/universities/gelisim-preview.jpg",
   "about": {
     "history": "Университет основан в 2008 году. С первых лет делает ставку на современную инфраструктуру, межкультурную среду и практическую подготовку студентов.",
     "mission": "Предоставлять образование, сочетающее практическую направленность, современные технологии и международную среду, готовя выпускников к глобальному рынку труда.",
@@ -25,11 +31,52 @@
     ]
   },
   "strong_programs": [
-    { "category": "Инженерия и технологии", "programs": ["Компьютерная инженерия", "Электроника и электротехника", "Авиакосмическая инженерия", "Строительная инженерия", "Программная инженерия"] },
-    { "category": "Здравоохранение и медицина", "programs": ["Стоматология", "Питание и диетология", "Физиотерапия и реабилитация", "Сестринское дело", "Логопедия"] },
-    { "category": "Архитектура и дизайн", "programs": ["Архитектура", "Дизайн интерьера и окружающей среды", "Графический дизайн", "Коммуникации и дизайн"] },
-    { "category": "Бизнес и управление", "programs": ["Бизнес-администрирование", "Международная торговля и бизнес", "Международная торговля и финансы", "Логистика"] },
-    { "category": "Медиа и коммуникации", "programs": ["Новые медиа и коммуникации", "Радио, телевидение и кино", "Связи с общественностью и реклама"] }
+    {
+      "category": "Инженерия и технологии",
+      "programs": [
+        "Компьютерная инженерия",
+        "Электроника и электротехника",
+        "Авиакосмическая инженерия",
+        "Строительная инженерия",
+        "Программная инженерия"
+      ]
+    },
+    {
+      "category": "Здравоохранение и медицина",
+      "programs": [
+        "Стоматология",
+        "Питание и диетология",
+        "Физиотерапия и реабилитация",
+        "Сестринское дело",
+        "Логопедия"
+      ]
+    },
+    {
+      "category": "Архитектура и дизайн",
+      "programs": [
+        "Архитектура",
+        "Дизайн интерьера и окружающей среды",
+        "Графический дизайн",
+        "Коммуникации и дизайн"
+      ]
+    },
+    {
+      "category": "Бизнес и управление",
+      "programs": [
+        "Бизнес-администрирование",
+        "Международная торговля и бизнес",
+        "Международная торговля и финансы",
+        "Логистика"
+      ]
+    },
+    {
+      "category": "Медиа и коммуникации",
+      "programs": [
+        "Новые медиа и коммуникации",
+        "Радио, телевидение и кино",
+        "Связи с общественностью и реклама"
+      ]
+    }
   ],
   "key_info_texts": {
     "city_label": "Город",
@@ -53,110 +100,622 @@
   },
   "campus_life": {
     "facilities": [
-      { "name": "Большая библиотека и электронные ресурсы", "icon": "ph:books" },
-      { "name": "Современные лаборатории для инженерии и медицины", "icon": "ph:flask" },
-      { "name": "Столовая и кафе на кампусе", "icon": "ph:fork-knife" },
-      { "name": "Спортзал и спортивные площадки", "icon": "ph:barbell" },
-      { "name": "Wi‑Fi на территории", "icon": "ph:wifi-high" },
-      { "name": "Медицинский пункт и сотрудничество с больницами", "icon": "ph:first-aid" },
-      { "name": "Удобные транспортные связи", "icon": "ph:bus" },
-      { "name": "Общежития и партнёрские варианты проживания", "icon": "ph:bed" },
-      { "name": "Студенческие клубы и организации", "icon": "ph:users-three" }
+      {
+        "name": "Большая библиотека и электронные ресурсы",
+        "icon": "ph:books"
+      },
+      {
+        "name": "Современные лаборатории для инженерии и медицины",
+        "icon": "ph:flask"
+      },
+      {
+        "name": "Столовая и кафе на кампусе",
+        "icon": "ph:fork-knife"
+      },
+      {
+        "name": "Спортзал и спортивные площадки",
+        "icon": "ph:barbell"
+      },
+      {
+        "name": "Wi‑Fi на территории",
+        "icon": "ph:wifi-high"
+      },
+      {
+        "name": "Медицинский пункт и сотрудничество с больницами",
+        "icon": "ph:first-aid"
+      },
+      {
+        "name": "Удобные транспортные связи",
+        "icon": "ph:bus"
+      },
+      {
+        "name": "Общежития и партнёрские варианты проживания",
+        "icon": "ph:bed"
+      },
+      {
+        "name": "Студенческие клубы и организации",
+        "icon": "ph:users-three"
+      }
     ]
   },
   "admission": {
     "requirements": [
-      { "category": "exam", "requirement": "TR-YÖS или SAT", "details": "Не обязательны, но приветствуются для некоторых факультетов" },
-      { "category": "language", "requirement": "TOEFL iBT 72+", "details": "Также возможен внутренний экзамен или подготовительный год" }
+      {
+        "category": "exam",
+        "requirement": "TR-YÖS или SAT",
+        "details": "Не обязательны, но приветствуются для некоторых факультетов"
+      },
+      {
+        "category": "language",
+        "requirement": "TOEFL iBT 72+",
+        "details": "Также возможен внутренний экзамен или подготовительный год"
+      }
     ],
     "documents": [
-      { "name": "Аттестат о среднем образовании", "description": "Апостиль и нотариальный перевод", "format_requirements": ["PDF"] },
-      { "name": "Заграничный паспорт", "description": "Срок действия не менее 2 лет", "format_requirements": ["PDF"] },
-      { "name": "Фотографии", "description": "4 шт., 4.5×6 см, белый фон" },
-      { "name": "Denklik belgesi", "description": "Подтверждение эквивалентности образования в Турции", "format_requirements": ["PDF"] }
+      {
+        "name": "Аттестат о среднем образовании",
+        "description": "Апостиль и нотариальный перевод",
+        "format_requirements": [
+          "PDF"
+        ]
+      },
+      {
+        "name": "Заграничный паспорт",
+        "description": "Срок действия не менее 2 лет",
+        "format_requirements": [
+          "PDF"
+        ]
+      },
+      {
+        "name": "Фотографии",
+        "description": "4 шт., 4.5×6 см, белый фон"
+      },
+      {
+        "name": "Denklik belgesi",
+        "description": "Подтверждение эквивалентности образования в Турции",
+        "format_requirements": [
+          "PDF"
+        ]
+      }
     ],
     "dates": [
-      { "event": "Начало приёма документов", "date": "2025-07-01", "type": "deadline" },
-      { "event": "Окончание приёма документов (бакалавриат)", "date": "2025-11-29", "type": "deadline" }
+      {
+        "event": "Начало приёма документов",
+        "date": "2025-07-01",
+        "type": "deadline"
+      },
+      {
+        "event": "Окончание приёма документов (бакалавриат)",
+        "date": "2025-11-29",
+        "type": "deadline"
+      }
     ]
   },
   "programs": [
-    { "degree_type": "bachelor", "name": "Стоматология", "language": "en", "tuition_per_year": 17250, "duration_years": 5 },
-    { "degree_type": "bachelor", "name": "Стоматология", "language": "tr", "tuition_per_year": 13000, "duration_years": 5 },
-    { "degree_type": "bachelor", "name": "Управление авиацией", "language": "en", "tuition_per_year": 4000, "duration_years": 4 },
-    { "degree_type": "bachelor", "name": "Управление авиацией", "language": "tr", "tuition_per_year": 3500, "duration_years": 4 },
-    { "degree_type": "bachelor", "name": "Бизнес-администрирование", "language": "en", "tuition_per_year": 4250, "duration_years": 4 },
-    { "degree_type": "bachelor", "name": "Бизнес-администрирование", "language": "tr", "tuition_per_year": 3500, "duration_years": 4 },
-    { "degree_type": "bachelor", "name": "Экономика и финансы", "language": "en", "tuition_per_year": 4000, "duration_years": 4 },
-    { "degree_type": "bachelor", "name": "Экономика и финансы", "language": "tr", "tuition_per_year": 3500, "duration_years": 4 },
-    { "degree_type": "bachelor", "name": "Английский язык и литература", "language": "en", "tuition_per_year": 4000, "duration_years": 4 },
-    { "degree_type": "bachelor", "name": "Связи с общественностью и реклама", "language": "tr", "tuition_per_year": 3500, "duration_years": 4 },
-    { "degree_type": "bachelor", "name": "Психология", "language": "en", "tuition_per_year": 4000, "duration_years": 4 },
-    { "degree_type": "bachelor", "name": "Психология", "language": "tr", "tuition_per_year": 3500, "duration_years": 4 },
-    { "degree_type": "bachelor", "name": "Международная торговля и бизнес", "language": "en", "tuition_per_year": 4000, "duration_years": 4 },
-    { "degree_type": "bachelor", "name": "Международная торговля и бизнес", "language": "tr", "tuition_per_year": 3500, "duration_years": 4 },
-    { "degree_type": "bachelor", "name": "Международная торговля и финансы", "language": "en", "tuition_per_year": 4000, "duration_years": 4 },
-    { "degree_type": "bachelor", "name": "Международная торговля и финансы", "language": "tr", "tuition_per_year": 3500, "duration_years": 4 },
-    { "degree_type": "bachelor", "name": "Логистика", "language": "en", "tuition_per_year": 4000, "duration_years": 4 },
-    { "degree_type": "bachelor", "name": "Логистика", "language": "tr", "tuition_per_year": 3500, "duration_years": 4 },
-    { "degree_type": "bachelor", "name": "Политология и международные отношения", "language": "en", "tuition_per_year": 4000, "duration_years": 4 },
-    { "degree_type": "bachelor", "name": "Политология и международные отношения", "language": "tr", "tuition_per_year": 3500, "duration_years": 4 },
-    { "degree_type": "bachelor", "name": "Политология и государственное управление", "language": "tr", "tuition_per_year": 3500, "duration_years": 4 },
-    { "degree_type": "bachelor", "name": "Радио, телевидение и кино", "language": "tr", "tuition_per_year": 3500, "duration_years": 4 },
-    { "degree_type": "bachelor", "name": "Реклама", "language": "tr", "tuition_per_year": 3500, "duration_years": 4 },
-    { "degree_type": "bachelor", "name": "Социология", "language": "tr", "tuition_per_year": 3500, "duration_years": 4 },
-    { "degree_type": "bachelor", "name": "Туристическое сопровождение", "language": "tr", "tuition_per_year": 3500, "duration_years": 4 },
-    { "degree_type": "bachelor", "name": "Новые медиа и коммуникации", "language": "en", "tuition_per_year": 4000, "duration_years": 4 },
-    { "degree_type": "bachelor", "name": "Новые медиа и коммуникации", "language": "tr", "tuition_per_year": 3500, "duration_years": 4 },
-    { "degree_type": "bachelor", "name": "Турецкий язык и литература", "language": "tr", "tuition_per_year": 3500, "duration_years": 4 },
-    { "degree_type": "bachelor", "name": "Информационные системы управления", "language": "tr", "tuition_per_year": 3500, "duration_years": 4 },
-    { "degree_type": "bachelor", "name": "Авиакосмическая инженерия", "language": "en", "tuition_per_year": 6000, "duration_years": 4 },
-    { "degree_type": "bachelor", "name": "Авиакосмическая инженерия", "language": "tr", "tuition_per_year": 4000, "duration_years": 4 },
-    { "degree_type": "bachelor", "name": "Компьютерная инженерия", "language": "en", "tuition_per_year": 5500, "duration_years": 4 },
-    { "degree_type": "bachelor", "name": "Компьютерная инженерия", "language": "tr", "tuition_per_year": 4000, "duration_years": 4 },
-    { "degree_type": "bachelor", "name": "Программная инженерия", "language": "en", "tuition_per_year": 5500, "duration_years": 4 },
-    { "degree_type": "bachelor", "name": "Программная инженерия", "language": "tr", "tuition_per_year": 4000, "duration_years": 4 },
-    { "degree_type": "bachelor", "name": "Строительная инженерия", "language": "en", "tuition_per_year": 4500, "duration_years": 4 },
-    { "degree_type": "bachelor", "name": "Строительная инженерия", "language": "tr", "tuition_per_year": 4000, "duration_years": 4 },
-    { "degree_type": "bachelor", "name": "Архитектура", "language": "en", "tuition_per_year": 4500, "duration_years": 4 },
-    { "degree_type": "bachelor", "name": "Архитектура", "language": "tr", "tuition_per_year": 4000, "duration_years": 4 },
-    { "degree_type": "bachelor", "name": "Электроника и электротехника", "language": "en", "tuition_per_year": 4500, "duration_years": 4 },
-    { "degree_type": "bachelor", "name": "Электроника и электротехника", "language": "tr", "tuition_per_year": 4000, "duration_years": 4 },
-    { "degree_type": "bachelor", "name": "Индустриальная инженерия", "language": "tr", "tuition_per_year": 4000, "duration_years": 4 },
-    { "degree_type": "bachelor", "name": "Мехатроника", "language": "tr", "tuition_per_year": 4000, "duration_years": 4 },
-    { "degree_type": "bachelor", "name": "Дизайн интерьера и окружающей среды", "language": "en", "tuition_per_year": 4000, "duration_years": 4 },
-    { "degree_type": "bachelor", "name": "Дизайн интерьера и окружающей среды", "language": "tr", "tuition_per_year": 3500, "duration_years": 4 },
-    { "degree_type": "bachelor", "name": "Гастрономия и кулинарное искусство", "language": "tr", "tuition_per_year": 3500, "duration_years": 4 },
-    { "degree_type": "bachelor", "name": "Графический дизайн", "language": "tr", "tuition_per_year": 3500, "duration_years": 4 },
-    { "degree_type": "bachelor", "name": "Дизайн интерьера", "language": "tr", "tuition_per_year": 3500, "duration_years": 4 },
-    { "degree_type": "bachelor", "name": "Коммуникации и дизайн", "language": "tr", "tuition_per_year": 3500, "duration_years": 4 },
-    { "degree_type": "bachelor", "name": "Сестринское дело", "language": "en", "tuition_per_year": 4000, "duration_years": 4 },
-    { "degree_type": "bachelor", "name": "Сестринское дело", "language": "tr", "tuition_per_year": 3500, "duration_years": 4 },
-    { "degree_type": "bachelor", "name": "Физиотерапия и реабилитация", "language": "en", "tuition_per_year": 4250, "duration_years": 4 },
-    { "degree_type": "bachelor", "name": "Физиотерапия и реабилитация", "language": "tr", "tuition_per_year": 3500, "duration_years": 4 },
-    { "degree_type": "bachelor", "name": "Развитие ребёнка", "language": "en", "tuition_per_year": 4000, "duration_years": 4 },
-    { "degree_type": "bachelor", "name": "Развитие ребёнка", "language": "tr", "tuition_per_year": 3500, "duration_years": 4 },
-    { "degree_type": "bachelor", "name": "Питание и диетология", "language": "en", "tuition_per_year": 4000, "duration_years": 4 },
-    { "degree_type": "bachelor", "name": "Питание и диетология", "language": "tr", "tuition_per_year": 3500, "duration_years": 4 },
-    { "degree_type": "bachelor", "name": "Логопедия", "language": "tr", "tuition_per_year": 3500, "duration_years": 4 },
-    { "degree_type": "bachelor", "name": "Эрготерапия", "language": "tr", "tuition_per_year": 3500, "duration_years": 4 },
-    { "degree_type": "bachelor", "name": "Аудиология", "language": "tr", "tuition_per_year": 3500, "duration_years": 4 },
-    { "degree_type": "bachelor", "name": "Перфузия", "language": "tr", "tuition_per_year": 3500, "duration_years": 4 },
-    { "degree_type": "bachelor", "name": "Управление здравоохранением", "language": "tr", "tuition_per_year": 3500, "duration_years": 4 },
-    { "degree_type": "bachelor", "name": "Социальная работа", "language": "tr", "tuition_per_year": 3500, "duration_years": 4 },
-    { "degree_type": "bachelor", "name": "Перевод и устный перевод (англо-турецкий)", "language": "en", "tuition_per_year": 4000, "duration_years": 4 },
-    { "degree_type": "bachelor", "name": "Гастрономия и кулинарное искусство", "language": "en", "tuition_per_year": 4000, "duration_years": 4 },
-    { "degree_type": "bachelor", "name": "Банковское дело и страхование", "language": "tr", "tuition_per_year": 3500, "duration_years": 4 },
-    { "degree_type": "bachelor", "name": "Телевизионная журналистика и программирование", "language": "tr", "tuition_per_year": 3500, "duration_years": 4 },
-    { "degree_type": "bachelor", "name": "Техническое обслуживание и ремонт самолётов", "language": "tr", "tuition_per_year": 3500, "duration_years": 4 },
-    { "degree_type": "bachelor", "name": "Авионика", "language": "tr", "tuition_per_year": 3500, "duration_years": 4 },
-    { "degree_type": "bachelor", "name": "Подготовка тренеров", "language": "tr", "tuition_per_year": 3500, "duration_years": 4 },
-    { "degree_type": "bachelor", "name": "Подготовка тренеров", "language": "en", "tuition_per_year": 4000, "duration_years": 4 },
-    { "degree_type": "bachelor", "name": "Науки о спорте и упражнениях", "language": "tr", "tuition_per_year": 3500, "duration_years": 4 },
-    { "degree_type": "bachelor", "name": "Физическая активность и спорт для лиц с ОВЗ", "language": "tr", "tuition_per_year": 3500, "duration_years": 4 },
-    { "degree_type": "bachelor", "name": "Рекреация", "language": "tr", "tuition_per_year": 3500, "duration_years": 4 },
-    { "degree_type": "bachelor", "name": "Спортивный менеджмент", "language": "tr", "tuition_per_year": 3500, "duration_years": 4 }
+    {
+      "degree_type": "bachelor",
+      "name": "Стоматология",
+      "language": "en",
+      "tuition_per_year": 17250,
+      "duration_years": 5
+    },
+    {
+      "degree_type": "bachelor",
+      "name": "Стоматология",
+      "language": "tr",
+      "tuition_per_year": 13000,
+      "duration_years": 5
+    },
+    {
+      "degree_type": "bachelor",
+      "name": "Управление авиацией",
+      "language": "en",
+      "tuition_per_year": 4000,
+      "duration_years": 4
+    },
+    {
+      "degree_type": "bachelor",
+      "name": "Управление авиацией",
+      "language": "tr",
+      "tuition_per_year": 3500,
+      "duration_years": 4
+    },
+    {
+      "degree_type": "bachelor",
+      "name": "Бизнес-администрирование",
+      "language": "en",
+      "tuition_per_year": 4250,
+      "duration_years": 4
+    },
+    {
+      "degree_type": "bachelor",
+      "name": "Бизнес-администрирование",
+      "language": "tr",
+      "tuition_per_year": 3500,
+      "duration_years": 4
+    },
+    {
+      "degree_type": "bachelor",
+      "name": "Экономика и финансы",
+      "language": "en",
+      "tuition_per_year": 4000,
+      "duration_years": 4
+    },
+    {
+      "degree_type": "bachelor",
+      "name": "Экономика и финансы",
+      "language": "tr",
+      "tuition_per_year": 3500,
+      "duration_years": 4
+    },
+    {
+      "degree_type": "bachelor",
+      "name": "Английский язык и литература",
+      "language": "en",
+      "tuition_per_year": 4000,
+      "duration_years": 4
+    },
+    {
+      "degree_type": "bachelor",
+      "name": "Связи с общественностью и реклама",
+      "language": "tr",
+      "tuition_per_year": 3500,
+      "duration_years": 4
+    },
+    {
+      "degree_type": "bachelor",
+      "name": "Психология",
+      "language": "en",
+      "tuition_per_year": 4000,
+      "duration_years": 4
+    },
+    {
+      "degree_type": "bachelor",
+      "name": "Психология",
+      "language": "tr",
+      "tuition_per_year": 3500,
+      "duration_years": 4
+    },
+    {
+      "degree_type": "bachelor",
+      "name": "Международная торговля и бизнес",
+      "language": "en",
+      "tuition_per_year": 4000,
+      "duration_years": 4
+    },
+    {
+      "degree_type": "bachelor",
+      "name": "Международная торговля и бизнес",
+      "language": "tr",
+      "tuition_per_year": 3500,
+      "duration_years": 4
+    },
+    {
+      "degree_type": "bachelor",
+      "name": "Международная торговля и финансы",
+      "language": "en",
+      "tuition_per_year": 4000,
+      "duration_years": 4
+    },
+    {
+      "degree_type": "bachelor",
+      "name": "Международная торговля и финансы",
+      "language": "tr",
+      "tuition_per_year": 3500,
+      "duration_years": 4
+    },
+    {
+      "degree_type": "bachelor",
+      "name": "Логистика",
+      "language": "en",
+      "tuition_per_year": 4000,
+      "duration_years": 4
+    },
+    {
+      "degree_type": "bachelor",
+      "name": "Логистика",
+      "language": "tr",
+      "tuition_per_year": 3500,
+      "duration_years": 4
+    },
+    {
+      "degree_type": "bachelor",
+      "name": "Политология и международные отношения",
+      "language": "en",
+      "tuition_per_year": 4000,
+      "duration_years": 4
+    },
+    {
+      "degree_type": "bachelor",
+      "name": "Политология и международные отношения",
+      "language": "tr",
+      "tuition_per_year": 3500,
+      "duration_years": 4
+    },
+    {
+      "degree_type": "bachelor",
+      "name": "Политология и государственное управление",
+      "language": "tr",
+      "tuition_per_year": 3500,
+      "duration_years": 4
+    },
+    {
+      "degree_type": "bachelor",
+      "name": "Радио, телевидение и кино",
+      "language": "tr",
+      "tuition_per_year": 3500,
+      "duration_years": 4
+    },
+    {
+      "degree_type": "bachelor",
+      "name": "Реклама",
+      "language": "tr",
+      "tuition_per_year": 3500,
+      "duration_years": 4
+    },
+    {
+      "degree_type": "bachelor",
+      "name": "Социология",
+      "language": "tr",
+      "tuition_per_year": 3500,
+      "duration_years": 4
+    },
+    {
+      "degree_type": "bachelor",
+      "name": "Туристическое сопровождение",
+      "language": "tr",
+      "tuition_per_year": 3500,
+      "duration_years": 4
+    },
+    {
+      "degree_type": "bachelor",
+      "name": "Новые медиа и коммуникации",
+      "language": "en",
+      "tuition_per_year": 4000,
+      "duration_years": 4
+    },
+    {
+      "degree_type": "bachelor",
+      "name": "Новые медиа и коммуникации",
+      "language": "tr",
+      "tuition_per_year": 3500,
+      "duration_years": 4
+    },
+    {
+      "degree_type": "bachelor",
+      "name": "Турецкий язык и литература",
+      "language": "tr",
+      "tuition_per_year": 3500,
+      "duration_years": 4
+    },
+    {
+      "degree_type": "bachelor",
+      "name": "Информационные системы управления",
+      "language": "tr",
+      "tuition_per_year": 3500,
+      "duration_years": 4
+    },
+    {
+      "degree_type": "bachelor",
+      "name": "Авиакосмическая инженерия",
+      "language": "en",
+      "tuition_per_year": 6000,
+      "duration_years": 4
+    },
+    {
+      "degree_type": "bachelor",
+      "name": "Авиакосмическая инженерия",
+      "language": "tr",
+      "tuition_per_year": 4000,
+      "duration_years": 4
+    },
+    {
+      "degree_type": "bachelor",
+      "name": "Компьютерная инженерия",
+      "language": "en",
+      "tuition_per_year": 5500,
+      "duration_years": 4
+    },
+    {
+      "degree_type": "bachelor",
+      "name": "Компьютерная инженерия",
+      "language": "tr",
+      "tuition_per_year": 4000,
+      "duration_years": 4
+    },
+    {
+      "degree_type": "bachelor",
+      "name": "Программная инженерия",
+      "language": "en",
+      "tuition_per_year": 5500,
+      "duration_years": 4
+    },
+    {
+      "degree_type": "bachelor",
+      "name": "Программная инженерия",
+      "language": "tr",
+      "tuition_per_year": 4000,
+      "duration_years": 4
+    },
+    {
+      "degree_type": "bachelor",
+      "name": "Строительная инженерия",
+      "language": "en",
+      "tuition_per_year": 4500,
+      "duration_years": 4
+    },
+    {
+      "degree_type": "bachelor",
+      "name": "Строительная инженерия",
+      "language": "tr",
+      "tuition_per_year": 4000,
+      "duration_years": 4
+    },
+    {
+      "degree_type": "bachelor",
+      "name": "Архитектура",
+      "language": "en",
+      "tuition_per_year": 4500,
+      "duration_years": 4
+    },
+    {
+      "degree_type": "bachelor",
+      "name": "Архитектура",
+      "language": "tr",
+      "tuition_per_year": 4000,
+      "duration_years": 4
+    },
+    {
+      "degree_type": "bachelor",
+      "name": "Электроника и электротехника",
+      "language": "en",
+      "tuition_per_year": 4500,
+      "duration_years": 4
+    },
+    {
+      "degree_type": "bachelor",
+      "name": "Электроника и электротехника",
+      "language": "tr",
+      "tuition_per_year": 4000,
+      "duration_years": 4
+    },
+    {
+      "degree_type": "bachelor",
+      "name": "Индустриальная инженерия",
+      "language": "tr",
+      "tuition_per_year": 4000,
+      "duration_years": 4
+    },
+    {
+      "degree_type": "bachelor",
+      "name": "Мехатроника",
+      "language": "tr",
+      "tuition_per_year": 4000,
+      "duration_years": 4
+    },
+    {
+      "degree_type": "bachelor",
+      "name": "Дизайн интерьера и окружающей среды",
+      "language": "en",
+      "tuition_per_year": 4000,
+      "duration_years": 4
+    },
+    {
+      "degree_type": "bachelor",
+      "name": "Дизайн интерьера и окружающей среды",
+      "language": "tr",
+      "tuition_per_year": 3500,
+      "duration_years": 4
+    },
+    {
+      "degree_type": "bachelor",
+      "name": "Гастрономия и кулинарное искусство",
+      "language": "tr",
+      "tuition_per_year": 3500,
+      "duration_years": 4
+    },
+    {
+      "degree_type": "bachelor",
+      "name": "Графический дизайн",
+      "language": "tr",
+      "tuition_per_year": 3500,
+      "duration_years": 4
+    },
+    {
+      "degree_type": "bachelor",
+      "name": "Дизайн интерьера",
+      "language": "tr",
+      "tuition_per_year": 3500,
+      "duration_years": 4
+    },
+    {
+      "degree_type": "bachelor",
+      "name": "Коммуникации и дизайн",
+      "language": "tr",
+      "tuition_per_year": 3500,
+      "duration_years": 4
+    },
+    {
+      "degree_type": "bachelor",
+      "name": "Сестринское дело",
+      "language": "en",
+      "tuition_per_year": 4000,
+      "duration_years": 4
+    },
+    {
+      "degree_type": "bachelor",
+      "name": "Сестринское дело",
+      "language": "tr",
+      "tuition_per_year": 3500,
+      "duration_years": 4
+    },
+    {
+      "degree_type": "bachelor",
+      "name": "Физиотерапия и реабилитация",
+      "language": "en",
+      "tuition_per_year": 4250,
+      "duration_years": 4
+    },
+    {
+      "degree_type": "bachelor",
+      "name": "Физиотерапия и реабилитация",
+      "language": "tr",
+      "tuition_per_year": 3500,
+      "duration_years": 4
+    },
+    {
+      "degree_type": "bachelor",
+      "name": "Развитие ребёнка",
+      "language": "en",
+      "tuition_per_year": 4000,
+      "duration_years": 4
+    },
+    {
+      "degree_type": "bachelor",
+      "name": "Развитие ребёнка",
+      "language": "tr",
+      "tuition_per_year": 3500,
+      "duration_years": 4
+    },
+    {
+      "degree_type": "bachelor",
+      "name": "Питание и диетология",
+      "language": "en",
+      "tuition_per_year": 4000,
+      "duration_years": 4
+    },
+    {
+      "degree_type": "bachelor",
+      "name": "Питание и диетология",
+      "language": "tr",
+      "tuition_per_year": 3500,
+      "duration_years": 4
+    },
+    {
+      "degree_type": "bachelor",
+      "name": "Логопедия",
+      "language": "tr",
+      "tuition_per_year": 3500,
+      "duration_years": 4
+    },
+    {
+      "degree_type": "bachelor",
+      "name": "Эрготерапия",
+      "language": "tr",
+      "tuition_per_year": 3500,
+      "duration_years": 4
+    },
+    {
+      "degree_type": "bachelor",
+      "name": "Аудиология",
+      "language": "tr",
+      "tuition_per_year": 3500,
+      "duration_years": 4
+    },
+    {
+      "degree_type": "bachelor",
+      "name": "Перфузия",
+      "language": "tr",
+      "tuition_per_year": 3500,
+      "duration_years": 4
+    },
+    {
+      "degree_type": "bachelor",
+      "name": "Управление здравоохранением",
+      "language": "tr",
+      "tuition_per_year": 3500,
+      "duration_years": 4
+    },
+    {
+      "degree_type": "bachelor",
+      "name": "Социальная работа",
+      "language": "tr",
+      "tuition_per_year": 3500,
+      "duration_years": 4
+    },
+    {
+      "degree_type": "bachelor",
+      "name": "Перевод и устный перевод (англо-турецкий)",
+      "language": "en",
+      "tuition_per_year": 4000,
+      "duration_years": 4
+    },
+    {
+      "degree_type": "bachelor",
+      "name": "Гастрономия и кулинарное искусство",
+      "language": "en",
+      "tuition_per_year": 4000,
+      "duration_years": 4
+    },
+    {
+      "degree_type": "bachelor",
+      "name": "Банковское дело и страхование",
+      "language": "tr",
+      "tuition_per_year": 3500,
+      "duration_years": 4
+    },
+    {
+      "degree_type": "bachelor",
+      "name": "Телевизионная журналистика и программирование",
+      "language": "tr",
+      "tuition_per_year": 3500,
+      "duration_years": 4
+    },
+    {
+      "degree_type": "bachelor",
+      "name": "Техническое обслуживание и ремонт самолётов",
+      "language": "tr",
+      "tuition_per_year": 3500,
+      "duration_years": 4
+    },
+    {
+      "degree_type": "bachelor",
+      "name": "Авионика",
+      "language": "tr",
+      "tuition_per_year": 3500,
+      "duration_years": 4
+    },
+    {
+      "degree_type": "bachelor",
+      "name": "Подготовка тренеров",
+      "language": "tr",
+      "tuition_per_year": 3500,
+      "duration_years": 4
+    },
+    {
+      "degree_type": "bachelor",
+      "name": "Подготовка тренеров",
+      "language": "en",
+      "tuition_per_year": 4000,
+      "duration_years": 4
+    },
+    {
+      "degree_type": "bachelor",
+      "name": "Науки о спорте и упражнениях",
+      "language": "tr",
+      "tuition_per_year": 3500,
+      "duration_years": 4
+    },
+    {
+      "degree_type": "bachelor",
+      "name": "Физическая активность и спорт для лиц с ОВЗ",
+      "language": "tr",
+      "tuition_per_year": 3500,
+      "duration_years": 4
+    },
+    {
+      "degree_type": "bachelor",
+      "name": "Рекреация",
+      "language": "tr",
+      "tuition_per_year": 3500,
+      "duration_years": 4
+    },
+    {
+      "degree_type": "bachelor",
+      "name": "Спортивный менеджмент",
+      "language": "tr",
+      "tuition_per_year": 3500,
+      "duration_years": 4
+    }
   ]
 }
-
-

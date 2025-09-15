@@ -52,4 +52,45 @@ npx tsx scripts/import-university.ts ./app/assets/json/universities/technica_uni
 - Переводы и связанные сущности создаются, если отсутствуют; уже существующие уникальные пары (id+locale) обновляются через upsert.
 - Направления (`study_directions`) автоматически создаются по `slug`, если их не было.
 
+## Пакетный импорт всех JSON из каталога (bash, скопируйте в терминал)
+
+Скопируйте и выполните в терминале (импортирует все `.json` из `app/assets/json/universities`):
+
+```bash
+#!/usr/bin/env bash
+set -euo pipefail
+
+UPSERT_BY="${UPSERT_BY:-slug}"
+DIR="./app/assets/json/universities"
+
+shopt -s nullglob
+files=("$DIR"/*.json)
+shopt -u nullglob
+
+if (( ${#files[@]} == 0 )); then
+  echo "No JSON files found in $DIR" >&2
+  exit 1
+fi
+
+echo "Found ${#files[@]} JSON file(s) in $DIR; upsert-by=$UPSERT_BY"
+failures=()
+for f in "${files[@]}"; do
+  echo "\n— Importing: $f"
+  if ! npm run -s import:university -- "$f" --upsert-by="$UPSERT_BY"; then
+    echo "Failed: $f" >&2
+    failures+=("$f")
+  fi
+done
+
+echo "\nSummary: $(( ${#files[@]} - ${#failures[@]} )) succeeded, ${#failures[@]} failed"
+if (( ${#failures[@]} > 0 )); then
+  printf '%s\n' "Failed files:" >&2
+  for f in "${failures[@]}"; do printf ' - %s\n' "$f" >&2; done
+  exit 1
+fi
+```
+
+Примечания:
+- По умолчанию апдейт идёт по `slug`. Чтобы обновлять по названию, выполните: `UPSERT_BY=title bash -c "$(cat <<'BASH' ; <вставьте скрипт выше> ; BASH)"` или просто перед запуском экспортируйте `UPSERT_BY=title`.
+
 

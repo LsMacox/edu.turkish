@@ -15,6 +15,8 @@
   "totalStudents": 6500,
   "internationalStudents": 3900,
   "hasAccommodation": true,
+  "heroImage": "/images/universities/kent-bg.jpg",
+  "image": "/images/universities/kent-preview.png",
   "about": {
     "history": "Kent University — частный университет, основанный в 2016 году в Стамбуле. Университет динамично развивается и ориентирован на подготовку востребованных специалистов, соответствующих требованиям современного рынка труда.",
     "mission": "Подготовка высококвалифицированных специалистов с международным мышлением через практико-ориентированные программы и современную образовательную среду.",
@@ -80,15 +82,44 @@
   },
   "campus_life": {
     "facilities": [
-      { "name": "Общежития рядом с кампусом", "icon": "ph:bed" },
-      { "name": "Библиотека", "description": "Доступ 24/7", "icon": "ph:books" },
-      { "name": "Современные лаборатории", "icon": "ph:flask" },
-      { "name": "Столовая", "description": "Халяльное питание", "icon": "ph:fork-knife" },
-      { "name": "Спортзал и спортивные площадки", "icon": "ph:barbell" },
-      { "name": "Wi‑Fi по всей территории", "icon": "ph:wifi-high" },
-      { "name": "Медицинский пункт", "icon": "ph:first-aid" },
-      { "name": "Транспортная доступность до центра города", "icon": "ph:bus" },
-      { "name": "Более 30 студенческих клубов", "icon": "ph:users-three" }
+      {
+        "name": "Общежития рядом с кампусом",
+        "icon": "ph:bed"
+      },
+      {
+        "name": "Библиотека",
+        "description": "Доступ 24/7",
+        "icon": "ph:books"
+      },
+      {
+        "name": "Современные лаборатории",
+        "icon": "ph:flask"
+      },
+      {
+        "name": "Столовая",
+        "description": "Халяльное питание",
+        "icon": "ph:fork-knife"
+      },
+      {
+        "name": "Спортзал и спортивные площадки",
+        "icon": "ph:barbell"
+      },
+      {
+        "name": "Wi‑Fi по всей территории",
+        "icon": "ph:wifi-high"
+      },
+      {
+        "name": "Медицинский пункт",
+        "icon": "ph:first-aid"
+      },
+      {
+        "name": "Транспортная доступность до центра города",
+        "icon": "ph:bus"
+      },
+      {
+        "name": "Более 30 студенческих клубов",
+        "icon": "ph:users-three"
+      }
     ]
   },
   "admission": {
@@ -113,12 +144,16 @@
       {
         "name": "Аттестат о среднем образовании",
         "description": "Апостиль и нотариальный перевод",
-        "format_requirements": ["PDF"]
+        "format_requirements": [
+          "PDF"
+        ]
       },
       {
         "name": "Загранпаспорт",
         "description": "Срок действия — не менее 2 лет",
-        "format_requirements": ["PDF"]
+        "format_requirements": [
+          "PDF"
+        ]
       },
       {
         "name": "Фотографии",
@@ -127,7 +162,9 @@
       {
         "name": "Denklik belgesi",
         "description": "На турецком, оценивание по 100-балльной шкале",
-        "format_requirements": ["PDF"]
+        "format_requirements": [
+          "PDF"
+        ]
       }
     ],
     "dates": [
@@ -144,57 +181,320 @@
     ]
   },
   "programs": [
-    { "degree_type": "bachelor", "name": "Стоматология", "language": "tr", "tuition_per_year": 5833, "duration_years": 6 },
-    { "degree_type": "bachelor", "name": "Стоматология", "language": "en", "tuition_per_year": 5833, "duration_years": 6 },
-    { "degree_type": "bachelor", "name": "Фармация", "language": "tr", "tuition_per_year": 3000, "duration_years": 6 },
-    { "degree_type": "bachelor", "name": "Фармация", "language": "en", "tuition_per_year": 3000, "duration_years": 6 },
-
-    { "degree_type": "bachelor", "name": "Гастрономия и кулинарное искусство", "language": "tr", "tuition_per_year": 2200, "duration_years": 4 },
-    { "degree_type": "bachelor", "name": "Гастрономия и кулинарное искусство", "language": "en", "tuition_per_year": 2900, "duration_years": 4 },
-    { "degree_type": "bachelor", "name": "Внутренний дизайн", "language": "tr", "tuition_per_year": 2200, "duration_years": 4 },
-    { "degree_type": "bachelor", "name": "Дизайн цифровых игр", "language": "en", "tuition_per_year": 2900, "duration_years": 4 },
-    { "degree_type": "bachelor", "name": "Визуальная коммуникация и дизайн", "language": "en", "tuition_per_year": 2900, "duration_years": 4 },
-    { "degree_type": "bachelor", "name": "Градостроительство и ландшафт", "language": "tr", "tuition_per_year": 2200, "duration_years": 4 },
-    { "degree_type": "bachelor", "name": "Радио, ТВ и кино", "language": "tr", "tuition_per_year": 2200, "duration_years": 4 },
-
-    { "degree_type": "bachelor", "name": "Промышленная инженерия", "language": "tr", "tuition_per_year": 2200, "duration_years": 4 },
-    { "degree_type": "bachelor", "name": "Компьютерная инженерия", "language": "tr", "tuition_per_year": 2200, "duration_years": 4 },
-
-    { "degree_type": "bachelor", "name": "Экономика и финансы", "language": "en", "tuition_per_year": 2900, "duration_years": 4 },
-    { "degree_type": "bachelor", "name": "Международные отношения", "language": "en", "tuition_per_year": 2900, "duration_years": 4 },
-    { "degree_type": "bachelor", "name": "PR и реклама", "language": "tr", "tuition_per_year": 2200, "duration_years": 4 },
-    { "degree_type": "bachelor", "name": "Бизнес", "language": "tr", "tuition_per_year": 2200, "duration_years": 4 },
-    { "degree_type": "bachelor", "name": "Бизнес", "language": "en", "tuition_per_year": 2900, "duration_years": 4 },
-    { "degree_type": "bachelor", "name": "Психология", "language": "tr", "tuition_per_year": 2200, "duration_years": 4 },
-    { "degree_type": "bachelor", "name": "Психология", "language": "en", "tuition_per_year": 2900, "duration_years": 4 },
-    { "degree_type": "bachelor", "name": "Политология и государственное управление", "language": "tr", "tuition_per_year": 2200, "duration_years": 4 },
-    { "degree_type": "bachelor", "name": "Политология и государственное управление", "language": "en", "tuition_per_year": 2900, "duration_years": 4 },
-    { "degree_type": "bachelor", "name": "Социальная работа", "language": "tr", "tuition_per_year": 2200, "duration_years": 4 },
-    { "degree_type": "bachelor", "name": "Международная торговля и логистика", "language": "tr", "tuition_per_year": 2200, "duration_years": 4 },
-    { "degree_type": "bachelor", "name": "Международная торговля и управление", "language": "en", "tuition_per_year": 2900, "duration_years": 4 },
-
-    { "degree_type": "bachelor", "name": "Управление здравоохранением", "language": "tr", "tuition_per_year": 2200, "duration_years": 4 },
-    { "degree_type": "bachelor", "name": "Диетология", "language": "tr", "tuition_per_year": 2200, "duration_years": 4 },
-    { "degree_type": "bachelor", "name": "Диетология", "language": "en", "tuition_per_year": 2900, "duration_years": 4 },
-    { "degree_type": "bachelor", "name": "Детское развитие", "language": "tr", "tuition_per_year": 2200, "duration_years": 4 },
-    { "degree_type": "bachelor", "name": "Физиотерапия и реабилитация", "language": "tr", "tuition_per_year": 2200, "duration_years": 4 },
-    { "degree_type": "bachelor", "name": "Физиотерапия и реабилитация", "language": "en", "tuition_per_year": 2900, "duration_years": 4 },
-    { "degree_type": "bachelor", "name": "Сестринское дело", "language": "tr", "tuition_per_year": 2200, "duration_years": 4 },
-    { "degree_type": "bachelor", "name": "Сестринское дело", "language": "en", "tuition_per_year": 2900, "duration_years": 4 },
-    { "degree_type": "bachelor", "name": "Акушерство", "language": "tr", "tuition_per_year": 2200, "duration_years": 4 },
-    { "degree_type": "bachelor", "name": "Логопедия", "language": "tr", "tuition_per_year": 2200, "duration_years": 4 },
-
-    { "degree_type": "master", "name": "Развитие ребёнка с тезисом", "language": "tr", "tuition_per_year": 3500, "duration_years": 2 },
-    { "degree_type": "master", "name": "Гастрономия и кулинарное искусство с тезисом", "language": "tr", "tuition_per_year": 3500, "duration_years": 2 },
-    { "degree_type": "master", "name": "Гастрономия и кулинарное искусство без тезиса", "language": "tr", "tuition_per_year": 2500, "duration_years": 2 },
-    { "degree_type": "master", "name": "Питание и диетология с тезисом", "language": "tr", "tuition_per_year": 3500, "duration_years": 2 },
-    { "degree_type": "master", "name": "Питание и диетология без тезиса", "language": "tr", "tuition_per_year": 2500, "duration_years": 2 },
-    { "degree_type": "master", "name": "Международный менеджмент без тезиса", "language": "tr", "tuition_per_year": 2500, "duration_years": 2 },
-    { "degree_type": "master", "name": "Управление бизнесом с тезисом", "language": "tr", "tuition_per_year": 3500, "duration_years": 2 },
-    { "degree_type": "master", "name": "Политология и международные отношения с тезисом", "language": "tr", "tuition_per_year": 3500, "duration_years": 2 },
-    { "degree_type": "master", "name": "Клиническая психология без тезиса", "language": "tr", "tuition_per_year": 20000, "duration_years": 2 },
-    { "degree_type": "master", "name": "Клиническая психология с тезисом", "language": "tr", "tuition_per_year": 20000, "duration_years": 2 }
+    {
+      "degree_type": "bachelor",
+      "name": "Стоматология",
+      "language": "tr",
+      "tuition_per_year": 5833,
+      "duration_years": 6
+    },
+    {
+      "degree_type": "bachelor",
+      "name": "Стоматология",
+      "language": "en",
+      "tuition_per_year": 5833,
+      "duration_years": 6
+    },
+    {
+      "degree_type": "bachelor",
+      "name": "Фармация",
+      "language": "tr",
+      "tuition_per_year": 3000,
+      "duration_years": 6
+    },
+    {
+      "degree_type": "bachelor",
+      "name": "Фармация",
+      "language": "en",
+      "tuition_per_year": 3000,
+      "duration_years": 6
+    },
+    {
+      "degree_type": "bachelor",
+      "name": "Гастрономия и кулинарное искусство",
+      "language": "tr",
+      "tuition_per_year": 2200,
+      "duration_years": 4
+    },
+    {
+      "degree_type": "bachelor",
+      "name": "Гастрономия и кулинарное искусство",
+      "language": "en",
+      "tuition_per_year": 2900,
+      "duration_years": 4
+    },
+    {
+      "degree_type": "bachelor",
+      "name": "Внутренний дизайн",
+      "language": "tr",
+      "tuition_per_year": 2200,
+      "duration_years": 4
+    },
+    {
+      "degree_type": "bachelor",
+      "name": "Дизайн цифровых игр",
+      "language": "en",
+      "tuition_per_year": 2900,
+      "duration_years": 4
+    },
+    {
+      "degree_type": "bachelor",
+      "name": "Визуальная коммуникация и дизайн",
+      "language": "en",
+      "tuition_per_year": 2900,
+      "duration_years": 4
+    },
+    {
+      "degree_type": "bachelor",
+      "name": "Градостроительство и ландшафт",
+      "language": "tr",
+      "tuition_per_year": 2200,
+      "duration_years": 4
+    },
+    {
+      "degree_type": "bachelor",
+      "name": "Радио, ТВ и кино",
+      "language": "tr",
+      "tuition_per_year": 2200,
+      "duration_years": 4
+    },
+    {
+      "degree_type": "bachelor",
+      "name": "Промышленная инженерия",
+      "language": "tr",
+      "tuition_per_year": 2200,
+      "duration_years": 4
+    },
+    {
+      "degree_type": "bachelor",
+      "name": "Компьютерная инженерия",
+      "language": "tr",
+      "tuition_per_year": 2200,
+      "duration_years": 4
+    },
+    {
+      "degree_type": "bachelor",
+      "name": "Экономика и финансы",
+      "language": "en",
+      "tuition_per_year": 2900,
+      "duration_years": 4
+    },
+    {
+      "degree_type": "bachelor",
+      "name": "Международные отношения",
+      "language": "en",
+      "tuition_per_year": 2900,
+      "duration_years": 4
+    },
+    {
+      "degree_type": "bachelor",
+      "name": "PR и реклама",
+      "language": "tr",
+      "tuition_per_year": 2200,
+      "duration_years": 4
+    },
+    {
+      "degree_type": "bachelor",
+      "name": "Бизнес",
+      "language": "tr",
+      "tuition_per_year": 2200,
+      "duration_years": 4
+    },
+    {
+      "degree_type": "bachelor",
+      "name": "Бизнес",
+      "language": "en",
+      "tuition_per_year": 2900,
+      "duration_years": 4
+    },
+    {
+      "degree_type": "bachelor",
+      "name": "Психология",
+      "language": "tr",
+      "tuition_per_year": 2200,
+      "duration_years": 4
+    },
+    {
+      "degree_type": "bachelor",
+      "name": "Психология",
+      "language": "en",
+      "tuition_per_year": 2900,
+      "duration_years": 4
+    },
+    {
+      "degree_type": "bachelor",
+      "name": "Политология и государственное управление",
+      "language": "tr",
+      "tuition_per_year": 2200,
+      "duration_years": 4
+    },
+    {
+      "degree_type": "bachelor",
+      "name": "Политология и государственное управление",
+      "language": "en",
+      "tuition_per_year": 2900,
+      "duration_years": 4
+    },
+    {
+      "degree_type": "bachelor",
+      "name": "Социальная работа",
+      "language": "tr",
+      "tuition_per_year": 2200,
+      "duration_years": 4
+    },
+    {
+      "degree_type": "bachelor",
+      "name": "Международная торговля и логистика",
+      "language": "tr",
+      "tuition_per_year": 2200,
+      "duration_years": 4
+    },
+    {
+      "degree_type": "bachelor",
+      "name": "Международная торговля и управление",
+      "language": "en",
+      "tuition_per_year": 2900,
+      "duration_years": 4
+    },
+    {
+      "degree_type": "bachelor",
+      "name": "Управление здравоохранением",
+      "language": "tr",
+      "tuition_per_year": 2200,
+      "duration_years": 4
+    },
+    {
+      "degree_type": "bachelor",
+      "name": "Диетология",
+      "language": "tr",
+      "tuition_per_year": 2200,
+      "duration_years": 4
+    },
+    {
+      "degree_type": "bachelor",
+      "name": "Диетология",
+      "language": "en",
+      "tuition_per_year": 2900,
+      "duration_years": 4
+    },
+    {
+      "degree_type": "bachelor",
+      "name": "Детское развитие",
+      "language": "tr",
+      "tuition_per_year": 2200,
+      "duration_years": 4
+    },
+    {
+      "degree_type": "bachelor",
+      "name": "Физиотерапия и реабилитация",
+      "language": "tr",
+      "tuition_per_year": 2200,
+      "duration_years": 4
+    },
+    {
+      "degree_type": "bachelor",
+      "name": "Физиотерапия и реабилитация",
+      "language": "en",
+      "tuition_per_year": 2900,
+      "duration_years": 4
+    },
+    {
+      "degree_type": "bachelor",
+      "name": "Сестринское дело",
+      "language": "tr",
+      "tuition_per_year": 2200,
+      "duration_years": 4
+    },
+    {
+      "degree_type": "bachelor",
+      "name": "Сестринское дело",
+      "language": "en",
+      "tuition_per_year": 2900,
+      "duration_years": 4
+    },
+    {
+      "degree_type": "bachelor",
+      "name": "Акушерство",
+      "language": "tr",
+      "tuition_per_year": 2200,
+      "duration_years": 4
+    },
+    {
+      "degree_type": "bachelor",
+      "name": "Логопедия",
+      "language": "tr",
+      "tuition_per_year": 2200,
+      "duration_years": 4
+    },
+    {
+      "degree_type": "master",
+      "name": "Развитие ребёнка с тезисом",
+      "language": "tr",
+      "tuition_per_year": 3500,
+      "duration_years": 2
+    },
+    {
+      "degree_type": "master",
+      "name": "Гастрономия и кулинарное искусство с тезисом",
+      "language": "tr",
+      "tuition_per_year": 3500,
+      "duration_years": 2
+    },
+    {
+      "degree_type": "master",
+      "name": "Гастрономия и кулинарное искусство без тезиса",
+      "language": "tr",
+      "tuition_per_year": 2500,
+      "duration_years": 2
+    },
+    {
+      "degree_type": "master",
+      "name": "Питание и диетология с тезисом",
+      "language": "tr",
+      "tuition_per_year": 3500,
+      "duration_years": 2
+    },
+    {
+      "degree_type": "master",
+      "name": "Питание и диетология без тезиса",
+      "language": "tr",
+      "tuition_per_year": 2500,
+      "duration_years": 2
+    },
+    {
+      "degree_type": "master",
+      "name": "Международный менеджмент без тезиса",
+      "language": "tr",
+      "tuition_per_year": 2500,
+      "duration_years": 2
+    },
+    {
+      "degree_type": "master",
+      "name": "Управление бизнесом с тезисом",
+      "language": "tr",
+      "tuition_per_year": 3500,
+      "duration_years": 2
+    },
+    {
+      "degree_type": "master",
+      "name": "Политология и международные отношения с тезисом",
+      "language": "tr",
+      "tuition_per_year": 3500,
+      "duration_years": 2
+    },
+    {
+      "degree_type": "master",
+      "name": "Клиническая психология без тезиса",
+      "language": "tr",
+      "tuition_per_year": 20000,
+      "duration_years": 2
+    },
+    {
+      "degree_type": "master",
+      "name": "Клиническая психология с тезисом",
+      "language": "tr",
+      "tuition_per_year": 20000,
+      "duration_years": 2
+    }
   ]
 }
-
-

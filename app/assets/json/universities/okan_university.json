@@ -1,0 +1,55 @@
+{
+  "locale": "ru",
+  "countryCode": "TUR",
+  "countryName": "Турция",
+  "title": "Okan Üniversitesi",
+  "description": "Частный университет в Стамбуле с сильными программами в области бизнеса, инженерии и социальных наук.",
+  "slug": "okan-universitesi",
+  "city": "Стамбул",
+  "foundedYear": 1999,
+  "type": "private",
+  "tuitionRange": {
+    "min": 3000,
+    "max": 15000,
+    "currency": "USD"
+  },
+  "hasAccommodation": true,
+  "hasScholarships": true,
+  "heroImage": "/images/universities/okan-bg.jpg",
+  "image": "/images/universities/okan-preview.jpg",
+  "about": {
+    "history": "История университета",
+    "mission": "Миссия университета",
+    "advantages": [
+      "Современный кампус",
+      "Качественное образование",
+      "Международные программы",
+      "Карьерные возможности"
+    ]
+  },
+  "strong_programs": [
+    {
+      "category": "Основные направления",
+      "programs": [
+        "Программа 1",
+        "Программа 2"
+      ]
+    }
+  ],
+  "key_info_texts": {
+    "city_label": "Город",
+    "founded_year_label": "Год основания",
+    "tuition_label": "Стоимость обучения",
+    "languages_label": "Языки обучения",
+    "type_label": "Тип университета"
+  },
+  "programs": [
+    {
+      "degree_type": "bachelor",
+      "name": "Пример программы",
+      "language": "tr",
+      "tuition_per_year": 5000,
+      "duration_years": 4
+    }
+  ]
+}

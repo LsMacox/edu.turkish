@@ -1,0 +1,432 @@
+{
+  "locale": "ru",
+  "countryCode": "TUR",
+  "countryName": "Турция",
+  "title": "Özyeğin University",
+  "description": "Современный инновационный университет в Стамбуле (Çekmeköy), основанный в 2007 году. Известен сильными инженерными, ИИ/данными, бизнес- и авиационными направлениями, развитой инфраструктурой и международной академической экосистемой.",
+  "slug": "ozyegin-university",
+  "city": "Стамбул",
+  "foundedYear": 2007,
+  "type": "private",
+  "tuitionRange": {
+    "min": 20000,
+    "currency": "USD"
+  },
+  "totalStudents": 7500,
+  "internationalStudents": 1000,
+  "hasAccommodation": true,
+  "hasScholarships": true,
+  "heroImage": "/images/universities/ozyegin-bg.jpg",
+  "image": "/images/universities/ozyegin-preview.jpg",
+  "about": {
+    "history": "Özyeğin — один из самых молодых и динамично развивающихся вузов Турции. С первых лет существования университет строит образовательную экосистему нового поколения, объединяющую международный опыт, современные технологии и прикладной подход к обучению.",
+    "mission": "Подготовка конкурентоспособных специалистов для высокотехнологичных отраслей через развитие исследований, поддержку инноваций и раскрытие творческого потенциала студентов.",
+    "advantages": [
+      "Erasmus+ и обмены с вузами Европы и США",
+      "Система стипендий и финансовой поддержки талантливых студентов",
+      "Практико-ориентированное обучение и тесные связи с индустрией",
+      "Современный кампус с общежитиями, лабораториями и коворкингами",
+      "Международный диплом и обучение на английском"
+    ]
+  },
+  "strong_programs": [
+    {
+      "category": "Инженерия",
+      "programs": [
+        "Компьютерная инженерия",
+        "Инженерия управления",
+        "Машиностроение",
+        "Гражданское строительство",
+        "Электротехника и электроника"
+      ]
+    },
+    {
+      "category": "Архитектура и дизайн",
+      "programs": [
+        "Архитектура",
+        "Промышленный дизайн",
+        "Коммуникационный дизайн",
+        "Дизайн интерьера и предметно-пространственной среды"
+      ]
+    },
+    {
+      "category": "Экономика и бизнес",
+      "programs": [
+        "Экономика",
+        "Бизнес-администрирование",
+        "Международные финансы",
+        "Международный бизнес и торговля",
+        "Предпринимательство"
+      ]
+    },
+    {
+      "category": "Международные отношения и финансы",
+      "programs": [
+        "Международные отношения",
+        "Международные финансы"
+      ]
+    },
+    {
+      "category": "Авиация и пилотирование",
+      "programs": [
+        "Менеджмент в авиации",
+        "Профессиональный пилот"
+      ]
+    },
+    {
+      "category": "Гостиничный менеджмент и гастрономия",
+      "programs": [
+        "Менеджмент в гостиничном деле",
+        "Гастрономия и кулинарное искусство"
+      ]
+    },
+    {
+      "category": "ИИ и данные",
+      "programs": [
+        "Искусственный интеллект и инженерия данных",
+        "Компьютерные науки"
+      ]
+    }
+  ],
+  "key_info_texts": {
+    "city_label": "Город",
+    "city_note": "Стамбул (Çekmeköy)",
+    "founded_year_label": "Год основания",
+    "founded_year_note": "2007",
+    "tuition_label": "Стоимость",
+    "tuition_note": "от $20,000 в год",
+    "languages_label": "Языки обучения",
+    "languages_note": "Английский (основной), Турецкий (отдельные программы)",
+    "total_students_label": "Студенты",
+    "total_students_note": "7500+",
+    "international_students_label": "Международные студенты",
+    "international_students_note": ">1000 из 70+ стран",
+    "accommodation_label": "Проживание",
+    "accommodation_note": "Современные общежития на кампусе",
+    "ranking_label": "Рейтинг",
+    "ranking_text": "Инновационный и динамично развивающийся ВУЗ",
+    "type_label": "Тип университета",
+    "type_note": "частный"
+  },
+  "campus_life": {
+    "facilities": [
+      {
+        "name": "Современные общежития на кампусе",
+        "icon": "ph:bed"
+      },
+      {
+        "name": "Библиотека и цифровые ресурсы",
+        "icon": "ph:books"
+      },
+      {
+        "name": "Инженерные и исследовательские лаборатории",
+        "icon": "ph:flask"
+      },
+      {
+        "name": "Авиационные симуляторы",
+        "icon": "ph:airplane"
+      },
+      {
+        "name": "Архитектурные и дизайн-студии",
+        "icon": "ph:ruler"
+      },
+      {
+        "name": "Кулинарные мастерские",
+        "icon": "ph:fork-knife"
+      },
+      {
+        "name": "Спортивный комплекс и фитнес-зал",
+        "icon": "ph:barbell"
+      },
+      {
+        "name": "Футбольное поле и спортивные корты",
+        "icon": "ph:soccer-ball"
+      },
+      {
+        "name": "Коворкинги, кафе и студенческие зоны",
+        "icon": "ph:coffee"
+      },
+      {
+        "name": "Wi‑Fi по всей территории",
+        "icon": "ph:wifi-high"
+      },
+      {
+        "name": "Медицинский пункт",
+        "icon": "ph:first-aid"
+      }
+    ]
+  },
+  "admission": {
+    "requirements": [
+      {
+        "category": "exam",
+        "requirement": "TR-YÖS или SAT",
+        "details": "Не обязательны, можно поступить по аттестату; высокие баллы повышают шанс на стипендию"
+      },
+      {
+        "category": "language",
+        "requirement": "TOEFL iBT ≥ 80",
+        "details": "Английский — основной язык обучения"
+      }
+    ],
+    "documents": [
+      {
+        "name": "Аттестат о среднем образовании",
+        "description": "Апостиль и нотариальный перевод",
+        "format_requirements": [
+          "PDF"
+        ]
+      },
+      {
+        "name": "Загранпаспорт",
+        "description": "Срок действия — не менее 2 лет",
+        "format_requirements": [
+          "PDF"
+        ]
+      },
+      {
+        "name": "Фотографии",
+        "description": "4 шт, размер 4.5×6 см, белый фон"
+      },
+      {
+        "name": "Denklik belgesi",
+        "description": "На турецком, оценивание по 100-балльной шкале",
+        "format_requirements": [
+          "PDF"
+        ]
+      }
+    ],
+    "dates": [
+      {
+        "event": "Начало приёма документов",
+        "date": "2025-07-01",
+        "type": "deadline"
+      },
+      {
+        "event": "Окончание приёма на бакалавриат",
+        "date": "2025-11-30",
+        "type": "deadline"
+      }
+    ]
+  },
+  "programs": [
+    {
+      "degree_type": "bachelor",
+      "name": "Международные отношения",
+      "language": "en",
+      "tuition_per_year": 22000,
+      "duration_years": 4,
+      "direction_slug": "international-relations"
+    },
+    {
+      "degree_type": "bachelor",
+      "name": "Психология",
+      "language": "en",
+      "tuition_per_year": 22000,
+      "duration_years": 4,
+      "direction_slug": "psychology"
+    },
+    {
+      "degree_type": "bachelor",
+      "name": "Антропология",
+      "language": "en",
+      "tuition_per_year": 22000,
+      "duration_years": 4
+    },
+    {
+      "degree_type": "bachelor",
+      "name": "Бизнес-администрирование",
+      "language": "en",
+      "tuition_per_year": 22000,
+      "duration_years": 4,
+      "direction_slug": "business"
+    },
+    {
+      "degree_type": "bachelor",
+      "name": "Международные финансы",
+      "language": "en",
+      "tuition_per_year": 22000,
+      "duration_years": 4,
+      "direction_slug": "finance"
+    },
+    {
+      "degree_type": "bachelor",
+      "name": "Информационные системы управления",
+      "language": "en",
+      "tuition_per_year": 22000,
+      "duration_years": 4,
+      "direction_slug": "information-systems"
+    },
+    {
+      "degree_type": "bachelor",
+      "name": "Международный бизнес и торговля",
+      "language": "en",
+      "tuition_per_year": 22000,
+      "duration_years": 4,
+      "direction_slug": "business"
+    },
+    {
+      "degree_type": "bachelor",
+      "name": "Экономика",
+      "language": "en",
+      "tuition_per_year": 22000,
+      "duration_years": 4,
+      "direction_slug": "economics"
+    },
+    {
+      "degree_type": "bachelor",
+      "name": "Предпринимательство",
+      "language": "en",
+      "tuition_per_year": 22000,
+      "duration_years": 4,
+      "direction_slug": "entrepreneurship"
+    },
+    {
+      "degree_type": "bachelor",
+      "name": "Менеджмент в гостиничном деле",
+      "language": "en",
+      "tuition_per_year": 22000,
+      "duration_years": 4,
+      "direction_slug": "tourism-hospitality"
+    },
+    {
+      "degree_type": "bachelor",
+      "name": "Гастрономия и кулинарное искусство",
+      "language": "en",
+      "tuition_per_year": 22000,
+      "duration_years": 4,
+      "direction_slug": "tourism-hospitality"
+    },
+    {
+      "degree_type": "bachelor",
+      "name": "Искусственный интеллект и инженерия данных",
+      "language": "en",
+      "tuition_per_year": 22000,
+      "duration_years": 4,
+      "direction_slug": "artificial-intelligence"
+    },
+    {
+      "degree_type": "bachelor",
+      "name": "Компьютерные науки",
+      "language": "en",
+      "tuition_per_year": 22000,
+      "duration_years": 4,
+      "direction_slug": "computer-science"
+    },
+    {
+      "degree_type": "bachelor",
+      "name": "Инженерия управления",
+      "language": "en",
+      "tuition_per_year": 22000,
+      "duration_years": 4,
+      "direction_slug": "industrial-engineering"
+    },
+    {
+      "degree_type": "bachelor",
+      "name": "Машиностроение",
+      "language": "en",
+      "tuition_per_year": 22000,
+      "duration_years": 4,
+      "direction_slug": "mechanical-engineering"
+    },
+    {
+      "degree_type": "bachelor",
+      "name": "Гражданское строительство",
+      "language": "en",
+      "tuition_per_year": 22000,
+      "duration_years": 4,
+      "direction_slug": "civil-engineering"
+    },
+    {
+      "degree_type": "bachelor",
+      "name": "Электротехника и электроника",
+      "language": "en",
+      "tuition_per_year": 22000,
+      "duration_years": 4,
+      "direction_slug": "electrical-electronics-engineering"
+    },
+    {
+      "degree_type": "bachelor",
+      "name": "Архитектура",
+      "language": "en",
+      "tuition_per_year": 22000,
+      "duration_years": 4,
+      "direction_slug": "architecture"
+    },
+    {
+      "degree_type": "bachelor",
+      "name": "Архитектура",
+      "language": "tr",
+      "tuition_per_year": 22000,
+      "duration_years": 4,
+      "direction_slug": "architecture"
+    },
+    {
+      "degree_type": "bachelor",
+      "name": "Промышленный дизайн",
+      "language": "en",
+      "tuition_per_year": 22000,
+      "duration_years": 4,
+      "direction_slug": "design"
+    },
+    {
+      "degree_type": "bachelor",
+      "name": "Коммуникационный дизайн",
+      "language": "en",
+      "tuition_per_year": 22000,
+      "duration_years": 4,
+      "direction_slug": "design"
+    },
+    {
+      "degree_type": "bachelor",
+      "name": "Дизайн интерьера и предметно-пространственной среды",
+      "language": "en",
+      "tuition_per_year": 22000,
+      "duration_years": 4,
+      "direction_slug": "design"
+    },
+    {
+      "degree_type": "bachelor",
+      "name": "Юриспруденция",
+      "language": "tr",
+      "tuition_per_year": 22000,
+      "duration_years": 4,
+      "direction_slug": "law"
+    },
+    {
+      "degree_type": "bachelor",
+      "name": "Менеджмент в авиации",
+      "language": "en",
+      "tuition_per_year": 22000,
+      "duration_years": 4
+    },
+    {
+      "degree_type": "bachelor",
+      "name": "Профессиональный пилот",
+      "language": "en",
+      "tuition_per_year": 22000,
+      "duration_years": 4,
+      "direction_slug": "aerospace-engineering"
+    }
+  ],
+  "directions": [
+    "international-relations",
+    "psychology",
+    "business",
+    "finance",
+    "information-systems",
+    "economics",
+    "entrepreneurship",
+    "tourism-hospitality",
+    "artificial-intelligence",
+    "computer-science",
+    "industrial-engineering",
+    "mechanical-engineering",
+    "civil-engineering",
+    "electrical-electronics-engineering",
+    "architecture",
+    "design",
+    "law",
+    "aerospace-engineering"
+  ]
+}

@@ -1,0 +1,55 @@
+{
+  "locale": "ru",
+  "countryCode": "TUR",
+  "countryName": "Турция",
+  "title": "Ostim Teknik Üniversitesi",
+  "description": "Технический университет в Анкаре, специализирующийся на инженерных и технологических программах.",
+  "slug": "ostim-teknik-universitesi",
+  "city": "Анкара",
+  "foundedYear": 2017,
+  "type": "private",
+  "tuitionRange": {
+    "min": 3000,
+    "max": 15000,
+    "currency": "USD"
+  },
+  "hasAccommodation": true,
+  "hasScholarships": true,
+  "heroImage": "/images/universities/ostim-tekinik-bg.jpg",
+  "image": "/images/universities/ostim-tekinik-preview.jpg",
+  "about": {
+    "history": "История университета",
+    "mission": "Миссия университета",
+    "advantages": [
+      "Современный кампус",
+      "Качественное образование",
+      "Международные программы",
+      "Карьерные возможности"
+    ]
+  },
+  "strong_programs": [
+    {
+      "category": "Основные направления",
+      "programs": [
+        "Программа 1",
+        "Программа 2"
+      ]
+    }
+  ],
+  "key_info_texts": {
+    "city_label": "Город",
+    "founded_year_label": "Год основания",
+    "tuition_label": "Стоимость обучения",
+    "languages_label": "Языки обучения",
+    "type_label": "Тип университета"
+  },
+  "programs": [
+    {
+      "degree_type": "bachelor",
+      "name": "Пример программы",
+      "language": "tr",
+      "tuition_per_year": 5000,
+      "duration_years": 4
+    }
+  ]
+}
