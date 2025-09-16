@@ -92,6 +92,13 @@
           {{ $t('modal.agreement') }}
         </UiFormsBaseCheckbox>
 
+        <!-- Hidden referral source field for debugging -->
+        <input 
+          type="hidden" 
+          name="source" 
+          :value="referralCode || props.userPreferences?.source || 'website'"
+        >
+
         <button 
           type="submit" 
           :disabled="isSubmitting || !form.agreement"
@@ -107,6 +114,7 @@
 <script setup lang="ts">
 import type { ApplicationPreferences, QuestionnairePreferences } from '../../types/preferences'
 import type { DirectionInfo, DirectionResponse } from '../../../server/types/api'
+import { useReferral } from '../../composables/useReferral'
 
 interface Props {
   isOpen: boolean
@@ -120,6 +128,7 @@ interface Emits {
 
 const props = defineProps<Props>()
 const emit = defineEmits<Emits>()
+const { referralCode } = useReferral()
 
 const form = ref({
   name: '',
@@ -196,7 +205,8 @@ const submitForm = async () => {
         start_date: new Date().getFullYear().toString()
       },
       additional_info: form.value.message || '',
-      source: props.userPreferences?.source || 'website',
+      source: referralCode.value || props.userPreferences?.source || 'website',
+      referral_code: referralCode.value,
       user_preferences: props.userPreferences
     }
     

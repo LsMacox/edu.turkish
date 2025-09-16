@@ -401,6 +401,7 @@ export interface ApplicationRequest {
   additional_info?: string // общее поле для дополнительной информации
   source: string // источник заявки
   user_preferences?: any // предпочтения пользователя из анкеты
+  referral_code?: string // New field for explicit referral tracking
 }
 
 export interface ApplicationResponse {

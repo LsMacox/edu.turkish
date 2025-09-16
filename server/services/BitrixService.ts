@@ -12,6 +12,7 @@ export interface BitrixLead {
   SOURCE_ID?: string
   SOURCE_DESCRIPTION?: string
   UF_CRM_1234567892?: string // Источник заявки (только системный код источника)
+  UF_CRM_REFERRAL_CODE?: string // Реферальный код партнера
   // Ниже — поля для предпочтений пользователя из попапа на главной
   UF_CRM_1234567893?: string // Тип пользователя (student|parent)
   UF_CRM_1234567894?: string // Язык обучения (turkish|english|both)
@@ -240,6 +241,11 @@ export class BitrixService {
     // Комментарии с полной информацией о заявке
     const comments = []
     comments.push(`Источник заявки: ${sourceDescription}`)
+    
+    // Добавляем реферальный код если есть
+    if (applicationData.referral_code) {
+      comments.push(`Реферальный код: ${applicationData.referral_code}`)
+    }
 
     // Добавляем информацию об образовании и интересах
     if (applicationData.education) {
@@ -314,6 +320,11 @@ export class BitrixService {
 
     // Поле источника (системный код)
     lead.UF_CRM_1234567892 = applicationData.source
+    
+    // Добавляем реферальный код если есть
+    if (applicationData.referral_code) {
+      lead.UF_CRM_REFERRAL_CODE = applicationData.referral_code
+    }
 
     // Сохраняем только релевантные поля предпочтений из попапа
     if (applicationData.user_preferences) {
