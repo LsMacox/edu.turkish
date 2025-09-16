@@ -27,7 +27,8 @@
     <section id="sorting" class="py-4 md:py-6 bg-background">
       <div class="container mx-auto px-4 lg:px-6">
         <SortBar
-          :total="sorted.length"
+          :total="totalUniversities"
+          :displayed="sorted.length"
           :sort="sort"
           @update:sort="setSort"
         />
@@ -54,11 +55,18 @@
 
         <div class="text-center mt-8 md:mt-12">
           <button
-            class="bg-white border-2 border-primary text-primary px-6 md:px-8 py-3 rounded-xl font-semibold hover:bg-primary hover:text-white transition-all min-h-touch-48"
+            class="bg-white border-2 border-primary text-primary px-6 md:px-8 py-3 rounded-xl font-semibold hover:bg-primary hover:text-white transition-all min-h-touch-48 disabled:opacity-50 disabled:cursor-not-allowed"
             @click="loadMore"
+            :disabled="isLoadingMore || !hasMore"
             v-if="hasMore"
           >
-            {{ $t('universities_page.load_more') }}
+            <span v-if="isLoadingMore" class="flex items-center gap-2">
+              <Icon name="mdi:loading" class="w-4 h-4 animate-spin" />
+              {{ $t('universities_page.loading') }}
+            </span>
+            <span v-else>
+              {{ $t('universities_page.load_more') }}
+            </span>
           </button>
         </div>
       </div>
@@ -90,7 +98,7 @@ const router = useRouter()
 // Use the universities store
 const universitiesStore = useUniversitiesStore()
 
-const page = ref(Number((route.query.page as string) || 1) || 1)
+const page = ref(1) // Always start from page 1, ignore URL page parameter
 const pageSize = 6
 const isLoadingMore = ref(false)
 
@@ -102,49 +110,17 @@ onMounted(() => {
   universitiesStore.initializeFilters()
 })
 
-// Watch for route changes (excluding pagination) to reinitialize filters
+// Watch for route changes to reinitialize filters (all changes now trigger reset)
 watch(
+  route.query,
   () => {
-    const { page: _page, ...rest } = route.query
-    return rest
-  },
-  () => {
-    // Only reset if we're on page 1 to avoid interfering with pagination
-    if (page.value === 1) {
-      universitiesStore.initializeFilters()
-    }
+    // Reset page state when filters change
+    page.value = 1
+    universitiesStore.initializeFilters()
   },
   { deep: true }
 )
 
-// Keep page in sync with URL query without triggering filter re-fetch
-watch(page, (newPage) => {
-  // Only update URL if page has actually changed to prevent infinite loops
-  const currentPage = Number(route.query.page) || 1
-  if (newPage !== currentPage) {
-    const currentScrollY = typeof window !== 'undefined' ? window.scrollY : 0
-    const nextQuery: Record<string, any> = { ...route.query }
-    if (newPage && newPage > 1) {
-      nextQuery.page = newPage
-    } else {
-      // Remove page from query when returning to first page
-      if ('page' in nextQuery) delete nextQuery.page
-    }
-    
-    // Use router.replace but preserve scroll position for pagination
-    // Set flag to prevent fetchUniversities from being called in store
-    universitiesStore.isUpdatingFromURL = true
-    router.replace({ query: nextQuery }).then(() => {
-      if (typeof window !== 'undefined') {
-        // Force scroll position after route update completes
-        requestAnimationFrame(() => {
-          window.scrollTo(0, currentScrollY)
-          universitiesStore.isUpdatingFromURL = false
-        })
-      }
-    })
-  }
-})
 
 const sorted = computed(() => universitiesStore.filteredUniversities)
 
@@ -152,28 +128,39 @@ const sorted = computed(() => universitiesStore.filteredUniversities)
 const paged = computed(() => sorted.value)
 
 // Check if there are more universities to load from the server
-const hasMore = computed(() => sorted.value.length < totalUniversities.value)
+const hasMore = computed(() => {
+  // Hide button if we're currently loading more
+  if (isLoadingMore.value) return false
+  
+  // Use pagination metadata from server response
+  const totalPages = Math.ceil(totalUniversities.value / pageSize)
+  return page.value < totalPages
+})
 
 async function loadMore() {
   if (isLoadingMore.value) return
   
-  const nextPage = page.value + 1
-  
-  // Check if we've already loaded all universities
-  if (sorted.value.length >= totalUniversities.value) {
+  // Check if there are more pages using server metadata
+  const totalPages = Math.ceil(totalUniversities.value / pageSize)
+  if (page.value >= totalPages) {
     return
   }
   
   isLoadingMore.value = true
   
   try {
-    page.value = nextPage
+    const nextPage = page.value + 1
     
     // Fetch more universities from the server with the new page
-    await fetchUniversities({ 
+    const result = await fetchUniversities({ 
       limit: pageSize, 
       page: nextPage 
     })
+    
+    // Only update page state if we got results
+    if (result && result.data && result.data.length > 0) {
+      page.value = nextPage
+    }
   } finally {
     isLoadingMore.value = false
   }

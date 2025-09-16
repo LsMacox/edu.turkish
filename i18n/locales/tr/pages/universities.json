@@ -53,6 +53,8 @@
     },
     "sort": {
       "found_text": "Bulundu",
+      "showing_text": "Gösterilen",
+      "of_text": "toplam",
       "universities_text": "üniversite",
       "sort_label": "Sıralama:",
       "options": {
@@ -63,6 +65,7 @@
         "english_first": "Önce İngilizce"
       }
     },
+    "loading": "Yükleniyor...",
     "card": {
       "types": {
         "state": "Devlet",

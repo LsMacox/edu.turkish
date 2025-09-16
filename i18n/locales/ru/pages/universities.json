@@ -53,6 +53,8 @@
     },
     "sort": {
       "found_text": "Найдено",
+      "showing_text": "Показано",
+      "of_text": "из",
       "universities_text": "университетов",
       "sort_label": "Сортировка:",
       "options": {
@@ -63,6 +65,7 @@
         "english_first": "Сначала с английским"
       }
     },
+    "loading": "Загрузка...",
     "card": {
       "types": {
         "state": "Государственный",

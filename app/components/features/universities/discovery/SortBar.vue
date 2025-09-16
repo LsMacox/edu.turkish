@@ -1,7 +1,7 @@
 <template>
   <div class="flex flex-col md:flex-row justify-between items-center gap-4">
     <p class="text-secondary font-medium">
-      {{ $t('universities_page.sort.found_text') }} <span class="text-primary font-bold">{{ total }}</span> {{ $t('universities_page.sort.universities_text') }}
+      {{ $t('universities_page.sort.showing_text') }} <span class="text-primary font-bold">{{ displayed }}</span> {{ $t('universities_page.sort.of_text') }} <span class="text-primary font-bold">{{ total }}</span> {{ $t('universities_page.sort.universities_text') }}
     </p>
 
     <div class="flex items-center gap-4">
@@ -18,5 +18,5 @@
 </template>
 
 <script setup lang="ts">
-const props = defineProps<{ total: number; sort: string }>()
+const props = defineProps<{ total: number; displayed: number; sort: string }>()
 </script>

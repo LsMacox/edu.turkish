@@ -53,6 +53,8 @@
     },
     "sort": {
       "found_text": "Табылды",
+      "showing_text": "Көрсетілген",
+      "of_text": "жалпы",
       "universities_text": "университет",
       "sort_label": "Сұрыптау:",
       "options": {
@@ -63,6 +65,7 @@
         "english_first": "Алдымен ағылшын тілі"
       }
     },
+    "loading": "Жүктелуде...",
     "card": {
       "types": {
         "state": "Мемлекеттік",

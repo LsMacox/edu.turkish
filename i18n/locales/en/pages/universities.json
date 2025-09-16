@@ -53,6 +53,8 @@
     },
     "sort": {
       "found_text": "Found",
+      "showing_text": "Showing",
+      "of_text": "of",
       "universities_text": "universities",
       "sort_label": "Sort by:",
       "options": {
@@ -63,6 +65,7 @@
         "english_first": "English first"
       }
     },
+    "loading": "Loading...",
     "card": {
       "types": {
         "state": "State",

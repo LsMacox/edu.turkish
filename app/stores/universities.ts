@@ -126,9 +126,13 @@ export const useUniversitiesStore = defineStore('universities', () => {
       availableFilters.value = response.filters
       if (process.client) console.debug('[universities] fetched', response.data?.length)
       
+      // Return response for loadMore logic
+      return response
+      
     } catch (err: any) {
       error.value = err.message || 'Failed to fetch universities'
       if (process.client) console.error('[universities] fetch error', err)
+      return null
     } finally {
       loading.value = false
       if (process.client) console.debug('[universities] fetch end')

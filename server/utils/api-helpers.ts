@@ -14,7 +14,7 @@ export function parseUniversityFilters(query: Record<string, any>) {
     price_max: query.price_max ? Number(query.price_max) : 20000,
     sort: query.sort as string || 'pop',
     page: query.page ? Number(query.page) : 1,
-    limit: query.limit ? Number(query.limit) : 20
+    limit: query.limit ? Number(query.limit) : 6
   }
 }
 
