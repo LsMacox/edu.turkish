@@ -41,9 +41,22 @@ export default defineEventHandler(async (event) => {
   }
 })
 
-async function getDirectionStats(directionSlugs: string[], locale: string) {
-  // Получаем направления по слагам
-  const directions = await (prisma as any).studyDirection.findMany({
+export interface DirectionStatsDto {
+  universities_count: number
+  price_from: number
+  direction_slugs: string[]
+}
+
+export async function getDirectionStats(directionSlugs: string[], locale: string): Promise<DirectionStatsDto> {
+  if (directionSlugs.length === 0) {
+    return {
+      universities_count: 0,
+      price_from: 0,
+      direction_slugs: directionSlugs
+    }
+  }
+
+  const directions = await prisma.studyDirection.findMany({
     where: {
       translations: {
         some: {
@@ -52,41 +65,62 @@ async function getDirectionStats(directionSlugs: string[], locale: string) {
         }
       }
     },
-    include: {
-      universityDirections: {
-        include: {
-          university: true
-        }
-      }
+    select: {
+      id: true
     }
   })
-  
-  // Собираем все университеты для этих направлений
-  const allUniversities = directions.flatMap((direction: any) => 
-    direction.universityDirections.map((ud: any) => ud.university)
-  )
-  
-  // Убираем дубликаты университетов
-  const uniqueUniversities = allUniversities.filter((uni: any, index: number, arr: any[]) => 
-    arr.findIndex((u: any) => u.id === uni.id) === index
-  )
-  
-  // Получаем минимальную стоимость
-  const costs = uniqueUniversities
-    .map((uni: any) => (uni.tuitionMin ?? uni.tuitionMax))
-    .filter((cost: number | null | undefined) => cost !== null && cost !== undefined)
-    .map((cost: number | null | undefined) => Number(cost))
-  
-  const minCost = costs.length > 0 ? Math.min(...costs) : 0
-  
-  // Возвращаем только реальные значения без "красивых" подстановок
-  const displayCount = uniqueUniversities.length
-  const adjustedMinCost = minCost
-  
+
+  const directionIds = directions.map(direction => direction.id)
+
+  if (directionIds.length === 0) {
+    return {
+      universities_count: 0,
+      price_from: 0,
+      direction_slugs: directionSlugs
+    }
+  }
+
+  const baseWhere = {
+    universityDirections: {
+      some: {
+        directionId: { in: directionIds }
+      }
+    }
+  }
+
+  const universitiesCount = await prisma.university.count({
+    where: baseWhere
+  })
+
+  if (universitiesCount === 0) {
+    return {
+      universities_count: 0,
+      price_from: 0,
+      direction_slugs: directionSlugs
+    }
+  }
+
+  const priceAggregate = await prisma.university.aggregate({
+    where: baseWhere,
+    _min: {
+      tuitionMin: true,
+      tuitionMax: true
+    }
+  })
+
+  const minTuition = priceAggregate._min.tuitionMin
+  const minTuitionMax = priceAggregate._min.tuitionMax
+
+  const priceFrom =
+    minTuition !== null && minTuition !== undefined
+      ? Number(minTuition)
+      : minTuitionMax !== null && minTuitionMax !== undefined
+        ? Number(minTuitionMax)
+        : 0
+
   return {
-    universities_count: displayCount,
-    price_from: adjustedMinCost,
-    actual_universities: uniqueUniversities.length,
+    universities_count: universitiesCount,
+    price_from: priceFrom,
     direction_slugs: directionSlugs
   }
 }
