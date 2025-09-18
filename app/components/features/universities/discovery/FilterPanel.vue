@@ -65,8 +65,8 @@
     <div class="md:col-span-2 lg:col-span-6">
       <UiFormsBaseRangeSlider
         v-model="priceRange"
-        :min="0"
-        :max="25000"
+        :min="priceRangeBounds[0]"
+        :max="priceRangeBounds[1]"
         :step="500"
         :label="$t('universities_page.filters.price_label')"
       />
@@ -121,7 +121,15 @@ const state = reactive({
   level: 'Все'
 })
 
-const priceRange = ref<[number, number]>([0, 20000])
+const priceRangeBounds = computed<[number, number]>(() => {
+  const range = availableFilters.value.priceRange
+  return [range[0], range[1]]
+})
+
+const priceRange = ref<[number, number]>([
+  priceRangeBounds.value[0],
+  priceRangeBounds.value[1]
+])
 
 function getTypeLabel(t: string): string {
   switch (t) {
@@ -145,7 +153,10 @@ const initializeFromFilters = () => {
   state.langs = [...filters.value.langs]
   state.type = filters.value.type
   state.level = filters.value.level
-  priceRange.value = [...filters.value.price]
+  const price = filters.value.price?.length === 2
+    ? filters.value.price
+    : priceRangeBounds.value
+  priceRange.value = [price[0], price[1]] as [number, number]
 }
 
 // Initialize on mount
@@ -157,6 +168,16 @@ onMounted(() => {
 watch(() => filters.value, () => {
   initializeFromFilters()
 }, { deep: true })
+
+watch(priceRangeBounds, ([min, max]) => {
+  const [currentMin, currentMax] = priceRange.value
+  const boundedMin = Math.min(Math.max(currentMin, min), max)
+  const boundedMax = Math.max(Math.min(currentMax, max), min)
+
+  if (boundedMin !== currentMin || boundedMax !== currentMax) {
+    priceRange.value = [boundedMin, boundedMax] as [number, number]
+  }
+})
 
 function toggleLang(lang: string, checked: boolean) {
   if (checked) {
@@ -174,7 +195,10 @@ function reset() {
   state.langs = []
   state.type = 'Все'
   state.level = 'Все'
-  priceRange.value = [0, 20000]
+  priceRange.value = [
+    priceRangeBounds.value[0],
+    priceRangeBounds.value[1]
+  ] as [number, number]
   
   // Apply reset filters to URL immediately
   apply()
