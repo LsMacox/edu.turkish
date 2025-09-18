@@ -95,8 +95,10 @@ export default defineNuxtConfig({
     }
   },
   runtimeConfig: {
+    directusStaticToken: process.env.DIRECTUS_STATIC_TOKEN || '',
     public: {
       siteUrl,
+      directusUrl: process.env.NUXT_PUBLIC_DIRECTUS_URL || process.env.DIRECTUS_PUBLIC_URL || 'http://localhost:8055',
       yandexMetrikaId: process.env.NUXT_PUBLIC_YANDEX_METRIKA_ID || ''
     }
   },

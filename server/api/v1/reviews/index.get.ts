@@ -9,10 +9,8 @@ export default defineEventHandler(async (event): Promise<ReviewResponse> => {
     const query = getQuery(event)
     const filters = parseReviewFilters(query)
     
-    // Initialize repository
+    // Currently using Prisma until Directus collections are mapped (Phase 2)
     const reviewRepository = new ReviewRepository(prisma)
-    
-    // Get reviews from database
     const result = await reviewRepository.findAll(filters, locale)
     
     return {

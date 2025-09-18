@@ -17,11 +17,9 @@ export default defineEventHandler(async (event): Promise<FAQResponse> => {
       limit: query.limit ? Number(query.limit) : undefined
     }
     
-    // Initialize repository
+    // Currently using Prisma until Directus collections are mapped (Phase 2)
     const faqRepository = new FAQRepository(prisma)
-    
-    // Get FAQs from database
-    const result = await faqRepository.findAll(params, locale)
+    const result: FAQResponse = await faqRepository.findAll(params, locale)
     
     return result
   } catch (error) {
