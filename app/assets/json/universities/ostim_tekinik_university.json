@@ -2,54 +2,310 @@
   "locale": "ru",
   "countryCode": "TUR",
   "countryName": "Турция",
-  "title": "Ostim Teknik Üniversitesi",
-  "description": "Технический университет в Анкаре, специализирующийся на инженерных и технологических программах.",
+  "title": "OSTİM Teknik Üniversitesi",
+  "description": "Практико-ориентированный частный университет в Анкаре, основанный OSTİM Organize Sanayi Bölgesi. Сильные инженерные программы, тесное сотрудничество с индустрией и акцент на предпринимательство.",
   "slug": "ostim-teknik-universitesi",
   "city": "Анкара",
   "foundedYear": 2017,
   "type": "private",
   "tuitionRange": {
-    "min": 3000,
-    "max": 15000,
+    "min": 2800,
+    "max": 5500,
     "currency": "USD"
   },
+  "rankingScore": 0,
+  "totalStudents": 3500,
+  "internationalStudents": 450,
   "hasAccommodation": true,
   "hasScholarships": true,
   "heroImage": "/images/universities/ostim-tekinik-bg.jpg",
   "image": "/images/universities/ostim-tekinik-preview.jpg",
   "about": {
-    "history": "История университета",
-    "mission": "Миссия университета",
+    "history": "Университет официально открылся в 2020 году как продолжение OSTİM Akademi, чтобы готовить инженеров и предпринимателей для промышленного кластера OSTİM.",
+    "mission": "Интегрировать образование, исследования и промышленность, развивать инженеров, готовых к цифровой трансформации производства.",
     "advantages": [
-      "Современный кампус",
-      "Качественное образование",
-      "Международные программы",
-      "Карьерные возможности"
+      "Кампус расположен в промышленном кластере OSTİM с прямым доступом к предприятиям",
+      "Учебные планы формируются совместно с промышленными партнёрами",
+      "Инкубатор и акселератор стартапов OSTİM Tech",
+      "Практика и стажировки с первого курса",
+      "Международные программы обмена и Erasmus+"
     ]
   },
   "strong_programs": [
     {
-      "category": "Основные направления",
+      "category": "Инженерия и робототехника",
       "programs": [
-        "Программа 1",
-        "Программа 2"
+        "Мехатроника",
+        "Электроника и встраиваемые системы",
+        "Аэрокосмическая инженерия"
+      ]
+    },
+    {
+      "category": "Индустрия 4.0 и производство",
+      "programs": [
+        "Инженерия промышленных систем",
+        "Управление цепями поставок",
+        "Технологии аддитивного производства"
+      ]
+    },
+    {
+      "category": "ИТ и программная инженерия",
+      "programs": [
+        "Компьютерная инженерия",
+        "Программная инженерия",
+        "Кибербезопасность"
+      ]
+    },
+    {
+      "category": "Бизнес и предпринимательство",
+      "programs": [
+        "Международная торговля и финансы",
+        "Бизнес-администрирование",
+        "Логистика"
       ]
     }
   ],
   "key_info_texts": {
     "city_label": "Город",
+    "city_note": "Анкара (OSTİM, Yenimahalle)",
     "founded_year_label": "Год основания",
+    "founded_year_note": "2017",
     "tuition_label": "Стоимость обучения",
+    "tuition_note": "от 2 800 USD (в зависимости от факультета)",
     "languages_label": "Языки обучения",
-    "type_label": "Тип университета"
+    "languages_note": "Турецкий и Английский",
+    "total_students_label": "Студенты",
+    "total_students_note": "Около 3 500",
+    "international_students_label": "Международные студенты",
+    "international_students_note": "Более 400",
+    "type_label": "Тип",
+    "type_note": "Фондовый университет"
+  },
+  "campus_life": {
+    "facilities": [
+      {
+        "name": "OSTİM Teknopark",
+        "description": "Технопарк и R&D-центры, где студенты работают над индустриальными проектами",
+        "icon": "mdi-factory"
+      },
+      {
+        "name": "Лаборатории Industry 4.0",
+        "description": "Лаборатории робототехники, автоматизации, IoT и 3D-печати",
+        "icon": "mdi-robot"
+      },
+      {
+        "name": "Центр предпринимательства",
+        "description": "Инкубатор стартапов, менторские программы и доступ к инвесторам",
+        "icon": "mdi-lightbulb-on-outline"
+      },
+      {
+        "name": "Библиотека и медиа-центр",
+        "description": "Современная библиотека, e-ресурсы и co-working зоны",
+        "icon": "mdi-library"
+      },
+      {
+        "name": "Спортивные площадки",
+        "description": "Фитнес-зал, баскетбол, мини-футбол, беговые дорожки",
+        "icon": "mdi-basketball"
+      }
+    ],
+    "gallery": [
+      {
+        "url": "/images/universities/ostim-campus-1.jpg",
+        "alt": "Главный кампус OSTİM Teknik"
+      },
+      {
+        "url": "/images/universities/ostim-lab-robotics.jpg",
+        "alt": "Лаборатория робототехники"
+      },
+      {
+        "url": "/images/universities/ostim-startup.jpg",
+        "alt": "Инкубатор стартапов OSTİM Tech"
+      }
+    ],
+    "studentClubs": [
+      "Aerospace & Drone Club",
+      "Robotics & Automation",
+      "OSTİM Entrepreneurs",
+      "Women in Engineering",
+      "Международное сообщество студентов"
+    ]
+  },
+  "admission": {
+    "requirements": [
+      {
+        "category": "exam",
+        "requirement": "YÖS / SAT или внутренний OSTİM Talent Exam",
+        "details": "Для инженерных и авиационных программ рекомендуется высокий балл"
+      },
+      {
+        "category": "language",
+        "requirement": "TOEFL iBT ≥ 72 или внутренний экзамен английского",
+        "details": "Для программ на английском языке"
+      }
+    ],
+    "documents": [
+      {
+        "name": "Аттестат о среднем образовании",
+        "description": "Апостиль и нотариальный перевод на турецкий или английский"
+      },
+      {
+        "name": "Загранпаспорт",
+        "description": "Срок действия не менее 18 месяцев"
+      },
+      {
+        "name": "Фотографии",
+        "description": "Фото 4.5×6 см, 4 шт"
+      },
+      {
+        "name": "Академическая справка",
+        "description": "Выписка оценок / транскрипт"
+      },
+      {
+        "name": "Языковой сертификат",
+        "description": "TOEFL, IELTS или сертификат об окончании подготовительной школы"
+      }
+    ],
+    "scholarships": [
+      {
+        "name": "Стипендия OSTİM Industrial",
+        "type": "university",
+        "coverage_percentage": 50,
+        "eligibility_criteria": [
+          "Высокий средний балл",
+          "Результаты YÖS/SAT",
+          "Участие в индустриальных проектах"
+        ]
+      },
+      {
+        "name": "Стипендия Entrepreneurship Support",
+        "type": "merit",
+        "coverage_percentage": 75,
+        "eligibility_criteria": [
+          "Успехи в стартап-проектах",
+          "Победы в технологических конкурсах"
+        ]
+      }
+    ]
   },
   "programs": [
     {
       "degree_type": "bachelor",
-      "name": "Пример программы",
+      "name": "Инженерия мехатроники",
+      "language": "en",
+      "tuition_per_year": 4800,
+      "duration_years": 4,
+      "direction_slug": "mechatronics"
+    },
+    {
+      "degree_type": "bachelor",
+      "name": "Компьютерная инженерия",
+      "language": "en",
+      "tuition_per_year": 4500,
+      "duration_years": 4,
+      "direction_slug": "computer-engineering"
+    },
+    {
+      "degree_type": "bachelor",
+      "name": "Программная инженерия",
+      "language": "en",
+      "tuition_per_year": 4500,
+      "duration_years": 4,
+      "direction_slug": "software-engineering"
+    },
+    {
+      "degree_type": "bachelor",
+      "name": "Инженерия промышленных систем",
       "language": "tr",
-      "tuition_per_year": 5000,
-      "duration_years": 4
+      "tuition_per_year": 3200,
+      "duration_years": 4,
+      "direction_slug": "industrial-engineering"
+    },
+    {
+      "degree_type": "bachelor",
+      "name": "Электроника и встраиваемые системы",
+      "language": "tr",
+      "tuition_per_year": 3200,
+      "duration_years": 4,
+      "direction_slug": "electrical-engineering"
+    },
+    {
+      "degree_type": "bachelor",
+      "name": "Аэрокосмическая инженерия",
+      "language": "en",
+      "tuition_per_year": 5200,
+      "duration_years": 4,
+      "direction_slug": "aerospace"
+    },
+    {
+      "degree_type": "bachelor",
+      "name": "Кибербезопасность",
+      "language": "en",
+      "tuition_per_year": 4200,
+      "duration_years": 4,
+      "direction_slug": "cybersecurity"
+    },
+    {
+      "degree_type": "bachelor",
+      "name": "Логистика и управление цепями поставок",
+      "language": "tr",
+      "tuition_per_year": 3000,
+      "duration_years": 4,
+      "direction_slug": "logistics"
+    },
+    {
+      "degree_type": "bachelor",
+      "name": "Международная торговля и финансы",
+      "language": "en",
+      "tuition_per_year": 3200,
+      "duration_years": 4,
+      "direction_slug": "business"
+    },
+    {
+      "degree_type": "bachelor",
+      "name": "Бизнес-администрирование",
+      "language": "tr",
+      "tuition_per_year": 3000,
+      "duration_years": 4,
+      "direction_slug": "business"
+    },
+    {
+      "degree_type": "bachelor",
+      "name": "Маркетинг и цифровые медиа",
+      "language": "tr",
+      "tuition_per_year": 3000,
+      "duration_years": 4,
+      "direction_slug": "marketing"
+    },
+    {
+      "degree_type": "bachelor",
+      "name": "Промышленный дизайн",
+      "language": "tr",
+      "tuition_per_year": 3000,
+      "duration_years": 4,
+      "direction_slug": "design"
+    },
+    {
+      "degree_type": "bachelor",
+      "name": "Мультимедиа и коммуникационный дизайн",
+      "language": "en",
+      "tuition_per_year": 3200,
+      "duration_years": 4,
+      "direction_slug": "visual-arts"
     }
+  ],
+  "directions": [
+    "mechatronics",
+    "computer-engineering",
+    "software-engineering",
+    "industrial-engineering",
+    "electrical-engineering",
+    "aerospace",
+    "cybersecurity",
+    "logistics",
+    "business",
+    "design",
+    "visual-arts",
+    "marketing"
   ]
 }

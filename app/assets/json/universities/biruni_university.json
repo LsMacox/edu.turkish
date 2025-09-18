@@ -3,53 +3,402 @@
   "countryCode": "TUR",
   "countryName": "Турция",
   "title": "Biruni Üniversitesi",
-  "description": "Частный университет в Стамбуле с сильными программами в области здравоохранения и медицинских наук.",
+  "description": "Динамично развивающийся частный университет в Стамбуле (основан в 2014 году), специализирующийся на медицине и здравоохранении, а также инженерии, педагогике и социальных науках.",
   "slug": "biruni-universitesi",
   "city": "Стамбул",
   "foundedYear": 2014,
   "type": "private",
   "tuitionRange": {
-    "min": 3000,
-    "max": 15000,
+    "min": 4000,
+    "max": 20000,
     "currency": "USD"
   },
+  "rankingScore": 0,
+  "totalStudents": 12500,
+  "internationalStudents": 2000,
   "hasAccommodation": true,
   "hasScholarships": true,
   "heroImage": "/images/universities/biruni-bg.jpg",
   "image": "/images/universities/biruni-preview.jpg",
   "about": {
-    "history": "История университета",
-    "mission": "Миссия университета",
+    "history": "Biruni University создан как университет будущего в области медицины и технологий.",
+    "mission": "Готовить специалистов с глубокими знаниями и практическими навыками, способных конкурировать на международном уровне.",
     "advantages": [
-      "Современный кампус",
-      "Качественное образование",
-      "Международные программы",
-      "Карьерные возможности"
+      "Практика в собственных клиниках университета",
+      "Скидки и стипендии до 50%",
+      "Международные обмены (Erasmus+)",
+      "Дружелюбная мультикультурная среда",
+      "Современные лаборатории и симуляционные центры"
     ]
   },
   "strong_programs": [
     {
-      "category": "Основные направления",
+      "category": "Медицина и стоматология",
       "programs": [
-        "Программа 1",
-        "Программа 2"
+        "Медицина",
+        "Стоматология",
+        "Фармация"
+      ]
+    },
+    {
+      "category": "Здравоохранение",
+      "programs": [
+        "Сестринское дело",
+        "Акушерство",
+        "Физиотерапия и реабилитация",
+        "Аудиология",
+        "Логопедия и речевая терапия",
+        "Эрготерапия",
+        "Питание и диетология"
+      ]
+    },
+    {
+      "category": "Инженерия и технологии",
+      "programs": [
+        "Компьютерная инженерия",
+        "Биомедицинская инженерия",
+        "Молекулярная биология и генетика"
+      ]
+    },
+    {
+      "category": "Психология и педагогика",
+      "programs": [
+        "Психологическое консультирование и руководство",
+        "Дошкольное образование",
+        "Преподавание математики в начальной школе",
+        "Преподавание английского языка",
+        "Специальное образование",
+        "Развитие ребёнка"
       ]
     }
   ],
   "key_info_texts": {
     "city_label": "Город",
+    "city_note": "Стамбул (Topkapı / Küçükçekmece)",
     "founded_year_label": "Год основания",
     "tuition_label": "Стоимость обучения",
+    "tuition_note": "От 4 000 USD в год (в зависимости от программы)",
     "languages_label": "Языки обучения",
-    "type_label": "Тип университета"
+    "languages_note": "Турецкий и Английский",
+    "total_students_label": "Студенты",
+    "total_students_note": "Около 12 500",
+    "international_students_label": "Международные студенты",
+    "international_students_note": "Более 2 000",
+    "type_label": "Тип университета",
+    "type_note": "Частный"
+  },
+  "campus_life": {
+    "facilities": [
+      {
+        "name": "Университетская больница (Biruni University Hospital)",
+        "description": "Клиническая база для обучения и практики студентов медицинских направлений.",
+        "icon": "mdi-hospital-building"
+      },
+      {
+        "name": "Стоматологический госпиталь",
+        "description": "Практическая подготовка студентов-стоматологов на реальных кейсах.",
+        "icon": "mdi-tooth-outline"
+      },
+      {
+        "name": "Симуляционные центры",
+        "description": "Современные симуляторы и практические лаборатории для медицины и сестринского дела.",
+        "icon": "mdi-stethoscope"
+      },
+      {
+        "name": "Лаборатории",
+        "description": "Исследовательские и учебные лаборатории по биомедицине, инженерии и биологии.",
+        "icon": "mdi-flask"
+      },
+      {
+        "name": "Библиотека и e-ресурсы",
+        "description": "Круглосуточный доступ к электронным каталогам и академическим базам данных.",
+        "icon": "mdi-library"
+      },
+      {
+        "name": "Общежития и резиденции",
+        "description": "Общежития и партнёрские резиденции в пешей доступности от кампуса.",
+        "icon": "mdi-bed"
+      },
+      {
+        "name": "Студенческие клубы и спорт",
+        "description": "Культурные и спортивные мероприятия, активные студенческие сообщества.",
+        "icon": "mdi-basketball"
+      },
+      {
+        "name": "Кампус Topkapı",
+        "description": "Современные аудитории, лаборатории и инфраструктура в центральном районе Стамбула.",
+        "icon": "mdi-office-building"
+      },
+      {
+        "name": "Кафетерии и столовые",
+        "description": "Разнообразное питание на территории кампуса.",
+        "icon": "mdi-silverware-fork-knife"
+      }
+    ]
+  },
+  "admission": {
+    "requirements": [
+      {
+        "category": "exam",
+        "requirement": "TR-YÖS или SAT не обязательны; возможен приём по аттестату"
+      },
+      {
+        "category": "language",
+        "requirement": "TOEFL iBT ≥ 84 для программ на английском языке"
+      }
+    ],
+    "documents": [
+      {
+        "name": "Паспорт",
+        "description": "Копия разворота с фотографией"
+      },
+      {
+        "name": "Аттестат о среднем образовании",
+        "description": "С переводом на турецкий или английский при необходимости"
+      },
+      {
+        "name": "Выписка оценок",
+        "description": "Транскрипт со средним баллом"
+      },
+      {
+        "name": "Фотография",
+        "description": "Фото 3x4"
+      },
+      {
+        "name": "Сертификат владения английским языком",
+        "description": "TOEFL iBT ≥ 84 (для англоязычных программ)",
+        "format_requirements": [
+          "PDF"
+        ]
+      }
+    ],
+    "scholarships": [
+      {
+        "name": "Университетские скидки и стипендии",
+        "type": "university",
+        "coverage_percentage": 50,
+        "eligibility_criteria": [
+          "Академическая успеваемость",
+          "Результаты вступительных собеседований",
+          "Активность и достижения абитуриента"
+        ]
+      }
+    ]
   },
   "programs": [
     {
       "degree_type": "bachelor",
-      "name": "Пример программы",
+      "name": "Питание и диетология",
       "language": "tr",
-      "tuition_per_year": 5000,
+      "tuition_per_year": 4000,
+      "duration_years": 4,
+      "direction_slug": "public-health"
+    },
+    {
+      "degree_type": "bachelor",
+      "name": "Компьютерная инженерия",
+      "language": "tr",
+      "tuition_per_year": 4000,
+      "duration_years": 4,
+      "direction_slug": "computer-engineering"
+    },
+    {
+      "degree_type": "bachelor",
+      "name": "Компьютерная инженерия",
+      "language": "en",
+      "tuition_per_year": 7000,
+      "duration_years": 4,
+      "direction_slug": "computer-engineering"
+    },
+    {
+      "degree_type": "bachelor",
+      "name": "Биомедицинская инженерия",
+      "language": "en",
+      "tuition_per_year": 7000,
       "duration_years": 4
+    },
+    {
+      "degree_type": "bachelor",
+      "name": "Стоматология",
+      "language": "tr",
+      "tuition_per_year": 15000,
+      "duration_years": 5,
+      "direction_slug": "dentistry"
+    },
+    {
+      "degree_type": "bachelor",
+      "name": "Стоматология",
+      "language": "en",
+      "tuition_per_year": 17000,
+      "duration_years": 5,
+      "direction_slug": "dentistry"
+    },
+    {
+      "degree_type": "bachelor",
+      "name": "Акушерство",
+      "language": "tr",
+      "tuition_per_year": 4000,
+      "duration_years": 4,
+      "direction_slug": "nursing"
+    },
+    {
+      "degree_type": "bachelor",
+      "name": "Фармация",
+      "language": "tr",
+      "tuition_per_year": 10000,
+      "duration_years": 5,
+      "direction_slug": "pharmacy"
+    },
+    {
+      "degree_type": "bachelor",
+      "name": "Фармация",
+      "language": "en",
+      "tuition_per_year": 12000,
+      "duration_years": 5,
+      "direction_slug": "pharmacy"
+    },
+    {
+      "degree_type": "bachelor",
+      "name": "Сестринское дело",
+      "language": "tr",
+      "tuition_per_year": 4000,
+      "duration_years": 4,
+      "direction_slug": "nursing"
+    },
+    {
+      "degree_type": "bachelor",
+      "name": "Сестринское дело",
+      "language": "en",
+      "tuition_per_year": 6000,
+      "duration_years": 4,
+      "direction_slug": "nursing"
+    },
+    {
+      "degree_type": "bachelor",
+      "name": "Логопедия и речевая терапия",
+      "language": "tr",
+      "tuition_per_year": 4000,
+      "duration_years": 4
+    },
+    {
+      "degree_type": "bachelor",
+      "name": "Логопедия и речевая терапия",
+      "language": "en",
+      "tuition_per_year": 6000,
+      "duration_years": 4
+    },
+    {
+      "degree_type": "bachelor",
+      "name": "Эрготерапия",
+      "language": "tr",
+      "tuition_per_year": 4000,
+      "duration_years": 4
+    },
+    {
+      "degree_type": "bachelor",
+      "name": "Молекулярная биология и генетика",
+      "language": "tr",
+      "tuition_per_year": 4000,
+      "duration_years": 4,
+      "direction_slug": "biology"
+    },
+    {
+      "degree_type": "bachelor",
+      "name": "Молекулярная биология и генетика",
+      "language": "en",
+      "tuition_per_year": 7000,
+      "duration_years": 4,
+      "direction_slug": "biology"
+    },
+    {
+      "degree_type": "bachelor",
+      "name": "Аудиология",
+      "language": "tr",
+      "tuition_per_year": 4000,
+      "duration_years": 4
+    },
+    {
+      "degree_type": "bachelor",
+      "name": "Дошкольное образование",
+      "language": "tr",
+      "tuition_per_year": 4000,
+      "duration_years": 4,
+      "direction_slug": "education"
+    },
+    {
+      "degree_type": "bachelor",
+      "name": "Психологическое консультирование и руководство",
+      "language": "tr",
+      "tuition_per_year": 4000,
+      "duration_years": 4,
+      "direction_slug": "education"
+    },
+    {
+      "degree_type": "bachelor",
+      "name": "Медицина",
+      "language": "tr",
+      "tuition_per_year": 17000,
+      "duration_years": 6,
+      "direction_slug": "medicine"
+    },
+    {
+      "degree_type": "bachelor",
+      "name": "Медицина",
+      "language": "en",
+      "tuition_per_year": 20000,
+      "duration_years": 6,
+      "direction_slug": "medicine"
+    },
+    {
+      "degree_type": "bachelor",
+      "name": "Развитие ребёнка",
+      "language": "tr",
+      "tuition_per_year": 4000,
+      "duration_years": 4,
+      "direction_slug": "education"
+    },
+    {
+      "degree_type": "bachelor",
+      "name": "Специальное образование",
+      "language": "tr",
+      "tuition_per_year": 4000,
+      "duration_years": 4,
+      "direction_slug": "education"
+    },
+    {
+      "degree_type": "bachelor",
+      "name": "Преподавание математики в начальной школе",
+      "language": "tr",
+      "tuition_per_year": 4000,
+      "duration_years": 4,
+      "direction_slug": "education"
+    },
+    {
+      "degree_type": "bachelor",
+      "name": "Преподавание английского языка",
+      "language": "en",
+      "tuition_per_year": 4000,
+      "duration_years": 4,
+      "direction_slug": "languages-linguistics"
+    },
+    {
+      "degree_type": "bachelor",
+      "name": "Дизайн интерьера и предметно-пространственной среды",
+      "language": "tr",
+      "tuition_per_year": 4000,
+      "duration_years": 4,
+      "direction_slug": "design"
     }
+  ],
+  "directions": [
+    "medicine",
+    "dentistry",
+    "pharmacy",
+    "nursing",
+    "computer-engineering",
+    "biology",
+    "education",
+    "design",
+    "psychology"
   ]
 }
