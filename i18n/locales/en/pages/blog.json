@@ -1,0 +1,190 @@
+{
+  "blog": {
+    "meta": {
+      "title": "Blog & FAQ - Edu.turkish",
+      "description": "Fresh articles about admission, visas, scholarships, and student life in Turkey. Expert answers from Edu.turkish to popular questions."
+    },
+    "hero": {
+      "title": "Blog &",
+      "titleAccent": "frequently asked questions",
+      "description": "Answers to key questions about admission, exams, scholarships, and studying in Turkey",
+      "searchPlaceholder": "Search for an article or answer...",
+      "imageAlt": "Students with laptops and notebooks studying, modern educational blog scene",
+      "highlight": {
+        "title": "Expert insights",
+        "subtitle": "From our consultants"
+      },
+      "stats": [
+        {
+          "icon": "mdi:newspaper-variant",
+          "label": "150+ helpful articles"
+        },
+        {
+          "icon": "mdi:help-circle-outline",
+          "label": "100+ answered questions"
+        },
+        {
+          "icon": "mdi:update",
+          "label": "Updated weekly"
+        }
+      ]
+    },
+    "categoryOrder": [
+      "all",
+      "exams",
+      "scholarships",
+      "cost",
+      "life",
+      "applications",
+      "visas"
+    ],
+    "categories": {
+      "all": {
+        "label": "All"
+      },
+      "exams": {
+        "label": "Exams"
+      },
+      "scholarships": {
+        "label": "Scholarships"
+      },
+      "cost": {
+        "label": "Costs"
+      },
+      "life": {
+        "label": "Life in Turkey"
+      },
+      "applications": {
+        "label": "Applications"
+      },
+      "visas": {
+        "label": "Visas"
+      },
+      "rankings": {
+        "label": "Rankings",
+        "showInFilters": false
+      }
+    },
+    "articles": {
+      "title": "Latest articles",
+      "readMore": "Read more →",
+      "loadMore": "Load more articles",
+      "items": {
+        "visaGuide": {
+          "title": "How to get a Turkish student visa: step-by-step guide 2025",
+          "excerpt": "Complete instructions for obtaining a Turkish student visa. Required documents, submission timelines, fees, and practical tips from our experts.",
+          "date": "15 Jan 2025",
+          "readingTime": "8 min read",
+          "imageAlt": "Student visa documents for Turkey and university acceptance letter"
+        },
+        "learnTurkish": {
+          "title": "Do you need Turkish language to apply?",
+          "excerpt": "When Turkish is mandatory and when you can study in English.",
+          "date": "12 Jan 2025",
+          "imageAlt": "Turkish language textbooks and learning materials on a desk"
+        },
+        "topUniversities": {
+          "title": "Top 10 universities in Turkey 2025",
+          "excerpt": "Updated ranking of the best universities by education quality and employability.",
+          "date": "10 Jan 2025",
+          "imageAlt": "University ranking charts and graphs on a computer screen"
+        },
+        "fullScholarship": {
+          "title": "How to secure a 100% scholarship in Turkey",
+          "excerpt": "Secrets for a successful full scholarship application at Turkish universities.",
+          "date": "8 Jan 2025",
+          "imageAlt": "Scholarship award ceremony at a Turkish university"
+        },
+        "studyCost": {
+          "title": "How much does studying in Turkey cost in 2025",
+          "excerpt": "Detailed breakdown of all expenses: tuition, housing, food, and lifestyle.",
+          "date": "5 Jan 2025",
+          "imageAlt": "Cost breakdown spreadsheet for studying in Turkey"
+        },
+        "housingIstanbul": {
+          "title": "Where to live as a student in Istanbul",
+          "excerpt": "Guide to choosing housing: dormitories, apartments, districts, and prices.",
+          "date": "3 Jan 2025",
+          "imageAlt": "International students living in a Turkish dormitory"
+        },
+        "applicationGuide": {
+          "title": "How to fill in a university application correctly",
+          "excerpt": "Step-by-step instructions for submitting an online application without mistakes.",
+          "date": "1 Jan 2025",
+          "imageAlt": "Online university application form on a laptop screen"
+        },
+        "examChoice": {
+          "title": "TOEFL or IELTS: which works for Turkey",
+          "excerpt": "Comparison of language exams and requirements of Turkish universities.",
+          "date": "28 Dec 2024",
+          "imageAlt": "TOEFL and IELTS preparation books and materials"
+        },
+        "adaptation": {
+          "title": "How to adapt to life in Turkey",
+          "excerpt": "Tips for cultural adaptation and integrating into Turkish society.",
+          "date": "25 Dec 2024",
+          "imageAlt": "Students exploring Istanbul and discovering Turkish culture"
+        }
+      }
+    },
+    "sidebar": {
+      "popular": {
+        "title": "Trending reads",
+        "items": [
+          {
+            "title": "Documents needed to apply to a Turkish university",
+            "date": "15 Jan 2025",
+            "views": "2,450 views"
+          },
+          {
+            "title": "Best universities to study medicine in Turkey",
+            "date": "12 Jan 2025",
+            "views": "1,890 views"
+          },
+          {
+            "title": "How to get a student discount in Turkey",
+            "date": "8 Jan 2025",
+            "views": "1,654 views"
+          },
+          {
+            "title": "Student jobs in Turkey: rights and opportunities",
+            "date": "5 Jan 2025",
+            "views": "1,432 views"
+          }
+        ]
+      },
+      "newsletter": {
+        "title": "Subscribe for updates",
+        "description": "Receive new articles and helpful tips by email",
+        "placeholder": "Your email",
+        "button": "Subscribe",
+        "disclaimer": "No spam. Unsubscribe in one click."
+      },
+      "quickLinks": {
+        "title": "Useful links",
+        "items": [
+          {
+            "id": "universities",
+            "label": "University catalog"
+          },
+          {
+            "id": "calculator",
+            "label": "Cost calculator"
+          },
+          {
+            "id": "checklist",
+            "label": "Document checklist"
+          },
+          {
+            "id": "reviews",
+            "label": "Student reviews"
+          },
+          {
+            "id": "consultation",
+            "label": "Expert consultation"
+          }
+        ]
+      }
+    }
+  }
+}

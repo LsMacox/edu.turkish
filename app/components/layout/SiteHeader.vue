@@ -52,6 +52,15 @@
             {{ t('nav.reviews') }}
           </NuxtLink>
           <NuxtLink
+            :to="localePath('/blog')"
+            :class="[
+              'transition-colors font-medium cursor-pointer',
+              isActive('/blog') ? 'text-primary border-b-2 border-primary pb-0.5' : 'text-secondary hover:text-primary'
+            ]"
+          >
+            {{ t('nav.blog') }}
+          </NuxtLink>
+          <NuxtLink
             :to="localePath('/about')"
             :class="[
               'transition-colors font-medium cursor-pointer',

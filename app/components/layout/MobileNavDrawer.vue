@@ -79,7 +79,19 @@
             <Icon name="mdi:star" class="mr-3 text-lg" />
             {{ t('nav.reviews') }}
           </NuxtLink>
-          
+
+          <NuxtLink
+            :to="localePath('/blog')"
+            :class="[
+              'flex items-center px-4 py-4 rounded-xl transition-colors min-h-touch-48 text-base font-medium',
+              isActive('/blog') ? 'bg-primary/10 text-primary border-l-4 border-primary' : 'text-secondary hover:bg-gray-50'
+            ]"
+            @click="closeDrawer"
+          >
+            <Icon name="mdi:notebook-edit-outline" class="mr-3 text-lg" />
+            {{ t('nav.blog') }}
+          </NuxtLink>
+
           <NuxtLink
             :to="localePath('/about')"
             :class="[
