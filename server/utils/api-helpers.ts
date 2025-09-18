@@ -1,7 +1,5 @@
 import type { FAQItem, FAQCategory } from '../types/api'
 
-export { generateTrackingCode } from './tracking'
-
 /**
  * Parse query parameters for universities endpoint
  */
