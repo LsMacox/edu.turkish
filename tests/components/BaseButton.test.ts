@@ -1,19 +1,29 @@
 import { describe, it, expect, vi } from 'vitest'
-import { describe, it, expect, vi } from 'vitest'
 import { mount } from '@vue/test-utils'
 import BaseButton from '~/components/ui/forms/BaseButton.vue'
 
-vi.mock('@nuxt/icon', () => ({
-  Icon: {
-    name: 'Icon',
-    template: '<span data-testid="icon">{{ name }}</span>',
-    props: ['name']
-  }
-}))
+const IconStub = {
+  name: 'Icon',
+  template: '<span data-testid="icon">{{ name }}</span>',
+  props: ['name']
+}
+
+const mountBaseButton = (options: Parameters<typeof mount>[1] = {}) => {
+  return mount(BaseButton, {
+    ...options,
+    global: {
+      ...(options.global ?? {}),
+      stubs: {
+        Icon: IconStub,
+        ...(options.global?.stubs ?? {})
+      }
+    }
+  })
+}
 
 describe('BaseButton', () => {
   it('renders as button by default', () => {
-    const wrapper = mount(BaseButton, {
+    const wrapper = mountBaseButton({
       slots: { default: 'Click me' }
     })
     
@@ -22,7 +32,7 @@ describe('BaseButton', () => {
   })
 
   it('renders as anchor when href is provided', () => {
-    const wrapper = mount(BaseButton, {
+    const wrapper = mountBaseButton({
       props: { href: 'https://example.com' },
       slots: { default: 'Link' }
     })
@@ -32,7 +42,7 @@ describe('BaseButton', () => {
   })
 
   it('applies variant classes correctly', () => {
-    const wrapper = mount(BaseButton, {
+    const wrapper = mountBaseButton({
       props: { variant: 'outline' },
       slots: { default: 'Button' }
     })
@@ -42,17 +52,18 @@ describe('BaseButton', () => {
   })
 
   it('applies size classes correctly', () => {
-    const wrapper = mount(BaseButton, {
+    const wrapper = mountBaseButton({
       props: { size: 'lg' },
       slots: { default: 'Large Button' }
     })
-    
-    expect(wrapper.classes()).toContain('px-8')
+
+    expect(wrapper.classes()).toContain('px-6')
+    expect(wrapper.classes()).toContain('md:px-8')
     expect(wrapper.classes()).toContain('py-4')
   })
 
   it('shows loading spinner when loading', () => {
-    const wrapper = mount(BaseButton, {
+    const wrapper = mountBaseButton({
       props: { loading: true },
       slots: { default: 'Loading' }
     })
@@ -62,16 +73,30 @@ describe('BaseButton', () => {
   })
 
   it('shows icon when provided', () => {
-    const wrapper = mount(BaseButton, {
+    const wrapper = mountBaseButton({
       props: { icon: 'mdi:heart' },
       slots: { default: 'Like' }
     })
-    
+
     expect(wrapper.find('[data-testid="icon"]').exists()).toBe(true)
   })
 
+  it('renders icon-only button when no default slot is provided', () => {
+    const wrapper = mountBaseButton({
+      props: {
+        icon: 'mdi:heart',
+        ariaLabel: 'Favorite'
+      }
+    })
+
+    const icon = wrapper.find('[data-testid="icon"]')
+    expect(icon.exists()).toBe(true)
+    expect(wrapper.find('.sr-only').text()).toBe('Favorite')
+    expect(wrapper.attributes('aria-label')).toBe('Favorite')
+  })
+
   it('emits click event when clicked', async () => {
-    const wrapper = mount(BaseButton, {
+    const wrapper = mountBaseButton({
       slots: { default: 'Click me' }
     })
     
@@ -80,7 +105,7 @@ describe('BaseButton', () => {
   })
 
   it('does not emit click when disabled', async () => {
-    const wrapper = mount(BaseButton, {
+    const wrapper = mountBaseButton({
       props: { disabled: true },
       slots: { default: 'Disabled' }
     })
@@ -90,7 +115,7 @@ describe('BaseButton', () => {
   })
 
   it('does not emit click when loading', async () => {
-    const wrapper = mount(BaseButton, {
+    const wrapper = mountBaseButton({
       props: { loading: true },
       slots: { default: 'Loading' }
     })
@@ -100,7 +125,7 @@ describe('BaseButton', () => {
   })
 
   it('handles keyboard activation', async () => {
-    const wrapper = mount(BaseButton, {
+    const wrapper = mountBaseButton({
       slots: { default: 'Button' }
     })
     
@@ -112,7 +137,7 @@ describe('BaseButton', () => {
   })
 
   it('applies accessibility attributes correctly', () => {
-    const wrapper = mount(BaseButton, {
+    const wrapper = mountBaseButton({
       props: {
         ariaLabel: 'Custom label',
         ariaPressed: true
@@ -125,7 +150,7 @@ describe('BaseButton', () => {
   })
 
   it('applies full width styling when specified', () => {
-    const wrapper = mount(BaseButton, {
+    const wrapper = mountBaseButton({
       props: { fullWidth: true },
       slots: { default: 'Full Width' }
     })
@@ -134,7 +159,7 @@ describe('BaseButton', () => {
   })
 
   it('shows correct button type', () => {
-    const wrapper = mount(BaseButton, {
+    const wrapper = mountBaseButton({
       props: { type: 'submit' },
       slots: { default: 'Submit' }
     })
@@ -143,18 +168,35 @@ describe('BaseButton', () => {
   })
 
   it('handles icon position correctly', () => {
-    const wrapper = mount(BaseButton, {
-      props: { 
+    const wrapper = mountBaseButton({
+      props: {
         icon: 'mdi:arrow-right',
         iconPosition: 'right'
       },
       slots: { default: 'Next' }
     })
-    
+
     const icon = wrapper.find('[data-testid="icon"]')
     expect(icon.exists()).toBe(true)
     // Icon should appear after text content
     const buttonText = wrapper.text()
-    expect(buttonText.indexOf('Next') < buttonText.indexOf('mdi:arrow-right')).toBe(false)
+    expect(buttonText.indexOf('Next')).toBeLessThan(buttonText.indexOf('mdi:arrow-right'))
+  })
+
+  it('exposes focus and blur helpers', () => {
+    const wrapper = mountBaseButton({
+      props: { icon: 'mdi:heart' }
+    })
+
+    const focusSpy = vi.spyOn(wrapper.element, 'focus')
+    const blurSpy = vi.spyOn(wrapper.element, 'blur')
+
+    // @ts-expect-error methods exposed via defineExpose
+    wrapper.vm.focus()
+    expect(focusSpy).toHaveBeenCalled()
+
+    // @ts-expect-error methods exposed via defineExpose
+    wrapper.vm.blur()
+    expect(blurSpy).toHaveBeenCalled()
   })
 })
