@@ -239,12 +239,17 @@
 </template>
 
 <script setup lang="ts">
+import { useApplicationModalStore } from '~/stores/applicationModal'
+
 definePageMeta({
   layout: 'default',
   name: 'BlogPage'
 })
 
 const { t, tm } = useI18n()
+const router = useRouter()
+const localePath = useLocalePath()
+const applicationModalStore = useApplicationModalStore()
 
 useHead(() => ({
   title: t('blog.meta.title'),
@@ -379,7 +384,6 @@ const categoryStyles: Record<string, string> = {
 
 const quickLinkIcons: Record<string, string> = {
   universities: 'mdi:school-outline',
-  calculator: 'mdi:calculator-variant',
   checklist: 'mdi:file-document-check-outline',
   reviews: 'mdi:comment-quote-outline',
   consultation: 'mdi:headset'
@@ -495,8 +499,23 @@ const handleNewsletterSubmit = () => {
   }
 }
 
-const handleQuickLinkClick = (link: { id: string; label: string }) => {
-  console.log('Blog quick link clicked:', link.id)
+const handleQuickLinkClick = async (link: { id: string; label: string }) => {
+  switch (link.id) {
+    case 'universities':
+      await router.push(localePath('/universities'))
+      break
+    case 'checklist':
+      await router.push(localePath({ path: '/faq', query: { category: 'documents' } }))
+      break
+    case 'reviews':
+      await router.push(localePath('/reviews'))
+      break
+    case 'consultation':
+      applicationModalStore.openModal()
+      break
+    default:
+      console.warn('Unhandled quick link click:', link.id)
+  }
 }
 </script>
 

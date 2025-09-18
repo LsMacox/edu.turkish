@@ -168,10 +168,6 @@
             "label": "University catalog"
           },
           {
-            "id": "calculator",
-            "label": "Cost calculator"
-          },
-          {
             "id": "checklist",
             "label": "Document checklist"
           },
