@@ -1,5 +1,8 @@
 {
   "clear": "Clear",
+  "common": {
+    "clear": "Clear"
+  },
   "step": "Step",
   "cta": {
     "apply": "Apply"

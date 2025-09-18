@@ -1,5 +1,8 @@
 {
   "clear": "Temizle",
+  "common": {
+    "clear": "Temizle"
+  },
   "step": "Adım",
   "cta": {
     "apply": "Başvuru yap"

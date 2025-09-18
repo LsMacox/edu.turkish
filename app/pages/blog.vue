@@ -34,8 +34,16 @@
                 v-model="searchInput"
                 type="text"
                 :placeholder="hero.searchPlaceholder"
-                class="w-full px-4 py-3 pl-12 border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-primary focus:border-primary"
+                class="w-full px-4 py-3 pl-12 pr-12 border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-primary focus:border-primary"
               >
+              <button
+                v-if="searchInput"
+                @click="searchInput = ''"
+                class="absolute right-4 top-1/2 transform -translate-y-1/2 text-gray-400 hover:text-gray-600 transition-colors p-1 min-w-touch-44 min-h-touch-44 flex items-center justify-center"
+                :aria-label="t('common.clear')"
+              >
+                <Icon name="mdi:close" class="w-5 h-5" />
+              </button>
             </div>
           </div>
 
@@ -135,7 +143,7 @@
               <article
                 v-for="article in articles"
                 :key="article.id"
-                class="bg-white rounded-2xl shadow-custom overflow-hidden hover-lift"
+                class="bg-white rounded-2xl shadow-custom overflow-hidden hover-lift flex flex-col h-full"
               >
                 <template v-if="article.image">
                   <NuxtImg
@@ -150,7 +158,7 @@
                 <div v-else class="w-full h-48 bg-gray-100 flex items-center justify-center px-4 text-center">
                   <span class="text-secondary text-sm font-semibold">{{ article.title }}</span>
                 </div>
-                <div class="p-6">
+                <div class="p-6 flex flex-col flex-1">
                   <div class="flex flex-wrap items-center gap-2 mb-3 text-sm text-gray-500">
                     <span
                       class="inline-flex items-center px-3 py-1 rounded-full text-xs font-medium"
@@ -162,9 +170,17 @@
                   </div>
                   <h3 class="text-xl font-semibold text-secondary mb-3">{{ article.title }}</h3>
                   <p class="text-gray-600 text-sm mb-4">{{ article.excerpt }}</p>
-                  <div class="flex items-center justify-between text-sm text-gray-500 mb-4">
-                    <span v-if="article.readingTimeLabel">{{ article.readingTimeLabel }}</span>
-                    <NuxtLink :to="articleLink(article.slug)" class="text-primary font-semibold hover:underline">
+                  <div class="mt-auto pt-2 flex items-center justify-between gap-3">
+                    <button
+                      type="button"
+                      class="px-3 py-2 rounded-lg border border-gray-200 text-gray-600 text-xs font-medium bg-gray-50 hover:bg-gray-100"
+                    >
+                      {{ article.readingTimeLabel || '7 мин чтения' }}
+                    </button>
+                    <NuxtLink
+                      :to="articleLink(article.slug)"
+                      class="bg-primary text-white px-4 py-2 rounded-lg text-sm font-semibold hover:bg-primary/90 transition-colors"
+                    >
                       {{ t('blog.articles.readMore') }}
                     </NuxtLink>
                   </div>
@@ -249,6 +265,7 @@
 <script setup lang="ts">
 import { ref, computed, watch, watchEffect, onMounted, onBeforeUnmount, nextTick } from 'vue'
 import { storeToRefs } from 'pinia'
+import blogHeroImage from '/images/blog-hero.png'
 import { useApplicationModalStore } from '~/stores/applicationModal'
 import { useBlogStore } from '~/stores/blog'
 
@@ -257,7 +274,7 @@ definePageMeta({
   name: 'BlogPage'
 })
 
-const { t, tm } = useI18n()
+const { t, tm, te } = useI18n()
 const router = useRouter()
 const route = useRoute()
 const localePath = useLocalePath()
@@ -279,6 +296,63 @@ const {
 const searchInput = ref('')
 const isUpdatingRoute = ref(false)
 let searchDebounce: ReturnType<typeof setTimeout> | null = null
+
+const resolveI18nValue = (input: unknown): string => {
+  if (input == null) {
+    return ''
+  }
+
+  if (typeof input === 'string') {
+    return input
+  }
+
+  if (typeof input === 'number' || typeof input === 'boolean') {
+    return String(input)
+  }
+
+  if (Array.isArray(input)) {
+    return input.map((item) => resolveI18nValue(item)).join('')
+  }
+
+  if (typeof input === 'object') {
+    const value = input as Record<string, unknown>
+
+    if (typeof value.source === 'string') {
+      return value.source
+    }
+
+    if (typeof value.static === 'string') {
+      return value.static
+    }
+
+    if (typeof value.value === 'string') {
+      return value.value
+    }
+
+    if (value.body && value.body !== input) {
+      const resolvedBody = resolveI18nValue(value.body)
+      if (resolvedBody) {
+        return resolvedBody
+      }
+    }
+
+    if (Array.isArray(value.items)) {
+      const resolvedItems = value.items.map((item) => resolveI18nValue(item)).join('')
+      if (resolvedItems) {
+        return resolvedItems
+      }
+    }
+
+    if (Array.isArray(value.children)) {
+      const resolvedChildren = value.children.map((child) => resolveI18nValue(child)).join('')
+      if (resolvedChildren) {
+        return resolvedChildren
+      }
+    }
+  }
+
+  return ''
+}
 
 useHead(() => ({
   title: t('blog.meta.title'),
@@ -324,13 +398,11 @@ if (import.meta.server) {
 }
 
 onMounted(async () => {
-  if (!articles.value.length) {
-    await blogStore.fetchArticles({
-      page: currentPage.value,
-      category: activeCategory.value,
-      search: searchQuery.value
-    })
-  }
+  await blogStore.fetchArticles({
+    page: currentPage.value,
+    category: activeCategory.value,
+    search: searchQuery.value
+  })
 })
 
 const syncRoute = (overrides: { category?: string; q?: string; page?: number } = {}) => {
@@ -349,12 +421,24 @@ const syncRoute = (overrides: { category?: string; q?: string; page?: number } =
     query.page = String(page)
   }
 
+  // Preserve scroll position during query updates to avoid jumping to top
+  const currentScrollY = typeof window !== 'undefined' ? window.scrollY : 0
+
   isUpdatingRoute.value = true
-  router.replace({ query }).finally(() => {
-    nextTick(() => {
-      isUpdatingRoute.value = false
+  router
+    .replace({ query })
+    .then(() => {
+      if (typeof window !== 'undefined') {
+        requestAnimationFrame(() => {
+          window.scrollTo(0, currentScrollY)
+        })
+      }
     })
-  })
+    .finally(() => {
+      nextTick(() => {
+        isUpdatingRoute.value = false
+      })
+    })
 }
 
 const updateFromRoute = async () => {
@@ -459,7 +543,7 @@ type QuickLinksContent = {
   items: { id: string; label: string }[]
 }
 
-const heroImage = 'https://storage.googleapis.com/uxpilot-auth.appspot.com/ce3ce224a4-fadffc2f2c09d25befe6.png'
+const heroImage = blogHeroImage
 
 const hero = computed<HeroContent>(() => {
   const value = tm('blog.hero') as Partial<HeroContent> | undefined
@@ -467,31 +551,49 @@ const hero = computed<HeroContent>(() => {
   const highlight = value?.highlight as Partial<HeroHighlight> | undefined
 
   return {
-    title: typeof value?.title === 'string' ? value.title : '',
-    titleAccent: typeof value?.titleAccent === 'string' ? value.titleAccent : '',
-    description: typeof value?.description === 'string' ? value.description : '',
-    searchPlaceholder: typeof value?.searchPlaceholder === 'string' ? value.searchPlaceholder : '',
-    imageAlt: typeof value?.imageAlt === 'string' ? value.imageAlt : '',
+    title: resolveI18nValue(value?.title),
+    titleAccent: resolveI18nValue(value?.titleAccent),
+    description: resolveI18nValue(value?.description),
+    searchPlaceholder: resolveI18nValue(value?.searchPlaceholder),
+    imageAlt: resolveI18nValue(value?.imageAlt),
     highlight: {
-      title: typeof highlight?.title === 'string' ? highlight.title : '',
-      subtitle: typeof highlight?.subtitle === 'string' ? highlight.subtitle : ''
+      title: resolveI18nValue(highlight?.title),
+      subtitle: resolveI18nValue(highlight?.subtitle)
     },
     stats: rawStats.map((stat) => ({
-      icon: typeof stat?.icon === 'string' ? stat.icon : '',
-      label: typeof stat?.label === 'string' ? stat.label : ''
+      icon: resolveI18nValue(stat?.icon),
+      label: resolveI18nValue(stat?.label)
     }))
   }
 })
 
 const categoryTranslations = computed(() => {
-  const raw = tm('blog.categories') as Record<string, { label?: string }> | undefined
+  const raw = tm('blog.categories') as Record<string, { label?: unknown }> | undefined
   const map = new Map<string, string>()
   if (!raw) {
     return map
   }
   for (const [key, value] of Object.entries(raw)) {
-    if (value?.label) {
-      map.set(key, value.label)
+    const labelValue = value?.label
+    if (typeof labelValue === 'string') {
+      map.set(key, labelValue)
+      continue
+    }
+
+    const translationKey = `blog.categories.${key}.label`
+    if (te(translationKey)) {
+      const translated = t(translationKey)
+      if (translated && translated !== translationKey) {
+        map.set(key, translated)
+        continue
+      }
+    }
+
+    if (labelValue && typeof labelValue === 'object') {
+      const staticValue = (labelValue as { static?: unknown }).static
+      if (typeof staticValue === 'string') {
+        map.set(key, staticValue)
+      }
     }
   }
   return map
@@ -537,14 +639,14 @@ const categoryBadgeClass = (key: string) => categoryStyles[key] ?? 'bg-gray-100 
 
 const sidebarPopular = computed<SidebarPopular>(() => {
   const value = tm('blog.sidebar.popular') as SidebarPopular | undefined
-  const items = Array.isArray(value?.items) ? value!.items : []
+  const items = Array.isArray(value?.items) ? value.items : []
 
   return {
-    title: typeof value?.title === 'string' ? value.title : '',
+    title: resolveI18nValue(value?.title),
     items: items.map((item) => ({
-      title: typeof item?.title === 'string' ? item.title : '',
-      date: typeof item?.date === 'string' ? item.date : '',
-      views: typeof item?.views === 'string' ? item.views : ''
+      title: resolveI18nValue(item?.title),
+      date: resolveI18nValue(item?.date),
+      views: resolveI18nValue(item?.views)
     }))
   }
 })
@@ -552,12 +654,20 @@ const sidebarPopular = computed<SidebarPopular>(() => {
 const quickLinks = computed<QuickLinksContent>(() => {
   const value = tm('blog.sidebar.quickLinks') as QuickLinksContent | undefined
   return {
-    title: typeof value?.title === 'string' ? value.title : '',
+    title: resolveI18nValue(value?.title),
     items: Array.isArray(value?.items)
-      ? value!.items.map((item: any) => ({
-          id: String(item?.id ?? ''),
-          label: String(item?.label ?? '')
-        }))
+      ? value.items
+          .map((item: any) => {
+            const resolvedId = resolveI18nValue(item?.id)
+            const fallbackId = typeof item?.id === 'string' ? item.id : ''
+            const id = resolvedId || fallbackId
+
+            return {
+              id,
+              label: resolveI18nValue(item?.label)
+            }
+          })
+          .filter((item) => item.id && item.label)
       : []
   }
 })
@@ -591,14 +701,16 @@ const articleLink = (slug: string) => localePath({ name: 'articles-slug', params
 
 const isLoadingMore = computed(() => loading.value && currentPage.value > 1)
 
-const handleQuickLinkClick = async (link: { id: string; label: string }) => {
-  switch (link.id) {
+const handleQuickLinkClick = async (linkId: string) => {
+  switch (linkId) {
     case 'universities':
       await router.push(localePath('/universities'))
       break
-    case 'checklist':
-      await router.push(localePath({ path: '/faq', query: { category: 'documents' } }))
+    case 'checklist': {
+      const target = localePath({ name: 'faq', query: { category: 'documents' } })
+      await router.push(target)
       break
+    }
     case 'reviews':
       await router.push(localePath('/reviews'))
       break
@@ -606,7 +718,7 @@ const handleQuickLinkClick = async (link: { id: string; label: string }) => {
       applicationModalStore.openModal()
       break
     default:
-      console.warn('Unhandled quick link click:', link.id)
+      console.warn('Unhandled quick link click:', linkId)
   }
 }
 </script>
