@@ -30,7 +30,7 @@ npx tsx scripts/import-university.ts ./app/assets/json/universities/technica_uni
 Полная схема входных данных приведена в описании и примере в ответе ассистента, а также соответствует проверкам в `scripts/import-university.ts`.
 Основные разделы (все блоки опциональны, кроме базовых полей университета):
 
-- Базовые поля университета: `title`, `description`, `slug`, `city`, `foundedYear`, `type`, `tuitionMin/Max`, `currency`, `totalStudents`, `internationalStudents`, `hasAccommodation`, `heroImage`, `image`, `about`, `strongPrograms`, `campusGallery`, `multilingualSlugs`
+- Базовые поля университета: `title`, `description`, `slug`, `city`, `foundedYear`, `type`, `tuitionMin/Max`, `currency`, `totalStudents`, `internationalStudents`, `hasAccommodation`, `heroImage`, `image`, `about`, `strongPrograms` (заполняет таблицу FeaturedProgram), `campusGallery`, `multilingualSlugs`
   - Примечание: данные рейтинга теперь переводимые и должны задаваться через переводы (`ranking_text`, `key_info_texts.ranking`) вместо числовых полей.
 - `translations`: массив переводов университета
 - `languages`: массив языков обучения (создаёт записи `university_languages`)

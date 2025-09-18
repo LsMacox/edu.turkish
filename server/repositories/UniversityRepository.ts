@@ -2,7 +2,12 @@
 import { PrismaClient } from '@prisma/client'
 import type { Prisma } from '@prisma/client'
 import type { DegreeType, UniversityType } from '../../app/types/domain'
-import type { University, UniversityQueryParams, UniversityDetail } from '../types/api'
+import type {
+  University,
+  UniversityQueryParams,
+  UniversityDetail,
+  StrongProgramCategory
+} from '../types/api'
 
 export class UniversityRepository {
   constructor(private prisma: PrismaClient) {}
@@ -38,6 +43,73 @@ export class UniversityRepository {
     const ru = translations.find(t => t.locale === 'ru')
     if (ru?.slug) return ru.slug
     return translations[0]?.slug || ''
+  }
+
+  private buildFeaturedPrograms(
+    featuredPrograms: Array<{
+      displayOrder?: number | null
+      translations?: Array<{ locale: string; label: string | null }>
+      program?: { translations?: Array<{ locale: string; name: string | null }> }
+    }>,
+    locale: string
+  ): { categories: StrongProgramCategory[]; categoryNames: string[] } {
+    const DEFAULT_CATEGORY_MAP: Record<string, string> = {
+      ru: 'Сильные программы',
+      en: 'Featured Program',
+      tr: 'Öne Çıkan Programlar',
+      kk: 'Таңдаулы бағдарламалар'
+    }
+    const DEFAULT_CATEGORY = DEFAULT_CATEGORY_MAP[locale] || DEFAULT_CATEGORY_MAP.en
+    const groups = new Map<
+      string,
+      {
+        order: number
+        programs: Array<{ order: number; name: string }>
+      }
+    >()
+
+    for (const fp of featuredPrograms) {
+      const order = typeof fp.displayOrder === 'number' ? fp.displayOrder : Number.MAX_SAFE_INTEGER
+      const translation = this.selectBestTranslation(fp.translations || [], locale)
+      const programTranslation = this.selectBestTranslation(fp.program?.translations || [], locale)
+      const programName = (programTranslation?.name || '').trim()
+      if (!programName) continue
+
+      const rawCategory = (translation?.label || '').trim()
+      const category = rawCategory.length > 0 ? rawCategory : DEFAULT_CATEGORY
+
+      const current = groups.get(category)
+      if (!current) {
+        groups.set(category, {
+          order,
+          programs: [{ order, name: programName }]
+        })
+      } else {
+        current.order = Math.min(current.order, order)
+        current.programs.push({ order, name: programName })
+      }
+    }
+
+    const categories = Array.from(groups.entries())
+      .sort((a, b) => {
+        if (a[1].order !== b[1].order) return a[1].order - b[1].order
+        return a[0].localeCompare(b[0])
+      })
+      .map(([category, data]) => {
+        const programsSorted = data.programs
+          .slice()
+          .sort((a, b) => {
+            if (a.order !== b.order) return a.order - b.order
+            return a.name.localeCompare(b.name)
+          })
+          .map(p => p.name)
+
+        return { category, programs: programsSorted }
+      })
+
+    const categoryNames = categories.map(c => c.category)
+
+    return { categories, categoryNames }
   }
 
   /**
@@ -434,6 +506,13 @@ export class UniversityRepository {
       include: {
         translations: true,
         academicPrograms: { include: { translations: true } },
+        featuredPrograms: {
+          include: {
+            translations: true,
+            program: { include: { translations: true } }
+          },
+          orderBy: { displayOrder: 'asc' }
+        },
         campusFacilities: { include: { translations: true } },
         admissionRequirements: { include: { translations: true } },
         requiredDocuments: { include: { translations: true } },
@@ -450,9 +529,12 @@ export class UniversityRepository {
 
     const translation = this.selectBestTranslation(university.translations, locale)
 
-    // About and strong programs now come from translation JSON fields
+    // About comes from translation JSON fields; strong programs aggregate from relations
     const aboutLocalized: any = (translation as any)?.about || {}
-    const strongProgramsLocalized: any = (translation as any)?.strongPrograms || []
+    const { categories: featuredProgramCategories, categoryNames } = this.buildFeaturedPrograms(
+      (university.featuredPrograms || []) as any[],
+      locale
+    )
 
     // Transform to detailed university format with normalized structure
     const cityTr = this.selectBestTranslation((university.city?.translations || []) as any[], locale)
@@ -503,8 +585,8 @@ export class UniversityRepository {
         })(),
         mission: aboutLocalized?.mission || aboutLocalized?.campus || 'Миссия университета - предоставление качественного образования.',
         campus_features: [],
-        strong_programs: Array.isArray(strongProgramsLocalized) ? (strongProgramsLocalized as any[]).map((sp: any) => sp?.category || '') : [],
-        advantages: Array.isArray(aboutLocalized?.advantages) 
+        strong_programs: categoryNames,
+        advantages: Array.isArray(aboutLocalized?.advantages)
           ? (aboutLocalized.advantages as any[]).map((adv: any) => ({
               title: typeof adv === 'string' ? adv : (adv?.title || ''),
               description: typeof adv === 'object' ? (adv?.description || '') : ''
@@ -543,7 +625,7 @@ export class UniversityRepository {
         activities: ['Студенческие клубы', 'Культурные мероприятия', 'Спортивные соревнования']
       },
       
-      strong_programs: Array.isArray(strongProgramsLocalized) ? strongProgramsLocalized : [],
+      strong_programs: featuredProgramCategories,
       
       directions: university.universityDirections.map(ud => {
         const directionTranslation = this.selectBestTranslation(ud.direction.translations as any[], locale)

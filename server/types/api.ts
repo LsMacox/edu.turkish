@@ -267,7 +267,7 @@ export interface UniversityDetail extends University {
     activities: string[]
   }
   
-  // Сильные программы из JSON
+  // Сильные программы (агрегируются из FeaturedProgram)
   strong_programs: StrongProgramCategory[]
   
   // Связанные направления обучения

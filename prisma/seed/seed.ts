@@ -22,6 +22,8 @@ async function main() {
       prisma.blogCategory.deleteMany(),
       prisma.scholarshipTranslation.deleteMany(),
       prisma.scholarship.deleteMany(),
+      prisma.featuredProgramTranslation.deleteMany(),
+      prisma.featuredProgram.deleteMany(),
       prisma.requirementTranslation.deleteMany(),
       prisma.admissionRequirement.deleteMany(),
       prisma.dateTranslation.deleteMany(),
