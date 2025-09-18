@@ -1,5 +1,6 @@
 import { PrismaClient } from '@prisma/client'
 import type { ApplicationRequest, ApplicationResponse, ApplicationStatus } from '../types/api'
+import { generateTrackingCode } from '../utils/tracking'
 
 export class ApplicationRepository {
   constructor(private prisma: PrismaClient) {}
@@ -8,8 +9,8 @@ export class ApplicationRepository {
    * Create a new application
    */
   async create(data: ApplicationRequest): Promise<ApplicationResponse> {
-    // Generate tracking codeё
-    const trackingCode = this.generateTrackingCode()
+    // Generate tracking code
+    const trackingCode = generateTrackingCode()
 
     const application = await this.prisma.application.create({
       data: {
@@ -181,13 +182,4 @@ export class ApplicationRepository {
     }
   }
 
-  /**
-   * Generate unique tracking code
-   */
-  private generateTrackingCode(): string {
-    const prefix = 'EDU'
-    const timestamp = Date.now().toString(36).toUpperCase()
-    const random = Math.random().toString(36).substr(2, 4).toUpperCase()
-    return `${prefix}-${timestamp}-${random}`
-  }
 }
