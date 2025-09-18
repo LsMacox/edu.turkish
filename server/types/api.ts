@@ -223,6 +223,7 @@ export interface UniversityFilters {
   cities: string[]
   types: string[]
   levels: string[]
+  languages: string[]
   priceRange: [number, number]
 }
 
