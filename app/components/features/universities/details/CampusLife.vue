@@ -6,13 +6,16 @@
         <p class="text-lg text-gray-600">{{ $t('universityDetail.campusLife.subtitle') }}</p>
       </div>
       
-      <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
-        <div v-for="(image, index) in campusImages" :key="index" 
-             class="aspect-square rounded-xl overflow-hidden hover-lift cursor-pointer"
-             @click="openImageModal(image)">
-          <img 
-            class="w-full h-full object-cover" 
-            :src="image.src" 
+      <div v-if="campusImages.length > 0" class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
+        <div
+          v-for="(image, index) in campusImages"
+          :key="index"
+          class="aspect-square rounded-xl overflow-hidden hover-lift cursor-pointer"
+          @click="openImageModal(image)"
+        >
+          <img
+            class="w-full h-full object-cover"
+            :src="image.src"
             :alt="image.alt"
           >
         </div>
@@ -22,29 +25,50 @@
       <div class="mt-16">
         <h3 class="text-2xl font-bold text-secondary text-center mb-8">{{ $t('universityDetail.campusLife.infrastructure') }}</h3>
         <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-          <!-- Реальные объекты инфраструктуры из API -->
-          <div v-for="facility in realFacilities" :key="facility.id" 
-               class="bg-white rounded-xl shadow-custom p-6 text-center hover-lift">
-            <div class="w-16 h-16 rounded-2xl flex items-center justify-center mx-auto mb-4" :class="getFacilityIconBg(detectFacilityType(facility))">
-              <Icon :name="facility.icon || getFacilityIcon(detectFacilityType(facility))" class="text-2xl" :class="getFacilityIconColor(detectFacilityType(facility))" />
+          <template v-if="realFacilities.length > 0">
+            <!-- Реальные объекты инфраструктуры из API -->
+            <div
+              v-for="facility in realFacilities"
+              :key="facility.id"
+              class="bg-white rounded-xl shadow-custom p-6 text-center hover-lift"
+            >
+              <div
+                class="w-16 h-16 rounded-2xl flex items-center justify-center mx-auto mb-4"
+                :class="getFacilityIconBg(detectFacilityType(facility))"
+              >
+                <Icon
+                  :name="facility.icon || getFacilityIcon(detectFacilityType(facility))"
+                  class="text-2xl"
+                  :class="getFacilityIconColor(detectFacilityType(facility))"
+                />
+              </div>
+              <h4 class="font-semibold text-secondary mb-2">{{ facility.name }}</h4>
+              <p class="text-gray-600 text-sm">{{ facility.description }}</p>
+              <div v-if="facility.capacity || facility.area" class="mt-2 text-xs text-gray-500">
+                <span v-if="facility.capacity">{{ $t('universityDetail.campusLife.capacity') }}: {{ facility.capacity }}</span>
+                <span v-if="facility.area" class="ml-2">{{ $t('universityDetail.campusLife.area') }}: {{ facility.area }}м²</span>
+              </div>
             </div>
-            <h4 class="font-semibold text-secondary mb-2">{{ facility.name }}</h4>
-            <p class="text-gray-600 text-sm">{{ facility.description }}</p>
-            <div v-if="facility.capacity || facility.area" class="mt-2 text-xs text-gray-500">
-              <span v-if="facility.capacity">{{ $t('universityDetail.campusLife.capacity') }}: {{ facility.capacity }}</span>
-              <span v-if="facility.area" class="ml-2">{{ $t('universityDetail.campusLife.area') }}: {{ facility.area }}м²</span>
+          </template>
+
+          <template v-else>
+            <!-- Fallback: показываем стандартные объекты если нет данных из API -->
+            <div
+              v-for="facility in defaultFacilities"
+              :key="facility.key"
+              class="bg-white rounded-xl shadow-custom p-6 text-center hover-lift"
+            >
+              <div class="w-16 h-16 rounded-2xl flex items-center justify-center mx-auto mb-4" :class="facility.iconBg">
+                <Icon :name="facility.icon" class="text-2xl" :class="facility.iconColor" />
+              </div>
+              <h4 class="font-semibold text-secondary mb-2">
+                {{ $t(`universityDetail.campusLife.facilities.${facility.key}.name`) }}
+              </h4>
+              <p class="text-gray-600 text-sm">
+                {{ $t(`universityDetail.campusLife.facilities.${facility.key}.description`) }}
+              </p>
             </div>
-          </div>
-          
-          <!-- Fallback: показываем стандартные объекты если нет данных из API -->
-          <div v-if="realFacilities.length === 0" v-for="facility in defaultFacilities" :key="facility.key" 
-               class="bg-white rounded-xl shadow-custom p-6 text-center hover-lift">
-            <div class="w-16 h-16 rounded-2xl flex items-center justify-center mx-auto mb-4" :class="facility.iconBg">
-              <Icon :name="facility.icon" class="text-2xl" :class="facility.iconColor" />
-            </div>
-            <h4 class="font-semibold text-secondary mb-2">{{ $t(`universityDetail.campusLife.facilities.${facility.key}.name`) }}</h4>
-            <p class="text-gray-600 text-sm">{{ $t(`universityDetail.campusLife.facilities.${facility.key}.description`) }}</p>
-          </div>
+          </template>
         </div>
       </div>
     </div>
@@ -62,29 +86,43 @@ const props = defineProps<Props>()
 
 // Локальный UI-тип для объектов инфраструктуры (добавляем необязательное поле icon)
 type FacilityItemUI = {
-  id: number
+  id: number | string
   name: string
   description: string
-  type: string
-  capacity?: number
-  area?: number
-  icon?: string
+  type?: string | null
+  capacity?: number | null
+  area?: number | null
+  icon?: string | null
 }
 
 // Получаем реальные объекты инфраструктуры из API
 const realFacilities = computed<FacilityItemUI[]>(() => {
-  return (props.university?.campus_life?.facilities || []) as unknown as FacilityItemUI[]
+  const facilities = props.university?.campus_life?.facilities
+  if (!Array.isArray(facilities)) {
+    return []
+  }
+  return facilities as FacilityItemUI[]
 })
 
-const campusImages = computed(() => {
-  const apiImages = props.university?.campus_life?.gallery || []
-  
-  if (apiImages.length > 0) {
-    return apiImages.map(item => ({
+interface CampusGalleryItem {
+  url?: string | null
+  alt?: string | null
+  title?: string | null
+}
+
+type CampusImage = {
+  src: string
+  alt: string
+}
+
+const campusImages = computed<CampusImage[]>(() => {
+  const apiImages = (props.university?.campus_life?.gallery ?? []) as CampusGalleryItem[]
+  return apiImages
+    .filter((item): item is CampusGalleryItem & { url: string } => typeof item.url === 'string' && item.url.trim().length > 0)
+    .map((item) => ({
       src: item.url,
       alt: item.alt || item.title || 'Фото кампуса университета'
     }))
-  }
 })
 
 const defaultFacilities = [
@@ -191,7 +229,7 @@ const getFacilityIconColor = (type: string) => {
 }
 
 // Попытка определить тип объекта по названию, если с бэка пришёл общий 'support'
-const detectFacilityType = (facility: any): string => {
+const detectFacilityType = (facility: FacilityItemUI): string => {
   const providedType = (facility?.type || '').toString()
   if (providedType && providedType !== 'support') return providedType
 
@@ -210,7 +248,7 @@ const detectFacilityType = (facility: any): string => {
   return 'support'
 }
 
-const openImageModal = (image: any) => {
+const openImageModal = (image: CampusImage) => {
   // Здесь можно реализовать модальное окно для просмотра изображений
   console.log('Open image modal:', image)
 }
