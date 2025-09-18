@@ -741,24 +741,6 @@ enum ApplicationStatus {
   rejected
 }
 
-enum FacilityType {
-  academic      // Академические (библиотека, лаборатории, аудитории)
-  recreational  // Развлекательные (спортзал, бассейн, клубы)
-  accommodation // Проживание (общежития)
-  dining       // Питание (столовые, кафе)
-  sports       // Спорт (стадионы, площадки)
-  medical      // Медицинские (медцентр, аптека)
-  transport    // Транспорт (парковки, автобусы)
-  technology   // Технологии (Wi-Fi, компьютерные классы)
-  support      // Поддержка (администрация, безопасность)
-}
-
-enum DormitoryType {
-  male
-  female
-  mixed
-}
-
 enum ScholarshipType {
   government
   university
