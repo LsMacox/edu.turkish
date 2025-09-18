@@ -72,15 +72,32 @@ export class UniversityRepository {
 
     // Price filter based on normalized fields
     if (price_min !== undefined || price_max !== undefined) {
-      const min = price_min
-      const max = price_max
-      where.AND = (where.AND || [])
-      where.AND.push({
-        OR: [
-          { tuitionMin: { gte: min, lte: max } },
-          { tuitionMax: { gte: min, lte: max } }
-        ]
-      })
+      const min = price_min ?? null
+      const max = price_max ?? null
+      const priceFilters: Prisma.UniversityWhereInput[] = []
+
+      if (max !== null) {
+        priceFilters.push({
+          OR: [
+            { tuitionMin: { lte: max } },
+            { tuitionMin: { equals: null } }
+          ]
+        })
+      }
+
+      if (min !== null) {
+        priceFilters.push({
+          OR: [
+            { tuitionMax: { gte: min } },
+            { tuitionMax: { equals: null } }
+          ]
+        })
+      }
+
+      if (priceFilters.length > 0) {
+        where.AND = (where.AND || [])
+        where.AND.push(...priceFilters)
+      }
     }
 
     // Search by title/description translations and city name translations
