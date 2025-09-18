@@ -1,6 +1,7 @@
 export default defineNuxtPlugin(() => {
   const config = useRuntimeConfig()
   const router = useRouter()
+  const nuxtApp = useNuxtApp()
   const metrikaId = config.public.yandexMetrikaId
 
   // Не загружаем в development без явного указания ID
@@ -59,7 +60,7 @@ export default defineNuxtPlugin(() => {
   })
 
   // Инициализируем при загрузке страницы
-  onMounted(() => {
+  nuxtApp.hook('app:mounted', () => {
     initYandexMetrika()
   })
 })

@@ -16,17 +16,6 @@
     
     <!-- Global Toasts -->
     <UiFeedbackUiToast />
-    
-    <!-- Yandex.Metrika noscript -->
-    <noscript v-if="config.public.yandexMetrikaId">
-      <div>
-        <img 
-          :src="`https://mc.yandex.ru/watch/${config.public.yandexMetrikaId}`" 
-          style="position:absolute; left:-9999px;" 
-          alt=""
-        />
-      </div>
-    </noscript>
   </div>
 </template>
 
@@ -39,10 +28,27 @@ const modal = useApplicationModalStore()
 const { locale } = useI18n()
 const config = useRuntimeConfig()
 const route = useRoute()
-useHead(() => ({
-  htmlAttrs: { lang: locale.value },
-  link: [
-    { rel: 'canonical', href: config.public.siteUrl + route.path }
-  ]
-}))
+useHead(() => {
+  const metrikaId = config.public.yandexMetrikaId
+
+  return {
+    htmlAttrs: { lang: locale.value },
+    link: [
+      { rel: 'canonical', href: config.public.siteUrl + route.path }
+    ],
+    ...(metrikaId
+      ? {
+          noscript: [
+            {
+              key: 'yandex-metrika-noscript',
+              innerHTML: `<div><img src="https://mc.yandex.ru/watch/${metrikaId}" style="position:absolute; left:-9999px;" alt="" /></div>`
+            }
+          ],
+          __dangerouslyDisableSanitizersByTagID: {
+            'yandex-metrika-noscript': ['innerHTML']
+          }
+        }
+      : {})
+  }
+})
 </script>
