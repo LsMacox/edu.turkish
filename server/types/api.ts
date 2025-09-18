@@ -55,9 +55,20 @@ export interface BlogArticleDetail extends BlogArticleListItem {
   content: BlogArticleContentBlock[]
 }
 
+export interface BlogPopularArticle {
+  id: number
+  slug: string
+  title: string
+  publishedAt: string
+  publishedAtLabel: string
+  viewCount: number
+  viewCountLabel: string
+}
+
 export interface BlogArticlesResponse extends ApiResponse<BlogArticleListItem[]> {
   featured: BlogArticleListItem | null
   categories: BlogCategory[]
+  popular: BlogPopularArticle[]
 }
 
 export interface BlogArticleQueryParams {
