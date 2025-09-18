@@ -4,7 +4,8 @@ import type {
   BlogArticleListItem,
   BlogArticleQueryParams,
   BlogCategory,
-  BlogArticleContentBlock
+  BlogArticleContentBlock,
+  BlogPopularArticle
 } from '../types/api'
 
 type ArticleWithRelations = Prisma.BlogArticleGetPayload<{
@@ -181,6 +182,65 @@ export class BlogRepository {
     }
   }
 
+  private extractViewCount(meta: Prisma.JsonValue | null | undefined): number {
+    if (!meta || typeof meta !== 'object' || Array.isArray(meta)) {
+      return 0
+    }
+
+    const record = meta as Record<string, unknown>
+    const rawValue = record.views ?? record.viewCount ?? record.reads
+
+    if (typeof rawValue === 'number' && Number.isFinite(rawValue)) {
+      return Math.max(0, Math.round(rawValue))
+    }
+
+    if (typeof rawValue === 'string') {
+      const digits = rawValue.replace(/[^\d]/g, '')
+      if (digits) {
+        const parsed = Number.parseInt(digits, 10)
+        if (Number.isFinite(parsed)) {
+          return Math.max(0, parsed)
+        }
+      }
+    }
+
+    return 0
+  }
+
+  private formatViewCount(count: number, locale: string): string {
+    const normalizedCount = Math.max(0, Math.round(count))
+    const formatter = new Intl.NumberFormat(this.resolveLocaleTag(locale))
+    const formattedCount = formatter.format(normalizedCount)
+
+    switch (locale) {
+      case 'en':
+        return `${formattedCount} views`
+      case 'kk':
+      case 'kz':
+        return `${formattedCount} қаралым`
+      case 'tr':
+        return `${formattedCount} görüntülenme`
+      case 'ru':
+      default:
+        return `${formattedCount} просмотров`
+    }
+  }
+
+  private mapArticleToPopularItem(article: ArticleWithRelations, locale: string): BlogPopularArticle {
+    const base = this.mapArticleToListItem(article, locale)
+    const viewCount = this.extractViewCount(article.meta)
+
+    return {
+      id: base.id,
+      slug: base.slug,
+      title: base.title,
+      publishedAt: base.publishedAt,
+      publishedAtLabel: base.publishedAtLabel,
+      viewCount,
+      viewCountLabel: this.formatViewCount(viewCount, locale)
+    }
+  }
+
   private mapArticleToDetail(article: ArticleWithRelations, locale: string): BlogArticleDetail {
     const base = this.mapArticleToListItem(article, locale)
     const translation = this.pickTranslation(article.translations, locale)
@@ -219,6 +279,7 @@ export class BlogRepository {
     total: number
     featured: BlogArticleListItem | null
     categories: BlogCategory[]
+    popular: BlogPopularArticle[]
   }> {
     const page = Math.max(Number(params.page) || 1, 1)
     const limit = Math.max(Number(params.limit) || 6, 1)
@@ -305,7 +366,7 @@ export class BlogRepository {
       }
     }
 
-    const [total, rows, categories] = await this.prisma.$transaction([
+    const [total, rows, categories, potentialPopular] = await this.prisma.$transaction([
       this.prisma.blogArticle.count({ where: listWhere }),
       this.prisma.blogArticle.findMany({
         where: listWhere,
@@ -324,6 +385,19 @@ export class BlogRepository {
       this.prisma.blogCategory.findMany({
         orderBy: [{ order: 'asc' }, { id: 'asc' }],
         include: { translations: true }
+      }),
+      this.prisma.blogArticle.findMany({
+        where: baseWhere,
+        orderBy: { publishedAt: 'desc' },
+        take: Math.max(limit * 2, 12),
+        include: {
+          translations: true,
+          category: {
+            include: {
+              translations: true
+            }
+          }
+        }
       })
     ])
 
@@ -337,11 +411,40 @@ export class BlogRepository {
       }
     })
 
+    const popularCandidates = potentialPopular
+      .map((article) => ({
+        article,
+        views: this.extractViewCount(article.meta)
+      }))
+      .sort((a, b) => {
+        if (b.views !== a.views) {
+          return b.views - a.views
+        }
+        return b.article.publishedAt.getTime() - a.article.publishedAt.getTime()
+      })
+
+    const seenPopularIds = new Set<number>()
+    const mappedPopular: BlogPopularArticle[] = []
+
+    for (const candidate of popularCandidates) {
+      if (seenPopularIds.has(candidate.article.id)) {
+        continue
+      }
+
+      seenPopularIds.add(candidate.article.id)
+      mappedPopular.push(this.mapArticleToPopularItem(candidate.article, locale))
+
+      if (mappedPopular.length >= 4) {
+        break
+      }
+    }
+
     return {
       articles: mappedArticles,
       total,
       featured: mappedFeatured,
-      categories: mappedCategories
+      categories: mappedCategories,
+      popular: mappedPopular
     }
   }
 

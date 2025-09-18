@@ -224,15 +224,29 @@
               <div class="space-y-6">
                 <article
                   v-for="(item, index) in sidebarPopular.items"
-                  :key="index"
+                  :key="item.id"
                   class="pb-4"
                   :class="index !== sidebarPopular.items.length - 1 ? 'border-b border-gray-100' : ''"
                 >
-                  <h4 class="font-semibold text-secondary mb-2 text-sm leading-tight">{{ item.title }}</h4>
-                  <div class="flex items-center text-xs text-gray-500">
-                    <span>{{ item.date }}</span>
-                    <span class="mx-2">•</span>
-                    <span>{{ item.views }}</span>
+                  <NuxtLink
+                    v-if="item.slug"
+                    :to="articleLink(item.slug)"
+                    class="block font-semibold text-secondary mb-2 text-sm leading-tight hover:text-primary transition-colors"
+                  >
+                    {{ item.title }}
+                  </NuxtLink>
+                  <p
+                    v-else
+                    class="font-semibold text-secondary mb-2 text-sm leading-tight"
+                  >
+                    {{ item.title }}
+                  </p>
+                  <div class="flex items-center text-xs text-gray-500 gap-2">
+                    <span v-if="item.date">{{ item.date }}</span>
+                    <template v-if="item.date && item.views">
+                      <span>•</span>
+                    </template>
+                    <span v-if="item.views">{{ item.views }}</span>
                   </div>
                 </article>
               </div>
@@ -290,7 +304,8 @@ const {
   activeCategory,
   searchQuery,
   currentPage,
-  error
+  error,
+  popular
 } = storeToRefs(blogStore)
 
 const searchInput = ref('')
@@ -533,9 +548,17 @@ type HeroContent = {
   stats: HeroStat[]
 }
 
+type SidebarPopularItem = {
+  id: number | string
+  slug: string | null
+  title: string
+  date: string
+  views: string
+}
+
 type SidebarPopular = {
   title: string
-  items: { title: string; date: string; views: string }[]
+  items: SidebarPopularItem[]
 }
 
 type QuickLinksContent = {
@@ -638,16 +661,42 @@ const shouldShowFeatured = computed(() => {
 const categoryBadgeClass = (key: string) => categoryStyles[key] ?? 'bg-gray-100 text-gray-600'
 
 const sidebarPopular = computed<SidebarPopular>(() => {
-  const value = tm('blog.sidebar.popular') as SidebarPopular | undefined
-  const items = Array.isArray(value?.items) ? value.items : []
+  const translation = tm('blog.sidebar.popular') as
+    | {
+        title?: unknown
+        items?: Array<{ title?: unknown; date?: unknown; views?: unknown; slug?: unknown }>
+      }
+    | undefined
 
-  return {
-    title: resolveI18nValue(value?.title),
-    items: items.map((item) => ({
+  const title = resolveI18nValue(translation?.title)
+
+  if (popular.value.length > 0) {
+    return {
+      title,
+      items: popular.value.map((item) => ({
+        id: item.id,
+        slug: item.slug,
+        title: item.title,
+        date: item.publishedAtLabel,
+        views: item.viewCountLabel
+      }))
+    }
+  }
+
+  const fallbackItems = Array.isArray(translation?.items) ? translation.items : []
+  const normalizedFallback = fallbackItems
+    .map((item, index) => ({
+      id: typeof item.slug === 'string' ? item.slug : index,
+      slug: typeof item.slug === 'string' ? item.slug : null,
       title: resolveI18nValue(item?.title),
       date: resolveI18nValue(item?.date),
       views: resolveI18nValue(item?.views)
     }))
+    .filter((item) => item.title)
+
+  return {
+    title,
+    items: normalizedFallback
   }
 })
 

@@ -20,7 +20,8 @@ export default defineEventHandler(async (event): Promise<BlogArticlesResponse> =
       data: result.articles,
       meta: calculatePagination(result.total, page, limit),
       featured: result.featured,
-      categories: result.categories
+      categories: result.categories,
+      popular: result.popular
     }
   } catch (error) {
     console.error('Error fetching blog articles:', error)

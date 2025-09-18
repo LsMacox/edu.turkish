@@ -4,6 +4,7 @@ import type {
   BlogArticleListItem,
   BlogArticlesResponse,
   BlogCategory,
+  BlogPopularArticle,
   PaginationMeta
 } from '../../server/types/api'
 
@@ -18,6 +19,7 @@ export const useBlogStore = defineStore('blog', () => {
   const articles = ref<BlogArticleListItem[]>([])
   const featuredArticle = ref<BlogArticleListItem | null>(null)
   const categories = ref<BlogCategory[]>([])
+  const popular = ref<BlogPopularArticle[]>([])
   const pagination = ref<PaginationMeta | null>(null)
   const loading = ref(false)
   const error = ref<string | null>(null)
@@ -86,6 +88,7 @@ export const useBlogStore = defineStore('blog', () => {
 
       pagination.value = response.meta ?? null
       categories.value = response.categories ?? []
+      popular.value = response.popular ?? []
 
       if (!append) {
         articles.value = response.data
@@ -152,6 +155,7 @@ export const useBlogStore = defineStore('blog', () => {
     articles,
     featuredArticle,
     categories,
+    popular,
     pagination,
     loading,
     error,
