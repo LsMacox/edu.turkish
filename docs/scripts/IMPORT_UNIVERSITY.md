@@ -58,30 +58,37 @@ npx tsx scripts/import-university.ts ./app/assets/json/universities/technica_uni
 
 ```bash
 #!/usr/bin/env bash
-set -euo pipefail
+set -e
+set -u
+set -o pipefail
 
 UPSERT_BY="${UPSERT_BY:-slug}"
 DIR="./app/assets/json/universities"
 
-shopt -s nullglob
-files=("$DIR"/*.json)
-shopt -u nullglob
-
-if (( ${#files[@]} == 0 )); then
-  echo "No JSON files found in $DIR" >&2
+# Enable nullglob for both bash and zsh so unmatched globs produce empty array
+if [ -n "${ZSH_VERSION:-}" ]; then
+  setopt NULL_GLOB
+else
+  shopt -s nullglob
 fi
 
-echo "Found ${#files[@]} JSON file(s) in $DIR; upsert-by=$UPSERT_BY"
+files=("$DIR"/*.json)
+
+if (( ${#files[@]} == 0 )); then
+  printf 'No JSON files found in %s\n' "$DIR" >&2
+fi
+
+printf 'Found %d JSON file(s) in %s; upsert-by=%s\n' "${#files[@]}" "$DIR" "$UPSERT_BY"
 failures=()
 for f in "${files[@]}"; do
-  echo "\n— Importing: $f"
+  printf '\n— Importing: %s\n' "$f"
   if ! npm run -s import:university -- "$f" --upsert-by="$UPSERT_BY"; then
-    echo "Failed: $f" >&2
+    printf 'Failed: %s\n' "$f" >&2
     failures+=("$f")
   fi
 done
 
-echo "\nSummary: $(( ${#files[@]} - ${#failures[@]} )) succeeded, ${#failures[@]} failed"
+printf '\nSummary: %d succeeded, %d failed\n' "$(( ${#files[@]} - ${#failures[@]} ))" "${#failures[@]}"
 if (( ${#failures[@]} > 0 )); then
   printf '%s\n' "Failed files:" >&2
   for f in "${failures[@]}"; do printf ' - %s\n' "$f" >&2; done
