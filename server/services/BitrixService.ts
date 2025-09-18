@@ -21,6 +21,14 @@ export interface BitrixLead {
   UF_CRM_1234567897?: string // Интересующий университет
 }
 
+export interface MessengerEventPayload {
+  channel: string
+  referralCode: string
+  session?: string | null
+  utm?: Record<string, string | undefined>
+  metadata?: Record<string, any>
+}
+
 export interface BitrixConfig {
   domain: string
   accessToken: string
@@ -100,6 +108,94 @@ export class BitrixService {
       console.error('Error creating Bitrix lead:', error)
       return {
         id: 0,
+        success: false,
+        error: error.message
+      }
+    }
+  }
+
+  async logMessengerEvent(payload: MessengerEventPayload): Promise<{ success: boolean; activityId?: number; error?: string }> {
+    try {
+      const url = getBitrixApiUrl('crm.activity.add')
+
+      const descriptionLines = [
+        `Channel: ${payload.channel}`,
+        `Referral: ${payload.referralCode}`
+      ]
+
+      if (payload.session) {
+        descriptionLines.push(`Session: ${payload.session}`)
+      }
+
+      if (payload.utm && Object.keys(payload.utm).length > 0) {
+        descriptionLines.push(`UTM: ${JSON.stringify(payload.utm)}`)
+      }
+
+      if (payload.metadata && Object.keys(payload.metadata).length > 0) {
+        descriptionLines.push(`Metadata: ${JSON.stringify(payload.metadata)}`)
+      }
+
+      const now = new Date().toISOString()
+
+      const fields: Record<string, any> = {
+        SUBJECT: `Messenger click: ${payload.channel}`,
+        DESCRIPTION: descriptionLines.join('\n'),
+        TYPE_ID: 4,
+        COMPLETED: 'N',
+        START_TIME: now,
+        END_TIME: now,
+        COMMUNICATIONS: [
+          {
+            TYPE: 'IM',
+            VALUE: payload.channel
+          }
+        ]
+      }
+
+      const ownerId = process.env.BITRIX_ACTIVITY_OWNER_ID
+      const ownerTypeId = process.env.BITRIX_ACTIVITY_OWNER_TYPE_ID
+      const responsibleId = process.env.BITRIX_ACTIVITY_RESPONSIBLE_ID
+
+      if (ownerId) {
+        fields.OWNER_ID = Number(ownerId)
+      }
+
+      if (ownerTypeId) {
+        fields.OWNER_TYPE_ID = Number(ownerTypeId)
+      }
+
+      if (responsibleId) {
+        fields.RESPONSIBLE_ID = Number(responsibleId)
+      }
+
+      const response = await this.fetchWithTimeout(url, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({ fields }),
+        timeoutMs: 10000,
+        retries: 1
+      })
+
+      if (!response.ok) {
+        const text = await response.text().catch(() => '')
+        throw new Error(`HTTP error! status: ${response.status}${text ? ` | body: ${text.slice(0, 200)}` : ''}`)
+      }
+
+      const result = await response.json()
+
+      if (result.error) {
+        throw new Error(result.error_description || result.error)
+      }
+
+      return {
+        success: true,
+        activityId: result.result
+      }
+    } catch (error: any) {
+      console.error('Error logging messenger event in Bitrix:', error)
+      return {
         success: false,
         error: error.message
       }
