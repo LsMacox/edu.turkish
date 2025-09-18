@@ -68,7 +68,7 @@ interface ParentReviewItem {
 // Fetch parent reviews from API and refetch on locale change
 const { locale } = useI18n()
 const { data: parentReviews, pending, error: reviewsError, refresh } = await useFetch<ParentReviewItem[]>('/api/v1/reviews', {
-  query: computed(() => ({ type: 'parent', limit: 3, lang: locale.value })),
+  query: computed(() => ({ type: 'parent', featured: true, limit: 3, lang: locale.value })),
   headers: computed(() => ({ 'Accept-Language': locale.value })),
   transform: (res: ReviewListResponse<ParentReviewItem>) => res?.data ?? []
 })

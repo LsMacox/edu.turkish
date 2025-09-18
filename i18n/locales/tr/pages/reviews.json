@@ -64,78 +64,12 @@
       "title": "Öğrencilerimizin",
       "titleAccent": "hikayeleri",
       "description": "Her başarı benzersiz bir hikayedir. Türkiye'nin önde gelen üniversitelerinde okuyan mezunlarımızla tanışın.",
-      "students": {
-        "aigerim": {
-          "name": "Aigerim Nurlanova",
-          "university": "İstanbul Üniversitesi • Tıp",
-          "quote": "\"Edu.turkish ekibinin sayesinde İstanbul Üniversitesi Tıp Fakültesi'ne girebildim. Belge hazırlama, Türkçe öğrenme ve sınavlara hazırlanma konularında yardım ettiler. Şimdi 2. sınıf öğrencisiyim ve inanılmaz mutluyum!\"",
-          "yosScore": "Puan: 485/500",
-          "turkishLevel": "Türkçe"
-        },
-        "arman": {
-          "name": "Arman Toktarbek",
-          "university": "Orta Doğu Teknik Üniversitesi • Mühendislik",
-          "quote": "\"Her zaman mühendis olmayı hayal ettim ama nereden başlayacağımı bilmiyordum. Edu.turkish sadece kabul konusunda yardım etmedi, aynı zamanda tüm süreç boyunca destek oldu. Şimdi Türkiye'nin en iyi teknik üniversitelerinden birinde okuyorum!\"",
-          "satScore": "Puan: 1420/1600",
-          "englishLevel": "İngilizce"
-        },
-        "dinara": {
-          "name": "Dinara Smagulova",
-          "university": "Boğaziçi Üniversitesi • İşletme",
-          "quote": "\"Boğaziçi'ye girmek imkansız görünüyordu ama Edu.turkish ekibi aksini kanıtladı. Bireysel yaklaşım, kaliteli hazırlık ve sürekli destek - onları diğer ajanslardan ayıran şey bu.\"",
-          "yosScore": "Puan: 490/500",
-          "turkishLevel": "Türkçe"
-        }
-      },
       "ctaButton": "Bir sonraki başarı ol"
     },
     "parentReviews": {
       "title": "Ebeveynler güveniyor",
       "titleAccent": "deneyimimize",
-      "description": "Çocuklarının Türkiye'deki eğitimi için Edu.turkish'i seçen ebeveynlerin görüşleri",
-      "parents": {
-        "galina": {
-          "name": "Galina Petrovna",
-          "relation": "Aigerim'in Annesi • İstanbul Üniversitesi",
-          "quote": "Edu.turkish ekibine teşekkür etmek istiyorum. Bizi adım adım yönlendirdiler, belgelere yardımcı oldular ve her zaman iletişimdeydiler. Kızım İstanbul Üniversitesi'ne strese girmeden kayıt oldu.",
-          "date": "Haziran 2023"
-        },
-        "nurzhan": {
-          "name": "Nurzhan Toktarbekov",
-          "relation": "Arman'ın Babası • ODTÜ",
-          "quote": "Bir baba olarak doğru seçim yaptığımızdan emin olmak istedim. Edu.turkish sürecin tam şeffaflığını sağladı, her aşamayı düzenli olarak bildirdi. Oğlum prestijli bir üniversiteye kabul edildi ve bu onların başarısıdır.",
-          "date": "Eylül 2023"
-        },
-        "almagul": {
-          "name": "Almagul Smagulova",
-          "relation": "Dinara'nın Annesi • Boğaziçi Üniversitesi",
-          "quote": "Profesyonellik ve insanlık - işte Edu.turkish'i ayıran şey budur. Ebeveyn olarak kaygılarımızı anladılar ve başvuru sürecinin tüm aile için mümkün olduğunca rahat geçmesi için ellerinden geleni yaptılar.",
-          "date": "Kasım 2023"
-        },
-        "sergey": {
-          "name": "Sergey Volkov",
-          "relation": "Alexander'ın Babası • Sabancı Üniversitesi",
-          "quote": "Rusya'da yaşıyoruz ve başlangıçta hazırlığın nasıl gideceği konusunda endişeliydik. Online danışmanlık, kişisel mentorlar ve sürekli iletişim - hepsi en üst düzeyde. Oğlum başarıyla kayıt oldu!",
-          "date": "Ağustos 2023"
-        },
-        "zhanna": {
-          "name": "Zhanna Kusainova",
-          "relation": "Asel'in Annesi • Koç Üniversitesi",
-          "quote": "Kızım her zaman başarılı bir öğrenciydi, ancak yurt dışında eğitime nereden başlayacağımızı bilmiyorduk. Edu.turkish net bir plan hazırladı, dil hazırlığında yardım etti ve sonuca ulaştırdı. Çok teşekkür ederiz!",
-          "date": "Aralık 2023"
-        },
-        "rustam": {
-          "name": "Rustam İbragimov",
-          "relation": "Kamilla'nın Babası • Hacettepe Üniversitesi",
-          "quote": "Benim için en önemli şey dürüstlük ve güvenilirlikti. Edu.turkish hiçbir zaman yanlış söz vermedi, şanslar ve fırsatlar hakkında her zaman gerçeği söyledi. Bu güven ve saygı uyandırıyor.",
-          "date": "Ocak 2024"
-        }
-      },
-      "stats": {
-        "recommend": "Ebeveyn bizi tavsiye ediyor",
-        "families": "Aile bize güvendi",
-        "support": "Ebeveyn desteği"
-      }
+      "description": "Çocuklarının Türkiye'deki eğitimi için Edu.turkish'i seçen ebeveynlerin görüşleri"
     },
     "shareExperience": {
       "title": "Deneyiminizi",

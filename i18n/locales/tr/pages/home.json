@@ -77,15 +77,9 @@
     "reviews": {
       "title": "Öğrenci Yorumları",
       "subtitle": "Müşterilerimizin başarı hikayeleri",
-      "review1_name": "Anna İvanova",
-      "review1_university": "İstanbul Üniversitesi",
-      "review1_text": "\"Edu.turkish hayalimdeki üniversiteye girmeme yardımcı oldu! Müdür Aliya her zaman iletişimde oldu ve tüm sorunları çözdü. Tavsiye ederim!\"",
-      "review2_name": "Dmitry Kozlov",
-      "review2_university": "Boğaziçi Üniversitesi",
-      "review2_text": "\"Ekip sayesinde %75 burs aldım! Süreç şeffaftı, tüm belgeler zamanında verildi. Çok teşekkür ederim!\"",
-      "review3_name": "Elena Petrova",
-      "review3_role": "Öğrenci annesi",
-      "review3_text": "\"Kızım Edu.turkish aracılığıyla ODTÜ'ye girdi. Hizmetten çok memnunum - her şey net, sözleşmeye göre, garantilerle.\"",
+      "loading": "Yorumlar yükleniyor...",
+      "error": "Yorumlar yüklenemedi. Lütfen daha sonra tekrar deneyin.",
+      "empty": "Yakında burada öğrencilerimizin ve velilerimizin yorumları yer alacak.",
       "read_more": "Daha fazla yorum oku"
     },
     "fears": {

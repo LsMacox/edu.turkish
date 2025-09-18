@@ -77,15 +77,9 @@
     "reviews": {
       "title": "Student Reviews",
       "subtitle": "Success stories of our clients",
-      "review1_name": "Anna Ivanova",
-      "review1_university": "Istanbul University",
-      "review1_text": "\"Edu.turkish helped me get into my dream university! Manager Aliya was always in touch and solved all issues. I recommend!\"",
-      "review2_name": "Dmitry Kozlov",
-      "review2_university": "Bogazici University",
-      "review2_text": "\"Thanks to the team, I got a 75% scholarship! The process was transparent, all documents were submitted on time. Thank you so much!\"",
-      "review3_name": "Elena Petrova",
-      "review3_role": "Student's mother",
-      "review3_text": "\"My daughter entered METU through Edu.turkish. Very satisfied with the service - everything is clear, according to the contract, with guarantees.\"",
+      "loading": "Loading reviews...",
+      "error": "Failed to load reviews. Please try again later.",
+      "empty": "Reviews from our students and parents will appear here soon.",
       "read_more": "Read more reviews"
     },
     "fears": {
