@@ -14,6 +14,93 @@ type UniversityListItem = Prisma.UniversityGetPayload<{
 }>
 
 describe('UniversityRepository.findAll', () => {
+  const createParams = (overrides: Partial<UniversityQueryParams> = {}): UniversityQueryParams => ({
+    q: '',
+    city: '',
+    langs: [],
+    type: '',
+    level: '',
+    price_min: 0,
+    price_max: 20000,
+    sort: 'pop',
+    page: 1,
+    limit: 12,
+    ...overrides
+  })
+
+  const createRepositoryWithMocks = () => {
+    const findMany = vi.fn().mockResolvedValue([])
+    const count = vi.fn().mockResolvedValue(0)
+    const universityGroupBy = vi.fn().mockResolvedValue([])
+    const aggregate = vi.fn().mockResolvedValue({
+      _min: { tuitionMin: new Prisma.Decimal(0), tuitionMax: new Prisma.Decimal(0) },
+      _max: { tuitionMin: new Prisma.Decimal(0), tuitionMax: new Prisma.Decimal(0) }
+    })
+    const academicProgramGroupBy = vi.fn().mockResolvedValue([])
+    const cityTranslationFindMany = vi.fn().mockResolvedValue([])
+    const transaction = vi.fn(async (queries: Promise<unknown>[]) => Promise.all(queries))
+
+    const prisma = {
+      university: {
+        findMany,
+        count,
+        groupBy: universityGroupBy,
+        aggregate
+      },
+      academicProgram: {
+        groupBy: academicProgramGroupBy
+      },
+      cityTranslation: {
+        findMany: cityTranslationFindMany
+      },
+      $transaction: transaction
+    } as unknown as PrismaClient
+
+    const repository = new UniversityRepository(prisma)
+
+    return { repository, findMany }
+  }
+
+  type TuitionRange = { tuitionMin: Prisma.Decimal | null; tuitionMax: Prisma.Decimal | null }
+
+  const matchesTuitionWhere = (where: Prisma.UniversityWhereInput | undefined, range: TuitionRange): boolean => {
+    if (!where) return true
+
+    const evaluate = (clause: Prisma.UniversityWhereInput): boolean => {
+      const { AND, OR, ...direct } = clause
+
+      if (AND && !AND.every(inner => evaluate(inner))) {
+        return false
+      }
+
+      if (OR && !OR.some(inner => evaluate(inner))) {
+        return false
+      }
+
+      return Object.entries(direct).every(([field, condition]) => {
+        if (field !== 'tuitionMin' && field !== 'tuitionMax') {
+          return true
+        }
+
+        const value = range[field]
+        return Object.entries(condition as Record<string, number | null>).every(([operator, expected]) => {
+          if (operator === 'equals') {
+            return expected === null ? value === null : (value !== null && Number(value) === expected)
+          }
+          if (operator === 'lte') {
+            return value !== null && Number(value) <= (expected as number)
+          }
+          if (operator === 'gte') {
+            return value !== null && Number(value) >= (expected as number)
+          }
+          return true
+        })
+      })
+    }
+
+    return evaluate(where)
+  }
+
   it('builds filters using aggregate queries and returns transformed data', async () => {
     const baseDate = new Date('2024-01-01T00:00:00.000Z')
 
@@ -182,5 +269,63 @@ describe('UniversityRepository.findAll', () => {
       labelKey: 'universities_page.card.badges.technical',
       color: 'purple'
     })
+  })
+
+  it('builds intersection filter that matches overlapping and nested ranges', async () => {
+    const { repository, findMany } = createRepositoryWithMocks()
+
+    await repository.findAll(createParams({ price_min: 2000, price_max: 6000 }), 'ru')
+
+    expect(findMany).toHaveBeenCalledTimes(1)
+    const where = findMany.mock.calls[0][0]?.where as Prisma.UniversityWhereInput
+
+    expect(where?.AND).toHaveLength(2)
+
+    const overlapping: TuitionRange = {
+      tuitionMin: new Prisma.Decimal(2500),
+      tuitionMax: new Prisma.Decimal(6500)
+    }
+    const nestedInsideQuery: TuitionRange = {
+      tuitionMin: new Prisma.Decimal(3200),
+      tuitionMax: new Prisma.Decimal(3400)
+    }
+    const queryInsideRange: TuitionRange = {
+      tuitionMin: new Prisma.Decimal(1500),
+      tuitionMax: new Prisma.Decimal(7000)
+    }
+
+    expect(matchesTuitionWhere(where, overlapping)).toBe(true)
+    expect(matchesTuitionWhere(where, nestedInsideQuery)).toBe(true)
+    expect(matchesTuitionWhere(where, queryInsideRange)).toBe(true)
+  })
+
+  it('includes open-ended tuition ranges and excludes non-overlapping ones', async () => {
+    const { repository, findMany } = createRepositoryWithMocks()
+
+    await repository.findAll(createParams({ price_min: 3000, price_max: 8000 }), 'ru')
+
+    const where = findMany.mock.calls[0][0]?.where as Prisma.UniversityWhereInput
+
+    const openLower: TuitionRange = {
+      tuitionMin: null,
+      tuitionMax: new Prisma.Decimal(3500)
+    }
+    const openUpper: TuitionRange = {
+      tuitionMin: new Prisma.Decimal(5000),
+      tuitionMax: null
+    }
+    const unbounded: TuitionRange = {
+      tuitionMin: null,
+      tuitionMax: null
+    }
+    const nonOverlapping: TuitionRange = {
+      tuitionMin: new Prisma.Decimal(9000),
+      tuitionMax: new Prisma.Decimal(12000)
+    }
+
+    expect(matchesTuitionWhere(where, openLower)).toBe(true)
+    expect(matchesTuitionWhere(where, openUpper)).toBe(true)
+    expect(matchesTuitionWhere(where, unbounded)).toBe(true)
+    expect(matchesTuitionWhere(where, nonOverlapping)).toBe(false)
   })
 })

@@ -71,30 +71,32 @@ export class UniversityRepository {
     const where: Prisma.UniversityWhereInput = {}
 
     // Price filter based on normalized fields
-    const normalizedPriceRange = this.normalizePriceRange(price_min, price_max)
-    if (normalizedPriceRange) {
-      const priceConditions: Prisma.UniversityWhereInput[] = []
+    if (price_min !== undefined || price_max !== undefined) {
+      const min = price_min ?? null
+      const max = price_max ?? null
+      const priceFilters: Prisma.UniversityWhereInput[] = []
 
-      if (normalizedPriceRange.min !== undefined && normalizedPriceRange.max !== undefined) {
-        priceConditions.push(
-          { tuitionMin: { gte: normalizedPriceRange.min, lte: normalizedPriceRange.max } },
-          { tuitionMax: { gte: normalizedPriceRange.min, lte: normalizedPriceRange.max } }
-        )
-      } else if (normalizedPriceRange.min !== undefined) {
-        priceConditions.push(
-          { tuitionMin: { gte: normalizedPriceRange.min } },
-          { tuitionMax: { gte: normalizedPriceRange.min } }
-        )
-      } else if (normalizedPriceRange.max !== undefined) {
-        priceConditions.push(
-          { tuitionMin: { lte: normalizedPriceRange.max } },
-          { tuitionMax: { lte: normalizedPriceRange.max } }
-        )
+      if (max !== null) {
+        priceFilters.push({
+          OR: [
+            { tuitionMin: { lte: max } },
+            { tuitionMin: { equals: null } }
+          ]
+        })
       }
 
-      if (priceConditions.length > 0) {
+      if (min !== null) {
+        priceFilters.push({
+          OR: [
+            { tuitionMax: { gte: min } },
+            { tuitionMax: { equals: null } }
+          ]
+        })
+      }
+
+      if (priceFilters.length > 0) {
         where.AND = (where.AND || [])
-        where.AND.push({ OR: priceConditions })
+        where.AND.push(...priceFilters)
       }
     }
 
