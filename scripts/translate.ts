@@ -235,9 +235,10 @@ async function translateUniversities(opts: CliOptions): Promise<void> {
 
 async function translateReviews(opts: CliOptions): Promise<void> {
   const { sourceLocale, targetLocales, limit, dryRun, concurrency } = opts
-  const reviews = await prisma.review.findMany({ include: { translations: true }, take: limit })
+  const reviews = await prisma.review.findMany({ where: { featured: true }, include: { translations: true }, take: limit })
   const jobs: Array<() => Promise<void>> = []
   for (const r of reviews as any[]) {
+    if (typeof r.featured === 'boolean' && !r.featured) continue
     const existing = new Set(r.translations.map((t: any) => t.locale))
     const missing = targetLocales.filter(l => !existing.has(l))
     if (missing.length === 0) continue
@@ -283,9 +284,10 @@ async function translatePrograms(opts: CliOptions): Promise<void> {
 
 async function translateFaqs(opts: CliOptions): Promise<void> {
   const { sourceLocale, targetLocales, limit, dryRun, concurrency } = opts
-  const rows = await prisma.faqItem.findMany({ include: { translations: true }, take: limit })
+  const rows = await prisma.faqItem.findMany({ where: { featured: true }, include: { translations: true }, take: limit })
   const jobs: Array<() => Promise<void>> = []
   for (const rec of rows as any[]) {
+    if (typeof rec.featured === 'boolean' && !rec.featured) continue
     const existing = new Set(rec.translations.map((t: any) => t.locale))
     const missing = targetLocales.filter(l => !existing.has(l))
     if (missing.length === 0) continue
@@ -534,5 +536,4 @@ main().catch(err => {
   console.error(err)
   process.exit(1)
 })
-
 
