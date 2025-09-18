@@ -12,10 +12,57 @@ export class ApplicationRepository {
     // Generate tracking code
     const trackingCode = generateTrackingCode()
 
+    const normalizedFirstName = data.personal_info.first_name?.trim() || ''
+    const normalizedLastName = data.personal_info.last_name?.trim() || null
+    const normalizedEmail = data.personal_info.email?.trim() || null
+    const normalizedPhone = data.personal_info.phone?.trim() || ''
+    const normalizedCountry = data.personal_info.country?.trim() || null
+    const normalizedCity = data.personal_info.city?.trim() || null
+    const normalizedEducationLevel = data.education.level?.trim() || null
+    const normalizedEducationField = (() => {
+      const field = data.education.field?.trim()
+      if (!field || field === 'Не указано') {
+        return null
+      }
+      return field
+    })()
+    const normalizedProgram = (() => {
+      const programs = (Array.isArray(data.preferences?.programs)
+        ? (data.preferences?.programs ?? [])
+        : []).filter((program): program is string => typeof program === 'string' && program.trim() !== '')
+      if (programs.length > 0) {
+        return programs[0].trim()
+      }
+      return normalizedEducationField
+    })()
+    const normalizedUniversity = (() => {
+      const universities = (Array.isArray(data.preferences?.universities)
+        ? (data.preferences?.universities ?? [])
+        : []).filter((university): university is string => typeof university === 'string' && university.trim() !== '')
+      if (universities.length > 0) {
+        return universities[0].trim()
+      }
+      return null
+    })()
+    const normalizedSource = data.source?.trim() || 'website'
+    const normalizedReferralCode = data.referral_code?.trim() || null
+
     const application = await this.prisma.application.create({
       data: {
         trackingCode,
         status: 'submitted',
+        firstName: normalizedFirstName,
+        lastName: normalizedLastName,
+        email: normalizedEmail,
+        phone: normalizedPhone,
+        country: normalizedCountry,
+        city: normalizedCity,
+        educationLevel: normalizedEducationLevel,
+        educationField: normalizedEducationField,
+        targetUniversity: normalizedUniversity,
+        targetProgram: normalizedProgram,
+        source: normalizedSource,
+        referralCode: normalizedReferralCode,
         personalInfo: data.personal_info,
         education: data.education,
         preferences: data.preferences,
@@ -63,6 +110,18 @@ export class ApplicationRepository {
       id: application.id,
       trackingCode: application.trackingCode,
       status: application.status,
+      firstName: application.firstName,
+      lastName: application.lastName,
+      email: application.email,
+      phone: application.phone,
+      country: application.country,
+      city: application.city,
+      educationLevel: application.educationLevel,
+      educationField: application.educationField,
+      targetUniversity: application.targetUniversity,
+      targetProgram: application.targetProgram,
+      source: application.source,
+      referralCode: application.referralCode,
       personalInfo: application.personalInfo,
       education: application.education,
       preferences: application.preferences,
@@ -124,6 +183,18 @@ export class ApplicationRepository {
         id: app.id,
         trackingCode: app.trackingCode,
         status: app.status,
+        firstName: app.firstName,
+        lastName: app.lastName,
+        email: app.email,
+        phone: app.phone,
+        country: app.country,
+        city: app.city,
+        educationLevel: app.educationLevel,
+        educationField: app.educationField,
+        targetUniversity: app.targetUniversity,
+        targetProgram: app.targetProgram,
+        source: app.source,
+        referralCode: app.referralCode,
         personalInfo: app.personalInfo,
         education: app.education,
         preferences: app.preferences,
