@@ -61,6 +61,7 @@ model University {
   // Relations
   translations        UniversityTranslation[]
   academicPrograms    AcademicProgram[]
+  featuredPrograms    FeaturedProgram[]
   reviews             Review[]
   campusFacilities    CampusFacility[]
   admissionRequirements AdmissionRequirement[]
@@ -98,8 +99,6 @@ model UniversityTranslation {
   slug             String     @db.VarChar(255)
   /// Локализованные тексты о университете
   about            Json?      // {history, mission, vision}
-  /// Сильные программы (локализованные категории/названия)
-  strongPrograms   Json?      @map("strong_programs") // [{category, programs[]}]
   // Локализованные тексты для блока "Ключевая информация"
   keyInfoTexts    Json?      @map("key_info_texts")
   createdAt        DateTime   @default(now()) @map("created_at")
@@ -238,6 +237,7 @@ model AcademicProgram {
   // Relations
   university      University @relation(fields: [universityId], references: [id], onDelete: Cascade)
   translations    ProgramTranslation[]
+  featuredIn      FeaturedProgram[]
 
   @@map("academic_programs")
   // Индексы для фильтров
@@ -776,4 +776,38 @@ enum BlogArticleStatus {
   draft
   published
   archived
+}
+model FeaturedProgram {
+  id            Int        @id @default(autoincrement())
+  universityId  Int        @map("university_id")
+  programId     Int        @map("program_id")
+  displayOrder  Int        @default(0) @map("display_order")
+  createdAt     DateTime   @default(now()) @map("created_at")
+  updatedAt     DateTime   @updatedAt @map("updated_at")
+
+  // Relations
+  university     University @relation(fields: [universityId], references: [id], onDelete: Cascade)
+  program        AcademicProgram @relation(fields: [programId], references: [id], onDelete: Cascade)
+  translations   FeaturedProgramTranslation[]
+
+  @@map("featured_programs")
+  @@index([universityId], map: "idx_featured_program_university")
+  @@index([programId], map: "idx_featured_program_program")
+  @@unique([universityId, programId], map: "uniq_featured_program_per_university")
+  @@index([displayOrder], map: "idx_featured_program_order")
+}
+
+model FeaturedProgramTranslation {
+  id                 Int              @id @default(autoincrement())
+  featuredProgramId  Int              @map("featured_program_id")
+  locale             String           @db.VarChar(5)
+  label              String?          @db.VarChar(255)
+  createdAt          DateTime         @default(now()) @map("created_at")
+  updatedAt          DateTime         @updatedAt @map("updated_at")
+
+  // Relations
+  featuredProgram    FeaturedProgram  @relation(fields: [featuredProgramId], references: [id], onDelete: Cascade)
+
+  @@map("featured_program_translations")
+  @@unique([featuredProgramId, locale], map: "uniq_featured_program_translation")
 }

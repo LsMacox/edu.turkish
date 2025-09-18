@@ -193,40 +193,38 @@ async function translateUniversities(opts: CliOptions): Promise<void> {
     const existing = new Set(u.translations.map((t: any) => t.locale))
     const missing = targetLocales.filter(l => !existing.has(l))
     const incomplete = u.translations
-      .filter((t: any) => targetLocales.includes(t.locale) && (!t.about || !t.strongPrograms))
+      .filter((t: any) => targetLocales.includes(t.locale) && !t.about)
       .map((t: any) => t.locale)
 
     const baseT = u.translations.find((t: any) => t.locale === sourceLocale) || u.translations[0]
     const base = { title: baseT?.title || '', description: baseT?.description || '' }
     const baseAbout = stringifyMaybeJson(baseT?.about)
-    const baseStrong = stringifyMaybeJson(baseT?.strongPrograms)
 
     for (const target of missing) {
       jobs.push(async () => {
-        const input = { title: base.title, description: base.description, about: baseAbout, strongPrograms: baseStrong }
-        const ctx = 'University translation fields. about is a JSON object with text fields; strongPrograms is a JSON array of {category, programs[]}. Translate values, keep JSON structure.'
+        const input = { title: base.title, description: base.description, about: baseAbout }
+        const ctx = 'University translation fields. about is a JSON object with text fields. Translate values, keep JSON structure.'
         const out = await callOpenRouterTranslate(input, sourceLocale, target, ctx)
         if (dryRun) { console.log(`[DryRun][University ${u.id}] => ${target}`, out); return }
         const titleOut = out.title || ''
         const slugBase = slugify(titleOut || base.title || `university-${u.id}`)
         const unique = await uniqueUniversitySlug(target, slugBase)
-        await (prisma as any).universityTranslation.create({ data: { universityId: u.id, locale: target, slug: unique, title: titleOut, description: out.description || '', about: tryParseJson(out.about), strongPrograms: tryParseJson(out.strongPrograms) } })
+        await (prisma as any).universityTranslation.create({ data: { universityId: u.id, locale: target, slug: unique, title: titleOut, description: out.description || '', about: tryParseJson(out.about) } })
         console.log(`[Created] university_translation u=${u.id} ${sourceLocale}->${target}`)
       })
     }
 
     for (const target of incomplete) {
       jobs.push(async () => {
-        if (!baseAbout && !baseStrong) return
-        const input = { about: baseAbout, strongPrograms: baseStrong }
-        const ctx = 'Backfill university about (JSON object) and strongPrograms (JSON array). Translate values and preserve JSON.'
+        if (!baseAbout) return
+        const input = { about: baseAbout }
+        const ctx = 'Backfill university about (JSON object). Translate values and preserve JSON.'
         const out = await callOpenRouterTranslate(input, sourceLocale, target, ctx)
         if (dryRun) { console.log(`[DryRun][University-Backfill ${u.id}] => ${target}`, out); return }
         const data: any = {}
         if (out.about != null) data.about = tryParseJson(out.about)
-        if (out.strongPrograms != null) data.strongPrograms = tryParseJson(out.strongPrograms)
         await (prisma as any).universityTranslation.updateMany({ where: { universityId: u.id, locale: target }, data })
-        console.log(`[Updated] university_translation u=${u.id} about/strongPrograms for ${target}`)
+        console.log(`[Updated] university_translation u=${u.id} about for ${target}`)
       })
     }
   }

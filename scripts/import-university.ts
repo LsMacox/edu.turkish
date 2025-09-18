@@ -234,6 +234,7 @@ async function main(): Promise<void> {
 
   // Replace related entities with provided payload (simple and deterministic)
   await replacePrograms(universityId, data.locale, data.programs)
+  await replaceFeaturedPrograms(universityId, data.locale, data.strong_programs ?? [], data.translation)
   // Link study directions based on explicit list or program-level hints
   await linkDirectionsForUniversity(universityId, data.locale, data)
   await replaceFacilities(universityId, data.locale, data.campus_life?.facilities ?? [])
@@ -313,7 +314,6 @@ async function upsertUniversity(
         title: data.title,
         description: data.description,
         about: data.about as any,
-        strongPrograms: data.strong_programs as any,
         keyInfoTexts: data.key_info_texts as any
       }
     })
@@ -326,7 +326,6 @@ async function upsertUniversity(
         title: data.title,
         description: data.description,
         about: data.about as any,
-        strongPrograms: data.strong_programs as any,
         keyInfoTexts: data.key_info_texts as any
       }
     })
@@ -342,7 +341,6 @@ async function upsertUniversity(
         title: t.title,
         description: t.description,
         about: (t.about as any) ?? undefined,
-        strongPrograms: (t.strong_programs as any) ?? undefined,
         keyInfoTexts: (t.key_info_texts as any) ?? undefined
       },
       create: {
@@ -352,7 +350,6 @@ async function upsertUniversity(
         title: t.title ?? data.title,
         description: t.description ?? data.description,
         about: (t.about as any) ?? (data.about as any),
-        strongPrograms: (t.strong_programs as any) ?? (data.strong_programs as any),
         keyInfoTexts: (t.key_info_texts as any) ?? (data.key_info_texts as any)
       }
     })
@@ -389,6 +386,100 @@ async function replacePrograms(universityId: number, locale: string, programs: A
         create: { programId: created.id, locale: p.translation.locale, name: p.translation.name, description: p.translation.description }
       })
     }
+  }
+}
+
+async function replaceFeaturedPrograms(
+  universityId: number,
+  baseLocale: string,
+  categories: Array<z.infer<typeof StrongProgramCategory>>,
+  translation?: z.infer<typeof UniversityInput>['translation']
+): Promise<void> {
+  await (prisma as any).featuredProgramTranslation.deleteMany({ where: { featuredProgram: { universityId } } })
+  await (prisma as any).featuredProgram.deleteMany({ where: { universityId } })
+
+  if (!categories || categories.length === 0) return
+
+  const programTranslations = await (prisma as any).programTranslation.findMany({
+    where: { program: { universityId } },
+    include: { program: true }
+  })
+
+  const normalizeKey = (locale: string, value: string | null | undefined): string =>
+    `${locale.toLowerCase()}|${(value || '').trim().toLowerCase()}`
+
+  const programIndex = new Map<string, number>()
+  for (const pt of programTranslations) {
+    if (!pt.name) continue
+    programIndex.set(normalizeKey(pt.locale, pt.name), pt.programId)
+  }
+
+  type CreatedEntry = { id: number; categoryIndex: number }
+  const createdEntries: CreatedEntry[] = []
+  let orderCounter = 0
+
+  for (let categoryIndex = 0; categoryIndex < categories.length; categoryIndex++) {
+    const category = categories[categoryIndex]
+    const label = category?.category?.trim() || null
+    const programs = Array.isArray(category?.programs) ? category.programs : []
+
+    for (const programNameRaw of programs) {
+      const nameTrimmed = (programNameRaw || '').trim()
+      if (!nameTrimmed) continue
+
+      let programId = programIndex.get(normalizeKey(baseLocale, nameTrimmed))
+      if (!programId) {
+        const fallback = programTranslations.find(
+          pt => (pt.name || '').trim().toLowerCase() === nameTrimmed.toLowerCase()
+        )
+        if (fallback) {
+          programId = fallback.programId
+        }
+      }
+
+      if (!programId) {
+        console.warn(`⚠️ Program not found for featured list: ${programNameRaw}`)
+        continue
+      }
+
+      const created = await (prisma as any).featuredProgram.create({
+        data: {
+          universityId,
+          programId,
+          displayOrder: orderCounter++,
+          translations: {
+            create: {
+              locale: baseLocale,
+              label
+            }
+          }
+        }
+      })
+
+      createdEntries.push({ id: created.id, categoryIndex })
+    }
+  }
+
+  const translationLocale = translation?.locale
+  const translatedCategories = translation?.strong_programs
+  if (!translationLocale || !translatedCategories || translatedCategories.length === 0) {
+    return
+  }
+
+  for (const entry of createdEntries) {
+    const translatedCategory = translatedCategories[entry.categoryIndex]
+    const translatedLabel = translatedCategory?.category?.trim()
+    if (!translatedLabel) continue
+
+    await (prisma as any).featuredProgramTranslation.upsert({
+      where: { featuredProgramId_locale: { featuredProgramId: entry.id, locale: translationLocale } },
+      update: { label: translatedLabel },
+      create: {
+        featuredProgramId: entry.id,
+        locale: translationLocale,
+        label: translatedLabel
+      }
+    })
   }
 }
 

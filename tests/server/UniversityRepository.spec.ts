@@ -132,7 +132,6 @@ describe('UniversityRepository.findAll', () => {
             description: 'Leading technology university',
             slug: 'tech-university',
             about: null,
-            strongPrograms: null,
             keyInfoTexts: { ranking_text: 'Top 100 globally' },
             createdAt: baseDate,
             updatedAt: baseDate
@@ -145,7 +144,6 @@ describe('UniversityRepository.findAll', () => {
             description: 'Ведущий технический университет',
             slug: 'tekhnicheskiy-universitet',
             about: null,
-            strongPrograms: null,
             keyInfoTexts: { ranking_text: 'Топ-100 в мире' },
             createdAt: baseDate,
             updatedAt: baseDate
