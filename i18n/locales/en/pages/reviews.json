@@ -1,5 +1,10 @@
 {
   "reviews": {
+    "labels": {
+      "studentExperience": "Student experience",
+      "parent": "Parent",
+      "yearSuffix": ""
+    },
     "hero": {
       "title": "Reviews from our students",
       "titleAccent": "and parents",

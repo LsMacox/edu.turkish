@@ -10,44 +10,31 @@
         </p>
       </div>
 
-      <div class="max-w-4xl mx-auto mb-8">
-        <div class="bg-white rounded-3xl shadow-custom p-6 md:p-8">
-          <div class="mb-6">
-            <h3 class="text-xl font-bold text-secondary mb-2">{{ $t('reviews.studentStories.students.aigerim.name') }}</h3>
-            <p class="text-primary font-semibold mb-1">Istanbul University</p>
-            <p class="text-gray-600">Медицина</p>
-          </div>
-          
-          <blockquote class="text-gray-700 leading-relaxed">
-            {{ $t('reviews.studentStories.students.aigerim.quote') }}
-          </blockquote>
-        </div>
+      <div v-if="reviewsError" class="text-red-500 p-4 text-center">
+        Failed to load reviews. Please try again later.
       </div>
-
-      <div class="max-w-4xl mx-auto mb-8">
-        <div class="bg-white rounded-3xl shadow-custom p-6 md:p-8">
-          <div class="mb-6">
-            <h3 class="text-xl font-bold text-secondary mb-2">{{ $t('reviews.studentStories.students.arman.name') }}</h3>
-            <p class="text-primary font-semibold mb-1">Middle East Technical University</p>
-            <p class="text-gray-600">Инженерия</p>
-          </div>
-          
-          <blockquote class="text-gray-700 leading-relaxed">
-            {{ $t('reviews.studentStories.students.arman.quote') }}
-          </blockquote>
-        </div>
+      <div v-else-if="pending" class="animate-pulse text-center">
+        Loading reviews...
       </div>
-
-      <div class="max-w-4xl mx-auto">
-        <div class="bg-white rounded-3xl shadow-custom p-6 md:p-8">
+      <div v-else v-for="review in studentReviews" :key="review.id" class="max-w-4xl mx-auto mb-8">
+        <div class="bg-white rounded-3xl shadow-custom hover-lift p-6 md:p-8">
           <div class="mb-6">
-            <h3 class="text-xl font-bold text-secondary mb-2">{{ $t('reviews.studentStories.students.dinara.name') }}</h3>
-            <p class="text-primary font-semibold mb-1">Boğaziçi University</p>
-            <p class="text-gray-600">Бизнес</p>
+            <h3 class="text-xl font-bold text-secondary mb-2">{{ review.name }}</h3>
+            <p class="text-primary font-semibold mb-1">{{ review.university }}</p>
+            <p class="text-gray-600">{{ $t('reviews.labels.studentExperience') }}</p>
+          </div>
+          
+          <div class="flex text-yellow-400 mb-4">
+            <Icon 
+              v-for="i in 5" 
+              :key="i" 
+              name="mdi:star" 
+              :class="i <= review.rating ? 'text-yellow-400' : 'text-gray-300'" 
+            />
           </div>
           
           <blockquote class="text-gray-700 leading-relaxed">
-            {{ $t('reviews.studentStories.students.dinara.quote') }}
+            {{ review.quote }}
           </blockquote>
         </div>
       </div>
@@ -67,7 +54,35 @@
 <script setup lang="ts">
 import { useApplicationModalStore } from '~/stores/applicationModal'
 
+interface ReviewListResponse<T> {
+  data?: T[]
+}
+
+interface StudentReviewItem {
+  id: number | string
+  name: string
+  university: string
+  rating: number
+  quote: string
+}
+
 const modal = useApplicationModalStore()
+
+// Fetch student reviews from API and refetch on locale change
+const { locale } = useI18n()
+const { data: studentReviews, pending, error: reviewsError, refresh } = await useFetch<StudentReviewItem[]>('/api/v1/reviews', {
+  query: computed(() => ({ type: 'student', limit: 3, lang: locale.value })),
+  headers: computed(() => ({ 'Accept-Language': locale.value })),
+  transform: (res: ReviewListResponse<StudentReviewItem>) => res?.data ?? []
+})
+
+watch(() => locale.value, () => {
+  refresh()
+})
+
+if (reviewsError.value) {
+  console.error('Failed to load student reviews:', reviewsError.value)
+}
 </script>
 
 <style scoped>

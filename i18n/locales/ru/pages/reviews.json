@@ -1,5 +1,10 @@
 {
   "reviews": {
+    "labels": {
+      "studentExperience": "Студенческий опыт",
+      "parent": "Родитель",
+      "yearSuffix": "г."
+    },
     "hero": {
       "title": "Отзывы наших студентов",
       "titleAccent": "и родителей",

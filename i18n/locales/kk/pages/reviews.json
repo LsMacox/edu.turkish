@@ -1,5 +1,10 @@
 {
   "reviews": {
+    "labels": {
+      "studentExperience": "Студенттік тәжірибе",
+      "parent": "Ата-ана",
+      "yearSuffix": " ж."
+    },
     "hero": {
       "title": "Біздің студенттердің пікірлері",
       "titleAccent": "мен ата-аналардың",

@@ -1,5 +1,10 @@
 {
   "reviews": {
+    "labels": {
+      "studentExperience": "Öğrenci deneyimi",
+      "parent": "Veli",
+      "yearSuffix": ""
+    },
     "hero": {
       "title": "Öğrencilerimizin yorumları",
       "titleAccent": "ve velilerinin",
