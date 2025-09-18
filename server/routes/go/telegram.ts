@@ -1,5 +1,5 @@
 import { getRequestURL } from 'h3'
-import { contactChannels, personalTelegramChannelKey } from '~/lib/contact/channels'
+import { contactChannels, personalTelegramChannelKey } from '~~/lib/contact/channels'
 
 const REFERRAL_PLACEHOLDER = /\{\{\s*referral\s*\}\}/gi
 

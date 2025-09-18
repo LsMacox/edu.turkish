@@ -247,8 +247,8 @@ export class BlogRepository {
               some: {
                 locale,
                 OR: [
-                  { title: { contains: searchQuery, mode: 'insensitive' } },
-                  { excerpt: { contains: searchQuery, mode: 'insensitive' } }
+                  { title: { contains: searchQuery } },
+                  { excerpt: { contains: searchQuery } }
                 ]
               }
             }
@@ -258,8 +258,8 @@ export class BlogRepository {
               some: {
                 locale: 'ru',
                 OR: [
-                  { title: { contains: searchQuery, mode: 'insensitive' } },
-                  { excerpt: { contains: searchQuery, mode: 'insensitive' } }
+                  { title: { contains: searchQuery } },
+                  { excerpt: { contains: searchQuery } }
                 ]
               }
             }
@@ -394,4 +394,3 @@ export class BlogRepository {
     return this.mapArticleToDetail(article, locale)
   }
 }
-

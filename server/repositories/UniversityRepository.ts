@@ -93,8 +93,8 @@ export class UniversityRepository {
               some: {
                 locale,
                 OR: [
-                  { title: { contains: q, mode: 'insensitive' } },
-                  { description: { contains: q, mode: 'insensitive' } }
+                  { title: { contains: q } },
+                  { description: { contains: q } }
                 ]
               }
             }
@@ -104,8 +104,8 @@ export class UniversityRepository {
               some: {
                 locale: 'ru',
                 OR: [
-                  { title: { contains: q, mode: 'insensitive' } },
-                  { description: { contains: q, mode: 'insensitive' } }
+                  { title: { contains: q } },
+                  { description: { contains: q } }
                 ]
               }
             }
@@ -113,14 +113,14 @@ export class UniversityRepository {
           {
             city: {
               translations: {
-                some: { locale, name: { contains: q, mode: 'insensitive' } }
+                some: { locale, name: { contains: q } }
               }
             }
           },
           {
             city: {
               translations: {
-                some: { locale: 'ru', name: { contains: q, mode: 'insensitive' } }
+                some: { locale: 'ru', name: { contains: q } }
               }
             }
           }
@@ -695,7 +695,7 @@ export class UniversityRepository {
           translations: {
             some: {
               locale,
-              name: { contains: search, mode: 'insensitive' }
+              name: { contains: search }
             }
           }
         },
@@ -703,7 +703,7 @@ export class UniversityRepository {
           translations: {
             some: {
               locale: 'ru',
-              name: { contains: search, mode: 'insensitive' }
+              name: { contains: search }
             }
           }
         }
