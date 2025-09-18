@@ -12,6 +12,7 @@ export const useUniversitiesStore = defineStore('universities', () => {
     cities: [],
     types: [],
     levels: [],
+    languages: [],
     priceRange: [0, 20000]
   })
   

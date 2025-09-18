@@ -56,7 +56,7 @@ describe('BaseButton', () => {
       props: { size: 'lg' },
       slots: { default: 'Large Button' }
     })
-
+    
     expect(wrapper.classes()).toContain('px-6')
     expect(wrapper.classes()).toContain('md:px-8')
     expect(wrapper.classes()).toContain('py-4')

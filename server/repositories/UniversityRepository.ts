@@ -1,5 +1,6 @@
 // @ts-nocheck
 import { PrismaClient } from '@prisma/client'
+import type { Prisma } from '@prisma/client'
 import type { DegreeType, UniversityType } from '../../app/types/domain'
 import type { University, UniversityQueryParams, UniversityDetail } from '../types/api'
 
@@ -49,6 +50,7 @@ export class UniversityRepository {
       cities: string[]
       types: string[]
       levels: string[]
+      languages: string[]
       priceRange: [number, number]
     }
   }> {
@@ -66,7 +68,7 @@ export class UniversityRepository {
     } = params
 
     // Build where clause
-    const where: any = {}
+    const where: Prisma.UniversityWhereInput = {}
 
     // Price filter based on normalized fields
     if (price_min !== undefined || price_max !== undefined) {
@@ -184,7 +186,7 @@ export class UniversityRepository {
     }
 
     // Build order by clause
-    let orderBy: any = { id: 'asc' } // default
+    let orderBy: Prisma.UniversityOrderByWithRelationInput = { id: 'asc' }
 
     switch (sort) {
       case 'price_asc':
@@ -222,77 +224,50 @@ export class UniversityRepository {
       this.prisma.university.count({ where })
     ])
 
-    // Get filter options
-    const [allUniversities] = await this.prisma.$transaction([
-      this.prisma.university.findMany({
-        include: {
-          city: { include: { translations: true } },
-          translations: true,
-          academicPrograms: true
-        }
-      })
-    ])
+    const filters = await this.buildFilterOptions(locale)
 
-    // Extract cities with fallback logic
-    const availableCities = [...new Set(
-      allUniversities
-        .map(u => {
-          const ct = (u.city?.translations || []) as Array<{ locale: string; name: string }>
-          const best = this.selectBestTranslation(ct, locale)
-          return best?.name
-        })
-        .filter(Boolean)
-    )].sort()
+    type UniversityListItem = Prisma.UniversityGetPayload<{
+      include: {
+        translations: true
+        academicPrograms: true
+        city: { include: { translations: true } }
+      }
+    }>
 
-    const availableTypes = ['state', 'private', 'tech', 'elite']
-    const availableLevels = ['bachelor', 'master', 'phd']
-    const allAny = allUniversities as any[]
-    const priceCandidates: number[] = allAny.map(u => Number(u.tuitionMin || u.tuitionMax || 0)).filter(v => !Number.isNaN(v))
-    const priceRange: [number, number] = [
-      priceCandidates.length ? Math.min(...priceCandidates) : 0,
-      priceCandidates.length ? Math.max(...priceCandidates) : 50000
-    ]
-
-    // Transform to API format with normalized structure
-    const transformedUniversities: University[] = (universities as any[]).map((uni: any) => {
+    const transformedUniversities: University[] = (universities as UniversityListItem[]).map(uni => {
       const translation = this.selectBestTranslation(uni.translations, locale)
-      const languageCodes = (uni.academicPrograms || []).map((p: any) => p.languageCode).filter(Boolean)
-      const cityTr = this.selectBestTranslation((uni.city?.translations || []) as any[], locale)
+      const languageCodes = uni.academicPrograms.map(program => program.languageCode)
+      const cityTranslation = uni.city?.translations
+        ? this.selectBestTranslation(uni.city.translations, locale)
+        : null
+      const keyInfoTexts = this.asRecord(translation?.keyInfoTexts)
 
       return {
         id: uni.id,
-        title: (translation as any)?.title || '',
-        description: (translation as any)?.description || '',
-        city: (cityTr as any)?.name || '',
-        foundedYear: uni.foundedYear || 0,
+        title: translation?.title ?? '',
+        description: translation?.description ?? '',
+        city: cityTranslation?.name ?? '',
+        foundedYear: uni.foundedYear ?? 0,
         type: uni.type as UniversityType,
-        
-        // Нормализованная стоимость
         tuitionRange: {
-          min: Number(uni.tuitionMin || 0),
-          max: Number(uni.tuitionMax || 0),
-          currency: uni.currency || 'USD'
+          min: this.decimalToNumber(uni.tuitionMin),
+          max: this.decimalToNumber(uni.tuitionMax),
+          currency: uni.currency ?? 'USD'
         },
-        
-        // Нормализованные данные о студентах  
-        totalStudents: uni.totalStudents || 0,
-        internationalStudents: uni.internationalStudents || 0,
-        
-        // Нормализованный рейтинг (только текст из keyInfoTexts если есть)
+        totalStudents: uni.totalStudents ?? 0,
+        internationalStudents: uni.internationalStudents ?? 0,
         ranking: {
-          text: (translation as any)?.keyInfoTexts?.ranking_text || undefined
+          text: typeof keyInfoTexts?.ranking_text === 'string' ? keyInfoTexts.ranking_text : undefined
         },
-        
-        // Нормализованное проживание
-        hasAccommodation: uni.hasAccommodation || false,
-        
-        // Мета данные
-        languages: Array.from(new Set(languageCodes)),
-        slug: this.getSlugForLocaleFromTranslations(uni.translations as any[], locale),
-        image: uni.image || '',
-        heroImage: uni.heroImage || uni.image,
-        // Use lite badge that doesn't rely on unloaded relations
-        badge: this.generateBadgeLite(uni, locale)
+        hasAccommodation: uni.hasAccommodation ?? false,
+        languages: Array.from(new Set(languageCodes.filter(Boolean))),
+        slug: this.getSlugForLocaleFromTranslations(
+          uni.translations.map(({ locale: trLocale, slug }) => ({ locale: trLocale, slug })),
+          locale
+        ),
+        image: uni.image ?? '',
+        heroImage: uni.heroImage ?? uni.image ?? '',
+        badge: this.generateBadgeLite({ type: uni.type }, locale)
       }
     })
 
@@ -312,12 +287,101 @@ export class UniversityRepository {
     return {
       data: prioritized,
       total,
-      filters: {
-        cities: availableCities,
-        types: availableTypes,
-        levels: availableLevels,
-        priceRange
-      }
+      filters
+    }
+  }
+
+  private decimalToNumber(value: Prisma.Decimal | number | null | undefined): number {
+    if (value == null) return 0
+    return typeof value === 'number' ? value : Number(value)
+  }
+
+  private asRecord(value: Prisma.JsonValue | null | undefined): Record<string, any> | null {
+    if (value && typeof value === 'object' && !Array.isArray(value)) {
+      return value as Record<string, any>
+    }
+    return null
+  }
+
+  private async buildFilterOptions(locale: string): Promise<{
+    cities: string[]
+    types: string[]
+    levels: string[]
+    languages: string[]
+    priceRange: [number, number]
+  }> {
+    const [cityGroups, typeGroups, levelGroups, tuitionAggregates, languageGroups] = await Promise.all([
+      this.prisma.university.groupBy({
+        by: ['cityId'],
+        where: { cityId: { not: null } }
+      }),
+      this.prisma.university.groupBy({
+        by: ['type']
+      }),
+      this.prisma.academicProgram.groupBy({
+        by: ['degreeType']
+      }),
+      this.prisma.university.aggregate({
+        _min: { tuitionMin: true, tuitionMax: true },
+        _max: { tuitionMin: true, tuitionMax: true }
+      }),
+      this.prisma.academicProgram.groupBy({
+        by: ['languageCode']
+      })
+    ])
+
+    const cityIds = cityGroups
+      .map(group => group.cityId)
+      .filter((value): value is number => value !== null && value !== undefined)
+
+    const cityTranslations = cityIds.length
+      ? await this.prisma.cityTranslation.findMany({
+          where: {
+            cityId: { in: cityIds },
+            locale: { in: [locale, 'ru'] }
+          },
+          select: { cityId: true, locale: true, name: true }
+        })
+      : []
+
+    const cityNames = cityIds
+      .map(id => {
+        const translations = cityTranslations.filter(t => t.cityId === id)
+        const best = this.selectBestTranslation(translations, locale)
+        return best?.name
+      })
+      .filter((name): name is string => Boolean(name))
+
+    const availableCities = Array.from(new Set(cityNames)).sort((a, b) => a.localeCompare(b))
+    const availableTypes = typeGroups
+      .map(group => group.type)
+      .filter((type): type is UniversityType => Boolean(type))
+      .sort((a, b) => a.localeCompare(b))
+    const availableLevels = levelGroups
+      .map(group => group.degreeType)
+      .filter((level): level is DegreeType => Boolean(level))
+      .sort((a, b) => a.localeCompare(b))
+    const availableLanguages = languageGroups
+      .map(group => group.languageCode)
+      .filter((code): code is string => Boolean(code))
+      .sort((a, b) => a.localeCompare(b))
+
+    const minCandidates = [tuitionAggregates._min.tuitionMin, tuitionAggregates._min.tuitionMax]
+      .filter((value): value is Prisma.Decimal => value !== null)
+      .map(value => Number(value))
+    const maxCandidates = [tuitionAggregates._max.tuitionMin, tuitionAggregates._max.tuitionMax]
+      .filter((value): value is Prisma.Decimal => value !== null)
+      .map(value => Number(value))
+
+    const minPrice = minCandidates.length > 0 ? Math.min(...minCandidates) : 0
+    const maxPrice = maxCandidates.length > 0 ? Math.max(...maxCandidates) : 50000
+
+    return {
+      cities: availableCities,
+      types: availableTypes,
+      levels: availableLevels,
+      languages: availableLanguages,
+      priceRange: [minPrice, maxPrice]
     }
   }
 
@@ -614,23 +678,78 @@ export class UniversityRepository {
   /**
    * Get all study directions
    */
-  async getAllDirections(locale: string = 'ru') {
-    const directions = await (this.prisma as any).studyDirection.findMany({
-      include: {
-        translations: true,
-        universityDirections: true
-      }
-    })
+  async getAllDirections(
+    locale: string = 'ru',
+    options: { search?: string; page?: number; limit?: number } = {}
+  ) {
+    const search = options.search?.toString().trim()
+    const page = Math.max(1, options.page ?? 1)
+    const limit = Math.max(1, Math.min(1000, options.limit ?? 100))
+    const skip = (page - 1) * limit
 
-    return directions.map((direction: any) => {
-      const translation = this.selectBestTranslation(direction.translations, locale)
-      return {
-        id: direction.id,
-        name: (translation as any)?.name || '',
-        description: (translation as any)?.description || '',
-        slug: (translation as any)?.slug || '',
-        universities_count: direction.universityDirections.length
-      }
-    })
+    const where: Prisma.StudyDirectionWhereInput = {}
+
+    if (search) {
+      where.OR = [
+        {
+          translations: {
+            some: {
+              locale,
+              name: { contains: search, mode: 'insensitive' }
+            }
+          }
+        },
+        {
+          translations: {
+            some: {
+              locale: 'ru',
+              name: { contains: search, mode: 'insensitive' }
+            }
+          }
+        }
+      ]
+    }
+
+    const locales = Array.from(new Set([locale, 'ru']))
+
+    const [directions, total] = await Promise.all([
+      this.prisma.studyDirection.findMany({
+        where,
+        skip,
+        take: limit,
+        orderBy: { id: 'asc' },
+        select: {
+          id: true,
+          translations: {
+            where: { locale: { in: locales } },
+            orderBy: { locale: 'asc' },
+            select: {
+              locale: true,
+              name: true,
+              description: true,
+              slug: true
+            }
+          },
+          _count: {
+            select: { universityDirections: true }
+          }
+        }
+      }),
+      this.prisma.studyDirection.count({ where })
+    ])
+
+    return {
+      data: directions.map(direction => {
+        const translation = this.selectBestTranslation(direction.translations, locale)
+        return {
+          id: direction.id,
+          name: translation?.name || '',
+          description: translation?.description || '',
+          slug: translation?.slug || '',
+          universities_count: direction._count.universityDirections
+        }
+      }),
+      total
+    }
   }
 }
