@@ -1,5 +1,7 @@
 import type { FAQItem, FAQCategory } from '../types/api'
 
+export { generateTrackingCode } from './tracking'
+
 /**
  * Parse query parameters for universities endpoint
  */
@@ -141,16 +143,6 @@ export function calculatePagination(total: number, page: number, limit: number) 
     limit: Math.max(1, limit),
     totalPages: Math.max(1, totalPages)
   }
-}
-
-/**
- * Generate tracking code for applications
- */
-export function generateTrackingCode(): string {
-  const prefix = 'EDU'
-  const timestamp = Date.now().toString(36).toUpperCase()
-  const random = Math.random().toString(36).substr(2, 4).toUpperCase()
-  return `${prefix}-${timestamp}-${random}`
 }
 
 /**
