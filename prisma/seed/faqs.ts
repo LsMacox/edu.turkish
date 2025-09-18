@@ -830,7 +830,7 @@ export async function seedFAQs(prisma: PrismaClient, faqCategoryMap: Record<stri
     }
   }
 
-  // Create FAQs with translations based on new schema
+  // Create or update FAQs with translations based on new schema (idempotent)
   for (const baseData of faqsBaseData) {
     const translations = faqTranslations[baseData.id as keyof typeof faqTranslations]
 
@@ -853,23 +853,47 @@ export async function seedFAQs(prisma: PrismaClient, faqCategoryMap: Record<stri
       continue
     }
 
-    const faqItem = await (prisma as any).faqItem.create({
-      data: {
+    // Find existing FAQ by RU question inside the same category
+    const existing = await (prisma as any).faqItem.findFirst({
+      where: {
         categoryId,
-        featured: Boolean((baseData as any).featured),
         translations: {
-          create: [
-            {
-              locale: 'ru',
-              question: ruTranslation.question,
-              answer: ruTranslation.answer
-            }
-          ]
+          some: { locale: 'ru', question: ruTranslation.question }
         }
       },
-      include: { translations: true }
+      select: { id: true }
     })
 
-    console.log(`❓ Created FAQ item with ID: ${faqItem.id} in category '${categoryKey}'`)
+    let faqId: number
+
+    if (existing) {
+      faqId = existing.id
+      // Update base properties
+      await (prisma as any).faqItem.update({
+        where: { id: faqId },
+        data: {
+          featured: Boolean((baseData as any).featured),
+          categoryId
+        }
+      })
+      console.log(`❓ Updated FAQ item with ID: ${faqId} in category '${categoryKey}'`)
+    } else {
+      const created = await (prisma as any).faqItem.create({
+        data: {
+          categoryId,
+          featured: Boolean((baseData as any).featured)
+        },
+        select: { id: true }
+      })
+      faqId = created.id
+      console.log(`❓ Created FAQ item with ID: ${faqId} in category '${categoryKey}'`)
+    }
+
+    // Upsert RU translation to ensure idempotency
+    await (prisma as any).faqTranslation.upsert({
+      where: { faqId_locale: { faqId, locale: 'ru' } },
+      update: { question: ruTranslation.question, answer: ruTranslation.answer },
+      create: { faqId, locale: 'ru', question: ruTranslation.question, answer: ruTranslation.answer }
+    })
   }
 }

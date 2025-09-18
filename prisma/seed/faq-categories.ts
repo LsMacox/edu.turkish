@@ -15,20 +15,35 @@ export async function seedFaqCategories(prisma: PrismaClient) {
   const createdMap: Record<string, number> = {}
 
   for (const categoryDef of categories) {
-    const category = await (prisma as any).faqCategory.create({
-      data: {
-        translations: {
-          create: Object.entries(categoryDef.translations).map(([locale, name]) => ({
-            locale,
-            name
-          }))
-        }
-      },
-      include: { translations: true }
+    const ruName = categoryDef.translations.ru
+
+    // Try to find existing category by RU name to avoid duplicates
+    const existingRu = await (prisma as any).faqCategoryTranslation.findFirst({
+      where: { locale: 'ru', name: ruName },
+      select: { categoryId: true }
     })
 
-    createdMap[categoryDef.key] = category.id
-    console.log(`  ✅ Created FAQ category: ${categoryDef.key} (id: ${category.id})`)
+    let categoryId: number
+
+    if (existingRu) {
+      categoryId = existingRu.categoryId
+      console.log(`  ♻️ Reusing FAQ category: ${categoryDef.key} (id: ${categoryId})`)
+    } else {
+      const created = await (prisma as any).faqCategory.create({ data: {} })
+      categoryId = created.id
+      console.log(`  ✅ Created FAQ category: ${categoryDef.key} (id: ${categoryId})`)
+    }
+
+    // Ensure translations are present and up-to-date (idempotent)
+    for (const [locale, name] of Object.entries(categoryDef.translations)) {
+      await (prisma as any).faqCategoryTranslation.upsert({
+        where: { categoryId_locale: { categoryId, locale } },
+        update: { name },
+        create: { categoryId, locale, name }
+      })
+    }
+
+    createdMap[categoryDef.key] = categoryId
   }
 
   return createdMap
