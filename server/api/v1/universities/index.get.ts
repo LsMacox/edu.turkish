@@ -17,7 +17,7 @@ export default defineEventHandler(async (event): Promise<UniversityResponse> => 
     
     return {
       data: result.data,
-      meta: calculatePagination(result.total, filters.page, filters.limit),
+      meta: calculatePagination(result.total, filters.page ?? 1, filters.limit ?? 6),
       filters: result.filters
     }
   } catch (error) {

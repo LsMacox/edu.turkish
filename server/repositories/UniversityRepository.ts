@@ -60,27 +60,42 @@ export class UniversityRepository {
       langs = [],
       type,
       level,
-      price_min = 0,
-      price_max = 20000,
+      price_min,
+      price_max,
       sort = 'pop',
       page = 1,
-      limit = 12
+      limit = 6
     } = params
 
     // Build where clause
     const where: Prisma.UniversityWhereInput = {}
 
     // Price filter based on normalized fields
-    if (price_min !== undefined || price_max !== undefined) {
-      const min = price_min
-      const max = price_max
-      where.AND = (where.AND || [])
-      where.AND.push({
-        OR: [
-          { tuitionMin: { gte: min, lte: max } },
-          { tuitionMax: { gte: min, lte: max } }
-        ]
-      })
+    const normalizedPriceRange = this.normalizePriceRange(price_min, price_max)
+    if (normalizedPriceRange) {
+      const priceConditions: Prisma.UniversityWhereInput[] = []
+
+      if (normalizedPriceRange.min !== undefined && normalizedPriceRange.max !== undefined) {
+        priceConditions.push(
+          { tuitionMin: { gte: normalizedPriceRange.min, lte: normalizedPriceRange.max } },
+          { tuitionMax: { gte: normalizedPriceRange.min, lte: normalizedPriceRange.max } }
+        )
+      } else if (normalizedPriceRange.min !== undefined) {
+        priceConditions.push(
+          { tuitionMin: { gte: normalizedPriceRange.min } },
+          { tuitionMax: { gte: normalizedPriceRange.min } }
+        )
+      } else if (normalizedPriceRange.max !== undefined) {
+        priceConditions.push(
+          { tuitionMin: { lte: normalizedPriceRange.max } },
+          { tuitionMax: { lte: normalizedPriceRange.max } }
+        )
+      }
+
+      if (priceConditions.length > 0) {
+        where.AND = (where.AND || [])
+        where.AND.push({ OR: priceConditions })
+      }
     }
 
     // Search by title/description translations and city name translations
@@ -288,6 +303,29 @@ export class UniversityRepository {
       data: prioritized,
       total,
       filters
+    }
+  }
+
+  private normalizePriceRange(min?: number, max?: number): { min?: number; max?: number } | null {
+    const hasValidMin = typeof min === 'number' && Number.isFinite(min) && min >= 0
+    const hasValidMax = typeof max === 'number' && Number.isFinite(max) && max >= 0
+
+    if (!hasValidMin && !hasValidMax) {
+      return null
+    }
+
+    let normalizedMin = hasValidMin ? min : undefined
+    let normalizedMax = hasValidMax ? max : undefined
+
+    if (normalizedMin !== undefined && normalizedMax !== undefined && normalizedMin > normalizedMax) {
+      const temp = normalizedMin
+      normalizedMin = normalizedMax
+      normalizedMax = temp
+    }
+
+    return {
+      min: normalizedMin,
+      max: normalizedMax
     }
   }
 
