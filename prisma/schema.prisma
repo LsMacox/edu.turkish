@@ -379,6 +379,18 @@ model Application {
   id             Int               @id @default(autoincrement())
   trackingCode   String            @unique @map("tracking_code") @db.VarChar(50)
   status         ApplicationStatus @default(submitted)
+  firstName      String            @map("first_name") @db.VarChar(100) @default("")
+  lastName       String?           @map("last_name") @db.VarChar(100)
+  email          String?           @db.VarChar(255)
+  phone          String            @db.VarChar(30) @default("")
+  country        String?           @db.VarChar(100)
+  city           String?           @db.VarChar(100)
+  educationLevel String?           @map("education_level") @db.VarChar(100)
+  educationField String?           @map("education_field") @db.VarChar(255)
+  targetUniversity String?         @map("target_university") @db.VarChar(255)
+  targetProgram  String?           @map("target_program") @db.VarChar(255)
+  source         String            @db.VarChar(100) @default("unknown")
+  referralCode   String?           @map("referral_code") @db.VarChar(100)
   personalInfo   Json              @map("personal_info")
   education      Json
   preferences    Json
