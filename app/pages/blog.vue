@@ -218,18 +218,20 @@
 
             <div class="bg-white rounded-2xl shadow-custom p-8">
               <h3 class="text-xl font-bold text-secondary mb-6">{{ quickLinks.title }}</h3>
-              <div class="space-y-4">
-                <button
-                  v-for="link in quickLinks.items"
-                  :key="link.id"
-                  type="button"
-                  class="flex items-center space-x-3 text-gray-600 hover:text-primary transition-colors w-full text-left"
-                  @click="handleQuickLinkClick(link)"
-                >
-                  <Icon :name="quickLinkIcon(link.id)" class="w-5" />
-                  <span class="text-sm font-medium">{{ link.label }}</span>
-                </button>
-              </div>
+              <ClientOnly>
+                <div class="space-y-4">
+                  <button
+                    v-for="link in quickLinks.items"
+                    :key="link.id"
+                    type="button"
+                    class="flex items-center space-x-3 text-gray-600 hover:text-primary transition-colors w-full text-left"
+                    @click="handleQuickLinkClick(link.id)"
+                  >
+                    <Icon :name="'' + quickLinkIcon(link.id)" class="w-5" />
+                    <span class="text-sm font-medium">{{ link.label }}</span>
+                  </button>
+                </div>
+              </ClientOnly>
             </div>
           </div>
         </div>
@@ -391,19 +393,46 @@ const quickLinkIcons: Record<string, string> = {
 
 const hero = computed<HeroContent>(() => {
   const value = tm('blog.hero') as Partial<HeroContent> | undefined
+  const rawStats = Array.isArray(value?.stats) ? (value.stats as HeroStat[]) : []
+  const highlight = value?.highlight as Partial<HeroHighlight> | undefined
+
   return {
-    title: value?.title ?? '',
-    titleAccent: value?.titleAccent ?? '',
-    description: value?.description ?? '',
-    searchPlaceholder: value?.searchPlaceholder ?? '',
-    imageAlt: value?.imageAlt ?? '',
-    highlight: value?.highlight ?? { title: '', subtitle: '' },
-    stats: value?.stats ?? []
+    title: typeof value?.title === 'string' ? value.title : '',
+    titleAccent: typeof value?.titleAccent === 'string' ? value.titleAccent : '',
+    description: typeof value?.description === 'string' ? value.description : '',
+    searchPlaceholder: typeof value?.searchPlaceholder === 'string' ? value.searchPlaceholder : '',
+    imageAlt: typeof value?.imageAlt === 'string' ? value.imageAlt : '',
+    highlight: {
+      title: typeof highlight?.title === 'string' ? highlight.title : '',
+      subtitle: typeof highlight?.subtitle === 'string' ? highlight.subtitle : ''
+    },
+    stats: rawStats.map((stat) => ({
+      icon: typeof stat?.icon === 'string' ? stat.icon : '',
+      label: typeof stat?.label === 'string' ? stat.label : ''
+    }))
   }
 })
 
-const categoriesMap = computed<Record<string, BlogCategory>>(() => (tm('blog.categories') as Record<string, BlogCategory>) || {})
-const categoryOrder = computed<string[]>(() => (tm('blog.categoryOrder') as string[]) || [])
+const categoriesMap = computed<Record<string, BlogCategory>>(() => {
+  const raw = tm('blog.categories') as Record<string, BlogCategory> | undefined
+  if (!raw || typeof raw !== 'object') {
+    return {}
+  }
+
+  const result: Record<string, BlogCategory> = {}
+  for (const [key, value] of Object.entries(raw)) {
+    result[key] = {
+      label: typeof value?.label === 'string' ? value.label : key,
+      ...(value?.showInFilters === false ? { showInFilters: false } : {})
+    }
+  }
+  return result
+})
+
+const categoryOrder = computed<string[]>(() => {
+  const raw = tm('blog.categoryOrder') as unknown
+  return Array.isArray(raw) ? raw.map((entry) => String(entry)) : []
+})
 
 const filterCategories = computed(() => {
   const order = categoryOrder.value.length > 0 ? categoryOrder.value : Object.keys(categoriesMap.value)
@@ -424,7 +453,24 @@ const setActiveCategory = (key: string) => {
   activeCategory.value = key
 }
 
-const articleItems = computed<Record<string, ArticleContent>>(() => (tm('blog.articles.items') as Record<string, ArticleContent>) || {})
+const articleItems = computed<Record<string, ArticleContent>>(() => {
+  const raw = tm('blog.articles.items') as Record<string, ArticleContent> | undefined
+  if (!raw || typeof raw !== 'object') {
+    return {}
+  }
+
+  const result: Record<string, ArticleContent> = {}
+  for (const [key, value] of Object.entries(raw)) {
+    result[key] = {
+      title: typeof value?.title === 'string' ? value.title : '',
+      excerpt: typeof value?.excerpt === 'string' ? value.excerpt : '',
+      date: typeof value?.date === 'string' ? value.date : '',
+      imageAlt: typeof value?.imageAlt === 'string' ? value.imageAlt : '',
+      ...(typeof value?.readingTime === 'string' ? { readingTime: value.readingTime } : {})
+    }
+  }
+  return result
+})
 
 const translatedArticles = computed<TranslatedArticle[]>(() =>
   articleConfigs.map((config) => {
@@ -462,28 +508,39 @@ const categoryBadgeClass = (key: string) => categoryStyles[key] ?? 'bg-gray-100 
 
 const sidebarPopular = computed<SidebarPopular>(() => {
   const value = tm('blog.sidebar.popular') as SidebarPopular | undefined
+  const items = Array.isArray(value?.items) ? value!.items : []
+
   return {
-    title: value?.title ?? '',
-    items: value?.items ?? []
+    title: typeof value?.title === 'string' ? value.title : '',
+    items: items.map((item) => ({
+      title: typeof item?.title === 'string' ? item.title : '',
+      date: typeof item?.date === 'string' ? item.date : '',
+      views: typeof item?.views === 'string' ? item.views : ''
+    }))
   }
 })
 
 const newsletter = computed<NewsletterContent>(() => {
   const value = tm('blog.sidebar.newsletter') as NewsletterContent | undefined
   return {
-    title: value?.title ?? '',
-    description: value?.description ?? '',
-    placeholder: value?.placeholder ?? '',
-    button: value?.button ?? '',
-    disclaimer: value?.disclaimer ?? ''
+    title: typeof value?.title === 'string' ? value.title : '',
+    description: typeof value?.description === 'string' ? value.description : '',
+    placeholder: typeof value?.placeholder === 'string' ? value.placeholder : '',
+    button: typeof value?.button === 'string' ? value.button : '',
+    disclaimer: typeof value?.disclaimer === 'string' ? value.disclaimer : ''
   }
 })
 
 const quickLinks = computed<QuickLinksContent>(() => {
   const value = tm('blog.sidebar.quickLinks') as QuickLinksContent | undefined
   return {
-    title: value?.title ?? '',
-    items: value?.items ?? []
+    title: typeof value?.title === 'string' ? value.title : '',
+    items: Array.isArray(value?.items)
+      ? value!.items.map((item: any) => ({
+          id: String(item?.id ?? ''),
+          label: String(item?.label ?? '')
+        }))
+      : []
   }
 })
 
