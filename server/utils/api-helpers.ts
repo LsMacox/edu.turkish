@@ -1,21 +1,105 @@
-import type { FAQItem, FAQCategory } from '../types/api'
+import type { FAQItem, FAQCategory, UniversityQueryParams } from '../types/api'
 
 /**
  * Parse query parameters for universities endpoint
  */
-export function parseUniversityFilters(query: Record<string, any>) {
-  return {
-    q: query.q as string || '',
-    city: query.city as string || '',
-    langs: Array.isArray(query.langs) ? query.langs : (query.langs ? [query.langs] : []),
-    type: query.type as string || '',
-    level: query.level as string || '',
-    price_min: query.price_min ? Number(query.price_min) : 0,
-    price_max: query.price_max ? Number(query.price_max) : 20000,
-    sort: query.sort as string || 'pop',
-    page: query.page ? Number(query.page) : 1,
-    limit: query.limit ? Number(query.limit) : 6
+export function parseUniversityFilters(query: Record<string, any>): UniversityQueryParams {
+  const toString = (value: unknown) => typeof value === 'string' ? value : undefined
+
+  const normalizeLanguages = (value: unknown): string[] | undefined => {
+    const raw = Array.isArray(value) ? value : (value !== undefined ? [value] : [])
+    const langs = raw.filter((item): item is string => typeof item === 'string' && item.trim().length > 0)
+    return langs.length > 0 ? langs : undefined
   }
+
+  const toNonNegativeNumber = (value: unknown): number | undefined => {
+    if (value === undefined || value === null || value === '') {
+      return undefined
+    }
+
+    const parsed = Number(value)
+    if (!Number.isFinite(parsed) || parsed < 0) {
+      return undefined
+    }
+
+    return parsed
+  }
+
+  const toPositiveInteger = (value: unknown): number | undefined => {
+    const parsed = toNonNegativeNumber(value)
+    if (parsed === undefined) {
+      return undefined
+    }
+
+    const rounded = Math.floor(parsed)
+    return rounded > 0 ? rounded : undefined
+  }
+
+  const priceMin = toNonNegativeNumber(query.price_min)
+  const priceMax = toNonNegativeNumber(query.price_max)
+
+  const q = toString(query.q)
+  const city = toString(query.city)
+  const type = toString(query.type)
+  const level = toString(query.level)
+  const langs = normalizeLanguages(query.langs)
+  const page = toPositiveInteger(query.page)
+  const limit = toPositiveInteger(query.limit)
+
+  const sortCandidate = toString(query.sort)
+  const allowedSorts = ['pop', 'price_asc', 'price_desc', 'alpha', 'lang_en'] as const
+  const sort = sortCandidate && allowedSorts.includes(sortCandidate as typeof allowedSorts[number])
+    ? sortCandidate as UniversityQueryParams['sort']
+    : undefined
+
+  const filters: UniversityQueryParams = {}
+
+  if (q !== undefined) {
+    filters.q = q.trim() === '' ? '' : q
+  }
+
+  if (city !== undefined) {
+    filters.city = city
+  }
+
+  if (type !== undefined) {
+    filters.type = type
+  }
+
+  if (level !== undefined) {
+    filters.level = level
+  }
+
+  if (langs) {
+    filters.langs = langs
+  }
+
+  if (priceMin !== undefined) {
+    filters.price_min = priceMin
+  }
+
+  if (priceMax !== undefined) {
+    filters.price_max = priceMax
+  }
+
+  if (filters.price_min !== undefined && filters.price_max !== undefined && filters.price_min > filters.price_max) {
+    delete filters.price_min
+    delete filters.price_max
+  }
+
+  if (sort) {
+    filters.sort = sort
+  }
+
+  if (page !== undefined) {
+    filters.page = page
+  }
+
+  if (limit !== undefined) {
+    filters.limit = limit
+  }
+
+  return filters
 }
 
 /**

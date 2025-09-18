@@ -60,11 +60,11 @@ export class UniversityRepository {
       langs = [],
       type,
       level,
-      price_min = 0,
-      price_max = 20000,
+      price_min,
+      price_max,
       sort = 'pop',
       page = 1,
-      limit = 12
+      limit = 6
     } = params
 
     // Build where clause
@@ -305,6 +305,29 @@ export class UniversityRepository {
       data: prioritized,
       total,
       filters
+    }
+  }
+
+  private normalizePriceRange(min?: number, max?: number): { min?: number; max?: number } | null {
+    const hasValidMin = typeof min === 'number' && Number.isFinite(min) && min >= 0
+    const hasValidMax = typeof max === 'number' && Number.isFinite(max) && max >= 0
+
+    if (!hasValidMin && !hasValidMax) {
+      return null
+    }
+
+    let normalizedMin = hasValidMin ? min : undefined
+    let normalizedMax = hasValidMax ? max : undefined
+
+    if (normalizedMin !== undefined && normalizedMax !== undefined && normalizedMin > normalizedMax) {
+      const temp = normalizedMin
+      normalizedMin = normalizedMax
+      normalizedMax = temp
+    }
+
+    return {
+      min: normalizedMin,
+      max: normalizedMax
     }
   }
 

@@ -23,7 +23,10 @@ export const useUniversitiesStore = defineStore('universities', () => {
     langs: [],
     type: 'Все',
     level: 'Все',
-    price: [0, 20000]
+    price: [
+      availableFilters.value.priceRange[0],
+      availableFilters.value.priceRange[1]
+    ] as [number, number]
   })
 
   // Initialize filters from URL params
@@ -48,9 +51,15 @@ export const useUniversitiesStore = defineStore('universities', () => {
       langs: query.langs ? (Array.isArray(query.langs) ? query.langs as string[] : [query.langs as string]) : [],
       type: (query.type as string) || 'Все',
       level: (query.level as string) || 'Все',
-      price: query.price_min || query.price_max ? 
-        [Number(query.price_min) || 0, Number(query.price_max) || 20000] as [number, number] :
-        [0, 20000] as [number, number]
+      price: query.price_min || query.price_max
+        ? [
+            Number(query.price_min) || availableFilters.value.priceRange[0],
+            Number(query.price_max) || availableFilters.value.priceRange[1]
+          ] as [number, number]
+        : [
+            availableFilters.value.priceRange[0],
+            availableFilters.value.priceRange[1]
+          ] as [number, number]
     }
   }
 
@@ -90,6 +99,7 @@ export const useUniversitiesStore = defineStore('universities', () => {
     
     try {
       const effectiveFilters = { ...filters.value, ...(options?.overrides || {}) }
+      const defaults = getDefaultFilters()
 
       const queryParams: UniversityQueryParams = {
         q: effectiveFilters.q || undefined,
@@ -100,8 +110,12 @@ export const useUniversitiesStore = defineStore('universities', () => {
         langs: (effectiveFilters.langs && effectiveFilters.langs.length > 0) ? effectiveFilters.langs : undefined,
         type: effectiveFilters.type !== 'Все' ? effectiveFilters.type : undefined,
         level: effectiveFilters.level !== 'Все' ? effectiveFilters.level : undefined,
-        price_min: effectiveFilters.price?.[0] !== undefined && effectiveFilters.price?.[0] !== 0 ? effectiveFilters.price[0] : undefined,
-        price_max: effectiveFilters.price?.[1] !== undefined && effectiveFilters.price?.[1] !== 20000 ? effectiveFilters.price[1] : undefined,
+        price_min: effectiveFilters.price?.[0] !== undefined && effectiveFilters.price?.[0] !== defaults.price[0]
+          ? effectiveFilters.price[0]
+          : undefined,
+        price_max: effectiveFilters.price?.[1] !== undefined && effectiveFilters.price?.[1] !== defaults.price[1]
+          ? effectiveFilters.price[1]
+          : undefined,
         sort: (options?.overrides?.sort || sort.value) !== 'pop' ? (options?.overrides?.sort || sort.value) : undefined,
         page: options?.page ?? 1,
         limit: options?.limit ?? 6, // Default 6 universities per page
@@ -125,6 +139,25 @@ export const useUniversitiesStore = defineStore('universities', () => {
       
       totalUniversities.value = response.meta.total
       availableFilters.value = response.filters
+
+      const [minPrice, maxPrice] = response.filters.priceRange
+      const route = useRoute()
+      const hasPriceQuery = route.query.price_min !== undefined || route.query.price_max !== undefined
+
+      if (!hasPriceQuery) {
+        filters.value.price = [minPrice, maxPrice] as [number, number]
+      } else {
+        const [currentMin, currentMax] = filters.value.price
+        const boundedMin = Math.min(Math.max(currentMin ?? minPrice, minPrice), maxPrice)
+        const boundedMax = Math.max(Math.min(currentMax ?? maxPrice, maxPrice), minPrice)
+
+        if (boundedMin > boundedMax) {
+          filters.value.price = [minPrice, maxPrice] as [number, number]
+        } else if (boundedMin !== currentMin || boundedMax !== currentMax) {
+          filters.value.price = [boundedMin, boundedMax] as [number, number]
+        }
+      }
+
       if (process.client) console.debug('[universities] fetched', response.data?.length)
       
       // Return response for loadMore logic

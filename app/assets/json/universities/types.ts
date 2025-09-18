@@ -13,17 +13,6 @@ export type UniversityType = 'state' | 'private' | 'tech' | 'elite'
 export type DegreeType = 'bachelor' | 'master' | 'phd'
 export type ProgramLanguage = 'tr' | 'en'
 // DirectionSlug импортируется из централизованного файла
-// FacilityType в текущей БД не хранится на уровне сущности, оставлено для UI-подсказок
-export type FacilityType =
-  | 'academic'
-  | 'recreational'
-  | 'accommodation'
-  | 'dining'
-  | 'sports'
-  | 'medical'
-  | 'transport'
-  | 'technology'
-  | 'support'
 // Типы важной даты (ImportantDate.type)
 export type ImportantDateType = 'deadline' | 'event' | 'exam' | 'notification'
 
@@ -336,7 +325,6 @@ export interface UniversityJson {
 export const ALLOWED_UNIVERSITY_TYPES: UniversityType[] = ['state', 'private', 'tech', 'elite']
 export const ALLOWED_DEGREE_TYPES: DegreeType[] = ['bachelor', 'master', 'phd']
 export const ALLOWED_PROGRAM_LANGUAGES: ProgramLanguage[] = ['tr', 'en']
-export const ALLOWED_FACILITY_TYPES: FacilityType[] = ['academic', 'recreational', 'accommodation', 'technology', 'support']
 export const ALLOWED_IMPORTANT_DATE_TYPES: ImportantDateType[] = ['deadline', 'event', 'exam', 'notification']
 export { ALLOWED_DIRECTIONS }
 
