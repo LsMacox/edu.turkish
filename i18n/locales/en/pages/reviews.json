@@ -64,78 +64,12 @@
       "title": "Stories of our",
       "titleAccent": "students",
       "description": "Every success is a unique story. Meet our graduates who are already studying at leading Turkish universities.",
-      "students": {
-        "aigerim": {
-          "name": "Aigerim Nurlanova",
-          "university": "Istanbul University • Medicine",
-          "quote": "\"Thanks to the Edu.turkish team, I was able to get into Istanbul University medical faculty. They helped with document preparation, learning Turkish and exam preparation. Now I'm in my 2nd year and incredibly happy!\"",
-          "yosScore": "Score: 485/500",
-          "turkishLevel": "Turkish language"
-        },
-        "arman": {
-          "name": "Arman Toktarbek",
-          "university": "Middle East Technical University • Engineering",
-          "quote": "\"I always dreamed of becoming an engineer but didn't know where to start. Edu.turkish not only helped with admission but also supported throughout the entire process. Now I'm studying at one of Turkey's best technical universities!\"",
-          "satScore": "Score: 1420/1600",
-          "englishLevel": "English language"
-        },
-        "dinara": {
-          "name": "Dinara Smagulova",
-          "university": "Boğaziçi University • Business",
-          "quote": "\"Admission to Boğaziçi seemed impossible, but the Edu.turkish team proved otherwise. Individual approach, quality preparation and constant support - that's what distinguishes them from other agencies.\"",
-          "yosScore": "Score: 490/500",
-          "turkishLevel": "Turkish language"
-        }
-      },
       "ctaButton": "Become the next success"
     },
     "parentReviews": {
       "title": "Parents trust",
       "titleAccent": "our experience",
-      "description": "Opinions of parents who chose Edu.turkish for their children's education in Turkey",
-      "parents": {
-        "galina": {
-          "name": "Galina Petrovna",
-          "relation": "Aigerim's Mom • Istanbul University",
-          "quote": "I want to thank the entire Edu.turkish team. They guided us step by step, helped with documents and were always in touch. My daughter enrolled at Istanbul University without stress.",
-          "date": "June 2023"
-        },
-        "nurzhan": {
-          "name": "Nurzhan Toktarbekov",
-          "relation": "Arman's Dad • METU",
-          "quote": "As a father, I wanted to be confident in the right choice. Edu.turkish provided complete transparency of the process, regularly informed about each stage. My son was admitted to a prestigious university, and this is their merit.",
-          "date": "September 2023"
-        },
-        "almagul": {
-          "name": "Almagul Smagulova",
-          "relation": "Dinara's Mom • Boğaziçi University",
-          "quote": "Professionalism and humanity - that's what distinguishes Edu.turkish. They understood our worries as parents and did everything possible to make the admission process as comfortable as possible for the whole family.",
-          "date": "November 2023"
-        },
-        "sergey": {
-          "name": "Sergey Volkov",
-          "relation": "Alexander's Dad • Sabancı University",
-          "quote": "We live in Russia, and initially worried about how the preparation would go. Online consultations, personal curators and constant communication - all at the highest level. My son successfully enrolled!",
-          "date": "August 2023"
-        },
-        "zhanna": {
-          "name": "Zhanna Kusainova",
-          "relation": "Asel's Mom • Koç University",
-          "quote": "My daughter was always an excellent student, but we didn't know where to start with studying abroad. Edu.turkish made a clear plan, helped with language preparation and brought us to the result. Huge gratitude!",
-          "date": "December 2023"
-        },
-        "rustam": {
-          "name": "Rustam Ibragimov",
-          "relation": "Kamila's Dad • Hacettepe University",
-          "quote": "The most important thing for me was honesty and reliability. Edu.turkish never gave false promises, always told the truth about chances and opportunities. This inspires trust and respect.",
-          "date": "January 2024"
-        }
-      },
-      "stats": {
-        "recommend": "Parents recommend us",
-        "families": "Families trusted us",
-        "support": "Parent support"
-      }
+      "description": "Opinions of parents who chose Edu.turkish for their children's education in Turkey"
     },
     "shareExperience": {
       "title": "Share your",

@@ -2,6 +2,7 @@ import { PrismaClient } from '@prisma/client'
 import { seedFAQs } from './faqs'
 import { seedFaqCategories } from './faq-categories'
 import { seedLocations } from './locations'
+import { seedReviews } from './reviews'
 
 const prisma = new PrismaClient()
 
@@ -51,9 +52,8 @@ async function main() {
   }
 
   
-  // Временно отключаем другие сидеры
-  // console.log('⭐ Seeding reviews...')
-  // await seedReviews(prisma)
+  console.log('⭐ Seeding reviews...')
+  await seedReviews(prisma)
   
   console.log('🗺️ Seeding locations...')
   await seedLocations(prisma)
