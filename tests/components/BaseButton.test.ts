@@ -1,15 +1,15 @@
-import { describe, it, expect, vi } from 'vitest'
-import { describe, it, expect, vi } from 'vitest'
-import { mount } from '@vue/test-utils'
+import { describe, it, expect } from 'vitest'
+import { mount, config } from '@vue/test-utils'
 import BaseButton from '~/components/ui/forms/BaseButton.vue'
 
-vi.mock('@nuxt/icon', () => ({
+config.global.stubs = {
+  ...config.global.stubs,
   Icon: {
     name: 'Icon',
     template: '<span data-testid="icon">{{ name }}</span>',
     props: ['name']
   }
-}))
+}
 
 describe('BaseButton', () => {
   it('renders as button by default', () => {
@@ -47,7 +47,8 @@ describe('BaseButton', () => {
       slots: { default: 'Large Button' }
     })
     
-    expect(wrapper.classes()).toContain('px-8')
+    expect(wrapper.classes()).toContain('px-6')
+    expect(wrapper.classes()).toContain('md:px-8')
     expect(wrapper.classes()).toContain('py-4')
   })
 
@@ -155,6 +156,6 @@ describe('BaseButton', () => {
     expect(icon.exists()).toBe(true)
     // Icon should appear after text content
     const buttonText = wrapper.text()
-    expect(buttonText.indexOf('Next') < buttonText.indexOf('mdi:arrow-right')).toBe(false)
+    expect(buttonText.indexOf('Next')).toBeLessThan(buttonText.indexOf('mdi:arrow-right'))
   })
 })
