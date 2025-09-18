@@ -10,21 +10,19 @@ export default defineEventHandler(async (event): Promise<DirectionResponse> => {
 
     const page = Math.max(1, Number(query.page) || 1)
     const limit = Math.max(1, Math.min(1000, Number(query.limit) || 100))
-    const q = (query.q || '').toString().trim().toLowerCase()
+    const search = (query.q || '').toString().trim()
+    const searchTerm = search.length > 0 ? search : undefined
 
     const repo = new UniversityRepository(prisma)
-    const all = await repo.getAllDirections(query.lang || locale)
-
-    const filtered = q
-      ? all.filter(d => (d.name || '').toLowerCase().includes(q))
-      : all
-
-    const start = (page - 1) * limit
-    const data = filtered.slice(start, start + limit)
+    const { data, total } = await repo.getAllDirections(query.lang || locale, {
+      search: searchTerm,
+      page,
+      limit
+    })
 
     return {
       data,
-      meta: calculatePagination(filtered.length, page, limit)
+      meta: calculatePagination(total, page, limit)
     }
   } catch (error) {
     console.error('Error fetching directions:', error)

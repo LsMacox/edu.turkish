@@ -1,5 +1,6 @@
 // @ts-nocheck
 import { PrismaClient } from '@prisma/client'
+import type { Prisma } from '@prisma/client'
 import type { DegreeType, UniversityType } from '../../app/types/domain'
 import type { University, UniversityQueryParams, UniversityDetail } from '../types/api'
 
@@ -614,23 +615,78 @@ export class UniversityRepository {
   /**
    * Get all study directions
    */
-  async getAllDirections(locale: string = 'ru') {
-    const directions = await (this.prisma as any).studyDirection.findMany({
-      include: {
-        translations: true,
-        universityDirections: true
-      }
-    })
+  async getAllDirections(
+    locale: string = 'ru',
+    options: { search?: string; page?: number; limit?: number } = {}
+  ) {
+    const search = options.search?.toString().trim()
+    const page = Math.max(1, options.page ?? 1)
+    const limit = Math.max(1, Math.min(1000, options.limit ?? 100))
+    const skip = (page - 1) * limit
 
-    return directions.map((direction: any) => {
-      const translation = this.selectBestTranslation(direction.translations, locale)
-      return {
-        id: direction.id,
-        name: (translation as any)?.name || '',
-        description: (translation as any)?.description || '',
-        slug: (translation as any)?.slug || '',
-        universities_count: direction.universityDirections.length
-      }
-    })
+    const where: Prisma.StudyDirectionWhereInput = {}
+
+    if (search) {
+      where.OR = [
+        {
+          translations: {
+            some: {
+              locale,
+              name: { contains: search, mode: 'insensitive' }
+            }
+          }
+        },
+        {
+          translations: {
+            some: {
+              locale: 'ru',
+              name: { contains: search, mode: 'insensitive' }
+            }
+          }
+        }
+      ]
+    }
+
+    const locales = Array.from(new Set([locale, 'ru']))
+
+    const [directions, total] = await Promise.all([
+      this.prisma.studyDirection.findMany({
+        where,
+        skip,
+        take: limit,
+        orderBy: { id: 'asc' },
+        select: {
+          id: true,
+          translations: {
+            where: { locale: { in: locales } },
+            orderBy: { locale: 'asc' },
+            select: {
+              locale: true,
+              name: true,
+              description: true,
+              slug: true
+            }
+          },
+          _count: {
+            select: { universityDirections: true }
+          }
+        }
+      }),
+      this.prisma.studyDirection.count({ where })
+    ])
+
+    return {
+      data: directions.map(direction => {
+        const translation = this.selectBestTranslation(direction.translations, locale)
+        return {
+          id: direction.id,
+          name: translation?.name || '',
+          description: translation?.description || '',
+          slug: translation?.slug || '',
+          universities_count: direction._count.universityDirections
+        }
+      }),
+      total
+    }
   }
 }
