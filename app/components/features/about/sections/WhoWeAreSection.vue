@@ -12,7 +12,7 @@
         <div class="grid lg:grid-cols-2 gap-16 items-center mb-16">
           <div>
             <img
-              class="w-full h-80 object-cover rounded-2xl shadow-custom"
+              class="w-full object-cover rounded-2xl shadow-custom"
               :src="whoWeAre"
               alt="Modern education consultancy office"
               loading="lazy"
@@ -69,7 +69,7 @@
 </template>
 
 <script setup lang="ts">
-import whoWeAre from '@/assets/images/who-we-are.png'
+const whoWeAre = '/images/team/who-we-are.jpg'
 const { t } = useI18n()
 </script>
 

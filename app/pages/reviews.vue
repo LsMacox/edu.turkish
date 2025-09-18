@@ -172,7 +172,7 @@
 </template>
 
 <script setup lang="ts">
-import reviewHero from '@/assets/images/review-hero.png'
+const reviewHero = '/images/review-hero.png'
 const { locale } = useI18n()
 
 // Reviews page meta
