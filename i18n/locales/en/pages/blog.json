@@ -69,6 +69,8 @@
       "title": "Latest articles",
       "readMore": "Read more →",
       "loadMore": "Load more articles",
+      "loading": "Loading...",
+      "empty": "No articles match your filters yet",
       "items": {
         "visaGuide": {
           "title": "How to get a Turkish student visa: step-by-step guide 2025",
@@ -152,13 +154,6 @@
             "views": "1,432 views"
           }
         ]
-      },
-      "newsletter": {
-        "title": "Subscribe for updates",
-        "description": "Receive new articles and helpful tips by email",
-        "placeholder": "Your email",
-        "button": "Subscribe",
-        "disclaimer": "No spam. Unsubscribe in one click."
       },
       "quickLinks": {
         "title": "Useful links",

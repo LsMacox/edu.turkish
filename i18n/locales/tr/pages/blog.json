@@ -69,6 +69,8 @@
       "title": "Son makaleler",
       "readMore": "Devamını oku →",
       "loadMore": "Daha fazla makale yükle",
+      "loading": "Yükleniyor...",
+      "empty": "Filtrelerinize uygun makale bulunamadı",
       "items": {
         "visaGuide": {
           "title": "Türkiye'de öğrenci vizesi nasıl alınır: 2025 adım adım rehber",
@@ -152,13 +154,6 @@
             "views": "1.432 görüntülenme"
           }
         ]
-      },
-      "newsletter": {
-        "title": "Yeniliklere abone olun",
-        "description": "Yeni makaleleri ve faydalı ipuçlarını e-posta ile alın",
-        "placeholder": "E-posta adresiniz",
-        "button": "Abone ol",
-        "disclaimer": "Spam yok. Tek tıkla abonelikten çıkabilirsiniz."
       },
       "quickLinks": {
         "title": "Faydalı bağlantılar",

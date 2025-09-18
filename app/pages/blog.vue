@@ -31,7 +31,7 @@
             <div class="relative max-w-md">
               <Icon name="mdi:magnify" class="absolute left-4 top-1/2 -translate-y-1/2 text-gray-400 w-5 h-5" />
               <input
-                v-model="searchQuery"
+                v-model="searchInput"
                 type="text"
                 :placeholder="hero.searchPlaceholder"
                 class="w-full px-4 py-3 pl-12 border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-primary focus:border-primary"
@@ -79,7 +79,7 @@
               ? 'bg-primary text-white border-primary shadow-sm'
               : 'border-gray-300 text-secondary hover:border-primary hover:text-primary'"
             :aria-pressed="activeCategory === category.key"
-            @click="setActiveCategory(category.key)"
+            @click="setCategoryAndFetch(category.key)"
           >
             {{ category.label }}
           </button>
@@ -100,71 +100,100 @@
                 v-if="featuredArticle && shouldShowFeatured"
                 class="md:col-span-2 bg-white rounded-2xl shadow-custom overflow-hidden hover-lift"
               >
-                <NuxtImg
-                  :src="featuredArticle.image"
-                  :alt="featuredArticle.imageAlt"
-                  class="w-full h-64 object-cover"
-                  loading="lazy"
-                  decoding="async"
-                  format="webp"
-                />
+                <template v-if="featuredArticle.image">
+                  <NuxtImg
+                    :src="featuredArticle.image"
+                    :alt="featuredArticle.imageAlt || featuredArticle.title"
+                    class="w-full h-64 object-cover"
+                    loading="lazy"
+                    decoding="async"
+                    format="webp"
+                  />
+                </template>
+                <div v-else class="w-full h-64 bg-gradient-to-br from-blue-50 to-purple-50 flex items-center justify-center px-6 text-center">
+                  <p class="text-secondary font-semibold text-lg">{{ featuredArticle.title }}</p>
+                </div>
                 <div class="p-8">
                   <div class="flex flex-wrap items-center gap-2 mb-4 text-sm text-gray-500">
                     <span
                       class="inline-flex items-center px-3 py-1 rounded-full text-xs font-medium"
-                      :class="categoryBadgeClass(featuredArticle.category)"
+                      :class="categoryBadgeClass(featuredArticle.category?.key)"
                     >
-                      {{ categoryLabel(featuredArticle.category) }}
+                      {{ featuredArticle.category?.label }}
                     </span>
-                    <span>{{ featuredArticle.date }}</span>
-                    <span v-if="featuredArticle.readingTime">• {{ featuredArticle.readingTime }}</span>
+                    <span>{{ featuredArticle.publishedAtLabel }}</span>
+                    <span v-if="featuredArticle.readingTimeLabel">• {{ featuredArticle.readingTimeLabel }}</span>
                   </div>
                   <h3 class="text-2xl font-bold text-secondary mb-4">{{ featuredArticle.title }}</h3>
                   <p class="text-gray-600 leading-relaxed mb-6">{{ featuredArticle.excerpt }}</p>
-                  <button type="button" class="text-primary font-semibold hover:underline">
+                  <NuxtLink :to="articleLink(featuredArticle.slug)" class="text-primary font-semibold hover:underline">
                     {{ t('blog.articles.readMore') }}
-                  </button>
+                  </NuxtLink>
                 </div>
               </article>
 
               <article
-                v-for="article in filteredArticles"
+                v-for="article in articles"
                 :key="article.id"
                 class="bg-white rounded-2xl shadow-custom overflow-hidden hover-lift"
               >
-                <NuxtImg
-                  :src="article.image"
-                  :alt="article.imageAlt"
-                  class="w-full h-48 object-cover"
-                  loading="lazy"
-                  decoding="async"
-                  format="webp"
-                />
+                <template v-if="article.image">
+                  <NuxtImg
+                    :src="article.image"
+                    :alt="article.imageAlt || article.title"
+                    class="w-full h-48 object-cover"
+                    loading="lazy"
+                    decoding="async"
+                    format="webp"
+                  />
+                </template>
+                <div v-else class="w-full h-48 bg-gray-100 flex items-center justify-center px-4 text-center">
+                  <span class="text-secondary text-sm font-semibold">{{ article.title }}</span>
+                </div>
                 <div class="p-6">
                   <div class="flex flex-wrap items-center gap-2 mb-3 text-sm text-gray-500">
                     <span
                       class="inline-flex items-center px-3 py-1 rounded-full text-xs font-medium"
-                      :class="categoryBadgeClass(article.category)"
+                      :class="categoryBadgeClass(article.category?.key)"
                     >
-                      {{ categoryLabel(article.category) }}
+                      {{ article.category?.label }}
                     </span>
-                    <span>{{ article.date }}</span>
+                    <span>{{ article.publishedAtLabel }}</span>
                   </div>
                   <h3 class="text-xl font-semibold text-secondary mb-3">{{ article.title }}</h3>
                   <p class="text-gray-600 text-sm mb-4">{{ article.excerpt }}</p>
-                  <button type="button" class="text-primary font-semibold hover:underline text-sm">
-                    {{ t('blog.articles.readMore') }}
-                  </button>
+                  <div class="flex items-center justify-between text-sm text-gray-500 mb-4">
+                    <span v-if="article.readingTimeLabel">{{ article.readingTimeLabel }}</span>
+                    <NuxtLink :to="articleLink(article.slug)" class="text-primary font-semibold hover:underline">
+                      {{ t('blog.articles.readMore') }}
+                    </NuxtLink>
+                  </div>
                 </div>
               </article>
             </div>
 
-            <div class="text-center">
+            <p v-if="!loading && !articles.length && !featuredArticle" class="text-center text-gray-500">
+              {{ t('blog.articles.empty', 'Нет статей для отображения') }}
+            </p>
+
+            <p v-if="error" class="mt-6 rounded-xl border border-red-100 bg-red-50 px-4 py-3 text-sm text-red-600">
+              {{ error }}
+            </p>
+
+            <div class="text-center" v-if="hasMore">
               <button
                 type="button"
-                class="bg-white border-2 border-primary text-primary px-8 py-3 rounded-xl font-semibold hover:bg-primary hover:text-white transition-all"
+                class="bg-white border-2 border-primary text-primary px-8 py-3 rounded-xl font-semibold hover:bg-primary hover:text-white transition-all disabled:opacity-60 disabled:cursor-not-allowed"
+                :disabled="isLoadingMore"
+                @click="loadMoreArticles"
               >
-                {{ t('blog.articles.loadMore') }}
+                <span v-if="isLoadingMore" class="flex items-center justify-center gap-2">
+                  <Icon name="mdi:loading" class="w-4 h-4 animate-spin" />
+                  {{ t('blog.articles.loading', 'Загрузка...') }}
+                </span>
+                <span v-else>
+                  {{ t('blog.articles.loadMore') }}
+                </span>
               </button>
             </div>
           </div>
@@ -193,29 +222,6 @@
               </div>
             </div>
 
-            <div class="bg-gradient-to-br from-primary to-red-600 rounded-2xl p-8 text-white">
-              <div class="text-center">
-                <Icon name="mdi:email-outline" class="text-3xl mb-4" />
-                <h3 class="text-xl font-bold mb-3">{{ newsletter.title }}</h3>
-                <p class="text-sm opacity-90 mb-6">{{ newsletter.description }}</p>
-                <form class="space-y-4" @submit.prevent="handleNewsletterSubmit">
-                  <input
-                    v-model="newsletterEmail"
-                    type="email"
-                    :placeholder="newsletter.placeholder"
-                    class="w-full px-4 py-3 rounded-xl border-0 focus:outline-none focus:ring-2 focus:ring-white text-secondary"
-                  >
-                  <button
-                    type="submit"
-                    class="w-full bg-white text-primary py-3 rounded-xl font-semibold hover:bg-gray-100 transition-colors"
-                  >
-                    {{ newsletter.button }}
-                  </button>
-                </form>
-                <p class="text-xs opacity-75 mt-4">{{ newsletter.disclaimer }}</p>
-              </div>
-            </div>
-
             <div class="bg-white rounded-2xl shadow-custom p-8">
               <h3 class="text-xl font-bold text-secondary mb-6">{{ quickLinks.title }}</h3>
               <ClientOnly>
@@ -241,7 +247,10 @@
 </template>
 
 <script setup lang="ts">
+import { ref, computed, watch, watchEffect, onMounted, onBeforeUnmount, nextTick } from 'vue'
+import { storeToRefs } from 'pinia'
 import { useApplicationModalStore } from '~/stores/applicationModal'
+import { useBlogStore } from '~/stores/blog'
 
 definePageMeta({
   layout: 'default',
@@ -250,8 +259,26 @@ definePageMeta({
 
 const { t, tm } = useI18n()
 const router = useRouter()
+const route = useRoute()
 const localePath = useLocalePath()
 const applicationModalStore = useApplicationModalStore()
+const blogStore = useBlogStore()
+
+const {
+  articles,
+  featuredArticle,
+  categories: apiCategories,
+  hasMore,
+  loading,
+  activeCategory,
+  searchQuery,
+  currentPage,
+  error
+} = storeToRefs(blogStore)
+
+const searchInput = ref('')
+const isUpdatingRoute = ref(false)
+let searchDebounce: ReturnType<typeof setTimeout> | null = null
 
 useHead(() => ({
   title: t('blog.meta.title'),
@@ -263,116 +290,135 @@ useHead(() => ({
   ]
 }))
 
-type HeroHighlight = { title: string; subtitle: string }
-type HeroStat = { icon: string; label: string }
-type HeroContent = {
-  title: string
-  titleAccent: string
-  description: string
-  searchPlaceholder: string
-  imageAlt: string
-  highlight: HeroHighlight
-  stats: HeroStat[]
-}
+const parseRouteFilters = () => {
+  const category = typeof route.query.category === 'string' && route.query.category ? route.query.category : 'all'
+  const search = typeof route.query.q === 'string' ? route.query.q : ''
+  const rawPage = Array.isArray(route.query.page) ? route.query.page[0] : route.query.page
+  const pageValue = rawPage ? Number(rawPage) : 1
+  const page = Number.isFinite(pageValue) && pageValue > 0 ? Math.floor(pageValue) : 1
 
-type BlogCategory = { label: string; showInFilters?: boolean }
-
-type ArticleId =
-  | 'visaGuide'
-  | 'learnTurkish'
-  | 'topUniversities'
-  | 'fullScholarship'
-  | 'studyCost'
-  | 'housingIstanbul'
-  | 'applicationGuide'
-  | 'examChoice'
-  | 'adaptation'
-
-type ArticleContent = {
-  title: string
-  excerpt: string
-  date: string
-  imageAlt: string
-  readingTime?: string
-}
-
-type ArticleConfig = {
-  id: ArticleId
-  category: string
-  image: string
-}
-
-type TranslatedArticle = ArticleConfig & ArticleContent
-
-type SidebarPopular = {
-  title: string
-  items: { title: string; date: string; views: string }[]
-}
-
-type NewsletterContent = {
-  title: string
-  description: string
-  placeholder: string
-  button: string
-  disclaimer: string
-}
-
-type QuickLinksContent = {
-  title: string
-  items: { id: string; label: string }[]
-}
-
-const heroImage = 'https://storage.googleapis.com/uxpilot-auth.appspot.com/ce3ce224a4-fadffc2f2c09d25befe6.png'
-
-const articleConfigs: ArticleConfig[] = [
-  {
-    id: 'visaGuide',
-    category: 'visas',
-    image: 'https://storage.googleapis.com/uxpilot-auth.appspot.com/4d45d15c4c-2f7df3cd5c6d26f67f4d.png'
-  },
-  {
-    id: 'learnTurkish',
-    category: 'exams',
-    image: 'https://storage.googleapis.com/uxpilot-auth.appspot.com/da2d1c6632-cf413938afbc3fab1ded.png'
-  },
-  {
-    id: 'topUniversities',
-    category: 'rankings',
-    image: 'https://storage.googleapis.com/uxpilot-auth.appspot.com/57489031df-a0c5d805a5c769e79e85.png'
-  },
-  {
-    id: 'fullScholarship',
-    category: 'scholarships',
-    image: 'https://storage.googleapis.com/uxpilot-auth.appspot.com/e3901b0bf7-9a8ad8119465cdbbdbe0.png'
-  },
-  {
-    id: 'studyCost',
-    category: 'cost',
-    image: 'https://storage.googleapis.com/uxpilot-auth.appspot.com/af90cf6ff7-bebc6b59bbc09cfdceda.png'
-  },
-  {
-    id: 'housingIstanbul',
-    category: 'life',
-    image: 'https://storage.googleapis.com/uxpilot-auth.appspot.com/87e795516e-e01ab643ecae05c53996.png'
-  },
-  {
-    id: 'applicationGuide',
-    category: 'applications',
-    image: 'https://storage.googleapis.com/uxpilot-auth.appspot.com/0dd499ea10-24904ac07ef05238b5a7.png'
-  },
-  {
-    id: 'examChoice',
-    category: 'exams',
-    image: 'https://storage.googleapis.com/uxpilot-auth.appspot.com/e66dae170a-2ce9fb303ed0b339b596.png'
-  },
-  {
-    id: 'adaptation',
-    category: 'life',
-    image: 'https://storage.googleapis.com/uxpilot-auth.appspot.com/481982dfd9-487c04dee7cf597e1ff9.png'
+  return {
+    category,
+    search,
+    page
   }
-]
+}
 
-const featuredArticleId: ArticleId = 'visaGuide'
+const applyRouteFilters = () => {
+  const filters = parseRouteFilters()
+  blogStore.setCategory(filters.category)
+  blogStore.setSearchQuery(filters.search)
+  blogStore.setPage(filters.page)
+  searchInput.value = filters.search
+  return filters
+}
+
+const initialFilters = applyRouteFilters()
+
+if (import.meta.server) {
+  await blogStore.fetchArticles({
+    page: initialFilters.page,
+    category: initialFilters.category,
+    search: initialFilters.search
+  })
+}
+
+onMounted(async () => {
+  if (!articles.value.length) {
+    await blogStore.fetchArticles({
+      page: currentPage.value,
+      category: activeCategory.value,
+      search: searchQuery.value
+    })
+  }
+})
+
+const syncRoute = (overrides: { category?: string; q?: string; page?: number } = {}) => {
+  const category = overrides.category ?? activeCategory.value
+  const q = overrides.q ?? searchQuery.value
+  const page = overrides.page ?? currentPage.value
+
+  const query: Record<string, string> = {}
+  if (q) {
+    query.q = q
+  }
+  if (category && category !== 'all') {
+    query.category = category
+  }
+  if (page > 1) {
+    query.page = String(page)
+  }
+
+  isUpdatingRoute.value = true
+  router.replace({ query }).finally(() => {
+    nextTick(() => {
+      isUpdatingRoute.value = false
+    })
+  })
+}
+
+const updateFromRoute = async () => {
+  const filters = parseRouteFilters()
+  const changed =
+    filters.category !== activeCategory.value ||
+    filters.search !== searchQuery.value ||
+    filters.page !== currentPage.value
+
+  if (!changed) {
+    if (searchInput.value !== filters.search) {
+      searchInput.value = filters.search
+    }
+    return
+  }
+
+  blogStore.setCategory(filters.category)
+  blogStore.setSearchQuery(filters.search)
+  blogStore.setPage(filters.page)
+  searchInput.value = filters.search
+  await blogStore.fetchArticles({
+    page: filters.page,
+    category: filters.category,
+    search: filters.search
+  })
+}
+
+watch(
+  () => route.query,
+  async () => {
+    if (isUpdatingRoute.value) {
+      return
+    }
+    await updateFromRoute()
+  }
+)
+
+watch(
+  searchInput,
+  (value) => {
+    if (searchDebounce) {
+      clearTimeout(searchDebounce)
+    }
+
+    searchDebounce = setTimeout(async () => {
+      if (value === searchQuery.value) {
+        return
+      }
+
+      blogStore.setSearchQuery(value)
+      blogStore.resetPagination()
+      const response = await blogStore.fetchArticles({ page: 1, search: value })
+      if (response) {
+        syncRoute({ q: value, page: 1 })
+      }
+    }, 400)
+  }
+)
+
+onBeforeUnmount(() => {
+  if (searchDebounce) {
+    clearTimeout(searchDebounce)
+  }
+})
 
 const categoryStyles: Record<string, string> = {
   visas: 'bg-blue-100 text-blue-800',
@@ -390,6 +436,30 @@ const quickLinkIcons: Record<string, string> = {
   reviews: 'mdi:comment-quote-outline',
   consultation: 'mdi:headset'
 }
+
+type HeroHighlight = { title: string; subtitle: string }
+type HeroStat = { icon: string; label: string }
+type HeroContent = {
+  title: string
+  titleAccent: string
+  description: string
+  searchPlaceholder: string
+  imageAlt: string
+  highlight: HeroHighlight
+  stats: HeroStat[]
+}
+
+type SidebarPopular = {
+  title: string
+  items: { title: string; date: string; views: string }[]
+}
+
+type QuickLinksContent = {
+  title: string
+  items: { id: string; label: string }[]
+}
+
+const heroImage = 'https://storage.googleapis.com/uxpilot-auth.appspot.com/ce3ce224a4-fadffc2f2c09d25befe6.png'
 
 const hero = computed<HeroContent>(() => {
   const value = tm('blog.hero') as Partial<HeroContent> | undefined
@@ -413,35 +483,39 @@ const hero = computed<HeroContent>(() => {
   }
 })
 
-const categoriesMap = computed<Record<string, BlogCategory>>(() => {
-  const raw = tm('blog.categories') as Record<string, BlogCategory> | undefined
-  if (!raw || typeof raw !== 'object') {
-    return {}
+const categoryTranslations = computed(() => {
+  const raw = tm('blog.categories') as Record<string, { label?: string }> | undefined
+  const map = new Map<string, string>()
+  if (!raw) {
+    return map
   }
-
-  const result: Record<string, BlogCategory> = {}
   for (const [key, value] of Object.entries(raw)) {
-    result[key] = {
-      label: typeof value?.label === 'string' ? value.label : key,
-      ...(value?.showInFilters === false ? { showInFilters: false } : {})
+    if (value?.label) {
+      map.set(key, value.label)
     }
   }
-  return result
-})
-
-const categoryOrder = computed<string[]>(() => {
-  const raw = tm('blog.categoryOrder') as unknown
-  return Array.isArray(raw) ? raw.map((entry) => String(entry)) : []
+  return map
 })
 
 const filterCategories = computed(() => {
-  const order = categoryOrder.value.length > 0 ? categoryOrder.value : Object.keys(categoriesMap.value)
-  return order
-    .map((key) => ({ key, ...(categoriesMap.value[key] || { label: key }) }))
-    .filter((category) => category.showInFilters !== false)
-})
+  const result: Array<{ key: string; label: string }> = []
+  const labelMap = categoryTranslations.value
+  result.push({ key: 'all', label: labelMap.get('all') ?? t('blog.categories.all.label') })
+  const added = new Set<string>(['all'])
 
-const activeCategory = ref('all')
+  apiCategories.value.forEach((category) => {
+    if (added.has(category.key)) {
+      return
+    }
+    added.add(category.key)
+    result.push({
+      key: category.key,
+      label: category.label || labelMap.get(category.key) || category.key
+    })
+  })
+
+  return result
+})
 
 watchEffect(() => {
   if (!filterCategories.value.some((category) => category.key === activeCategory.value)) {
@@ -449,61 +523,16 @@ watchEffect(() => {
   }
 })
 
-const setActiveCategory = (key: string) => {
-  activeCategory.value = key
-}
-
-const articleItems = computed<Record<string, ArticleContent>>(() => {
-  const raw = tm('blog.articles.items') as Record<string, ArticleContent> | undefined
-  if (!raw || typeof raw !== 'object') {
-    return {}
-  }
-
-  const result: Record<string, ArticleContent> = {}
-  for (const [key, value] of Object.entries(raw)) {
-    result[key] = {
-      title: typeof value?.title === 'string' ? value.title : '',
-      excerpt: typeof value?.excerpt === 'string' ? value.excerpt : '',
-      date: typeof value?.date === 'string' ? value.date : '',
-      imageAlt: typeof value?.imageAlt === 'string' ? value.imageAlt : '',
-      ...(typeof value?.readingTime === 'string' ? { readingTime: value.readingTime } : {})
-    }
-  }
-  return result
-})
-
-const translatedArticles = computed<TranslatedArticle[]>(() =>
-  articleConfigs.map((config) => {
-    const content = articleItems.value[config.id] || ({} as ArticleContent)
-    return {
-      ...config,
-      title: content.title ?? '',
-      excerpt: content.excerpt ?? '',
-      date: content.date ?? '',
-      imageAlt: content.imageAlt ?? '',
-      readingTime: content.readingTime
-    }
-  })
-)
-
-const featuredArticle = computed(() => translatedArticles.value.find((article) => article.id === featuredArticleId))
-
 const shouldShowFeatured = computed(() => {
   if (!featuredArticle.value) {
     return false
   }
-  return activeCategory.value === 'all' || featuredArticle.value.category === activeCategory.value
-})
-
-const filteredArticles = computed(() => {
-  const list = translatedArticles.value.filter((article) => article.id !== featuredArticleId)
   if (activeCategory.value === 'all') {
-    return list
+    return true
   }
-  return list.filter((article) => article.category === activeCategory.value)
+  return featuredArticle.value.category?.key === activeCategory.value
 })
 
-const categoryLabel = (key: string) => categoriesMap.value[key]?.label ?? ''
 const categoryBadgeClass = (key: string) => categoryStyles[key] ?? 'bg-gray-100 text-gray-600'
 
 const sidebarPopular = computed<SidebarPopular>(() => {
@@ -520,17 +549,6 @@ const sidebarPopular = computed<SidebarPopular>(() => {
   }
 })
 
-const newsletter = computed<NewsletterContent>(() => {
-  const value = tm('blog.sidebar.newsletter') as NewsletterContent | undefined
-  return {
-    title: typeof value?.title === 'string' ? value.title : '',
-    description: typeof value?.description === 'string' ? value.description : '',
-    placeholder: typeof value?.placeholder === 'string' ? value.placeholder : '',
-    button: typeof value?.button === 'string' ? value.button : '',
-    disclaimer: typeof value?.disclaimer === 'string' ? value.disclaimer : ''
-  }
-})
-
 const quickLinks = computed<QuickLinksContent>(() => {
   const value = tm('blog.sidebar.quickLinks') as QuickLinksContent | undefined
   return {
@@ -544,17 +562,34 @@ const quickLinks = computed<QuickLinksContent>(() => {
   }
 })
 
-const searchQuery = ref('')
-const newsletterEmail = ref('')
-
 const quickLinkIcon = (id: string) => quickLinkIcons[id] ?? 'mdi:arrow-right'
 
-const handleNewsletterSubmit = () => {
-  if (newsletterEmail.value) {
-    console.log('Blog newsletter subscribe:', newsletterEmail.value)
-    newsletterEmail.value = ''
+const setCategoryAndFetch = async (categoryKey: string) => {
+  if (activeCategory.value === categoryKey) {
+    return
+  }
+
+  blogStore.setCategory(categoryKey)
+  blogStore.resetPagination()
+  const response = await blogStore.fetchArticles({ page: 1, category: categoryKey })
+  if (response) {
+    syncRoute({ category: categoryKey, page: 1 })
   }
 }
+
+const loadMoreArticles = async () => {
+  if (loading.value) {
+    return
+  }
+  const response = await blogStore.loadMore()
+  if (response && response.data.length > 0) {
+    syncRoute({ page: currentPage.value })
+  }
+}
+
+const articleLink = (slug: string) => localePath({ name: 'articles-slug', params: { slug } })
+
+const isLoadingMore = computed(() => loading.value && currentPage.value > 1)
 
 const handleQuickLinkClick = async (link: { id: string; label: string }) => {
   switch (link.id) {

@@ -3,6 +3,7 @@ import { seedFAQs } from './faqs'
 import { seedFaqCategories } from './faq-categories'
 import { seedLocations } from './locations'
 import { seedReviews } from './reviews'
+import { seedBlog } from './blog'
 
 const prisma = new PrismaClient()
 
@@ -15,6 +16,10 @@ async function main() {
     
     // Delete in reverse dependency order
     await prisma.$transaction([
+      prisma.blogArticleTranslation.deleteMany(),
+      prisma.blogArticle.deleteMany(),
+      prisma.blogCategoryTranslation.deleteMany(),
+      prisma.blogCategory.deleteMany(),
       prisma.scholarshipTranslation.deleteMany(),
       prisma.scholarship.deleteMany(),
       prisma.requirementTranslation.deleteMany(),
@@ -63,6 +68,9 @@ async function main() {
 
   console.log('❓ Seeding FAQs...')
   await seedFAQs(prisma, faqCategoryMap)
+
+  console.log('📰 Seeding blog content...')
+  await seedBlog(prisma)
 
   console.log('✅ Database seeding completed!')
 }
