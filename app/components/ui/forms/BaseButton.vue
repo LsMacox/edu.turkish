@@ -38,7 +38,8 @@
  */
 -->
 <template>
-  <component 
+  <component
+    ref="rootEl"
     :is="tag"
     :href="href"
     :to="to"
@@ -119,7 +120,8 @@
 </template>
 
 <script setup lang="ts">
-import { computed } from 'vue'
+import { computed, ref, useSlots } from 'vue'
+import type { ComponentPublicInstance } from 'vue'
 import type { BaseButtonProps, BaseButtonEvents } from '~/types/ui'
 
 const props = withDefaults(defineProps<BaseButtonProps>(), {
@@ -136,9 +138,13 @@ const props = withDefaults(defineProps<BaseButtonProps>(), {
 
 const emit = defineEmits<BaseButtonEvents>()
 
+const slots = useSlots()
+
+const rootEl = ref<HTMLElement | ComponentPublicInstance | null>(null)
+
 // Determine if this is an icon-only button
 const iconOnly = computed(() => {
-  return props.icon && !props.$slots?.default
+  return Boolean(props.icon) && !slots.default
 })
 
 // Determine which component/tag to render
@@ -236,14 +242,25 @@ const handleKeydown = (event: KeyboardEvent) => {
 }
 
 // Expose methods for parent component access
+const getElement = () => {
+  if (!rootEl.value) {
+    return null
+  }
+
+  if (rootEl.value instanceof HTMLElement) {
+    return rootEl.value
+  }
+
+  const element = (rootEl.value as ComponentPublicInstance).$el
+  return element instanceof HTMLElement ? element : null
+}
+
 defineExpose({
   focus: () => {
-    const button = event?.target as HTMLElement
-    button?.focus()
+    getElement()?.focus()
   },
   blur: () => {
-    const button = event?.target as HTMLElement
-    button?.blur()
+    getElement()?.blur()
   }
 })
 </script>
