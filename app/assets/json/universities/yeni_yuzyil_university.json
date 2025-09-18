@@ -1,0 +1,157 @@
+{
+  "locale": "ru",
+  "countryCode": "TUR",
+  "countryName": "Турция",
+  "title": "İstanbul Yeni Yüzyıl Üniversitesi (Yeni Yüzyıl University)",
+  "description": "Частный университет в Стамбуле, основанный в 2009 году. Сильные направления в медицине, стоматологии, фармации и естественных науках; международные программы, обмены и возможность двойного диплома.",
+  "slug": "yeni-yuzyil-university",
+  "city": "Стамбул",
+  "foundedYear": 2009,
+  "type": "private",
+  "tuitionRange": {
+    "min": 2300,
+    "max": 13000,
+    "currency": "USD"
+  },
+  "totalStudents": 19000,
+  "internationalStudents": 4000,
+  "hasAccommodation": true,
+  "hasScholarships": true,
+  "about": {
+    "history": "Университет основан Фондом здравоохранения и образования в 2009 году. С момента открытия развивает академические программы с акцентом на здравоохранение, естественные науки и технологии.",
+    "mission": "Обеспечивать качественное высшее образование международного уровня, соединяющее теорию и практику; расширять исследовательские возможности и клиническую подготовку студентов.",
+    "advantages": [
+      "Международные партнёрства и обмены (Erasmus+)",
+      "Университетские госпитали и клиническая практика",
+      "Возможность minor и двойного диплома",
+      "Карьерный центр и поддержка трудоустройства",
+      "Современные лаборатории и исследовательские центры"
+    ]
+  },
+  "strong_programs": [
+    { "category": "Медицина и стоматология", "programs": ["Медицина", "Стоматология", "Фармация", "Сестринское дело"] },
+    { "category": "Биология и науки о жизни", "programs": ["Молекулярная биология и генетика", "Питание и диетология", "Физиотерапия и реабилитация"] },
+    { "category": "Инженерия и технологии", "programs": ["Биомедицинская инженерия", "Электротехника и электроника", "Архитектура", "Дизайн интерьера"] },
+    { "category": "Право и общественные науки", "programs": ["Право", "Политология и международные отношения", "Психология"] },
+    { "category": "Коммуникации и медиа", "programs": ["Визуальная коммуникация и дизайн", "Связи с общественностью и реклама", "Радио, кино и телевидение", "Новые медиа и коммуникации"] }
+  ],
+  "key_info_texts": {
+    "city_label": "Город",
+    "city_note": "Стамбул",
+    "founded_year_label": "Год основания",
+    "founded_year_note": "2009",
+    "tuition_label": "Стоимость",
+    "tuition_note": "от $2 300 (в зависимости от программы)",
+    "languages_label": "Языки обучения",
+    "languages_note": "Турецкий и Английский (большинство программ на турецком)",
+    "total_students_label": "Студенты",
+    "total_students_note": "Около 19 000",
+    "international_students_label": "Международные студенты",
+    "international_students_note": "Около 4 000",
+    "type_label": "Тип университета",
+    "type_note": "частный"
+  },
+  "campus_life": {
+    "facilities": [
+      { "name": "Topkapı — Dr. Azmi Ofluoğlu Campus", "description": "Учебные корпуса, лаборатории и исследовательские центры", "icon": "ph:university" },
+      { "name": "Sütlüce / Halıcıoğlu — стоматологический кампус и госпиталь", "icon": "ph:tooth" },
+      { "name": "Gaziosmanpaşa Hospital Campus", "description": "Клиническая база для факультета медицины", "icon": "ph:stethoscope" },
+      { "name": "Bayrampaşa Campus", "description": "Гуманитарные и правовые факультеты", "icon": "ph:building" },
+      { "name": "Библиотека и e‑ресурсы", "icon": "ph:books" },
+      { "name": "Лаборатории естественных наук", "icon": "ph:flask" },
+      { "name": "Общежития и партнёрские резиденции", "icon": "ph:bed" },
+      { "name": "Студенческие клубы и культурные пространства", "icon": "ph:users-three" },
+      { "name": "Спортивные площадки и фитнес", "icon": "ph:barbell" },
+      { "name": "Кафе и столовые", "icon": "ph:fork-knife" }
+    ]
+  },
+  "admission": {
+    "requirements": [
+      { "category": "exam", "requirement": "TR-YÖS / SAT необязательны", "details": "Возможно поступление по аттестату" },
+      { "category": "language", "requirement": "TOEFL iBT ≥ 84 или внутренний экзамен", "details": "Для программ на английском" }
+    ],
+    "documents": [
+      { "name": "Аттестат/диплом", "description": "Апостиль и нотариальный перевод", "format_requirements": ["PDF"] },
+      { "name": "Загранпаспорт", "description": "Действителен на срок обучения", "format_requirements": ["PDF"] },
+      { "name": "Фото", "description": "Белый фон" }
+    ]
+  },
+  "programs": [
+    { "degree_type": "bachelor", "name": "Медицина", "language": "tr", "tuition_per_year": 13000, "duration_years": 6, "direction_slug": "medicine" },
+    { "degree_type": "bachelor", "name": "Стоматология", "language": "tr", "tuition_per_year": 13000, "duration_years": 5, "direction_slug": "dentistry" },
+    { "degree_type": "bachelor", "name": "Фармация", "language": "tr", "tuition_per_year": 7500, "duration_years": 5, "direction_slug": "pharmacy" },
+
+    { "degree_type": "bachelor", "name": "Биомедицинская инженерия", "language": "tr", "tuition_per_year": 2500, "duration_years": 4, "direction_slug": "biotechnology" },
+    { "degree_type": "bachelor", "name": "Электротехника и электроника", "language": "tr", "tuition_per_year": 2500, "duration_years": 4, "direction_slug": "electrical-electronics-engineering" },
+    { "degree_type": "bachelor", "name": "Дизайн интерьера и предметно-пространственной среды", "language": "tr", "tuition_per_year": 2500, "duration_years": 4, "direction_slug": "design" },
+    { "degree_type": "bachelor", "name": "Архитектура", "language": "tr", "tuition_per_year": 2500, "duration_years": 4, "direction_slug": "architecture" },
+    { "degree_type": "bachelor", "name": "Питание и диетология", "language": "en", "tuition_per_year": 2500, "duration_years": 4, "direction_slug": "public-health" },
+    { "degree_type": "bachelor", "name": "Физиотерапия и реабилитация", "language": "tr", "tuition_per_year": 2500, "duration_years": 4, "direction_slug": "public-health" },
+    { "degree_type": "bachelor", "name": "Медсестринское дело", "language": "tr", "tuition_per_year": 2500, "duration_years": 4, "direction_slug": "nursing" },
+
+    { "degree_type": "bachelor", "name": "Охрана труда и техника безопасности", "language": "tr", "tuition_per_year": 2500, "duration_years": 4 },
+    { "degree_type": "bachelor", "name": "Управление здравоохранением", "language": "tr", "tuition_per_year": 2500, "duration_years": 4, "direction_slug": "management" },
+    { "degree_type": "bachelor", "name": "Право", "language": "tr", "tuition_per_year": 2500, "duration_years": 4, "direction_slug": "law" },
+    { "degree_type": "bachelor", "name": "Бизнес-администрирование", "language": "tr", "tuition_per_year": 2500, "duration_years": 4, "direction_slug": "business" },
+    { "degree_type": "bachelor", "name": "Политология и международные отношения", "language": "tr", "tuition_per_year": 2500, "duration_years": 4, "direction_slug": "international-relations" },
+    { "degree_type": "bachelor", "name": "Международная торговля и логистика", "language": "tr", "tuition_per_year": 2500, "duration_years": 4, "direction_slug": "business" },
+    { "degree_type": "bachelor", "name": "Английский язык и литература", "language": "en", "tuition_per_year": 2300, "duration_years": 4, "direction_slug": "languages-linguistics" },
+    { "degree_type": "bachelor", "name": "Перевод и устный перевод — английский", "language": "en", "tuition_per_year": 2300, "duration_years": 4, "direction_slug": "languages-linguistics" },
+    { "degree_type": "bachelor", "name": "Молекулярная биология и генетика", "language": "tr", "tuition_per_year": 2300, "duration_years": 4, "direction_slug": "biology" },
+    { "degree_type": "bachelor", "name": "Психология", "language": "tr", "tuition_per_year": 2300, "duration_years": 4, "direction_slug": "psychology" },
+    { "degree_type": "bachelor", "name": "Турецкий язык и литература", "language": "tr", "tuition_per_year": 2300, "duration_years": 4 },
+    { "degree_type": "bachelor", "name": "Графический дизайн", "language": "tr", "tuition_per_year": 2300, "duration_years": 4, "direction_slug": "design" },
+    { "degree_type": "bachelor", "name": "Сценическое искусство", "language": "tr", "tuition_per_year": 2300, "duration_years": 4, "direction_slug": "theatre" },
+    { "degree_type": "bachelor", "name": "Визуальная коммуникация и дизайн", "language": "tr", "tuition_per_year": 2300, "duration_years": 4, "direction_slug": "design" },
+    { "degree_type": "bachelor", "name": "Связи с общественностью и реклама", "language": "tr", "tuition_per_year": 2300, "duration_years": 4, "direction_slug": "communication" },
+    { "degree_type": "bachelor", "name": "Радио, кино и телевидение", "language": "tr", "tuition_per_year": 2300, "duration_years": 4, "direction_slug": "journalism-media" },
+    { "degree_type": "bachelor", "name": "Новые медиа и коммуникации", "language": "tr", "tuition_per_year": 2300, "duration_years": 4, "direction_slug": "journalism-media" },
+    { "degree_type": "bachelor", "name": "Тренерское образование", "language": "tr", "tuition_per_year": 2300, "duration_years": 4 },
+
+    { "degree_type": "master", "name": "Биомедицинская инженерия — с тезисом", "language": "tr", "tuition_per_year": 4000, "duration_years": 2, "direction_slug": "biotechnology" },
+    { "degree_type": "master", "name": "Биомедицинская инженерия — без тезиса", "language": "tr", "tuition_per_year": 3500, "duration_years": 2, "direction_slug": "biotechnology" },
+    { "degree_type": "master", "name": "Охрана труда и техника безопасности — с тезисом", "language": "tr", "tuition_per_year": 4000, "duration_years": 2 },
+    { "degree_type": "master", "name": "Охрана труда и техника безопасности — без тезиса", "language": "tr", "tuition_per_year": 3500, "duration_years": 2 },
+    { "degree_type": "master", "name": "Управление здравоохранением — с тезисом", "language": "tr", "tuition_per_year": 4000, "duration_years": 2, "direction_slug": "management" },
+    { "degree_type": "master", "name": "Управление здравоохранением — без тезиса", "language": "tr", "tuition_per_year": 3500, "duration_years": 2, "direction_slug": "management" },
+    { "degree_type": "master", "name": "Клиническая эмбриология — с тезисом", "language": "tr", "tuition_per_year": 4000, "duration_years": 2 },
+    { "degree_type": "master", "name": "Физическое воспитание и спорт — с тезисом", "language": "tr", "tuition_per_year": 4000, "duration_years": 2 },
+
+    { "degree_type": "master", "name": "Экономика и финансы — с тезисом", "language": "tr", "tuition_per_year": 4000, "duration_years": 2, "direction_slug": "finance" },
+    { "degree_type": "master", "name": "Экономика и финансы — без тезиса", "language": "tr", "tuition_per_year": 3500, "duration_years": 2, "direction_slug": "finance" },
+    { "degree_type": "master", "name": "Управление коммуникациями — с тезисом", "language": "tr", "tuition_per_year": 4000, "duration_years": 2, "direction_slug": "communication" },
+    { "degree_type": "master", "name": "Управление коммуникациями — без тезиса", "language": "tr", "tuition_per_year": 3500, "duration_years": 2, "direction_slug": "communication" },
+    { "degree_type": "master", "name": "Английский язык и литература — с тезисом", "language": "en", "tuition_per_year": 4000, "duration_years": 2, "direction_slug": "languages-linguistics" },
+    { "degree_type": "master", "name": "Бизнес-администрирование — с тезисом", "language": "tr", "tuition_per_year": 4000, "duration_years": 2, "direction_slug": "business" },
+    { "degree_type": "master", "name": "Бизнес-администрирование — без тезиса", "language": "tr", "tuition_per_year": 3500, "duration_years": 2, "direction_slug": "business" },
+    { "degree_type": "master", "name": "Публичное право — без тезиса", "language": "tr", "tuition_per_year": 3500, "duration_years": 2, "direction_slug": "law" },
+    { "degree_type": "master", "name": "Частное право — без тезиса", "language": "tr", "tuition_per_year": 3500, "duration_years": 2, "direction_slug": "law" },
+    { "degree_type": "master", "name": "Реставрация и технология живописи — с тезисом", "language": "tr", "tuition_per_year": 4000, "duration_years": 2, "direction_slug": "fine-arts" },
+    { "degree_type": "master", "name": "Реставрация и технология живописи — без тезиса", "language": "tr", "tuition_per_year": 3500, "duration_years": 2, "direction_slug": "fine-arts" },
+    { "degree_type": "master", "name": "Политология и международные отношения — с тезисом", "language": "tr", "tuition_per_year": 4000, "duration_years": 2, "direction_slug": "international-relations" },
+    { "degree_type": "master", "name": "Политология и международные отношения — без тезиса", "language": "tr", "tuition_per_year": 3500, "duration_years": 2, "direction_slug": "international-relations" },
+    { "degree_type": "master", "name": "Англо‑американская литература и креативное письмо — с тезисом", "language": "en", "tuition_per_year": 4000, "duration_years": 2, "direction_slug": "languages-linguistics" },
+    { "degree_type": "master", "name": "Англо‑американская литература и креативное письмо — без тезиса", "language": "en", "tuition_per_year": 3500, "duration_years": 2, "direction_slug": "languages-linguistics" }
+  ],
+  "directions": [
+    "medicine",
+    "dentistry",
+    "pharmacy",
+    "nursing",
+    "public-health",
+    "biology",
+    "architecture",
+    "design",
+    "electrical-electronics-engineering",
+    "business",
+    "international-relations",
+    "law",
+    "finance",
+    "communication",
+    "journalism-media",
+    "fine-arts",
+    "languages-linguistics"
+  ]
+}
+
+

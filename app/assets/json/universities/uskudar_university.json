@@ -2,54 +2,211 @@
   "locale": "ru",
   "countryCode": "TUR",
   "countryName": "Турция",
-  "title": "Üsküdar Üniversitesi",
-  "description": "Частный университет в Стамбуле, известный своими программами в области поведенческих наук и здравоохранения.",
+  "title": "Üsküdar University (Üsküdar Üniversitesi)",
+  "description": "Университет в Стамбуле, специализирующийся на поведенческих и медицинских науках, психологии и нейронауках. Сильные клинические базы, современная исследовательская инфраструктура и развитые международные программы.",
   "slug": "uskudar-universitesi",
   "city": "Стамбул",
   "foundedYear": 2011,
   "type": "private",
   "tuitionRange": {
-    "min": 3000,
-    "max": 15000,
+    "min": 3600,
+    "max": 24000,
     "currency": "USD"
   },
+  "totalStudents": 23000,
+  "internationalStudents": 4000,
   "hasAccommodation": true,
   "hasScholarships": true,
   "heroImage": "/images/universities/uskudar-bg.avif",
   "image": "/images/universities/uskudar-preview.png",
   "about": {
-    "history": "История университета",
-    "mission": "Миссия университета",
+    "history": "Üsküdar University основан Фондом человеческих ценностей и психического здоровья как первый в Турции тематический университет, ориентированный на поведенческие и медицинские науки, психологию и нейронауки.",
+    "mission": "Готовить специалистов, которые объединяют научный подход и клиническую практику, понимая человека как целостную личность, и развивать междисциплинарные исследования на стыке здоровья, психологии и технологий.",
     "advantages": [
-      "Современный кампус",
-      "Качественное образование",
-      "Международные программы",
-      "Карьерные возможности"
+      "Партнёрские клинические базы: NP Brain Hospital, NP Feneryolu Medical Center, NP Etiler Medical Center",
+      "Развитая исследовательская инфраструктура: лаборатории VR, токсикологии, нейрогенетики и др.",
+      "Центры технологий и инноваций: BrainPark, инкубаторы и проектные треки",
+      "Междисциплинарные программы и сильная связка факультетов здравоохранения и коммуникаций",
+      "Международные партнёрства и обмены (Erasmus+)",
+      "Стипендии и академические скидки для иностранных студентов",
+      "Доступ к практикам и стажировкам в клинических центрах",
+      "Кампусы в удобных районах, хорошая транспортная доступность",
+      "Акцент на личностном развитии и позитивной психологии",
+      "Карьерный центр и международный диплом"
     ]
   },
   "strong_programs": [
     {
-      "category": "Основные направления",
+      "category": "Поведенческие науки и психология",
       "programs": [
-        "Программа 1",
-        "Программа 2"
+        "Психология",
+        "Логопедия и речевая терапия",
+        "Аудиология"
+      ]
+    },
+    {
+      "category": "Медицина и здравоохранение",
+      "programs": [
+        "Медицина",
+        "Стоматология",
+        "Сестринское дело",
+        "Физиотерапия и реабилитация",
+        "Питание и диетология",
+        "Акушерство",
+        "Управление здравоохранением"
+      ]
+    },
+    {
+      "category": "Коммуникации и медиа",
+      "programs": [
+        "Журналистика",
+        "Радио, телевидение и кино",
+        "Связи с общественностью и реклама",
+        "Новые медиа и коммуникации",
+        "Дизайн визуальных коммуникаций"
+      ]
+    },
+    {
+      "category": "Инженерия и технологии",
+      "programs": [
+        "Компьютерная инженерия",
+        "Программная инженерия",
+        "Электротехника и электроника",
+        "Биомедицинская инженерия",
+        "Промышленная инженерия"
+      ]
+    },
+    {
+      "category": "Естественные и социальные науки",
+      "programs": [
+        "Молекулярная биология и генетика",
+        "Философия",
+        "История",
+        "Социология",
+        "Политология и международные отношения"
       ]
     }
   ],
   "key_info_texts": {
     "city_label": "Город",
+    "city_note": "Стамбул",
     "founded_year_label": "Год основания",
-    "tuition_label": "Стоимость обучения",
+    "founded_year_note": "2011",
+    "tuition_label": "Стоимость",
+    "tuition_note": "от $3 600 до $24 000; стипендии доступны",
     "languages_label": "Языки обучения",
-    "type_label": "Тип университета"
+    "languages_note": "Турецкий, Английский",
+    "total_students_label": "Студенты",
+    "total_students_note": "≈ 23 000",
+    "international_students_label": "Международные студенты",
+    "international_students_note": "≈ 4 000",
+    "accommodation_label": "Проживание",
+    "accommodation_note": "Общежития и помощь с жильём рядом с кампусами",
+    "type_label": "Тип университета",
+    "type_note": "частный"
+  },
+  "campus_life": {
+    "facilities": [
+      { "name": "Главный кампус Altunizade", "icon": "ph:university" },
+      { "name": "NP Brain Hospital (клиническая база)", "icon": "ph:stethoscope" },
+      { "name": "NP Health Campus и медицинские центры", "icon": "ph:first-aid" },
+      { "name": "Dental Hospital (стоматологическая клиника)", "icon": "ph:tooth" },
+      { "name": "Исследовательские лаборатории VR, токсикологии, нейрогенетики", "icon": "ph:flask" },
+      { "name": "BrainPark — инкубатор и технопарк", "icon": "ph:lightbulb" },
+      { "name": "Библиотеки и мультимедийные студии", "icon": "ph:books" },
+      { "name": "Зоны для групповой работы и коворкинги", "icon": "ph:users-three" },
+      { "name": "Спортивные зоны и мероприятия", "icon": "ph:barbell" },
+      { "name": "Столовые и кафе", "icon": "ph:fork-knife" },
+      { "name": "Общежития и помощь в подборе жилья", "icon": "ph:bed" },
+      { "name": "Удобная транспортная доступность", "icon": "ph:bus" }
+    ]
+  },
+  "admission": {
+    "requirements": [
+      { "category": "exam", "requirement": "TR-YÖS / SAT — не обязательны", "details": "Поступление возможно по аттестату" },
+      { "category": "language", "requirement": "TOEFL iBT ≥ 84 или внутренний экзамен", "details": "Для программ на английском языке" }
+    ],
+    "documents": [
+      { "name": "Аттестат/диплом", "description": "Апостиль и нотариальный перевод", "format_requirements": ["PDF"] },
+      { "name": "Загранпаспорт", "description": "Срок действия не менее 2 лет", "format_requirements": ["PDF"] },
+      { "name": "Фото", "description": "Фон белый", "format_requirements": ["JPG", "PNG"] }
+    ],
+    "scholarships": [
+      {
+        "name": "International Student Scholarship",
+        "type": "university",
+        "coverage_percentage": 50,
+        "eligibility_criteria": [
+          "Высокий средний балл (GPA)",
+          "Результаты вступительных/языковых экзаменов",
+          "Портфолио достижений"
+        ]
+      }
+    ]
   },
   "programs": [
-    {
-      "degree_type": "bachelor",
-      "name": "Пример программы",
-      "language": "tr",
-      "tuition_per_year": 5000,
-      "duration_years": 4
-    }
+    { "degree_type": "bachelor", "name": "Судебные науки", "language": "tr", "tuition_per_year": 3600, "duration_years": 4 },
+    { "degree_type": "bachelor", "name": "Питание и диетология", "language": "tr", "tuition_per_year": 3600, "duration_years": 4, "direction_slug": "public-health" },
+    { "degree_type": "bachelor", "name": "Компьютерная инженерия", "language": "en", "tuition_per_year": 5600, "duration_years": 4, "direction_slug": "computer-engineering" },
+    { "degree_type": "bachelor", "name": "Биомедицинская инженерия", "language": "en", "tuition_per_year": 5000, "duration_years": 4, "direction_slug": "biotechnology" },
+
+    { "degree_type": "bachelor", "name": "Стоматология", "language": "tr", "tuition_per_year": 16000, "duration_years": 5, "direction_slug": "dentistry" },
+    { "degree_type": "bachelor", "name": "Стоматология", "language": "en", "tuition_per_year": 22000, "duration_years": 5, "direction_slug": "dentistry" },
+    { "degree_type": "bachelor", "name": "Акушерство", "language": "tr", "tuition_per_year": 3600, "duration_years": 4, "direction_slug": "public-health" },
+    { "degree_type": "bachelor", "name": "Электротехника и электроника", "language": "en", "tuition_per_year": 5000, "duration_years": 4, "direction_slug": "electrical-electronics-engineering" },
+    { "degree_type": "bachelor", "name": "Промышленная инженерия", "language": "en", "tuition_per_year": 4400, "duration_years": 4, "direction_slug": "industrial-engineering" },
+    { "degree_type": "bachelor", "name": "Философия", "language": "tr", "tuition_per_year": 3600, "duration_years": 4, "direction_slug": "philosophy" },
+    { "degree_type": "bachelor", "name": "Физиотерапия и реабилитация", "language": "tr", "tuition_per_year": 3600, "duration_years": 4, "direction_slug": "public-health" },
+    { "degree_type": "bachelor", "name": "Журналистика", "language": "tr", "tuition_per_year": 3600, "duration_years": 4, "direction_slug": "journalism-media" },
+    { "degree_type": "bachelor", "name": "Дизайн визуальных коммуникаций", "language": "tr", "tuition_per_year": 3600, "duration_years": 4, "direction_slug": "design" },
+    { "degree_type": "bachelor", "name": "Связи с общественностью и реклама", "language": "tr", "tuition_per_year": 3600, "duration_years": 4, "direction_slug": "communication" },
+    { "degree_type": "bachelor", "name": "Медсестринское дело", "language": "tr", "tuition_per_year": 3600, "duration_years": 4, "direction_slug": "nursing" },
+    { "degree_type": "bachelor", "name": "Логопедия и речевая терапия", "language": "tr", "tuition_per_year": 3600, "duration_years": 4 },
+    { "degree_type": "bachelor", "name": "Молекулярная биология и генетика", "language": "tr", "tuition_per_year": 3600, "duration_years": 4, "direction_slug": "biology" },
+    { "degree_type": "bachelor", "name": "Молекулярная биология и генетика", "language": "en", "tuition_per_year": 5000, "duration_years": 4, "direction_slug": "biology" },
+    { "degree_type": "bachelor", "name": "Аудиология", "language": "tr", "tuition_per_year": 3600, "duration_years": 4 },
+    { "degree_type": "bachelor", "name": "Перфузия", "language": "tr", "tuition_per_year": 3600, "duration_years": 4 },
+    { "degree_type": "bachelor", "name": "Психология", "language": "tr", "tuition_per_year": 3600, "duration_years": 4, "direction_slug": "psychology" },
+    { "degree_type": "bachelor", "name": "Психология", "language": "en", "tuition_per_year": 5600, "duration_years": 4, "direction_slug": "psychology" },
+    { "degree_type": "bachelor", "name": "Радио, телевидение и кино", "language": "tr", "tuition_per_year": 3600, "duration_years": 4, "direction_slug": "journalism-media" },
+    { "degree_type": "bachelor", "name": "Реклама", "language": "tr", "tuition_per_year": 3600, "duration_years": 4, "direction_slug": "marketing" },
+    { "degree_type": "bachelor", "name": "Управление здравоохранением", "language": "tr", "tuition_per_year": 3600, "duration_years": 4, "direction_slug": "public-health" },
+    { "degree_type": "bachelor", "name": "Политология и международные отношения", "language": "tr", "tuition_per_year": 3600, "duration_years": 4, "direction_slug": "international-relations" },
+    { "degree_type": "bachelor", "name": "Политология и международные отношения", "language": "en", "tuition_per_year": 4400, "duration_years": 4, "direction_slug": "international-relations" },
+    { "degree_type": "bachelor", "name": "Социальная работа", "language": "tr", "tuition_per_year": 3600, "duration_years": 4 },
+    { "degree_type": "bachelor", "name": "Социология", "language": "tr", "tuition_per_year": 3600, "duration_years": 4, "direction_slug": "sociology" },
+    { "degree_type": "bachelor", "name": "История", "language": "tr", "tuition_per_year": 3600, "duration_years": 4, "direction_slug": "history" },
+    { "degree_type": "bachelor", "name": "Медицина", "language": "tr", "tuition_per_year": 18000, "duration_years": 6, "direction_slug": "medicine" },
+    { "degree_type": "bachelor", "name": "Медицина", "language": "en", "tuition_per_year": 24000, "duration_years": 6, "direction_slug": "medicine" },
+    { "degree_type": "bachelor", "name": "Программная инженерия", "language": "en", "tuition_per_year": 5600, "duration_years": 4, "direction_slug": "software-engineering" },
+    { "degree_type": "bachelor", "name": "Новые медиа и коммуникации", "language": "tr", "tuition_per_year": 3600, "duration_years": 4, "direction_slug": "communication" },
+    { "degree_type": "bachelor", "name": "Мультфильм и анимация", "language": "tr", "tuition_per_year": 3600, "duration_years": 4, "direction_slug": "design" },
+    { "degree_type": "bachelor", "name": "Детское развитие", "language": "tr", "tuition_per_year": 3600, "duration_years": 4, "direction_slug": "education" },
+    { "degree_type": "bachelor", "name": "Английский перевод и устный перевод", "language": "en", "tuition_per_year": 4400, "duration_years": 4, "direction_slug": "languages-linguistics" },
+    { "degree_type": "bachelor", "name": "Английский перевод и устный перевод", "language": "tr", "tuition_per_year": 4400, "duration_years": 4, "direction_slug": "languages-linguistics" },
+    { "degree_type": "bachelor", "name": "Охрана труда и техника безопасности", "language": "tr", "tuition_per_year": 3600, "duration_years": 4, "direction_slug": "public-health" }
+  ],
+  "directions": [
+    "medicine",
+    "dentistry",
+    "nursing",
+    "public-health",
+    "psychology",
+    "sociology",
+    "philosophy",
+    "history",
+    "communication",
+    "journalism-media",
+    "design",
+    "marketing",
+    "languages-linguistics",
+    "computer-engineering",
+    "software-engineering",
+    "industrial-engineering",
+    "electrical-electronics-engineering",
+    "biology",
+    "biotechnology",
+    "education",
+    "international-relations"
   ]
 }

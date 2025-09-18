@@ -2,54 +2,208 @@
   "locale": "ru",
   "countryCode": "TUR",
   "countryName": "Турция",
-  "title": "Atlas University",
-  "description": "Описание университета Atlas",
+  "title": "İstanbul Atlas University",
+  "description": "Atlas University — молодой и современный частный университет в Стамбуле (основан в 2018), сильный в медицине, стоматологии и инженерии. Кампус Vadi объединяет учебные корпуса, лаборатории, клиники и университетскую больницу.",
   "slug": "atlas-university",
   "city": "Стамбул",
-  "foundedYear": 2020,
+  "foundedYear": 2018,
   "type": "private",
   "tuitionRange": {
-    "min": 3000,
-    "max": 15000,
+    "min": 3250,
+    "max": 25000,
     "currency": "USD"
   },
+  "totalStudents": 10000,
+  "internationalStudents": 2000,
   "hasAccommodation": true,
   "hasScholarships": true,
-  "heroImage": "/images/universities/atlas-bg-2.jpg",
-  "image": "/images/universities/atlas-preview.webp",
   "about": {
-    "history": "История университета",
-    "mission": "Миссия университета",
+    "history": "Университет основан Фондом образования, культуры и здравоохранения Турции и Балкан в 2018 году.",
+    "mission": "Подготовка специалистов нового поколения, объединяющих академические знания, цифровые технологии и практику, с особым фокусом на медицина и здравоохранение.",
     "advantages": [
-      "Современный кампус",
-      "Качественное образование",
-      "Международные программы",
-      "Карьерные возможности"
+      "Современный кампус Vadi с лабораториями и симуляционными центрами",
+      "Университетская больница и стоматологическая клиника для практики",
+      "Международные партнёрства и обмены (Erasmus+)",
+      "Стипендии и скидки в зависимости от GPA",
+      "Практика в собственных клиниках университета",
+      "Международная атмосфера и карьерный центр"
     ]
   },
   "strong_programs": [
     {
-      "category": "Основные направления",
+      "category": "Медицина и здоровье",
       "programs": [
-        "Программа 1",
-        "Программа 2"
+        "Медицина",
+        "Стоматология",
+        "Сестринское дело",
+        "Физиотерапия и реабилитация",
+        "Логопедия и речевая терапия",
+        "Эрготерапия",
+        "Фармация"
+      ]
+    },
+    {
+      "category": "Инженерия и компьютерные науки",
+      "programs": [
+        "Компьютерная инженерия",
+        "Программная инженерия",
+        "Биомедицинская инженерия",
+        "Электротехника и электроника",
+        "Промышленная инженерия"
+      ]
+    },
+    {
+      "category": "Дизайн и коммуникации",
+      "programs": [
+        "Дизайн цифровых игр",
+        "Дизайн визуальных коммуникаций",
+        "Дизайн интерьера и архитектурной среды"
+      ]
+    },
+    {
+      "category": "Психология и когнитивные науки",
+      "programs": [
+        "Психология",
+        "Нейронаука",
+        "Когнитивная реабилитация"
+      ]
+    },
+    {
+      "category": "Бизнес и управление",
+      "programs": [
+        "Бизнес-администрирование",
+        "Управление технологиями и инновациями"
+      ]
+    },
+    {
+      "category": "Языки и переводы",
+      "programs": [
+        "Английский язык и литература",
+        "Перевод и устный перевод"
       ]
     }
   ],
   "key_info_texts": {
     "city_label": "Город",
+    "city_note": "Стамбул (Kağıthane, Vadi Campus)",
     "founded_year_label": "Год основания",
-    "tuition_label": "Стоимость обучения",
+    "founded_year_note": "2018",
+    "tuition_label": "Стоимость",
+    "tuition_note": "от $3 250 в год",
     "languages_label": "Языки обучения",
-    "type_label": "Тип университета"
+    "languages_note": "Турецкий, Английский",
+    "total_students_label": "Студенты",
+    "total_students_note": "10 000+",
+    "international_students_label": "Международные студенты",
+    "international_students_note": "2 000+",
+    "accommodation_label": "Проживание",
+    "accommodation_note": "Общежития и резиденции-партнёры",
+    "ranking_label": "Рейтинг",
+    "ranking_text": "Молодой динамично развивающийся университет",
+    "type_label": "Тип университета",
+    "type_note": "частный"
+  },
+  "campus_life": {
+    "facilities": [
+      { "name": "Университетская больница", "icon": "ph:stethoscope" },
+      { "name": "Стоматологическая клиника (Dental Hospital)", "icon": "ph:tooth" },
+      { "name": "Современные лаборатории и исследовательские центры", "icon": "ph:flask" },
+      { "name": "Библиотека и e‑ресурсы", "icon": "ph:books" },
+      { "name": "Мультимедийные классы и симуляционные центры", "icon": "ph:video" },
+      { "name": "Коворкинги и зоны отдыха", "icon": "ph:coffee" },
+      { "name": "Студенческие клубы", "icon": "ph:users-three" },
+      { "name": "Спортзал и спортивные зоны", "icon": "ph:barbell" },
+      { "name": "Столовые и кафе", "icon": "ph:fork-knife" },
+      { "name": "Общежития и партнёрские резиденции", "icon": "ph:bed" },
+      { "name": "Wi‑Fi по всей территории", "icon": "ph:wifi-high" },
+      { "name": "Транспортная доступность (Vadi Istanbul)", "icon": "ph:bus" }
+    ]
+  },
+  "admission": {
+    "requirements": [
+      { "category": "exam", "requirement": "TR-YÖS или SAT", "details": "Не обязательны, можно поступить по аттестату" },
+      { "category": "language", "requirement": "TOEFL iBT 75+ или внутренний экзамен Atlas", "details": "Для программ на английском" }
+    ],
+    "documents": [
+      { "name": "Аттестат о среднем образовании", "description": "Апостиль и нотариальный перевод", "format_requirements": ["PDF"] },
+      { "name": "Загранпаспорт", "description": "Срок действия — не менее 2 лет", "format_requirements": ["PDF"] },
+      { "name": "Фотографии", "description": "4 шт, белый фон" },
+      { "name": "Denklik belgesi", "description": "На турецком, оценивание по 100-балльной шкале", "format_requirements": ["PDF"] }
+    ]
   },
   "programs": [
-    {
-      "degree_type": "bachelor",
-      "name": "Пример программы",
-      "language": "tr",
-      "tuition_per_year": 5000,
-      "duration_years": 4
-    }
+    { "degree_type": "bachelor", "name": "Питание и диетология", "language": "tr", "tuition_per_year": 4500, "duration_years": 4 },
+    { "degree_type": "bachelor", "name": "Компьютерная инженерия", "language": "tr", "tuition_per_year": 3250, "duration_years": 4, "direction_slug": "computer-engineering" },
+    { "degree_type": "bachelor", "name": "Компьютерная инженерия", "language": "en", "tuition_per_year": 6300, "duration_years": 4, "direction_slug": "computer-engineering" },
+    { "degree_type": "bachelor", "name": "Биомедицинская инженерия", "language": "en", "tuition_per_year": 6300, "duration_years": 4 },
+    { "degree_type": "bachelor", "name": "Дизайн цифровых игр", "language": "tr", "tuition_per_year": 4660, "duration_years": 4, "direction_slug": "design" },
+    { "degree_type": "bachelor", "name": "Стоматология", "language": "tr", "tuition_per_year": 18530, "duration_years": 5, "direction_slug": "dentistry" },
+    { "degree_type": "bachelor", "name": "Стоматология", "language": "en", "tuition_per_year": 23560, "duration_years": 5, "direction_slug": "dentistry" },
+    { "degree_type": "bachelor", "name": "Акушерство", "language": "tr", "tuition_per_year": 4500, "duration_years": 4 },
+    { "degree_type": "bachelor", "name": "Электротехника и электроника", "language": "en", "tuition_per_year": 5550, "duration_years": 4, "direction_slug": "electrical-electronics-engineering" },
+    { "degree_type": "bachelor", "name": "Промышленная инженерия", "language": "en", "tuition_per_year": 5550, "duration_years": 4, "direction_slug": "industrial-engineering" },
+    { "degree_type": "bachelor", "name": "Эрготерапия", "language": "tr", "tuition_per_year": 4500, "duration_years": 4 },
+    { "degree_type": "bachelor", "name": "Физиотерапия и реабилитация", "language": "tr", "tuition_per_year": 5200, "duration_years": 4 },
+    { "degree_type": "bachelor", "name": "Физиотерапия и реабилитация", "language": "en", "tuition_per_year": 5900, "duration_years": 4 },
+    { "degree_type": "bachelor", "name": "Дизайн визуальных коммуникаций", "language": "tr", "tuition_per_year": 4660, "duration_years": 4, "direction_slug": "design" },
+    { "degree_type": "bachelor", "name": "Медсестринское дело", "language": "tr", "tuition_per_year": 5200, "duration_years": 4, "direction_slug": "nursing" },
+    { "degree_type": "bachelor", "name": "Медсестринское дело", "language": "en", "tuition_per_year": 5900, "duration_years": 4, "direction_slug": "nursing" },
+    { "degree_type": "bachelor", "name": "Логопедия и речевая терапия", "language": "tr", "tuition_per_year": 4500, "duration_years": 4 },
+    { "degree_type": "bachelor", "name": "Логопедия и речевая терапия", "language": "en", "tuition_per_year": 4500, "duration_years": 4 },
+    { "degree_type": "bachelor", "name": "Молекулярная биология и генетика", "language": "en", "tuition_per_year": 5550, "duration_years": 4, "direction_slug": "biology" },
+    { "degree_type": "bachelor", "name": "Психология", "language": "tr", "tuition_per_year": 4765, "duration_years": 4, "direction_slug": "psychology" },
+    { "degree_type": "bachelor", "name": "Психология", "language": "en", "tuition_per_year": 5510, "duration_years": 4, "direction_slug": "psychology" },
+    { "degree_type": "bachelor", "name": "Медицина", "language": "tr", "tuition_per_year": 20000, "duration_years": 6, "direction_slug": "medicine" },
+    { "degree_type": "bachelor", "name": "Медицина", "language": "en", "tuition_per_year": 25000, "duration_years": 6, "direction_slug": "medicine" },
+    { "degree_type": "bachelor", "name": "Программная инженерия", "language": "en", "tuition_per_year": 6300, "duration_years": 4, "direction_slug": "software-engineering" },
+    { "degree_type": "bachelor", "name": "Английский язык и литература", "language": "en", "tuition_per_year": 4660, "duration_years": 4, "direction_slug": "languages-linguistics" },
+    { "degree_type": "bachelor", "name": "Перевод и устный перевод", "language": "en", "tuition_per_year": 4660, "duration_years": 4, "direction_slug": "languages-linguistics" },
+    { "degree_type": "bachelor", "name": "Перевод и устный перевод", "language": "tr", "tuition_per_year": 4660, "duration_years": 4, "direction_slug": "languages-linguistics" },
+    { "degree_type": "bachelor", "name": "Дизайн интерьера и архитектурной среды", "language": "tr", "tuition_per_year": 5000, "duration_years": 4, "direction_slug": "design" },
+    { "degree_type": "bachelor", "name": "Бизнес-администрирование", "language": "en", "tuition_per_year": 5510, "duration_years": 4, "direction_slug": "business" },
+
+    { "degree_type": "master", "name": "Анатомия — с тезисом", "language": "tr", "tuition_per_year": 7415, "duration_years": 2 },
+    { "degree_type": "master", "name": "Питание и диетология — с тезисом", "language": "tr", "tuition_per_year": 7415, "duration_years": 2 },
+    { "degree_type": "master", "name": "Питание и диетология — без тезиса", "language": "tr", "tuition_per_year": 5295, "duration_years": 2 },
+    { "degree_type": "master", "name": "Компьютерная инженерия — с тезисом", "language": "tr", "tuition_per_year": 7415, "duration_years": 2, "direction_slug": "computer-engineering" },
+    { "degree_type": "master", "name": "Компьютерная инженерия — с тезисом", "language": "en", "tuition_per_year": 7415, "duration_years": 2, "direction_slug": "computer-engineering" },
+    { "degree_type": "master", "name": "Информационные технологии — с тезисом", "language": "en", "tuition_per_year": 7415, "duration_years": 2, "direction_slug": "information-systems" },
+    { "degree_type": "master", "name": "Когнитивная реабилитация — с тезисом", "language": "tr", "tuition_per_year": 5295, "duration_years": 2 },
+    { "degree_type": "master", "name": "Сестринское дело в хирургии — с тезисом", "language": "tr", "tuition_per_year": 7415, "duration_years": 2 },
+    { "degree_type": "master", "name": "Акушерство — с тезисом", "language": "tr", "tuition_per_year": 7415, "duration_years": 2 },
+    { "degree_type": "master", "name": "Акушерство — без тезиса", "language": "tr", "tuition_per_year": 5295, "duration_years": 2 },
+    { "degree_type": "master", "name": "Электротехника и электроника — с тезисом", "language": "en", "tuition_per_year": 7415, "duration_years": 2, "direction_slug": "electrical-electronics-engineering" },
+    { "degree_type": "master", "name": "Промышленная инженерия — с тезисом", "language": "tr", "tuition_per_year": 7415, "duration_years": 2, "direction_slug": "industrial-engineering" },
+    { "degree_type": "master", "name": "Физиология — с тезисом", "language": "tr", "tuition_per_year": 7415, "duration_years": 2 },
+    { "degree_type": "master", "name": "Физиотерапия и реабилитация — с тезисом", "language": "tr", "tuition_per_year": 7415, "duration_years": 2 },
+    { "degree_type": "master", "name": "Гистология и эмбриология — с тезисом", "language": "tr", "tuition_per_year": 7415, "duration_years": 2 },
+    { "degree_type": "master", "name": "Сестринское дело в области акушерства и гинекологии — с тезисом", "language": "tr", "tuition_per_year": 7415, "duration_years": 2 },
+    { "degree_type": "master", "name": "Логопедия и речевая терапия — с тезисом", "language": "tr", "tuition_per_year": 15000, "duration_years": 2 },
+    { "degree_type": "master", "name": "Эрготерапия — с тезисом", "language": "tr", "tuition_per_year": 7415, "duration_years": 2 },
+    { "degree_type": "master", "name": "Молекулярная биология и генетика — с тезисом", "language": "tr", "tuition_per_year": 7415, "duration_years": 2, "direction_slug": "biology" },
+    { "degree_type": "master", "name": "Молекулярная биология и генетика — с тезисом", "language": "en", "tuition_per_year": 7415, "duration_years": 2, "direction_slug": "biology" },
+    { "degree_type": "master", "name": "Нейронаука — с тезисом", "language": "tr", "tuition_per_year": 7415, "duration_years": 2 },
+    { "degree_type": "master", "name": "Психология — с тезисом", "language": "tr", "tuition_per_year": 8500, "duration_years": 2, "direction_slug": "psychology" },
+    { "degree_type": "master", "name": "Управление технологиями и инновациями — без тезиса", "language": "tr", "tuition_per_year": 5295, "duration_years": 2, "direction_slug": "management" },
+    { "degree_type": "master", "name": "Медицинская биохимия — с тезисом", "language": "tr", "tuition_per_year": 7415, "duration_years": 2 },
+    { "degree_type": "master", "name": "Медицинская биология и генетика — с тезисом", "language": "tr", "tuition_per_year": 7415, "duration_years": 2 },
+    { "degree_type": "master", "name": "Медицинская фармакология — с тезисом", "language": "tr", "tuition_per_year": 7415, "duration_years": 2 },
+    { "degree_type": "master", "name": "Сестринское дело во внутренней медицине — с тезисом", "language": "tr", "tuition_per_year": 7415, "duration_years": 2 }
+  ],
+  "directions": [
+    "medicine",
+    "dentistry",
+    "nursing",
+    "psychology",
+    "computer-engineering",
+    "software-engineering",
+    "electrical-electronics-engineering",
+    "industrial-engineering",
+    "design",
+    "languages-linguistics",
+    "biology",
+    "business",
+    "management",
+    "information-systems"
   ]
 }

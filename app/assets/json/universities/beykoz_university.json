@@ -2,54 +2,205 @@
   "locale": "ru",
   "countryCode": "TUR",
   "countryName": "Турция",
-  "title": "Beykoz Üniversitesi",
-  "description": "Частный университет в Стамбуле, специализирующийся на социальных науках, коммуникациях и дизайне.",
-  "slug": "beykoz-universitesi",
+  "title": "İstanbul Beykoz Üniversitesi",
+  "description": "Beykoz University — частный университет на азиатской стороне Стамбула. Основан в 2016 году на базе Beykoz Vocational School of Logistics. Сильные позиции в логистике, бизнесе, инженерии, дизайне и социальных науках.",
+  "slug": "beykoz-university",
   "city": "Стамбул",
-  "foundedYear": 2008,
+  "foundedYear": 2016,
   "type": "private",
   "tuitionRange": {
-    "min": 3000,
-    "max": 15000,
+    "min": 2300,
+    "max": 7000,
     "currency": "USD"
   },
+  "totalStudents": 10000,
+  "internationalStudents": 2000,
   "hasAccommodation": true,
   "hasScholarships": true,
   "heroImage": "/images/universities/beykoz-bg.jpg",
   "image": "/images/universities/beykoz-preview.jpg",
   "about": {
-    "history": "История университета",
-    "mission": "Миссия университета",
+    "history": "Университет создан фондом TÜRLEV (Turkish Logistics Research & Education Foundation) и вырос из Beykoz Lojistik Meslek Yüksekokulu. В 2016 году получил статус университета.",
+    "mission": "Готовить специалистов, соединяющих академические знания с практическими навыками, с акцентом на логистику, бизнес, дизайн, ИТ и инженерные направления.",
     "advantages": [
-      "Современный кампус",
-      "Качественное образование",
-      "Международные программы",
-      "Карьерные возможности"
+      "Доступная стоимость обучения для частного университета Стамбула",
+      "Стипендии для иностранных студентов за высокий GPA",
+      "Erasmus+ и международные обмены",
+      "Практико-ориентированное обучение и сотрудничество с индустрией",
+      "Зелёная и спокойная локация на азиатской стороне (Beykoz / Kavacık)",
+      "Карьерный центр и поддержка трудоустройства",
+      "Международный диплом и англоязычные программы"
     ]
   },
   "strong_programs": [
     {
-      "category": "Основные направления",
+      "category": "Логистика и управление цепями поставок",
       "programs": [
-        "Программа 1",
-        "Программа 2"
+        "Логистика",
+        "Управление цепями поставок",
+        "Международная торговля и логистика"
+      ]
+    },
+    {
+      "category": "Бизнес и экономика",
+      "programs": [
+        "Бизнес-администрирование",
+        "Международная торговля и финансы",
+        "Маркетинг и бренд-менеджмент"
+      ]
+    },
+    {
+      "category": "Инженерия и компьютерные науки",
+      "programs": [
+        "Компьютерная инженерия",
+        "Программная инженерия",
+        "Искусственный интеллект"
+      ]
+    },
+    {
+      "category": "Дизайн и медиа",
+      "programs": [
+        "Коммуникации и дизайн",
+        "Графический дизайн",
+        "Анимация",
+        "Радио, телевидение и кино",
+        "Дизайн цифровых игр"
+      ]
+    },
+    {
+      "category": "Психология и социальные науки",
+      "programs": [
+        "Психология",
+        "Политология и международные отношения"
       ]
     }
   ],
   "key_info_texts": {
     "city_label": "Город",
+    "city_note": "Стамбул (Beykoz / Kavacık)",
     "founded_year_label": "Год основания",
-    "tuition_label": "Стоимость обучения",
+    "founded_year_note": "2016",
+    "tuition_label": "Стоимость",
+    "tuition_note": "от $2 300",
     "languages_label": "Языки обучения",
-    "type_label": "Тип университета"
+    "languages_note": "Турецкий и Английский",
+    "total_students_label": "Студенты",
+    "total_students_note": "Около 10 000",
+    "international_students_label": "Международные студенты",
+    "international_students_note": "Более 2 000",
+    "accommodation_label": "Проживание",
+    "accommodation_note": "Общежития и партнёрские резиденции рядом",
+    "type_label": "Тип университета",
+    "type_note": "частный"
+  },
+  "campus_life": {
+    "facilities": [
+      { "name": "Главный кампус Kavacık", "description": "Основной кампус на азиатской стороне Стамбула", "icon": "ph:university" },
+      { "name": "Лаборатории и IT-центры", "description": "Компьютерные классы, сети, серверные и AI-лабы", "icon": "ph:cpu" },
+      { "name": "Мастерские и медиа-студии", "description": "Продакшн-студии, монтажные и sound-лаборатории", "icon": "ph:video" },
+      { "name": "Библиотека и e-ресурсы", "description": "Читальные залы, электронные базы данных", "icon": "ph:books" },
+      { "name": "Коворкинги и зоны отдыха", "description": "Комфортные пространства для групповой работы", "icon": "ph:coffee" },
+      { "name": "Студенческие клубы", "description": "Профессиональные и культурные сообщества", "icon": "ph:users-three" },
+      { "name": "Спортзал и площадки", "description": "Фитнес, баскетбол, беговые дорожки", "icon": "ph:barbell" },
+      { "name": "Столовые и кафе", "description": "Горячее питание и кафе на кампусе", "icon": "ph:fork-knife" },
+      { "name": "Общежития и резиденции", "description": "На кампусе и рядом с кампусом", "icon": "ph:bed" },
+      { "name": "Wi‑Fi по кампусу", "description": "Быстрый интернет на всей территории", "icon": "ph:wifi-high" },
+      { "name": "Транспортная доступность", "description": "Удобные маршруты к кампусу", "icon": "ph:bus" },
+      { "name": "Зелёная территория", "description": "Парковые зоны и пространства для отдыха", "icon": "ph:tree" }
+    ]
+  },
+  "admission": {
+    "requirements": [
+      { "category": "exam", "requirement": "TR-YÖS / SAT — не обязательны", "details": "Возможен приём по аттестату" },
+      { "category": "language", "requirement": "TOEFL iBT ≥ 84 или внутренний экзамен", "details": "Для англоязычных программ" }
+    ],
+    "documents": [
+      { "name": "Аттестат/диплом", "description": "Апостиль и нотариальный перевод", "format_requirements": ["PDF"] },
+      { "name": "Загранпаспорт", "description": "Срок действия не менее 18 месяцев", "format_requirements": ["PDF"] },
+      { "name": "Фото", "description": "На белом фоне" },
+      { "name": "Транскрипт оценок", "description": "Академическая выписка" }
+    ],
+    "scholarships": [
+      {
+        "name": "Beykoz International Merit Scholarship",
+        "type": "university",
+        "coverage_percentage": 50,
+        "eligibility_criteria": [
+          "Высокий GPA",
+          "Активность в студенческих проектах",
+          "Мотивационное письмо"
+        ]
+      }
+    ]
   },
   "programs": [
-    {
-      "degree_type": "bachelor",
-      "name": "Пример программы",
-      "language": "tr",
-      "tuition_per_year": 5000,
-      "duration_years": 4
-    }
+    { "degree_type": "master", "name": "Бизнес — с тезисом", "language": "en", "tuition_per_year": 7000, "duration_years": 2, "direction_slug": "business" },
+    { "degree_type": "master", "name": "Бизнес — без тезиса", "language": "en", "tuition_per_year": 6000, "duration_years": 2, "direction_slug": "business" },
+    { "degree_type": "master", "name": "Бизнес — без тезиса — дистанционно", "language": "en", "tuition_per_year": 4200, "duration_years": 2, "direction_slug": "business" },
+    { "degree_type": "master", "name": "Бизнес — с тезисом", "language": "tr", "tuition_per_year": 6000, "duration_years": 2, "direction_slug": "business" },
+    { "degree_type": "master", "name": "Бизнес — без тезиса", "language": "tr", "tuition_per_year": 5200, "duration_years": 2, "direction_slug": "business" },
+    { "degree_type": "master", "name": "Бизнес — без тезиса — дистанционно", "language": "tr", "tuition_per_year": 4200, "duration_years": 2, "direction_slug": "business" },
+    { "degree_type": "master", "name": "Компьютерная инженерия — с тезисом", "language": "en", "tuition_per_year": 7000, "duration_years": 2, "direction_slug": "computer-engineering" },
+    { "degree_type": "master", "name": "Компьютерная инженерия — без тезиса", "language": "en", "tuition_per_year": 6000, "duration_years": 2, "direction_slug": "computer-engineering" },
+    { "degree_type": "master", "name": "Международная торговля и логистика — с тезисом", "language": "tr", "tuition_per_year": 6000, "duration_years": 2, "direction_slug": "business" },
+    { "degree_type": "master", "name": "Международная торговля и логистика — без тезиса", "language": "tr", "tuition_per_year": 5200, "duration_years": 2, "direction_slug": "business" },
+    { "degree_type": "master", "name": "Международная торговля и логистика — без тезиса — дистанционно", "language": "tr", "tuition_per_year": 4200, "duration_years": 2, "direction_slug": "business" },
+    { "degree_type": "master", "name": "Глобальная политика и международные отношения — с тезисом", "language": "en", "tuition_per_year": 7000, "duration_years": 2, "direction_slug": "international-relations" },
+    { "degree_type": "master", "name": "Глобальная политика и международные отношения — без тезиса", "language": "en", "tuition_per_year": 6000, "duration_years": 2, "direction_slug": "international-relations" },
+    { "degree_type": "master", "name": "Психология труда и организации — без тезиса", "language": "tr", "tuition_per_year": 5200, "duration_years": 2, "direction_slug": "psychology" },
+    { "degree_type": "master", "name": "Психология — с тезисом", "language": "tr", "tuition_per_year": 6000, "duration_years": 2, "direction_slug": "psychology" },
+    { "degree_type": "master", "name": "Психология — без тезиса", "language": "tr", "tuition_per_year": 5200, "duration_years": 2, "direction_slug": "psychology" },
+    { "degree_type": "master", "name": "Визуальные искусства и коммуникации — с тезисом", "language": "tr", "tuition_per_year": 6000, "duration_years": 2, "direction_slug": "design" },
+    { "degree_type": "master", "name": "Визуальные искусства и коммуникации — без тезиса", "language": "tr", "tuition_per_year": 5200, "duration_years": 2, "direction_slug": "design" },
+    { "degree_type": "master", "name": "Финансовая экономика — с тезисом", "language": "tr", "tuition_per_year": 6000, "duration_years": 2, "direction_slug": "finance" },
+    { "degree_type": "master", "name": "Финансовая экономика — без тезиса", "language": "tr", "tuition_per_year": 5200, "duration_years": 2, "direction_slug": "finance" },
+    { "degree_type": "master", "name": "Бухгалтерский учет и аудит — без тезиса", "language": "tr", "tuition_per_year": 5200, "duration_years": 2, "direction_slug": "accounting" },
+    { "degree_type": "master", "name": "Предпринимательство и инновационный менеджмент — без тезиса", "language": "en", "tuition_per_year": 6000, "duration_years": 2, "direction_slug": "entrepreneurship" },
+    { "degree_type": "master", "name": "Маркетинг и бренд-менеджмент — без тезиса", "language": "tr", "tuition_per_year": 5200, "duration_years": 2, "direction_slug": "marketing" },
+    { "degree_type": "master", "name": "Маркетинг и бренд-менеджмент — без тезиса", "language": "en", "tuition_per_year": 6000, "duration_years": 2, "direction_slug": "marketing" },
+    { "degree_type": "master", "name": "Искусственный интеллект — с тезисом", "language": "en", "tuition_per_year": 7000, "duration_years": 2, "direction_slug": "artificial-intelligence" },
+    { "degree_type": "master", "name": "Искусственный интеллект — без тезиса", "language": "en", "tuition_per_year": 6000, "duration_years": 2, "direction_slug": "artificial-intelligence" },
+    { "degree_type": "master", "name": "Управление человеческими ресурсами — с тезисом", "language": "tr", "tuition_per_year": 6000, "duration_years": 2, "direction_slug": "management" },
+
+    { "degree_type": "bachelor", "name": "Бизнес-администрирование", "language": "tr", "tuition_per_year": 4600, "duration_years": 4, "direction_slug": "business" },
+    { "degree_type": "bachelor", "name": "Бизнес-администрирование", "language": "en", "tuition_per_year": 6000, "duration_years": 4, "direction_slug": "business" },
+    { "degree_type": "bachelor", "name": "Управление логистикой", "language": "en", "tuition_per_year": 6000, "duration_years": 4, "direction_slug": "management" },
+    { "degree_type": "bachelor", "name": "Международная торговля и финансы", "language": "en", "tuition_per_year": 6000, "duration_years": 4, "direction_slug": "finance" },
+    { "degree_type": "bachelor", "name": "Коммуникации и дизайн", "language": "tr", "tuition_per_year": 4600, "duration_years": 4, "direction_slug": "communication" },
+    { "degree_type": "bachelor", "name": "Дизайн цифровых игр", "language": "tr", "tuition_per_year": 4600, "duration_years": 4, "direction_slug": "design" },
+    { "degree_type": "bachelor", "name": "Графический дизайн", "language": "tr", "tuition_per_year": 4600, "duration_years": 4, "direction_slug": "design" },
+    { "degree_type": "bachelor", "name": "Дизайн интерьера", "language": "tr", "tuition_per_year": 4600, "duration_years": 4, "direction_slug": "design" },
+    { "degree_type": "bachelor", "name": "Связи с общественностью и реклама", "language": "tr", "tuition_per_year": 4600, "duration_years": 4, "direction_slug": "communication" },
+    { "degree_type": "bachelor", "name": "Гастрономия и кулинарное искусство", "language": "tr", "tuition_per_year": 4600, "duration_years": 4, "direction_slug": "tourism-hospitality" },
+    { "degree_type": "bachelor", "name": "Анимация", "language": "tr", "tuition_per_year": 4600, "duration_years": 4, "direction_slug": "fine-arts" },
+    { "degree_type": "bachelor", "name": "Радио, телевидение и кино", "language": "tr", "tuition_per_year": 4600, "duration_years": 4, "direction_slug": "journalism-media" },
+    { "degree_type": "bachelor", "name": "Психология", "language": "tr", "tuition_per_year": 4600, "duration_years": 4, "direction_slug": "psychology" },
+    { "degree_type": "bachelor", "name": "Психология", "language": "en", "tuition_per_year": 6000, "duration_years": 4, "direction_slug": "psychology" },
+    { "degree_type": "bachelor", "name": "Политология и международные отношения", "language": "en", "tuition_per_year": 6000, "duration_years": 4, "direction_slug": "international-relations" },
+    { "degree_type": "bachelor", "name": "Компьютерная инженерия", "language": "en", "tuition_per_year": 6600, "duration_years": 4, "direction_slug": "computer-engineering" },
+    { "degree_type": "bachelor", "name": "Промышленная инженерия", "language": "en", "tuition_per_year": 6000, "duration_years": 4, "direction_slug": "industrial-engineering" },
+    { "degree_type": "bachelor", "name": "Архитектура", "language": "tr", "tuition_per_year": 4600, "duration_years": 4, "direction_slug": "architecture" },
+    { "degree_type": "bachelor", "name": "Программная инженерия", "language": "tr", "tuition_per_year": 4600, "duration_years": 4, "direction_slug": "software-engineering" },
+    { "degree_type": "bachelor", "name": "Управление авиацией", "language": "en", "tuition_per_year": 6000, "duration_years": 4, "direction_slug": "management" }
+  ],
+  "directions": [
+    "business",
+    "management",
+    "marketing",
+    "finance",
+    "accounting",
+    "computer-engineering",
+    "software-engineering",
+    "artificial-intelligence",
+    "industrial-engineering",
+    "psychology",
+    "communication",
+    "design",
+    "fine-arts",
+    "journalism-media",
+    "architecture",
+    "international-relations",
+    "tourism-hospitality",
+    "entrepreneurship"
   ]
 }
