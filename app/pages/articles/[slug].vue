@@ -69,51 +69,56 @@
       <section class="py-16">
         <div class="container mx-auto px-4 lg:px-6">
           <div class="grid gap-12 lg:grid-cols-[minmax(0,2.2fr)_minmax(0,1fr)]">
-            <article class="space-y-10">
-              <div
-                v-for="(block, index) in normalizedContent"
-                :key="`${block.type}-${index}`"
-                class="space-y-4"
-              >
-                <component
-                  v-if="block.type === 'heading'"
-                  :is="headingTag(block.level)"
-                  :id="block.id"
-                  class="scroll-mt-24 text-2xl font-semibold text-secondary lg:text-3xl"
+            <article class="rounded-3xl bg-white p-6 shadow-custom ring-1 ring-gray-100/60 lg:p-10">
+              <div class="space-y-10">
+                <div
+                  v-for="(block, index) in normalizedContent"
+                  :key="`${block.type}-${index}`"
+                  class="space-y-4"
                 >
-                  {{ block.text }}
-                </component>
+                  <component
+                    v-if="block.type === 'heading'"
+                    :is="headingTag(block.level)"
+                    :id="block.id"
+                    class="scroll-mt-24 text-2xl font-semibold text-secondary lg:text-3xl"
+                  >
+                    {{ block.text }}
+                  </component>
 
-                <p v-else-if="block.type === 'paragraph'" class="leading-relaxed text-gray-600">
-                  {{ block.text }}
-                </p>
+                  <p v-else-if="block.type === 'paragraph'" class="leading-relaxed text-gray-600">
+                    {{ block.text }}
+                  </p>
 
-                <component
-                  v-else-if="block.type === 'list'"
-                  :is="block.ordered ? 'ol' : 'ul'"
-                  class="list-inside space-y-2 text-gray-600"
-                  :class="block.ordered ? 'list-decimal' : 'list-disc'"
-                >
-                  <li v-for="(item, itemIndex) in block.items" :key="`item-${itemIndex}`">{{ item }}</li>
-                </component>
+                  <component
+                    v-else-if="block.type === 'list'"
+                    :is="block.ordered ? 'ol' : 'ul'"
+                    class="list-inside space-y-2 text-gray-600"
+                    :class="block.ordered ? 'list-decimal' : 'list-disc'"
+                  >
+                    <li v-for="(item, itemIndex) in block.items" :key="`item-${itemIndex}`">{{ item }}</li>
+                  </component>
 
-                <figure v-else-if="block.type === 'image'" class="space-y-3">
-                  <NuxtImg
-                    :src="block.url"
-                    :alt="block.alt || article.title"
-                    class="w-full rounded-2xl object-cover"
-                    format="webp"
-                  />
-                  <figcaption v-if="block.caption" class="text-sm text-gray-500">
-                    {{ block.caption }}
-                  </figcaption>
-                </figure>
+                  <figure v-else-if="block.type === 'image'" class="space-y-3">
+                    <NuxtImg
+                      :src="block.url"
+                      :alt="block.alt || article.title"
+                      class="w-full rounded-2xl object-cover"
+                      format="webp"
+                    />
+                    <figcaption v-if="block.caption" class="text-sm text-gray-500">
+                      {{ block.caption }}
+                    </figcaption>
+                  </figure>
 
-                <blockquote v-else-if="block.type === 'quote'" class="space-y-3 rounded-2xl bg-white p-6 shadow-inner">
-                  <Icon name="mdi:format-quote-open" class="text-3xl text-primary" />
-                  <p class="text-lg font-medium text-secondary">{{ block.text }}</p>
-                  <cite v-if="block.author" class="block text-sm text-gray-500">{{ block.author }}</cite>
-                </blockquote>
+                  <blockquote
+                    v-else-if="block.type === 'quote'"
+                    class="space-y-3 rounded-2xl bg-gradient-to-br from-primary/5 via-white to-secondary/5 p-6 shadow-inner"
+                  >
+                    <Icon name="mdi:format-quote-open" class="text-3xl text-primary" />
+                    <p class="text-lg font-medium text-secondary">{{ block.text }}</p>
+                    <cite v-if="block.author" class="block text-sm text-gray-500">{{ block.author }}</cite>
+                  </blockquote>
+                </div>
               </div>
             </article>
 
