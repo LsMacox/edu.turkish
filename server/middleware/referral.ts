@@ -8,7 +8,8 @@ export default defineEventHandler((event) => {
     setCookie(event, 'referral_code', refCode, {
       maxAge: 30 * 24 * 60 * 60, // 30 days
       path: '/',
-      secure: true,
+      secure: process.env.NODE_ENV === 'production',
+      httpOnly: false, // accessible on client for referral tracking
       sameSite: 'lax'
     })
   }
