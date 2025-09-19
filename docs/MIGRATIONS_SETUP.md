@@ -26,7 +26,7 @@ npm run db:generate
 npm run db:studio
 ```
 
-5) (Опционально) Засидить данные:
+5) (Опционально) Засеять данные:
 ```bash
 npm run db:seed
 ```
