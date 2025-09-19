@@ -1,9 +1,5 @@
 {
   "universities_page": {
-    "meta": {
-      "title": "Türkiye Üniversiteleri Kataloğu - Edu.turkish",
-      "description": "Türkiye'nin 150+ üniversitesi arasından hayalinizdeki üniversiteyi bulun. Şehir, dil, maliyet ve eğitim seviyesine göre filtreleyin."
-    },
     "hero": {
       "title": "Üniversiteler Kataloğu",
       "subtitle": "Filtrelerle hayalinizdeki üniversiteyi bulun veya detaylar için herhangi bir kartı açın",

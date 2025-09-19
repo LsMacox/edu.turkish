@@ -20,7 +20,6 @@
       "none": "Нет общежития"
     },
     "rankingNotSpecified": "Рейтинг не указан",
-    "rankingValue": "Топ-{rank} в Турции",
     "internationalCount": "{count}+ студентов",
     "programDuration": {
       "durationYears": "{count} год | {count} года | {count} лет"

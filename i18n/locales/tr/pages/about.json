@@ -168,41 +168,6 @@
         "sunday_time": "Kapalı",
         "support_24_7": "WhatsApp Desteği 24/7"
       }
-    },
-    "testimonials": {
-      "title": "Müşterilerimiz Ne Diyor",
-      "subtitle": "Geleceklerini bize emanet eden öğrenci ve velilerin dürüst yorumları",
-      "imageAlt": {
-        "student": "Öğrenci fotoğrafı",
-        "parent": "Veli fotoğrafı"
-      },
-      "reviews": {
-        "anna": {
-          "quote": "\"Stressiz kabul için yardımınız için teşekkürler. Aliya her zaman ulaşılabilirdi ve tüm sorunları anında çözdü!\"",
-          "name": "Anna Ivanova",
-          "university": "Istanbul University, 2024"
-        },
-        "dmitry": {
-          "quote": "\"İlk aramadan itibaren her şey şeffaf ve anlaşılırdı. Gizli ödeme veya hoş olmayan sürprizler yoktu.\"",
-          "name": "Dmitry Kozlov",
-          "university": "Bogazici University, 2023"
-        },
-        "elena": {
-          "quote": "\"Kızım Edu.turkish ekibi sayesinde kabul edildi. Profesyonel yaklaşım ve insani ilişki.\"",
-          "name": "Elena Petrova",
-          "role": "METU öğrencisinin annesi"
-        },
-        "arman": {
-          "quote": "\"Ekip sayesinde %75 burs aldım! Maksimum burs şansı için hangi üniversitelere başvuru yapılacağını biliyorlardı.\"",
-          "name": "Arman Nurlanov",
-          "university": "Sabanci University, 2024"
-        },
-        "maria": {
-          "quote": "\"Kabulden sonra bile yardım etmeye devam ediyorlar. Konut bulmaya yardım ettiler, öğrenci kartı nasıl alınacağını açıkladılar. Çok minnettarım!\"",
-          "name": "Maria Volkova",
-          "university": "Koc University, 2023"
-        }
-      }
     }
   }
 }

@@ -20,7 +20,6 @@
       "none": "Жатақхана жоқ"
     },
     "rankingNotSpecified": "Рейтинг көрсетілмеген",
-    "rankingValue": "Түркиядағы үздік-{rank}",
     "internationalCount": "{count}+ студент",
     "programDuration": {
       "durationYears": "{count} жыл"
