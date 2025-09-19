@@ -42,23 +42,32 @@ export default defineEventHandler(async (event): Promise<CreateReviewResponse> =
     
     // Find university by name (case-insensitive search)
     let universityId: number | undefined
-    const university = await prisma.university.findFirst({
+    const titleSearch = {
+      contains: data.university,
+      mode: 'insensitive' as const
+    }
+
+    const localizedTranslation = await prisma.universityTranslation.findFirst({
       where: {
-        OR: [
-          { title: { contains: data.university } },
-          {
-            translations: {
-              some: {
-                title: { contains: data.university }
-              }
-            }
-          }
-        ]
-      }
+        locale,
+        title: titleSearch
+      },
+      select: { universityId: true }
     })
-    
-    if (university) {
-      universityId = university.id
+
+    const fallbackTranslation = localizedTranslation
+      ? null
+      : await prisma.universityTranslation.findFirst({
+          where: {
+            title: titleSearch
+          },
+          select: { universityId: true }
+        })
+
+    const matchedTranslation = localizedTranslation ?? fallbackTranslation
+
+    if (matchedTranslation) {
+      universityId = matchedTranslation.universityId
     }
     
     // Prepare review data for all supported locales
