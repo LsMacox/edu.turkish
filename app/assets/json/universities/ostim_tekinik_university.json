@@ -179,7 +179,7 @@
       },
       {
         "name": "Стипендия Entrepreneurship Support",
-        "type": "merit",
+        "type": "university",
         "coverage_percentage": 75,
         "eligibility_criteria": [
           "Успехи в стартап-проектах",
@@ -227,7 +227,7 @@
       "language": "tr",
       "tuition_per_year": 3200,
       "duration_years": 4,
-      "direction_slug": "electrical-engineering"
+      "direction_slug": "electrical-electronics-engineering"
     },
     {
       "degree_type": "bachelor",
@@ -235,7 +235,7 @@
       "language": "en",
       "tuition_per_year": 5200,
       "duration_years": 4,
-      "direction_slug": "aerospace"
+      "direction_slug": "aerospace-engineering"
     },
     {
       "degree_type": "bachelor",
@@ -251,7 +251,7 @@
       "language": "tr",
       "tuition_per_year": 3000,
       "duration_years": 4,
-      "direction_slug": "logistics"
+      "direction_slug": "management"
     },
     {
       "degree_type": "bachelor",
@@ -291,7 +291,7 @@
       "language": "en",
       "tuition_per_year": 3200,
       "duration_years": 4,
-      "direction_slug": "visual-arts"
+      "direction_slug": "design"
     }
   ],
   "directions": [
@@ -299,13 +299,13 @@
     "computer-engineering",
     "software-engineering",
     "industrial-engineering",
-    "electrical-engineering",
-    "aerospace",
+    "electrical-electronics-engineering",
+    "aerospace-engineering",
     "cybersecurity",
-    "logistics",
+    "management",
     "business",
     "design",
-    "visual-arts",
+    "fine-arts",
     "marketing"
   ]
 }

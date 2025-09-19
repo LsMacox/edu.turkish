@@ -17,6 +17,8 @@
   "internationalStudents": 2000,
   "hasAccommodation": true,
   "hasScholarships": true,
+  "heroImage": "/images/universities/atlas-bg-2.jpg",
+  "image": "/images/universities/atlas-preview.jpg",
   "about": {
     "history": "Университет основан Фондом образования, культуры и здравоохранения Турции и Балкан в 2018 году.",
     "mission": "Подготовка специалистов нового поколения, объединяющих академические знания, цифровые технологии и практику, с особым фокусом на медицина и здравоохранение.",

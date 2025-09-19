@@ -1,5 +1,5 @@
 <template>
-  <section class="py-16 bg-white">
+  <section class="py-16 bg-white" v-if="campusImages.length > 0">
     <div class="container mx-auto px-4 lg:px-6">
       <div class="text-center mb-12">
         <h2 class="text-3xl lg:text-4xl font-bold text-secondary mb-4">{{ $t('universityDetail.campusLife.title') }}</h2>
