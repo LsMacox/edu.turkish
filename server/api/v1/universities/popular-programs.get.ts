@@ -11,14 +11,32 @@ export default defineEventHandler(async (event) => {
       getDirectionStats(['it', 'computer-science', 'software-engineering'], locale as string),
       // Медицинские направления
       getDirectionStats(['medicine'], locale as string),
-      // Инженерные направления
-      getDirectionStats(['engineering'], locale as string),
+      // Инженерные направления (конкретные слаги)
+      getDirectionStats([
+        'mechanical-engineering',
+        'civil-engineering',
+        'electrical-electronics-engineering',
+        'industrial-engineering',
+        'mechatronics',
+        'aerospace-engineering',
+        'environmental-engineering',
+        'marine-engineering'
+      ], locale as string),
       // Бизнес и экономика
-      getDirectionStats(['business', 'economics-management'], locale as string),
+      getDirectionStats([
+        'business',
+        'economics',
+        'management',
+        'finance',
+        'accounting',
+        'marketing',
+        'entrepreneurship',
+        'tourism-hospitality'
+      ], locale as string),
       // Дизайн и архитектура
-      getDirectionStats(['architecture'], locale as string),
-      // Международные отношения
-      getDirectionStats(['humanities'], locale as string),
+      getDirectionStats(['design', 'architecture', 'fine-arts'], locale as string),
+      // Международные отношения и гуманитарные науки
+      getDirectionStats(['international-relations', 'political-science'], locale as string),
     ])
     
     return {
