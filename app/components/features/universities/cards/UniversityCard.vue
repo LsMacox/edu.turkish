@@ -52,6 +52,9 @@
 
 <script setup lang="ts">
 import { computed } from 'vue'
+import UniversityCardHeader from './UniversityCardHeader.vue'
+import UniversityCardDetails from './UniversityCardDetails.vue'
+import UniversityCardActions from './UniversityCardActions.vue'
 
 interface Props {
   title: string

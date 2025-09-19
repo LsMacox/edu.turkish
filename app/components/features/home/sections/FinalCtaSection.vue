@@ -95,6 +95,7 @@ const calculateTimeLeft = () => {
 // Reactive computed property for time left
 const timeLeft = computed(() => {
   // Include forceUpdate to trigger reactivity every minute
+  // eslint-disable-next-line @typescript-eslint/no-unused-expressions
   forceUpdate.value
   return calculateTimeLeft()
 })

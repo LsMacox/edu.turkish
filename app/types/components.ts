@@ -16,7 +16,7 @@ export interface ComponentSlots {
 /**
  * Generic component emits interface
  */
-export interface ComponentEmits<T = Record<string, any[]>> {
+export type ComponentEmits<T = Record<string, any[]>> = {
   [K in keyof T]: T[K]
 }
 
@@ -266,10 +266,9 @@ export interface FilterProps {
 /**
  * Export namespace for organized imports
  */
-export namespace ComponentTypes {
-  export type UniversityCard = UniversityCardProps
-  export type TextField = TextFieldProps
-  export type Modal = ModalComponentProps
-  export type Toast = ToastProps
-  export type Filter = FilterProps
-}
+// Note: avoid namespaces in ES modules to satisfy lint rules
+export type ComponentTypesUniversityCard = UniversityCardProps
+export type ComponentTypesTextField = TextFieldProps
+export type ComponentTypesModal = ModalComponentProps
+export type ComponentTypesToast = ToastProps
+export type ComponentTypesFilter = FilterProps

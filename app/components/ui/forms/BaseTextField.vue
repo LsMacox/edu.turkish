@@ -168,6 +168,7 @@
  */
 
 import { computed, useId, ref } from 'vue'
+import { Icon } from '@nuxt/icon'
 import type { BaseTextFieldProps, BaseTextFieldEvents } from '~/types/ui'
 
 // Generate unique ID for the input

@@ -1,13 +1,9 @@
 import { beforeEach, describe, expect, it, vi } from 'vitest'
 
 declare global {
-  // eslint-disable-next-line no-var
   var defineEventHandler: <T>(handler: T) => T
-  // eslint-disable-next-line no-var
-  var getQuery: (event: any) => Record<string, any>
-  // eslint-disable-next-line no-var
-  var createError: (input: any) => any
-  // eslint-disable-next-line no-var
+  var getQuery: (event: unknown) => Record<string, unknown>
+  var createError: (input: unknown) => unknown
   var $fetch: ReturnType<typeof vi.fn>
 }
 
@@ -43,7 +39,7 @@ beforeEach(() => {
 
 globalThis.defineEventHandler = (<T>(handler: T) => handler) as any
 globalThis.getQuery = getQueryMock as any
-globalThis.createError = (input: any) => input
+globalThis.createError = (input: unknown) => input
 globalThis.$fetch = fetchMock as any
 
 describe('GET /go/telegram', () => {

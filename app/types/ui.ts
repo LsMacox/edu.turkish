@@ -247,14 +247,13 @@ export interface ContainerProps {
 }
 
 // Enhanced Export namespace for easier imports
-export namespace UIComponents {
-  export type Button = BaseButtonProps
-  export type Badge = BaseBadgeProps
-  export type Card = BaseCardProps
-  export type IconText = BaseIconTextProps
-  export type SectionHeader = BaseSectionHeaderProps
-  export type TextField = BaseTextFieldProps
-}
+// Avoid namespaces in ES modules to satisfy lint rules
+export type UIComponentsButton = BaseButtonProps
+export type UIComponentsBadge = BaseBadgeProps
+export type UIComponentsCard = BaseCardProps
+export type UIComponentsIconText = BaseIconTextProps
+export type UIComponentsSectionHeader = BaseSectionHeaderProps
+export type UIComponentsTextField = BaseTextFieldProps
 
 // Enhanced Theme Types
 export interface EnhancedDesignTokens extends DesignTokens {

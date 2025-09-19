@@ -1,4 +1,5 @@
 <template>
+  <div>
     <HomeHeroSection />
     <WhoSection />
     <HowSection />
@@ -8,6 +9,7 @@
     <FearsSection />
     <BlogSection />
     <FinalCtaSection :deadline="applicationDeadline" />
+  </div>
 </template>
 
 <script setup lang="ts">

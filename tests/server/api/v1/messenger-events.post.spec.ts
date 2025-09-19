@@ -1,12 +1,9 @@
 import { beforeEach, describe, expect, it, vi } from 'vitest'
 
 declare global {
-  // eslint-disable-next-line no-var
   var defineEventHandler: <T>(handler: T) => T
-  // eslint-disable-next-line no-var
-  var readBody: <T>(event: any) => Promise<T>
-  // eslint-disable-next-line no-var
-  var createError: (input: any) => any
+  var readBody: <T>(event: unknown) => Promise<T>
+  var createError: (input: unknown) => unknown
 }
 
 const readBodyMock = vi.fn()
@@ -37,7 +34,7 @@ beforeEach(() => {
 
 globalThis.defineEventHandler = (<T>(handler: T) => handler) as any
 ; (globalThis as any).readBody = readBodyMock
-; (globalThis as any).createError = (input: any) => input
+; (globalThis as any).createError = (input: unknown) => input
 
 describe('POST /api/v1/messenger-events', () => {
   it('requires referral code to be provided', async () => {
