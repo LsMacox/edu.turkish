@@ -1,6 +1,38 @@
 import { defineStore } from 'pinia'
 import { ref, computed, nextTick } from 'vue'
+import type { DegreeType } from '../types/domain'
 import type { University, UniversityQueryParams, UniversityResponse, UniversityFilters as ApiUniversityFilters } from '../../server/types/api'
+
+const LEVEL_ALL_VALUE = 'all'
+
+const LEVEL_CANONICAL_MAP: Record<string, DegreeType | typeof LEVEL_ALL_VALUE> = {
+  Все: LEVEL_ALL_VALUE,
+  'Все уровни': LEVEL_ALL_VALUE,
+  All: LEVEL_ALL_VALUE,
+  'All levels': LEVEL_ALL_VALUE,
+  all: LEVEL_ALL_VALUE,
+  '': LEVEL_ALL_VALUE,
+  Бакалавриат: 'bachelor',
+  Bachelor: 'bachelor',
+  "Bachelor's": 'bachelor',
+  Lisans: 'bachelor',
+  Магистратура: 'master',
+  Master: 'master',
+  "Master's": 'master',
+  'Yüksek Lisans': 'master',
+  Докторантура: 'phd',
+  Doctorate: 'phd',
+  doctorate: 'phd',
+  PhD: 'phd',
+  Doktora: 'phd'
+}
+
+const normalizeLevel = (level: string): string => {
+  const normalized = level?.trim()
+  if (!normalized) return LEVEL_ALL_VALUE
+
+  return LEVEL_CANONICAL_MAP[normalized] || normalized
+}
 
 export const useUniversitiesStore = defineStore('universities', () => {
   // State
@@ -15,14 +47,14 @@ export const useUniversitiesStore = defineStore('universities', () => {
     languages: [],
     priceRange: [0, 20000]
   })
-  
+
   // Default filter values
   const getDefaultFilters = (): UniversityFilters => ({
     q: '',
     city: 'Все города',
     langs: [],
     type: 'Все',
-    level: 'Все',
+    level: LEVEL_ALL_VALUE,
     price: [
       availableFilters.value.priceRange[0],
       availableFilters.value.priceRange[1]
@@ -50,7 +82,7 @@ export const useUniversitiesStore = defineStore('universities', () => {
       city: normalizedCity,
       langs: query.langs ? (Array.isArray(query.langs) ? query.langs as string[] : [query.langs as string]) : [],
       type: (query.type as string) || 'Все',
-      level: (query.level as string) || 'Все',
+      level: normalizeLevel((query.level as string) || LEVEL_ALL_VALUE),
       price: query.price_min || query.price_max
         ? [
             Number(query.price_min) || availableFilters.value.priceRange[0],
@@ -109,7 +141,7 @@ export const useUniversitiesStore = defineStore('universities', () => {
           && effectiveFilters.city !== 'All') ? effectiveFilters.city : undefined,
         langs: (effectiveFilters.langs && effectiveFilters.langs.length > 0) ? effectiveFilters.langs : undefined,
         type: effectiveFilters.type !== 'Все' ? effectiveFilters.type : undefined,
-        level: effectiveFilters.level !== 'Все' ? effectiveFilters.level : undefined,
+        level: effectiveFilters.level !== LEVEL_ALL_VALUE ? effectiveFilters.level : undefined,
         price_min: effectiveFilters.price?.[0] !== undefined && effectiveFilters.price?.[0] !== defaults.price[0]
           ? effectiveFilters.price[0]
           : undefined,
@@ -239,7 +271,11 @@ export const useUniversitiesStore = defineStore('universities', () => {
 
   function applyFilters(newFilters: Partial<UniversityFilters>, options?: { sort?: SortOption }) {
     (Object.entries(newFilters) as [keyof UniversityFilters, UniversityFilters[keyof UniversityFilters]][]).forEach(([key, value]) => {
-      filters.value[key] = value
+      if (key === 'level' && typeof value === 'string') {
+        filters.value.level = normalizeLevel(value)
+      } else {
+        filters.value[key] = value
+      }
     })
 
     if (options && 'sort' in options && options.sort !== undefined) {

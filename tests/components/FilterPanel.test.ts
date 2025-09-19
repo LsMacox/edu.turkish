@@ -16,6 +16,10 @@ vi.stubGlobal('useRouter', () => ({
 }))
 
 vi.stubGlobal('useRoute', () => routeMock)
+vi.stubGlobal('useI18n', () => ({
+  t: (key: string) => key,
+  locale: { value: 'ru' }
+}))
 
 ;(globalThis as unknown as { requestAnimationFrame: (cb: (time: number) => void) => number }).requestAnimationFrame = (cb: (time: number) => void) => {
   cb(0)
@@ -26,12 +30,12 @@ if (typeof window !== 'undefined') {
   window.scrollTo = vi.fn()
 }
 
-const createStoreWithRange = (priceRange: [number, number]) => {
+const createStoreWithRange = (priceRange: [number, number], levelOptions: string[] = []) => {
   const store = useUniversitiesStore()
   store.availableFilters = {
     cities: [],
     types: [],
-    levels: [],
+    levels: levelOptions,
     languages: [],
     priceRange
   }
@@ -40,7 +44,7 @@ const createStoreWithRange = (priceRange: [number, number]) => {
     city: 'Все города',
     langs: [],
     type: 'Все',
-    level: 'Все',
+    level: 'all',
     price: priceRange
   }
 
@@ -93,7 +97,7 @@ describe('FilterPanel', () => {
   it('renders range slider with available price bounds', async () => {
     const initialRange: [number, number] = [500, 15000]
     const updatedRange: [number, number] = [1000, 20000]
-    const store = createStoreWithRange(initialRange)
+    const store = createStoreWithRange(initialRange, ['bachelor', 'master', 'phd'])
 
     const wrapper = mountFilterPanel()
 
@@ -129,7 +133,7 @@ describe('FilterPanel', () => {
   })
 
   it('triggers a single route update when apply is clicked', async () => {
-    createStoreWithRange([500, 15000])
+    createStoreWithRange([500, 15000], ['bachelor'])
 
     const wrapper = mountFilterPanel()
 
@@ -142,5 +146,32 @@ describe('FilterPanel', () => {
     await nextTick()
 
     expect(routerReplaceMock).toHaveBeenCalledTimes(1)
+  })
+  it('renders level options based on available filters', async () => {
+    createStoreWithRange([500, 15000], ['bachelor', 'master', 'phd'])
+
+    const wrapper = mountFilterPanel()
+
+    await nextTick()
+
+    const levelSelect = wrapper.findAll('select').find(select =>
+      select.findAll('option').some(option => option.text() === 'universities_page.filters.levels.bachelor')
+    )
+
+    expect(levelSelect).toBeDefined()
+    const options = levelSelect!.findAll('option')
+
+    expect(options.map(option => option.attributes('value'))).toEqual([
+      'all',
+      'bachelor',
+      'master',
+      'phd'
+    ])
+    expect(options.map(option => option.text())).toEqual([
+      'universities_page.filters.all_levels',
+      'universities_page.filters.levels.bachelor',
+      'universities_page.filters.levels.master',
+      'universities_page.filters.levels.doctorate'
+    ])
   })
 })

@@ -54,10 +54,14 @@
     <div class="md:col-span-1 lg:col-span-1">
       <label class="block text-sm font-medium text-secondary mb-2">{{ $t('universities_page.filters.level_label') }}</label>
       <UiFormsBaseSelect v-model="state.level">
-        <option value="Все">{{ $t('universities_page.filters.all_levels') }}</option>
-        <option>{{ $t('universities_page.filters.levels.bachelor') }}</option>
-        <option>{{ $t('universities_page.filters.levels.master') }}</option>
-        <option>{{ $t('universities_page.filters.levels.doctorate') }}</option>
+        <option :value="LEVEL_ALL_VALUE">{{ $t('universities_page.filters.all_levels') }}</option>
+        <option
+          v-for="level in levelOptions"
+          :key="level.value"
+          :value="level.value"
+        >
+          {{ level.label }}
+        </option>
       </UiFormsBaseSelect>
     </div>
 
@@ -112,13 +116,31 @@ const emit = defineEmits<{
 const universitiesStore = useUniversitiesStore()
 const { filters, availableFilters } = storeToRefs(universitiesStore)
 const { applyFilters } = universitiesStore
+const { t } = useI18n()
+
+const LEVEL_ALL_VALUE = 'all'
+
+const LEVEL_LABEL_MAP: Record<string, string> = {
+  bachelor: 'universities_page.filters.levels.bachelor',
+  master: 'universities_page.filters.levels.master',
+  phd: 'universities_page.filters.levels.doctorate'
+}
+
+const levelOptions = computed(() => {
+  const levels = availableFilters.value.levels || []
+  return levels
+    .map(level => ({
+      value: level,
+      label: getLevelLabel(level)
+    }))
+})
 
 const state = reactive({
   q: '',
   city: 'Все',
   langs: [] as string[],
   type: 'Все',
-  level: 'Все'
+  level: LEVEL_ALL_VALUE
 })
 
 const priceRangeBounds = computed<[number, number]>(() => {
@@ -131,19 +153,28 @@ const priceRange = ref<[number, number]>([
   priceRangeBounds.value[1]
 ])
 
-function getTypeLabel(t: string): string {
-  switch (t) {
+function getTypeLabel(typeCode: string): string {
+  switch (typeCode) {
     case 'state':
-      return $t('universities_page.filters.types.state') as string
+      return t('universities_page.filters.types.state') as string
     case 'private':
-      return $t('universities_page.filters.types.private') as string
+      return t('universities_page.filters.types.private') as string
     case 'tech':
-      return $t('universities_page.filters.types.tech') as string
+      return t('universities_page.filters.types.tech') as string
     case 'elite':
-      return $t('universities_page.filters.types.elite') as string
+      return t('universities_page.filters.types.elite') as string
     default:
-      return t
+      return typeCode
   }
+}
+
+function getLevelLabel(level: string): string {
+  const translationKey = LEVEL_LABEL_MAP[level]
+  if (translationKey) {
+    return t(translationKey) as string
+  }
+
+  return level
 }
 
 // Initialize state from URL filters
@@ -152,7 +183,7 @@ const initializeFromFilters = () => {
   state.city = filters.value.city === 'Все города' ? 'Все' : filters.value.city
   state.langs = [...filters.value.langs]
   state.type = filters.value.type
-  state.level = filters.value.level
+  state.level = filters.value.level || LEVEL_ALL_VALUE
   const price = filters.value.price?.length === 2
     ? filters.value.price
     : priceRangeBounds.value
@@ -194,7 +225,7 @@ function reset() {
   state.city = 'Все'
   state.langs = []
   state.type = 'Все'
-  state.level = 'Все'
+  state.level = LEVEL_ALL_VALUE
   priceRange.value = [
     priceRangeBounds.value[0],
     priceRangeBounds.value[1]
