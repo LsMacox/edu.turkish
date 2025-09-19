@@ -142,9 +142,9 @@ describe('useFormValidation', () => {
 })
 
 describe('useContactFormValidation', () => {
-  it('should provide pre-configured rules for contact forms', () => {
-    const { useContactFormValidation } = require('~/composables/useFormValidation')
-    const contactValidation = useContactFormValidation()
+  it('should provide pre-configured rules for contact forms', async () => {
+    const mod = await import('~/composables/useFormValidation')
+    const contactValidation = mod.useContactFormValidation()
     
     expect(contactValidation.contactFormRules.name).toHaveLength(4) // required, minLength, maxLength, pattern
     expect(contactValidation.contactFormRules.phone).toHaveLength(2) // required, phone

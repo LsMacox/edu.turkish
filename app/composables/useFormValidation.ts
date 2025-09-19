@@ -246,20 +246,18 @@ export const useFormValidation = () => {
    * Mark field as touched
    */
   const touchField = (fieldName: string) => {
+    initializeField(fieldName)
     touchedFields.value.add(fieldName)
-    if (validationState[fieldName]) {
-      validationState[fieldName].touched = true
-    }
+    validationState[fieldName].touched = true
   }
 
   /**
    * Mark field as untouched
    */
   const untouchField = (fieldName: string) => {
+    initializeField(fieldName)
     touchedFields.value.delete(fieldName)
-    if (validationState[fieldName]) {
-      validationState[fieldName].touched = false
-    }
+    validationState[fieldName].touched = false
   }
 
   /**
