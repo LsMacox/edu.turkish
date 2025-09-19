@@ -1,6 +1,6 @@
 import { describe, expect, it, vi } from 'vitest'
 import type { PrismaClient } from '@prisma/client'
-import { Prisma } from '@prisma/client'
+import type { Prisma } from '@prisma/client'
 
 import { ReviewRepository } from '../../server/repositories/ReviewRepository'
 
@@ -17,6 +17,7 @@ const createRepositoryWithMocks = () => {
   const reviewFindMany = vi.fn()
   const reviewCount = vi.fn()
   const reviewAggregate = vi.fn()
+  const reviewCreate = vi.fn()
   const universityCount = vi.fn()
   const universityFindMany = vi.fn()
   const academicProgramCount = vi.fn()
@@ -32,7 +33,8 @@ const createRepositoryWithMocks = () => {
     review: {
       findMany: reviewFindMany,
       count: reviewCount,
-      aggregate: reviewAggregate
+      aggregate: reviewAggregate,
+      create: reviewCreate
     },
     university: {
       count: universityCount,
@@ -70,6 +72,7 @@ const createRepositoryWithMocks = () => {
       reviewFindMany,
       reviewCount,
       reviewAggregate,
+      reviewCreate,
       universityCount,
       universityFindMany,
       academicProgramCount,
@@ -269,6 +272,164 @@ describe('ReviewRepository.findFeatured', () => {
         }
       }
     ])
+  })
+})
+
+describe('ReviewRepository.create', () => {
+  it('creates review with localized translations and returns university matched by translation', async () => {
+    const { repository, mocks } = createRepositoryWithMocks()
+
+    const review: ReviewRecord = {
+      id: 3,
+      universityId: 10,
+      type: 'student',
+      year: 2024,
+      rating: 5,
+      avatar: null,
+      featured: false,
+      createdAt: baseDate,
+      updatedAt: baseDate,
+      translations: [
+        {
+          id: 31,
+          reviewId: 3,
+          locale: 'ru',
+          name: 'Анна',
+          quote: 'Отличный университет',
+          universityName: 'Университет Анкары',
+          achievements: { helpful_aspects: ['Общежития'] },
+          createdAt: baseDate,
+          updatedAt: baseDate
+        },
+        {
+          id: 32,
+          reviewId: 3,
+          locale: 'en',
+          name: 'Anna',
+          quote: 'Great university',
+          universityName: 'Ankara University',
+          achievements: null,
+          createdAt: baseDate,
+          updatedAt: baseDate
+        }
+      ],
+      university: {
+        id: 10,
+        countryId: null,
+        cityId: null,
+        foundedYear: 1946,
+        type: 'state',
+        tuitionMin: null,
+        tuitionMax: null,
+        currency: 'USD',
+        totalStudents: null,
+        internationalStudents: null,
+        rankingScore: null,
+        hasAccommodation: false,
+        hasScholarships: false,
+        heroImage: null,
+        image: null,
+        createdAt: baseDate,
+        updatedAt: baseDate,
+        translations: [
+          {
+            id: 41,
+            universityId: 10,
+            locale: 'ru',
+            title: 'Университет Анкары',
+            description: null,
+            slug: 'ankara-university-ru',
+            about: null,
+            keyInfoTexts: null,
+            createdAt: baseDate,
+            updatedAt: baseDate
+          },
+          {
+            id: 42,
+            universityId: 10,
+            locale: 'en',
+            title: 'Ankara University',
+            description: null,
+            slug: 'ankara-university',
+            about: null,
+            keyInfoTexts: null,
+            createdAt: baseDate,
+            updatedAt: baseDate
+          }
+        ]
+      }
+    }
+
+    mocks.reviewCreate.mockResolvedValue(review)
+
+    const result = await repository.create({
+      type: 'student',
+      name: 'Анна',
+      universityId: 10,
+      year: 2024,
+      quote: 'Отличный университет',
+      rating: 5,
+      achievements: { helpful_aspects: ['Общежития'] },
+      translations: [
+        {
+          locale: 'ru',
+          name: 'Анна',
+          quote: 'Отличный университет',
+          universityName: 'Университет Анкары'
+        },
+        {
+          locale: 'en',
+          name: 'Anna',
+          quote: 'Great university',
+          universityName: 'Ankara University'
+        }
+      ]
+    })
+
+    expect(mocks.reviewCreate).toHaveBeenCalledWith(
+      expect.objectContaining({
+        data: {
+          type: 'student',
+          universityId: 10,
+          year: 2024,
+          rating: 5,
+          translations: {
+            create: [
+              {
+                locale: 'ru',
+                name: 'Анна',
+                quote: 'Отличный университет',
+                universityName: 'Университет Анкары',
+                achievements: { helpful_aspects: ['Общежития'] }
+              },
+              {
+                locale: 'en',
+                name: 'Anna',
+                quote: 'Great university',
+                universityName: 'Ankara University'
+              }
+            ]
+          }
+        },
+        include: {
+          translations: true,
+          university: { include: { translations: true } }
+        }
+      })
+    )
+
+    expect(result).toEqual({
+      id: 3,
+      type: 'student',
+      name: 'Анна',
+      university: 'Университет Анкары',
+      year: 2024,
+      quote: 'Отличный университет',
+      rating: 5,
+      avatar: '',
+      featured: false,
+      achievements: { helpful_aspects: ['Общежития'] }
+    })
   })
 })
 
