@@ -157,7 +157,7 @@ npm run db:deploy   # применить миграции на проде
 Ключевые переменные группируются по подсистемам:
 
 - **База данных и приложение**: `DATABASE_URL`, `NODE_ENV`, `NUXT_SECRET_KEY`.
-- **CRM (Bitrix24)**: `BITRIX_WEBHOOK_URL`, `BITRIX_DOMAIN`, `BITRIX_ACCESS_TOKEN`.
+- **CRM (Bitrix24)**: `BITRIX_WEBHOOK_URL`, `BITRIX_DOMAIN`, `BITRIX_ACCESS_TOKEN`, `BITRIX_AUTH_MODE`, `BITRIX_USER_ID`, `BITRIX_ACTIVITY_OWNER_ID`, `BITRIX_ACTIVITY_OWNER_TYPE_ID`, `BITRIX_ACTIVITY_RESPONSIBLE_ID`.
 - **Directus**: `DIRECTUS_KEY`, `DIRECTUS_SECRET`, `DIRECTUS_PUBLIC_URL`, `DIRECTUS_ADMIN_EMAIL`, `DIRECTUS_ADMIN_PASSWORD`, `DIRECTUS_STATIC_TOKEN`, `NUXT_PUBLIC_DIRECTUS_URL`.
 - **Аналитика**: `NUXT_PUBLIC_YANDEX_METRIKA_ID`.
 
@@ -171,6 +171,11 @@ NUXT_SECRET_KEY="your_secret_key"
 BITRIX_WEBHOOK_URL="https://your-domain.bitrix24.ru/rest/1/your_webhook_key/"
 BITRIX_DOMAIN="your-domain.bitrix24.ru"
 BITRIX_ACCESS_TOKEN="your_access_token_here"
+BITRIX_AUTH_MODE=webhook
+BITRIX_USER_ID=1
+BITRIX_ACTIVITY_OWNER_ID=123
+BITRIX_ACTIVITY_OWNER_TYPE_ID=1
+BITRIX_ACTIVITY_RESPONSIBLE_ID=25
 
 # Directus
 DIRECTUS_KEY="local_project_key"
@@ -187,6 +192,8 @@ NUXT_PUBLIC_YANDEX_METRIKA_ID="your_metrika_id"
 
 - `DATABASE_URL`, `NODE_ENV`, `NUXT_SECRET_KEY` — базовая конфигурация Nuxt-приложения и подключения к MySQL.
 - `BITRIX_WEBHOOK_URL` или связка `BITRIX_DOMAIN` + `BITRIX_ACCESS_TOKEN` — авторизация CRM-интеграции Bitrix24.
+- `BITRIX_AUTH_MODE`, `BITRIX_USER_ID` — настраивают формат REST-запросов: укажите `webhook`, если используете домен + код вебхука (без полного URL). При OAuth (приложение Bitrix, access token) можно оставить пустыми.
+- `BITRIX_ACTIVITY_OWNER_ID`, `BITRIX_ACTIVITY_OWNER_TYPE_ID`, `BITRIX_ACTIVITY_RESPONSIBLE_ID` — управляют тем, к какой сущности CRM привязывается активность (лид/сделка и т.д.) и какому сотруднику она назначается. Задавайте только если дефолтной привязки недостаточно.
 - `DIRECTUS_*`, `NUXT_PUBLIC_DIRECTUS_URL` — параметры headless-CMS Directus (админ-доступ и публичный API для Nuxt).
 - `NUXT_PUBLIC_YANDEX_METRIKA_ID` — идентификатор счётчика для клиентской аналитики (Яндекс.Метрика).
 
