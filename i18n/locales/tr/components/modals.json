@@ -40,7 +40,8 @@
     },
     "languages": {
       "turkish": "Türkçe",
-      "english": "İngilizce"
+      "english": "İngilizce",
+      "both": "Her iki dil"
     },
     "scholarship": {
       "yes": "Burs yardımı gerekli",

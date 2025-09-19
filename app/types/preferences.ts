@@ -10,7 +10,7 @@ export interface QuestionnairePreferences extends SimplePreferences {
   source: 'home_questionnaire'
   userType: UserType
   universityChosen: 'yes' | 'no'
-  language: 'turkish' | 'english'
+  language: 'turkish' | 'english' | 'both'
   scholarship: 'yes' | 'no'
 }
 
@@ -28,7 +28,7 @@ export interface ApplicationPreferences {
   userType?: UserType
   // Questionnaire responses
   universityChosen?: 'yes' | 'no'
-  language?: 'turkish' | 'english'
+  language?: 'turkish' | 'english' | 'both'
   scholarship?: 'yes' | 'no'
 }
 

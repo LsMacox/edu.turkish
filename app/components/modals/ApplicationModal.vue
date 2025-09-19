@@ -284,7 +284,15 @@ const getUniversityText = (chosen: string): string => {
 }
 
 const getLanguageText = (language: string): string => {
-  return language === 'turkish' ? $t('modal.languages.turkish') as string : $t('modal.languages.english') as string
+  if (language === 'turkish') {
+    return $t('modal.languages.turkish') as string
+  }
+
+  if (language === 'english') {
+    return $t('modal.languages.english') as string
+  }
+
+  return $t('modal.languages.both') as string
 }
 
 const getScholarshipText = (scholarship: string): string => {
