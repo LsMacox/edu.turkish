@@ -170,17 +170,10 @@
                   </div>
                   <h3 class="text-xl font-semibold text-secondary mb-3">{{ article.title }}</h3>
                   <p class="text-gray-600 text-sm mb-4">{{ article.excerpt }}</p>
-                  <div class="mt-auto pt-2 flex items-center justify-between gap-3">
-                    <button
-                      type="button"
-                      class="px-3 py-2 rounded-lg border border-gray-200 text-gray-600 text-xs font-medium bg-gray-50 hover:bg-gray-100"
-                    >
-                      {{ article.readingTimeLabel || '7 мин чтения' }}
-                    </button>
-                    <NuxtLink
-                      :to="articleLink(article.slug)"
-                      class="bg-primary text-white px-4 py-2 rounded-lg text-sm font-semibold hover:bg-primary/90 transition-colors"
-                    >
+                  
+                  <div class="mt-auto pt-2 flex items-center justify-between text-sm text-gray-500">
+                    <span v-if="article.readingTimeLabel">{{ article.readingTimeLabel }}</span>
+                    <NuxtLink :to="articleLink(article.slug)" class="text-primary font-semibold hover:underline">
                       {{ t('blog.articles.readMore') }}
                     </NuxtLink>
                   </div>
