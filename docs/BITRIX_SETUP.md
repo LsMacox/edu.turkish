@@ -4,23 +4,44 @@
 
 ## Переменные окружения
 
-В `.env` укажите один из вариантов аутентификации:
+1. **Выберите способ аутентификации.**
 
-### Вариант A — Webhook URL (рекомендуемый)
-```env
-BITRIX_WEBHOOK_URL="https://<domain>.bitrix24.ru/rest/<userId>/<webhook_code>/"
-```
+   ### Вариант A — Webhook URL (рекомендуемый)
+   ```env
+   BITRIX_WEBHOOK_URL="https://<domain>.bitrix24.ru/rest/<userId>/<webhook_code>/"
+   ```
 
-### Вариант B — Домен + токен
-```env
-BITRIX_DOMAIN="<domain>.bitrix24.ru"
-BITRIX_ACCESS_TOKEN="<token>"
+   Один URL закрывает все вопросы с авторизацией, дополнительные параметры не нужны.
 
-# Необязательно. Укажите, если хотите webhook-стиль без полного URL
-# (в этом случае ACCESS_TOKEN — это webhook code, а USER_ID — id пользователя)
-# BITRIX_AUTH_MODE=webhook
-# BITRIX_USER_ID=1
-```
+   ### Вариант B — Домен + токен
+   ```env
+   BITRIX_DOMAIN="<domain>.bitrix24.ru"
+   BITRIX_ACCESS_TOKEN="<token>"
+   ```
+
+   - Если используете **вебхук без полного URL**, добавьте:
+     ```env
+     BITRIX_AUTH_MODE=webhook
+     BITRIX_USER_ID=<id пользователя, выдавшего вебхук>
+     ```
+     Тогда сервис соберёт путь `https://<domain>/rest/<userId>/<token>/<method>.json`.
+   - Для **OAuth-приложения Bitrix** оставьте `BITRIX_AUTH_MODE` пустым (или задайте `oauth`) — токен подставится как `auth`-параметр.
+
+2. **(Опционально) Настройте, как создаются CRM-активности.**
+
+   Эти переменные управляют полями `OWNER_ID`, `OWNER_TYPE_ID`, `RESPONSIBLE_ID` при вызове `crm.activity.add`. Заполняйте их, если нужно привязывать события из виджета к конкретной сущности и исполнителю.
+
+   ```env
+   BITRIX_ACTIVITY_OWNER_ID=<id лида/сделки/контакта>
+   BITRIX_ACTIVITY_OWNER_TYPE_ID=1 # 1 — лид, 2 — сделка, 3 — контакт, 4 — компания
+   BITRIX_ACTIVITY_RESPONSIBLE_ID=<id ответственного менеджера>
+   ```
+
+   - `BITRIX_ACTIVITY_OWNER_ID` — идентификатор CRM-сущности, к которой будет прикреплено дело.
+   - `BITRIX_ACTIVITY_OWNER_TYPE_ID` — тип сущности (см. комментарий выше). Указывайте вместе с `OWNER_ID`, чтобы Bitrix знал, к чему привязывать активность.
+   - `BITRIX_ACTIVITY_RESPONSIBLE_ID` — сотрудник, на которого назначаем активность (если не указать, Bitrix оставит стандартное значение).
+
+   Если оставить параметры пустыми, сервис не будет отправлять соответствующие поля — Bitrix применит свои значения по умолчанию или вернёт ошибку, если в вашем портале привязка обязательна.
 
 ## Проверка
 
