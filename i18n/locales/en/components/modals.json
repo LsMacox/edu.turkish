@@ -40,7 +40,8 @@
     },
     "languages": {
       "turkish": "Turkish",
-      "english": "English"
+      "english": "English",
+      "both": "Both languages"
     },
     "scholarship": {
       "yes": "Scholarship assistance required",
