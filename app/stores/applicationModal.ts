@@ -6,6 +6,7 @@ export const useApplicationModalStore = defineStore('applicationModal', () => {
   // State
   const isOpen = ref<boolean>(false)
   const userPreferences = ref<ApplicationPreferences | null>(null)
+  const previousOverflow = ref<string | null>(null)
 
   // Actions
   const openModal = (preferences: ApplicationPreferences | null = null) => {
@@ -20,6 +21,8 @@ export const useApplicationModalStore = defineStore('applicationModal', () => {
     
     if (process.client && typeof document !== 'undefined') {
       // Предотвратить скролл страницы когда модал открыт
+      const currentOverflow = document.body.style.overflow
+      previousOverflow.value = currentOverflow || null
       document.body.style.overflow = 'hidden'
     }
   }
@@ -27,9 +30,14 @@ export const useApplicationModalStore = defineStore('applicationModal', () => {
   const closeModal = () => {
     isOpen.value = false
     userPreferences.value = null
-    if (process.client) {
+    if (process.client && typeof document !== 'undefined') {
       // Восстановить скролл страницы
-      document.body.style.overflow = 'auto'
+      if (previousOverflow.value !== null) {
+        document.body.style.overflow = previousOverflow.value
+      } else {
+        document.body.style.removeProperty('overflow')
+      }
+      previousOverflow.value = null
     }
   }
 
@@ -51,7 +59,12 @@ export const useApplicationModalStore = defineStore('applicationModal', () => {
   // Cleanup function to ensure body overflow is reset
   const cleanup = () => {
     if (process.client && typeof document !== 'undefined') {
-      document.body.style.overflow = 'auto'
+      if (previousOverflow.value !== null) {
+        document.body.style.overflow = previousOverflow.value
+      } else {
+        document.body.style.removeProperty('overflow')
+      }
+      previousOverflow.value = null
     }
   }
 
@@ -59,6 +72,7 @@ export const useApplicationModalStore = defineStore('applicationModal', () => {
     // State
     isOpen,
     userPreferences,
+    previousOverflow,
     
     // Actions
     openModal,
