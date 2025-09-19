@@ -15,13 +15,15 @@ const BitrixServiceMock = vi.fn(() => ({
   logMessengerEvent: logMessengerEventMock
 }))
 const getBitrixConfigMock = vi.fn(() => ({ domain: 'example.com', accessToken: 'token' }))
+const validateBitrixConfigMock = vi.fn(() => true)
 
 vi.mock('../../../../server/services/BitrixService', () => ({
   BitrixService: BitrixServiceMock
 }))
 
 vi.mock('../../../../server/utils/bitrix-config', () => ({
-  getBitrixConfig: getBitrixConfigMock
+  getBitrixConfig: getBitrixConfigMock,
+  validateBitrixConfig: validateBitrixConfigMock
 }))
 
 beforeEach(() => {
@@ -29,6 +31,8 @@ beforeEach(() => {
   logMessengerEventMock.mockReset()
   BitrixServiceMock.mockClear()
   getBitrixConfigMock.mockClear()
+  validateBitrixConfigMock.mockClear()
+  validateBitrixConfigMock.mockReturnValue(true)
 })
 
 globalThis.defineEventHandler = (<T>(handler: T) => handler) as any
@@ -105,5 +109,25 @@ describe('POST /api/v1/messenger-events', () => {
       statusCode: 502,
       statusMessage: 'Failed to log'
     })
+  })
+
+  it('returns 503 when Bitrix is not configured', async () => {
+    readBodyMock.mockResolvedValue({
+      channel: 'telegramPersonal',
+      referral_code: 'ref-123'
+    })
+
+    validateBitrixConfigMock.mockReturnValue(false)
+
+    const handlerModule = await import('../../../../server/api/v1/messenger-events.post')
+    const handler = handlerModule.default
+
+    await expect(handler({} as any)).rejects.toMatchObject({
+      statusCode: 503,
+      statusMessage: 'Bitrix integration is not configured'
+    })
+
+    expect(BitrixServiceMock).not.toHaveBeenCalled()
+    expect(getBitrixConfigMock).not.toHaveBeenCalled()
   })
 })
