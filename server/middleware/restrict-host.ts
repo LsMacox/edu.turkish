@@ -1,7 +1,6 @@
 import { defineEventHandler, getRequestHeader, createError } from 'h3';
 
-// Allow configuring additional hosts via env (comma-separated)
-const envHosts = (process.env.ALLOWED_HOSTS || '').split(',').map(h => h.trim().toLowerCase()).filter(Boolean)
+const envHosts = (process.env.ALLOWED_HOSTS || '').split(',').map(h => h.trim().toLowerCase()).filter(Boolean);
 const ALLOWED_HOSTS = new Set<string>([
   'localhost:3000',
   '127.0.0.1:3000',
@@ -12,7 +11,6 @@ const ALLOWED_HOSTS = new Set<string>([
 ]);
 
 export default defineEventHandler((event) => {
-  // In development, relax the restriction entirely
   if (process.env.NODE_ENV !== 'production') {
     return
   }

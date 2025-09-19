@@ -1,12 +1,10 @@
 export default defineEventHandler((event) => {
-  // Check for ref parameter in URL
   const query = getQuery(event)
   const refCode = query.ref as string
-  
+
   if (refCode && /^[a-zA-Z0-9_-]+$/.test(refCode)) {
-    // Set cookie with 30-day expiration
     setCookie(event, 'referral_code', refCode, {
-      maxAge: 30 * 24 * 60 * 60, // 30 days
+      maxAge: 30 * 24 * 60 * 60,
       path: '/',
       secure: process.env.NODE_ENV === 'production',
       httpOnly: false, // accessible on client for referral tracking

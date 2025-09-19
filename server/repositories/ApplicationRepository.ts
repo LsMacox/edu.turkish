@@ -9,7 +9,6 @@ export class ApplicationRepository {
    * Create a new application
    */
   async create(data: ApplicationRequest): Promise<ApplicationResponse> {
-    // Generate tracking code
     const trackingCode = generateTrackingCode()
 
     const normalizedFirstName = data.personal_info.first_name?.trim() || ''
