@@ -15,6 +15,16 @@ type TranslationContent = {
   content: Prisma.JsonValue
 }
 
+type SeedArticleMeta = {
+  quickFacts?: Array<{
+    title: string
+    value: string
+    icon?: string
+  }>
+  highlights?: string[]
+  tags?: string[]
+}
+
 type SeedArticle = {
   categoryCode: string
   isFeatured?: boolean
@@ -23,6 +33,7 @@ type SeedArticle = {
   heroImage?: string
   readingTimeMinutes?: number
   translations: TranslationContent[]
+  meta?: SeedArticleMeta
 }
 
 const categories = [
@@ -94,6 +105,31 @@ const articles: SeedArticle[] = [
     coverImage: sharedImages.visa,
     heroImage: 'https://storage.googleapis.com/edu-turkish/article-hero-visa.jpg',
     readingTimeMinutes: 8,
+    meta: {
+      quickFacts: [
+        {
+          title: 'Тип визы',
+          value: 'Öğrenci Vizesi (студенческая)',
+          icon: 'mdi:passport'
+        },
+        {
+          title: 'Срок рассмотрения',
+          value: '4–6 недель',
+          icon: 'mdi:calendar-clock'
+        },
+        {
+          title: 'Госпошлина',
+          value: '≈ 60 USD',
+          icon: 'mdi:cash-multiple'
+        }
+      ],
+      highlights: [
+        'Подробный чек-лист документов перед подачей',
+        'Пояснения к записи на приём в консульство',
+        'Памятка действий после прилёта в Турцию'
+      ],
+      tags: ['виза', 'документы', 'Турция']
+    },
     translations: [
       {
         locale: 'ru',
@@ -190,6 +226,31 @@ const articles: SeedArticle[] = [
     coverImage: sharedImages.applications,
     heroImage: 'https://storage.googleapis.com/edu-turkish/article-hero-application.jpg',
     readingTimeMinutes: 7,
+    meta: {
+      quickFacts: [
+        {
+          title: 'Формат подачи',
+          value: 'Онлайн-кабинет университета',
+          icon: 'mdi:laptop-check'
+        },
+        {
+          title: 'Переводы',
+          value: 'Нотариально заверенные копии',
+          icon: 'mdi:certificate-outline'
+        },
+        {
+          title: 'Совет эксперта',
+          value: 'Проверяйте сканы перед загрузкой',
+          icon: 'mdi:magnify-scan'
+        }
+      ],
+      highlights: [
+        'Готовый чек-лист для заявок в университеты',
+        'Рекомендации по именованию файлов и проверке сроков',
+        'Напоминание о невозможности редактирования анкеты после отправки'
+      ],
+      tags: ['поступление', 'документы', 'чек-лист']
+    },
     translations: [
       {
         locale: 'ru',
@@ -274,6 +335,31 @@ const articles: SeedArticle[] = [
     coverImage: sharedImages.scholarships,
     heroImage: 'https://storage.googleapis.com/edu-turkish/article-hero-scholarship.jpg',
     readingTimeMinutes: 9,
+    meta: {
+      quickFacts: [
+        {
+          title: 'Основная программа',
+          value: 'Türkiye Bursları',
+          icon: 'mdi:school-outline'
+        },
+        {
+          title: 'Конкурс',
+          value: 'До 1 000 заявок на место',
+          icon: 'mdi:account-group'
+        },
+        {
+          title: 'Финансирование',
+          value: 'Покрытие обучения и проживания',
+          icon: 'mdi:hand-coin'
+        }
+      ],
+      highlights: [
+        'Описание государственных и университетских стипендий',
+        'Советы по сильному мотивационному письму',
+        'Напоминание следить за дедлайнами программ'
+      ],
+      tags: ['стипендии', 'финансы', 'советы']
+    },
     translations: [
       {
         locale: 'ru',
@@ -359,6 +445,31 @@ const articles: SeedArticle[] = [
     coverImage: sharedImages.cost,
     heroImage: 'https://storage.googleapis.com/edu-turkish/article-hero-cost.jpg',
     readingTimeMinutes: 6,
+    meta: {
+      quickFacts: [
+        {
+          title: 'Обучение',
+          value: '4 000–6 000 USD в год',
+          icon: 'mdi:currency-usd'
+        },
+        {
+          title: 'Проживание',
+          value: 'Общежитие 150–250 USD/мес',
+          icon: 'mdi:home-city-outline'
+        },
+        {
+          title: 'Транспорт',
+          value: 'Istanbulkart 25–30 USD/мес',
+          icon: 'mdi:bus'
+        }
+      ],
+      highlights: [
+        'Расчёт бюджета на обучение и жизнь в Стамбуле',
+        'Советы по экономии на транспорте и питании',
+        'Напоминание заложить резерв на учебные материалы'
+      ],
+      tags: ['бюджет', 'Стамбул', 'стоимость']
+    },
     translations: [
       {
         locale: 'ru',
@@ -442,6 +553,31 @@ const articles: SeedArticle[] = [
     coverImage: sharedImages.life,
     heroImage: 'https://storage.googleapis.com/edu-turkish/article-hero-life.jpg',
     readingTimeMinutes: 8,
+    meta: {
+      quickFacts: [
+        {
+          title: 'Первые шаги',
+          value: 'Ориентация и Buddy-программы',
+          icon: 'mdi:account-group-outline'
+        },
+        {
+          title: 'Полезные сервисы',
+          value: 'BiTaksi, Marti, Yemeksepeti',
+          icon: 'mdi:cellphone-information'
+        },
+        {
+          title: 'Главный совет',
+          value: 'Спрашивайте помощь у старшекурсников',
+          icon: 'mdi:chat-question'
+        }
+      ],
+      highlights: [
+        'План адаптации на первые недели обучения',
+        'Рекомендации по изучению турецкого языка',
+        'Список приложений для повседневных задач'
+      ],
+      tags: ['студенческая жизнь', 'адаптация', 'советы']
+    },
     translations: [
       {
         locale: 'ru',
@@ -612,6 +748,31 @@ const articles: SeedArticle[] = [
     coverImage: sharedImages.rankings,
     heroImage: 'https://storage.googleapis.com/edu-turkish/article-hero-deadlines.jpg',
     readingTimeMinutes: 4,
+    meta: {
+      quickFacts: [
+        {
+          title: 'Старт кампаний',
+          value: 'Январь — Türkiye Bursları',
+          icon: 'mdi:calendar-start'
+        },
+        {
+          title: 'Пик дедлайнов',
+          value: 'Март–апрель у частных вузов',
+          icon: 'mdi:calendar-alert'
+        },
+        {
+          title: 'Формат контроля',
+          value: 'Личный календарь с напоминаниями',
+          icon: 'mdi:calendar-check'
+        }
+      ],
+      highlights: [
+        'Хронология дедлайнов по месяцам',
+        'Сравнение государственных и частных программ',
+        'Совет подготовить документы заранее'
+      ],
+      tags: ['дедлайны', 'приём 2025', 'календарь']
+    },
     translations: [
       {
         locale: 'ru',
@@ -717,6 +878,7 @@ export async function seedBlog(prisma: PrismaClient) {
         coverImage: article.coverImage,
         heroImage: article.heroImage ?? article.coverImage,
         readingTimeMinutes: article.readingTimeMinutes ?? null,
+        meta: article.meta ? (article.meta as Prisma.JsonValue) : undefined,
         translations: {
           create: article.translations.map((translation) => ({
             ...translation
