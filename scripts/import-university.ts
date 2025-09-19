@@ -417,6 +417,8 @@ async function replaceFeaturedPrograms(
   type CreatedEntry = { id: number; categoryIndex: number }
   const createdEntries: CreatedEntry[] = []
   let orderCounter = 0
+  // Avoid duplicate featured entries for the same program within one university
+  const usedProgramIds = new Set<number>()
 
   for (let categoryIndex = 0; categoryIndex < categories.length; categoryIndex++) {
     const category = categories[categoryIndex]
@@ -442,6 +444,11 @@ async function replaceFeaturedPrograms(
         continue
       }
 
+      // Skip duplicates to satisfy unique constraint [universityId, programId]
+      if (usedProgramIds.has(programId)) {
+        continue
+      }
+
       const created = await (prisma as any).featuredProgram.create({
         data: {
           universityId,
@@ -456,6 +463,7 @@ async function replaceFeaturedPrograms(
         }
       })
 
+      usedProgramIds.add(programId)
       createdEntries.push({ id: created.id, categoryIndex })
     }
   }

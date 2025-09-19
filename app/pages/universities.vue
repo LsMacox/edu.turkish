@@ -112,7 +112,7 @@ onMounted(() => {
 
 // Watch for route changes to reinitialize filters (all changes now trigger reset)
 watch(
-  route.query,
+  () => route.query,
   () => {
     // Reset page state when filters change
     page.value = 1

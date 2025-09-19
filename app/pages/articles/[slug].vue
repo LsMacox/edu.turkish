@@ -33,12 +33,12 @@
           <div class="relative">
             <div class="absolute -top-8 -right-6 hidden h-40 w-40 rounded-full bg-primary/10 blur-3xl lg:block" />
             <div class="relative overflow-hidden rounded-3xl shadow-custom">
-              <NuxtImg
-                src="/images/about-us-bg.png"
-                alt="Студент в кампусе турецкого университета"
+              <img
+                :src="heroSrc"
+                :alt="heroAlt"
                 class="h-full w-full object-cover"
-                format="webp"
-              />
+                @error="onHeroError"
+              >
             </div>
           </div>
         </div>
@@ -314,11 +314,48 @@
 </template>
 
 <script setup lang="ts">
+import { computed, ref, watch } from 'vue'
+import type { BlogArticleDetail } from '../../../server/types/api'
+
 definePageMeta({
   title: 'Как я поступил в турецкий университет мечты',
   description:
     'Личный опыт поступления и учёбы в Турции: советы, впечатления и полезные рекомендации для будущих студентов.'
 })
+
+const route = useRoute()
+const { locale } = useI18n()
+
+const { data: articleResponse } = await useAsyncData(
+  () =>
+    $fetch<{ data: BlogArticleDetail }>(`/api/v1/blog/articles/${route.params.slug}`, {
+      query: { lang: locale.value }
+    }),
+  { watch: [() => route.params.slug, () => locale.value] }
+)
+
+const article = computed(() => articleResponse.value?.data)
+
+// Hero image with runtime fallback on load error
+const defaultHeroImage = '/images/about-us-bg.png'
+const heroSrc = ref<string>(defaultHeroImage)
+const heroAlt = computed(
+  () => article.value?.heroImageAlt || article.value?.imageAlt || 'Студент в кампусе турецкого университета'
+)
+
+watch(
+  article,
+  (val) => {
+    heroSrc.value = val?.heroImage || val?.image || defaultHeroImage
+  },
+  { immediate: true }
+)
+
+const onHeroError = () => {
+  if (heroSrc.value !== defaultHeroImage) {
+    heroSrc.value = defaultHeroImage
+  }
+}
 
 const tableOfContents = [
   { id: 'campus', order: '01', title: 'Первое знакомство с кампусом' },
