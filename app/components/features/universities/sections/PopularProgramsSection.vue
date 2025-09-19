@@ -93,7 +93,6 @@ import { computed, onMounted, ref } from 'vue'
 interface ProgramStats {
   universities_count: number
   price_from: number
-  actual_universities: number
   direction_slugs: string[]
 }
 

@@ -83,37 +83,31 @@ describe('PopularProgramsSection', () => {
       it: {
         universities_count: 42,
         price_from: 3500,
-        actual_universities: 0,
         direction_slugs: []
       },
       medicine: {
         universities_count: 28,
         price_from: 8000,
-        actual_universities: 0,
         direction_slugs: []
       },
       engineering: {
         universities_count: 52,
         price_from: 4200,
-        actual_universities: 0,
         direction_slugs: []
       },
       business: {
         universities_count: 38,
         price_from: 3800,
-        actual_universities: 0,
         direction_slugs: []
       },
       design: {
         universities_count: 32,
         price_from: 5500,
-        actual_universities: 0,
         direction_slugs: []
       },
       international: {
         universities_count: 25,
         price_from: 4000,
-        actual_universities: 0,
         direction_slugs: []
       }
     }
