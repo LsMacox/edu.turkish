@@ -237,9 +237,20 @@ export const useUniversitiesStore = defineStore('universities', () => {
     }
   }
 
-  function setFilter<K extends keyof UniversityFilters>(key: K, value: UniversityFilters[K]) {
-    filters.value[key] = value
+  function applyFilters(newFilters: Partial<UniversityFilters>, options?: { sort?: SortOption }) {
+    (Object.entries(newFilters) as [keyof UniversityFilters, UniversityFilters[keyof UniversityFilters]][]).forEach(([key, value]) => {
+      filters.value[key] = value
+    })
+
+    if (options && 'sort' in options && options.sort !== undefined) {
+      sort.value = options.sort
+    }
+
     updateURL()
+  }
+
+  function setFilter<K extends keyof UniversityFilters>(key: K, value: UniversityFilters[K]) {
+    applyFilters({ [key]: value } as Partial<UniversityFilters>)
   }
 
   const setCityFilter = (city: string) => {
@@ -322,6 +333,7 @@ export const useUniversitiesStore = defineStore('universities', () => {
     
     // Actions
     setFilter,
+    applyFilters,
     setCityFilter,
     setCityFilterFromFooter,
     setSort,
