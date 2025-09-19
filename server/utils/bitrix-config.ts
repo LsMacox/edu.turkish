@@ -1,5 +1,11 @@
 import type { BitrixConfig } from '../services/BitrixService'
 
+export interface BitrixActivityConfig {
+  ownerId?: number
+  ownerTypeId?: number
+  responsibleId?: number
+}
+
 /**
  * Получение конфигурации Bitrix из переменных окружения
  */
@@ -59,4 +65,44 @@ export function getBitrixApiUrl(method: string): string {
 
   // Default to OAuth if mode not specified
   return `https://${config.domain}/rest/${method}.json?auth=${config.accessToken}`
+}
+
+const parsePositiveInteger = (value: string | undefined, envKey: string, logger: Pick<Console, 'error'>): number | undefined => {
+  if (!value) {
+    return undefined
+  }
+
+  const numericValue = Number(value)
+
+  if (!Number.isFinite(numericValue) || !Number.isInteger(numericValue) || numericValue <= 0) {
+    logger.error(`[Bitrix] ${envKey} must be a positive integer. Received: "${value}"`)
+    return undefined
+  }
+
+  return numericValue
+}
+
+export function getBitrixActivityConfig(
+  env: NodeJS.ProcessEnv = process.env,
+  logger: Pick<Console, 'error'> = console
+): BitrixActivityConfig {
+  const ownerId = parsePositiveInteger(env.BITRIX_ACTIVITY_OWNER_ID, 'BITRIX_ACTIVITY_OWNER_ID', logger)
+  const ownerTypeId = parsePositiveInteger(env.BITRIX_ACTIVITY_OWNER_TYPE_ID, 'BITRIX_ACTIVITY_OWNER_TYPE_ID', logger)
+  const responsibleId = parsePositiveInteger(env.BITRIX_ACTIVITY_RESPONSIBLE_ID, 'BITRIX_ACTIVITY_RESPONSIBLE_ID', logger)
+
+  const config: BitrixActivityConfig = {}
+
+  if (ownerId) {
+    config.ownerId = ownerId
+  }
+
+  if (ownerTypeId) {
+    config.ownerTypeId = ownerTypeId
+  }
+
+  if (responsibleId) {
+    config.responsibleId = responsibleId
+  }
+
+  return config
 }

@@ -1,5 +1,12 @@
-import type { ApplicationRequest } from '../types/api'
-import { getBitrixApiUrl } from '../utils/bitrix-config'
+import type { ApplicationRequest, UserPreferencesDTO } from '../types/api'
+import { getBitrixApiUrl, getBitrixActivityConfig } from '../utils/bitrix-config'
+import {
+  messengerEventPayloadSchema,
+  type MessengerEventMetadata,
+  type MessengerEventPayload,
+  type MessengerEventUtm,
+  type SanitizedMessengerEventPayload
+} from './bitrix.dto'
 
 export interface BitrixLead {
   TITLE: string
@@ -21,18 +28,57 @@ export interface BitrixLead {
   UF_CRM_1234567897?: string // Интересующий университет
 }
 
-export interface MessengerEventPayload {
-  channel: string
-  referralCode: string
-  session?: string | null
-  utm?: Record<string, string | undefined>
-  metadata?: Record<string, any>
-}
-
 export interface BitrixConfig {
   domain: string
   accessToken: string
   webhookUrl?: string
+}
+
+interface BitrixActivityCommunication {
+  TYPE: 'IM'
+  VALUE: string
+}
+
+interface BitrixActivityFields {
+  SUBJECT: string
+  DESCRIPTION: string
+  TYPE_ID: number
+  COMPLETED: 'N' | 'Y'
+  START_TIME: string
+  END_TIME: string
+  COMMUNICATIONS: BitrixActivityCommunication[]
+  OWNER_ID?: number
+  OWNER_TYPE_ID?: number
+  RESPONSIBLE_ID?: number
+}
+
+const hasMetadataValues = (metadata?: MessengerEventMetadata): metadata is MessengerEventMetadata => {
+  if (!metadata) {
+    return false
+  }
+
+  return Boolean(
+    metadata.page ||
+    metadata.section ||
+    metadata.component ||
+    metadata.campaign ||
+    metadata.referrer ||
+    metadata.notes
+  )
+}
+
+const hasUtmValues = (utm?: MessengerEventUtm): utm is MessengerEventUtm => {
+  if (!utm) {
+    return false
+  }
+
+  return Boolean(
+    utm.utm_source ||
+    utm.utm_medium ||
+    utm.utm_campaign ||
+    utm.utm_content ||
+    utm.utm_term
+  )
 }
 
 export class BitrixService {
@@ -116,29 +162,44 @@ export class BitrixService {
 
   async logMessengerEvent(payload: MessengerEventPayload): Promise<{ success: boolean; activityId?: number; error?: string }> {
     try {
+      const validationResult = messengerEventPayloadSchema.safeParse(payload)
+
+      if (!validationResult.success) {
+        console.error('Invalid messenger event payload for Bitrix:', validationResult.error.flatten())
+        return {
+          success: false,
+          error: 'Invalid messenger event payload'
+        }
+      }
+
+      const sanitizedPayload: SanitizedMessengerEventPayload = validationResult.data
+      const metadata = hasMetadataValues(sanitizedPayload.metadata) ? sanitizedPayload.metadata : undefined
+      const utm = hasUtmValues(sanitizedPayload.utm) ? sanitizedPayload.utm : undefined
+      const session = sanitizedPayload.session ?? undefined
+
       const url = getBitrixApiUrl('crm.activity.add')
 
       const descriptionLines = [
-        `Channel: ${payload.channel}`,
-        `Referral: ${payload.referralCode}`
+        `Channel: ${sanitizedPayload.channel}`,
+        `Referral: ${sanitizedPayload.referralCode}`
       ]
 
-      if (payload.session) {
-        descriptionLines.push(`Session: ${payload.session}`)
+      if (session) {
+        descriptionLines.push(`Session: ${session}`)
       }
 
-      if (payload.utm && Object.keys(payload.utm).length > 0) {
-        descriptionLines.push(`UTM: ${JSON.stringify(payload.utm)}`)
+      if (utm) {
+        descriptionLines.push(`UTM: ${JSON.stringify(utm)}`)
       }
 
-      if (payload.metadata && Object.keys(payload.metadata).length > 0) {
-        descriptionLines.push(`Metadata: ${JSON.stringify(payload.metadata)}`)
+      if (metadata) {
+        descriptionLines.push(`Metadata: ${JSON.stringify(metadata)}`)
       }
 
       const now = new Date().toISOString()
 
-      const fields: Record<string, any> = {
-        SUBJECT: `Messenger click: ${payload.channel}`,
+      const fields: BitrixActivityFields = {
+        SUBJECT: `Messenger click: ${sanitizedPayload.channel}`,
         DESCRIPTION: descriptionLines.join('\n'),
         TYPE_ID: 4,
         COMPLETED: 'N',
@@ -147,25 +208,23 @@ export class BitrixService {
         COMMUNICATIONS: [
           {
             TYPE: 'IM',
-            VALUE: payload.channel
+            VALUE: sanitizedPayload.channel
           }
         ]
       }
 
-      const ownerId = process.env.BITRIX_ACTIVITY_OWNER_ID
-      const ownerTypeId = process.env.BITRIX_ACTIVITY_OWNER_TYPE_ID
-      const responsibleId = process.env.BITRIX_ACTIVITY_RESPONSIBLE_ID
+      const activityConfig = getBitrixActivityConfig()
 
-      if (ownerId) {
-        fields.OWNER_ID = Number(ownerId)
+      if (activityConfig.ownerId) {
+        fields.OWNER_ID = activityConfig.ownerId
       }
 
-      if (ownerTypeId) {
-        fields.OWNER_TYPE_ID = Number(ownerTypeId)
+      if (activityConfig.ownerTypeId) {
+        fields.OWNER_TYPE_ID = activityConfig.ownerTypeId
       }
 
-      if (responsibleId) {
-        fields.RESPONSIBLE_ID = Number(responsibleId)
+      if (activityConfig.responsibleId) {
+        fields.RESPONSIBLE_ID = activityConfig.responsibleId
       }
 
       const response = await this.fetchWithTimeout(url, {
@@ -377,32 +436,32 @@ export class BitrixService {
 
     // Добавляем предпочтения пользователя из анкеты на главной (если есть и есть данные)
     if (applicationData.user_preferences && applicationData.source === 'home_questionnaire') {
-      const prefs = applicationData.user_preferences as any
+      const prefs = applicationData.user_preferences
       const prefLines: string[] = []
       if (prefs?.userType) {
-        const userTypeMap: Record<string, string> = {
-          'student': 'Студент',
-          'parent': 'Родитель'
+        const userTypeMap: Record<NonNullable<UserPreferencesDTO['userType']>, string> = {
+          student: 'Студент',
+          parent: 'Родитель'
         }
-        prefLines.push(`Тип пользователя: ${userTypeMap[prefs.userType] || prefs.userType}`)
+        prefLines.push(`Тип пользователя: ${userTypeMap[prefs.userType]}`)
       }
       if (prefs?.universityChosen) {
         prefLines.push(`Выбор университета: ${prefs.universityChosen}`)
       }
       if (prefs?.language) {
-        const langMap: Record<string, string> = {
-          'turkish': 'Турецкий',
-          'english': 'Английский',
-          'both': 'Оба языка'
+        const langMap: Record<NonNullable<UserPreferencesDTO['language']>, string> = {
+          turkish: 'Турецкий',
+          english: 'Английский',
+          both: 'Оба языка'
         }
-        prefLines.push(`Язык обучения: ${langMap[prefs.language] || prefs.language}`)
+        prefLines.push(`Язык обучения: ${langMap[prefs.language]}`)
       }
       if (prefs?.scholarship) {
-        const scholarshipMap: Record<string, string> = {
-          'yes': 'Нужна стипендия',
-          'no': 'Стипендия не нужна'
+        const scholarshipMap: Record<NonNullable<UserPreferencesDTO['scholarship']>, string> = {
+          yes: 'Нужна стипендия',
+          no: 'Стипендия не нужна'
         }
-        prefLines.push(`Стипендия: ${scholarshipMap[prefs.scholarship] || prefs.scholarship}`)
+        prefLines.push(`Стипендия: ${scholarshipMap[prefs.scholarship]}`)
       }
       if (prefLines.length > 0) {
         comments.push(`\n--- Предпочтения пользователя (анкета) ---`)
@@ -424,7 +483,7 @@ export class BitrixService {
 
     // Сохраняем только релевантные поля предпочтений из попапа
     if (applicationData.user_preferences) {
-      const prefs = applicationData.user_preferences as any
+      const prefs = applicationData.user_preferences
       if (prefs.userType) {
         lead.UF_CRM_1234567893 = prefs.userType
       }
