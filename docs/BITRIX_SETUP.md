@@ -29,15 +29,21 @@ BITRIX_ACCESS_TOKEN="<token>"
 curl http://localhost:3000/api/v1/bitrix/test
 ```
 
-- Создать тестовый лид (опционально можно передать поля заявки):
+- Посмотреть, какие данные будут отправлены в лид (ничего не уходит в Bitrix):
 ```bash
-curl -X POST http://localhost:3000/api/v1/bitrix/lead.test \
+curl -X POST http://localhost:3000/api/v1/bitrix/preview \
   -H "Content-Type: application/json" \
   -d '{
     "personal_info": {"first_name": "Test", "last_name": "Lead", "email": "test@example.com", "phone": "+10000000000"},
+    "education": {"level": "bachelor", "field": "engineering"},
+    "preferences": {"budget": "до 5000$"},
     "source": "website"
   }'
 ```
+
+Маршрут `/api/v1/bitrix/preview` принимает тот же payload, что и `POST /api/v1/applications`: блоки `personal_info`,
+`education`, `preferences` и `source` обязательны, остальные поля (например, `user_preferences`, `additional_info`,
+`referral_code`) — опциональны.
 
 ## Частые ошибки
 
