@@ -1,5 +1,4 @@
-import { PrismaClient } from '@prisma/client'
-import type { Prisma } from '@prisma/client'
+import type { PrismaClient, Prisma } from '@prisma/client'
 import type { DegreeType, UniversityType } from '../../app/types/domain'
 import type {
   AcademicProgram as AcademicProgramDto,
@@ -14,7 +13,7 @@ import type {
   University,
   UniversityDetail,
   UniversityFilters,
-  UniversityQueryParams
+  UniversityQueryParams,
 } from '../types/api'
 import { normalizeLocale, type NormalizedLocale } from '../utils/locale'
 
@@ -63,28 +62,28 @@ const CITY_ALL_VALUES = new Set(['Все города', 'All cities'])
 const TYPE_ALL_VALUES = new Set(['Все', 'All'])
 
 const TYPE_LABEL_MAP: Record<string, UniversityType> = {
-  'Государственный': 'state',
-  'Частный': 'private',
+  Государственный: 'state',
+  Частный: 'private',
   State: 'state',
   Private: 'private',
   Technical: 'tech',
-  Elite: 'elite'
+  Elite: 'elite',
 }
 
 const LEVEL_LABEL_MAP: Record<string, DegreeType> = {
-  'Бакалавриат': 'bachelor',
-  'Магистратура': 'master',
-  'Докторантура': 'phd',
+  Бакалавриат: 'bachelor',
+  Магистратура: 'master',
+  Докторантура: 'phd',
   Bachelor: 'bachelor',
   Master: 'master',
-  PhD: 'phd'
+  PhD: 'phd',
 }
 
 const IMPORTANT_DATE_TYPE_MAP: Record<Prisma.ImportantDateType, ImportantDate['deadline_type']> = {
   deadline: 'application',
   event: 'document',
   exam: 'exam',
-  notification: 'notification'
+  notification: 'notification',
 }
 
 export class UniversityRepository {
@@ -144,7 +143,7 @@ export class UniversityRepository {
       ru: 'Сильные программы',
       en: 'Featured Program',
       tr: 'Öne Çıkan Programlar',
-      kk: 'Таңдаулы бағдарламалар'
+      kk: 'Таңдаулы бағдарламалар',
     }
     const DEFAULT_CATEGORY = DEFAULT_CATEGORY_MAP[locale.normalized] || DEFAULT_CATEGORY_MAP.en
     const groups = new Map<
@@ -172,7 +171,7 @@ export class UniversityRepository {
       if (!current) {
         groups.set(category, {
           order,
-          programs: [{ order, name: programName }]
+          programs: [{ order, name: programName }],
         })
       } else {
         current.order = Math.min(current.order, order)
@@ -192,12 +191,12 @@ export class UniversityRepository {
             if (a.order !== b.order) return a.order - b.order
             return a.name.localeCompare(b.name)
           })
-          .map(p => p.name)
+          .map((p) => p.name)
 
         return { category, programs: programsSorted }
       })
 
-    const categoryNames = categories.map(c => c.category)
+    const categoryNames = categories.map((c) => c.category)
 
     return { categories, categoryNames }
   }
@@ -217,20 +216,14 @@ export class UniversityRepository {
       if (priceRange.max !== undefined) {
         programPriceFilter.lte = priceRange.max
         andConditions.push({
-          OR: [
-            { tuitionMin: { lte: priceRange.max } },
-            { tuitionMin: { equals: null } }
-          ]
+          OR: [{ tuitionMin: { lte: priceRange.max } }, { tuitionMin: { equals: null } }],
         })
       }
 
       if (priceRange.min !== undefined) {
         programPriceFilter.gte = priceRange.min
         andConditions.push({
-          OR: [
-            { tuitionMax: { gte: priceRange.min } },
-            { tuitionMax: { equals: null } }
-          ]
+          OR: [{ tuitionMax: { gte: priceRange.min } }, { tuitionMax: { equals: null } }],
         })
       }
 
@@ -242,6 +235,7 @@ export class UniversityRepository {
       if (query.length > 0) {
         andConditions.push({
           OR: [
+            // Match in any locale translation
             {
               translations: {
                 some: {
@@ -281,7 +275,7 @@ export class UniversityRepository {
     if (params.level && !TYPE_ALL_VALUES.has(params.level)) {
       const mappedLevel = LEVEL_LABEL_MAP[params.level] ?? (params.level as DegreeType)
       where.academicPrograms = {
-        some: { degreeType: mappedLevel }
+        some: { degreeType: mappedLevel },
       }
     }
 
@@ -290,10 +284,10 @@ export class UniversityRepository {
         academicPrograms: {
           some: {
             languageCode: {
-              in: params.langs
-            }
-          }
-        }
+              in: params.langs,
+            },
+          },
+        },
       })
     }
 
@@ -304,7 +298,9 @@ export class UniversityRepository {
     return where
   }
 
-  private buildUniversityOrder(sort?: UniversityQueryParams['sort']): Prisma.UniversityOrderByWithRelationInput {
+  private buildUniversityOrder(
+    sort?: UniversityQueryParams['sort'],
+  ): Prisma.UniversityOrderByWithRelationInput {
     switch (sort) {
       case 'price_asc':
         return { tuitionMin: 'asc' }
@@ -327,9 +323,9 @@ export class UniversityRepository {
     const languages = Array.from(
       new Set(
         university.academicPrograms
-          .map(program => program.languageCode)
-          .filter((code): code is string => Boolean(code))
-      )
+          .map((program) => program.languageCode)
+          .filter((code): code is string => Boolean(code)),
+      ),
     )
 
     return {
@@ -342,12 +338,13 @@ export class UniversityRepository {
       tuitionRange: {
         min: this.decimalToNumber(university.tuitionMin),
         max: this.decimalToNumber(university.tuitionMax),
-        currency: university.currency ?? 'USD'
+        currency: university.currency ?? 'USD',
       },
       totalStudents: university.totalStudents ?? 0,
       internationalStudents: university.internationalStudents ?? 0,
       ranking: {
-        text: typeof keyInfoTexts?.ranking_text === 'string' ? keyInfoTexts.ranking_text : undefined
+        text:
+          typeof keyInfoTexts?.ranking_text === 'string' ? keyInfoTexts.ranking_text : undefined,
       },
       hasAccommodation: university.hasAccommodation ?? false,
       languages,
@@ -363,12 +360,12 @@ export class UniversityRepository {
 
   private applyPostProcessSort(
     universities: University[],
-    sort?: UniversityQueryParams['sort']
+    sort?: UniversityQueryParams['sort'],
   ): University[] {
     if (sort === 'lang_en') {
       return [...universities].sort((a, b) => {
-        const aHasEn = a.languages.some(lang => lang.toLowerCase() === 'en')
-        const bHasEn = b.languages.some(lang => lang.toLowerCase() === 'en')
+        const aHasEn = a.languages.some((lang) => lang.toLowerCase() === 'en')
+        const bHasEn = b.languages.some((lang) => lang.toLowerCase() === 'en')
         if (aHasEn !== bHasEn) {
           return aHasEn ? -1 : 1
         }
@@ -383,7 +380,9 @@ export class UniversityRepository {
     return universities
   }
 
-  private extractStringRecord(value: Prisma.JsonValue | null | undefined): Record<string, string> | undefined {
+  private extractStringRecord(
+    value: Prisma.JsonValue | null | undefined,
+  ): Record<string, string> | undefined {
     const record = this.asRecord(value)
     if (!record) {
       return undefined
@@ -415,7 +414,7 @@ export class UniversityRepository {
           description: translation?.description ?? '',
           image: facility.image ?? undefined,
           type: 'support',
-          isActive: facility.isActive !== false
+          isActive: facility.isActive !== false,
         }
       })
   }
@@ -431,7 +430,7 @@ export class UniversityRepository {
         return {
           url: item.url,
           alt: translation?.alt ?? '',
-          title: translation?.title ?? ''
+          title: translation?.title ?? '',
         }
       })
   }
@@ -449,7 +448,7 @@ export class UniversityRepository {
         slug: translation?.slug ?? '',
         languages: [],
         duration_years: direction.durationYears ?? undefined,
-        cost_per_year: direction.costPerYear != null ? Number(direction.costPerYear) : undefined
+        cost_per_year: direction.costPerYear != null ? Number(direction.costPerYear) : undefined,
       }
     })
   }
@@ -465,7 +464,7 @@ export class UniversityRepository {
         category: translation?.category ?? '',
         requirement: translation?.requirement ?? '',
         is_mandatory: false,
-        details: translation?.details ?? undefined
+        details: translation?.details ?? undefined,
       }
     })
   }
@@ -482,7 +481,7 @@ export class UniversityRepository {
         name: translation?.name ?? '',
         description: translation?.description ?? '',
         is_mandatory: false,
-        format_requirements: formatRequirements
+        format_requirements: formatRequirements,
       }
     })
   }
@@ -497,7 +496,7 @@ export class UniversityRepository {
         id: date.id,
         event: translation?.event ?? '',
         date: date.date.toISOString().split('T')[0],
-        deadline_type: IMPORTANT_DATE_TYPE_MAP[date.type]
+        deadline_type: IMPORTANT_DATE_TYPE_MAP[date.type],
       }
     })
   }
@@ -517,7 +516,7 @@ export class UniversityRepository {
         eligibility_criteria: criteria,
         application_deadline: scholarship.applicationDeadline
           ? scholarship.applicationDeadline.toISOString().split('T')[0]
-          : undefined
+          : undefined,
       }
     })
   }
@@ -535,7 +534,7 @@ export class UniversityRepository {
         language: program.languageCode,
         duration_years: program.durationYears,
         tuition_per_year: this.decimalToNumber(program.tuitionPerYear),
-        description: translation?.description ?? ''
+        description: translation?.description ?? '',
       }
     })
   }
@@ -545,7 +544,7 @@ export class UniversityRepository {
    */
   async findAll(
     params: UniversityQueryParams,
-    locale: string = 'ru'
+    locale: string = 'ru',
   ): Promise<{ data: University[]; total: number; filters: UniversityFilters }> {
     const localeInfo = normalizeLocale(locale)
     const page = Math.max(1, params.page ?? 1)
@@ -559,13 +558,13 @@ export class UniversityRepository {
         include: {
           translations: true,
           academicPrograms: true,
-          city: { include: { translations: true } }
+          city: { include: { translations: true } },
         },
         orderBy,
         skip: (page - 1) * limit,
-        take: limit
+        take: limit,
       }),
-      this.prisma.university.count({ where })
+      this.prisma.university.count({ where }),
     ])
 
     const mapped = universities.map(university => this.mapUniversityListItem(university, localeInfo))
@@ -575,7 +574,7 @@ export class UniversityRepository {
     return {
       data: sorted,
       total,
-      filters
+      filters,
     }
   }
 
@@ -590,7 +589,11 @@ export class UniversityRepository {
     let normalizedMin = hasValidMin ? min : undefined
     let normalizedMax = hasValidMax ? max : undefined
 
-    if (normalizedMin !== undefined && normalizedMax !== undefined && normalizedMin > normalizedMax) {
+    if (
+      normalizedMin !== undefined &&
+      normalizedMax !== undefined &&
+      normalizedMin > normalizedMax
+    ) {
       const temp = normalizedMin
       normalizedMin = normalizedMax
       normalizedMax = temp
@@ -598,7 +601,7 @@ export class UniversityRepository {
 
     return {
       min: normalizedMin,
-      max: normalizedMax
+      max: normalizedMax,
     }
   }
 
@@ -636,7 +639,7 @@ export class UniversityRepository {
     ])
 
     const cityIds = cityGroups
-      .map(group => group.cityId)
+      .map((group) => group.cityId)
       .filter((value): value is number => value !== null && value !== undefined)
 
     const cityTranslations = cityIds.length
@@ -645,7 +648,7 @@ export class UniversityRepository {
             cityId: { in: cityIds },
             locale: { in: locale.fallbacks }
           },
-          select: { cityId: true, locale: true, name: true }
+          select: { cityId: true, locale: true, name: true },
         })
       : []
 
@@ -659,24 +662,24 @@ export class UniversityRepository {
 
     const availableCities = Array.from(new Set(cityNames)).sort((a, b) => a.localeCompare(b))
     const availableTypes = typeGroups
-      .map(group => group.type)
+      .map((group) => group.type)
       .filter((type): type is UniversityType => Boolean(type))
       .sort((a, b) => a.localeCompare(b))
     const availableLevels = levelGroups
-      .map(group => group.degreeType)
+      .map((group) => group.degreeType)
       .filter((level): level is DegreeType => Boolean(level))
       .sort((a, b) => a.localeCompare(b))
     const availableLanguages = languageGroups
-      .map(group => group.languageCode)
+      .map((group) => group.languageCode)
       .filter((code): code is string => Boolean(code))
       .sort((a, b) => a.localeCompare(b))
 
     const minCandidates = [tuitionAggregates._min.tuitionMin, tuitionAggregates._min.tuitionMax]
       .filter((value): value is Prisma.Decimal => value !== null)
-      .map(value => Number(value))
+      .map((value) => Number(value))
     const maxCandidates = [tuitionAggregates._max.tuitionMin, tuitionAggregates._max.tuitionMax]
       .filter((value): value is Prisma.Decimal => value !== null)
-      .map(value => Number(value))
+      .map((value) => Number(value))
 
     const minPrice = minCandidates.length > 0 ? Math.min(...minCandidates) : 0
     const maxPrice = maxCandidates.length > 0 ? Math.max(...maxCandidates) : 50000
@@ -686,7 +689,7 @@ export class UniversityRepository {
       types: availableTypes,
       levels: availableLevels,
       languages: availableLanguages,
-      priceRange: [minPrice, maxPrice]
+      priceRange: [minPrice, maxPrice],
     }
   }
 
@@ -703,9 +706,9 @@ export class UniversityRepository {
         featuredPrograms: {
           include: {
             translations: true,
-            program: { include: { translations: true } }
+            program: { include: { translations: true } },
           },
-          orderBy: { displayOrder: 'asc' }
+          orderBy: { displayOrder: 'asc' },
         },
         campusFacilities: { include: { translations: true } },
         admissionRequirements: { include: { translations: true } },
@@ -715,8 +718,8 @@ export class UniversityRepository {
         universityDirections: { include: { direction: { include: { translations: true } } } },
         media: { include: { translations: true } },
         country: { include: { translations: true } },
-        city: { include: { translations: true } }
-      }
+        city: { include: { translations: true } },
+      },
     })
 
     if (!university) {
@@ -735,7 +738,7 @@ export class UniversityRepository {
     const aboutRecord = (this.asRecord(translation?.about) ?? {}) as Record<string, unknown>
     const { categories: featuredProgramCategories, categoryNames } = this.buildFeaturedPrograms(
       university.featuredPrograms,
-      locale
+      locale,
     )
 
     const keyInfoTexts = this.extractStringRecord(translation?.keyInfoTexts)
@@ -750,7 +753,7 @@ export class UniversityRepository {
     const advantagesRaw = aboutRecord['advantages']
     const advantages = Array.isArray(advantagesRaw)
       ? advantagesRaw
-          .map(item => {
+          .map((item) => {
             if (typeof item === 'string') {
               return { title: item, description: '' }
             }
@@ -758,7 +761,7 @@ export class UniversityRepository {
               const record = item as Record<string, unknown>
               return {
                 title: typeof record.title === 'string' ? record.title : '',
-                description: typeof record.description === 'string' ? record.description : ''
+                description: typeof record.description === 'string' ? record.description : '',
               }
             }
             return null
@@ -766,7 +769,7 @@ export class UniversityRepository {
           .filter((item): item is { title: string; description: string } => item !== null)
       : [
           { title: 'Качественное образование', description: 'Высокие стандарты преподавания' },
-          { title: 'Международное признание', description: 'Дипломы признаются по всему миру' }
+          { title: 'Международное признание', description: 'Дипломы признаются по всему миру' },
         ]
 
     return {
@@ -785,25 +788,27 @@ export class UniversityRepository {
         internationalStudents: base.internationalStudents,
         hasAccommodation: base.hasAccommodation,
         ranking: base.ranking,
-        texts: keyInfoTexts
+        texts: keyInfoTexts,
       },
       about: {
-        history: typeof historyRaw === 'string' && historyRaw.length > 0 ? historyRaw : defaultHistory,
+        history:
+          typeof historyRaw === 'string' && historyRaw.length > 0 ? historyRaw : defaultHistory,
         mission:
           typeof missionRaw === 'string' && missionRaw.length > 0
             ? missionRaw
             : 'Миссия университета - предоставление качественного образования.',
         campus_features: Array.isArray(campusFeaturesRaw)
-          ? (campusFeaturesRaw as unknown[]).filter((item): item is string => typeof item === 'string')
+          ? (campusFeaturesRaw as unknown[]).filter(
+              (item): item is string => typeof item === 'string',
+            )
           : [],
         strong_programs: categoryNames,
-        advantages
+        advantages,
       },
       campus_life: {
         facilities: this.mapCampusFacilities(university.campusFacilities, locale),
-        dormitories: [],
         gallery: this.mapGallery(university.media, locale),
-        activities: ['Студенческие клубы', 'Культурные мероприятия', 'Спортивные соревнования']
+        activities: ['Студенческие клубы', 'Культурные мероприятия', 'Спортивные соревнования'],
       },
       strong_programs: featuredProgramCategories,
       directions: this.mapDirections(university.universityDirections, locale),
@@ -811,9 +816,9 @@ export class UniversityRepository {
         requirements: this.mapAdmissionRequirements(university.admissionRequirements, locale),
         documents: this.mapRequiredDocuments(university.requiredDocuments, locale),
         deadlines: this.mapImportantDates(university.importantDates, locale),
-        scholarships: this.mapScholarships(university.scholarships, locale)
+        scholarships: this.mapScholarships(university.scholarships, locale),
       },
-      programs: this.mapAcademicPrograms(university.academicPrograms, locale)
+      programs: this.mapAcademicPrograms(university.academicPrograms, locale),
     }
   }
 
@@ -823,7 +828,7 @@ export class UniversityRepository {
   async findBySlug(slug: string, locale: string = 'ru'): Promise<UniversityDetail | null> {
     // Ищем перевод по слагу и получаем universityId
     const translation = await this.prisma.universityTranslation.findFirst({
-      where: { slug }
+      where: { slug },
     })
     if (!translation) return null
     return this.findById(translation.universityId, locale)
@@ -834,7 +839,7 @@ export class UniversityRepository {
    */
   private generateBadge(
     university: Pick<UniversityDetailWithRelations, 'type' | 'scholarships'>,
-    locale: string
+    _locale: string,
   ): { label?: string; labelKey?: string; color: string } | undefined {
     // Prefer returning i18n keys; keep label for backward compatibility
     if (university.scholarships?.length > 0) {
@@ -855,7 +860,7 @@ export class UniversityRepository {
    */
   private generateBadgeLite(
     university: { type?: string },
-    locale: string
+    _locale: string,
   ): { label?: string; labelKey?: string; color: string } | undefined {
     // Numeric ranking removed
 
@@ -877,11 +882,11 @@ export class UniversityRepository {
           some: {
             direction: {
               translations: {
-                some: { slug: directionSlug }
-              }
-            }
-          }
-        }
+                some: { slug: directionSlug },
+              },
+            },
+          },
+        },
       },
       include: {
         translations: true,
@@ -890,11 +895,11 @@ export class UniversityRepository {
         universityDirections: {
           include: {
             direction: {
-              include: { translations: true }
-            }
-          }
-        }
-      }
+              include: { translations: true },
+            },
+          },
+        },
+      },
     })
 
     return universities.map(university => this.mapUniversityListItem(university, localeInfo))
@@ -905,7 +910,7 @@ export class UniversityRepository {
    */
   async getAllDirections(
     locale: string = 'ru',
-    options: { search?: string; page?: number; limit?: number } = {}
+    options: { search?: string; page?: number; limit?: number } = {},
   ) {
     const localeInfo = normalizeLocale(locale)
     const search = options.search?.toString().trim()
@@ -945,15 +950,15 @@ export class UniversityRepository {
               locale: true,
               name: true,
               description: true,
-              slug: true
-            }
+              slug: true,
+            },
           },
           _count: {
-            select: { universityDirections: true }
-          }
-        }
+            select: { universityDirections: true },
+          },
+        },
       }),
-      this.prisma.studyDirection.count({ where })
+      this.prisma.studyDirection.count({ where }),
     ])
 
     return {
@@ -964,10 +969,10 @@ export class UniversityRepository {
           name: translation?.name || '',
           description: translation?.description || '',
           slug: translation?.slug || '',
-          universities_count: direction._count.universityDirections
+          universities_count: direction._count.universityDirections,
         }
       }),
-      total
+      total,
     }
   }
 }

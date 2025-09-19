@@ -1,6 +1,6 @@
 import { defineStore } from 'pinia'
-import { ref, readonly, computed } from 'vue'
-import type { UniversityDetail, StudyDirection, StrongProgramCategory } from '../../server/types/api'
+import { ref, computed } from 'vue'
+import type { UniversityDetail, StudyDirection } from '../../server/types/api'
 import type { DegreeType } from '../types/domain'
 
 // Новые интерфейсы для фронтенда (совместимые со старыми компонентами)
@@ -103,19 +103,22 @@ export const useUniversityDetailStore = defineStore('universityDetail', () => {
   const _currentUniversity = ref<UniversityDetailFrontend | null>(null)
   const _loading = ref(false)
   const _error = ref<string | null>(null)
-  
+
   // Public readonly state
   const currentUniversity = computed(() => _currentUniversity.value)
   const loading = computed(() => _loading.value)
   const error = computed(() => _error.value)
 
   // Global i18n for formatting inside this store
-  const { locale, t, d, n } = useI18n()
+  const { locale, t } = useI18n()
 
   // Actions
 
-  const getProgramsByLevel = (programs: UniversityProgram[], level: DegreeType): UniversityProgram[] => {
-    return programs.filter(program => program.level === level)
+  const getProgramsByLevel = (
+    programs: UniversityProgram[],
+    level: DegreeType,
+  ): UniversityProgram[] => {
+    return programs.filter((program) => program.level === level)
   }
 
   const setCurrentUniversity = (university: UniversityDetailFrontend | null) => {
@@ -126,7 +129,6 @@ export const useUniversityDetailStore = defineStore('universityDetail', () => {
    * Преобразование API ответа в формат фронтенда
    */
   const transformApiToFrontend = (apiUniversity: UniversityDetail): UniversityDetailFrontend => {
-
     const formatAccommodation = (has: boolean): string => {
       return has
         ? t('universityDetail.accommodationValue.has')
@@ -136,7 +138,7 @@ export const useUniversityDetailStore = defineStore('universityDetail', () => {
     const formatRanking = (
       rank?: number | null,
       source?: string | null,
-      text?: string | null
+      text?: string | null,
     ): string => {
       // Приоритет переводимого текста из БД
       if (text && text.trim().length > 0) {
@@ -166,24 +168,32 @@ export const useUniversityDetailStore = defineStore('universityDetail', () => {
         priceFrom: apiUniversity.keyInfo?.tuitionRange?.min || apiUniversity.tuitionRange?.min || 0,
         languages: apiUniversity.keyInfo?.languages || apiUniversity.languages,
         studentsCount: apiUniversity.keyInfo?.totalStudents || apiUniversity.totalStudents || 0,
-        accommodation: formatAccommodation(Boolean(apiUniversity.keyInfo?.hasAccommodation || apiUniversity.hasAccommodation)),
+        accommodation: formatAccommodation(
+          Boolean(apiUniversity.keyInfo?.hasAccommodation || apiUniversity.hasAccommodation),
+        ),
         ranking: (() => {
           const textsRanking = (apiUniversity.keyInfo as any)?.texts?.ranking as string | undefined
           if (textsRanking && textsRanking.trim().length > 0) return textsRanking
           return formatRanking(
             (apiUniversity.keyInfo as any)?.ranking?.national,
             (apiUniversity.keyInfo as any)?.ranking?.source,
-            (apiUniversity.keyInfo as any)?.ranking?.text
+            (apiUniversity.keyInfo as any)?.ranking?.text,
           )
         })(),
         // Если пришли готовые локализованные тексты для ключевой информации — используем их в UI-слое
         // (Компоненты могут читать university.keyInfo.texts.languages и т.п.)
-        internationalStudents: formatInternational(Number(apiUniversity.keyInfo?.internationalStudents || apiUniversity.internationalStudents || 0))
+        internationalStudents: formatInternational(
+          Number(
+            apiUniversity.keyInfo?.internationalStudents ||
+              apiUniversity.internationalStudents ||
+              0,
+          ),
+        ),
       },
       about: {
         history: apiUniversity.about.history,
         campus: apiUniversity.about.mission, // используем mission как описание кампуса
-        advantages: extractAdvantagesFromApiData(apiUniversity)
+        advantages: extractAdvantagesFromApiData(apiUniversity),
       },
       strongPrograms: apiUniversity.strong_programs || [],
       academicPrograms: transformAcademicPrograms(apiUniversity.programs),
@@ -192,36 +202,43 @@ export const useUniversityDetailStore = defineStore('universityDetail', () => {
       directions: apiUniversity.directions || [],
       campus_life: {
         gallery: apiUniversity.campus_life?.gallery || [],
-        facilities: apiUniversity.campus_life?.facilities || []
+        facilities: apiUniversity.campus_life?.facilities || [],
       },
       admission: apiUniversity.admission || {
         requirements: [],
         documents: [],
         deadlines: [],
-        scholarships: []
-      }
+        scholarships: [],
+      },
     }
   }
 
   /**
    * Извлечение преимуществ из API данных
    */
-  const extractAdvantagesFromApiData = (apiUniversity: UniversityDetail): Array<{ title: string; description: string }> => {
+  const extractAdvantagesFromApiData = (
+    apiUniversity: UniversityDetail,
+  ): Array<{ title: string; description: string }> => {
     const advantages = apiUniversity.about.advantages || []
-    
+
     // Если это уже массив объектов
-    if (advantages.length > 0 && typeof advantages[0] === 'object' && advantages[0] !== null && 'title' in advantages[0]) {
+    if (
+      advantages.length > 0 &&
+      typeof advantages[0] === 'object' &&
+      advantages[0] !== null &&
+      'title' in advantages[0]
+    ) {
       return advantages as unknown as Array<{ title: string; description: string }>
     }
-    
+
     // Если это массив строк, преобразуем в объекты
     if (Array.isArray(advantages) && advantages.length > 0 && typeof advantages[0] === 'string') {
       return (advantages as unknown as string[]).map((advantage: string) => ({
         title: advantage,
-        description: `Университет предлагает ${advantage.toLowerCase()}`
+        description: `Университет предлагает ${advantage.toLowerCase()}`,
       }))
     }
-    
+
     // Fallback - пустой массив
     return []
   }
@@ -230,12 +247,14 @@ export const useUniversityDetailStore = defineStore('universityDetail', () => {
    * Преобразование академических программ
    */
   const transformAcademicPrograms = (apiPrograms: any[]): UniversityProgram[] => {
-    return apiPrograms.map(program => ({
+    return apiPrograms.map((program) => ({
       name: program.name,
       language: program.language as 'EN' | 'TR' | 'EN/TR',
-      duration: t('universityDetail.programDuration.durationYears', { count: program.duration_years }),
+      duration: t('universityDetail.programDuration.durationYears', {
+        count: program.duration_years,
+      }),
       price: program.tuition_per_year,
-      level: program.degree_type as DegreeType
+      level: program.degree_type as DegreeType,
     }))
   }
 
@@ -247,22 +266,14 @@ export const useUniversityDetailStore = defineStore('universityDetail', () => {
       ru: apiUniversity.slug,
       en: apiUniversity.slug,
       kk: apiUniversity.slug,
-      tr: apiUniversity.slug
+      tr: apiUniversity.slug,
     }
   }
 
   /**
    * Получение типа университета на русском
    */
-  const getUniversityTypeInRussian = (type: string): string => {
-    const typeMap: Record<string, string> = {
-      'state': 'Государственный университет',
-      'private': 'Частный университет',
-      'tech': 'Технический университет',
-      'elite': 'Элитный университет'
-    }
-    return typeMap[type] || type
-  }
+  // Removed unused getUniversityTypeInRussian
 
   /**
    * Загрузка университета по слагу (новый метод с API)
@@ -270,18 +281,18 @@ export const useUniversityDetailStore = defineStore('universityDetail', () => {
   const loadUniversityBySlug = async (slug: string) => {
     _loading.value = true
     _error.value = null
-    
+
     try {
       // Получаем текущую локаль
       // use global locale from store
-      
+
       // Делаем запрос к API
       const response = await $fetch<UniversityDetail>(`/api/v1/universities/${slug}`, {
         headers: {
-          'Accept-Language': locale.value
-        }
+          'Accept-Language': locale.value,
+        },
       })
-      
+
       if (response) {
         const frontendUniversity = transformApiToFrontend(response)
         _currentUniversity.value = frontendUniversity
@@ -304,16 +315,16 @@ export const useUniversityDetailStore = defineStore('universityDetail', () => {
   const loadUniversityById = async (id: string | number) => {
     _loading.value = true
     _error.value = null
-    
+
     try {
       // use global locale from store
-      
+
       const response = await $fetch<UniversityDetail>(`/api/v1/universities/${id}`, {
         headers: {
-          'Accept-Language': locale.value
-        }
+          'Accept-Language': locale.value,
+        },
       })
-      
+
       if (response) {
         const frontendUniversity = transformApiToFrontend(response)
         _currentUniversity.value = frontendUniversity
@@ -351,7 +362,7 @@ export const useUniversityDetailStore = defineStore('universityDetail', () => {
     currentUniversity,
     loading,
     error,
-    
+
     // Actions
     getProgramsByLevel,
     setCurrentUniversity,
@@ -359,8 +370,8 @@ export const useUniversityDetailStore = defineStore('universityDetail', () => {
     loadUniversityById,
     isUniversityLoaded,
     clearCurrentUniversity,
-    
+
     // Utility functions
-    transformApiToFrontend
+    transformApiToFrontend,
   }
 })

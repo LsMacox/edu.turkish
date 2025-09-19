@@ -5,7 +5,7 @@ import type {
   BlogArticlesResponse,
   BlogCategory,
   BlogPopularArticle,
-  PaginationMeta
+  PaginationMeta,
 } from '../../server/types/api'
 
 interface FetchOptions {
@@ -64,7 +64,7 @@ export const useBlogStore = defineStore('blog', () => {
       limit: pageSize.value,
       category: categoryFilter !== 'all' ? categoryFilter : undefined,
       q: search ? search : undefined,
-      lang: locale.value
+      lang: locale.value,
     }
   }
 
@@ -79,11 +79,11 @@ export const useBlogStore = defineStore('blog', () => {
       const query = buildQuery({
         page: targetPage,
         category: options?.category,
-        search: options?.search
+        search: options?.search,
       })
 
       const response = await $fetch<BlogArticlesResponse>('/api/v1/blog/articles', {
-        query
+        query,
       })
 
       pagination.value = response.meta ?? null
@@ -147,7 +147,7 @@ export const useBlogStore = defineStore('blog', () => {
     return fetchArticles({
       page: currentPage.value,
       category: activeCategory.value,
-      search: searchQuery.value
+      search: searchQuery.value,
     })
   }
 
@@ -171,7 +171,6 @@ export const useBlogStore = defineStore('blog', () => {
     fetchArticles,
     refresh,
     loadMore,
-    init
+    init,
   }
 })
-

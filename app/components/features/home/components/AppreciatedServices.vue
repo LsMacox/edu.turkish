@@ -2,18 +2,22 @@
   <section id="appreciated-services" class="py-16">
     <div class="container mx-auto px-4 lg:px-6">
       <div class="text-center mb-12">
-        <h2 class="text-3xl lg:text-4xl font-bold text-secondary mb-4">За что нас больше всего ценят</h2>
-        <p class="text-lg text-gray-600 max-w-2xl mx-auto">Наиболее часто упоминаемые достоинства в отзывах студентов</p>
+        <h2 class="text-3xl lg:text-4xl font-bold text-secondary mb-4">
+          За что нас больше всего ценят
+        </h2>
+        <p class="text-lg text-gray-600 max-w-2xl mx-auto">
+          Наиболее часто упоминаемые достоинства в отзывах студентов
+        </p>
       </div>
-      
+
       <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-        <div 
-          v-for="service in services" 
+        <div
+          v-for="service in services"
           :key="service.id"
           class="bg-white rounded-2xl shadow-custom p-6 hover-lift"
         >
           <div class="flex items-center mb-4">
-            <div 
+            <div
               class="w-12 h-12 rounded-xl flex items-center justify-center mr-4"
               :class="service.iconBg"
             >
@@ -25,7 +29,7 @@
             </div>
           </div>
           <div class="w-full bg-gray-200 rounded-full h-3">
-            <div 
+            <div
               class="h-3 rounded-full transition-all duration-1000 ease-out"
               :class="service.barColor"
               :style="{ width: `${service.percentage}%` }"
@@ -56,7 +60,7 @@ const services: Service[] = [
     icon: 'mdi:comment-text-outline',
     iconBg: 'bg-blue-100',
     iconColor: 'text-blue-600',
-    barColor: 'bg-blue-500'
+    barColor: 'bg-blue-500',
   },
   {
     id: 2,
@@ -65,7 +69,7 @@ const services: Service[] = [
     icon: 'mdi:clock-fast',
     iconBg: 'bg-green-100',
     iconColor: 'text-green-600',
-    barColor: 'bg-green-500'
+    barColor: 'bg-green-500',
   },
   {
     id: 3,
@@ -74,7 +78,7 @@ const services: Service[] = [
     icon: 'mdi:account-tie',
     iconBg: 'bg-purple-100',
     iconColor: 'text-purple-600',
-    barColor: 'bg-purple-500'
+    barColor: 'bg-purple-500',
   },
   {
     id: 4,
@@ -83,7 +87,7 @@ const services: Service[] = [
     icon: 'mdi:shield-check',
     iconBg: 'bg-orange-100',
     iconColor: 'text-orange-600',
-    barColor: 'bg-orange-500'
+    barColor: 'bg-orange-500',
   },
   {
     id: 5,
@@ -92,7 +96,7 @@ const services: Service[] = [
     icon: 'mdi:school',
     iconBg: 'bg-yellow-100',
     iconColor: 'text-yellow-600',
-    barColor: 'bg-yellow-500'
+    barColor: 'bg-yellow-500',
   },
   {
     id: 6,
@@ -101,8 +105,8 @@ const services: Service[] = [
     icon: 'mdi:heart',
     iconBg: 'bg-pink-100',
     iconColor: 'text-pink-600',
-    barColor: 'bg-pink-500'
-  }
+    barColor: 'bg-pink-500',
+  },
 ]
 </script>
 
@@ -112,7 +116,9 @@ const services: Service[] = [
 }
 
 .hover-lift {
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  transition:
+    transform 0.3s ease,
+    box-shadow 0.3s ease;
 }
 
 .hover-lift:hover {

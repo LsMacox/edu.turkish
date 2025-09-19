@@ -2,7 +2,9 @@
   <section id="reviews" class="py-16 bg-background">
     <div class="container mx-auto px-4 lg:px-6">
       <div class="text-center mb-12">
-        <h2 class="text-3xl lg:text-4xl font-bold text-secondary mb-4">{{ t('home.reviews.title') }}</h2>
+        <h2 class="text-3xl lg:text-4xl font-bold text-secondary mb-4">
+          {{ t('home.reviews.title') }}
+        </h2>
         <p class="text-lg text-gray-600 max-w-2xl mx-auto">{{ t('home.reviews.subtitle') }}</p>
       </div>
 
@@ -72,11 +74,11 @@ const {
   data: reviews,
   pending,
   error: reviewsError,
-  refresh
+  refresh,
 } = await useFetch<FeaturedReviewItem[]>('/api/v1/reviews', {
   query: computed(() => ({ featured: true, limit: 3, lang: locale.value })),
   headers: computed(() => ({ 'Accept-Language': locale.value })),
-  transform: (res: ReviewListResponse<FeaturedReviewItem>) => res?.data ?? []
+  transform: (res: ReviewListResponse<FeaturedReviewItem>) => res?.data ?? [],
 })
 
 const featuredReviews = computed(() => reviews.value ?? [])
@@ -85,7 +87,7 @@ watch(
   () => locale.value,
   () => {
     refresh()
-  }
+  },
 )
 
 if (reviewsError.value) {

@@ -19,7 +19,9 @@ export async function checkDatabaseConnection(): Promise<boolean> {
 /**
  * Database transaction helper
  */
-export async function withTransaction<T>(fn: (tx: Prisma.TransactionClient) => Promise<T>): Promise<T> {
+export async function withTransaction<T>(
+  fn: (tx: Prisma.TransactionClient) => Promise<T>,
+): Promise<T> {
   // Use interactive transaction to get a fully-typed tx client
   return await prisma.$transaction(async (tx) => {
     return await fn(tx)

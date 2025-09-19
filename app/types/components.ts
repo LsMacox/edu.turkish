@@ -3,6 +3,8 @@
 /**
  * Generic component slots interface
  */
+import type { UniversityType } from './domain'
+
 export interface ComponentSlots {
   default?: any
   header?: any
@@ -75,8 +77,6 @@ export interface BadgeData {
   labelKey?: string
   color: string
 }
-
-import type { UniversityType } from './domain'
 
 /**
  * Enhanced text field props interface

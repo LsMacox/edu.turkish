@@ -6,23 +6,24 @@ export default defineNuxtPlugin(() => {
 
   // Не загружаем в development без явного указания ID
   if (import.meta.dev && !metrikaId) {
-    console.info('Yandex Metrika отключена в режиме разработки. Для включения добавьте NUXT_PUBLIC_YANDEX_METRIKA_ID в .env')
+    // Metrika disabled in development without ID
     return
   }
 
   // Не загружаем если нет ID
   if (!metrikaId) {
-    console.warn('Yandex Metrika ID не установлен. Добавьте NUXT_PUBLIC_YANDEX_METRIKA_ID в переменные окружения')
     return
   }
 
   // Инициализация Яндекс.Метрики
   const initYandexMetrika = () => {
     // Создаем функцию ym если её нет
-    ;(window as any).ym = (window as any).ym || function(...args: unknown[]) {
-      ;((window as any).ym.a = (window as any).ym.a || []).push(args)
-    }
-    ;(window as any).ym.l = 1 * (+new Date())
+    ;(window as any).ym =
+      (window as any).ym ||
+      function (...args: unknown[]) {
+        ;((window as any).ym.a = (window as any).ym.a || []).push(args)
+      }
+    ;(window as any).ym.l = 1 * +new Date()
 
     // Проверяем, не загружен ли уже скрипт
     const existingScript = document.querySelector(`script[src*="mc.yandex.ru/metrika/tag.js"]`)
@@ -31,10 +32,10 @@ export default defineNuxtPlugin(() => {
     // Создаем и загружаем скрипт
     const script = document.createElement('script')
     const firstScript = document.getElementsByTagName('script')[0]
-    
+
     script.async = true
     script.src = `https://mc.yandex.ru/metrika/tag.js?id=${metrikaId}`
-    
+
     if (firstScript && firstScript.parentNode) {
       firstScript.parentNode.insertBefore(script, firstScript)
     }
@@ -46,7 +47,7 @@ export default defineNuxtPlugin(() => {
       clickmap: true,
       ecommerce: 'dataLayer',
       accurateTrackBounce: true,
-      trackLinks: true
+      trackLinks: true,
     })
   }
 

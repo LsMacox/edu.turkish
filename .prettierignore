@@ -1,0 +1,9 @@
+.nuxt
+node_modules
+.output
+dist
+coverage
+public
+uploads
+generated
+

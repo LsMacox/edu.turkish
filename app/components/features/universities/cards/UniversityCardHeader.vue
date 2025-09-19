@@ -22,13 +22,13 @@
     <h3 class="text-base md:text-lg font-semibold text-secondary line-clamp-2">
       {{ title }}
     </h3>
-    
+
     <div class="flex items-center gap-2 ml-2 flex-shrink-0">
       <UiDisplayBaseBadge v-if="featured" color="warning" size="sm">
         <Icon name="mdi:star" class="w-3 h-3 mr-1" />
         Featured
       </UiDisplayBaseBadge>
-      
+
       <UiDisplayBaseBadge v-if="typeLabel" :color="getBadgeColor(type)" size="sm">
         {{ typeLabel }}
       </UiDisplayBaseBadge>
@@ -44,19 +44,24 @@ interface Props {
   featured?: boolean
 }
 
-const props = withDefaults(defineProps<Props>(), {
+withDefaults(defineProps<Props>(), {
   featured: false,
   type: '',
-  typeLabel: ''
+  typeLabel: '',
 })
 
 const getBadgeColor = (type?: string): string => {
   switch (type) {
-    case 'state': return 'info'
-    case 'private': return 'warning'
-    case 'tech': return 'primary'
-    case 'elite': return 'success'
-    default: return 'neutral'
+    case 'state':
+      return 'info'
+    case 'private':
+      return 'warning'
+    case 'tech':
+      return 'primary'
+    case 'elite':
+      return 'success'
+    default:
+      return 'neutral'
   }
 }
 </script>

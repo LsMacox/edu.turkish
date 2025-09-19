@@ -34,11 +34,7 @@
   "strong_programs": [
     {
       "category": "Медицина и стоматология",
-      "programs": [
-        "Медицина",
-        "Стоматология",
-        "Фармация"
-      ]
+      "programs": ["Медицина", "Стоматология", "Фармация"]
     },
     {
       "category": "Здравоохранение",
@@ -167,9 +163,7 @@
       {
         "name": "Сертификат владения английским языком",
         "description": "TOEFL iBT ≥ 84 (для англоязычных программ)",
-        "format_requirements": [
-          "PDF"
-        ]
+        "format_requirements": ["PDF"]
       }
     ],
     "scholarships": [

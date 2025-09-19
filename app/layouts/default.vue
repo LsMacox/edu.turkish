@@ -5,7 +5,7 @@
       <slot />
     </main>
     <SiteFooter />
-    
+
     <!-- Application Modal -->
     <ApplicationModal
       :is-open="modal.isOpen"
@@ -13,7 +13,7 @@
       @close="modal.closeModal"
       @submit="modal.submitApplication"
     />
-    
+
     <!-- Global Toasts -->
     <UiFeedbackUiToast />
   </div>
@@ -33,22 +33,20 @@ useHead(() => {
 
   return {
     htmlAttrs: { lang: locale.value },
-    link: [
-      { rel: 'canonical', href: config.public.siteUrl + route.path }
-    ],
+    link: [{ rel: 'canonical', href: config.public.siteUrl + route.path }],
     ...(metrikaId
       ? {
           noscript: [
             {
               key: 'yandex-metrika-noscript',
-              innerHTML: `<div><img src="https://mc.yandex.ru/watch/${metrikaId}" style="position:absolute; left:-9999px;" alt="" /></div>`
-            }
+              innerHTML: `<div><img src="https://mc.yandex.ru/watch/${metrikaId}" style="position:absolute; left:-9999px;" alt="" /></div>`,
+            },
           ],
           __dangerouslyDisableSanitizersByTagID: {
-            'yandex-metrika-noscript': ['innerHTML']
-          }
+            'yandex-metrika-noscript': ['innerHTML'],
+          },
         }
-      : {})
+      : {}),
   }
 })
 </script>

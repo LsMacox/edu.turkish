@@ -21,11 +21,11 @@ globalThis.getQuery = getQueryMock as any
 globalThis.createError = (input: unknown) => input
 
 vi.mock('../../../../lib/prisma', () => ({
-  prisma: {}
+  prisma: {},
 }))
 
 vi.mock('../../../../server/repositories', () => ({
-  UniversityRepository: UniversityRepositoryMock
+  UniversityRepository: UniversityRepositoryMock,
 }))
 
 describe('GET /api/v1/directions', () => {
@@ -34,10 +34,22 @@ describe('GET /api/v1/directions', () => {
 
     const repoResponse = {
       data: [
-        { id: 1, name: 'Direction 1', description: 'Desc 1', slug: 'direction-1', universities_count: 3 },
-        { id: 2, name: 'Direction 2', description: 'Desc 2', slug: 'direction-2', universities_count: 5 }
+        {
+          id: 1,
+          name: 'Direction 1',
+          description: 'Desc 1',
+          slug: 'direction-1',
+          universities_count: 3,
+        },
+        {
+          id: 2,
+          name: 'Direction 2',
+          description: 'Desc 2',
+          slug: 'direction-2',
+          universities_count: 5,
+        },
       ],
-      total: 42
+      total: 42,
     }
 
     repoInstance.getAllDirections.mockResolvedValue(repoResponse)
@@ -52,7 +64,7 @@ describe('GET /api/v1/directions', () => {
     expect(repoInstance.getAllDirections).toHaveBeenCalledWith('en', {
       search: 'search term',
       page: 2,
-      limit: 5
+      limit: 5,
     })
 
     expect(result).toEqual({
@@ -61,8 +73,8 @@ describe('GET /api/v1/directions', () => {
         total: 42,
         page: 2,
         limit: 5,
-        totalPages: 9
-      }
+        totalPages: 9,
+      },
     })
   })
 
@@ -71,7 +83,7 @@ describe('GET /api/v1/directions', () => {
 
     const repoResponse = {
       data: [],
-      total: 0
+      total: 0,
     }
 
     repoInstance.getAllDirections.mockResolvedValue(repoResponse)
@@ -85,14 +97,14 @@ describe('GET /api/v1/directions', () => {
     expect(repoInstance.getAllDirections).toHaveBeenCalledWith('tr', {
       search: undefined,
       page: 1,
-      limit: 100
+      limit: 100,
     })
 
     expect(result.meta).toEqual({
       total: 0,
       page: 1,
       limit: 100,
-      totalPages: 1
+      totalPages: 1,
     })
   })
 })

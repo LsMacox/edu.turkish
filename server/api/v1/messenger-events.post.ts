@@ -18,7 +18,9 @@ type UtmCandidate = {
   utm_term?: unknown
 }
 
-const sanitizeUtmPayload = (utm: MessengerEventRequestBody['utm']): MessengerEventUtm | undefined => {
+const sanitizeUtmPayload = (
+  utm: MessengerEventRequestBody['utm'],
+): MessengerEventUtm | undefined => {
   if (!utm || typeof utm !== 'object') {
     return undefined
   }
@@ -61,12 +63,16 @@ const sanitizeUtmPayload = (utm: MessengerEventRequestBody['utm']): MessengerEve
     }
   }
 
-  return sanitized.utm_source || sanitized.utm_medium || sanitized.utm_campaign || sanitized.utm_content || sanitized.utm_term
+  return sanitized.utm_source ||
+    sanitized.utm_medium ||
+    sanitized.utm_campaign ||
+    sanitized.utm_content ||
+    sanitized.utm_term
     ? sanitized
     : undefined
 }
 
-export default defineEventHandler(async event => {
+export default defineEventHandler(async (event) => {
   const body = await readBody<MessengerEventRequestBody>(event)
   const channel = body.channel?.trim()
   const referralCode = body.referral_code?.trim()
@@ -74,14 +80,14 @@ export default defineEventHandler(async event => {
   if (!channel) {
     throw createError({
       statusCode: 400,
-      statusMessage: 'Channel is required'
+      statusMessage: 'Channel is required',
     })
   }
 
   if (!referralCode) {
     throw createError({
       statusCode: 400,
-      statusMessage: 'Referral code is required'
+      statusMessage: 'Referral code is required',
     })
   }
 
@@ -89,12 +95,13 @@ export default defineEventHandler(async event => {
     console.warn('[Bitrix] Configuration is missing. Unable to log messenger event.')
     throw createError({
       statusCode: 503,
-      statusMessage: 'Bitrix integration is not configured'
+      statusMessage: 'Bitrix integration is not configured',
     })
   }
 
   const bitrixService = new BitrixService(getBitrixConfig())
-  const session = typeof body.session === 'string' && body.session.length > 0 ? body.session : undefined
+  const session =
+    typeof body.session === 'string' && body.session.length > 0 ? body.session : undefined
   const utm = sanitizeUtmPayload(body.utm)
   const metadata = typeof body.metadata === 'object' && body.metadata ? body.metadata : undefined
 
@@ -103,18 +110,18 @@ export default defineEventHandler(async event => {
     referralCode,
     session,
     utm,
-    metadata
+    metadata,
   })
 
   if (!result.success) {
     throw createError({
       statusCode: 502,
-      statusMessage: result.error || 'Failed to log messenger event'
+      statusMessage: result.error || 'Failed to log messenger event',
     })
   }
 
   return {
     success: true,
-    activityId: result.activityId ?? null
+    activityId: result.activityId ?? null,
   }
 })

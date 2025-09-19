@@ -4,7 +4,7 @@ export const useYandexMetrika = () => {
 
   const trackGoal = (goalName: string, params?: Record<string, any>) => {
     if (!metrikaId || !process.client || !(window as any).ym) return
-    
+
     try {
       ;(window as any).ym(metrikaId, 'reachGoal', goalName, params)
     } catch (error) {
@@ -14,7 +14,7 @@ export const useYandexMetrika = () => {
 
   const trackPageView = (url?: string) => {
     if (!metrikaId || !process.client || !(window as any).ym) return
-    
+
     try {
       ;(window as any).ym(metrikaId, 'hit', url || window.location.href)
     } catch (error) {
@@ -24,7 +24,7 @@ export const useYandexMetrika = () => {
 
   const trackEvent = (action: string, params?: Record<string, any>) => {
     if (!metrikaId || !process.client || !(window as any).ym) return
-    
+
     try {
       ;(window as any).ym(metrikaId, 'params', { action, ...params })
     } catch (error) {
@@ -36,7 +36,7 @@ export const useYandexMetrika = () => {
     trackGoal,
     trackPageView,
     trackEvent,
-    isEnabled: !!metrikaId
+    isEnabled: !!metrikaId,
   }
 }
 

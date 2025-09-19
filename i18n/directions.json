@@ -1,59 +1,224 @@
 {
-  "it": { "ru": "Информационные технологии", "en": "Information Technology", "tr": "Bilgi Teknolojileri", "kk": "Ақпараттық технологиялар" },
-  "computer-science": { "ru": "Компьютерные науки", "en": "Computer Science", "tr": "Bilgisayar Bilimi", "kk": "Компьютерлік ғылымдар" },
-  "software-engineering": { "ru": "Программная инженерия", "en": "Software Engineering", "tr": "Yazılım Mühendisliği", "kk": "Бағдарламалық инженерия" },
-  "data-science": { "ru": "Наука о данных", "en": "Data Science", "tr": "Veri Bilimi", "kk": "Деректер ғылымы" },
-  "artificial-intelligence": { "ru": "Искусственный интеллект", "en": "Artificial Intelligence", "tr": "Yapay Zeka", "kk": "Жасанды интеллект" },
-  "cybersecurity": { "ru": "Кибербезопасность", "en": "Cybersecurity", "tr": "Siber Güvenlik", "kk": "Киберқауіпсіздік" },
-  "information-systems": { "ru": "Информационные системы", "en": "Information Systems", "tr": "Bilgi Sistemleri", "kk": "Ақпараттық жүйелер" },
-  "computer-engineering": { "ru": "Компьютерная инженерия", "en": "Computer Engineering", "tr": "Bilgisayar Mühendisliği", "kk": "Компьютер инженериясы" },
+  "it": {
+    "ru": "Информационные технологии",
+    "en": "Information Technology",
+    "tr": "Bilgi Teknolojileri",
+    "kk": "Ақпараттық технологиялар"
+  },
+  "computer-science": {
+    "ru": "Компьютерные науки",
+    "en": "Computer Science",
+    "tr": "Bilgisayar Bilimi",
+    "kk": "Компьютерлік ғылымдар"
+  },
+  "software-engineering": {
+    "ru": "Программная инженерия",
+    "en": "Software Engineering",
+    "tr": "Yazılım Mühendisliği",
+    "kk": "Бағдарламалық инженерия"
+  },
+  "data-science": {
+    "ru": "Наука о данных",
+    "en": "Data Science",
+    "tr": "Veri Bilimi",
+    "kk": "Деректер ғылымы"
+  },
+  "artificial-intelligence": {
+    "ru": "Искусственный интеллект",
+    "en": "Artificial Intelligence",
+    "tr": "Yapay Zeka",
+    "kk": "Жасанды интеллект"
+  },
+  "cybersecurity": {
+    "ru": "Кибербезопасность",
+    "en": "Cybersecurity",
+    "tr": "Siber Güvenlik",
+    "kk": "Киберқауіпсіздік"
+  },
+  "information-systems": {
+    "ru": "Информационные системы",
+    "en": "Information Systems",
+    "tr": "Bilgi Sistemleri",
+    "kk": "Ақпараттық жүйелер"
+  },
+  "computer-engineering": {
+    "ru": "Компьютерная инженерия",
+    "en": "Computer Engineering",
+    "tr": "Bilgisayar Mühendisliği",
+    "kk": "Компьютер инженериясы"
+  },
   "mathematics": { "ru": "Математика", "en": "Mathematics", "tr": "Matematik", "kk": "Математика" },
   "statistics": { "ru": "Статистика", "en": "Statistics", "tr": "İstatistik", "kk": "Статистика" },
   "physics": { "ru": "Физика", "en": "Physics", "tr": "Fizik", "kk": "Физика" },
   "chemistry": { "ru": "Химия", "en": "Chemistry", "tr": "Kimya", "kk": "Химия" },
   "biology": { "ru": "Биология", "en": "Biology", "tr": "Biyoloji", "kk": "Биология" },
-  "biotechnology": { "ru": "Биотехнологии", "en": "Biotechnology", "tr": "Biyoteknoloji", "kk": "Биотехнология" },
+  "biotechnology": {
+    "ru": "Биотехнологии",
+    "en": "Biotechnology",
+    "tr": "Biyoteknoloji",
+    "kk": "Биотехнология"
+  },
   "medicine": { "ru": "Медицина", "en": "Medicine", "tr": "Tıp", "kk": "Медицина" },
-  "dentistry": { "ru": "Стоматология", "en": "Dentistry", "tr": "Diş Hekimliği", "kk": "Стоматология" },
+  "dentistry": {
+    "ru": "Стоматология",
+    "en": "Dentistry",
+    "tr": "Diş Hekimliği",
+    "kk": "Стоматология"
+  },
   "pharmacy": { "ru": "Фармация", "en": "Pharmacy", "tr": "Eczacılık", "kk": "Фармация" },
-  "nursing": { "ru": "Сестринское дело", "en": "Nursing", "tr": "Hemşirelik", "kk": "Мейірбике ісі" },
-  "public-health": { "ru": "Общественное здравоохранение", "en": "Public Health", "tr": "Halk Sağlığı", "kk": "Қоғамдық денсаулық" },
-  "veterinary": { "ru": "Ветеринария", "en": "Veterinary", "tr": "Veterinerlik", "kk": "Ветеринария" },
+  "nursing": {
+    "ru": "Сестринское дело",
+    "en": "Nursing",
+    "tr": "Hemşirelik",
+    "kk": "Мейірбике ісі"
+  },
+  "public-health": {
+    "ru": "Общественное здравоохранение",
+    "en": "Public Health",
+    "tr": "Halk Sağlığı",
+    "kk": "Қоғамдық денсаулық"
+  },
+  "veterinary": {
+    "ru": "Ветеринария",
+    "en": "Veterinary",
+    "tr": "Veterinerlik",
+    "kk": "Ветеринария"
+  },
   "psychology": { "ru": "Психология", "en": "Psychology", "tr": "Psikoloji", "kk": "Психология" },
   "sociology": { "ru": "Социология", "en": "Sociology", "tr": "Sosyoloji", "kk": "Социология" },
   "philosophy": { "ru": "Философия", "en": "Philosophy", "tr": "Felsefe", "kk": "Философия" },
   "history": { "ru": "История", "en": "History", "tr": "Tarih", "kk": "Тарих" },
   "law": { "ru": "Право", "en": "Law", "tr": "Hukuk", "kk": "Құқық" },
-  "political-science": { "ru": "Политология", "en": "Political Science", "tr": "Siyaset Bilimi", "kk": "Саясаттану" },
-  "international-relations": { "ru": "Международные отношения", "en": "International Relations", "tr": "Uluslararası İlişkiler", "kk": "Халықаралық қатынастар" },
+  "political-science": {
+    "ru": "Политология",
+    "en": "Political Science",
+    "tr": "Siyaset Bilimi",
+    "kk": "Саясаттану"
+  },
+  "international-relations": {
+    "ru": "Международные отношения",
+    "en": "International Relations",
+    "tr": "Uluslararası İlişkiler",
+    "kk": "Халықаралық қатынастар"
+  },
   "economics": { "ru": "Экономика", "en": "Economics", "tr": "Ekonomi", "kk": "Экономика" },
   "management": { "ru": "Менеджмент", "en": "Management", "tr": "Yönetim", "kk": "Менеджмент" },
   "business": { "ru": "Бизнес", "en": "Business", "tr": "İşletme", "kk": "Бизнес" },
   "finance": { "ru": "Финансы", "en": "Finance", "tr": "Finans", "kk": "Қаржы" },
-  "accounting": { "ru": "Бухгалтерский учет", "en": "Accounting", "tr": "Muhasebe", "kk": "Бухгалтерлік есеп" },
+  "accounting": {
+    "ru": "Бухгалтерский учет",
+    "en": "Accounting",
+    "tr": "Muhasebe",
+    "kk": "Бухгалтерлік есеп"
+  },
   "marketing": { "ru": "Маркетинг", "en": "Marketing", "tr": "Pazarlama", "kk": "Маркетинг" },
-  "entrepreneurship": { "ru": "Предпринимательство", "en": "Entrepreneurship", "tr": "Girişimcilik", "kk": "Кәсіпкерлік" },
-  "tourism-hospitality": { "ru": "Туризм и гостиничное дело", "en": "Tourism and Hospitality", "tr": "Turizm ve Otelcilik", "kk": "Туризм және қонақжайлылық" },
-  "communication": { "ru": "Коммуникации", "en": "Communication", "tr": "İletişim", "kk": "Коммуникациялар" },
-  "journalism-media": { "ru": "Журналистика и медиа", "en": "Journalism and Media", "tr": "Gazetecilik ve Medya", "kk": "Журналистика және медиа" },
+  "entrepreneurship": {
+    "ru": "Предпринимательство",
+    "en": "Entrepreneurship",
+    "tr": "Girişimcilik",
+    "kk": "Кәсіпкерлік"
+  },
+  "tourism-hospitality": {
+    "ru": "Туризм и гостиничное дело",
+    "en": "Tourism and Hospitality",
+    "tr": "Turizm ve Otelcilik",
+    "kk": "Туризм және қонақжайлылық"
+  },
+  "communication": {
+    "ru": "Коммуникации",
+    "en": "Communication",
+    "tr": "İletişim",
+    "kk": "Коммуникациялар"
+  },
+  "journalism-media": {
+    "ru": "Журналистика и медиа",
+    "en": "Journalism and Media",
+    "tr": "Gazetecilik ve Medya",
+    "kk": "Журналистика және медиа"
+  },
   "education": { "ru": "Педагогика", "en": "Education", "tr": "Eğitim", "kk": "Педагогика" },
-  "languages-linguistics": { "ru": "Языки и лингвистика", "en": "Languages and Linguistics", "tr": "Diller ve Dilbilim", "kk": "Тілдер және лингвистика" },
+  "languages-linguistics": {
+    "ru": "Языки и лингвистика",
+    "en": "Languages and Linguistics",
+    "tr": "Diller ve Dilbilim",
+    "kk": "Тілдер және лингвистика"
+  },
   "architecture": { "ru": "Архитектура", "en": "Architecture", "tr": "Mimarlık", "kk": "Сәулет" },
   "design": { "ru": "Дизайн", "en": "Design", "tr": "Tasarım", "kk": "Дизайн" },
-  "fine-arts": { "ru": "Изобразительное искусство", "en": "Fine Arts", "tr": "Güzel Sanatlar", "kk": "Бейнелеу өнері" },
+  "fine-arts": {
+    "ru": "Изобразительное искусство",
+    "en": "Fine Arts",
+    "tr": "Güzel Sanatlar",
+    "kk": "Бейнелеу өнері"
+  },
   "music": { "ru": "Музыка", "en": "Music", "tr": "Müzik", "kk": "Музыка" },
   "theatre": { "ru": "Театр", "en": "Theatre", "tr": "Tiyatro", "kk": "Театр" },
-  "civil-engineering": { "ru": "Строительная инженерия", "en": "Civil Engineering", "tr": "İnşaat Mühendisliği", "kk": "Құрылыс инженериясы" },
-  "mechanical-engineering": { "ru": "Механическая инженерия", "en": "Mechanical Engineering", "tr": "Makine Mühendisliği", "kk": "Механикалық инженерия" },
-  "electrical-electronics-engineering": { "ru": "Электротехника и электроника", "en": "Electrical and Electronics Engineering", "tr": "Elektrik ve Elektronik Mühendisliği", "kk": "Электр және электроника инженериясы" },
-  "industrial-engineering": { "ru": "Промышленная инженерия", "en": "Industrial Engineering", "tr": "Endüstri Mühendisliği", "kk": "Өнеркәсіптік инженерия" },
-  "mechatronics": { "ru": "Мехатроника", "en": "Mechatronics", "tr": "Mekatronik", "kk": "Мехатроника" },
-  "aerospace-engineering": { "ru": "Аэрокосмическая инженерия", "en": "Aerospace Engineering", "tr": "Havacılık ve Uzay Mühendisliği", "kk": "Әуе-ғарыш инженериясы" },
-  "environmental-engineering": { "ru": "Экологическая инженерия", "en": "Environmental Engineering", "tr": "Çevre Mühendisliği", "kk": "Қоршаған орта инженериясы" },
+  "civil-engineering": {
+    "ru": "Строительная инженерия",
+    "en": "Civil Engineering",
+    "tr": "İnşaat Mühendisliği",
+    "kk": "Құрылыс инженериясы"
+  },
+  "mechanical-engineering": {
+    "ru": "Механическая инженерия",
+    "en": "Mechanical Engineering",
+    "tr": "Makine Mühendisliği",
+    "kk": "Механикалық инженерия"
+  },
+  "electrical-electronics-engineering": {
+    "ru": "Электротехника и электроника",
+    "en": "Electrical and Electronics Engineering",
+    "tr": "Elektrik ve Elektronik Mühendisliği",
+    "kk": "Электр және электроника инженериясы"
+  },
+  "industrial-engineering": {
+    "ru": "Промышленная инженерия",
+    "en": "Industrial Engineering",
+    "tr": "Endüstri Mühendisliği",
+    "kk": "Өнеркәсіптік инженерия"
+  },
+  "mechatronics": {
+    "ru": "Мехатроника",
+    "en": "Mechatronics",
+    "tr": "Mekatronik",
+    "kk": "Мехатроника"
+  },
+  "aerospace-engineering": {
+    "ru": "Аэрокосмическая инженерия",
+    "en": "Aerospace Engineering",
+    "tr": "Havacılık ve Uzay Mühendisliği",
+    "kk": "Әуе-ғарыш инженериясы"
+  },
+  "environmental-engineering": {
+    "ru": "Экологическая инженерия",
+    "en": "Environmental Engineering",
+    "tr": "Çevre Mühendisliği",
+    "kk": "Қоршаған орта инженериясы"
+  },
   "geology": { "ru": "Геология", "en": "Geology", "tr": "Jeoloji", "kk": "Геология" },
   "geography": { "ru": "География", "en": "Geography", "tr": "Coğrafya", "kk": "География" },
-  "agriculture": { "ru": "Сельское хозяйство", "en": "Agriculture", "tr": "Tarım", "kk": "Ауыл шаруашылығы" },
-  "forestry": { "ru": "Лесное хозяйство", "en": "Forestry", "tr": "Ormancılık", "kk": "Орман шаруашылығы" },
-  "oceanography": { "ru": "Океанография", "en": "Oceanography", "tr": "Oşinografi", "kk": "Океанография" },
-  "marine-engineering": { "ru": "Судостроительная инженерия", "en": "Marine Engineering", "tr": "Gemi İnşaatı Mühendisliği", "kk": "Кеме жасау инженериясы" }
+  "agriculture": {
+    "ru": "Сельское хозяйство",
+    "en": "Agriculture",
+    "tr": "Tarım",
+    "kk": "Ауыл шаруашылығы"
+  },
+  "forestry": {
+    "ru": "Лесное хозяйство",
+    "en": "Forestry",
+    "tr": "Ormancılık",
+    "kk": "Орман шаруашылығы"
+  },
+  "oceanography": {
+    "ru": "Океанография",
+    "en": "Oceanography",
+    "tr": "Oşinografi",
+    "kk": "Океанография"
+  },
+  "marine-engineering": {
+    "ru": "Судостроительная инженерия",
+    "en": "Marine Engineering",
+    "tr": "Gemi İnşaatı Mühendisliği",
+    "kk": "Кеме жасау инженериясы"
+  }
 }

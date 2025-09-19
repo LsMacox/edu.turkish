@@ -129,9 +129,6 @@ export interface BaseTextFieldEvents {
   clear?: []
 }
 
-// Component State Types (moved to better organization)
-// export type ButtonState = 'idle' | 'loading' | 'disabled'
-// export type CardState = 'idle' | 'hover' | 'active'
 
 // Theme-related Types
 export interface DesignTokens {
@@ -227,7 +224,18 @@ export interface FormFieldValidation {
 }
 
 // Enhanced Animation Types
-export type AnimationType = 'fadeIn' | 'fadeInUp' | 'fadeInDown' | 'slideIn' | 'slideUp' | 'slideDown' | 'pulseSoft' | 'float' | 'hoverLift' | 'bounce' | 'spin'
+export type AnimationType =
+  | 'fadeIn'
+  | 'fadeInUp'
+  | 'fadeInDown'
+  | 'slideIn'
+  | 'slideUp'
+  | 'slideDown'
+  | 'pulseSoft'
+  | 'float'
+  | 'hoverLift'
+  | 'bounce'
+  | 'spin'
 
 export interface AnimationProps {
   animation?: AnimationType
@@ -276,5 +284,14 @@ export const validateSize = (size: any): size is Size => {
 }
 
 export const validateColor = (color: any): color is SemanticColor => {
-  return ['primary', 'secondary', 'success', 'warning', 'error', 'info', 'neutral', 'gray'].includes(color)
+  return [
+    'primary',
+    'secondary',
+    'success',
+    'warning',
+    'error',
+    'info',
+    'neutral',
+    'gray',
+  ].includes(color)
 }

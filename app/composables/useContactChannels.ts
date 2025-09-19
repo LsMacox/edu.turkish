@@ -1,6 +1,11 @@
 import { computed } from 'vue'
 import { withQuery } from 'ufo'
-import { contactChannels, personalTelegramChannelKey, type ContactChannelDefinition, type ContactChannelKey } from '~/lib/contact/channels'
+import {
+  contactChannels,
+  personalTelegramChannelKey,
+  type ContactChannelDefinition,
+  type ContactChannelKey,
+} from '~/lib/contact/channels'
 import { useReferral } from './useReferral'
 
 export interface ContactChannelInstance extends ContactChannelDefinition {
@@ -23,7 +28,7 @@ const sanitizeMessage = (template: string | undefined, referral: string): string
 const buildGoTelegramHref = (
   referral: string,
   sessionId: string | undefined,
-  utm: Record<string, string>
+  utm: Record<string, string>,
 ): string => {
   const query: Record<string, string> = {}
 
@@ -63,7 +68,9 @@ export const useContactChannels = () => {
     const sessionId = typeof route.query.session === 'string' ? route.query.session : undefined
     const utmParams = extractUtmParams(route.query as Record<string, any>)
 
-    return Object.entries(contactChannels).reduce<Record<ContactChannelKey, ContactChannelInstance>>(
+    return Object.entries(contactChannels).reduce<
+      Record<ContactChannelKey, ContactChannelInstance>
+    >(
       (acc, [key, definition]) => {
         const typedKey = key as ContactChannelKey
         const message = sanitizeMessage(definition.defaultMessage, referral)
@@ -81,12 +88,12 @@ export const useContactChannels = () => {
           ...definition,
           href,
           cta: definition.defaultCta,
-          message
+          message,
         }
 
         return acc
       },
-      {} as Record<ContactChannelKey, ContactChannelInstance>
+      {} as Record<ContactChannelKey, ContactChannelInstance>,
     )
   })
 
@@ -97,6 +104,6 @@ export const useContactChannels = () => {
   return {
     channels,
     channelList,
-    getChannel
+    getChannel,
   }
 }

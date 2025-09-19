@@ -4,15 +4,17 @@
       <Icon name="mdi:map-marker" class="text-primary w-4 mr-2" />
       <span>{{ city }}</span>
     </div>
-    
+
     <div class="flex items-center text-sm text-gray-600">
       <Icon name="mdi:translate" class="text-primary w-4 mr-2" />
       <span>{{ languages.join(', ') }}</span>
     </div>
-    
+
     <div class="flex items-center text-sm text-gray-600">
       <Icon name="mdi:currency-usd" class="text-primary w-4 mr-2" />
-      <span v-if="formattedTuition && formattedTuition !== '0'">от ${{ formattedTuition }}/год</span>
+      <span v-if="formattedTuition && formattedTuition !== '0'"
+        >от ${{ formattedTuition }}/год</span
+      >
       <span v-else>Цена по запросу</span>
     </div>
 
@@ -38,13 +40,13 @@ const props = withDefaults(defineProps<Props>(), {
   city: '',
   languages: () => [],
   tuition: undefined,
-  badge: ''
+  badge: '',
 })
 
 const formattedTuition = computed(() => {
   // Handle different input types
   let tuitionValue = 0
-  
+
   if (props.tuition === undefined || props.tuition === null) {
     tuitionValue = 0
   } else if (typeof props.tuition === 'string') {
@@ -52,20 +54,25 @@ const formattedTuition = computed(() => {
   } else if (typeof props.tuition === 'number') {
     tuitionValue = props.tuition
   }
-  
-  
+
   // Return formatted number with space separator for consistency
   return tuitionValue > 0 ? tuitionValue.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ' ') : '0'
 })
 
 const getBadgeColor = (colorType?: string): string => {
   switch (colorType) {
-    case 'green': return 'success'
-    case 'blue': return 'info'
-    case 'orange': return 'warning'
-    case 'purple': return 'primary'
-    case 'yellow': return 'warning'
-    default: return 'neutral'
+    case 'green':
+      return 'success'
+    case 'blue':
+      return 'info'
+    case 'orange':
+      return 'warning'
+    case 'purple':
+      return 'primary'
+    case 'yellow':
+      return 'warning'
+    default:
+      return 'neutral'
   }
 }
 

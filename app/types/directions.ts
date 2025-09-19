@@ -116,9 +116,7 @@ export const ALL_DIRECTIONS: DirectionSlug[] = [
   'agriculture',
   'forestry',
   'oceanography',
-  'marine-engineering'
+  'marine-engineering',
 ]
 
 // Localized names moved to i18n/directions.json
-
-

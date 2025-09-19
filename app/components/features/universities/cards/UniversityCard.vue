@@ -4,10 +4,10 @@
     :aria-label="`University card for ${title}`"
   >
     <div class="relative overflow-hidden">
-      <NuxtImg 
-        v-if="image" 
-        :src="image" 
-        :alt="title + ' campus'" 
+      <NuxtImg
+        v-if="image"
+        :src="image"
+        :alt="title + ' campus'"
         class="w-full h-48 object-cover"
         sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 25vw"
         loading="lazy"
@@ -16,17 +16,14 @@
         :quality="78"
         format="webp"
       />
-      
-      <div 
-        v-else 
-        class="w-full h-48 bg-gray-200 flex items-center justify-center"
-      >
+
+      <div v-else class="w-full h-48 bg-gray-200 flex items-center justify-center">
         <Icon name="mdi:school" class="w-12 h-12 text-gray-400" />
       </div>
     </div>
-    
+
     <div class="p-4 md:p-6 flex flex-col flex-1">
-      <UniversityCardHeader 
+      <UniversityCardHeader
         :title="title"
         :type="type"
         :type-label="typeLabel"
@@ -56,6 +53,8 @@ import UniversityCardHeader from './UniversityCardHeader.vue'
 import UniversityCardDetails from './UniversityCardDetails.vue'
 import UniversityCardActions from './UniversityCardActions.vue'
 
+import { useApplicationModalStore } from '~/stores/applicationModal'
+
 interface Props {
   title: string
   type?: string
@@ -76,18 +75,12 @@ const props = withDefaults(defineProps<Props>(), {
   tuition: '',
   badge: '',
   image: '',
-  slug: ''
+  slug: '',
 })
 
 const { t } = useI18n()
 
-const imageSizes = computed(() => {
-  return '(max-width: 640px) 100vw, (max-width: 768px) 50vw, (max-width: 1024px) 33vw, 25vw'
-})
-
-const imageClasses = computed(() => {
-  return 'w-full h-40 md:h-48 object-cover transition-transform duration-300 hover:scale-105'
-})
+// Removed unused image computed helpers
 
 const typeLabel = computed(() => {
   switch (props.type) {
@@ -107,19 +100,19 @@ const typeLabel = computed(() => {
 const localePath = useLocalePath()
 
 const detailHref = computed(() => {
-  const slug = props.slug || props.title
-    .toLowerCase()
-    .normalize('NFD')
-    .replace(/[\u0300-\u036f]/g, '')
-    .replace(/[^a-z0-9\s-]/g, '')
-    .trim()
-    .replace(/\s+/g, '-')
-    .replace(/-+/g, '-')
+  const slug =
+    props.slug ||
+    props.title
+      .toLowerCase()
+      .normalize('NFD')
+      .replace(/[\u0300-\u036f]/g, '')
+      .replace(/[^a-z0-9\s-]/g, '')
+      .trim()
+      .replace(/\s+/g, '-')
+      .replace(/-+/g, '-')
 
   return localePath(`/university/${slug}`)
 })
-
-import { useApplicationModalStore } from '~/stores/applicationModal'
 
 const applicationModalStore = useApplicationModalStore()
 const { openModal } = applicationModalStore
@@ -135,8 +128,8 @@ const openApplicationModal = () => {
     metadata: {
       type: props.type,
       languages: props.languages,
-      featured: props.featured
-    }
+      featured: props.featured,
+    },
   })
 }
 </script>

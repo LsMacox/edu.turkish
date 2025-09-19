@@ -1,4 +1,4 @@
-import { PrismaClient } from '@prisma/client'
+import type { PrismaClient } from '@prisma/client'
 
 export async function seedLocations(prisma: PrismaClient) {
   console.log('🗺️  Seeding countries and cities...')
@@ -7,20 +7,20 @@ export async function seedLocations(prisma: PrismaClient) {
   const country = await prisma.country.upsert({
     where: { code: 'TUR' },
     update: {},
-    create: { code: 'TUR' }
+    create: { code: 'TUR' },
   })
 
   const countryNames: Record<string, string> = {
     ru: 'Турция',
     en: 'Turkey',
-    tr: 'Türkiye'
+    tr: 'Türkiye',
   }
 
   for (const [locale, name] of Object.entries(countryNames)) {
     await prisma.countryTranslation.upsert({
       where: { countryId_locale: { countryId: country.id, locale } },
       update: { name },
-      create: { countryId: country.id, locale, name }
+      create: { countryId: country.id, locale, name },
     })
   }
 
@@ -30,7 +30,7 @@ export async function seedLocations(prisma: PrismaClient) {
     { key: 'ankara', ru: 'Анкара', en: 'Ankara', tr: 'Ankara' },
     { key: 'antalya', ru: 'Анталия', en: 'Antalya', tr: 'Antalya' },
     { key: 'bursa', ru: 'Бурса', en: 'Bursa', tr: 'Bursa' },
-    { key: 'kocaeli', ru: 'Коджаэли', en: 'Kocaeli', tr: 'Kocaeli' }
+    { key: 'kocaeli', ru: 'Коджаэли', en: 'Kocaeli', tr: 'Kocaeli' },
   ]
 
   const createdCityIds: Record<string, number> = {}
@@ -43,11 +43,11 @@ export async function seedLocations(prisma: PrismaClient) {
           create: [
             { locale: 'ru', name: cityDef.ru },
             { locale: 'en', name: cityDef.en },
-            { locale: 'tr', name: cityDef.tr }
-          ]
-        }
+            { locale: 'tr', name: cityDef.tr },
+          ],
+        },
       },
-      include: { translations: true }
+      include: { translations: true },
     })
 
     createdCityIds[cityDef.key] = city.id
@@ -58,5 +58,3 @@ export async function seedLocations(prisma: PrismaClient) {
 
   return { countryId: country.id, cityIds: createdCityIds }
 }
-
-

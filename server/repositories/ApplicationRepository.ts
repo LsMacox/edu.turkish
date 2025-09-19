@@ -1,4 +1,4 @@
-import { PrismaClient } from '@prisma/client'
+import type { PrismaClient } from '@prisma/client'
 import type { ApplicationRequest, ApplicationResponse, ApplicationStatus } from '../types/api'
 import { generateTrackingCode } from '../utils/tracking'
 
@@ -26,18 +26,21 @@ export class ApplicationRepository {
       return field
     })()
     const normalizedProgram = (() => {
-      const programs = (Array.isArray(data.preferences?.programs)
-        ? (data.preferences?.programs ?? [])
-        : []).filter((program): program is string => typeof program === 'string' && program.trim() !== '')
+      const programs = (
+        Array.isArray(data.preferences?.programs) ? (data.preferences?.programs ?? []) : []
+      ).filter((program): program is string => typeof program === 'string' && program.trim() !== '')
       if (programs.length > 0) {
         return programs[0].trim()
       }
       return normalizedEducationField
     })()
     const normalizedUniversity = (() => {
-      const universities = (Array.isArray(data.preferences?.universities)
-        ? (data.preferences?.universities ?? [])
-        : []).filter((university): university is string => typeof university === 'string' && university.trim() !== '')
+      const universities = (
+        Array.isArray(data.preferences?.universities) ? (data.preferences?.universities ?? []) : []
+      ).filter(
+        (university): university is string =>
+          typeof university === 'string' && university.trim() !== '',
+      )
       if (universities.length > 0) {
         return universities[0].trim()
       }
@@ -65,8 +68,8 @@ export class ApplicationRepository {
         personalInfo: data.personal_info,
         education: data.education,
         preferences: data.preferences,
-        additionalInfo: data.additional_info || {}
-      }
+        additionalInfo: data.additional_info || {},
+      },
     })
 
     return {
@@ -82,7 +85,7 @@ export class ApplicationRepository {
    */
   async findByTrackingCode(trackingCode: string): Promise<ApplicationResponse | null> {
     const application = await this.prisma.application.findUnique({
-      where: { trackingCode }
+      where: { trackingCode },
     })
 
     if (!application) return null
@@ -100,7 +103,7 @@ export class ApplicationRepository {
    */
   async findById(id: number): Promise<any | null> {
     const application = await this.prisma.application.findUnique({
-      where: { id }
+      where: { id },
     })
 
     if (!application) return null
@@ -126,7 +129,7 @@ export class ApplicationRepository {
       preferences: application.preferences,
       additionalInfo: application.additionalInfo,
       submittedAt: application.submittedAt,
-      updatedAt: application.updatedAt
+      updatedAt: application.updatedAt,
     }
   }
 
@@ -136,7 +139,7 @@ export class ApplicationRepository {
   async updateStatus(id: number, status: ApplicationStatus): Promise<ApplicationResponse | null> {
     const application = await this.prisma.application.update({
       where: { id },
-      data: { status }
+      data: { status },
     })
 
     return {
@@ -150,11 +153,13 @@ export class ApplicationRepository {
   /**
    * Get all applications with filtering
    */
-  async findAll(filters: {
-    status?: ApplicationStatus
-    page?: number
-    limit?: number
-  } = {}): Promise<{
+  async findAll(
+    filters: {
+      status?: ApplicationStatus
+      page?: number
+      limit?: number
+    } = {},
+  ): Promise<{
     data: any[]
     total: number
     page: number
@@ -172,13 +177,13 @@ export class ApplicationRepository {
         where,
         orderBy: { submittedAt: 'desc' },
         skip: (page - 1) * limit,
-        take: limit
+        take: limit,
       }),
-      this.prisma.application.count({ where })
+      this.prisma.application.count({ where }),
     ])
 
     return {
-      data: applications.map(app => ({
+      data: applications.map((app) => ({
         id: app.id,
         trackingCode: app.trackingCode,
         status: app.status,
@@ -199,11 +204,11 @@ export class ApplicationRepository {
         preferences: app.preferences,
         additionalInfo: app.additionalInfo,
         submittedAt: app.submittedAt,
-        updatedAt: app.updatedAt
+        updatedAt: app.updatedAt,
       })),
       total,
       page,
-      limit
+      limit,
     }
   }
 
@@ -220,25 +225,25 @@ export class ApplicationRepository {
       this.prisma.application.count(),
       this.prisma.application.groupBy({
         by: ['status'],
-        _count: { id: true }
+        _count: { id: true },
       }),
       this.prisma.application.count({
         where: {
           submittedAt: {
-            gte: new Date(new Date().getFullYear(), new Date().getMonth(), 1)
-          }
-        }
-      })
+            gte: new Date(new Date().getFullYear(), new Date().getMonth(), 1),
+          },
+        },
+      }),
     ])
 
     const byStatus: Record<ApplicationStatus, number> = {
       submitted: 0,
       processing: 0,
       approved: 0,
-      rejected: 0
+      rejected: 0,
     }
 
-    statusCounts.forEach(stat => {
+    statusCounts.forEach((stat) => {
       byStatus[stat.status as ApplicationStatus] = stat._count.id
     })
 
@@ -248,8 +253,7 @@ export class ApplicationRepository {
       total: totalCount,
       byStatus,
       thisMonth: thisMonthCount,
-      successRate: Math.round(successRate)
+      successRate: Math.round(successRate),
     }
   }
-
 }

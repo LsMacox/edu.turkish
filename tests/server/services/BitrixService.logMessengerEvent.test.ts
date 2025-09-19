@@ -15,7 +15,7 @@ describe('BitrixService.logMessengerEvent', () => {
   afterEach(() => {
     vi.restoreAllMocks()
     vi.resetAllMocks()
-    Object.keys(process.env).forEach(key => {
+    Object.keys(process.env).forEach((key) => {
       if (!(key in originalEnv)) {
         delete process.env[key]
       }
@@ -31,7 +31,7 @@ describe('BitrixService.logMessengerEvent', () => {
 
     const fetchMock = vi.fn(async () => ({
       ok: true,
-      json: async () => ({ result: 321 })
+      json: async () => ({ result: 321 }),
     }))
     ;(global as any).fetch = fetchMock
 
@@ -46,13 +46,13 @@ describe('BitrixService.logMessengerEvent', () => {
       utm: {
         utm_source: ' Google ',
         utm_medium: '',
-        utm_term: 42
+        utm_term: 42,
       } as unknown as Record<string, unknown>,
       metadata: {
         page: ' /contact ',
         notes: '  custom note  ',
-        other: 'value'
-      } as unknown as Record<string, unknown>
+        other: 'value',
+      } as unknown as Record<string, unknown>,
     })
 
     expect(result).toEqual({ success: true, activityId: 321 })
@@ -71,7 +71,9 @@ describe('BitrixService.logMessengerEvent', () => {
     expect(body.fields.DESCRIPTION).not.toContain('utm_term')
     expect(body.fields.DESCRIPTION).not.toContain('session')
 
-    expect(consoleErrorSpy).toHaveBeenCalledWith(expect.stringContaining('BITRIX_ACTIVITY_OWNER_ID'))
+    expect(consoleErrorSpy).toHaveBeenCalledWith(
+      expect.stringContaining('BITRIX_ACTIVITY_OWNER_ID'),
+    )
   })
 
   it('returns failure when payload validation fails', async () => {
@@ -84,7 +86,7 @@ describe('BitrixService.logMessengerEvent', () => {
 
     const result = await service.logMessengerEvent({
       channel: '',
-      referralCode: ''
+      referralCode: '',
     } as unknown as Record<string, unknown>)
 
     expect(result.success).toBe(false)

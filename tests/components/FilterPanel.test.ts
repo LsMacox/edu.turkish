@@ -12,16 +12,17 @@ const routeMock = { query: {} as Record<string, unknown> }
 
 vi.stubGlobal('useRouter', () => ({
   replace: routerReplaceMock,
-  push: routerPushMock
+  push: routerPushMock,
 }))
 
 vi.stubGlobal('useRoute', () => routeMock)
 vi.stubGlobal('useI18n', () => ({
   t: (key: string) => key,
-  locale: { value: 'ru' }
+  locale: { value: 'ru' },
 }))
-
-;(globalThis as unknown as { requestAnimationFrame: (cb: (time: number) => void) => number }).requestAnimationFrame = (cb: (time: number) => void) => {
+;(
+  globalThis as unknown as { requestAnimationFrame: (cb: (time: number) => void) => number }
+).requestAnimationFrame = (cb: (time: number) => void) => {
   cb(0)
   return 0
 }
@@ -37,7 +38,7 @@ const createStoreWithRange = (priceRange: [number, number], levelOptions: string
     types: [],
     levels: levelOptions,
     languages: [],
-    priceRange
+    priceRange,
   }
   store.filters = {
     q: '',
@@ -45,46 +46,47 @@ const createStoreWithRange = (priceRange: [number, number], levelOptions: string
     langs: [],
     type: 'Все',
     level: 'all',
-    price: priceRange
+    price: priceRange,
   }
 
   return store
 }
 
-const mountFilterPanel = () => mount(FilterPanel, {
-  global: {
-    components: {
-      UiFormsBaseRangeSlider: BaseRangeSlider
+const mountFilterPanel = () =>
+  mount(FilterPanel, {
+    global: {
+      components: {
+        UiFormsBaseRangeSlider: BaseRangeSlider,
+      },
+      config: {
+        globalProperties: {
+          $t: (key: string) => key,
+        },
+      },
+      stubs: {
+        UiFormsBaseTextField: {
+          name: 'UiFormsBaseTextField',
+          template: '<input />',
+          props: ['modelValue'],
+        },
+        UiFormsBaseSelect: {
+          name: 'UiFormsBaseSelect',
+          template: '<select><slot /></select>',
+          props: ['modelValue'],
+        },
+        UiFormsBaseCheckbox: {
+          name: 'UiFormsBaseCheckbox',
+          template: '<input type="checkbox" />',
+          props: ['checked'],
+        },
+        Icon: {
+          name: 'Icon',
+          template: '<span />',
+          props: ['name'],
+        },
+      },
     },
-    config: {
-      globalProperties: {
-        $t: (key: string) => key
-      }
-    },
-    stubs: {
-      UiFormsBaseTextField: {
-        name: 'UiFormsBaseTextField',
-        template: '<input />',
-        props: ['modelValue']
-      },
-      UiFormsBaseSelect: {
-        name: 'UiFormsBaseSelect',
-        template: '<select><slot /></select>',
-        props: ['modelValue']
-      },
-      UiFormsBaseCheckbox: {
-        name: 'UiFormsBaseCheckbox',
-        template: '<input type="checkbox" />',
-        props: ['checked']
-      },
-      Icon: {
-        name: 'Icon',
-        template: '<span />',
-        props: ['name']
-      }
-    }
-  }
-})
+  })
 
 describe('FilterPanel', () => {
   beforeEach(() => {
@@ -95,7 +97,12 @@ describe('FilterPanel', () => {
   })
 
   it('renders language checkboxes from available filters', async () => {
-    createStoreWithRange([500, 15000], ['TR', 'EN', 'RU'])
+    const store = createStoreWithRange([500, 15000], [])
+    // Provide languages in the store's availableFilters
+    store.availableFilters = {
+      ...store.availableFilters,
+      languages: ['TR', 'EN', 'RU'],
+    }
 
     const wrapper = mountFilterPanel()
 
@@ -125,11 +132,11 @@ describe('FilterPanel', () => {
 
     store.availableFilters = {
       ...store.availableFilters,
-      priceRange: updatedRange
+      priceRange: updatedRange,
     }
     store.filters = {
       ...store.filters,
-      price: updatedRange
+      price: updatedRange,
     }
 
     await nextTick()
@@ -150,7 +157,9 @@ describe('FilterPanel', () => {
 
     await nextTick()
 
-    const applyButton = wrapper.findAll('button').find(button => button.text().includes('apply_button'))
+    const applyButton = wrapper
+      .findAll('button')
+      .find((button) => button.text().includes('apply_button'))
     expect(applyButton).toBeDefined()
 
     await applyButton!.trigger('click')
@@ -165,24 +174,28 @@ describe('FilterPanel', () => {
 
     await nextTick()
 
-    const levelSelect = wrapper.findAll('select').find(select =>
-      select.findAll('option').some(option => option.text() === 'universities_page.filters.levels.bachelor')
-    )
+    const levelSelect = wrapper
+      .findAll('select')
+      .find((select) =>
+        select
+          .findAll('option')
+          .some((option) => option.text() === 'universities_page.filters.levels.bachelor'),
+      )
 
     expect(levelSelect).toBeDefined()
     const options = levelSelect!.findAll('option')
 
-    expect(options.map(option => option.attributes('value'))).toEqual([
+    expect(options.map((option) => option.attributes('value'))).toEqual([
       'all',
       'bachelor',
       'master',
-      'phd'
+      'phd',
     ])
-    expect(options.map(option => option.text())).toEqual([
+    expect(options.map((option) => option.text())).toEqual([
       'universities_page.filters.all_levels',
       'universities_page.filters.levels.bachelor',
       'universities_page.filters.levels.master',
-      'universities_page.filters.levels.doctorate'
+      'universities_page.filters.levels.doctorate',
     ])
   })
 })

@@ -11,7 +11,7 @@ const getQueryMock = vi.fn()
 const fetchMock = vi.fn()
 
 vi.mock('h3', () => ({
-  getRequestURL: vi.fn(() => new URL('https://example.com/go/telegram'))
+  getRequestURL: vi.fn(() => new URL('https://example.com/go/telegram')),
 }))
 
 vi.mock(
@@ -24,12 +24,12 @@ vi.mock(
         baseUrl: 'https://t.me/example',
         defaultCta: 'Contact us',
         defaultMessage: 'Hello {{referral}}',
-        copyOnNavigate: true
-      }
+        copyOnNavigate: true,
+      },
     },
-    personalTelegramChannelKey: 'telegramPersonal'
+    personalTelegramChannelKey: 'telegramPersonal',
   }),
-  { virtual: true }
+  { virtual: true },
 )
 
 beforeEach(() => {
@@ -48,7 +48,7 @@ describe('GET /go/telegram', () => {
     getQueryMock.mockReturnValue({
       referral_code: 'abc123',
       session: 'session-42',
-      utm_source: 'newsletter'
+      utm_source: 'newsletter',
     })
     fetchMock.mockRejectedValue(loggingError)
 
@@ -66,11 +66,14 @@ describe('GET /go/telegram', () => {
         body: expect.objectContaining({
           channel: 'telegramPersonal',
           referral_code: 'abc123',
-          session: 'session-42'
-        })
-      })
+          session: 'session-42',
+        }),
+      }),
     )
-    expect(consoleErrorSpy).toHaveBeenCalledWith('[go/telegram] Failed to log messenger event', loggingError)
+    expect(consoleErrorSpy).toHaveBeenCalledWith(
+      '[go/telegram] Failed to log messenger event',
+      loggingError,
+    )
 
     expect(response).toBeInstanceOf(Response)
     expect(response.ok).toBe(true)

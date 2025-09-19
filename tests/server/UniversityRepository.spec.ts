@@ -1,9 +1,10 @@
 import { describe, expect, it, vi } from 'vitest'
-import type { PrismaClient } from '@prisma/client'
-import { Prisma } from '@prisma/client'
+import { Prisma, type PrismaClient } from '@prisma/client'
 
-import { UniversityRepository } from '../../server/repositories/UniversityRepository'
-import type { UniversityListItem } from '../../server/repositories/UniversityRepository'
+import {
+  UniversityRepository,
+  type UniversityListItem,
+} from '../../server/repositories/UniversityRepository'
 import type { UniversityQueryParams } from '../../server/types/api'
 
 describe('UniversityRepository.findAll', () => {
@@ -18,7 +19,7 @@ describe('UniversityRepository.findAll', () => {
     sort: 'pop',
     page: 1,
     limit: 12,
-    ...overrides
+    ...overrides,
   })
 
   const createRepositoryWithMocks = () => {
@@ -27,7 +28,7 @@ describe('UniversityRepository.findAll', () => {
     const universityGroupBy = vi.fn().mockResolvedValue([])
     const aggregate = vi.fn().mockResolvedValue({
       _min: { tuitionMin: new Prisma.Decimal(0), tuitionMax: new Prisma.Decimal(0) },
-      _max: { tuitionMin: new Prisma.Decimal(0), tuitionMax: new Prisma.Decimal(0) }
+      _max: { tuitionMin: new Prisma.Decimal(0), tuitionMax: new Prisma.Decimal(0) },
     })
     const academicProgramGroupBy = vi.fn().mockResolvedValue([])
     const cityTranslationFindMany = vi.fn().mockResolvedValue([])
@@ -38,15 +39,15 @@ describe('UniversityRepository.findAll', () => {
         findMany,
         count,
         groupBy: universityGroupBy,
-        aggregate
+        aggregate,
       },
       academicProgram: {
-        groupBy: academicProgramGroupBy
+        groupBy: academicProgramGroupBy,
       },
       cityTranslation: {
-        findMany: cityTranslationFindMany
+        findMany: cityTranslationFindMany,
       },
-      $transaction: transaction
+      $transaction: transaction,
     } as unknown as PrismaClient
 
     const repository = new UniversityRepository(prisma)
@@ -56,17 +57,20 @@ describe('UniversityRepository.findAll', () => {
 
   type TuitionRange = { tuitionMin: Prisma.Decimal | null; tuitionMax: Prisma.Decimal | null }
 
-  const matchesTuitionWhere = (where: Prisma.UniversityWhereInput | undefined, range: TuitionRange): boolean => {
+  const matchesTuitionWhere = (
+    where: Prisma.UniversityWhereInput | undefined,
+    range: TuitionRange,
+  ): boolean => {
     if (!where) return true
 
     const evaluate = (clause: Prisma.UniversityWhereInput): boolean => {
       const { AND, OR, ...direct } = clause
 
-      if (AND && !AND.every(inner => evaluate(inner))) {
+      if (AND && !AND.every((inner) => evaluate(inner))) {
         return false
       }
 
-      if (OR && !OR.some(inner => evaluate(inner))) {
+      if (OR && !OR.some((inner) => evaluate(inner))) {
         return false
       }
 
@@ -76,18 +80,22 @@ describe('UniversityRepository.findAll', () => {
         }
 
         const value = range[field]
-        return Object.entries(condition as Record<string, number | null>).every(([operator, expected]) => {
-          if (operator === 'equals') {
-            return expected === null ? value === null : (value !== null && Number(value) === expected)
-          }
-          if (operator === 'lte') {
-            return value !== null && Number(value) <= (expected as number)
-          }
-          if (operator === 'gte') {
-            return value !== null && Number(value) >= (expected as number)
-          }
-          return true
-        })
+        return Object.entries(condition as Record<string, number | null>).every(
+          ([operator, expected]) => {
+            if (operator === 'equals') {
+              return expected === null
+                ? value === null
+                : value !== null && Number(value) === expected
+            }
+            if (operator === 'lte') {
+              return value !== null && Number(value) <= (expected as number)
+            }
+            if (operator === 'gte') {
+              return value !== null && Number(value) >= (expected as number)
+            }
+            return true
+          },
+        )
       })
     }
 
@@ -127,7 +135,7 @@ describe('UniversityRepository.findAll', () => {
             about: null,
             keyInfoTexts: { ranking_text: 'Top 100 globally' },
             createdAt: baseDate,
-            updatedAt: baseDate
+            updatedAt: baseDate,
           },
           {
             id: 12,
@@ -139,8 +147,8 @@ describe('UniversityRepository.findAll', () => {
             about: null,
             keyInfoTexts: { ranking_text: 'Топ-100 в мире' },
             createdAt: baseDate,
-            updatedAt: baseDate
-          }
+            updatedAt: baseDate,
+          },
         ],
         academicPrograms: [
           {
@@ -151,7 +159,7 @@ describe('UniversityRepository.findAll', () => {
             durationYears: 4,
             tuitionPerYear: new Prisma.Decimal(5000),
             createdAt: baseDate,
-            updatedAt: baseDate
+            updatedAt: baseDate,
           },
           {
             id: 22,
@@ -161,8 +169,8 @@ describe('UniversityRepository.findAll', () => {
             durationYears: 2,
             tuitionPerYear: new Prisma.Decimal(6000),
             createdAt: baseDate,
-            updatedAt: baseDate
-          }
+            updatedAt: baseDate,
+          },
         ],
         city: {
           id: 10,
@@ -170,11 +178,25 @@ describe('UniversityRepository.findAll', () => {
           createdAt: baseDate,
           updatedAt: baseDate,
           translations: [
-            { id: 31, cityId: 10, locale: 'en', name: 'Ankara', createdAt: baseDate, updatedAt: baseDate },
-            { id: 32, cityId: 10, locale: 'ru', name: 'Анкара', createdAt: baseDate, updatedAt: baseDate }
-          ]
-        }
-      }
+            {
+              id: 31,
+              cityId: 10,
+              locale: 'en',
+              name: 'Ankara',
+              createdAt: baseDate,
+              updatedAt: baseDate,
+            },
+            {
+              id: 32,
+              cityId: 10,
+              locale: 'ru',
+              name: 'Анкара',
+              createdAt: baseDate,
+              updatedAt: baseDate,
+            },
+          ],
+        },
+      },
     ]
 
     const findMany = vi.fn().mockResolvedValue(universities)
@@ -190,20 +212,22 @@ describe('UniversityRepository.findAll', () => {
     })
     const aggregate = vi.fn().mockResolvedValue({
       _min: { tuitionMin: new Prisma.Decimal(1000), tuitionMax: new Prisma.Decimal(1200) },
-      _max: { tuitionMin: new Prisma.Decimal(7000), tuitionMax: new Prisma.Decimal(8200) }
+      _max: { tuitionMin: new Prisma.Decimal(7000), tuitionMax: new Prisma.Decimal(8200) },
     })
-    const academicProgramGroupBy = vi.fn().mockImplementation((args: Prisma.AcademicProgramGroupByArgs) => {
-      if ('by' in args && Array.isArray(args.by) && args.by.includes('degreeType')) {
-        return Promise.resolve([{ degreeType: 'bachelor' }, { degreeType: 'master' }])
-      }
-      if ('by' in args && Array.isArray(args.by) && args.by.includes('languageCode')) {
-        return Promise.resolve([{ languageCode: 'EN' }, { languageCode: 'TR' }])
-      }
-      return Promise.resolve([])
-    })
+    const academicProgramGroupBy = vi
+      .fn()
+      .mockImplementation((args: Prisma.AcademicProgramGroupByArgs) => {
+        if ('by' in args && Array.isArray(args.by) && args.by.includes('degreeType')) {
+          return Promise.resolve([{ degreeType: 'bachelor' }, { degreeType: 'master' }])
+        }
+        if ('by' in args && Array.isArray(args.by) && args.by.includes('languageCode')) {
+          return Promise.resolve([{ languageCode: 'EN' }, { languageCode: 'TR' }])
+        }
+        return Promise.resolve([])
+      })
     const cityTranslationFindMany = vi.fn().mockResolvedValue([
       { cityId: 10, locale: 'en', name: 'Ankara' },
-      { cityId: 10, locale: 'ru', name: 'Анкара' }
+      { cityId: 10, locale: 'ru', name: 'Анкара' },
     ])
     const transaction = vi.fn(async (queries: Promise<unknown>[]) => Promise.all(queries))
 
@@ -212,15 +236,15 @@ describe('UniversityRepository.findAll', () => {
         findMany,
         count,
         groupBy: universityGroupBy,
-        aggregate
+        aggregate,
       },
       academicProgram: {
-        groupBy: academicProgramGroupBy
+        groupBy: academicProgramGroupBy,
       },
       cityTranslation: {
-        findMany: cityTranslationFindMany
+        findMany: cityTranslationFindMany,
       },
-      $transaction: transaction
+      $transaction: transaction,
     } as unknown as PrismaClient
 
     const repository = new UniversityRepository(prisma)
@@ -236,7 +260,7 @@ describe('UniversityRepository.findAll', () => {
     expect(academicProgramGroupBy).toHaveBeenCalledTimes(2)
     expect(cityTranslationFindMany).toHaveBeenCalledWith({
       where: { cityId: { in: [10] }, locale: { in: ['en', 'ru'] } },
-      select: { cityId: true, locale: true, name: true }
+      select: { cityId: true, locale: true, name: true },
     })
 
     expect(result.filters).toEqual({
@@ -244,7 +268,7 @@ describe('UniversityRepository.findAll', () => {
       types: ['state', 'tech'],
       levels: ['bachelor', 'master'],
       languages: ['EN', 'TR'],
-      priceRange: [1000, 8200]
+      priceRange: [1000, 8200],
     })
 
     expect(result.data).toHaveLength(1)
@@ -258,7 +282,7 @@ describe('UniversityRepository.findAll', () => {
     expect(university.slug).toBe('tech-university')
     expect(university.badge).toEqual({
       labelKey: 'universities_page.card.badges.technical',
-      color: 'purple'
+      color: 'purple',
     })
   })
 
@@ -274,15 +298,15 @@ describe('UniversityRepository.findAll', () => {
 
     const overlapping: TuitionRange = {
       tuitionMin: new Prisma.Decimal(2500),
-      tuitionMax: new Prisma.Decimal(6500)
+      tuitionMax: new Prisma.Decimal(6500),
     }
     const nestedInsideQuery: TuitionRange = {
       tuitionMin: new Prisma.Decimal(3200),
-      tuitionMax: new Prisma.Decimal(3400)
+      tuitionMax: new Prisma.Decimal(3400),
     }
     const queryInsideRange: TuitionRange = {
       tuitionMin: new Prisma.Decimal(1500),
-      tuitionMax: new Prisma.Decimal(7000)
+      tuitionMax: new Prisma.Decimal(7000),
     }
 
     expect(matchesTuitionWhere(where, overlapping)).toBe(true)
@@ -299,19 +323,19 @@ describe('UniversityRepository.findAll', () => {
 
     const openLower: TuitionRange = {
       tuitionMin: null,
-      tuitionMax: new Prisma.Decimal(3500)
+      tuitionMax: new Prisma.Decimal(3500),
     }
     const openUpper: TuitionRange = {
       tuitionMin: new Prisma.Decimal(5000),
-      tuitionMax: null
+      tuitionMax: null,
     }
     const unbounded: TuitionRange = {
       tuitionMin: null,
-      tuitionMax: null
+      tuitionMax: null,
     }
     const nonOverlapping: TuitionRange = {
       tuitionMin: new Prisma.Decimal(9000),
-      tuitionMax: new Prisma.Decimal(12000)
+      tuitionMax: new Prisma.Decimal(12000),
     }
 
     expect(matchesTuitionWhere(where, openLower)).toBe(true)
@@ -331,9 +355,9 @@ describe('UniversityRepository.findAll', () => {
         level: 'Магистратура',
         langs: ['en'],
         price_min: undefined,
-        price_max: undefined
+        price_max: undefined,
       }),
-      'en'
+      'en',
     )
 
     const where = findMany.mock.calls[0][0]?.where as Prisma.UniversityWhereInput
@@ -345,10 +369,10 @@ describe('UniversityRepository.findAll', () => {
       academicPrograms: {
         some: {
           languageCode: {
-            in: ['en']
-          }
-        }
-      }
+            in: ['en'],
+          },
+        },
+      },
     })
   })
 
@@ -386,11 +410,11 @@ describe('UniversityRepository.findAll', () => {
             about: null,
             keyInfoTexts: null,
             createdAt: baseDate,
-            updatedAt: baseDate
-          }
+            updatedAt: baseDate,
+          },
         ],
         academicPrograms: [],
-        city: null
+        city: null,
       },
       {
         id: 2,
@@ -421,12 +445,12 @@ describe('UniversityRepository.findAll', () => {
             about: null,
             keyInfoTexts: null,
             createdAt: baseDate,
-            updatedAt: baseDate
-          }
+            updatedAt: baseDate,
+          },
         ],
         academicPrograms: [],
-        city: null
-      }
+        city: null,
+      },
     ]
 
     findMany.mockResolvedValue(alphaUniversities)
@@ -434,7 +458,7 @@ describe('UniversityRepository.findAll', () => {
 
     const result = await repository.findAll(createParams({ sort: 'alpha' }), 'en')
 
-    expect(result.data.map(item => item.title)).toEqual(['Alpha University', 'Zeta Institute'])
+    expect(result.data.map((item) => item.title)).toEqual(['Alpha University', 'Zeta Institute'])
   })
 
   it('prioritizes English language programs for lang_en sort regardless of case', async () => {
@@ -471,8 +495,8 @@ describe('UniversityRepository.findAll', () => {
             about: null,
             keyInfoTexts: null,
             createdAt: baseDate,
-            updatedAt: baseDate
-          }
+            updatedAt: baseDate,
+          },
         ],
         academicPrograms: [
           {
@@ -483,10 +507,10 @@ describe('UniversityRepository.findAll', () => {
             durationYears: 4,
             tuitionPerYear: new Prisma.Decimal(3000),
             createdAt: baseDate,
-            updatedAt: baseDate
-          }
+            updatedAt: baseDate,
+          },
         ],
-        city: null
+        city: null,
       },
       {
         id: 2,
@@ -517,8 +541,8 @@ describe('UniversityRepository.findAll', () => {
             about: null,
             keyInfoTexts: null,
             createdAt: baseDate,
-            updatedAt: baseDate
-          }
+            updatedAt: baseDate,
+          },
         ],
         academicPrograms: [
           {
@@ -529,11 +553,11 @@ describe('UniversityRepository.findAll', () => {
             durationYears: 4,
             tuitionPerYear: new Prisma.Decimal(3000),
             createdAt: baseDate,
-            updatedAt: baseDate
-          }
+            updatedAt: baseDate,
+          },
         ],
-        city: null
-      }
+        city: null,
+      },
     ]
 
     findMany.mockResolvedValue(universities)
@@ -541,9 +565,9 @@ describe('UniversityRepository.findAll', () => {
 
     const result = await repository.findAll(createParams({ sort: 'lang_en' }), 'en')
 
-    expect(result.data.map(item => item.title)).toEqual([
+    expect(result.data.map((item) => item.title)).toEqual([
       'International College',
-      'Turkish Academy'
+      'Turkish Academy',
     ])
   })
 

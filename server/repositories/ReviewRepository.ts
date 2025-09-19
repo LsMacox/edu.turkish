@@ -1,4 +1,4 @@
-import { ApplicationStatus, Prisma, PrismaClient } from '@prisma/client'
+import { type Prisma, type PrismaClient, ApplicationStatus } from '@prisma/client'
 import type { Review, ReviewQueryParams } from '../types/api'
 import type { UserType } from '../../app/types/domain'
 import { normalizeLocale, type NormalizedLocale } from '../utils/locale'
@@ -7,9 +7,9 @@ const REVIEW_INCLUDE = {
   translations: true,
   university: {
     include: {
-      translations: true
-    }
-  }
+      translations: true,
+    },
+  },
 } satisfies Prisma.ReviewInclude
 
 type ReviewWithRelations = Prisma.ReviewGetPayload<{
@@ -26,7 +26,10 @@ export class ReviewRepository {
   /**
    * Find all reviews with filtering and pagination
    */
-  async findAll(params: ReviewQueryParams, locale: string = ReviewRepository.DEFAULT_LOCALE): Promise<{
+  async findAll(
+    params: ReviewQueryParams,
+    locale: string = ReviewRepository.DEFAULT_LOCALE,
+  ): Promise<{
     data: Review[]
     total: number
   }> {
@@ -50,15 +53,11 @@ export class ReviewRepository {
       this.prisma.review.findMany({
         where,
         include: REVIEW_INCLUDE,
-        orderBy: [
-          { featured: 'desc' },
-          { rating: 'desc' },
-          { createdAt: 'desc' }
-        ],
+        orderBy: [{ featured: 'desc' }, { rating: 'desc' }, { createdAt: 'desc' }],
         skip: (safePage - 1) * safeLimit,
-        take: safeLimit
+        take: safeLimit,
       }),
-      this.prisma.review.count({ where })
+      this.prisma.review.count({ where }),
     ])
 
     return {
@@ -91,40 +90,40 @@ export class ReviewRepository {
       universityLocales,
       programLocales,
       reviewLocales,
-      faqLocales
+      faqLocales,
     ] = await this.prisma.$transaction([
       this.prisma.review.aggregate({
         _count: { id: true },
-        _avg: { rating: true }
+        _avg: { rating: true },
       }),
       this.prisma.university.count(),
       this.prisma.university.findMany({
         where: { cityId: { not: null } },
         select: { cityId: true },
-        distinct: ['cityId']
+        distinct: ['cityId'],
       }),
       this.prisma.academicProgram.count(),
       this.prisma.scholarship.count(),
       this.prisma.application.count(),
       this.prisma.application.count({
-        where: { status: ApplicationStatus.approved }
+        where: { status: ApplicationStatus.approved },
       }),
       this.prisma.universityTranslation.findMany({
         distinct: ['locale'],
-        select: { locale: true }
+        select: { locale: true },
       }),
       this.prisma.programTranslation.findMany({
         distinct: ['locale'],
-        select: { locale: true }
+        select: { locale: true },
       }),
       this.prisma.reviewTranslation.findMany({
         distinct: ['locale'],
-        select: { locale: true }
+        select: { locale: true },
       }),
       this.prisma.faqTranslation.findMany({
         distinct: ['locale'],
-        select: { locale: true }
-      })
+        select: { locale: true },
+      }),
     ])
 
     const languages = new Set<string>()
@@ -138,7 +137,8 @@ export class ReviewRepository {
     }
 
     const approvedCount = applicationsApprovedCount ?? 0
-    const successRate = applicationsTotal > 0 ? Math.round((approvedCount / applicationsTotal) * 100) : 0
+    const successRate =
+      applicationsTotal > 0 ? Math.round((approvedCount / applicationsTotal) * 100) : 0
     const avgRatingRaw = reviewStats._avg.rating
     const avgRating = avgRatingRaw === null ? 0 : Number(avgRatingRaw.toFixed(1))
 
@@ -150,7 +150,7 @@ export class ReviewRepository {
       scholarships_provided: scholarshipsCount,
       cities_covered: universitiesWithCity.length,
       languages_supported: languages.size,
-      specialties_available: programCount
+      specialties_available: programCount,
     }
   }
 
@@ -164,11 +164,8 @@ export class ReviewRepository {
     const reviews = await this.prisma.review.findMany({
       where: { featured: true },
       include: REVIEW_INCLUDE,
-      orderBy: [
-        { rating: 'desc' },
-        { createdAt: 'desc' }
-      ],
-      take: safeLimit
+      orderBy: [{ rating: 'desc' }, { createdAt: 'desc' }],
+      take: safeLimit,
     })
 
     return reviews.map(review => this.mapReview(review, localeInfo))
@@ -195,15 +192,9 @@ export class ReviewRepository {
       achievements?: Review['achievements']
     }>
   }): Promise<Review> {
-    const {
-      translations,
-      achievements,
-      name,
-      quote,
-      ...reviewData
-    } = data
+    const { translations, achievements, name, quote, ...reviewData } = data
 
-    const translationPayloads = translations.map(translation => {
+    const translationPayloads = translations.map((translation) => {
       const resolvedAchievements =
         translation.achievements ??
         (translation.locale === ReviewRepository.DEFAULT_LOCALE ? achievements : undefined)
@@ -213,7 +204,7 @@ export class ReviewRepository {
         name: translation.name ?? name,
         quote: translation.quote ?? quote,
         universityName: translation.universityName,
-        ...(resolvedAchievements ? { achievements: resolvedAchievements } : {})
+        ...(resolvedAchievements ? { achievements: resolvedAchievements } : {}),
       }
     })
 
@@ -221,10 +212,10 @@ export class ReviewRepository {
       data: {
         ...reviewData,
         translations: {
-          create: translationPayloads
-        }
+          create: translationPayloads,
+        },
       },
-      include: REVIEW_INCLUDE
+      include: REVIEW_INCLUDE,
     })
 
     return this.mapReview(review, normalizeLocale(ReviewRepository.DEFAULT_LOCALE))
@@ -245,7 +236,7 @@ export class ReviewRepository {
       universityTranslations[0]
 
     const achievements = this.parseAchievements(
-      localizedTranslation?.achievements ?? fallbackTranslation?.achievements
+      localizedTranslation?.achievements ?? fallbackTranslation?.achievements,
     )
 
     const universityName =
@@ -265,7 +256,7 @@ export class ReviewRepository {
       rating: review.rating ?? 5,
       avatar: review.avatar ?? '',
       featured: review.featured,
-      achievements
+      achievements,
     }
   }
 
@@ -319,7 +310,7 @@ export class ReviewRepository {
 
     if (Array.isArray(raw.helpful_aspects)) {
       const helpfulAspects = raw.helpful_aspects.filter(
-        (item): item is string => typeof item === 'string'
+        (item): item is string => typeof item === 'string',
       )
       if (helpfulAspects.length > 0) {
         achievements.helpful_aspects = helpfulAspects

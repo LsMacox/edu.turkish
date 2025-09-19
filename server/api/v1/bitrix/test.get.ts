@@ -1,13 +1,13 @@
 import { BitrixService } from '../../../services/BitrixService'
 import { getBitrixConfig, validateBitrixConfig } from '../../../utils/bitrix-config'
 
-export default defineEventHandler(async (event) => {
+export default defineEventHandler(async (_event) => {
   try {
     // Проверяем настройки Bitrix
     if (!validateBitrixConfig()) {
       return {
         success: false,
-        error: 'Bitrix configuration is missing or invalid'
+        error: 'Bitrix configuration is missing or invalid',
       }
     }
 
@@ -24,15 +24,14 @@ export default defineEventHandler(async (event) => {
       config: {
         domain: bitrixConfig.domain,
         hasToken: !!bitrixConfig.accessToken,
-        hasWebhook: !!bitrixConfig.webhookUrl
-      }
+        hasWebhook: !!bitrixConfig.webhookUrl,
+      },
     }
-
   } catch (error: any) {
     console.error('Error testing Bitrix connection:', error)
     return {
       success: false,
-      error: error.message
+      error: error.message,
     }
   }
 })

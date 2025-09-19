@@ -14,18 +14,18 @@ vi.mock('#imports', () => ({
           TR: 'Turkish',
           EN: 'English',
           RU: 'Russian',
-          AR: 'Arabic'
+          AR: 'Arabic',
         }
       }
       return {}
     },
-    locale: vueRef('en')
+    locale: vueRef('en'),
   }),
   useId: () => 'test-id',
   useApplicationModal: () => ({
-    openModal: vi.fn()
+    openModal: vi.fn(),
   }),
-  useLocalePath: () => (path: string) => path
+  useLocalePath: () => (path: string) => path,
 }))
 
 vi.stubGlobal('useI18n', () => ({
@@ -36,19 +36,19 @@ vi.stubGlobal('useI18n', () => ({
         TR: 'Turkish',
         EN: 'English',
         RU: 'Russian',
-        AR: 'Arabic'
+        AR: 'Arabic',
       }
     }
     return {}
   },
-  locale: vueRef('en')
+  locale: vueRef('en'),
 }))
 vi.stubGlobal('useLocalePath', () => (path: string) => path)
 
 // provide global i18n mock for templates and components
 config.global.mocks = {
   ...(config.global.mocks || {}),
-  $t: (key: string) => key
+  $t: (key: string) => key,
 }
 
 vi.stubGlobal('ref', vueRef)
@@ -58,7 +58,7 @@ vi.stubGlobal('readonly', vueReadonly)
 global.ResizeObserver = vi.fn(() => ({
   observe: vi.fn(),
   unobserve: vi.fn(),
-  disconnect: vi.fn()
+  disconnect: vi.fn(),
 }))
 
 // Activate Pinia for components using stores

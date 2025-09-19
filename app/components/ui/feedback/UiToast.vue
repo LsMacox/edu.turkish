@@ -9,13 +9,13 @@
           t.type === 'success' && 'bg-green-50 border-green-200 text-green-900',
           t.type === 'error' && 'bg-red-50 border-red-200 text-red-900',
           t.type === 'info' && 'bg-blue-50 border-blue-200 text-blue-900',
-          t.type === 'warning' && 'bg-yellow-50 border-yellow-200 text-yellow-900'
+          t.type === 'warning' && 'bg-yellow-50 border-yellow-200 text-yellow-900',
         ]"
       >
         <div class="mt-0.5">
-          <Icon v-if="t.type==='success'" name="mdi:check-circle" class="text-green-600" />
-          <Icon v-else-if="t.type==='error'" name="mdi:alert-circle" class="text-red-600" />
-          <Icon v-else-if="t.type==='warning'" name="mdi:alert" class="text-yellow-600" />
+          <Icon v-if="t.type === 'success'" name="mdi:check-circle" class="text-green-600" />
+          <Icon v-else-if="t.type === 'error'" name="mdi:alert-circle" class="text-red-600" />
+          <Icon v-else-if="t.type === 'warning'" name="mdi:alert" class="text-yellow-600" />
           <Icon v-else name="mdi:information" class="text-blue-600" />
         </div>
         <div class="flex-1">
@@ -35,10 +35,12 @@ const { toasts, remove } = useToast()
 </script>
 
 <style scoped>
-.toast-enter-active, .toast-leave-active {
-  transition: all .18s ease;
+.toast-enter-active,
+.toast-leave-active {
+  transition: all 0.18s ease;
 }
-.toast-enter-from, .toast-leave-to {
+.toast-enter-from,
+.toast-leave-to {
   opacity: 0;
   transform: translateY(-6px);
 }

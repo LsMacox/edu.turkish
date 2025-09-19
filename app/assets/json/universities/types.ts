@@ -7,8 +7,7 @@
  */
 
 // Базовые перечисления (синхронизированы со schema.prisma)
-import type { DirectionSlug } from '../../../types/directions'
-import { ALL_DIRECTIONS as ALLOWED_DIRECTIONS } from '../../../types/directions'
+import { type DirectionSlug, ALL_DIRECTIONS as ALLOWED_DIRECTIONS } from '../../../types/directions'
 export type UniversityType = 'state' | 'private' | 'tech' | 'elite'
 export type DegreeType = 'bachelor' | 'master' | 'phd'
 export type ProgramLanguage = 'tr' | 'en'
@@ -325,7 +324,10 @@ export interface UniversityJson {
 export const ALLOWED_UNIVERSITY_TYPES: UniversityType[] = ['state', 'private', 'tech', 'elite']
 export const ALLOWED_DEGREE_TYPES: DegreeType[] = ['bachelor', 'master', 'phd']
 export const ALLOWED_PROGRAM_LANGUAGES: ProgramLanguage[] = ['tr', 'en']
-export const ALLOWED_IMPORTANT_DATE_TYPES: ImportantDateType[] = ['deadline', 'event', 'exam', 'notification']
+export const ALLOWED_IMPORTANT_DATE_TYPES: ImportantDateType[] = [
+  'deadline',
+  'event',
+  'exam',
+  'notification',
+]
 export { ALLOWED_DIRECTIONS }
-
-

@@ -29,18 +29,21 @@
 
             <!-- Search Bar -->
             <div class="relative max-w-md">
-              <Icon name="mdi:magnify" class="absolute left-4 top-1/2 -translate-y-1/2 text-gray-400 w-5 h-5" />
+              <Icon
+                name="mdi:magnify"
+                class="absolute left-4 top-1/2 -translate-y-1/2 text-gray-400 w-5 h-5"
+              />
               <input
                 v-model="searchInput"
                 type="text"
                 :placeholder="hero.searchPlaceholder"
                 class="w-full px-4 py-3 pl-12 pr-12 border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-primary focus:border-primary"
-              >
+              />
               <button
                 v-if="searchInput"
-                @click="searchInput = ''"
                 class="absolute right-4 top-1/2 transform -translate-y-1/2 text-gray-400 hover:text-gray-600 transition-colors p-1 min-w-touch-44 min-h-touch-44 flex items-center justify-center"
                 :aria-label="t('common.clear')"
+                @click="searchInput = ''"
               >
                 <Icon name="mdi:close" class="w-5 h-5" />
               </button>
@@ -83,9 +86,11 @@
             :key="category.key"
             type="button"
             class="px-6 py-2 rounded-full border font-medium transition-all min-h-touch-44"
-            :class="activeCategory === category.key
-              ? 'bg-primary text-white border-primary shadow-sm'
-              : 'border-gray-300 text-secondary hover:border-primary hover:text-primary'"
+            :class="
+              activeCategory === category.key
+                ? 'bg-primary text-white border-primary shadow-sm'
+                : 'border-gray-300 text-secondary hover:border-primary hover:text-primary'
+            "
             :aria-pressed="activeCategory === category.key"
             @click="setCategoryAndFetch(category.key)"
           >
@@ -118,7 +123,10 @@
                     format="webp"
                   />
                 </template>
-                <div v-else class="w-full h-64 bg-gradient-to-br from-blue-50 to-purple-50 flex items-center justify-center px-6 text-center">
+                <div
+                  v-else
+                  class="w-full h-64 bg-gradient-to-br from-blue-50 to-purple-50 flex items-center justify-center px-6 text-center"
+                >
                   <p class="text-secondary font-semibold text-lg">{{ featuredArticle.title }}</p>
                 </div>
                 <div class="p-8">
@@ -130,11 +138,18 @@
                       {{ featuredArticle.category?.label }}
                     </span>
                     <span>{{ featuredArticle.publishedAtLabel }}</span>
-                    <span v-if="featuredArticle.readingTimeLabel">• {{ featuredArticle.readingTimeLabel }}</span>
+                    <span v-if="featuredArticle.readingTimeLabel"
+                      >• {{ featuredArticle.readingTimeLabel }}</span
+                    >
                   </div>
-                  <h3 class="text-2xl font-bold text-secondary mb-4">{{ featuredArticle.title }}</h3>
+                  <h3 class="text-2xl font-bold text-secondary mb-4">
+                    {{ featuredArticle.title }}
+                  </h3>
                   <p class="text-gray-600 leading-relaxed mb-6">{{ featuredArticle.excerpt }}</p>
-                  <NuxtLink :to="articleLink(featuredArticle.slug)" class="text-primary font-semibold hover:underline">
+                  <NuxtLink
+                    :to="articleLink(featuredArticle.slug)"
+                    class="text-primary font-semibold hover:underline"
+                  >
                     {{ t('blog.articles.readMore') }}
                   </NuxtLink>
                 </div>
@@ -155,7 +170,10 @@
                     format="webp"
                   />
                 </template>
-                <div v-else class="w-full h-48 bg-gray-100 flex items-center justify-center px-4 text-center">
+                <div
+                  v-else
+                  class="w-full h-48 bg-gray-100 flex items-center justify-center px-4 text-center"
+                >
                   <span class="text-secondary text-sm font-semibold">{{ article.title }}</span>
                 </div>
                 <div class="p-6 flex flex-col flex-1">
@@ -170,10 +188,13 @@
                   </div>
                   <h3 class="text-xl font-semibold text-secondary mb-3">{{ article.title }}</h3>
                   <p class="text-gray-600 text-sm mb-4">{{ article.excerpt }}</p>
-                  
+
                   <div class="mt-auto pt-2 flex items-center justify-between text-sm text-gray-500">
                     <span v-if="article.readingTimeLabel">{{ article.readingTimeLabel }}</span>
-                    <NuxtLink :to="articleLink(article.slug)" class="text-primary font-semibold hover:underline">
+                    <NuxtLink
+                      :to="articleLink(article.slug)"
+                      class="text-primary font-semibold hover:underline"
+                    >
                       {{ t('blog.articles.readMore') }}
                     </NuxtLink>
                   </div>
@@ -181,15 +202,21 @@
               </article>
             </div>
 
-            <p v-if="!loading && !articles.length && !featuredArticle" class="text-center text-gray-500">
+            <p
+              v-if="!loading && !articles.length && !featuredArticle"
+              class="text-center text-gray-500"
+            >
               {{ t('blog.articles.empty', 'Нет статей для отображения') }}
             </p>
 
-            <p v-if="error" class="mt-6 rounded-xl border border-red-100 bg-red-50 px-4 py-3 text-sm text-red-600">
+            <p
+              v-if="error"
+              class="mt-6 rounded-xl border border-red-100 bg-red-50 px-4 py-3 text-sm text-red-600"
+            >
               {{ error }}
             </p>
 
-            <div class="text-center" v-if="hasMore">
+            <div v-if="hasMore" class="text-center">
               <button
                 type="button"
                 class="bg-white border-2 border-primary text-primary px-8 py-3 rounded-xl font-semibold hover:bg-primary hover:text-white transition-all disabled:opacity-60 disabled:cursor-not-allowed"
@@ -219,7 +246,9 @@
                   v-for="(item, index) in sidebarPopular.items"
                   :key="item.id"
                   class="pb-4"
-                  :class="index !== sidebarPopular.items.length - 1 ? 'border-b border-gray-100' : ''"
+                  :class="
+                    index !== sidebarPopular.items.length - 1 ? 'border-b border-gray-100' : ''
+                  "
                 >
                   <NuxtLink
                     v-if="item.slug"
@@ -228,10 +257,7 @@
                   >
                     {{ item.title }}
                   </NuxtLink>
-                  <p
-                    v-else
-                    class="font-semibold text-secondary mb-2 text-sm leading-tight"
-                  >
+                  <p v-else class="font-semibold text-secondary mb-2 text-sm leading-tight">
                     {{ item.title }}
                   </p>
                   <div class="flex items-center text-xs text-gray-500 gap-2">
@@ -278,7 +304,7 @@ import { useBlogStore } from '~/stores/blog'
 
 definePageMeta({
   layout: 'default',
-  name: 'BlogPage'
+  name: 'BlogPage',
 })
 
 const { t, tm, te } = useI18n()
@@ -298,7 +324,7 @@ const {
   searchQuery,
   currentPage,
   error,
-  popular
+  popular,
 } = storeToRefs(blogStore)
 
 const searchInput = ref('')
@@ -368,12 +394,13 @@ useHead(() => ({
     { name: 'description', content: t('blog.meta.description') },
     { property: 'og:title', content: t('blog.meta.title') },
     { property: 'og:description', content: t('blog.meta.description') },
-    { property: 'og:type', content: 'website' }
-  ]
+    { property: 'og:type', content: 'website' },
+  ],
 }))
 
 const parseRouteFilters = () => {
-  const category = typeof route.query.category === 'string' && route.query.category ? route.query.category : 'all'
+  const category =
+    typeof route.query.category === 'string' && route.query.category ? route.query.category : 'all'
   const search = typeof route.query.q === 'string' ? route.query.q : ''
   const rawPage = Array.isArray(route.query.page) ? route.query.page[0] : route.query.page
   const pageValue = rawPage ? Number(rawPage) : 1
@@ -382,7 +409,7 @@ const parseRouteFilters = () => {
   return {
     category,
     search,
-    page
+    page,
   }
 }
 
@@ -401,7 +428,7 @@ if (import.meta.server) {
   await blogStore.fetchArticles({
     page: initialFilters.page,
     category: initialFilters.category,
-    search: initialFilters.search
+    search: initialFilters.search,
   })
 }
 
@@ -409,7 +436,7 @@ onMounted(async () => {
   await blogStore.fetchArticles({
     page: currentPage.value,
     category: activeCategory.value,
-    search: searchQuery.value
+    search: searchQuery.value,
   })
 })
 
@@ -470,7 +497,7 @@ const updateFromRoute = async () => {
   await blogStore.fetchArticles({
     page: filters.page,
     category: filters.category,
-    search: filters.search
+    search: filters.search,
   })
 }
 
@@ -481,30 +508,27 @@ watch(
       return
     }
     await updateFromRoute()
-  }
+  },
 )
 
-watch(
-  searchInput,
-  (value) => {
-    if (searchDebounce) {
-      clearTimeout(searchDebounce)
+watch(searchInput, (value) => {
+  if (searchDebounce) {
+    clearTimeout(searchDebounce)
+  }
+
+  searchDebounce = setTimeout(async () => {
+    if (value === searchQuery.value) {
+      return
     }
 
-    searchDebounce = setTimeout(async () => {
-      if (value === searchQuery.value) {
-        return
-      }
-
-      blogStore.setSearchQuery(value)
-      blogStore.resetPagination()
-      const response = await blogStore.fetchArticles({ page: 1, search: value })
-      if (response) {
-        syncRoute({ q: value, page: 1 })
-      }
-    }, 400)
-  }
-)
+    blogStore.setSearchQuery(value)
+    blogStore.resetPagination()
+    const response = await blogStore.fetchArticles({ page: 1, search: value })
+    if (response) {
+      syncRoute({ q: value, page: 1 })
+    }
+  }, 400)
+})
 
 onBeforeUnmount(() => {
   if (searchDebounce) {
@@ -519,14 +543,14 @@ const categoryStyles: Record<string, string> = {
   cost: 'bg-orange-100 text-orange-800',
   life: 'bg-teal-100 text-teal-800',
   applications: 'bg-indigo-100 text-indigo-800',
-  rankings: 'bg-purple-100 text-purple-800'
+  rankings: 'bg-purple-100 text-purple-800',
 }
 
 const quickLinkIcons: Record<string, string> = {
   universities: 'mdi:school-outline',
   checklist: 'mdi:file-document-check-outline',
   reviews: 'mdi:comment-quote-outline',
-  consultation: 'mdi:headset'
+  consultation: 'mdi:headset',
 }
 
 type HeroHighlight = { title: string; subtitle: string }
@@ -574,12 +598,12 @@ const hero = computed<HeroContent>(() => {
     imageAlt: resolveI18nValue(value?.imageAlt),
     highlight: {
       title: resolveI18nValue(highlight?.title),
-      subtitle: resolveI18nValue(highlight?.subtitle)
+      subtitle: resolveI18nValue(highlight?.subtitle),
     },
     stats: rawStats.map((stat) => ({
       icon: resolveI18nValue(stat?.icon),
-      label: resolveI18nValue(stat?.label)
-    }))
+      label: resolveI18nValue(stat?.label),
+    })),
   }
 })
 
@@ -628,7 +652,7 @@ const filterCategories = computed(() => {
     added.add(category.key)
     result.push({
       key: category.key,
-      label: category.label || labelMap.get(category.key) || category.key
+      label: category.label || labelMap.get(category.key) || category.key,
     })
   })
 
@@ -671,8 +695,8 @@ const sidebarPopular = computed<SidebarPopular>(() => {
         slug: item.slug,
         title: item.title,
         date: item.publishedAtLabel,
-        views: item.viewCountLabel
-      }))
+        views: item.viewCountLabel,
+      })),
     }
   }
 
@@ -683,13 +707,13 @@ const sidebarPopular = computed<SidebarPopular>(() => {
       slug: typeof item.slug === 'string' ? item.slug : null,
       title: resolveI18nValue(item?.title),
       date: resolveI18nValue(item?.date),
-      views: resolveI18nValue(item?.views)
+      views: resolveI18nValue(item?.views),
     }))
     .filter((item) => item.title)
 
   return {
     title,
-    items: normalizedFallback
+    items: normalizedFallback,
   }
 })
 
@@ -706,11 +730,11 @@ const quickLinks = computed<QuickLinksContent>(() => {
 
             return {
               id,
-              label: resolveI18nValue(item?.label)
+              label: resolveI18nValue(item?.label),
             }
           })
           .filter((item) => item.id && item.label)
-      : []
+      : [],
   }
 })
 
@@ -771,7 +795,9 @@ const handleQuickLinkClick = async (linkId: string) => {
 }
 
 .hover-lift {
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  transition:
+    transform 0.3s ease,
+    box-shadow 0.3s ease;
 }
 
 .hover-lift:hover {

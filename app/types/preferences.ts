@@ -5,7 +5,7 @@ export interface SimplePreferences {
   description: string
 }
 
-// Questionnaire data from HomeWho component  
+// Questionnaire data from HomeWho component
 export interface QuestionnairePreferences extends SimplePreferences {
   source: 'home_questionnaire'
   userType: UserType
@@ -41,7 +41,7 @@ export const FORM_SOURCES = {
   universities_not_found: 'Запрос персональной подборки университетов',
   home_questionnaire: 'Заявка на основе анкеты с главной страницы',
   home_faq: 'Заявка из блока FAQ на главной странице',
-  university_detail: 'Заявка с детальной страницы университета'
+  university_detail: 'Заявка с детальной страницы университета',
 } as const
 
 export type FormSource = keyof typeof FORM_SOURCES
@@ -51,7 +51,7 @@ export interface FAQItem {
   id: string
   category: string
   question: string
-  answer: string  // Always HTML string format
+  answer: string // Always HTML string format
   keywords: string[]
   type?: 'simple' | 'complex'
   relevanceScore?: number
@@ -116,18 +116,18 @@ export const DEFAULT_FORM_VALIDATION: FormValidationSchema = {
   name: {
     required: true,
     minLength: 2,
-    maxLength: 50
+    maxLength: 50,
   },
   phone: {
     required: true,
     // E.164: + followed by 8 to 15 digits
-    pattern: /^\+[1-9]\d{7,14}$/
+    pattern: /^\+[1-9]\d{7,14}$/,
   },
   email: {
     required: true,
-    pattern: /^[^\s@]+@[^\s@]+\.[^\s@]+$/
+    pattern: /^[^\s@]+@[^\s@]+\.[^\s@]+$/,
   },
   privacyAgreement: {
-    required: true
-  }
+    required: true,
+  },
 }

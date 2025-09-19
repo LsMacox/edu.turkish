@@ -38,11 +38,7 @@
   "strong_programs": [
     {
       "category": "Поведенческие науки и психология",
-      "programs": [
-        "Психология",
-        "Логопедия и речевая терапия",
-        "Аудиология"
-      ]
+      "programs": ["Психология", "Логопедия и речевая терапия", "Аудиология"]
     },
     {
       "category": "Медицина и здравоохранение",
@@ -111,7 +107,10 @@
       { "name": "NP Brain Hospital (клиническая база)", "icon": "ph:stethoscope" },
       { "name": "NP Health Campus и медицинские центры", "icon": "ph:first-aid" },
       { "name": "Dental Hospital (стоматологическая клиника)", "icon": "ph:tooth" },
-      { "name": "Исследовательские лаборатории VR, токсикологии, нейрогенетики", "icon": "ph:flask" },
+      {
+        "name": "Исследовательские лаборатории VR, токсикологии, нейрогенетики",
+        "icon": "ph:flask"
+      },
       { "name": "BrainPark — инкубатор и технопарк", "icon": "ph:lightbulb" },
       { "name": "Библиотеки и мультимедийные студии", "icon": "ph:books" },
       { "name": "Зоны для групповой работы и коворкинги", "icon": "ph:users-three" },
@@ -123,12 +122,28 @@
   },
   "admission": {
     "requirements": [
-      { "category": "exam", "requirement": "TR-YÖS / SAT — не обязательны", "details": "Поступление возможно по аттестату" },
-      { "category": "language", "requirement": "TOEFL iBT ≥ 84 или внутренний экзамен", "details": "Для программ на английском языке" }
+      {
+        "category": "exam",
+        "requirement": "TR-YÖS / SAT — не обязательны",
+        "details": "Поступление возможно по аттестату"
+      },
+      {
+        "category": "language",
+        "requirement": "TOEFL iBT ≥ 84 или внутренний экзамен",
+        "details": "Для программ на английском языке"
+      }
     ],
     "documents": [
-      { "name": "Аттестат/диплом", "description": "Апостиль и нотариальный перевод", "format_requirements": ["PDF"] },
-      { "name": "Загранпаспорт", "description": "Срок действия не менее 2 лет", "format_requirements": ["PDF"] },
+      {
+        "name": "Аттестат/диплом",
+        "description": "Апостиль и нотариальный перевод",
+        "format_requirements": ["PDF"]
+      },
+      {
+        "name": "Загранпаспорт",
+        "description": "Срок действия не менее 2 лет",
+        "format_requirements": ["PDF"]
+      },
       { "name": "Фото", "description": "Фон белый", "format_requirements": ["JPG", "PNG"] }
     ],
     "scholarships": [
@@ -145,46 +160,314 @@
     ]
   },
   "programs": [
-    { "degree_type": "bachelor", "name": "Судебные науки", "language": "tr", "tuition_per_year": 3600, "duration_years": 4 },
-    { "degree_type": "bachelor", "name": "Питание и диетология", "language": "tr", "tuition_per_year": 3600, "duration_years": 4, "direction_slug": "public-health" },
-    { "degree_type": "bachelor", "name": "Компьютерная инженерия", "language": "en", "tuition_per_year": 5600, "duration_years": 4, "direction_slug": "computer-engineering" },
-    { "degree_type": "bachelor", "name": "Биомедицинская инженерия", "language": "en", "tuition_per_year": 5000, "duration_years": 4, "direction_slug": "biotechnology" },
+    {
+      "degree_type": "bachelor",
+      "name": "Судебные науки",
+      "language": "tr",
+      "tuition_per_year": 3600,
+      "duration_years": 4
+    },
+    {
+      "degree_type": "bachelor",
+      "name": "Питание и диетология",
+      "language": "tr",
+      "tuition_per_year": 3600,
+      "duration_years": 4,
+      "direction_slug": "public-health"
+    },
+    {
+      "degree_type": "bachelor",
+      "name": "Компьютерная инженерия",
+      "language": "en",
+      "tuition_per_year": 5600,
+      "duration_years": 4,
+      "direction_slug": "computer-engineering"
+    },
+    {
+      "degree_type": "bachelor",
+      "name": "Биомедицинская инженерия",
+      "language": "en",
+      "tuition_per_year": 5000,
+      "duration_years": 4,
+      "direction_slug": "biotechnology"
+    },
 
-    { "degree_type": "bachelor", "name": "Стоматология", "language": "tr", "tuition_per_year": 16000, "duration_years": 5, "direction_slug": "dentistry" },
-    { "degree_type": "bachelor", "name": "Стоматология", "language": "en", "tuition_per_year": 22000, "duration_years": 5, "direction_slug": "dentistry" },
-    { "degree_type": "bachelor", "name": "Акушерство", "language": "tr", "tuition_per_year": 3600, "duration_years": 4, "direction_slug": "public-health" },
-    { "degree_type": "bachelor", "name": "Электротехника и электроника", "language": "en", "tuition_per_year": 5000, "duration_years": 4, "direction_slug": "electrical-electronics-engineering" },
-    { "degree_type": "bachelor", "name": "Промышленная инженерия", "language": "en", "tuition_per_year": 4400, "duration_years": 4, "direction_slug": "industrial-engineering" },
-    { "degree_type": "bachelor", "name": "Философия", "language": "tr", "tuition_per_year": 3600, "duration_years": 4, "direction_slug": "philosophy" },
-    { "degree_type": "bachelor", "name": "Физиотерапия и реабилитация", "language": "tr", "tuition_per_year": 3600, "duration_years": 4, "direction_slug": "public-health" },
-    { "degree_type": "bachelor", "name": "Журналистика", "language": "tr", "tuition_per_year": 3600, "duration_years": 4, "direction_slug": "journalism-media" },
-    { "degree_type": "bachelor", "name": "Дизайн визуальных коммуникаций", "language": "tr", "tuition_per_year": 3600, "duration_years": 4, "direction_slug": "design" },
-    { "degree_type": "bachelor", "name": "Связи с общественностью и реклама", "language": "tr", "tuition_per_year": 3600, "duration_years": 4, "direction_slug": "communication" },
-    { "degree_type": "bachelor", "name": "Медсестринское дело", "language": "tr", "tuition_per_year": 3600, "duration_years": 4, "direction_slug": "nursing" },
-    { "degree_type": "bachelor", "name": "Логопедия и речевая терапия", "language": "tr", "tuition_per_year": 3600, "duration_years": 4 },
-    { "degree_type": "bachelor", "name": "Молекулярная биология и генетика", "language": "tr", "tuition_per_year": 3600, "duration_years": 4, "direction_slug": "biology" },
-    { "degree_type": "bachelor", "name": "Молекулярная биология и генетика", "language": "en", "tuition_per_year": 5000, "duration_years": 4, "direction_slug": "biology" },
-    { "degree_type": "bachelor", "name": "Аудиология", "language": "tr", "tuition_per_year": 3600, "duration_years": 4 },
-    { "degree_type": "bachelor", "name": "Перфузия", "language": "tr", "tuition_per_year": 3600, "duration_years": 4 },
-    { "degree_type": "bachelor", "name": "Психология", "language": "tr", "tuition_per_year": 3600, "duration_years": 4, "direction_slug": "psychology" },
-    { "degree_type": "bachelor", "name": "Психология", "language": "en", "tuition_per_year": 5600, "duration_years": 4, "direction_slug": "psychology" },
-    { "degree_type": "bachelor", "name": "Радио, телевидение и кино", "language": "tr", "tuition_per_year": 3600, "duration_years": 4, "direction_slug": "journalism-media" },
-    { "degree_type": "bachelor", "name": "Реклама", "language": "tr", "tuition_per_year": 3600, "duration_years": 4, "direction_slug": "marketing" },
-    { "degree_type": "bachelor", "name": "Управление здравоохранением", "language": "tr", "tuition_per_year": 3600, "duration_years": 4, "direction_slug": "public-health" },
-    { "degree_type": "bachelor", "name": "Политология и международные отношения", "language": "tr", "tuition_per_year": 3600, "duration_years": 4, "direction_slug": "international-relations" },
-    { "degree_type": "bachelor", "name": "Политология и международные отношения", "language": "en", "tuition_per_year": 4400, "duration_years": 4, "direction_slug": "international-relations" },
-    { "degree_type": "bachelor", "name": "Социальная работа", "language": "tr", "tuition_per_year": 3600, "duration_years": 4 },
-    { "degree_type": "bachelor", "name": "Социология", "language": "tr", "tuition_per_year": 3600, "duration_years": 4, "direction_slug": "sociology" },
-    { "degree_type": "bachelor", "name": "История", "language": "tr", "tuition_per_year": 3600, "duration_years": 4, "direction_slug": "history" },
-    { "degree_type": "bachelor", "name": "Медицина", "language": "tr", "tuition_per_year": 18000, "duration_years": 6, "direction_slug": "medicine" },
-    { "degree_type": "bachelor", "name": "Медицина", "language": "en", "tuition_per_year": 24000, "duration_years": 6, "direction_slug": "medicine" },
-    { "degree_type": "bachelor", "name": "Программная инженерия", "language": "en", "tuition_per_year": 5600, "duration_years": 4, "direction_slug": "software-engineering" },
-    { "degree_type": "bachelor", "name": "Новые медиа и коммуникации", "language": "tr", "tuition_per_year": 3600, "duration_years": 4, "direction_slug": "communication" },
-    { "degree_type": "bachelor", "name": "Мультфильм и анимация", "language": "tr", "tuition_per_year": 3600, "duration_years": 4, "direction_slug": "design" },
-    { "degree_type": "bachelor", "name": "Детское развитие", "language": "tr", "tuition_per_year": 3600, "duration_years": 4, "direction_slug": "education" },
-    { "degree_type": "bachelor", "name": "Английский перевод и устный перевод", "language": "en", "tuition_per_year": 4400, "duration_years": 4, "direction_slug": "languages-linguistics" },
-    { "degree_type": "bachelor", "name": "Английский перевод и устный перевод", "language": "tr", "tuition_per_year": 4400, "duration_years": 4, "direction_slug": "languages-linguistics" },
-    { "degree_type": "bachelor", "name": "Охрана труда и техника безопасности", "language": "tr", "tuition_per_year": 3600, "duration_years": 4, "direction_slug": "public-health" }
+    {
+      "degree_type": "bachelor",
+      "name": "Стоматология",
+      "language": "tr",
+      "tuition_per_year": 16000,
+      "duration_years": 5,
+      "direction_slug": "dentistry"
+    },
+    {
+      "degree_type": "bachelor",
+      "name": "Стоматология",
+      "language": "en",
+      "tuition_per_year": 22000,
+      "duration_years": 5,
+      "direction_slug": "dentistry"
+    },
+    {
+      "degree_type": "bachelor",
+      "name": "Акушерство",
+      "language": "tr",
+      "tuition_per_year": 3600,
+      "duration_years": 4,
+      "direction_slug": "public-health"
+    },
+    {
+      "degree_type": "bachelor",
+      "name": "Электротехника и электроника",
+      "language": "en",
+      "tuition_per_year": 5000,
+      "duration_years": 4,
+      "direction_slug": "electrical-electronics-engineering"
+    },
+    {
+      "degree_type": "bachelor",
+      "name": "Промышленная инженерия",
+      "language": "en",
+      "tuition_per_year": 4400,
+      "duration_years": 4,
+      "direction_slug": "industrial-engineering"
+    },
+    {
+      "degree_type": "bachelor",
+      "name": "Философия",
+      "language": "tr",
+      "tuition_per_year": 3600,
+      "duration_years": 4,
+      "direction_slug": "philosophy"
+    },
+    {
+      "degree_type": "bachelor",
+      "name": "Физиотерапия и реабилитация",
+      "language": "tr",
+      "tuition_per_year": 3600,
+      "duration_years": 4,
+      "direction_slug": "public-health"
+    },
+    {
+      "degree_type": "bachelor",
+      "name": "Журналистика",
+      "language": "tr",
+      "tuition_per_year": 3600,
+      "duration_years": 4,
+      "direction_slug": "journalism-media"
+    },
+    {
+      "degree_type": "bachelor",
+      "name": "Дизайн визуальных коммуникаций",
+      "language": "tr",
+      "tuition_per_year": 3600,
+      "duration_years": 4,
+      "direction_slug": "design"
+    },
+    {
+      "degree_type": "bachelor",
+      "name": "Связи с общественностью и реклама",
+      "language": "tr",
+      "tuition_per_year": 3600,
+      "duration_years": 4,
+      "direction_slug": "communication"
+    },
+    {
+      "degree_type": "bachelor",
+      "name": "Медсестринское дело",
+      "language": "tr",
+      "tuition_per_year": 3600,
+      "duration_years": 4,
+      "direction_slug": "nursing"
+    },
+    {
+      "degree_type": "bachelor",
+      "name": "Логопедия и речевая терапия",
+      "language": "tr",
+      "tuition_per_year": 3600,
+      "duration_years": 4
+    },
+    {
+      "degree_type": "bachelor",
+      "name": "Молекулярная биология и генетика",
+      "language": "tr",
+      "tuition_per_year": 3600,
+      "duration_years": 4,
+      "direction_slug": "biology"
+    },
+    {
+      "degree_type": "bachelor",
+      "name": "Молекулярная биология и генетика",
+      "language": "en",
+      "tuition_per_year": 5000,
+      "duration_years": 4,
+      "direction_slug": "biology"
+    },
+    {
+      "degree_type": "bachelor",
+      "name": "Аудиология",
+      "language": "tr",
+      "tuition_per_year": 3600,
+      "duration_years": 4
+    },
+    {
+      "degree_type": "bachelor",
+      "name": "Перфузия",
+      "language": "tr",
+      "tuition_per_year": 3600,
+      "duration_years": 4
+    },
+    {
+      "degree_type": "bachelor",
+      "name": "Психология",
+      "language": "tr",
+      "tuition_per_year": 3600,
+      "duration_years": 4,
+      "direction_slug": "psychology"
+    },
+    {
+      "degree_type": "bachelor",
+      "name": "Психология",
+      "language": "en",
+      "tuition_per_year": 5600,
+      "duration_years": 4,
+      "direction_slug": "psychology"
+    },
+    {
+      "degree_type": "bachelor",
+      "name": "Радио, телевидение и кино",
+      "language": "tr",
+      "tuition_per_year": 3600,
+      "duration_years": 4,
+      "direction_slug": "journalism-media"
+    },
+    {
+      "degree_type": "bachelor",
+      "name": "Реклама",
+      "language": "tr",
+      "tuition_per_year": 3600,
+      "duration_years": 4,
+      "direction_slug": "marketing"
+    },
+    {
+      "degree_type": "bachelor",
+      "name": "Управление здравоохранением",
+      "language": "tr",
+      "tuition_per_year": 3600,
+      "duration_years": 4,
+      "direction_slug": "public-health"
+    },
+    {
+      "degree_type": "bachelor",
+      "name": "Политология и международные отношения",
+      "language": "tr",
+      "tuition_per_year": 3600,
+      "duration_years": 4,
+      "direction_slug": "international-relations"
+    },
+    {
+      "degree_type": "bachelor",
+      "name": "Политология и международные отношения",
+      "language": "en",
+      "tuition_per_year": 4400,
+      "duration_years": 4,
+      "direction_slug": "international-relations"
+    },
+    {
+      "degree_type": "bachelor",
+      "name": "Социальная работа",
+      "language": "tr",
+      "tuition_per_year": 3600,
+      "duration_years": 4
+    },
+    {
+      "degree_type": "bachelor",
+      "name": "Социология",
+      "language": "tr",
+      "tuition_per_year": 3600,
+      "duration_years": 4,
+      "direction_slug": "sociology"
+    },
+    {
+      "degree_type": "bachelor",
+      "name": "История",
+      "language": "tr",
+      "tuition_per_year": 3600,
+      "duration_years": 4,
+      "direction_slug": "history"
+    },
+    {
+      "degree_type": "bachelor",
+      "name": "Медицина",
+      "language": "tr",
+      "tuition_per_year": 18000,
+      "duration_years": 6,
+      "direction_slug": "medicine"
+    },
+    {
+      "degree_type": "bachelor",
+      "name": "Медицина",
+      "language": "en",
+      "tuition_per_year": 24000,
+      "duration_years": 6,
+      "direction_slug": "medicine"
+    },
+    {
+      "degree_type": "bachelor",
+      "name": "Программная инженерия",
+      "language": "en",
+      "tuition_per_year": 5600,
+      "duration_years": 4,
+      "direction_slug": "software-engineering"
+    },
+    {
+      "degree_type": "bachelor",
+      "name": "Новые медиа и коммуникации",
+      "language": "tr",
+      "tuition_per_year": 3600,
+      "duration_years": 4,
+      "direction_slug": "communication"
+    },
+    {
+      "degree_type": "bachelor",
+      "name": "Мультфильм и анимация",
+      "language": "tr",
+      "tuition_per_year": 3600,
+      "duration_years": 4,
+      "direction_slug": "design"
+    },
+    {
+      "degree_type": "bachelor",
+      "name": "Детское развитие",
+      "language": "tr",
+      "tuition_per_year": 3600,
+      "duration_years": 4,
+      "direction_slug": "education"
+    },
+    {
+      "degree_type": "bachelor",
+      "name": "Английский перевод и устный перевод",
+      "language": "en",
+      "tuition_per_year": 4400,
+      "duration_years": 4,
+      "direction_slug": "languages-linguistics"
+    },
+    {
+      "degree_type": "bachelor",
+      "name": "Английский перевод и устный перевод",
+      "language": "tr",
+      "tuition_per_year": 4400,
+      "duration_years": 4,
+      "direction_slug": "languages-linguistics"
+    },
+    {
+      "degree_type": "bachelor",
+      "name": "Охрана труда и техника безопасности",
+      "language": "tr",
+      "tuition_per_year": 3600,
+      "duration_years": 4,
+      "direction_slug": "public-health"
+    }
   ],
   "directions": [
     "medicine",

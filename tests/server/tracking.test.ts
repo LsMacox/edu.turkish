@@ -7,7 +7,6 @@ import * as trackingUtils from '../../server/utils/tracking'
 import type { ApplicationRequest } from '../../server/types/api'
 
 describe('tracking code generation', () => {
-
   it('creates tracking code with EDU prefix via request helper', () => {
     const trackingCode = helperGenerateTrackingCode()
 
@@ -45,13 +44,13 @@ describe('tracking code generation', () => {
       education: {},
       preferences: {},
       additionalInfo: {},
-      submittedAt
+      submittedAt,
     })
 
     const prismaMock = {
       application: {
-        create: createMock
-      }
+        create: createMock,
+      },
     } as unknown as PrismaClient
 
     const repository = new ApplicationRepository(prismaMock)
@@ -61,16 +60,16 @@ describe('tracking code generation', () => {
         first_name: 'John',
         last_name: 'Doe',
         email: 'john@example.com',
-        phone: '+1234567890'
+        phone: '+1234567890',
       },
       education: {
         level: 'Bachelor',
-        field: 'Engineering'
+        field: 'Engineering',
       },
       preferences: {},
       additional_info: 'Interested in scholarships',
       source: 'website',
-      user_preferences: {}
+      user_preferences: {},
     }
 
     try {
@@ -96,8 +95,8 @@ describe('tracking code generation', () => {
           personalInfo: request.personal_info,
           education: request.education,
           preferences: request.preferences,
-          additionalInfo: request.additional_info || {}
-        }
+          additionalInfo: request.additional_info || {},
+        },
       })
       expect(result.tracking_code).toBe(sharedCode)
       expect(result.id).toBe('42')

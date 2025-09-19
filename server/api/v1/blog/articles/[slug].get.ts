@@ -9,7 +9,7 @@ export default defineEventHandler(async (event): Promise<{ data: BlogArticleDeta
   if (!slugParam || typeof slugParam !== 'string') {
     throw createError({
       statusCode: 400,
-      statusMessage: 'Article slug is required'
+      statusMessage: 'Article slug is required',
     })
   }
 
@@ -20,7 +20,7 @@ export default defineEventHandler(async (event): Promise<{ data: BlogArticleDeta
     if (!article) {
       throw createError({
         statusCode: 404,
-        statusMessage: 'Article not found'
+        statusMessage: 'Article not found',
       })
     }
 
@@ -33,8 +33,7 @@ export default defineEventHandler(async (event): Promise<{ data: BlogArticleDeta
     console.error('Error fetching blog article detail:', error)
     throw createError({
       statusCode: 500,
-      statusMessage: 'Failed to fetch article'
+      statusMessage: 'Failed to fetch article',
     })
   }
 })
-

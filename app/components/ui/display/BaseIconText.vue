@@ -1,19 +1,8 @@
 <template>
-  <div :class="[
-    'flex items-center',
-    alignClasses,
-    spacingClasses
-  ]">
+  <div :class="['flex items-center', alignClasses, spacingClasses]">
     <!-- Icon -->
-    <Icon 
-      :name="icon" 
-      :class="[
-        iconColorClasses,
-        iconSizeClasses,
-        'flex-shrink-0'
-      ]" 
-    />
-    
+    <Icon :name="icon" :class="[iconColorClasses, iconSizeClasses, 'flex-shrink-0']" />
+
     <!-- Text content -->
     <span :class="textClasses">
       <slot>{{ text }}</slot>
@@ -32,7 +21,7 @@ const props = withDefaults(defineProps<BaseIconTextProps>(), {
   align: 'center',
   spacing: 'md',
   truncate: false,
-  weight: 'normal'
+  weight: 'normal',
 })
 
 // Alignment classes
@@ -74,7 +63,7 @@ const iconSizeClasses = computed(() => {
 // Icon color classes
 const iconColorClasses = computed(() => {
   if (props.iconColor === 'inherit') return ''
-  
+
   const colorMap = {
     primary: 'text-primary',
     secondary: 'text-secondary',
@@ -82,9 +71,9 @@ const iconColorClasses = computed(() => {
     success: 'text-green-600',
     warning: 'text-yellow-600',
     error: 'text-red-600',
-    info: 'text-blue-600'
+    info: 'text-blue-600',
   }
-  
+
   return colorMap[props.iconColor] || colorMap.primary
 })
 
@@ -93,9 +82,9 @@ const textClasses = computed(() => {
   const sizeMap = {
     sm: 'text-sm',
     md: 'text-base',
-    lg: 'text-lg'
+    lg: 'text-lg',
   }
-  
+
   const colorMap = {
     primary: 'text-primary',
     secondary: 'text-secondary',
@@ -103,21 +92,21 @@ const textClasses = computed(() => {
     success: 'text-green-600',
     warning: 'text-yellow-600',
     error: 'text-red-600',
-    info: 'text-blue-600'
+    info: 'text-blue-600',
   }
-  
+
   const weightMap = {
     normal: 'font-normal',
     medium: 'font-medium',
     semibold: 'font-semibold',
-    bold: 'font-bold'
+    bold: 'font-bold',
   }
-  
+
   return [
     sizeMap[props.size] || sizeMap.md,
     colorMap[props.color] || colorMap.secondary,
     weightMap[props.weight] || weightMap.normal,
-    props.truncate ? 'truncate' : 'leading-relaxed'
+    props.truncate ? 'truncate' : 'leading-relaxed',
   ].join(' ')
 })
 </script>

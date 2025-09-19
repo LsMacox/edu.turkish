@@ -40,7 +40,8 @@ export default <RouterConfig>{
       const startY = currentY
       const deltaY = targetY - startY
 
-      const easeInOutCubic = (t: number) => (t < 0.5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2)
+      const easeInOutCubic = (t: number) =>
+        t < 0.5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2
 
       return new Promise<void>((resolve) => {
         const step = (now: number) => {
@@ -94,5 +95,5 @@ export default <RouterConfig>{
         animateToElement(el).then(() => resolve())
       })
     })
-  }
+  },
 }

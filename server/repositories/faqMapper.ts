@@ -32,28 +32,28 @@ type CategoryWithTranslations = FaqItemWithLocalizedRelations['category']
 
 const pickByLocale = <T extends TranslationWithLocale>(
   translations: T[] | undefined,
-  normalized: string
+  normalized: string,
 ): T | undefined => {
   if (!translations || translations.length === 0) {
     return undefined
   }
 
   return (
-    translations.find(t => t.locale === normalized) ||
-    translations.find(t => t.locale === 'ru') ||
+    translations.find((t) => t.locale === normalized) ||
+    translations.find((t) => t.locale === 'ru') ||
     translations[0]
   )
 }
 
-const resolveCategoryName = (
-  category: CategoryWithTranslations,
-  normalized: string
-): string => {
+const resolveCategoryName = (category: CategoryWithTranslations, normalized: string): string => {
   const translation = pickByLocale<FaqCategoryTranslation>(category?.translations, normalized)
   return translation?.name || ''
 }
 
-const calculateRelevance = (translation: FaqTranslation | undefined, q?: string): number | undefined => {
+const calculateRelevance = (
+  translation: FaqTranslation | undefined,
+  q?: string,
+): number | undefined => {
   if (!q || !translation) {
     return undefined
   }
@@ -69,7 +69,7 @@ const calculateRelevance = (translation: FaqTranslation | undefined, q?: string)
 export const mapFaqItemToApi = (
   faq: FaqItemWithLocalizedRelations,
   normalized: string,
-  q?: string
+  q?: string,
 ): FAQItem => {
   const translation = pickByLocale<FaqTranslation>(faq.translations, normalized)
   const categoryName = resolveCategoryName(faq.category, normalized)
@@ -82,20 +82,19 @@ export const mapFaqItemToApi = (
     category: categoryName,
     featured: faq.featured,
     order: 0,
-    relevance_score: relevanceScore
+    relevance_score: relevanceScore,
   }
 }
 
 export const mapFaqCategoryToApi = (
   category: FaqCategoryWithLocalizedRelations,
-  normalized: string
+  normalized: string,
 ): FAQCategory => {
   const translation = pickByLocale<FaqCategoryTranslation>(category.translations, normalized)
 
   return {
     key: String(category.id),
     name: translation?.name || String(category.id),
-    count: category._count?.items ?? 0
+    count: category._count?.items ?? 0,
   }
 }
-

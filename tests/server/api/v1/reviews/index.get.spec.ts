@@ -8,7 +8,7 @@ declare global {
 
 const getQueryMock = vi.fn()
 const repositoryInstance = {
-  findAll: vi.fn()
+  findAll: vi.fn(),
 }
 const ReviewRepositoryMock = vi.fn(() => repositoryInstance)
 
@@ -24,11 +24,11 @@ globalThis.getQuery = getQueryMock as any
 globalThis.createError = (input: unknown) => input
 
 vi.mock('../../../../../lib/prisma', () => ({
-  prisma: {}
+  prisma: {},
 }))
 
 vi.mock('../../../../../server/repositories', () => ({
-  ReviewRepository: ReviewRepositoryMock
+  ReviewRepository: ReviewRepositoryMock,
 }))
 
 describe('GET /api/v1/reviews', () => {
@@ -37,14 +37,12 @@ describe('GET /api/v1/reviews', () => {
       page: 'abc',
       limit: 'not-a-number',
       type: '',
-      featured: 'false'
+      featured: 'false',
     })
 
     const repositoryResponse = {
-      data: [
-        { id: 1, name: 'Student A' }
-      ],
-      total: 5
+      data: [{ id: 1, name: 'Student A' }],
+      total: 5,
     }
 
     repositoryInstance.findAll.mockResolvedValue(repositoryResponse)
@@ -61,9 +59,9 @@ describe('GET /api/v1/reviews', () => {
         type: 'all',
         featured: false,
         page: 1,
-        limit: 50
+        limit: 50,
       },
-      'tr'
+      'tr',
     )
 
     expect(result).toEqual({
@@ -72,8 +70,8 @@ describe('GET /api/v1/reviews', () => {
         total: 5,
         page: 1,
         limit: 50,
-        totalPages: 1
-      }
+        totalPages: 1,
+      },
     })
   })
 
@@ -103,4 +101,3 @@ describe('GET /api/v1/reviews', () => {
     expect(result.data).toEqual([{ id: 7, name: 'Әружан', quote: 'Kazakh review' }])
   })
 })
-

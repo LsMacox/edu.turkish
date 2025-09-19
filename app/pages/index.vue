@@ -20,8 +20,11 @@ const applicationDeadline = '2025-11-01T23:59:59'
 useHead({
   title: 'Главная',
   meta: [
-    { name: 'description', content: 'Обучение в Турции: поступление в университеты, программы и поддержка.' }
-  ]
+    {
+      name: 'description',
+      content: 'Обучение в Турции: поступление в университеты, программы и поддержка.',
+    },
+  ],
 })
 
 // Ensure universities are fetched on the home page reload (limit to 6)

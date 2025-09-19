@@ -9,28 +9,28 @@ const { t } = useI18n()
 const faqs = computed(() => [
   {
     question: t('home.faq.question1'),
-    answer: t('home.faq.answer1')
+    answer: t('home.faq.answer1'),
   },
   {
     question: t('home.faq.question2'),
-    answer: t('home.faq.answer2')
+    answer: t('home.faq.answer2'),
   },
   {
     question: t('home.faq.question3'),
-    answer: t('home.faq.answer3')
+    answer: t('home.faq.answer3'),
   },
   {
     question: t('home.faq.question4'),
-    answer: t('home.faq.answer4')
+    answer: t('home.faq.answer4'),
   },
   {
     question: t('home.faq.question5'),
-    answer: t('home.faq.answer5')
+    answer: t('home.faq.answer5'),
   },
   {
     question: t('home.faq.question6'),
-    answer: t('home.faq.answer6')
-  }
+    answer: t('home.faq.answer6'),
+  },
 ])
 </script>
 
@@ -40,7 +40,9 @@ const faqs = computed(() => [
 }
 
 .hover-lift {
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  transition:
+    transform 0.3s ease,
+    box-shadow 0.3s ease;
 }
 
 .hover-lift:hover {

@@ -12,15 +12,23 @@
     <ClientOnly>
       <div v-if="loading" class="min-h-screen bg-white flex items-center justify-center">
         <div class="text-center">
-          <div class="animate-spin rounded-full h-32 w-32 border-b-2 border-primary mx-auto mb-4"></div>
+          <div
+            class="animate-spin rounded-full h-32 w-32 border-b-2 border-primary mx-auto mb-4"
+          ></div>
           <h1 class="text-xl font-semibold text-secondary">{{ t('loading') }}</h1>
         </div>
       </div>
-      <div v-else-if="(!university && !loading) || error" class="min-h-screen bg-white flex items-center justify-center">
+      <div
+        v-else-if="(!university && !loading) || error"
+        class="min-h-screen bg-white flex items-center justify-center"
+      >
         <div class="text-center">
           <h1 class="text-4xl font-bold text-secondary mb-4">{{ t('universityNotFound') }}</h1>
           <p class="text-gray-600 mb-8">{{ t('universityNotFoundDescription') }}</p>
-          <NuxtLink :to="localePath('/universities')" class="bg-primary text-white px-6 py-3 rounded-xl font-semibold hover:bg-red-600 transition-colors">
+          <NuxtLink
+            :to="localePath('/universities')"
+            class="bg-primary text-white px-6 py-3 rounded-xl font-semibold hover:bg-red-600 transition-colors"
+          >
             {{ t('backToUniversities') }}
           </NuxtLink>
         </div>
@@ -30,8 +38,8 @@
 </template>
 
 <script setup lang="ts">
-const localePath = useLocalePath()
 import { useUniversityDetailStore } from '~/stores/universityDetail'
+const localePath = useLocalePath()
 
 const route = useRoute()
 const universityDetailStore = useUniversityDetailStore()
@@ -39,7 +47,6 @@ const { locale, t } = useI18n()
 
 // Get university by slug from API (reactive)
 const slug = computed(() => route.params.slug as string)
-
 
 // Load on server for SSR hydration
 await callOnce(async () => {
@@ -56,16 +63,16 @@ if (import.meta.client) {
       await universityDetailStore.loadUniversityBySlug(slug.value)
     }
   })
-  
+
   watch(
     () => slug.value,
     async (newSlug, oldSlug) => {
       if (!newSlug || newSlug === oldSlug) return
       universityDetailStore.clearCurrentUniversity()
       await universityDetailStore.loadUniversityBySlug(newSlug)
-    }
+    },
   )
-  
+
   // Watch for locale changes and reload university data
   watch(
     () => locale.value,
@@ -75,7 +82,7 @@ if (import.meta.client) {
       if (slug.value && universityDetailStore.isUniversityLoaded(slug.value)) {
         await universityDetailStore.loadUniversityBySlug(slug.value)
       }
-    }
+    },
   )
 }
 
@@ -84,16 +91,7 @@ const loading = computed(() => universityDetailStore.loading)
 const error = computed(() => universityDetailStore.error)
 
 // Debug information in development
-if (process.dev) {
-  watch([university, loading, error], ([univ, load, err]) => {
-    console.log('University detail state:', {
-      university: univ ? { id: univ.id, name: univ.name } : null,
-      loading: load,
-      error: err,
-      slug: slug.value
-    })
-  }, { immediate: true })
-}
+// dev logging removed
 
 // SEO and meta tags setup
 const headData = computed(() => {
@@ -103,21 +101,21 @@ const headData = computed(() => {
       meta: [
         {
           name: 'description',
-          content: university.value.description || t('universityInformation')
+          content: university.value.description || t('universityInformation'),
         },
         {
           property: 'og:title',
-          content: `${university.value.name} - Edu.turkish`
+          content: `${university.value.name} - Edu.turkish`,
         },
         {
           property: 'og:description',
-          content: university.value.description || t('universityInformation')
+          content: university.value.description || t('universityInformation'),
         },
         {
           property: 'og:image',
-          content: university.value.heroImage || ''
-        }
-      ]
+          content: university.value.heroImage || '',
+        },
+      ],
     }
   } else {
     return {
@@ -125,9 +123,9 @@ const headData = computed(() => {
       meta: [
         {
           name: 'description',
-          content: t('universityNotFoundDescription')
-        }
-      ]
+          content: t('universityNotFoundDescription'),
+        },
+      ],
     }
   }
 })

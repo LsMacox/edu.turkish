@@ -1,4 +1,4 @@
-import { defineEventHandler, getRequestHeader, createError } from 'h3';
+import { defineEventHandler, getRequestHeader, createError } from 'h3'
 
 const envHosts = (process.env.ALLOWED_HOSTS || '').split(',').map(h => h.trim().toLowerCase()).filter(Boolean);
 const ALLOWED_HOSTS = new Set<string>([
@@ -8,19 +8,17 @@ const ALLOWED_HOSTS = new Set<string>([
   'edu-turkish.com',
   'www.edu-turkish.com',
   ...envHosts,
-]);
+])
 
 export default defineEventHandler((event) => {
   if (process.env.NODE_ENV !== 'production') {
     return
   }
 
-  const forwardedHost = getRequestHeader(event, 'x-forwarded-host');
-  const host = (forwardedHost || getRequestHeader(event, 'host') || '').toLowerCase();
+  const forwardedHost = getRequestHeader(event, 'x-forwarded-host')
+  const host = (forwardedHost || getRequestHeader(event, 'host') || '').toLowerCase()
 
   if (!ALLOWED_HOSTS.has(host)) {
-    throw createError({ statusCode: 403, statusMessage: 'Forbidden host' });
+    throw createError({ statusCode: 403, statusMessage: 'Forbidden host' })
   }
-});
-
-
+})

@@ -51,11 +51,7 @@
     },
     {
       "category": "Искусство и дизайн",
-      "programs": [
-        "Графический дизайн",
-        "Театр и кино",
-        "Цифровые медиа"
-      ]
+      "programs": ["Графический дизайн", "Театр и кино", "Цифровые медиа"]
     }
   ],
   "key_info_texts": {
@@ -140,16 +136,12 @@
       {
         "name": "Аттестат о среднем образовании",
         "description": "Апостиль и нотариальный перевод на турецкий",
-        "format_requirements": [
-          "PDF"
-        ]
+        "format_requirements": ["PDF"]
       },
       {
         "name": "Загранпаспорт",
         "description": "Срок действия — не менее 2 лет",
-        "format_requirements": [
-          "PDF"
-        ]
+        "format_requirements": ["PDF"]
       },
       {
         "name": "Фотографии",
@@ -158,9 +150,7 @@
       {
         "name": "Denklik belgesi",
         "description": "На турецком, оценивание по 100-балльной шкале",
-        "format_requirements": [
-          "PDF"
-        ]
+        "format_requirements": ["PDF"]
       }
     ],
     "dates": [

@@ -18,15 +18,15 @@ const createPrismaMock = () => {
       findMany,
       count,
       groupBy,
-      aggregate
+      aggregate,
     },
     academicProgram: {
-      groupBy: academicProgramGroupBy
+      groupBy: academicProgramGroupBy,
     },
     cityTranslation: {
-      findMany: cityTranslationFindMany
+      findMany: cityTranslationFindMany,
     },
-    $transaction: transaction
+    $transaction: transaction,
   } as unknown as PrismaClient
 
   return {
@@ -37,7 +37,7 @@ const createPrismaMock = () => {
     aggregate,
     academicProgramGroupBy,
     cityTranslationFindMany,
-    transaction
+    transaction,
   }
 }
 
@@ -67,7 +67,7 @@ describe('UniversityRepository price filtering', () => {
     const args = prismaMock.findMany.mock.calls[0][0]
     expect(args.where?.AND?.[0]?.OR).toEqual([
       { tuitionMin: { lte: 3000 } },
-      { tuitionMin: { equals: null } }
+      { tuitionMin: { equals: null } },
     ])
   })
 
@@ -79,7 +79,7 @@ describe('UniversityRepository price filtering', () => {
     const args = prismaMock.findMany.mock.calls[0][0]
     expect(args.where?.AND?.[0]?.OR).toEqual([
       { tuitionMin: { lte: 2000 } },
-      { tuitionMin: { equals: null } }
+      { tuitionMin: { equals: null } },
     ])
   })
 
@@ -89,11 +89,11 @@ describe('UniversityRepository price filtering', () => {
     const args = prismaMock.findMany.mock.calls[0][0]
     expect(args.where?.AND?.[0]?.OR).toEqual([
       { tuitionMin: { lte: 5000 } },
-      { tuitionMin: { equals: null } }
+      { tuitionMin: { equals: null } },
     ])
     expect(args.where?.AND?.[1]?.OR).toEqual([
       { tuitionMax: { gte: 2000 } },
-      { tuitionMax: { equals: null } }
+      { tuitionMax: { equals: null } },
     ])
   })
 })

@@ -24,7 +24,9 @@
     </section>
 
     <template v-else-if="article">
-      <section class="relative overflow-hidden bg-gradient-to-br from-primary/10 via-white to-secondary/10 py-20">
+      <section
+        class="relative overflow-hidden bg-gradient-to-br from-primary/10 via-white to-secondary/10 py-20"
+      >
         <div class="container mx-auto px-4 lg:px-6">
           <div class="grid items-center gap-12 lg:grid-cols-[minmax(0,1.8fr)_minmax(0,1fr)]">
             <div class="space-y-6">
@@ -52,7 +54,9 @@
               </div>
             </div>
             <div v-if="heroImage" class="relative">
-              <div class="absolute -top-8 -right-6 hidden h-40 w-40 rounded-full bg-primary/10 blur-3xl lg:block" />
+              <div
+                class="absolute -top-8 -right-6 hidden h-40 w-40 rounded-full bg-primary/10 blur-3xl lg:block"
+              />
               <div class="relative overflow-hidden rounded-3xl shadow-custom">
                 <NuxtImg
                   :src="heroImage"
@@ -77,8 +81,8 @@
                   class="space-y-4"
                 >
                   <component
-                    v-if="block.type === 'heading'"
                     :is="headingTag(block.level)"
+                    v-if="block.type === 'heading'"
                     :id="block.id"
                     class="scroll-mt-24 text-2xl font-semibold text-secondary lg:text-3xl"
                   >
@@ -90,12 +94,14 @@
                   </p>
 
                   <component
-                    v-else-if="block.type === 'list'"
                     :is="block.ordered ? 'ol' : 'ul'"
+                    v-else-if="block.type === 'list'"
                     class="list-inside space-y-2 text-gray-600"
                     :class="block.ordered ? 'list-decimal' : 'list-disc'"
                   >
-                    <li v-for="(item, itemIndex) in block.items" :key="`item-${itemIndex}`">{{ item }}</li>
+                    <li v-for="(item, itemIndex) in block.items" :key="`item-${itemIndex}`">
+                      {{ String(item) }}
+                    </li>
                   </component>
 
                   <figure v-else-if="block.type === 'image'" class="space-y-3">
@@ -116,7 +122,9 @@
                   >
                     <Icon name="mdi:format-quote-open" class="text-3xl text-primary" />
                     <p class="text-lg font-medium text-secondary">{{ block.text }}</p>
-                    <cite v-if="block.author" class="block text-sm text-gray-500">{{ block.author }}</cite>
+                    <cite v-if="block.author" class="block text-sm text-gray-500">{{
+                      block.author
+                    }}</cite>
                   </blockquote>
                 </div>
               </div>
@@ -124,7 +132,9 @@
 
             <aside class="space-y-8">
               <div v-if="tableOfContents.length" class="rounded-3xl bg-white p-6 shadow-custom">
-                <h3 class="text-lg font-semibold text-secondary">{{ t('article.tableOfContents') }}</h3>
+                <h3 class="text-lg font-semibold text-secondary">
+                  {{ t('article.tableOfContents') }}
+                </h3>
                 <nav class="mt-4 space-y-2 text-sm text-gray-600">
                   <a
                     v-for="section in tableOfContents"
@@ -132,7 +142,9 @@
                     :href="`#${section.id}`"
                     class="flex items-center gap-3 rounded-xl px-3 py-2 transition hover:bg-background hover:text-secondary"
                   >
-                    <span class="flex h-8 w-8 items-center justify-center rounded-full bg-primary/10 text-primary">
+                    <span
+                      class="flex h-8 w-8 items-center justify-center rounded-full bg-primary/10 text-primary"
+                    >
                       {{ section.order }}
                     </span>
                     <span>{{ section.title }}</span>
@@ -140,12 +152,20 @@
                 </nav>
               </div>
 
-              <div v-if="quickFacts.length" class="rounded-3xl bg-gradient-to-br from-primary to-secondary p-[1px] shadow-lg">
+              <div
+                v-if="quickFacts.length"
+                class="rounded-3xl bg-gradient-to-br from-primary to-secondary p-[1px] shadow-lg"
+              >
                 <div class="rounded-3xl bg-white p-6">
-                  <h3 class="text-lg font-semibold text-secondary">{{ t('article.quickFacts.title') }}</h3>
+                  <h3 class="text-lg font-semibold text-secondary">
+                    {{ t('article.quickFacts.title') }}
+                  </h3>
                   <ul class="mt-4 space-y-3 text-sm text-gray-600">
                     <li v-for="fact in quickFacts" :key="fact.title" class="flex gap-3">
-                      <Icon :name="fact.icon || 'mdi:information-outline'" class="mt-0.5 text-primary" />
+                      <Icon
+                        :name="fact.icon || 'mdi:information-outline'"
+                        class="mt-0.5 text-primary"
+                      />
                       <div>
                         <p class="font-medium text-secondary">{{ fact.title }}</p>
                         <p>{{ fact.value }}</p>
@@ -156,7 +176,9 @@
               </div>
 
               <div v-if="highlights.length" class="rounded-3xl bg-white p-6 shadow-custom">
-                <h3 class="text-lg font-semibold text-secondary">{{ t('article.highlights.title') }}</h3>
+                <h3 class="text-lg font-semibold text-secondary">
+                  {{ t('article.highlights.title') }}
+                </h3>
                 <ul class="mt-4 space-y-3 text-sm text-gray-600">
                   <li v-for="highlight in highlights" :key="highlight" class="flex gap-3">
                     <Icon name="mdi:star-circle" class="mt-0.5 text-primary" />
@@ -214,7 +236,9 @@
         <div class="container mx-auto px-4 lg:px-6">
           <div class="flex flex-col gap-8 lg:flex-row lg:items-center lg:justify-between">
             <div>
-              <h2 class="text-2xl font-semibold text-secondary lg:text-3xl">{{ t('article.related.title') }}</h2>
+              <h2 class="text-2xl font-semibold text-secondary lg:text-3xl">
+                {{ t('article.related.title') }}
+              </h2>
               <p class="mt-2 max-w-2xl text-gray-600">
                 {{ t('article.related.description') }}
               </p>
@@ -235,17 +259,29 @@
               class="group flex h-full flex-col overflow-hidden rounded-3xl bg-white shadow-custom transition hover:-translate-y-1"
             >
               <template v-if="related.image">
-                <NuxtImg :src="related.image" :alt="related.imageAlt || related.title" class="h-48 w-full object-cover" format="webp" />
+                <NuxtImg
+                  :src="related.image"
+                  :alt="related.imageAlt || related.title"
+                  class="h-48 w-full object-cover"
+                  format="webp"
+                />
               </template>
-              <div v-else class="flex h-48 w-full items-center justify-center bg-gray-100 px-4 text-center">
+              <div
+                v-else
+                class="flex h-48 w-full items-center justify-center bg-gray-100 px-4 text-center"
+              >
                 <span class="text-secondary text-sm font-semibold">{{ related.title }}</span>
               </div>
               <div class="flex flex-1 flex-col gap-4 p-6">
-                <span class="inline-flex w-fit items-center rounded-full bg-primary/10 px-3 py-1 text-xs font-semibold text-primary">
+                <span
+                  class="inline-flex w-fit items-center rounded-full bg-primary/10 px-3 py-1 text-xs font-semibold text-primary"
+                >
                   {{ related.category.label }}
                 </span>
                 <h3 class="text-lg font-semibold text-secondary group-hover:text-primary">
-                  <NuxtLink :to="localePath({ name: 'articles-slug', params: { slug: related.slug } })">
+                  <NuxtLink
+                    :to="localePath({ name: 'articles-slug', params: { slug: related.slug } })"
+                  >
                     {{ related.title }}
                   </NuxtLink>
                 </h3>
@@ -272,11 +308,11 @@ import type {
   BlogArticleListItem,
   BlogArticlesResponse,
   BlogArticleQuickFact,
-  BlogArticleQueryParams
-} from '~/server/types/api'
+  BlogArticleQueryParams,
+} from '../../../server/types/api'
 
 definePageMeta({
-  layout: 'default'
+  layout: 'default',
 })
 
 const route = useRoute()
@@ -295,12 +331,12 @@ const { data, pending, error } = await useAsyncData<{ data: BlogArticleDetail } 
     }
 
     return $fetch<{ data: BlogArticleDetail }>(`/api/v1/blog/articles/${slug.value}` as const, {
-      query: { lang: locale.value }
+      query: { lang: locale.value },
     })
   },
   {
-    watch: [slug, () => locale.value]
-  }
+    watch: [slug, () => locale.value],
+  },
 )
 
 const article = computed<BlogArticleDetail | null>(() => data.value?.data ?? null)
@@ -311,14 +347,14 @@ const defaultDescription = computed(() => t('blog.meta.description'))
 useSeoMeta({
   title: computed(() => article.value?.title ?? defaultTitle.value),
   description: computed(
-    () => article.value?.seoDescription ?? article.value?.excerpt ?? defaultDescription.value
+    () => article.value?.seoDescription ?? article.value?.excerpt ?? defaultDescription.value,
   ),
   ogTitle: computed(() => article.value?.title ?? defaultTitle.value),
   ogDescription: computed(
-    () => article.value?.seoDescription ?? article.value?.excerpt ?? defaultDescription.value
+    () => article.value?.seoDescription ?? article.value?.excerpt ?? defaultDescription.value,
   ),
   ogImage: computed(() => article.value?.heroImage ?? article.value?.image ?? undefined),
-  twitterCard: 'summary_large_image'
+  twitterCard: 'summary_large_image',
 })
 
 type HeadingBlock = Extract<BlogArticleContentBlock, { type: 'heading' }>
@@ -331,13 +367,14 @@ type HeadingBlockWithId = HeadingBlock & { id: string }
 type NormalizedBlock = HeadingBlockWithId | ParagraphBlock | ListBlock | QuoteBlock | ImageBlock
 
 const createHeadingId = (text: string, counts: Map<string, number>): string => {
-  const sanitized = text
-    .toLowerCase()
-    .trim()
-    .replace(/[^\p{L}\p{N}\s-]+/gu, '')
-    .replace(/\s+/g, '-')
-    .replace(/-+/g, '-')
-    .replace(/^-|-$/g, '') || 'section'
+  const sanitized =
+    text
+      .toLowerCase()
+      .trim()
+      .replace(/[^\p{L}\p{N}\s-]+/gu, '')
+      .replace(/\s+/g, '-')
+      .replace(/-+/g, '-')
+      .replace(/^-|-$/g, '') || 'section'
 
   const count = counts.get(sanitized) ?? 0
   counts.set(sanitized, count + 1)
@@ -351,31 +388,36 @@ const normalizedContent = computed<NormalizedBlock[]>(() => {
 
   const counts = new Map<string, number>()
 
-  return article.value.content.map((block) => {
+  return article.value.content.map((block: BlogArticleContentBlock) => {
     if (block.type === 'heading') {
       return {
         ...block,
-        id: createHeadingId(block.text, counts)
+        id: createHeadingId(block.text, counts),
       }
     }
     return block
   })
 })
 
-const isHeadingBlock = (block: NormalizedBlock): block is HeadingBlockWithId => block.type === 'heading'
+const isHeadingBlock = (block: NormalizedBlock): block is HeadingBlockWithId =>
+  block.type === 'heading'
 
 const tableOfContents = computed(() => {
-  const headings = normalizedContent.value.filter(isHeadingBlock).filter((block) => block.level <= 3)
+  const headings = normalizedContent.value
+    .filter(isHeadingBlock)
+    .filter((block) => block.level <= 3)
 
   return headings.map((block, index) => ({
     id: block.id,
     order: String(index + 1).padStart(2, '0'),
-    title: block.text
+    title: block.text,
   }))
 })
 
 const heroImage = computed(() => article.value?.heroImage ?? article.value?.image ?? null)
-const heroImageAlt = computed(() => article.value?.heroImageAlt ?? article.value?.imageAlt ?? article.value?.title ?? '')
+const heroImageAlt = computed(
+  () => article.value?.heroImageAlt ?? article.value?.imageAlt ?? article.value?.title ?? '',
+)
 const heroSubtitle = computed(() => article.value?.heroSubtitle ?? article.value?.excerpt ?? '')
 const heroKicker = computed(() => article.value?.heroKicker ?? article.value?.category.label ?? '')
 const heroMeta = computed(() => {
@@ -428,14 +470,14 @@ const quickFacts = computed<BlogArticleQuickFact[]>(() => {
   addFact({
     title: t('article.quickFacts.category'),
     value: article.value.category.label,
-    icon: 'mdi:tag-outline'
+    icon: 'mdi:tag-outline',
   })
 
   if (article.value.publishedAtLabel) {
     addFact({
       title: t('article.quickFacts.published'),
       value: article.value.publishedAtLabel,
-      icon: 'mdi:calendar'
+      icon: 'mdi:calendar',
     })
   }
 
@@ -443,7 +485,7 @@ const quickFacts = computed<BlogArticleQuickFact[]>(() => {
     addFact({
       title: t('article.quickFacts.readingTime'),
       value: article.value.readingTimeLabel,
-      icon: 'mdi:clock-outline'
+      icon: 'mdi:clock-outline',
     })
   }
 
@@ -457,7 +499,9 @@ const quickFacts = computed<BlogArticleQuickFact[]>(() => {
 const highlights = computed(() => article.value?.highlights ?? [])
 const tags = computed(() => article.value?.tags ?? [])
 
-const articlePath = computed(() => localePath({ name: 'articles-slug', params: { slug: slug.value } }))
+const articlePath = computed(() =>
+  localePath({ name: 'articles-slug', params: { slug: slug.value } }),
+)
 
 const articleUrl = computed(() => {
   const path = articlePath.value || '/'
@@ -475,13 +519,13 @@ const shareLinks = computed(() => {
     {
       label: 'Telegram',
       icon: 'mdi:telegram',
-      href: `https://t.me/share/url?url=${encodeURIComponent(url)}&text=${encodeURIComponent(title)}`
+      href: `https://t.me/share/url?url=${encodeURIComponent(url)}&text=${encodeURIComponent(title)}`,
     },
     {
       label: 'WhatsApp',
       icon: 'mdi:whatsapp',
-      href: `https://wa.me/?text=${encodeURIComponent(`${title}\n${url}`)}`
-    }
+      href: `https://wa.me/?text=${encodeURIComponent(`${title}\n${url}`)}`,
+    },
   ]
 })
 
@@ -493,7 +537,7 @@ const copyShareLink = async () => {
     } else {
       throw new Error('Clipboard API unavailable')
     }
-  } catch (err) {
+  } catch {
     showToast(t('article.share.copyError'), { type: 'error' })
   }
 }
@@ -505,15 +549,15 @@ const fetchArticles = (query: BlogArticleQueryParams = {}) => {
     page: 1,
     limit: 4,
     lang: locale.value,
-    ...query
+    ...query,
   }
 
   const sanitizedQuery = Object.fromEntries(
-    Object.entries(baseQuery).filter(([, value]) => value !== undefined && value !== null)
+    Object.entries(baseQuery).filter(([, value]) => value !== undefined && value !== null),
   )
 
   return $fetch<BlogArticlesResponse>('/api/v1/blog/articles', {
-    query: sanitizedQuery
+    query: sanitizedQuery,
   })
 }
 
@@ -557,7 +601,7 @@ watch(
 
     await loadRelatedArticles()
   },
-  { immediate: true }
+  { immediate: true },
 )
 
 const headingTag = (level: number) => {
@@ -605,6 +649,8 @@ const errorMessage = computed(() => {
 }
 
 .hover\:-translate-y-1 {
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  transition:
+    transform 0.3s ease,
+    box-shadow 0.3s ease;
 }
 </style>

@@ -62,7 +62,7 @@ export const useInternationalPhone = (phone: Ref<string>) => {
     event.preventDefault()
     const digits = value.replace(/\D/g, '')
     const newDigits = digits.slice(0, -1)
-    const newRaw = newDigits.length ? ('+' + newDigits) : ''
+    const newRaw = newDigits.length ? '+' + newDigits : ''
     phone.value = formatInternationalPhone(newRaw)
   }
 
@@ -70,6 +70,6 @@ export const useInternationalPhone = (phone: Ref<string>) => {
     formatInternationalPhone,
     sanitizePhone,
     onPhoneInput,
-    onPhoneKeydown
+    onPhoneKeydown,
   }
 }

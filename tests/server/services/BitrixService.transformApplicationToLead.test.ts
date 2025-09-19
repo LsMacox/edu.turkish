@@ -14,12 +14,12 @@ const createApplication = (overrides: Partial<ApplicationRequest> = {}): Applica
     country: 'Россия',
     city: 'Москва',
     birth_date: '2000-01-01',
-    ...overrides.personal_info
+    ...overrides.personal_info,
   },
   education: {
     level: 'bachelor',
     field: 'Информатика',
-    ...overrides.education
+    ...overrides.education,
   },
   preferences: {
     universities: ['Университет Анкары'],
@@ -28,12 +28,12 @@ const createApplication = (overrides: Partial<ApplicationRequest> = {}): Applica
     start_date: '2025-09-01',
     scholarship_needed: true,
     language_preference: 'turkish',
-    ...overrides.preferences
+    ...overrides.preferences,
   },
   additional_info: overrides.additional_info ?? 'Нужен кампус в центре',
   source: overrides.source ?? 'website',
   user_preferences: overrides.user_preferences,
-  referral_code: overrides.referral_code
+  referral_code: overrides.referral_code,
 })
 
 describe('BitrixService helper methods', () => {
@@ -41,7 +41,7 @@ describe('BitrixService helper methods', () => {
     it('prioritizes selected university in title and source description', () => {
       const service = createService()
       const application = createApplication({
-        preferences: { universities: ['Босфор Университи'] }
+        preferences: { universities: ['Босфор Университи'] },
       })
 
       const result = (service as any).prepareLeadHeaderAndSource(application)
@@ -54,7 +54,7 @@ describe('BitrixService helper methods', () => {
       const service = createService()
       const application = createApplication({
         preferences: { universities: [] },
-        source: 'home_questionnaire'
+        source: 'home_questionnaire',
       })
 
       const result = (service as any).prepareLeadHeaderAndSource(application)
@@ -78,7 +78,7 @@ describe('BitrixService helper methods', () => {
     it('omits empty contact fields', () => {
       const service = createService()
       const application = createApplication({
-        personal_info: { phone: '', email: '' }
+        personal_info: { phone: '', email: '' },
       })
 
       const contact = (service as any).collectContactData(application)
@@ -95,13 +95,13 @@ describe('BitrixService helper methods', () => {
         additional_info: 'Интересует стипендия',
         preferences: {
           universities: ['Университет Анкары', 'METU'],
-          programs: ['Программирование', 'Математика']
-        }
+          programs: ['Программирование', 'Математика'],
+        },
       })
 
       const comments: string = (service as any).generateLeadComments(
         application,
-        'Главная страница сайта'
+        'Главная страница сайта',
       )
 
       expect(comments).toContain('Источник заявки: Главная страница сайта')
@@ -121,13 +121,13 @@ describe('BitrixService helper methods', () => {
           userType: 'parent',
           universityChosen: 'yes',
           language: 'both',
-          scholarship: 'yes'
-        }
+          scholarship: 'yes',
+        },
       })
 
       const comments: string = (service as any).generateLeadComments(
         application,
-        'Главная страница — Кто вы?'
+        'Главная страница — Кто вы?',
       )
 
       expect(comments).toContain('Интересующие программы: Медицина')
@@ -146,8 +146,8 @@ describe('BitrixService helper methods', () => {
         referral_code: 'ref-456',
         user_preferences: {
           userType: 'student',
-          language: 'english'
-        }
+          language: 'english',
+        },
       })
 
       const customFields = (service as any).buildCustomFields(application)
@@ -158,7 +158,7 @@ describe('BitrixService helper methods', () => {
         UF_CRM_1234567893: 'student',
         UF_CRM_1234567894: 'english',
         UF_CRM_1234567896: 'Программирование',
-        UF_CRM_1234567897: 'Университет Анкары'
+        UF_CRM_1234567897: 'Университет Анкары',
       })
     })
 
@@ -167,7 +167,7 @@ describe('BitrixService helper methods', () => {
       const application = createApplication({
         preferences: { universities: ['Istanbul University'], programs: [] },
         education: { level: 'master', field: 'Медицина' },
-        referral_code: undefined
+        referral_code: undefined,
       })
 
       const customFields = (service as any).buildCustomFields(application)

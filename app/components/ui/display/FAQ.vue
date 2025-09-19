@@ -2,29 +2,33 @@
   <section class="py-16 bg-background">
     <div class="container">
       <div v-if="displayTitle || displaySubtitle" class="text-center mb-12">
-        <h2 v-if="displayTitle" class="text-3xl lg:text-4xl font-bold text-secondary mb-4">{{ displayTitle }}</h2>
-        <p v-if="displaySubtitle" class="text-lg text-gray-600 max-w-2xl mx-auto">{{ displaySubtitle }}</p>
+        <h2 v-if="displayTitle" class="text-3xl lg:text-4xl font-bold text-secondary mb-4">
+          {{ displayTitle }}
+        </h2>
+        <p v-if="displaySubtitle" class="text-lg text-gray-600 max-w-2xl mx-auto">
+          {{ displaySubtitle }}
+        </p>
       </div>
-      
+
       <div class="max-w-4xl mx-auto">
         <div class="space-y-4">
-          <div v-for="(faq, index) in items" :key="`${index}-${faq.question}`" class="bg-white rounded-xl shadow-custom">
-            <button 
-              @click="toggle(index)"
+          <div
+            v-for="(faq, index) in items"
+            :key="`${index}-${faq.question}`"
+            class="bg-white rounded-xl shadow-custom"
+          >
+            <button
               class="w-full px-6 py-4 text-left font-semibold text-secondary hover:text-primary transition-colors flex items-center justify-between"
+              @click="toggle(index)"
             >
               <span>{{ faq.question }}</span>
-              <Icon 
-                :name="isOpen(index) ? 'mdi:chevron-up' : 'mdi:chevron-down'" 
-                class="transition-transform duration-200" 
+              <Icon
+                :name="isOpen(index) ? 'mdi:chevron-up' : 'mdi:chevron-down'"
+                class="transition-transform duration-200"
               />
             </button>
-            <div 
-              v-show="isOpen(index)"
-              class="px-6 pb-4 text-gray-600"
-              v-html="faq.answer"
-            >
-            </div>
+            <!-- eslint-disable-next-line vue/no-v-html -->
+            <div v-show="isOpen(index)" class="px-6 pb-4 text-gray-600" v-html="faq.answer"></div>
           </div>
         </div>
       </div>
@@ -39,7 +43,7 @@ interface FaqItem {
 }
 
 interface Props {
-  items: FaqItem[]
+  items?: FaqItem[]
   title?: string
   subtitle?: string
 }
@@ -49,7 +53,7 @@ const { t, locale } = useI18n()
 const props = withDefaults(defineProps<Props>(), {
   items: () => [],
   title: '',
-  subtitle: ''
+  subtitle: '',
 })
 
 // Use i18n defaults if no props are provided
@@ -76,7 +80,7 @@ const isOpen = (index: number) => openFaqs.value.includes(index)
 </script>
 
 <style scoped>
-.shadow-custom { 
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08); 
+.shadow-custom {
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
 }
 </style>

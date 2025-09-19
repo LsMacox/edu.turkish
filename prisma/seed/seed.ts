@@ -13,7 +13,7 @@ async function main() {
   // Clear existing data in development
   if (process.env.NODE_ENV === 'development') {
     console.log('🧹 Clearing existing data...')
-    
+
     // Delete in reverse dependency order
     await prisma.$transaction([
       prisma.blogArticleTranslation.deleteMany(),
@@ -54,14 +54,13 @@ async function main() {
       (prisma as any).countryTranslation.deleteMany(),
       (prisma as any).country.deleteMany(),
     ])
-    
+
     console.log('✅ Existing data cleared')
   }
 
-  
   console.log('⭐ Seeding reviews...')
   await seedReviews(prisma)
-  
+
   console.log('🗺️ Seeding locations...')
   await seedLocations(prisma)
 

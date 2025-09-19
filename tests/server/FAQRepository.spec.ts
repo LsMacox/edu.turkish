@@ -4,7 +4,7 @@ import type { PrismaClient, Prisma } from '@prisma/client'
 import { FAQRepository } from '../../server/repositories/FAQRepository'
 import type {
   FaqCategoryWithLocalizedRelations,
-  FaqItemWithLocalizedRelations
+  FaqItemWithLocalizedRelations,
 } from '../../server/repositories/faqMapper'
 
 const createFaqFixtures = () => {
@@ -12,14 +12,14 @@ const createFaqFixtures = () => {
 
   const categoryTranslations: FaqCategoryWithLocalizedRelations['translations'] = [
     { id: 301, categoryId: 10, locale: 'kk', name: 'KK Category', createdAt: now, updatedAt: now },
-    { id: 302, categoryId: 10, locale: 'ru', name: 'RU Category', createdAt: now, updatedAt: now }
+    { id: 302, categoryId: 10, locale: 'ru', name: 'RU Category', createdAt: now, updatedAt: now },
   ]
 
   const categoryForItem: NonNullable<FaqItemWithLocalizedRelations['category']> = {
     id: 10,
     createdAt: now,
     updatedAt: now,
-    translations: categoryTranslations
+    translations: categoryTranslations,
   }
 
   const categoryWithCount: FaqCategoryWithLocalizedRelations = {
@@ -27,7 +27,7 @@ const createFaqFixtures = () => {
     createdAt: categoryForItem.createdAt,
     updatedAt: categoryForItem.updatedAt,
     translations: categoryTranslations,
-    _count: { items: 2 }
+    _count: { items: 2 },
   }
 
   const questionTranslations: FaqItemWithLocalizedRelations['translations'] = [
@@ -38,7 +38,7 @@ const createFaqFixtures = () => {
       question: 'Visa requirements for students',
       answer: 'Толық түсіндірме',
       createdAt: now,
-      updatedAt: now
+      updatedAt: now,
     },
     {
       id: 402,
@@ -47,8 +47,8 @@ const createFaqFixtures = () => {
       question: 'Визовые требования',
       answer: 'Подробный ответ',
       createdAt: now,
-      updatedAt: now
-    }
+      updatedAt: now,
+    },
   ]
 
   const answerTranslations: FaqItemWithLocalizedRelations['translations'] = [
@@ -59,7 +59,7 @@ const createFaqFixtures = () => {
       question: 'How to apply',
       answer: 'Visa assistance guidance',
       createdAt: now,
-      updatedAt: now
+      updatedAt: now,
     },
     {
       id: 502,
@@ -68,8 +68,8 @@ const createFaqFixtures = () => {
       question: 'Как подать документы',
       answer: 'Информация о визе',
       createdAt: now,
-      updatedAt: now
-    }
+      updatedAt: now,
+    },
   ]
 
   const faqQuestionMatch: FaqItemWithLocalizedRelations = {
@@ -79,7 +79,7 @@ const createFaqFixtures = () => {
     createdAt: now,
     updatedAt: now,
     translations: questionTranslations,
-    category: categoryForItem
+    category: categoryForItem,
   }
 
   const faqAnswerMatch: FaqItemWithLocalizedRelations = {
@@ -89,13 +89,13 @@ const createFaqFixtures = () => {
     createdAt: now,
     updatedAt: now,
     translations: answerTranslations,
-    category: categoryForItem
+    category: categoryForItem,
   }
 
   return {
     faqQuestionMatch,
     faqAnswerMatch,
-    categoryWithCount
+    categoryWithCount,
   }
 }
 
@@ -107,17 +107,19 @@ describe('FAQRepository', () => {
       const findMany = vi.fn().mockResolvedValue([faqAnswerMatch, faqQuestionMatch])
       const count = vi.fn().mockResolvedValueOnce(2).mockResolvedValueOnce(5)
       const categoryFindMany = vi.fn().mockResolvedValue([categoryWithCount])
-      const transaction = vi.fn(async (operations: Array<Promise<unknown>>) => Promise.all(operations))
+      const transaction = vi.fn(async (operations: Array<Promise<unknown>>) =>
+        Promise.all(operations),
+      )
 
       const prisma = {
         faqItem: {
           findMany,
-          count
+          count,
         },
         faqCategory: {
-          findMany: categoryFindMany
+          findMany: categoryFindMany,
         },
-        $transaction: transaction
+        $transaction: transaction,
       } as unknown as PrismaClient
 
       const repository = new FAQRepository(prisma)
@@ -138,15 +140,13 @@ describe('FAQRepository', () => {
       expect(translationInclude?.where?.locale?.in).toEqual(['kk', 'kz', 'ru'])
       expect(translationFilter?.OR).toEqual([
         { question: { contains: 'Visa' } },
-        { answer: { contains: 'Visa' } }
+        { answer: { contains: 'Visa' } },
       ])
 
-      expect(result.data.map(item => item.id)).toEqual([1, 2])
-      expect(result.data.map(item => item.relevance_score)).toEqual([1, 0.5])
+      expect(result.data.map((item) => item.id)).toEqual([1, 2])
+      expect(result.data.map((item) => item.relevance_score)).toEqual([1, 0.5])
       expect(result.data[0].category).toBe('KK Category')
-      expect(result.categories).toEqual([
-        { key: '10', name: 'KK Category', count: 2 }
-      ])
+      expect(result.categories).toEqual([{ key: '10', name: 'KK Category', count: 2 }])
       expect(result.meta).toEqual({ total: 5, filtered: 2, query: 'Visa' })
     })
   })
@@ -158,12 +158,12 @@ describe('FAQRepository', () => {
       const findMany = vi.fn().mockResolvedValue([faqAnswerMatch, faqQuestionMatch])
       const prisma = {
         faqItem: {
-          findMany
+          findMany,
         },
         faqCategory: {
-          findMany: vi.fn()
+          findMany: vi.fn(),
         },
-        $transaction: vi.fn()
+        $transaction: vi.fn(),
       } as unknown as PrismaClient
 
       const repository = new FAQRepository(prisma)
@@ -178,12 +178,11 @@ describe('FAQRepository', () => {
       expect(translationInclude?.where?.locale?.in).toEqual(['kk', 'kz', 'ru'])
       expect(searchFilter?.OR).toEqual([
         { question: { contains: 'Visa' } },
-        { answer: { contains: 'Visa' } }
+        { answer: { contains: 'Visa' } },
       ])
 
-      expect(result.map(item => item.id)).toEqual([1, 2])
-      expect(result.map(item => item.relevance_score)).toEqual([1, 0.5])
+      expect(result.map((item) => item.id)).toEqual([1, 2])
+      expect(result.map((item) => item.relevance_score)).toEqual([1, 0.5])
     })
   })
 })
-
