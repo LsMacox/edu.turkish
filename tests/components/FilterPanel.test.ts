@@ -26,13 +26,13 @@ if (typeof window !== 'undefined') {
   window.scrollTo = vi.fn()
 }
 
-const createStoreWithRange = (priceRange: [number, number]) => {
+const createStoreWithRange = (priceRange: [number, number], languages: string[] = []) => {
   const store = useUniversitiesStore()
   store.availableFilters = {
     cities: [],
     types: [],
     levels: [],
-    languages: [],
+    languages,
     priceRange
   }
   store.filters = {
@@ -88,6 +88,17 @@ describe('FilterPanel', () => {
     routerReplaceMock.mockClear()
     routerPushMock.mockClear()
     routeMock.query = {}
+  })
+
+  it('renders language checkboxes from available filters', async () => {
+    createStoreWithRange([500, 15000], ['TR', 'EN', 'RU'])
+
+    const wrapper = mountFilterPanel()
+
+    await nextTick()
+
+    const checkboxInputs = wrapper.findAll('input[type="checkbox"]')
+    expect(checkboxInputs).toHaveLength(3)
   })
 
   it('renders range slider with available price bounds', async () => {
