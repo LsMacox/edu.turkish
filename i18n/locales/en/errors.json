@@ -1,14 +1,4 @@
 {
-  "errors": {
-    "network": {
-      "title": "Network Error",
-      "message": "Check your internet connection and try again"
-    },
-    "server": {
-      "title": "Server Error",
-      "message": "An internal server error occurred. Please try later"
-    }
-  },
   "universityNotFound": "University not found",
   "universityNotFoundDescription": "Sorry, the requested university was not found."
 }

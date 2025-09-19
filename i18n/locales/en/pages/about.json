@@ -164,41 +164,6 @@
         "sunday_time": "Closed",
         "support_24_7": "WhatsApp Support 24/7"
       }
-    },
-    "testimonials": {
-      "title": "What Our Clients Say",
-      "subtitle": "Honest reviews from students and parents who trusted us with their future",
-      "imageAlt": {
-        "student": "Student photo",
-        "parent": "Parent photo"
-      },
-      "reviews": {
-        "anna": {
-          "quote": "\"Thank you for helping with stress-free admission. Aliya was always available and solved all issues instantly!\"",
-          "name": "Anna Ivanova",
-          "university": "Istanbul University, 2024"
-        },
-        "dmitry": {
-          "quote": "\"Everything was transparent and clear from the first call. No hidden fees or unpleasant surprises.\"",
-          "name": "Dmitry Kozlov",
-          "university": "Bogazici University, 2023"
-        },
-        "elena": {
-          "quote": "\"My daughter was admitted thanks to the Edu.turkish team. Professional approach and human attitude.\"",
-          "name": "Elena Petrova",
-          "role": "Mother of METU student"
-        },
-        "arman": {
-          "quote": "\"Got a 75% scholarship thanks to the team! They knew which universities to apply to for maximum scholarship chances.\"",
-          "name": "Arman Nurlanov",
-          "university": "Sabanci University, 2024"
-        },
-        "maria": {
-          "quote": "\"They continue to help even after admission. Helped find housing, explained how to get a student card. Very grateful!\"",
-          "name": "Maria Volkova",
-          "university": "Koc University, 2023"
-        }
-      }
     }
   }
 }

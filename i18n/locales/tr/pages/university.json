@@ -20,12 +20,10 @@
       "none": "Yurt yok"
     },
     "rankingNotSpecified": "Sıralama belirtilmemiş",
-    "rankingValue": "Türkiye'de Top-{rank}",
     "internationalCount": "{count}+ öğrenci",
     "programDuration": {
       "durationYears": "{count} yıl"
-    }
-    ,
+    },
     "aboutUniversity": {
       "title": "Üniversite Hakkında",
       "history": "Tarih ve Misyon",

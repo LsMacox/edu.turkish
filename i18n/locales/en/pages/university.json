@@ -20,12 +20,10 @@
       "none": "No dormitory"
     },
     "rankingNotSpecified": "Ranking not specified",
-    "rankingValue": "Top-{rank} in Turkey",
     "internationalCount": "{count}+ students",
     "programDuration": {
       "durationYears": "{count} year | {count} years"
-    }
-    ,
+    },
     "aboutUniversity": {
       "title": "About University",
       "history": "History and Mission",

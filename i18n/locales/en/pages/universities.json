@@ -1,9 +1,5 @@
 {
   "universities_page": {
-    "meta": {
-      "title": "Universities Catalog in Turkey - Edu.turkish",
-      "description": "Find your dream university among 150+ Turkish universities. Filter by city, language, cost, and education level."
-    },
     "hero": {
       "title": "Universities Catalog",
       "subtitle": "Find your dream university using filters or explore any card for details",
