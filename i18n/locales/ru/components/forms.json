@@ -10,7 +10,7 @@
     "labels": {
       "name": "Имя",
       "email": "Email",
-      "phone": "Номер whatsapp",
+      "phone": "Номер WhatsApp",
       "message": "Сообщение",
       "subject": "Тема",
       "required": "*"
