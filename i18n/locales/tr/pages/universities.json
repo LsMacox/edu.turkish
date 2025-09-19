@@ -110,6 +110,16 @@
     "popular_programs": {
       "title": "Popüler Bölümler",
       "subtitle": "Türk üniversitelerinde en çok tercih edilen uzmanlık alanları",
+      "loading": "Veriler yükleniyor...",
+      "dynamic": {
+        "universities_count": {
+          "one": "{count} üniversite",
+          "few": "{count} üniversite",
+          "many": "{count} üniversite",
+          "other": "{count} üniversite"
+        },
+        "price_from": "{price}/yıl'dan başlayarak"
+      },
       "programs": {
         "it": {
           "title": "Bilişim Teknolojileri",

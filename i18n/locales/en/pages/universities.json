@@ -110,6 +110,16 @@
     "popular_programs": {
       "title": "Popular Programs",
       "subtitle": "Most in-demand specializations in Turkish universities",
+      "loading": "Loading data...",
+      "dynamic": {
+        "universities_count": {
+          "one": "{count} university",
+          "few": "{count} universities",
+          "many": "{count} universities",
+          "other": "{count} universities"
+        },
+        "price_from": "from {price}/year"
+      },
       "programs": {
         "it": {
           "title": "Information Technology",

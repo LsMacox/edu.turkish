@@ -110,6 +110,16 @@
     "popular_programs": {
       "title": "Танымал бағыттар",
       "subtitle": "Түрік университеттеріндегі ең сұранысты мамандықтар",
+      "loading": "Деректер жүктелуде...",
+      "dynamic": {
+        "universities_count": {
+          "one": "{count} университет",
+          "few": "{count} университет",
+          "many": "{count} университет",
+          "other": "{count} университет"
+        },
+        "price_from": "{price}/жыл бастап"
+      },
       "programs": {
         "it": {
           "title": "Ақпараттық технологиялар",
