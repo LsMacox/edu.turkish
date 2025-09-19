@@ -36,16 +36,20 @@ export default defineEventHandler(async event => {
   const utmParams = extractUtmParams(query as Record<string, any>)
 
   const requestUrl = getRequestURL(event)
-  await $fetch('/api/v1/messenger-events', {
-    method: 'POST',
-    body: {
-      channel: personalTelegramChannelKey,
-      referral_code: referralCode,
-      session: sessionId,
-      utm: utmParams
-    },
-    baseURL: requestUrl.origin
-  })
+  try {
+    await $fetch('/api/v1/messenger-events', {
+      method: 'POST',
+      body: {
+        channel: personalTelegramChannelKey,
+        referral_code: referralCode,
+        session: sessionId,
+        utm: utmParams
+      },
+      baseURL: requestUrl.origin
+    })
+  } catch (error) {
+    console.error('[go/telegram] Failed to log messenger event', error)
+  }
 
   const channelConfig = contactChannels[personalTelegramChannelKey]
   const greetingText = buildGreeting(channelConfig.defaultMessage, referralCode)
