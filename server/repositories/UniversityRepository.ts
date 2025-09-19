@@ -1,13 +1,90 @@
-// @ts-nocheck
 import { PrismaClient } from '@prisma/client'
 import type { Prisma } from '@prisma/client'
 import type { DegreeType, UniversityType } from '../../app/types/domain'
 import type {
+  AcademicProgram as AcademicProgramDto,
+  AdmissionRequirement,
+  CampusFacility as CampusFacilityDto,
+  CampusGalleryItem,
+  ImportantDate,
+  RequiredDocument,
+  ScholarshipInfo,
+  StrongProgramCategory,
+  StudyDirection,
   University,
-  UniversityQueryParams,
   UniversityDetail,
-  StrongProgramCategory
+  UniversityFilters,
+  UniversityQueryParams
 } from '../types/api'
+
+export type UniversityListItem = Prisma.UniversityGetPayload<{
+  include: {
+    translations: true
+    academicPrograms: true
+    city: { include: { translations: true } }
+  }
+}>
+
+type FeaturedProgramWithRelations = Prisma.FeaturedProgramGetPayload<{
+  include: {
+    translations: true
+    program: { include: { translations: true } }
+  }
+}>
+
+type UniversityDetailWithRelations = Prisma.UniversityGetPayload<{
+  include: {
+    translations: true
+    academicPrograms: { include: { translations: true } }
+    featuredPrograms: {
+      include: {
+        translations: true
+        program: { include: { translations: true } }
+      }
+    }
+    campusFacilities: { include: { translations: true } }
+    admissionRequirements: { include: { translations: true } }
+    requiredDocuments: { include: { translations: true } }
+    importantDates: { include: { translations: true } }
+    scholarships: { include: { translations: true } }
+    universityDirections: {
+      include: {
+        direction: { include: { translations: true } }
+      }
+    }
+    media: { include: { translations: true } }
+    country: { include: { translations: true } }
+    city: { include: { translations: true } }
+  }
+}>
+
+const CITY_ALL_VALUES = new Set(['Все города', 'All cities'])
+const TYPE_ALL_VALUES = new Set(['Все', 'All'])
+
+const TYPE_LABEL_MAP: Record<string, UniversityType> = {
+  'Государственный': 'state',
+  'Частный': 'private',
+  State: 'state',
+  Private: 'private',
+  Technical: 'tech',
+  Elite: 'elite'
+}
+
+const LEVEL_LABEL_MAP: Record<string, DegreeType> = {
+  'Бакалавриат': 'bachelor',
+  'Магистратура': 'master',
+  'Докторантура': 'phd',
+  Bachelor: 'bachelor',
+  Master: 'master',
+  PhD: 'phd'
+}
+
+const IMPORTANT_DATE_TYPE_MAP: Record<Prisma.ImportantDateType, ImportantDate['deadline_type']> = {
+  deadline: 'application',
+  event: 'document',
+  exam: 'exam',
+  notification: 'notification'
+}
 
 export class UniversityRepository {
   constructor(private prisma: PrismaClient) {}
@@ -46,11 +123,7 @@ export class UniversityRepository {
   }
 
   private buildFeaturedPrograms(
-    featuredPrograms: Array<{
-      displayOrder?: number | null
-      translations?: Array<{ locale: string; label: string | null }>
-      program?: { translations?: Array<{ locale: string; name: string | null }> }
-    }>,
+    featuredPrograms: FeaturedProgramWithRelations[],
     locale: string
   ): { categories: StrongProgramCategory[]; categoryNames: string[] } {
     const DEFAULT_CATEGORY_MAP: Record<string, string> = {
@@ -72,10 +145,10 @@ export class UniversityRepository {
       const order = typeof fp.displayOrder === 'number' ? fp.displayOrder : Number.MAX_SAFE_INTEGER
       const translation = this.selectBestTranslation(fp.translations || [], locale)
       const programTranslation = this.selectBestTranslation(fp.program?.translations || [], locale)
-      const programName = (programTranslation?.name || '').trim()
+      const programName = (programTranslation?.name ?? '').trim()
       if (!programName) continue
 
-      const rawCategory = (translation?.label || '').trim()
+      const rawCategory = (translation?.label ?? '').trim()
       const category = rawCategory.length > 0 ? rawCategory : DEFAULT_CATEGORY
 
       const current = groups.get(category)
@@ -112,192 +185,362 @@ export class UniversityRepository {
     return { categories, categoryNames }
   }
 
-  /**
-   * Find all universities with filtering, sorting, and pagination
-   */
-  async findAll(params: UniversityQueryParams, locale: string = 'ru'): Promise<{
-    data: University[]
-    total: number
-    filters: {
-      cities: string[]
-      types: string[]
-      levels: string[]
-      languages: string[]
-      priceRange: [number, number]
-    }
-  }> {
-    const {
-      q,
-      city,
-      langs = [],
-      type,
-      level,
-      price_min,
-      price_max,
-      sort = 'pop',
-      page = 1,
-      limit = 6
-    } = params
-
-    // Build where clause
+  private buildUniversityWhere(params: UniversityQueryParams, locale: string): Prisma.UniversityWhereInput {
     const where: Prisma.UniversityWhereInput = {}
+    const andConditions: Prisma.UniversityWhereInput[] = []
 
-    // Price filter based on normalized fields
-    if (price_min !== undefined || price_max !== undefined) {
-      const min = price_min ?? null
-      const max = price_max ?? null
-      const priceFilters: Prisma.UniversityWhereInput[] = []
-
-      if (max !== null) {
-        priceFilters.push({
+    const priceRange = this.normalizePriceRange(params.price_min, params.price_max)
+    if (priceRange) {
+      if (priceRange.max !== undefined) {
+        andConditions.push({
           OR: [
-            { tuitionMin: { lte: max } },
+            { tuitionMin: { lte: priceRange.max } },
             { tuitionMin: { equals: null } }
           ]
         })
       }
 
-      if (min !== null) {
-        priceFilters.push({
+      if (priceRange.min !== undefined) {
+        andConditions.push({
           OR: [
-            { tuitionMax: { gte: min } },
+            { tuitionMax: { gte: priceRange.min } },
             { tuitionMax: { equals: null } }
           ]
         })
       }
+    }
 
-      if (priceFilters.length > 0) {
-        where.AND = (where.AND || [])
-        where.AND.push(...priceFilters)
+    if (params.q) {
+      const query = params.q.trim()
+      if (query.length > 0) {
+        andConditions.push({
+          OR: [
+            {
+              translations: {
+                some: {
+                  locale,
+                  OR: [
+                    { title: { contains: query } },
+                    { description: { contains: query } }
+                  ]
+                }
+              }
+            },
+            {
+              translations: {
+                some: {
+                  locale: 'ru',
+                  OR: [
+                    { title: { contains: query } },
+                    { description: { contains: query } }
+                  ]
+                }
+              }
+            },
+            {
+              city: {
+                translations: {
+                  some: { locale, name: { contains: query } }
+                }
+              }
+            },
+            {
+              city: {
+                translations: {
+                  some: { locale: 'ru', name: { contains: query } }
+                }
+              }
+            }
+          ]
+        })
       }
     }
 
-    // Search by title/description translations and city name translations
-    if (q) {
-      where.AND = (where.AND || [])
-      where.AND.push({
+    if (params.city && !CITY_ALL_VALUES.has(params.city)) {
+      andConditions.push({
         OR: [
-          {
-            translations: {
-              some: {
-                locale,
-                OR: [
-                  { title: { contains: q } },
-                  { description: { contains: q } }
-                ]
-              }
-            }
-          },
-          {
-            translations: {
-              some: {
-                locale: 'ru',
-                OR: [
-                  { title: { contains: q } },
-                  { description: { contains: q } }
-                ]
-              }
-            }
-          },
-          {
-            city: {
-              translations: {
-                some: { locale, name: { contains: q } }
-              }
-            }
-          },
-          {
-            city: {
-              translations: {
-                some: { locale: 'ru', name: { contains: q } }
-              }
-            }
-          }
+          { city: { translations: { some: { locale, name: params.city } } } },
+          { city: { translations: { some: { locale: 'ru', name: params.city } } } }
         ]
       })
     }
 
-    // City filter using normalized City -> CityTranslation
-    if (city && city !== 'Все города' && city !== 'All cities') {
-      where.AND = (where.AND || [])
-      where.AND.push({
-        OR: [
-          { city: { translations: { some: { locale, name: city } } } },
-          { city: { translations: { some: { locale: 'ru', name: city } } } }
-        ]
-      })
+    if (params.type && !TYPE_ALL_VALUES.has(params.type)) {
+      const normalizedType = TYPE_LABEL_MAP[params.type] ?? params.type
+      where.type = normalizedType as UniversityType
     }
 
-    // Apply type filter
-    if (type && type !== 'Все' && type !== 'All') {
-      const typeMap: Record<string, string> = {
-        'Государственный': 'state',
-        'Частный': 'private',
-        'State': 'state',
-        'Private': 'private',
-        'Technical': 'tech',
-        'Elite': 'elite'
-      }
-      const mappedType = typeMap[type] || type
-      where.type = mappedType
-    }
-
-    // Apply level filter (bachelor/master/phd) against related academic programs
-    if (level && level !== 'Все' && level !== 'All') {
-      const levelMap: Record<string, string> = {
-        'Бакалавриат': 'bachelor',
-        'Магистратура': 'master',
-        'Докторантура': 'phd',
-        'Bachelor': 'bachelor',
-        'Master': 'master',
-        'PhD': 'phd'
-      }
-      const mappedLevel = (levelMap[level] || level) as DegreeType
+    if (params.level && !TYPE_ALL_VALUES.has(params.level)) {
+      const mappedLevel = LEVEL_LABEL_MAP[params.level] ?? (params.level as DegreeType)
       where.academicPrograms = {
-        some: {
-          degreeType: mappedLevel
-        }
+        some: { degreeType: mappedLevel }
       }
     }
 
-    // Apply language filter via AcademicProgram.languageCode
-    if (langs.length > 0) {
-      where.AND = (where.AND || [])
-      where.AND.push({
+    if (params.langs && params.langs.length > 0) {
+      andConditions.push({
         academicPrograms: {
           some: {
             languageCode: {
-              in: langs
+              in: params.langs
             }
           }
         }
       })
     }
 
-    // Build order by clause
-    let orderBy: Prisma.UniversityOrderByWithRelationInput = { id: 'asc' }
-
-    switch (sort) {
-      case 'price_asc':
-        orderBy = { tuitionMin: 'asc' }
-        break
-      case 'price_desc':
-        orderBy = { tuitionMax: 'desc' }
-        break
-      case 'alpha':
-        // We'll sort in-memory by localized title after fetch
-        orderBy = { id: 'asc' }
-        break
-      case 'lang_en':
-        // Post-process priority for EN after fetch; keep DB order stable
-        orderBy = { id: 'asc' }
-        break
-      default:
-        orderBy = { id: 'asc' }
-        break
+    if (andConditions.length > 0) {
+      where.AND = andConditions
     }
 
-    // Execute queries - получаем все переводы для fallback логики
+    return where
+  }
+
+  private buildUniversityOrder(sort?: UniversityQueryParams['sort']): Prisma.UniversityOrderByWithRelationInput {
+    switch (sort) {
+      case 'price_asc':
+        return { tuitionMin: 'asc' }
+      case 'price_desc':
+        return { tuitionMax: 'desc' }
+      default:
+        return { id: 'asc' }
+    }
+  }
+
+  private mapUniversityListItem(
+    university: UniversityListItem | UniversityDetailWithRelations,
+    locale: string
+  ): University {
+    const translation = this.selectBestTranslation(university.translations, locale)
+    const cityTranslation = university.city?.translations
+      ? this.selectBestTranslation(university.city.translations, locale)
+      : null
+    const keyInfoTexts = this.asRecord(translation?.keyInfoTexts)
+    const languages = Array.from(
+      new Set(
+        university.academicPrograms
+          .map(program => program.languageCode)
+          .filter((code): code is string => Boolean(code))
+      )
+    )
+
+    return {
+      id: university.id,
+      title: translation?.title ?? '',
+      description: translation?.description ?? '',
+      city: cityTranslation?.name ?? '',
+      foundedYear: university.foundedYear ?? 0,
+      type: university.type as UniversityType,
+      tuitionRange: {
+        min: this.decimalToNumber(university.tuitionMin),
+        max: this.decimalToNumber(university.tuitionMax),
+        currency: university.currency ?? 'USD'
+      },
+      totalStudents: university.totalStudents ?? 0,
+      internationalStudents: university.internationalStudents ?? 0,
+      ranking: {
+        text: typeof keyInfoTexts?.ranking_text === 'string' ? keyInfoTexts.ranking_text : undefined
+      },
+      hasAccommodation: university.hasAccommodation ?? false,
+      languages,
+      slug: this.getSlugForLocaleFromTranslations(
+        university.translations.map(({ locale: trLocale, slug }) => ({ locale: trLocale, slug })),
+        locale
+      ),
+      image: university.image ?? '',
+      heroImage: university.heroImage ?? university.image ?? '',
+      badge: this.generateBadgeLite({ type: university.type }, locale)
+    }
+  }
+
+  private applyPostProcessSort(
+    universities: University[],
+    sort?: UniversityQueryParams['sort']
+  ): University[] {
+    if (sort === 'lang_en') {
+      return [...universities].sort((a, b) => {
+        const aHasEn = a.languages.some(lang => lang.toLowerCase() === 'en')
+        const bHasEn = b.languages.some(lang => lang.toLowerCase() === 'en')
+        if (aHasEn !== bHasEn) {
+          return aHasEn ? -1 : 1
+        }
+        return a.title.localeCompare(b.title)
+      })
+    }
+
+    if (sort === 'alpha') {
+      return [...universities].sort((a, b) => a.title.localeCompare(b.title))
+    }
+
+    return universities
+  }
+
+  private extractStringRecord(value: Prisma.JsonValue | null | undefined): Record<string, string> | undefined {
+    const record = this.asRecord(value)
+    if (!record) {
+      return undefined
+    }
+
+    const entries = Object.entries(record).filter(([, v]): v is string => typeof v === 'string')
+    return entries.length > 0 ? Object.fromEntries(entries) : undefined
+  }
+
+  private extractStringArray(value: Prisma.JsonValue | null | undefined): string[] {
+    if (!Array.isArray(value)) {
+      return []
+    }
+
+    return value.filter((item): item is string => typeof item === 'string')
+  }
+
+  private mapCampusFacilities(
+    facilities: UniversityDetailWithRelations['campusFacilities'],
+    locale: string
+  ): CampusFacilityDto[] {
+    return facilities
+      .filter(facility => facility.isActive !== false)
+      .map(facility => {
+        const translation = this.selectBestTranslation(facility.translations, locale)
+        return {
+          id: facility.id,
+          name: translation?.name ?? '',
+          description: translation?.description ?? '',
+          image: facility.image ?? undefined,
+          type: 'support',
+          isActive: facility.isActive !== false
+        }
+      })
+  }
+
+  private mapGallery(media: UniversityDetailWithRelations['media'], locale: string): CampusGalleryItem[] {
+    return media
+      .filter(item => item.kind === 'image')
+      .map(item => {
+        const translation = this.selectBestTranslation(item.translations, locale)
+        return {
+          url: item.url,
+          alt: translation?.alt ?? '',
+          title: translation?.title ?? ''
+        }
+      })
+  }
+
+  private mapDirections(
+    directions: UniversityDetailWithRelations['universityDirections'],
+    locale: string
+  ): StudyDirection[] {
+    return directions.map(direction => {
+      const translation = this.selectBestTranslation(direction.direction.translations, locale)
+      return {
+        id: direction.direction.id,
+        name: translation?.name ?? '',
+        description: translation?.description ?? '',
+        slug: translation?.slug ?? '',
+        languages: [],
+        duration_years: direction.durationYears ?? undefined,
+        cost_per_year: direction.costPerYear != null ? Number(direction.costPerYear) : undefined
+      }
+    })
+  }
+
+  private mapAdmissionRequirements(
+    requirements: UniversityDetailWithRelations['admissionRequirements'],
+    locale: string
+  ): AdmissionRequirement[] {
+    return requirements.map(requirement => {
+      const translation = this.selectBestTranslation(requirement.translations, locale)
+      return {
+        id: requirement.id,
+        category: translation?.category ?? '',
+        requirement: translation?.requirement ?? '',
+        is_mandatory: false,
+        details: translation?.details ?? undefined
+      }
+    })
+  }
+
+  private mapRequiredDocuments(
+    documents: UniversityDetailWithRelations['requiredDocuments'],
+    locale: string
+  ): RequiredDocument[] {
+    return documents.map(document => {
+      const translation = this.selectBestTranslation(document.translations, locale)
+      const formatRequirements = this.extractStringArray(translation?.formatRequirements ?? null)
+      return {
+        id: document.id,
+        name: translation?.name ?? '',
+        description: translation?.description ?? '',
+        is_mandatory: false,
+        format_requirements: formatRequirements
+      }
+    })
+  }
+
+  private mapImportantDates(
+    dates: UniversityDetailWithRelations['importantDates'],
+    locale: string
+  ): ImportantDate[] {
+    return dates.map(date => {
+      const translation = this.selectBestTranslation(date.translations, locale)
+      return {
+        id: date.id,
+        event: translation?.event ?? '',
+        date: date.date.toISOString().split('T')[0],
+        deadline_type: IMPORTANT_DATE_TYPE_MAP[date.type]
+      }
+    })
+  }
+
+  private mapScholarships(
+    scholarships: UniversityDetailWithRelations['scholarships'],
+    locale: string
+  ): ScholarshipInfo[] {
+    return scholarships.map(scholarship => {
+      const translation = this.selectBestTranslation(scholarship.translations, locale)
+      const criteria = this.extractStringArray(translation?.eligibilityCriteria ?? null)
+      return {
+        id: scholarship.id,
+        name: translation?.name ?? '',
+        type: scholarship.type,
+        coverage_percentage: scholarship.coveragePercentage,
+        eligibility_criteria: criteria,
+        application_deadline: scholarship.applicationDeadline
+          ? scholarship.applicationDeadline.toISOString().split('T')[0]
+          : undefined
+      }
+    })
+  }
+
+  private mapAcademicPrograms(
+    programs: UniversityDetailWithRelations['academicPrograms'],
+    locale: string
+  ): AcademicProgramDto[] {
+    return programs.map(program => {
+      const translation = this.selectBestTranslation(program.translations, locale)
+      return {
+        id: program.id,
+        name: translation?.name ?? '',
+        degree_type: program.degreeType,
+        language: program.languageCode,
+        duration_years: program.durationYears,
+        tuition_per_year: this.decimalToNumber(program.tuitionPerYear),
+        description: translation?.description ?? ''
+      }
+    })
+  }
+
+  /**
+   * Find all universities with filtering, sorting, and pagination
+   */
+  async findAll(
+    params: UniversityQueryParams,
+    locale: string = 'ru'
+  ): Promise<{ data: University[]; total: number; filters: UniversityFilters }> {
+    const page = Math.max(1, params.page ?? 1)
+    const limit = Math.max(1, params.limit ?? 6)
+    const where = this.buildUniversityWhere(params, locale)
+    const orderBy = this.buildUniversityOrder(params.sort)
+
     const [universities, total] = await this.prisma.$transaction([
       this.prisma.university.findMany({
         where,
@@ -313,68 +556,12 @@ export class UniversityRepository {
       this.prisma.university.count({ where })
     ])
 
+    const mapped = universities.map(university => this.mapUniversityListItem(university, locale))
+    const sorted = this.applyPostProcessSort(mapped, params.sort)
     const filters = await this.buildFilterOptions(locale)
 
-    type UniversityListItem = Prisma.UniversityGetPayload<{
-      include: {
-        translations: true
-        academicPrograms: true
-        city: { include: { translations: true } }
-      }
-    }>
-
-    const transformedUniversities: University[] = (universities as UniversityListItem[]).map(uni => {
-      const translation = this.selectBestTranslation(uni.translations, locale)
-      const languageCodes = uni.academicPrograms.map(program => program.languageCode)
-      const cityTranslation = uni.city?.translations
-        ? this.selectBestTranslation(uni.city.translations, locale)
-        : null
-      const keyInfoTexts = this.asRecord(translation?.keyInfoTexts)
-
-      return {
-        id: uni.id,
-        title: translation?.title ?? '',
-        description: translation?.description ?? '',
-        city: cityTranslation?.name ?? '',
-        foundedYear: uni.foundedYear ?? 0,
-        type: uni.type as UniversityType,
-        tuitionRange: {
-          min: this.decimalToNumber(uni.tuitionMin),
-          max: this.decimalToNumber(uni.tuitionMax),
-          currency: uni.currency ?? 'USD'
-        },
-        totalStudents: uni.totalStudents ?? 0,
-        internationalStudents: uni.internationalStudents ?? 0,
-        ranking: {
-          text: typeof keyInfoTexts?.ranking_text === 'string' ? keyInfoTexts.ranking_text : undefined
-        },
-        hasAccommodation: uni.hasAccommodation ?? false,
-        languages: Array.from(new Set(languageCodes.filter(Boolean))),
-        slug: this.getSlugForLocaleFromTranslations(
-          uni.translations.map(({ locale: trLocale, slug }) => ({ locale: trLocale, slug })),
-          locale
-        ),
-        image: uni.image ?? '',
-        heroImage: uni.heroImage ?? uni.image ?? '',
-        badge: this.generateBadgeLite({ type: uni.type }, locale)
-      }
-    })
-
-    // Post-process sorting for 'lang_en': prioritize universities where languages include 'en'
-    let prioritized = transformedUniversities
-    if (sort === 'lang_en') {
-      prioritized = [...transformedUniversities].sort((a, b) => {
-        const aHasEn = a.languages.includes('en') ? 1 : 0
-        const bHasEn = b.languages.includes('en') ? 1 : 0
-        if (aHasEn !== bHasEn) return bHasEn - aHasEn
-        return a.title.localeCompare(b.title)
-      })
-    } else if (sort === 'alpha') {
-      prioritized = [...transformedUniversities].sort((a, b) => a.title.localeCompare(b.title))
-    }
-
     return {
-      data: prioritized,
+      data: sorted,
       total,
       filters
     }
@@ -408,20 +595,14 @@ export class UniversityRepository {
     return typeof value === 'number' ? value : Number(value)
   }
 
-  private asRecord(value: Prisma.JsonValue | null | undefined): Record<string, any> | null {
+  private asRecord(value: Prisma.JsonValue | null | undefined): Record<string, unknown> | null {
     if (value && typeof value === 'object' && !Array.isArray(value)) {
-      return value as Record<string, any>
+      return value as Record<string, unknown>
     }
     return null
   }
 
-  private async buildFilterOptions(locale: string): Promise<{
-    cities: string[]
-    types: string[]
-    levels: string[]
-    languages: string[]
-    priceRange: [number, number]
-  }> {
+  private async buildFilterOptions(locale: string): Promise<UniversityFilters> {
     const [cityGroups, typeGroups, levelGroups, tuitionAggregates, languageGroups] = await Promise.all([
       this.prisma.university.groupBy({
         by: ['cityId'],
@@ -522,181 +703,101 @@ export class UniversityRepository {
         media: { include: { translations: true } },
         country: { include: { translations: true } },
         city: { include: { translations: true } }
-      } as any
+      }
     })
 
-    if (!university) return null
+    if (!university) {
+      return null
+    }
 
+    return this.mapUniversityDetail(university, locale)
+  }
+
+  private mapUniversityDetail(university: UniversityDetailWithRelations, locale: string): UniversityDetail {
+    const base = this.mapUniversityListItem(university, locale)
     const translation = this.selectBestTranslation(university.translations, locale)
-
-    // About comes from translation JSON fields; strong programs aggregate from relations
-    const aboutLocalized: any = (translation as any)?.about || {}
+    const aboutRecord = (this.asRecord(translation?.about) ?? {}) as Record<string, unknown>
     const { categories: featuredProgramCategories, categoryNames } = this.buildFeaturedPrograms(
-      (university.featuredPrograms || []) as any[],
+      university.featuredPrograms,
       locale
     )
 
-    // Transform to detailed university format with normalized structure
-    const cityTr = this.selectBestTranslation((university.city?.translations || []) as any[], locale)
-    const languagesUnique = Array.from(new Set((university.academicPrograms || []).map((p: any) => p.languageCode).filter(Boolean)))
-    const keyInfo: any = {
-      city: (cityTr as any)?.name || '',
-      foundedYear: university.foundedYear || 0,
-      tuitionRange: {
-        min: Number(university.tuitionMin || 0),
-        max: Number(university.tuitionMax || 0),
-        currency: university.currency || 'USD'
-      },
-      languages: languagesUnique,
-      totalStudents: university.totalStudents || 0,
-      internationalStudents: university.internationalStudents || 0,
-      hasAccommodation: university.hasAccommodation || false,
-      ranking: {
-        text: (translation as any)?.keyInfoTexts?.ranking_text || undefined
-      },
-      texts: (translation as any)?.keyInfoTexts || undefined
-    }
+    const keyInfoTexts = this.extractStringRecord(translation?.keyInfoTexts)
+
+    const defaultHistory = base.title
+      ? `Университет ${base.title} имеет богатую историю образования.`
+      : 'Университет имеет богатую историю образования.'
+
+    const historyRaw = aboutRecord['history']
+    const missionRaw = aboutRecord['mission']
+    const campusFeaturesRaw = aboutRecord['campus_features']
+    const advantagesRaw = aboutRecord['advantages']
+    const advantages = Array.isArray(advantagesRaw)
+      ? advantagesRaw
+          .map(item => {
+            if (typeof item === 'string') {
+              return { title: item, description: '' }
+            }
+            if (item && typeof item === 'object') {
+              const record = item as Record<string, unknown>
+              return {
+                title: typeof record.title === 'string' ? record.title : '',
+                description: typeof record.description === 'string' ? record.description : ''
+              }
+            }
+            return null
+          })
+          .filter((item): item is { title: string; description: string } => item !== null)
+      : [
+          { title: 'Качественное образование', description: 'Высокие стандарты преподавания' },
+          { title: 'Международное признание', description: 'Дипломы признаются по всему миру' }
+        ]
 
     return {
-      // Базовые поля University интерфейса
-      id: university.id,
-      title: translation?.title || '',
-      description: translation?.description || '',
-      city: keyInfo.city,
-      foundedYear: keyInfo.foundedYear,
-      type: university.type as UniversityType,
-      tuitionRange: keyInfo.tuitionRange,
-      totalStudents: keyInfo.totalStudents,
-      internationalStudents: keyInfo.internationalStudents,
-      ranking: keyInfo.ranking,
-      hasAccommodation: keyInfo.hasAccommodation,
-      languages: keyInfo.languages,
-      slug: this.getSlugForLocaleFromTranslations(university.translations as any[], locale),
-      image: university.image || '',
-      heroImage: university.heroImage || university.image,
+      ...base,
+      slug: this.getSlugForLocaleFromTranslations(
+        university.translations.map(({ locale: trLocale, slug }) => ({ locale: trLocale, slug })),
+        locale
+      ),
       badge: this.generateBadge(university, locale),
-      keyInfo: keyInfo,
-      about: {
-        history: aboutLocalized?.history || (() => {
-          const localizedTitle = (translation as any)?.title || university.title || ''
-          return localizedTitle
-            ? `Университет ${localizedTitle} имеет богатую историю образования.`
-            : 'Университет имеет богатую историю образования.'
-        })(),
-        mission: aboutLocalized?.mission || aboutLocalized?.campus || 'Миссия университета - предоставление качественного образования.',
-        campus_features: [],
-        strong_programs: categoryNames,
-        advantages: Array.isArray(aboutLocalized?.advantages)
-          ? (aboutLocalized.advantages as any[]).map((adv: any) => ({
-              title: typeof adv === 'string' ? adv : (adv?.title || ''),
-              description: typeof adv === 'object' ? (adv?.description || '') : ''
-            }))
-          : [
-              { title: 'Качественное образование', description: 'Высокие стандарты преподавания' },
-              { title: 'Международное признание', description: 'Дипломы признаются по всему миру' }
-            ]
+      keyInfo: {
+        city: base.city,
+        foundedYear: base.foundedYear,
+        tuitionRange: base.tuitionRange,
+        languages: base.languages,
+        totalStudents: base.totalStudents,
+        internationalStudents: base.internationalStudents,
+        hasAccommodation: base.hasAccommodation,
+        ranking: base.ranking,
+        texts: keyInfoTexts
       },
-      
+      about: {
+        history: typeof historyRaw === 'string' && historyRaw.length > 0 ? historyRaw : defaultHistory,
+        mission:
+          typeof missionRaw === 'string' && missionRaw.length > 0
+            ? missionRaw
+            : 'Миссия университета - предоставление качественного образования.',
+        campus_features: Array.isArray(campusFeaturesRaw)
+          ? (campusFeaturesRaw as unknown[]).filter((item): item is string => typeof item === 'string')
+          : [],
+        strong_programs: categoryNames,
+        advantages
+      },
       campus_life: {
-        facilities: university.campusFacilities
-          .filter(f => f.isActive !== false)
-          .map(f => {
-            const facilityTranslation = this.selectBestTranslation(f.translations as any[], locale)
-            return {
-              id: f.id,
-              name: (facilityTranslation as any)?.name || '',
-              description: (facilityTranslation as any)?.description || '',
-              image: f.image,
-              // Тип в БД не хранится — используем общий тип для UI
-              type: 'support' as const,
-              isActive: f.isActive !== false
-            }
-          }),
-        gallery: (university.media || [])
-          .filter(m => m.kind === 'image')
-          .map(m => {
-            const mt = this.selectBestTranslation((m.translations || []) as any[], locale)
-            return {
-              url: m.url,
-              alt: (mt as any)?.alt || '',
-              title: (mt as any)?.title || ''
-            }
-          }),
+        facilities: this.mapCampusFacilities(university.campusFacilities, locale),
+        dormitories: [],
+        gallery: this.mapGallery(university.media, locale),
         activities: ['Студенческие клубы', 'Культурные мероприятия', 'Спортивные соревнования']
       },
-      
       strong_programs: featuredProgramCategories,
-      
-      directions: university.universityDirections.map(ud => {
-        const directionTranslation = this.selectBestTranslation(ud.direction.translations as any[], locale)
-        return {
-          id: ud.direction.id,
-          name: (directionTranslation as any)?.name || '',
-          description: (directionTranslation as any)?.description || '',
-          slug: (directionTranslation as any)?.slug || '',
-          languages: [],
-          duration_years: ud.durationYears || undefined,
-          cost_per_year: ud.costPerYear != null ? Number(ud.costPerYear) : undefined
-        }
-      }),
-      
+      directions: this.mapDirections(university.universityDirections, locale),
       admission: {
-        requirements: university.admissionRequirements.map(r => {
-          const reqTranslation = this.selectBestTranslation(r.translations as any[], locale)
-          return {
-            id: r.id,
-            category: (reqTranslation as any)?.category || '',
-            requirement: (reqTranslation as any)?.requirement || '',
-            is_mandatory: false,
-            details: (reqTranslation as any)?.details || undefined
-          }
-        }),
-        documents: university.requiredDocuments.map(d => {
-          const docTranslation = this.selectBestTranslation(d.translations as any[], locale)
-          const fmt = (docTranslation as any)?.formatRequirements
-          return {
-            id: d.id,
-            name: (docTranslation as any)?.name || '',
-            description: (docTranslation as any)?.description || '',
-            is_mandatory: false,
-            format_requirements: Array.isArray(fmt) ? (fmt as string[]) : []
-          }
-        }),
-        deadlines: university.importantDates.map(date => {
-          const dateTranslation = this.selectBestTranslation(date.translations as any[], locale)
-          return {
-            id: date.id,
-            event: (dateTranslation as any)?.event || '',
-            date: date.date.toISOString().split('T')[0],
-            deadline_type: date.type as 'application' | 'document' | 'exam' | 'notification'
-          }
-        }),
-        scholarships: university.scholarships.map(s => {
-          const scholarshipTranslation = this.selectBestTranslation(s.translations as any[], locale)
-          const criteria = (scholarshipTranslation as any)?.eligibilityCriteria
-          return {
-            id: s.id,
-            name: (scholarshipTranslation as any)?.name || '',
-            type: s.type as 'government' | 'university' | 'private',
-            coverage_percentage: s.coveragePercentage,
-            eligibility_criteria: Array.isArray(criteria) ? (criteria as string[]) : [],
-            application_deadline: s.applicationDeadline ? s.applicationDeadline.toISOString().split('T')[0] : undefined
-          }
-        })
+        requirements: this.mapAdmissionRequirements(university.admissionRequirements, locale),
+        documents: this.mapRequiredDocuments(university.requiredDocuments, locale),
+        deadlines: this.mapImportantDates(university.importantDates, locale),
+        scholarships: this.mapScholarships(university.scholarships, locale)
       },
-      
-      programs: university.academicPrograms.map(p => {
-        const progTranslation = this.selectBestTranslation(p.translations as any[], locale)
-        return {
-          id: p.id,
-          name: (progTranslation as any)?.name || '',
-          degree_type: p.degreeType as 'bachelor' | 'master' | 'phd',
-          language: p.languageCode,
-          duration_years: p.durationYears,
-          tuition_per_year: Number(p.tuitionPerYear),
-          description: (progTranslation as any)?.description || ''
-        }
-      })
+      programs: this.mapAcademicPrograms(university.academicPrograms, locale)
     }
   }
 
@@ -705,7 +806,7 @@ export class UniversityRepository {
    */
   async findBySlug(slug: string, locale: string = 'ru'): Promise<UniversityDetail | null> {
     // Ищем перевод по слагу и получаем universityId
-    const translation = await (this.prisma as any).universityTranslation.findFirst({
+    const translation = await this.prisma.universityTranslation.findFirst({
       where: { slug }
     })
     if (!translation) return null
@@ -715,7 +816,10 @@ export class UniversityRepository {
   /**
    * Generate badge for university
    */
-  private generateBadge(university: any, locale: string): { label?: string; labelKey?: string; color: string } | undefined {
+  private generateBadge(
+    university: Pick<UniversityDetailWithRelations, 'type' | 'scholarships'>,
+    locale: string
+  ): { label?: string; labelKey?: string; color: string } | undefined {
     // Prefer returning i18n keys; keep label for backward compatibility
     if (university.scholarships?.length > 0) {
       return { labelKey: 'universities_page.card.badges.scholarships', color: 'green' }
@@ -749,7 +853,7 @@ export class UniversityRepository {
   /**
    * Find universities by direction
    */
-  async findByDirection(directionSlug: string, locale: string = 'ru') {
+  async findByDirection(directionSlug: string, locale: string = 'ru'): Promise<University[]> {
     const universities = await this.prisma.university.findMany({
       where: {
         universityDirections: {
@@ -776,25 +880,7 @@ export class UniversityRepository {
       }
     })
 
-    return universities.map(uni => {
-      const translation = this.selectBestTranslation(uni.translations as any[], locale)
-      const languageCodes = (uni.academicPrograms || []).map((p: any) => p.languageCode)
-      const cityTr = this.selectBestTranslation((uni.city?.translations || []) as any[], locale)
-
-      return {
-        id: uni.id,
-        title: (translation as any)?.title || '',
-        description: (translation as any)?.description || '',
-        city: (cityTr as any)?.name || '',
-        languages: Array.from(new Set(languageCodes)),
-        // Use lite badge for list query
-        badge: this.generateBadgeLite(uni as any, locale),
-        image: uni.image || '',
-        type: uni.type as UniversityType,
-        slug: this.getSlugForLocaleFromTranslations(uni.translations as any[], locale),
-        foundedYear: uni.foundedYear || 0
-      }
-    })
+    return universities.map(university => this.mapUniversityListItem(university, locale))
   }
 
   /**
