@@ -20,6 +20,8 @@ type ArticleWithRelations = Prisma.BlogArticleGetPayload<{
   }
 }>
 
+type ArticleTranslation = ArticleWithRelations['translations'][number]
+
 export class BlogRepository {
   constructor(private prisma: PrismaClient) {}
 
@@ -257,7 +259,7 @@ export class BlogRepository {
   private mapArticleToDetail(article: ArticleWithRelations, locale: string): BlogArticleDetail {
     const base = this.mapArticleToListItem(article, locale)
     const translation = this.pickTranslation(article.translations, locale)
-    const meta = this.parseArticleMeta(article.meta)
+    const meta = this.parseArticleMeta(article.meta, translation)
 
     return {
       ...base,
@@ -274,50 +276,67 @@ export class BlogRepository {
     }
   }
 
-  private parseArticleMeta(meta: Prisma.JsonValue | null | undefined): {
+  private parseQuickFactsValue(value: unknown): BlogArticleQuickFact[] {
+    if (!Array.isArray(value)) {
+      return []
+    }
+
+    return (value as Array<Record<string, unknown>>)
+      .map((fact): BlogArticleQuickFact | null => {
+        if (!fact || typeof fact !== 'object') {
+          return null
+        }
+
+        const title = typeof fact.title === 'string' ? fact.title.trim() : ''
+        const factValue = typeof fact.value === 'string' ? fact.value.trim() : ''
+        const icon = typeof fact.icon === 'string' ? fact.icon.trim() : undefined
+
+        if (!title || !factValue) {
+          return null
+        }
+
+        return { title, value: factValue, icon }
+      })
+      .filter((fact): fact is BlogArticleQuickFact => fact !== null)
+  }
+
+  private parseStringArrayValue(value: unknown): string[] {
+    if (!Array.isArray(value)) {
+      return []
+    }
+
+    return (value as unknown[])
+      .map((item) => (typeof item === 'string' ? item.trim() : ''))
+      .filter((item): item is string => item.length > 0)
+  }
+
+  private parseArticleMeta(
+    meta: Prisma.JsonValue | null | undefined,
+    translation?: ArticleTranslation | null,
+  ): {
     quickFacts: BlogArticleQuickFact[]
     highlights: string[]
     tags: string[]
   } {
-    if (!meta || typeof meta !== 'object' || Array.isArray(meta)) {
-      return { quickFacts: [], highlights: [], tags: [] }
+    let record: Record<string, unknown> = {}
+
+    if (meta && typeof meta === 'object' && !Array.isArray(meta)) {
+      record = meta as Record<string, unknown>
     }
 
-    const record = meta as Record<string, unknown>
+    const baseQuickFacts = this.parseQuickFactsValue(record.quickFacts)
+    const baseHighlights = this.parseStringArrayValue(record.highlights)
+    const baseTags = this.parseStringArrayValue(record.tags)
 
-    const quickFacts = Array.isArray(record.quickFacts)
-      ? (record.quickFacts as Array<Record<string, unknown>>)
-          .map((fact): BlogArticleQuickFact | null => {
-            if (!fact || typeof fact !== 'object') {
-              return null
-            }
+    const translationQuickFacts = this.parseQuickFactsValue(translation?.quickFacts ?? null)
+    const translationHighlights = this.parseStringArrayValue(translation?.highlights ?? null)
+    const translationTags = this.parseStringArrayValue(translation?.tags ?? null)
 
-            const title = typeof fact.title === 'string' ? fact.title.trim() : ''
-            const value = typeof fact.value === 'string' ? fact.value.trim() : ''
-            const icon = typeof fact.icon === 'string' ? fact.icon.trim() : undefined
-
-            if (!title || !value) {
-              return null
-            }
-
-            return { title, value, icon }
-          })
-          .filter((fact): fact is BlogArticleQuickFact => fact !== null)
-      : []
-
-    const highlights = Array.isArray(record.highlights)
-      ? record.highlights
-          .map((item) => (typeof item === 'string' ? item.trim() : ''))
-          .filter((item) => item.length > 0)
-      : []
-
-    const tags = Array.isArray(record.tags)
-      ? record.tags
-          .map((item) => (typeof item === 'string' ? item.trim() : ''))
-          .filter((item) => item.length > 0)
-      : []
-
-    return { quickFacts, highlights, tags }
+    return {
+      quickFacts: translationQuickFacts.length > 0 ? translationQuickFacts : baseQuickFacts,
+      highlights: translationHighlights.length > 0 ? translationHighlights : baseHighlights,
+      tags: translationTags.length > 0 ? translationTags : baseTags,
+    }
   }
 
   async getCategories(locale: string): Promise<BlogCategory[]> {

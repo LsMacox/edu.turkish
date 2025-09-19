@@ -12,6 +12,13 @@ type TranslationContent = {
   imageAlt?: string
   heroImageAlt?: string
   seoDescription?: string
+  quickFacts?: Array<{
+    title: string
+    value: string
+    icon?: string
+  }>
+  highlights?: string[]
+  tags?: string[]
   content: Prisma.JsonValue
 }
 
@@ -192,6 +199,29 @@ const articles: SeedArticle[] = [
           'International student preparing documents for a visa interview at the Turkish consulate',
         seoDescription:
           'Comprehensive checklist for the Turkish student visa in 2025. Required documents, processing times and practical tips.',
+        quickFacts: [
+          {
+            title: 'Visa type',
+            value: 'Öğrenci Vizesi (Student)',
+            icon: 'mdi:passport',
+          },
+          {
+            title: 'Processing time',
+            value: '4–6 weeks',
+            icon: 'mdi:calendar-clock',
+          },
+          {
+            title: 'Visa fee',
+            value: '≈ 60 USD',
+            icon: 'mdi:cash-multiple',
+          },
+        ],
+        highlights: [
+          'Detailed document checklist before submission',
+          'Step-by-step instructions for booking a consulate appointment',
+          'Checklist of actions after arriving in Turkey',
+        ],
+        tags: ['visa', 'documents', 'Turkey'],
         content: [
           { type: 'heading', level: 2, text: 'Key application steps' },
           {
@@ -303,6 +333,29 @@ const articles: SeedArticle[] = [
         heroImageAlt: 'Applicant taking photos of documents to upload into the system',
         seoDescription:
           'Detailed document checklist for applying to Turkish universities. Required certificates and translation rules.',
+        quickFacts: [
+          {
+            title: 'Submission format',
+            value: 'University online portal',
+            icon: 'mdi:laptop-check',
+          },
+          {
+            title: 'Translations',
+            value: 'Notarised copies',
+            icon: 'mdi:certificate-outline',
+          },
+          {
+            title: 'Expert tip',
+            value: 'Double-check scans before uploading',
+            icon: 'mdi:magnify-scan',
+          },
+        ],
+        highlights: [
+          'Ready-to-use checklist for university applications',
+          'File naming recommendations and deadline reminders',
+          'Reminder that forms cannot be edited after submission',
+        ],
+        tags: ['applications', 'documents', 'checklist'],
         content: [
           { type: 'heading', level: 2, text: 'Before you submit' },
           {
@@ -409,6 +462,29 @@ const articles: SeedArticle[] = [
         heroImageAlt: 'Scholarship award ceremony in a Turkish university',
         seoDescription:
           'Guide to securing a full scholarship in Turkey. Tips for Türkiye Bursları and university grants.',
+        quickFacts: [
+          {
+            title: 'Main programme',
+            value: 'Türkiye Bursları',
+            icon: 'mdi:school-outline',
+          },
+          {
+            title: 'Competition',
+            value: 'Up to 1,000 applications per place',
+            icon: 'mdi:account-group',
+          },
+          {
+            title: 'Funding',
+            value: 'Covers tuition and accommodation',
+            icon: 'mdi:hand-coin',
+          },
+        ],
+        highlights: [
+          'Overview of government and university scholarships',
+          'Tips for writing a strong motivation letter',
+          'Reminder to track each programme deadline carefully',
+        ],
+        tags: ['scholarships', 'finance', 'advice'],
         content: [
           { type: 'heading', level: 2, text: 'Available programmes' },
           {
@@ -514,6 +590,29 @@ const articles: SeedArticle[] = [
         heroImageAlt: 'International student planning a budget with a laptop in a cafe',
         seoDescription:
           'Cost of living and studying in Istanbul: tuition, rent, transportation, food and insurance for 2025.',
+        quickFacts: [
+          {
+            title: 'Tuition',
+            value: '4,000–6,000 USD per year',
+            icon: 'mdi:currency-usd',
+          },
+          {
+            title: 'Accommodation',
+            value: 'Dormitory 150–250 USD/month',
+            icon: 'mdi:home-city-outline',
+          },
+          {
+            title: 'Transport',
+            value: 'Istanbulkart 25–30 USD/month',
+            icon: 'mdi:bus',
+          },
+        ],
+        highlights: [
+          'Budget breakdown for studying and living in Istanbul',
+          'Advice on saving money on transport and food',
+          'Reminder to set aside a reserve for study materials',
+        ],
+        tags: ['budget', 'Istanbul', 'cost of living'],
         content: [
           { type: 'heading', level: 2, text: 'Key expense categories' },
           {
@@ -621,6 +720,29 @@ const articles: SeedArticle[] = [
         heroImageAlt: 'Group of international students chatting on campus lawn',
         seoDescription:
           'Adaptation guide for international students in Turkey: culture, language, student communities and must-have apps.',
+        quickFacts: [
+          {
+            title: 'First steps',
+            value: 'Orientation and buddy programmes',
+            icon: 'mdi:account-group-outline',
+          },
+          {
+            title: 'Essential apps',
+            value: 'BiTaksi, Marti, Yemeksepeti',
+            icon: 'mdi:cellphone-information',
+          },
+          {
+            title: 'Key advice',
+            value: 'Ask senior students for help',
+            icon: 'mdi:chat-question',
+          },
+        ],
+        highlights: [
+          'Adaptation plan for your first weeks at university',
+          'Recommendations for learning Turkish faster',
+          'List of must-have apps for everyday tasks',
+        ],
+        tags: ['student life', 'adaptation', 'tips'],
         content: [
           { type: 'heading', level: 2, text: 'Your first weeks' },
           {
@@ -805,6 +927,29 @@ const articles: SeedArticle[] = [
         heroImageAlt: 'Student planning deadlines on a tablet',
         seoDescription:
           'Important application deadlines for Turkish universities and scholarships in 2025.',
+        quickFacts: [
+          {
+            title: 'Campaign start',
+            value: 'January — Türkiye Bursları',
+            icon: 'mdi:calendar-start',
+          },
+          {
+            title: 'Deadline peak',
+            value: 'March–April for private universities',
+            icon: 'mdi:calendar-alert',
+          },
+          {
+            title: 'Tracking method',
+            value: 'Personal calendar with reminders',
+            icon: 'mdi:calendar-check',
+          },
+        ],
+        highlights: [
+          'Timeline of deadlines for each month',
+          'Comparison of public and private programmes',
+          'Advice to prepare documents ahead of time',
+        ],
+        tags: ['deadlines', '2025 intake', 'calendar'],
         content: [
           { type: 'heading', level: 2, text: 'Month-by-month timeline' },
           {
