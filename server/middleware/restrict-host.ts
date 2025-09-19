@@ -1,6 +1,9 @@
 import { defineEventHandler, getRequestHeader, createError } from 'h3'
 
-const envHosts = (process.env.ALLOWED_HOSTS || '').split(',').map(h => h.trim().toLowerCase()).filter(Boolean);
+const envHosts = (process.env.ALLOWED_HOSTS || '')
+  .split(',')
+  .map((h) => h.trim().toLowerCase())
+  .filter(Boolean)
 const ALLOWED_HOSTS = new Set<string>([
   'localhost:3000',
   '127.0.0.1:3000',

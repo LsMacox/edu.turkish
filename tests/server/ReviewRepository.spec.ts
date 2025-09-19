@@ -196,7 +196,7 @@ describe('ReviewRepository.findAll', () => {
           universityName: 'Қазақ ұлттық университеті',
           achievements: null,
           createdAt: baseDate,
-          updatedAt: baseDate
+          updatedAt: baseDate,
         },
         {
           id: 31,
@@ -207,8 +207,8 @@ describe('ReviewRepository.findAll', () => {
           universityName: 'Казахский национальный университет',
           achievements: null,
           createdAt: baseDate,
-          updatedAt: baseDate
-        }
+          updatedAt: baseDate,
+        },
       ],
       university: {
         id: 11,
@@ -227,10 +227,10 @@ describe('ReviewRepository.findAll', () => {
             about: null,
             keyInfoTexts: null,
             createdAt: baseDate,
-            updatedAt: baseDate
-          }
-        ]
-      }
+            updatedAt: baseDate,
+          },
+        ],
+      },
     }
 
     mocks.reviewFindMany.mockResolvedValue([review])
@@ -242,7 +242,7 @@ describe('ReviewRepository.findAll', () => {
     expect(result.data[0]).toMatchObject({
       name: 'Әружан',
       quote: 'Тамаша тәжірибе',
-      university: 'Қазақ ұлттық университеті'
+      university: 'Қазақ ұлттық университеті',
     })
   })
 
@@ -269,10 +269,10 @@ describe('ReviewRepository.findAll', () => {
           universityName: 'МГУ',
           achievements: null,
           createdAt: baseDate,
-          updatedAt: baseDate
-        }
+          updatedAt: baseDate,
+        },
       ],
-      university: null
+      university: null,
     }
 
     mocks.reviewFindMany.mockResolvedValue([review])
@@ -284,7 +284,7 @@ describe('ReviewRepository.findAll', () => {
     expect(result.data[0]).toMatchObject({
       name: 'Ирина',
       quote: 'Опыт только на русском',
-      university: 'МГУ'
+      university: 'МГУ',
     })
   })
 })

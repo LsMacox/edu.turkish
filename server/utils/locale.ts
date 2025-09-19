@@ -17,6 +17,6 @@ export function normalizeLocale(input?: string | null): NormalizedLocale {
 
   return {
     normalized,
-    fallbacks
+    fallbacks,
   }
 }

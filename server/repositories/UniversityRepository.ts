@@ -97,7 +97,7 @@ export class UniversityRepository {
    */
   private selectBestTranslation<T extends { locale: string | null | undefined }>(
     translations: readonly T[] | null | undefined,
-    localeFallbacks: readonly string[]
+    localeFallbacks: readonly string[],
   ): T | null {
     if (!translations?.length) {
       return null
@@ -106,7 +106,7 @@ export class UniversityRepository {
     const localesToCheck = Array.from(new Set([...localeFallbacks, 'ru']))
 
     for (const candidate of localesToCheck) {
-      const match = translations.find(translation => translation.locale === candidate)
+      const match = translations.find((translation) => translation.locale === candidate)
       if (match) {
         return match
       }
@@ -120,24 +120,26 @@ export class UniversityRepository {
    */
   private getSlugForLocaleFromTranslations(
     translations: Array<{ locale: string | null | undefined; slug: string | null | undefined }>,
-    localeFallbacks: readonly string[]
+    localeFallbacks: readonly string[],
   ): string {
     const localesToCheck = Array.from(new Set([...localeFallbacks, 'ru']))
 
     for (const candidate of localesToCheck) {
-      const match = translations.find(translation => translation.locale === candidate && translation.slug)
+      const match = translations.find(
+        (translation) => translation.locale === candidate && translation.slug,
+      )
       if (match?.slug) {
         return match.slug
       }
     }
 
-    const firstWithSlug = translations.find(translation => Boolean(translation.slug))
+    const firstWithSlug = translations.find((translation) => Boolean(translation.slug))
     return firstWithSlug?.slug ?? ''
   }
 
   private buildFeaturedPrograms(
     featuredPrograms: FeaturedProgramWithRelations[],
-    locale: NormalizedLocale
+    locale: NormalizedLocale,
   ): { categories: StrongProgramCategory[]; categoryNames: string[] } {
     const DEFAULT_CATEGORY_MAP: Record<string, string> = {
       ru: 'Сильные программы',
@@ -159,7 +161,7 @@ export class UniversityRepository {
       const translation = this.selectBestTranslation(fp.translations || [], locale.fallbacks)
       const programTranslation = this.selectBestTranslation(
         fp.program?.translations || [],
-        locale.fallbacks
+        locale.fallbacks,
       )
       const programName = (programTranslation?.name ?? '').trim()
       if (!programName) continue
@@ -203,7 +205,7 @@ export class UniversityRepository {
 
   private buildUniversityWhere(
     params: UniversityQueryParams,
-    locale: NormalizedLocale
+    locale: NormalizedLocale,
   ): Prisma.UniversityWhereInput {
     const where: Prisma.UniversityWhereInput = {}
     const andConditions: Prisma.UniversityWhereInput[] = []
@@ -240,30 +242,25 @@ export class UniversityRepository {
               translations: {
                 some: {
                   locale: { in: locales },
-                  OR: [
-                    { title: { contains: query } },
-                    { description: { contains: query } }
-                  ]
-                }
-              }
+                  OR: [{ title: { contains: query } }, { description: { contains: query } }],
+                },
+              },
             },
             {
               city: {
                 translations: {
-                  some: { locale: { in: locales }, name: { contains: query } }
-                }
-              }
-            }
-          ]
+                  some: { locale: { in: locales }, name: { contains: query } },
+                },
+              },
+            },
+          ],
         })
       }
     }
 
     if (params.city && !CITY_ALL_VALUES.has(params.city)) {
       andConditions.push({
-        OR: [
-          { city: { translations: { some: { locale: { in: locales }, name: params.city } } } }
-        ]
+        OR: [{ city: { translations: { some: { locale: { in: locales }, name: params.city } } } }],
       })
     }
 
@@ -313,7 +310,7 @@ export class UniversityRepository {
 
   private mapUniversityListItem(
     university: UniversityListItem | UniversityDetailWithRelations,
-    locale: NormalizedLocale
+    locale: NormalizedLocale,
   ): University {
     const translation = this.selectBestTranslation(university.translations, locale.fallbacks)
     const cityTranslation = university.city?.translations
@@ -350,11 +347,11 @@ export class UniversityRepository {
       languages,
       slug: this.getSlugForLocaleFromTranslations(
         university.translations.map(({ locale: trLocale, slug }) => ({ locale: trLocale, slug })),
-        locale.fallbacks
+        locale.fallbacks,
       ),
       image: university.image ?? '',
       heroImage: university.heroImage ?? university.image ?? '',
-      badge: this.generateBadgeLite({ type: university.type }, locale.normalized)
+      badge: this.generateBadgeLite({ type: university.type }, locale.normalized),
     }
   }
 
@@ -402,11 +399,11 @@ export class UniversityRepository {
 
   private mapCampusFacilities(
     facilities: UniversityDetailWithRelations['campusFacilities'],
-    locale: NormalizedLocale
+    locale: NormalizedLocale,
   ): CampusFacilityDto[] {
     return facilities
-      .filter(facility => facility.isActive !== false)
-      .map(facility => {
+      .filter((facility) => facility.isActive !== false)
+      .map((facility) => {
         const translation = this.selectBestTranslation(facility.translations, locale.fallbacks)
         return {
           id: facility.id,
@@ -421,11 +418,11 @@ export class UniversityRepository {
 
   private mapGallery(
     media: UniversityDetailWithRelations['media'],
-    locale: NormalizedLocale
+    locale: NormalizedLocale,
   ): CampusGalleryItem[] {
     return media
-      .filter(item => item.kind === 'image')
-      .map(item => {
+      .filter((item) => item.kind === 'image')
+      .map((item) => {
         const translation = this.selectBestTranslation(item.translations, locale.fallbacks)
         return {
           url: item.url,
@@ -437,10 +434,13 @@ export class UniversityRepository {
 
   private mapDirections(
     directions: UniversityDetailWithRelations['universityDirections'],
-    locale: NormalizedLocale
+    locale: NormalizedLocale,
   ): StudyDirection[] {
-    return directions.map(direction => {
-      const translation = this.selectBestTranslation(direction.direction.translations, locale.fallbacks)
+    return directions.map((direction) => {
+      const translation = this.selectBestTranslation(
+        direction.direction.translations,
+        locale.fallbacks,
+      )
       return {
         id: direction.direction.id,
         name: translation?.name ?? '',
@@ -455,9 +455,9 @@ export class UniversityRepository {
 
   private mapAdmissionRequirements(
     requirements: UniversityDetailWithRelations['admissionRequirements'],
-    locale: NormalizedLocale
+    locale: NormalizedLocale,
   ): AdmissionRequirement[] {
-    return requirements.map(requirement => {
+    return requirements.map((requirement) => {
       const translation = this.selectBestTranslation(requirement.translations, locale.fallbacks)
       return {
         id: requirement.id,
@@ -471,9 +471,9 @@ export class UniversityRepository {
 
   private mapRequiredDocuments(
     documents: UniversityDetailWithRelations['requiredDocuments'],
-    locale: NormalizedLocale
+    locale: NormalizedLocale,
   ): RequiredDocument[] {
-    return documents.map(document => {
+    return documents.map((document) => {
       const translation = this.selectBestTranslation(document.translations, locale.fallbacks)
       const formatRequirements = this.extractStringArray(translation?.formatRequirements ?? null)
       return {
@@ -488,9 +488,9 @@ export class UniversityRepository {
 
   private mapImportantDates(
     dates: UniversityDetailWithRelations['importantDates'],
-    locale: NormalizedLocale
+    locale: NormalizedLocale,
   ): ImportantDate[] {
-    return dates.map(date => {
+    return dates.map((date) => {
       const translation = this.selectBestTranslation(date.translations, locale.fallbacks)
       return {
         id: date.id,
@@ -503,9 +503,9 @@ export class UniversityRepository {
 
   private mapScholarships(
     scholarships: UniversityDetailWithRelations['scholarships'],
-    locale: NormalizedLocale
+    locale: NormalizedLocale,
   ): ScholarshipInfo[] {
-    return scholarships.map(scholarship => {
+    return scholarships.map((scholarship) => {
       const translation = this.selectBestTranslation(scholarship.translations, locale.fallbacks)
       const criteria = this.extractStringArray(translation?.eligibilityCriteria ?? null)
       return {
@@ -523,9 +523,9 @@ export class UniversityRepository {
 
   private mapAcademicPrograms(
     programs: UniversityDetailWithRelations['academicPrograms'],
-    locale: NormalizedLocale
+    locale: NormalizedLocale,
   ): AcademicProgramDto[] {
-    return programs.map(program => {
+    return programs.map((program) => {
       const translation = this.selectBestTranslation(program.translations, locale.fallbacks)
       return {
         id: program.id,
@@ -567,7 +567,9 @@ export class UniversityRepository {
       this.prisma.university.count({ where }),
     ])
 
-    const mapped = universities.map(university => this.mapUniversityListItem(university, localeInfo))
+    const mapped = universities.map((university) =>
+      this.mapUniversityListItem(university, localeInfo),
+    )
     const sorted = this.applyPostProcessSort(mapped, params.sort)
     const filters = await this.buildFilterOptions(localeInfo)
 
@@ -618,25 +620,26 @@ export class UniversityRepository {
   }
 
   private async buildFilterOptions(locale: NormalizedLocale): Promise<UniversityFilters> {
-    const [cityGroups, typeGroups, levelGroups, tuitionAggregates, languageGroups] = await Promise.all([
-      this.prisma.university.groupBy({
-        by: ['cityId'],
-        where: { cityId: { not: null } }
-      }),
-      this.prisma.university.groupBy({
-        by: ['type']
-      }),
-      this.prisma.academicProgram.groupBy({
-        by: ['degreeType']
-      }),
-      this.prisma.university.aggregate({
-        _min: { tuitionMin: true, tuitionMax: true },
-        _max: { tuitionMin: true, tuitionMax: true }
-      }),
-      this.prisma.academicProgram.groupBy({
-        by: ['languageCode']
-      })
-    ])
+    const [cityGroups, typeGroups, levelGroups, tuitionAggregates, languageGroups] =
+      await Promise.all([
+        this.prisma.university.groupBy({
+          by: ['cityId'],
+          where: { cityId: { not: null } },
+        }),
+        this.prisma.university.groupBy({
+          by: ['type'],
+        }),
+        this.prisma.academicProgram.groupBy({
+          by: ['degreeType'],
+        }),
+        this.prisma.university.aggregate({
+          _min: { tuitionMin: true, tuitionMax: true },
+          _max: { tuitionMin: true, tuitionMax: true },
+        }),
+        this.prisma.academicProgram.groupBy({
+          by: ['languageCode'],
+        }),
+      ])
 
     const cityIds = cityGroups
       .map((group) => group.cityId)
@@ -646,15 +649,15 @@ export class UniversityRepository {
       ? await this.prisma.cityTranslation.findMany({
           where: {
             cityId: { in: cityIds },
-            locale: { in: locale.fallbacks }
+            locale: { in: locale.fallbacks },
           },
           select: { cityId: true, locale: true, name: true },
         })
       : []
 
     const cityNames = cityIds
-      .map(id => {
-        const translations = cityTranslations.filter(t => t.cityId === id)
+      .map((id) => {
+        const translations = cityTranslations.filter((t) => t.cityId === id)
         const best = this.selectBestTranslation(translations, locale.fallbacks)
         return best?.name
       })
@@ -731,7 +734,7 @@ export class UniversityRepository {
 
   private mapUniversityDetail(
     university: UniversityDetailWithRelations,
-    locale: NormalizedLocale
+    locale: NormalizedLocale,
   ): UniversityDetail {
     const base = this.mapUniversityListItem(university, locale)
     const translation = this.selectBestTranslation(university.translations, locale.fallbacks)
@@ -776,7 +779,7 @@ export class UniversityRepository {
       ...base,
       slug: this.getSlugForLocaleFromTranslations(
         university.translations.map(({ locale: trLocale, slug }) => ({ locale: trLocale, slug })),
-        locale.fallbacks
+        locale.fallbacks,
       ),
       badge: this.generateBadge(university, locale.normalized),
       keyInfo: {
@@ -902,7 +905,7 @@ export class UniversityRepository {
       },
     })
 
-    return universities.map(university => this.mapUniversityListItem(university, localeInfo))
+    return universities.map((university) => this.mapUniversityListItem(university, localeInfo))
   }
 
   /**
@@ -926,10 +929,10 @@ export class UniversityRepository {
           translations: {
             some: {
               locale: { in: localeInfo.fallbacks },
-              name: { contains: search }
-            }
-          }
-        }
+              name: { contains: search },
+            },
+          },
+        },
       ]
     }
 
@@ -962,7 +965,7 @@ export class UniversityRepository {
     ])
 
     return {
-      data: directions.map(direction => {
+      data: directions.map((direction) => {
         const translation = this.selectBestTranslation(direction.translations, localeInfo.fallbacks)
         return {
           id: direction.id,

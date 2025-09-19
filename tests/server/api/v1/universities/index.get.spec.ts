@@ -99,11 +99,9 @@ describe('GET /api/v1/universities', () => {
     repositoryInstance.findAll.mockImplementation(async (_filters, locale) => {
       expect(locale).toBe('kz')
       return {
-        data: [
-          { id: 10, title: 'Қазақ Университеті', description: 'Kazakh locale data' }
-        ],
+        data: [{ id: 10, title: 'Қазақ Университеті', description: 'Kazakh locale data' }],
         total: 1,
-        filters: { cities: [], types: [], levels: [], languages: [], priceRange: [0, 0] }
+        filters: { cities: [], types: [], levels: [], languages: [], priceRange: [0, 0] },
       }
     })
 
@@ -113,12 +111,9 @@ describe('GET /api/v1/universities', () => {
     const event = { context: { locale: 'kz' } }
     const result = await handler(event as any)
 
-    expect(repositoryInstance.findAll).toHaveBeenCalledWith(
-      expect.any(Object),
-      'kz'
-    )
+    expect(repositoryInstance.findAll).toHaveBeenCalledWith(expect.any(Object), 'kz')
     expect(result.data).toEqual([
-      { id: 10, title: 'Қазақ Университеті', description: 'Kazakh locale data' }
+      { id: 10, title: 'Қазақ Университеті', description: 'Kazakh locale data' },
     ])
   })
 })

@@ -218,11 +218,9 @@ export function getFAQCategories(faqs: FAQItem[]): FAQCategory[] {
     const count = categoryMap.get(faq.category) || 0
     categoryMap.set(faq.category, count + 1)
   })
-  
-  const categories: FAQCategory[] = [
-    { key: 'all', name: 'All Questions', count: faqs.length }
-  ]
-  
+
+  const categories: FAQCategory[] = [{ key: 'all', name: 'All Questions', count: faqs.length }]
+
   const categoryNames: Record<string, string> = {
     documents: 'Documents and Application',
     exams: 'Exams and Testing',
@@ -270,7 +268,7 @@ export function validateApplicationData(data: any): { isValid: boolean; errors: 
   if (!data.personal_info?.first_name?.trim()) {
     errors.push('First name is required')
   }
-  
+
   if (data.personal_info?.email?.trim()) {
     if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(data.personal_info.email)) {
       errors.push('Invalid email format')
@@ -284,7 +282,7 @@ export function validateApplicationData(data: any): { isValid: boolean; errors: 
   if (!data.education?.level?.trim()) {
     errors.push('Education level is required')
   }
-  
+
   return {
     isValid: errors.length === 0,
     errors,

@@ -43,8 +43,8 @@ describe('referral middleware', () => {
       'dev-123',
       expect.objectContaining({
         secure: false,
-        httpOnly: false
-      })
+        httpOnly: false,
+      }),
     )
   })
 
@@ -63,8 +63,8 @@ describe('referral middleware', () => {
       'referral_code',
       'prod-123',
       expect.objectContaining({
-        secure: true
-      })
+        secure: true,
+      }),
     )
   })
 })

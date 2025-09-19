@@ -39,9 +39,9 @@ export default defineEventHandler(async (event) => {
           channel: personalTelegramChannelKey,
           referral_code: referralCode,
           session: sessionId,
-          utm: utmParams
+          utm: utmParams,
         },
-        baseURL: requestUrl.origin
+        baseURL: requestUrl.origin,
       })
     } catch (error) {
       console.error('[go/telegram] Failed to log messenger event', error)

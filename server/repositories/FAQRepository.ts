@@ -88,7 +88,7 @@ export class FAQRepository {
       mapFaqCategoryToApi(cat, normalized),
     )
 
-    const transformedFAQs: FAQItem[] = faqs.map(faq => mapFaqItemToApi(faq, normalized, q))
+    const transformedFAQs: FAQItem[] = faqs.map((faq) => mapFaqItemToApi(faq, normalized, q))
 
     if (q) {
       transformedFAQs.sort((a, b) => (b.relevance_score || 0) - (a.relevance_score || 0))

@@ -8,7 +8,7 @@ export default defineEventHandler((event) => {
       path: '/',
       secure: process.env.NODE_ENV === 'production',
       httpOnly: false, // accessible on client for referral tracking
-      sameSite: 'lax'
+      sameSite: 'lax',
     })
   }
 })

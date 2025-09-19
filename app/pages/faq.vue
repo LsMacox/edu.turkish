@@ -160,10 +160,10 @@
               class="w-full px-6 py-5 text-left flex items-center justify-between focus:outline-none focus:ring-2 focus:ring-primary focus:ring-inset rounded-2xl min-h-touch-44"
               @click="toggleFAQ(item.id)"
             >
-               <span
-                 class="text-lg font-medium text-secondary pr-4"
-                 v-html="highlightSearchTerms(item.question, searchQuery)"
-               ></span>
+              <span
+                class="text-lg font-medium text-secondary pr-4"
+                v-html="highlightSearchTerms(item.question, searchQuery)"
+              ></span>
               <Icon
                 name="mdi:chevron-down"
                 :class="[
@@ -175,10 +175,10 @@
 
             <div v-if="openItems[item.id]" class="px-6 pb-6">
               <div class="bg-gray-50 rounded-xl p-6">
-                 <div
-                   class="faq-content prose prose-gray max-w-none"
-                   v-html="highlightSearchTerms(item.answer, searchQuery)"
-                 ></div>
+                <div
+                  class="faq-content prose prose-gray max-w-none"
+                  v-html="highlightSearchTerms(item.answer, searchQuery)"
+                ></div>
 
                 <!-- Category badge -->
                 <div class="mt-4 pt-4 border-t border-gray-200">
@@ -216,7 +216,6 @@
 </template>
 
 <script setup lang="ts">
-
 definePageMeta({
   layout: 'default',
 })
@@ -320,7 +319,6 @@ const getCategoryIcon = (category: string): string => {
   return iconMap[category] || 'mdi:help-circle'
 }
 
-
 // Keyboard shortcuts
 onMounted(() => {
   const handleKeydown = (event: KeyboardEvent) => {
@@ -361,5 +359,4 @@ onMounted(() => {
     document.removeEventListener('click', handleClickOutside)
   })
 })
-
 </script>

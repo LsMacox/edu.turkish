@@ -61,8 +61,8 @@ export class ReviewRepository {
     ])
 
     return {
-      data: reviews.map(review => this.mapReview(review, localeInfo)),
-      total
+      data: reviews.map((review) => this.mapReview(review, localeInfo)),
+      total,
     }
   }
 
@@ -157,7 +157,10 @@ export class ReviewRepository {
   /**
    * Find featured reviews
    */
-  async findFeatured(locale: string = ReviewRepository.DEFAULT_LOCALE, limit: number = 3): Promise<Review[]> {
+  async findFeatured(
+    locale: string = ReviewRepository.DEFAULT_LOCALE,
+    limit: number = 3,
+  ): Promise<Review[]> {
     const localeInfo = normalizeLocale(locale)
     const safeLimit = Math.max(limit, 1)
 
@@ -168,7 +171,7 @@ export class ReviewRepository {
       take: safeLimit,
     })
 
-    return reviews.map(review => this.mapReview(review, localeInfo))
+    return reviews.map((review) => this.mapReview(review, localeInfo))
   }
 
   /**
@@ -232,8 +235,7 @@ export class ReviewRepository {
     const universityTranslations = review.university?.translations ?? []
     const localizedUniversityTranslation = this.findTranslation(universityTranslations, locale)
     const fallbackUniversityTranslation =
-      this.findTranslation(universityTranslations, fallbackLocale) ??
-      universityTranslations[0]
+      this.findTranslation(universityTranslations, fallbackLocale) ?? universityTranslations[0]
 
     const achievements = this.parseAchievements(
       localizedTranslation?.achievements ?? fallbackTranslation?.achievements,
@@ -262,7 +264,7 @@ export class ReviewRepository {
 
   private findTranslation<T extends { locale: string | null | undefined }>(
     translations: readonly T[] | null | undefined,
-    locale: NormalizedLocale
+    locale: NormalizedLocale,
   ): T | undefined {
     if (!translations?.length) {
       return undefined
@@ -271,7 +273,7 @@ export class ReviewRepository {
     const localesToCheck = Array.from(new Set([...locale.fallbacks, 'ru']))
 
     for (const candidate of localesToCheck) {
-      const match = translations.find(translation => translation.locale === candidate)
+      const match = translations.find((translation) => translation.locale === candidate)
       if (match) {
         return match
       }

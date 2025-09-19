@@ -129,7 +129,6 @@ export interface BaseTextFieldEvents {
   clear?: []
 }
 
-
 // Theme-related Types
 export interface DesignTokens {
   colors: {

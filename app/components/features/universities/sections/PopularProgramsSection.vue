@@ -204,7 +204,7 @@ const { t, locale } = useI18n()
 
 const DEFAULT_LOCALE = 'ru'
 const CANONICAL_LOCALE_MAP: Record<string, string> = {
-  kk: 'kz'
+  kk: 'kz',
 }
 
 const normalizeLanguageCode = (value?: string | null) => {
@@ -255,10 +255,13 @@ const formatPrice = (price: number) => {
 
 onMounted(async () => {
   try {
-    const response = await $fetch<PopularProgramsResponse>('/api/v1/universities/popular-programs', {
-      query: { lang: normalizeLanguageCode(locale.value) }
-    })
-    
+    const response = await $fetch<PopularProgramsResponse>(
+      '/api/v1/universities/popular-programs',
+      {
+        query: { lang: normalizeLanguageCode(locale.value) },
+      },
+    )
+
     if (response.success) {
       dynamicData.value = response.data
     }

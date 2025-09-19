@@ -605,7 +605,7 @@ describe('UniversityRepository.findAll', () => {
             about: null,
             keyInfoTexts: null,
             createdAt: baseDate,
-            updatedAt: baseDate
+            updatedAt: baseDate,
           },
           {
             id: 52,
@@ -617,8 +617,8 @@ describe('UniversityRepository.findAll', () => {
             about: null,
             keyInfoTexts: null,
             createdAt: baseDate,
-            updatedAt: baseDate
-          }
+            updatedAt: baseDate,
+          },
         ],
         academicPrograms: [
           {
@@ -629,8 +629,8 @@ describe('UniversityRepository.findAll', () => {
             durationYears: 4,
             tuitionPerYear: new Prisma.Decimal(2200),
             createdAt: baseDate,
-            updatedAt: baseDate
-          }
+            updatedAt: baseDate,
+          },
         ],
         city: {
           id: 20,
@@ -638,11 +638,25 @@ describe('UniversityRepository.findAll', () => {
           createdAt: baseDate,
           updatedAt: baseDate,
           translations: [
-            { id: 201, cityId: 20, locale: 'kz', name: 'Алматы', createdAt: baseDate, updatedAt: baseDate },
-            { id: 202, cityId: 20, locale: 'ru', name: 'Алма-Ата', createdAt: baseDate, updatedAt: baseDate }
-          ]
-        }
-      }
+            {
+              id: 201,
+              cityId: 20,
+              locale: 'kz',
+              name: 'Алматы',
+              createdAt: baseDate,
+              updatedAt: baseDate,
+            },
+            {
+              id: 202,
+              cityId: 20,
+              locale: 'ru',
+              name: 'Алма-Ата',
+              createdAt: baseDate,
+              updatedAt: baseDate,
+            },
+          ],
+        },
+      },
     ]
 
     findMany.mockResolvedValue(universities)
@@ -653,8 +667,8 @@ describe('UniversityRepository.findAll', () => {
     expect(findMany).toHaveBeenCalledWith(
       expect.objectContaining({
         where: expect.any(Object),
-        include: expect.objectContaining({ translations: true })
-      })
+        include: expect.objectContaining({ translations: true }),
+      }),
     )
 
     expect(result.data).toHaveLength(1)
@@ -662,7 +676,7 @@ describe('UniversityRepository.findAll', () => {
       title: 'Қазақ Университеті',
       description: 'Қазақ тіліндегі сипаттама',
       city: 'Алматы',
-      slug: 'qazaq-universiteti'
+      slug: 'qazaq-universiteti',
     })
   })
 
@@ -700,8 +714,8 @@ describe('UniversityRepository.findAll', () => {
             about: null,
             keyInfoTexts: null,
             createdAt: baseDate,
-            updatedAt: baseDate
-          }
+            updatedAt: baseDate,
+          },
         ],
         academicPrograms: [],
         city: {
@@ -710,10 +724,17 @@ describe('UniversityRepository.findAll', () => {
           createdAt: baseDate,
           updatedAt: baseDate,
           translations: [
-            { id: 211, cityId: 21, locale: 'ru', name: 'Нур-Султан', createdAt: baseDate, updatedAt: baseDate }
-          ]
-        }
-      }
+            {
+              id: 211,
+              cityId: 21,
+              locale: 'ru',
+              name: 'Нур-Султан',
+              createdAt: baseDate,
+              updatedAt: baseDate,
+            },
+          ],
+        },
+      },
     ]
 
     findMany.mockResolvedValue(universities)
@@ -726,7 +747,7 @@ describe('UniversityRepository.findAll', () => {
       title: 'Российский университет',
       description: 'Описание только на русском',
       city: 'Нур-Султан',
-      slug: 'rossiyskiy-universitet'
+      slug: 'rossiyskiy-universitet',
     })
   })
 })

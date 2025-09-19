@@ -67,17 +67,17 @@ npx tsx scripts/import-university.ts ./app/assets/json/universities/atlas_univer
     "mission": "Готовим инженеров и предпринимателей для глобального рынка.",
     "advantages": [
       "Современные лаборатории и акселератор стартапов",
-      { "title": "Карьерный центр", "description": "Оплачиваемые стажировки в Турции и ЕС" }
-    ]
+      { "title": "Карьерный центр", "description": "Оплачиваемые стажировки в Турции и ЕС" },
+    ],
   },
   "strong_programs": [
     { "category": "Инженерия", "programs": ["Мехатроника", "Программная инженерия"] },
-    { "category": "Бизнес", "programs": ["Цифровой маркетинг"] }
+    { "category": "Бизнес", "programs": ["Цифровой маркетинг"] },
   ],
   "key_info_texts": {
     "languages_note": "Английский, Турецкий",
     "ranking_label": "Рейтинг",
-    "ranking_text": "Top-50 в Турции по версии QS Europe 2024"
+    "ranking_text": "Top-50 в Турции по версии QS Europe 2024",
   },
   "campus_life": {
     "gallery": [
@@ -89,9 +89,9 @@ npx tsx scripts/import-university.ts ./app/assets/json/universities/atlas_univer
         "translation": {
           "locale": "en",
           "title": "Main campus",
-          "caption": "Campus overview"
-        }
-      }
+          "caption": "Campus overview",
+        },
+      },
     ],
     "facilities": [
       {
@@ -101,10 +101,10 @@ npx tsx scripts/import-university.ts ./app/assets/json/universities/atlas_univer
         "translation": {
           "locale": "en",
           "name": "Science library",
-          "description": "24/7 access and media center"
-        }
-      }
-    ]
+          "description": "24/7 access and media center",
+        },
+      },
+    ],
   },
   "admission": {
     "requirements": [
@@ -114,9 +114,9 @@ npx tsx scripts/import-university.ts ./app/assets/json/universities/atlas_univer
         "translation": {
           "locale": "en",
           "category": "Undergraduate",
-          "requirement": "IELTS 6.0 and GPA 3.0+"
-        }
-      }
+          "requirement": "IELTS 6.0 and GPA 3.0+",
+        },
+      },
     ],
     "documents": [
       {
@@ -126,9 +126,9 @@ npx tsx scripts/import-university.ts ./app/assets/json/universities/atlas_univer
         "translation": {
           "locale": "en",
           "name": "High school diploma",
-          "description": "Official translation"
-        }
-      }
+          "description": "Official translation",
+        },
+      },
     ],
     "dates": [
       {
@@ -137,9 +137,9 @@ npx tsx scripts/import-university.ts ./app/assets/json/universities/atlas_univer
         "type": "deadline",
         "translation": {
           "locale": "en",
-          "event": "Application deadline"
-        }
-      }
+          "event": "Application deadline",
+        },
+      },
     ],
     "scholarships": [
       {
@@ -151,10 +151,10 @@ npx tsx scripts/import-university.ts ./app/assets/json/universities/atlas_univer
         "translation": {
           "locale": "en",
           "name": "Merit scholarship",
-          "eligibility_criteria": ["GPA ≥ 3.2", "Motivation letter"]
-        }
-      }
-    ]
+          "eligibility_criteria": ["GPA ≥ 3.2", "Motivation letter"],
+        },
+      },
+    ],
   },
   "programs": [
     {
@@ -168,8 +168,8 @@ npx tsx scripts/import-university.ts ./app/assets/json/universities/atlas_univer
       "translation": {
         "locale": "en",
         "name": "Software Engineering",
-        "description": "4-year R&D focused curriculum"
-      }
+        "description": "4-year R&D focused curriculum",
+      },
     },
     {
       "name": "Бизнес-аналитика",
@@ -177,8 +177,8 @@ npx tsx scripts/import-university.ts ./app/assets/json/universities/atlas_univer
       "language": "en",
       "duration_years": 2,
       "tuition_per_year": 7000,
-      "direction_slug": "management"
-    }
+      "direction_slug": "management",
+    },
   ],
   "directions": ["software-engineering", "management", "data-science"],
   "translation": {
@@ -191,18 +191,18 @@ npx tsx scripts/import-university.ts ./app/assets/json/universities/atlas_univer
       "mission": "Preparing engineers and entrepreneurs for global careers.",
       "advantages": [
         "Cutting-edge labs and startup accelerator",
-        { "title": "Career center", "description": "Internships across Turkey and the EU" }
-      ]
+        { "title": "Career center", "description": "Internships across Turkey and the EU" },
+      ],
     },
     "strong_programs": [
       { "category": "Engineering", "programs": ["Mechatronics", "Software Engineering"] },
-      { "category": "Business", "programs": ["Digital Marketing"] }
+      { "category": "Business", "programs": ["Digital Marketing"] },
     ],
     "key_info_texts": {
       "ranking_text": "Top-50 in Turkey (QS Europe 2024)",
-      "languages_note": "English, Turkish"
-    }
-  }
+      "languages_note": "English, Turkish",
+    },
+  },
 }
 ```
 

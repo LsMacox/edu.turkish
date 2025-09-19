@@ -81,10 +81,8 @@ describe('GET /api/v1/reviews', () => {
     repositoryInstance.findAll.mockImplementation(async (_filters, locale) => {
       expect(locale).toBe('kz')
       return {
-        data: [
-          { id: 7, name: 'Әружан', quote: 'Kazakh review' }
-        ],
-        total: 1
+        data: [{ id: 7, name: 'Әружан', quote: 'Kazakh review' }],
+        total: 1,
       }
     })
 
@@ -94,10 +92,7 @@ describe('GET /api/v1/reviews', () => {
     const event = { context: { locale: 'kz' } }
     const result = await handler(event as any)
 
-    expect(repositoryInstance.findAll).toHaveBeenCalledWith(
-      expect.any(Object),
-      'kz'
-    )
+    expect(repositoryInstance.findAll).toHaveBeenCalledWith(expect.any(Object), 'kz')
     expect(result.data).toEqual([{ id: 7, name: 'Әружан', quote: 'Kazakh review' }])
   })
 })
