@@ -1,8 +1,3 @@
-interface LanguagePreference {
-  code: string
-  quality: number
-}
-
 const SUPPORTED_LOCALES = ['en', 'ru', 'kk', 'kz', 'tr']
 const DEFAULT_LOCALE = 'ru'
 
@@ -45,7 +40,7 @@ function detectLanguage(event: any): string {
 function parseAcceptLanguageSimple(acceptLang: string): string[] {
   return acceptLang
     .split(',')
-    .map(lang => {
+    .map((lang) => {
       const [code] = lang.trim().split(';')
       return code.toLowerCase()
     })

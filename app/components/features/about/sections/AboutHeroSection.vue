@@ -1,8 +1,8 @@
 <template>
   <section class="relative bg-gradient-to-br from-blue-50 to-purple-50 py-20 h-[500px]">
-    <div 
+    <div
       class="absolute inset-0 bg-center bg-no-repeat bg-cover opacity-30"
-      style="background-image: url('/images/about-us-bg.png');"
+      style="background-image: url('/images/about-us-bg.png')"
       aria-hidden="true"
     />
     <div class="relative container mx-auto px-4 lg:px-6 h-full flex items-center">
@@ -21,11 +21,15 @@
             </div>
             <div class="flex items-center space-x-2">
               <Icon name="mdi:check-circle" class="text-green-500" />
-              <span class="text-secondary font-medium">{{ t('about.hero.students_enrolled') }}</span>
+              <span class="text-secondary font-medium">{{
+                t('about.hero.students_enrolled')
+              }}</span>
             </div>
             <div class="flex items-center space-x-2">
               <Icon name="mdi:shield-check" class="text-blue-500" />
-              <span class="text-secondary font-medium">{{ t('about.hero.official_contracts') }}</span>
+              <span class="text-secondary font-medium">{{
+                t('about.hero.official_contracts')
+              }}</span>
             </div>
           </div>
         </div>

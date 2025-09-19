@@ -8,33 +8,39 @@
         <p class="text-xl mb-8 opacity-90">
           {{ t('home.final_cta.subtitle', { days: timeLeft.days }) }}
         </p>
-        
+
         <!-- Countdown Timer -->
         <div class="flex justify-center space-x-8 mb-8">
           <div class="text-center">
-            <div class="text-3xl font-bold bg-white text-primary rounded-xl p-4 w-16 h-16 flex items-center justify-center">
+            <div
+              class="text-3xl font-bold bg-white text-primary rounded-xl p-4 w-16 h-16 flex items-center justify-center"
+            >
               {{ timeLeft.days }}
             </div>
             <p class="text-sm mt-2">{{ t('home.final_cta.days') }}</p>
           </div>
           <div class="text-center">
-            <div class="text-3xl font-bold bg-white text-primary rounded-xl p-4 w-16 h-16 flex items-center justify-center">
+            <div
+              class="text-3xl font-bold bg-white text-primary rounded-xl p-4 w-16 h-16 flex items-center justify-center"
+            >
               {{ timeLeft.hours }}
             </div>
             <p class="text-sm mt-2">{{ t('home.final_cta.hours') }}</p>
           </div>
           <div class="text-center">
-            <div class="text-3xl font-bold bg-white text-primary rounded-xl p-4 w-16 h-16 flex items-center justify-center">
+            <div
+              class="text-3xl font-bold bg-white text-primary rounded-xl p-4 w-16 h-16 flex items-center justify-center"
+            >
               {{ timeLeft.minutes }}
             </div>
             <p class="text-sm mt-2">{{ t('home.final_cta.minutes') }}</p>
           </div>
         </div>
-        
+
         <div class="space-y-4">
-          <button 
-            @click="modal.openModal()"
+          <button
             class="bg-white text-primary px-12 py-4 rounded-xl font-bold text-xl hover:bg-gray-100 transition-all transform hover:scale-105 shadow-2xl"
+            @click="modal.openModal()"
           >
             {{ t('home.final_cta.button') }}
           </button>
@@ -48,6 +54,8 @@
 </template>
 
 <script setup lang="ts">
+import { useApplicationModalStore } from '~/stores/applicationModal'
+
 interface Props {
   deadline?: string | Date
   fallbackDays?: number
@@ -59,10 +67,8 @@ const props = withDefaults(defineProps<Props>(), {
   deadline: '2025-11-15T23:59:59',
   fallbackDays: 45,
   fallbackHours: 12,
-  fallbackMinutes: 35
+  fallbackMinutes: 35,
 })
-
-import { useApplicationModalStore } from '~/stores/applicationModal'
 
 const { t } = useI18n()
 const modal = useApplicationModalStore()
@@ -75,19 +81,19 @@ const calculateTimeLeft = () => {
   const now = new Date().getTime()
   const deadline = new Date(props.deadline).getTime()
   const distance = deadline - now
-  
+
   if (distance > 0) {
     const result = {
       days: Math.floor(distance / (1000 * 60 * 60 * 24)),
       hours: Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60)),
-      minutes: Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60))
+      minutes: Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60)),
     }
     return result
   } else {
     return {
       days: 0,
       hours: 0,
-      minutes: 0
+      minutes: 0,
     }
   }
 }
@@ -105,7 +111,7 @@ onMounted(() => {
   const interval = setInterval(() => {
     forceUpdate.value++
   }, 60000)
-  
+
   onUnmounted(() => {
     clearInterval(interval)
   })

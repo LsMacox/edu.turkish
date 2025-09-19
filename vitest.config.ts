@@ -7,13 +7,13 @@ export default defineConfig({
   test: {
     environment: 'jsdom',
     globals: true,
-    setupFiles: ['./tests/setup.ts']
+    setupFiles: ['./tests/setup.ts'],
   },
   resolve: {
     alias: {
       '~': fileURLToPath(new URL('./app', import.meta.url)),
       '@': fileURLToPath(new URL('./app', import.meta.url)),
-      '~~': fileURLToPath(new URL('./', import.meta.url))
-    }
-  }
+      '~~': fileURLToPath(new URL('./', import.meta.url)),
+    },
+  },
 })

@@ -3,7 +3,8 @@
     <div class="container mx-auto px-4 lg:px-6">
       <div class="text-center mb-10 md:mb-16">
         <h2 class="text-4xl lg:text-5xl font-bold text-secondary mb-6">
-          {{ $t('reviews.studentStories.title') }} <span class="text-primary">{{ $t('reviews.studentStories.titleAccent') }}</span>
+          {{ $t('reviews.studentStories.title') }}
+          <span class="text-primary">{{ $t('reviews.studentStories.titleAccent') }}</span>
         </h2>
         <p class="text-xl text-gray-600 max-w-3xl mx-auto">
           {{ $t('reviews.studentStories.description') }}
@@ -13,26 +14,24 @@
       <div v-if="reviewsError" class="text-red-500 p-4 text-center">
         Failed to load reviews. Please try again later.
       </div>
-      <div v-else-if="pending" class="animate-pulse text-center">
-        Loading reviews...
-      </div>
-      <div v-else v-for="review in studentReviews" :key="review.id" class="max-w-4xl mx-auto mb-8">
+      <div v-else-if="pending" class="animate-pulse text-center">Loading reviews...</div>
+      <div v-for="review in studentReviews" v-else :key="review.id" class="max-w-4xl mx-auto mb-8">
         <div class="bg-white rounded-3xl shadow-custom hover-lift p-6 md:p-8">
           <div class="mb-6">
             <h3 class="text-xl font-bold text-secondary mb-2">{{ review.name }}</h3>
             <p class="text-primary font-semibold mb-1">{{ review.university }}</p>
             <p class="text-gray-600">{{ $t('reviews.labels.studentExperience') }}</p>
           </div>
-          
+
           <div class="flex text-yellow-400 mb-4">
-            <Icon 
-              v-for="i in 5" 
-              :key="i" 
-              name="mdi:star" 
-              :class="i <= review.rating ? 'text-yellow-400' : 'text-gray-300'" 
+            <Icon
+              v-for="i in 5"
+              :key="i"
+              name="mdi:star"
+              :class="i <= review.rating ? 'text-yellow-400' : 'text-gray-300'"
             />
           </div>
-          
+
           <blockquote class="text-gray-700 leading-relaxed">
             {{ review.quote }}
           </blockquote>
@@ -40,9 +39,9 @@
       </div>
 
       <div class="text-center mt-12 md:mt-16">
-        <button 
-          @click="modal.openModal()" 
+        <button
           class="bg-primary text-white px-8 py-4 rounded-xl font-bold text-lg hover:bg-red-600 transition-colors shadow-lg"
+          @click="modal.openModal()"
         >
           {{ $t('reviews.studentStories.ctaButton') }}
         </button>
@@ -70,15 +69,23 @@ const modal = useApplicationModalStore()
 
 // Fetch student reviews from API and refetch on locale change
 const { locale } = useI18n()
-const { data: studentReviews, pending, error: reviewsError, refresh } = await useFetch<StudentReviewItem[]>('/api/v1/reviews', {
+const {
+  data: studentReviews,
+  pending,
+  error: reviewsError,
+  refresh,
+} = await useFetch<StudentReviewItem[]>('/api/v1/reviews', {
   query: computed(() => ({ type: 'student', featured: true, limit: 3, lang: locale.value })),
   headers: computed(() => ({ 'Accept-Language': locale.value })),
-  transform: (res: ReviewListResponse<StudentReviewItem>) => res?.data ?? []
+  transform: (res: ReviewListResponse<StudentReviewItem>) => res?.data ?? [],
 })
 
-watch(() => locale.value, () => {
-  refresh()
-})
+watch(
+  () => locale.value,
+  () => {
+    refresh()
+  },
+)
 
 if (reviewsError.value) {
   console.error('Failed to load student reviews:', reviewsError.value)

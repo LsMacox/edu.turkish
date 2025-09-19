@@ -35,28 +35,20 @@
 <template>
   <div class="relative">
     <!-- Enhanced label with required indicator -->
-    <label 
-      v-if="label" 
-      :for="inputId" 
-      class="block text-sm font-medium text-secondary mb-2"
-    >
+    <label v-if="label" :for="inputId" class="block text-sm font-medium text-secondary mb-2">
       {{ label }}
       <span v-if="required" class="text-red-500 ml-1" aria-label="required">*</span>
     </label>
-    
+
     <!-- Input wrapper -->
     <div class="relative">
-      <input 
+      <input
         :id="inputId"
         :value="modelValue"
-        @input="handleInput"
-        @focus="handleFocus"
-        @blur="handleBlur"
-        @keydown="handleKeydown"
         :type="type"
         :placeholder="placeholder"
         :disabled="disabled"
-        :readonly="readonly"
+        :readonly="inputReadonly"
         :min="min"
         :max="max"
         :step="step"
@@ -67,7 +59,10 @@
         :autocorrect="autoCorrectAttr"
         :spellcheck="spellcheckAttr"
         :aria-label="ariaLabel || label"
-        :aria-describedby="ariaDescribedBy || (error ? `${inputId}-error` : helperText ? `${inputId}-helper` : undefined)"
+        :aria-describedby="
+          ariaDescribedBy ||
+          (error ? `${inputId}-error` : helperText ? `${inputId}-helper` : undefined)
+        "
         :aria-required="required"
         :aria-invalid="!!error"
         :class="[
@@ -80,58 +75,58 @@
           icon ? (iconPosition === 'right' ? 'pr-12 md:pr-10' : 'pl-12 md:pl-10') : 'px-4',
           // State-based styling
           disabled ? 'opacity-50 cursor-not-allowed bg-gray-50' : '',
-          readonly ? 'bg-gray-50 cursor-default' : '',
+          inputReadonly ? 'bg-gray-50 cursor-default' : '',
           // Validation styling
           validationClasses,
           // Rounded corners
-          roundedClasses
+          roundedClasses,
         ]"
+        @input="handleInput"
+        @focus="handleFocus"
+        @blur="handleBlur"
+        @keydown="handleKeydown"
       />
-      
+
       <!-- Left icon -->
-      <div 
-        v-if="icon && iconPosition === 'left'" 
+      <div
+        v-if="icon && iconPosition === 'left'"
         class="absolute inset-y-0 left-0 flex items-center pl-3 md:pl-3 pointer-events-none"
+        data-testid="icon"
       >
-        <Icon 
-          :name="icon" 
-          :class="[
-            'w-6 h-6 md:w-5 md:h-5',
-            error ? 'text-red-400' : 'text-gray-400'
-          ]" 
+        <Icon
+          :name="icon"
+          :class="['w-6 h-6 md:w-5 md:h-5', error ? 'text-red-400' : 'text-gray-400']"
         />
       </div>
-      
+
       <!-- Right icon -->
-      <div 
-        v-if="icon && iconPosition === 'right'" 
+      <div
+        v-if="icon && iconPosition === 'right'"
         class="absolute inset-y-0 right-0 flex items-center pr-3 md:pr-3 pointer-events-none"
+        data-testid="icon"
       >
-        <Icon 
-          :name="icon" 
-          :class="[
-            'w-6 h-6 md:w-5 md:h-5',
-            error ? 'text-red-400' : 'text-gray-400'
-          ]" 
+        <Icon
+          :name="icon"
+          :class="['w-6 h-6 md:w-5 md:h-5', error ? 'text-red-400' : 'text-gray-400']"
         />
       </div>
-      
+
       <!-- Clear button -->
       <button
-        v-if="clearable && modelValue && !disabled && !readonly"
-        @click="handleClear"
+        v-if="clearable && modelValue && !disabled && !inputReadonly"
         type="button"
         class="absolute inset-y-0 right-0 flex items-center pr-3 text-gray-400 hover:text-gray-600 transition-colors"
-        :aria-label="$t?.('common.clear') || 'Clear'"
+        :aria-label="$t('common.clear') || 'Clear'"
+        @click="handleClear"
       >
         <Icon name="mdi:close" class="w-5 h-5" />
       </button>
     </div>
-    
+
     <!-- Enhanced error and helper text -->
     <div v-if="error || helperText" class="mt-2">
-      <p 
-        v-if="error" 
+      <p
+        v-if="error"
         :id="`${inputId}-error`"
         class="text-sm text-red-600 leading-relaxed flex items-start gap-1"
         role="alert"
@@ -140,8 +135,8 @@
         <Icon name="mdi:alert-circle" class="w-4 h-4 mt-0.5 flex-shrink-0" />
         {{ error }}
       </p>
-      <p 
-        v-else-if="helperText" 
+      <p
+        v-else-if="helperText"
         :id="`${inputId}-helper`"
         class="text-sm text-gray-600 leading-relaxed"
       >
@@ -154,7 +149,7 @@
 <script setup lang="ts">
 /**
  * BaseTextField Component Script
- * 
+ *
  * Provides enhanced text input functionality with:
  * - Real-time validation and error handling
  * - Accessibility features (ARIA labels, screen reader support)
@@ -162,14 +157,13 @@
  * - Icon support with customizable positioning
  * - Clearable input option
  * - Multiple input types (text, email, password, etc.)
- * 
+ *
  * @author edu.turkish development team
  * @since 1.0.0
  */
 
 import { computed, useId, ref } from 'vue'
-import { Icon } from '@nuxt/icon'
-import type { BaseTextFieldProps, BaseTextFieldEvents } from '~/types/ui'
+import type { BaseTextFieldProps } from '~/types/ui'
 
 // Generate unique ID for the input
 const inputId = useId()
@@ -177,7 +171,7 @@ const isFocused = ref(false)
 
 /**
  * Component props with enhanced interface and default values
- * 
+ *
  * @interface BaseTextFieldProps
  * @property {string|number} modelValue - The current value of the input
  * @property {string} [type='text'] - Input type (text, email, password, number, tel, url)
@@ -202,12 +196,15 @@ const props = withDefaults(defineProps<BaseTextFieldProps>(), {
   clearable: false,
   readonly: false,
   required: false,
-  disabled: false
+  disabled: false,
 })
+
+// Avoid collision with Vue's global isReadonly() helper
+const inputReadonly = computed(() => props.readonly)
 
 /**
  * Component events
- * 
+ *
  * @fires update:modelValue - Emitted when the input value changes
  * @fires input - Emitted on input event
  * @fires change - Emitted on change event
@@ -216,14 +213,20 @@ const props = withDefaults(defineProps<BaseTextFieldProps>(), {
  * @fires keydown - Emitted on keydown event
  * @fires clear - Emitted when clear button is clicked
  */
-const emit = defineEmits<BaseTextFieldEvents>()
+const emit = defineEmits<{
+  (e: 'update:modelValue', value: string | number): void
+  (e: 'input' | 'change', event: Event): void
+  (e: 'focus' | 'blur', event: FocusEvent): void
+  (e: 'keydown' | 'keyup', event: KeyboardEvent): void
+  (e: 'clear'): void
+}>()
 
 // Computed classes
 const sizeClasses = computed(() => {
   const sizes = {
     sm: 'py-2 md:py-2 text-sm min-h-touch-44',
     md: 'py-4 md:py-3 text-base md:text-sm min-h-touch-48 md:min-h-auto',
-    lg: 'py-5 md:py-4 text-lg md:text-base min-h-touch-48'
+    lg: 'py-5 md:py-4 text-lg md:text-base min-h-touch-48',
   }
   return sizes[props.size] || sizes.md
 })
@@ -234,7 +237,7 @@ const roundedClasses = computed(() => {
     md: 'rounded-lg',
     lg: 'rounded-xl',
     xl: 'rounded-xl',
-    '2xl': 'rounded-2xl'
+    '2xl': 'rounded-2xl',
   }
   return rounded[props.rounded] || rounded.xl
 })
@@ -369,6 +372,6 @@ defineExpose({
     const input = document.getElementById(inputId) as HTMLInputElement
     input?.blur()
   },
-  clear: handleClear
+  clear: handleClear,
 })
 </script>

@@ -1,4 +1,4 @@
-import { PrismaClient, Prisma } from '@prisma/client'
+import type { PrismaClient, Prisma } from '@prisma/client'
 import type {
   BlogArticleDetail,
   BlogArticleListItem,
@@ -6,7 +6,7 @@ import type {
   BlogCategory,
   BlogArticleContentBlock,
   BlogPopularArticle,
-  BlogArticleQuickFact
+  BlogArticleQuickFact,
 } from '../types/api'
 
 type ArticleWithRelations = Prisma.BlogArticleGetPayload<{
@@ -23,7 +23,10 @@ type ArticleWithRelations = Prisma.BlogArticleGetPayload<{
 export class BlogRepository {
   constructor(private prisma: PrismaClient) {}
 
-  private pickTranslation<T extends { locale: string }>(translations: T[], locale: string): T | null {
+  private pickTranslation<T extends { locale: string }>(
+    translations: T[],
+    locale: string,
+  ): T | null {
     if (!translations || translations.length === 0) {
       return null
     }
@@ -61,7 +64,7 @@ export class BlogRepository {
       const formatter = new Intl.DateTimeFormat(this.resolveLocaleTag(locale), {
         day: '2-digit',
         month: 'short',
-        year: 'numeric'
+        year: 'numeric',
       })
 
       const parts = formatter.formatToParts(date)
@@ -77,7 +80,10 @@ export class BlogRepository {
     }
   }
 
-  private formatReadingTime(minutes: number | null | undefined, locale: string): string | undefined {
+  private formatReadingTime(
+    minutes: number | null | undefined,
+    locale: string,
+  ): string | undefined {
     if (!minutes || minutes <= 0) {
       return undefined
     }
@@ -98,7 +104,9 @@ export class BlogRepository {
     }
   }
 
-  private normalizeContent(content: Prisma.JsonValue | null | undefined): BlogArticleContentBlock[] {
+  private normalizeContent(
+    content: Prisma.JsonValue | null | undefined,
+  ): BlogArticleContentBlock[] {
     if (!content || !Array.isArray(content)) {
       return []
     }
@@ -175,11 +183,12 @@ export class BlogRepository {
       publishedAt: article.publishedAt.toISOString(),
       publishedAtLabel: this.formatDate(article.publishedAt, locale),
       readingTimeMinutes: article.readingTimeMinutes ?? undefined,
-      readingTimeLabel: translation?.readingTime ?? this.formatReadingTime(article.readingTimeMinutes, locale),
+      readingTimeLabel:
+        translation?.readingTime ?? this.formatReadingTime(article.readingTimeMinutes, locale),
       category: {
         key: article.category.code,
-        label: categoryTranslation?.title ?? article.category.code
-      }
+        label: categoryTranslation?.title ?? article.category.code,
+      },
     }
   }
 
@@ -227,7 +236,10 @@ export class BlogRepository {
     }
   }
 
-  private mapArticleToPopularItem(article: ArticleWithRelations, locale: string): BlogPopularArticle {
+  private mapArticleToPopularItem(
+    article: ArticleWithRelations,
+    locale: string,
+  ): BlogPopularArticle {
     const base = this.mapArticleToListItem(article, locale)
     const viewCount = this.extractViewCount(article.meta)
 
@@ -238,7 +250,7 @@ export class BlogRepository {
       publishedAt: base.publishedAt,
       publishedAtLabel: base.publishedAtLabel,
       viewCount,
-      viewCountLabel: this.formatViewCount(viewCount, locale)
+      viewCountLabel: this.formatViewCount(viewCount, locale),
     }
   }
 
@@ -258,7 +270,7 @@ export class BlogRepository {
       content: this.normalizeContent(translation?.content),
       quickFacts: meta.quickFacts,
       highlights: meta.highlights,
-      tags: meta.tags
+      tags: meta.tags,
     }
   }
 
@@ -295,14 +307,14 @@ export class BlogRepository {
 
     const highlights = Array.isArray(record.highlights)
       ? record.highlights
-          .map(item => (typeof item === 'string' ? item.trim() : ''))
-          .filter(item => item.length > 0)
+          .map((item) => (typeof item === 'string' ? item.trim() : ''))
+          .filter((item) => item.length > 0)
       : []
 
     const tags = Array.isArray(record.tags)
       ? record.tags
-          .map(item => (typeof item === 'string' ? item.trim() : ''))
-          .filter(item => item.length > 0)
+          .map((item) => (typeof item === 'string' ? item.trim() : ''))
+          .filter((item) => item.length > 0)
       : []
 
     return { quickFacts, highlights, tags }
@@ -312,20 +324,23 @@ export class BlogRepository {
     const rows = await this.prisma.blogCategory.findMany({
       orderBy: [{ order: 'asc' }, { id: 'asc' }],
       include: {
-        translations: true
-      }
+        translations: true,
+      },
     })
 
     return rows.map((row) => {
       const translation = this.pickTranslation(row.translations, locale)
       return {
         key: row.code,
-        label: translation?.title ?? row.code
+        label: translation?.title ?? row.code,
       }
     })
   }
 
-  async findArticles(params: BlogArticleQueryParams, locale: string): Promise<{
+  async findArticles(
+    params: BlogArticleQueryParams,
+    locale: string,
+  ): Promise<{
     articles: BlogArticleListItem[]
     total: number
     featured: BlogArticleListItem | null
@@ -334,49 +349,44 @@ export class BlogRepository {
   }> {
     const page = Math.max(Number(params.page) || 1, 1)
     const limit = Math.max(Number(params.limit) || 6, 1)
-    const categoryFilter = params.category && params.category !== 'all' ? String(params.category) : null
+    const categoryFilter =
+      params.category && params.category !== 'all' ? String(params.category) : null
     const searchQuery = params.q?.trim() ?? ''
 
     const baseWhere: Prisma.BlogArticleWhereInput = {
       status: 'published',
       publishedAt: {
-        lte: new Date()
-      }
+        lte: new Date(),
+      },
     }
 
     if (categoryFilter) {
       baseWhere.category = {
-        code: categoryFilter
+        code: categoryFilter,
       }
     }
 
     if (searchQuery) {
-      baseWhere.AND = (baseWhere.AND || [])
+      baseWhere.AND = baseWhere.AND || []
       baseWhere.AND.push({
         OR: [
           {
             translations: {
               some: {
                 locale,
-                OR: [
-                  { title: { contains: searchQuery } },
-                  { excerpt: { contains: searchQuery } }
-                ]
-              }
-            }
+                OR: [{ title: { contains: searchQuery } }, { excerpt: { contains: searchQuery } }],
+              },
+            },
           },
           {
             translations: {
               some: {
                 locale: 'ru',
-                OR: [
-                  { title: { contains: searchQuery } },
-                  { excerpt: { contains: searchQuery } }
-                ]
-              }
-            }
-          }
-        ]
+                OR: [{ title: { contains: searchQuery } }, { excerpt: { contains: searchQuery } }],
+              },
+            },
+          },
+        ],
       })
     }
 
@@ -387,19 +397,19 @@ export class BlogRepository {
       featured = await this.prisma.blogArticle.findFirst({
         where: {
           ...baseWhere,
-          isFeatured: true
+          isFeatured: true,
         },
         orderBy: {
-          publishedAt: 'desc'
+          publishedAt: 'desc',
         },
         include: {
           translations: true,
           category: {
             include: {
-              translations: true
-            }
-          }
-        }
+              translations: true,
+            },
+          },
+        },
       })
 
       if (featured && categoryFilter && featured.category.code !== categoryFilter) {
@@ -408,12 +418,12 @@ export class BlogRepository {
     }
 
     const listWhere: Prisma.BlogArticleWhereInput = {
-      ...baseWhere
+      ...baseWhere,
     }
 
     if (featured) {
       listWhere.id = {
-        not: featured.id
+        not: featured.id,
       }
     }
 
@@ -428,14 +438,14 @@ export class BlogRepository {
           translations: true,
           category: {
             include: {
-              translations: true
-            }
-          }
-        }
+              translations: true,
+            },
+          },
+        },
       }),
       this.prisma.blogCategory.findMany({
         orderBy: [{ order: 'asc' }, { id: 'asc' }],
-        include: { translations: true }
+        include: { translations: true },
       }),
       this.prisma.blogArticle.findMany({
         where: baseWhere,
@@ -445,11 +455,11 @@ export class BlogRepository {
           translations: true,
           category: {
             include: {
-              translations: true
-            }
-          }
-        }
-      })
+              translations: true,
+            },
+          },
+        },
+      }),
     ])
 
     const mappedArticles = rows.map((row) => this.mapArticleToListItem(row, locale))
@@ -458,14 +468,14 @@ export class BlogRepository {
       const translation = this.pickTranslation(category.translations, locale)
       return {
         key: category.code,
-        label: translation?.title ?? category.code
+        label: translation?.title ?? category.code,
       }
     })
 
     const popularCandidates = potentialPopular
       .map((article) => ({
         article,
-        views: this.extractViewCount(article.meta)
+        views: this.extractViewCount(article.meta),
       }))
       .sort((a, b) => {
         if (b.views !== a.views) {
@@ -495,7 +505,7 @@ export class BlogRepository {
       total,
       featured: mappedFeatured,
       categories: mappedCategories,
-      popular: mappedPopular
+      popular: mappedPopular,
     }
   }
 
@@ -503,7 +513,7 @@ export class BlogRepository {
     const primary = await this.prisma.blogArticleTranslation.findFirst({
       where: {
         slug,
-        locale
+        locale,
       },
       include: {
         article: {
@@ -511,12 +521,12 @@ export class BlogRepository {
             translations: true,
             category: {
               include: {
-                translations: true
-              }
-            }
-          }
-        }
-      }
+                translations: true,
+              },
+            },
+          },
+        },
+      },
     })
 
     let article = primary?.article ?? null
@@ -530,12 +540,12 @@ export class BlogRepository {
               translations: true,
               category: {
                 include: {
-                  translations: true
-                }
-              }
-            }
-          }
-        }
+                  translations: true,
+                },
+              },
+            },
+          },
+        },
       })
 
       article = fallback?.article ?? null

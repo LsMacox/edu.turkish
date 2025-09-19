@@ -12,13 +12,15 @@ export const useApplicationModalStore = defineStore('applicationModal', () => {
   const openModal = (preferences: ApplicationPreferences | null = null) => {
     userPreferences.value = preferences
     isOpen.value = true
-    
+
     // Отслеживание открытия модала
     if (process.client && (window as any).ym) {
       const config = useRuntimeConfig()
-      ;(window as any).ym(config.public.yandexMetrikaId, 'reachGoal', 'modal_open', { type: 'application' })
+      ;(window as any).ym(config.public.yandexMetrikaId, 'reachGoal', 'modal_open', {
+        type: 'application',
+      })
     }
-    
+
     if (process.client && typeof document !== 'undefined') {
       // Предотвратить скролл страницы когда модал открыт
       const currentOverflow = document.body.style.overflow
@@ -47,12 +49,11 @@ export const useApplicationModalStore = defineStore('applicationModal', () => {
       const config = useRuntimeConfig()
       ;(window as any).ym(config.public.yandexMetrikaId, 'reachGoal', 'application_submitted', {
         academicDirection: formData.academicDirection,
-        hasPreferences: !!formData.preferences
+        hasPreferences: !!formData.preferences,
       })
     }
-    
+
     // Здесь будет логика отправки данных
-    console.log('Application submitted:', formData)
     closeModal()
   }
 
@@ -73,11 +74,11 @@ export const useApplicationModalStore = defineStore('applicationModal', () => {
     isOpen,
     userPreferences,
     previousOverflow,
-    
+
     // Actions
     openModal,
     closeModal,
     submitApplication,
-    cleanup
+    cleanup,
   }
 })

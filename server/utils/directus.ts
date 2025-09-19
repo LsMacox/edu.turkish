@@ -16,4 +16,3 @@ export function getDirectusClients(): DirectusClients {
 
   return { server, public: publicClient }
 }
-

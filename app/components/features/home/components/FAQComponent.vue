@@ -28,7 +28,7 @@ const { openModal: openApplicationModal } = applicationModalStore
 const handleConsult = () => {
   openApplicationModal({
     source: 'home_faq',
-    description: 'Заявка из блока FAQ на главной странице'
+    description: 'Заявка из блока FAQ на главной странице',
   })
 }
 
@@ -47,23 +47,23 @@ const handleInstagram = () => {
 const faqs = computed(() => [
   {
     question: t('home.faq.home.q1'),
-    answer: t('home.faq.home.a1')
+    answer: t('home.faq.home.a1'),
   },
   {
     question: t('home.faq.home.q2'),
-    answer: t('home.faq.home.a2')
+    answer: t('home.faq.home.a2'),
   },
   {
     question: t('home.faq.home.q3'),
-    answer: t('home.faq.home.a3')
+    answer: t('home.faq.home.a3'),
   },
   {
     question: t('home.faq.home.q4'),
-    answer: t('home.faq.home.a4')
+    answer: t('home.faq.home.a4'),
   },
   {
     question: t('home.faq.home.q5'),
-    answer: t('home.faq.home.a5')
-  }
+    answer: t('home.faq.home.a5'),
+  },
 ])
 </script>

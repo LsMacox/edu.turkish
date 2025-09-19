@@ -440,8 +440,6 @@ model FacilityTranslation {
   @@map("facility_translations")
 }
 
-// Dormitory модели удалены по согласованию
-
 // ==========================================
 // Admission Requirements
 // ==========================================

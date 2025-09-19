@@ -1,4 +1,4 @@
-import { Prisma, PrismaClient } from '@prisma/client'
+import type { Prisma, PrismaClient } from '@prisma/client'
 import type { FAQItem, FAQQueryParams, FAQCategory } from '../types/api'
 import { mapFaqCategoryToApi, mapFaqItemToApi } from './faqMapper'
 import { normalizeLocale } from '../utils/locale'
@@ -9,10 +9,7 @@ export class FAQRepository {
   private buildTranslationWhere(fallbacks: string[], q?: string): Prisma.FaqTranslationWhereInput {
     const where: Prisma.FaqTranslationWhereInput = { locale: { in: fallbacks } }
     if (q) {
-      where.OR = [
-        { question: { contains: q } },
-        { answer: { contains: q } }
-      ]
+      where.OR = [{ question: { contains: q } }, { answer: { contains: q } }]
     }
     return where
   }
@@ -20,21 +17,24 @@ export class FAQRepository {
   private buildIncludes(fallbacks: string[]): Prisma.FaqItemInclude {
     return {
       translations: { where: { locale: { in: fallbacks } } },
-      category: { include: { translations: { where: { locale: { in: fallbacks } } } } }
+      category: { include: { translations: { where: { locale: { in: fallbacks } } } } },
     }
   }
 
   private buildCategoryInclude(fallbacks: string[]): Prisma.FaqCategoryInclude {
     return {
       translations: { where: { locale: { in: fallbacks } } },
-      _count: { select: { items: true } }
+      _count: { select: { items: true } },
     }
   }
 
   /**
    * Find all FAQs with filtering and search
    */
-  async findAll(params: FAQQueryParams, locale: string = 'ru'): Promise<{
+  async findAll(
+    params: FAQQueryParams,
+    locale: string = 'ru',
+  ): Promise<{
     data: FAQItem[]
     categories: FAQCategory[]
     meta: {
@@ -66,28 +66,27 @@ export class FAQRepository {
       this.prisma.faqItem.findMany({
         where: {
           ...where,
-          ...(q ? { translations: { some: translationWhere } } : {})
+          ...(q ? { translations: { some: translationWhere } } : {}),
         },
         include,
-        orderBy: [
-          { featured: 'desc' },
-          { createdAt: 'asc' }
-        ],
-        take: limit
+        orderBy: [{ featured: 'desc' }, { createdAt: 'asc' }],
+        take: limit,
       }),
       this.prisma.faqItem.count({
         where: {
           ...where,
-          ...(q ? { translations: { some: translationWhere } } : {})
-        }
-      })
+          ...(q ? { translations: { some: translationWhere } } : {}),
+        },
+      }),
     ])
 
     const categoriesRaw = await this.prisma.faqCategory.findMany({
-      include: this.buildCategoryInclude(fallbacks)
+      include: this.buildCategoryInclude(fallbacks),
     })
 
-    const categories: FAQCategory[] = categoriesRaw.map(cat => mapFaqCategoryToApi(cat, normalized))
+    const categories: FAQCategory[] = categoriesRaw.map((cat) =>
+      mapFaqCategoryToApi(cat, normalized),
+    )
 
     const transformedFAQs: FAQItem[] = faqs.map(faq => mapFaqItemToApi(faq, normalized, q))
 
@@ -103,8 +102,8 @@ export class FAQRepository {
       meta: {
         total: totalFAQs,
         filtered: filteredCount,
-        query: q || null
-      }
+        query: q || null,
+      },
     }
   }
 
@@ -115,7 +114,7 @@ export class FAQRepository {
     const { normalized, fallbacks } = normalizeLocale(locale)
     const faq = await this.prisma.faqItem.findUnique({
       where: { id },
-      include: this.buildIncludes(fallbacks)
+      include: this.buildIncludes(fallbacks),
     })
 
     if (!faq) return null
@@ -131,13 +130,11 @@ export class FAQRepository {
     const faqs = await this.prisma.faqItem.findMany({
       where: { featured: true },
       include: this.buildIncludes(fallbacks),
-      orderBy: [
-        { createdAt: 'asc' }
-      ],
-      take: limit
+      orderBy: [{ createdAt: 'asc' }],
+      take: limit,
     })
 
-    return faqs.map(faq => mapFaqItemToApi(faq, normalized))
+    return faqs.map((faq) => mapFaqItemToApi(faq, normalized))
   }
 
   /**
@@ -148,15 +145,15 @@ export class FAQRepository {
     const faqs = await this.prisma.faqItem.findMany({
       where: {
         translations: {
-          some: this.buildTranslationWhere(fallbacks, query)
-        }
+          some: this.buildTranslationWhere(fallbacks, query),
+        },
       },
       include: this.buildIncludes(fallbacks),
-      take: limit
+      take: limit,
     })
 
     return faqs
-      .map(faq => mapFaqItemToApi(faq, normalized, query))
+      .map((faq) => mapFaqItemToApi(faq, normalized, query))
       .sort((a, b) => (b.relevance_score || 0) - (a.relevance_score || 0))
   }
 
@@ -166,10 +163,10 @@ export class FAQRepository {
   async getCategories(locale: string = 'ru'): Promise<FAQCategory[]> {
     const { normalized, fallbacks } = normalizeLocale(locale)
     const categories = await this.prisma.faqCategory.findMany({
-      include: this.buildCategoryInclude(fallbacks)
+      include: this.buildCategoryInclude(fallbacks),
     })
 
-    return categories.map(cat => mapFaqCategoryToApi(cat, normalized))
+    return categories.map((cat) => mapFaqCategoryToApi(cat, normalized))
   }
 
   /**
@@ -191,9 +188,9 @@ export class FAQRepository {
       data: {
         featured: Boolean(featured),
         categoryId: categoryId ?? null,
-        translations: { create: translations }
+        translations: { create: translations },
       },
-      include: this.buildIncludes(fallbacks)
+      include: this.buildIncludes(fallbacks),
     })
 
     return mapFaqItemToApi(faq, normalized)

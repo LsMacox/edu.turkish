@@ -1,8 +1,7 @@
 <template>
   <div class="relative">
-    <select 
-      :value="modelValue" 
-      @change="$emit('update:modelValue', ($event.target as HTMLSelectElement).value)"
+    <select
+      :value="modelValue"
       :class="[
         'w-full px-4 pr-12 md:pr-10 bg-white border border-gray-300 rounded-xl',
         'focus:ring-2 focus:ring-primary focus:border-transparent focus:outline-none',
@@ -10,9 +9,10 @@
         'text-secondary font-medium',
         // Mobile/tablet responsive padding and height
         'py-4 md:py-3 text-base md:text-sm min-h-touch-48 md:min-h-auto',
-        disabled ? 'opacity-50 cursor-not-allowed' : ''
+        disabled ? 'opacity-50 cursor-not-allowed' : '',
       ]"
       :disabled="disabled"
+      @change="$emit('update:modelValue', ($event.target as HTMLSelectElement).value)"
     >
       <slot />
     </select>

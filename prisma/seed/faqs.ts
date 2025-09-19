@@ -1,4 +1,4 @@
-import { PrismaClient } from '@prisma/client'
+import type { PrismaClient } from '@prisma/client'
 
 export async function seedFAQs(prisma: PrismaClient, faqCategoryMap: Record<string, number>) {
   const faqsBaseData = [
@@ -6,164 +6,164 @@ export async function seedFAQs(prisma: PrismaClient, faqCategoryMap: Record<stri
       id: 1,
       category: 'documents',
       featured: true,
-      orderPosition: 1
+      orderPosition: 1,
     },
     {
       id: 2,
       category: 'documents',
       featured: true,
-      orderPosition: 2
+      orderPosition: 2,
     },
     {
       id: 3,
       category: 'documents',
       featured: true,
-      orderPosition: 3
+      orderPosition: 3,
     },
     {
       id: 4,
       category: 'technology',
       featured: true,
-      orderPosition: 4
+      orderPosition: 4,
     },
     {
       id: 5,
       category: 'technology',
       featured: false,
-      orderPosition: 5
+      orderPosition: 5,
     },
     {
       id: 6,
       category: 'education',
       featured: true,
-      orderPosition: 6
+      orderPosition: 6,
     },
     {
       id: 7,
       category: 'residence',
       featured: true,
-      orderPosition: 7
+      orderPosition: 7,
     },
     {
       id: 8,
       category: 'residence',
       featured: true,
-      orderPosition: 8
+      orderPosition: 8,
     },
     {
       id: 9,
       category: 'education',
       featured: false,
-      orderPosition: 9
+      orderPosition: 9,
     },
     {
       id: 10,
       category: 'documents',
       featured: true,
-      orderPosition: 10
+      orderPosition: 10,
     },
     {
       id: 11,
       category: 'relocation',
       featured: true,
-      orderPosition: 11
+      orderPosition: 11,
     },
     {
       id: 12,
       category: 'relocation',
       featured: true,
-      orderPosition: 12
+      orderPosition: 12,
     },
     {
       id: 13,
       category: 'education',
       featured: true,
-      orderPosition: 13
+      orderPosition: 13,
     },
     {
       id: 14,
       category: 'insurance',
       featured: true,
-      orderPosition: 14
+      orderPosition: 14,
     },
     {
       id: 15,
       category: 'insurance',
       featured: false,
-      orderPosition: 15
+      orderPosition: 15,
     },
     {
       id: 16,
       category: 'documents',
       featured: true,
-      orderPosition: 16
+      orderPosition: 16,
     },
     {
       id: 17,
       category: 'documents',
       featured: false,
-      orderPosition: 17
+      orderPosition: 17,
     },
     {
       id: 18,
       category: 'transport',
       featured: true,
-      orderPosition: 18
+      orderPosition: 18,
     },
     {
       id: 19,
       category: 'education',
       featured: false,
-      orderPosition: 19
+      orderPosition: 19,
     },
     {
       id: 20,
       category: 'housing',
       featured: true,
-      orderPosition: 20
+      orderPosition: 20,
     },
     {
       id: 21,
       category: 'transport',
       featured: false,
-      orderPosition: 21
+      orderPosition: 21,
     },
     {
       id: 22,
       category: 'insurance',
       featured: false,
-      orderPosition: 22
+      orderPosition: 22,
     },
     {
       id: 23,
       category: 'insurance',
       featured: false,
-      orderPosition: 23
+      orderPosition: 23,
     },
     {
       id: 24,
       category: 'insurance',
       featured: false,
-      orderPosition: 24
+      orderPosition: 24,
     },
     {
       id: 25,
       category: 'insurance',
       featured: false,
-      orderPosition: 25
+      orderPosition: 25,
     },
     {
       id: 26,
       category: 'insurance',
       featured: false,
-      orderPosition: 26
+      orderPosition: 26,
     },
     {
       id: 27,
       category: 'insurance',
       featured: false,
-      orderPosition: 27
-    }
+      orderPosition: 27,
+    },
   ]
 
   const faqTranslations = {
@@ -190,8 +190,8 @@ export async function seedFAQs(prisma: PrismaClient, faqCategoryMap: Record<stri
             <li>Оплата пошлины</li>
           </ol>
         `,
-        categoryName: 'Документы'
-      }
+        categoryName: 'Документы',
+      },
     },
     2: {
       ru: {
@@ -216,8 +216,8 @@ export async function seedFAQs(prisma: PrismaClient, faqCategoryMap: Record<stri
           
           <div class="faq-tip">📺 Видео-инструкция: <a href="https://youtu.be/0cPb3ZEugXk" target="_blank">https://youtu.be/0cPb3ZEugXk</a></div>
         `,
-        categoryName: 'Документы'
-      }
+        categoryName: 'Документы',
+      },
     },
     3: {
       ru: {
@@ -232,8 +232,8 @@ export async function seedFAQs(prisma: PrismaClient, faqCategoryMap: Record<stri
           
           <div class="faq-tip">💡 Каждый телефон имеет 2 слота IMEI (физический и электронный). Значит, каждый слот вы сможете использовать 4 месяца × 2 слота = 8 месяцев сможете использовать свой телефон</div>
         `,
-        categoryName: 'Технологии'
-      }
+        categoryName: 'Технологии',
+      },
     },
     4: {
       ru: {
@@ -252,8 +252,8 @@ export async function seedFAQs(prisma: PrismaClient, faqCategoryMap: Record<stri
           
           <div class="faq-important">❕ Важно: Студенты, обучающиеся в Турции на пре-бакалавриате/бакалавриате, при покупке телефона в Турции смогут воспользоваться скидкой 18-20% от стоимости телефона</div>
         `,
-        categoryName: 'Технологии'
-      }
+        categoryName: 'Технологии',
+      },
     },
     5: {
       ru: {
@@ -275,8 +275,8 @@ export async function seedFAQs(prisma: PrismaClient, faqCategoryMap: Record<stri
             <p>Студент обучающийся на подготовительном году (hazırlık) имеет право получить студенческий ВНЖ. И кроме этого, имеет много преимуществ.</p>
           </div>
         `,
-        categoryName: 'Образование'
-      }
+        categoryName: 'Образование',
+      },
     },
     6: {
       ru: {
@@ -302,8 +302,8 @@ export async function seedFAQs(prisma: PrismaClient, faqCategoryMap: Record<stri
           
           <div class="faq-important">❗️ Могут также попросить дополнительно справку о доходах, туристический план и еще другие документы</div>
         `,
-        categoryName: 'ВНЖ'
-      }
+        categoryName: 'ВНЖ',
+      },
     },
     7: {
       ru: {
@@ -350,8 +350,8 @@ export async function seedFAQs(prisma: PrismaClient, faqCategoryMap: Record<stri
           
           <div class="faq-tip">✔️ Обращайтесь в личные сообщения для получения услуги «Оформление ВНЖ с сопровождением»! Также мы можем оформить для вас самую выгодную медицинскую страховку, подходящую для получения ВНЖ!</div>
         `,
-        categoryName: 'ВНЖ'
-      }
+        categoryName: 'ВНЖ',
+      },
     },
     8: {
       ru: {
@@ -381,8 +381,8 @@ export async function seedFAQs(prisma: PrismaClient, faqCategoryMap: Record<stri
             </ul>
           </div>
         `,
-        categoryName: 'Образование'
-      }
+        categoryName: 'Образование',
+      },
     },
     9: {
       ru: {
@@ -476,8 +476,8 @@ export async function seedFAQs(prisma: PrismaClient, faqCategoryMap: Record<stri
             </ul>
           </div>
         `,
-        categoryName: 'Документы'
-      }
+        categoryName: 'Документы',
+      },
     },
     10: {
       ru: {
@@ -495,8 +495,8 @@ export async function seedFAQs(prisma: PrismaClient, faqCategoryMap: Record<stri
           
           <div class="faq-tip">📺 Подробная информация в серии видео о поступлении в Турцию</div>
         `,
-        categoryName: 'Образование'
-      }
+        categoryName: 'Образование',
+      },
     },
     11: {
       ru: {
@@ -514,8 +514,8 @@ export async function seedFAQs(prisma: PrismaClient, faqCategoryMap: Record<stri
           
           <div class="faq-important">❗️ Очень важно: Если вы в этом году уже приезжали в Турцию, посчитайте, сколько безвизовых дней у вас осталось. В случае, если их осталось мало, советуем оформить студенческую визу!</div>
         `,
-        categoryName: 'Переезд'
-      }
+        categoryName: 'Переезд',
+      },
     },
     12: {
       ru: {
@@ -532,8 +532,8 @@ export async function seedFAQs(prisma: PrismaClient, faqCategoryMap: Record<stri
             <li><strong>Такси оплачивайте наличными.</strong> Не привязывайте свою карту к приложениям, таксист может не приехать или уехать в другую сторону, чтобы вы отменили заказ, а у вас спишутся деньги с карты за отмену. Также садитесь на переднее сидение, включайте навигатор (так, чтобы таксист это видел) и следите за тем, чтобы он ехал по маршруту, а не растягивал дорогу.</li>
           </ul>
         `,
-        categoryName: 'Переезд'
-      }
+        categoryName: 'Переезд',
+      },
     },
     13: {
       ru: {
@@ -557,8 +557,8 @@ export async function seedFAQs(prisma: PrismaClient, faqCategoryMap: Record<stri
           
           <div class="faq-important">❗️ Кроме вышеперечисленных, в Турции больше нет грантов. Агентства могут называть скидку при единовременной оплате «грантом», но знайте, что это таковым не является.</div>
         `,
-        categoryName: 'Образование'
-      }
+        categoryName: 'Образование',
+      },
     },
     14: {
       ru: {
@@ -589,8 +589,8 @@ export async function seedFAQs(prisma: PrismaClient, faqCategoryMap: Record<stri
           
           <div class="faq-tip">💡 По итогу получаете выгодную страховку, идеально подходящую для ВНЖ!</div>
         `,
-        categoryName: 'Страхование'
-      }
+        categoryName: 'Страхование',
+      },
     },
     15: {
       ru: {
@@ -598,8 +598,8 @@ export async function seedFAQs(prisma: PrismaClient, faqCategoryMap: Record<stri
         answer: `
           <p>На весь срок обучения необходима страховка. Если вы поступили на подготовительный год, то ВНЖ вам одобрят только на 1 год, а как перейдете на факультет, то вы можете подавать на 4 года.</p>
         `,
-        categoryName: 'Страхование'
-      }
+        categoryName: 'Страхование',
+      },
     },
     22: {
       ru: {
@@ -607,17 +607,18 @@ export async function seedFAQs(prisma: PrismaClient, faqCategoryMap: Record<stri
         answer: `
           <p>Да, есть смысл, так как цена на страховку поднимется с понедельника. А эту страховку по низкой цене вы сможете использовать в следующем году.</p>
         `,
-        categoryName: 'Страхование'
-      }
+        categoryName: 'Страхование',
+      },
     },
     23: {
       ru: {
-        question: 'Нужна только лицевая сторона загранпаспорта или страница с датами въезда/выезда также нужна?',
+        question:
+          'Нужна только лицевая сторона загранпаспорта или страница с датами въезда/выезда также нужна?',
         answer: `
           <p>Нужен скан только лицевой стороны загранпаспорта.</p>
         `,
-        categoryName: 'Страхование'
-      }
+        categoryName: 'Страхование',
+      },
     },
     24: {
       ru: {
@@ -625,8 +626,8 @@ export async function seedFAQs(prisma: PrismaClient, faqCategoryMap: Record<stri
         answer: `
           <p>При подаче на ВНЖ будет проверяться дата заезда в страну, соответственно, если дата получения страховки будет указана до заезда в страну, это может привести к проблеме. Мы можем сделать вам медицинскую страховку на любую дату, в том числе и наперед.</p>
         `,
-        categoryName: 'Страхование'
-      }
+        categoryName: 'Страхование',
+      },
     },
     25: {
       ru: {
@@ -634,8 +635,8 @@ export async function seedFAQs(prisma: PrismaClient, faqCategoryMap: Record<stri
         answer: `
           <p>Страховка будет действовать во всех городах Турции. Но при подаче на ВНЖ нужно обязательно, чтобы указанный город в страховке соответствовал городу подачи на ВНЖ.</p>
         `,
-        categoryName: 'Страхование'
-      }
+        categoryName: 'Страхование',
+      },
     },
     26: {
       ru: {
@@ -643,8 +644,8 @@ export async function seedFAQs(prisma: PrismaClient, faqCategoryMap: Record<stri
         answer: `
           <p>Частная страховка покрывает самые минимальные расходы в больницах/аптеках, с которыми имеется договор. Но на практике это не так, даже, когда я сам покупал по 1500 лир частную страховку, от нее никакой пользы не было, кроме получения ВНЖ.</p>
         `,
-        categoryName: 'Страхование'
-      }
+        categoryName: 'Страхование',
+      },
     },
     27: {
       ru: {
@@ -652,8 +653,8 @@ export async function seedFAQs(prisma: PrismaClient, faqCategoryMap: Record<stri
         answer: `
           <p>Выбирайте пункт «Bireysel Ödemeler» или «Para transferi». Не пишите, пожалуйста, в açıklama такие слова, как «sigorta» и тому подобное. Можете оставить это поле пустым.</p>
         `,
-        categoryName: 'Страхование'
-      }
+        categoryName: 'Страхование',
+      },
     },
     16: {
       ru: {
@@ -676,8 +677,8 @@ export async function seedFAQs(prisma: PrismaClient, faqCategoryMap: Record<stri
             <p>А также в некоторых городах Турции, несмотря на безвизовый режим, необходимо иметь визу для обустройства и окончательной регистрации в университете.</p>
           </div>
         `,
-        categoryName: 'Документы'
-      }
+        categoryName: 'Документы',
+      },
     },
     17: {
       ru: {
@@ -704,8 +705,8 @@ export async function seedFAQs(prisma: PrismaClient, faqCategoryMap: Record<stri
           
           <div class="faq-tip">💳 У нас вы можете получить перевод и заверение ваших документов легко и быстро за очень выгодную оплату! Принимаем оплату на турецкую, российскую, казахстанскую, узбекистанскую карты!</div>
         `,
-        categoryName: 'Документы'
-      }
+        categoryName: 'Документы',
+      },
     },
     18: {
       ru: {
@@ -739,8 +740,8 @@ export async function seedFAQs(prisma: PrismaClient, faqCategoryMap: Record<stri
           
           <div class="faq-tip">💡 Чтобы добраться до Havaİst, нужно спуститься на -2 этаж. На каждой стене будет написан свой номер и карта с номерами автобусов. Можете оплатить проезд наличными в кассе или картой водителю автобуса.</div>
         `,
-        categoryName: 'Транспорт'
-      }
+        categoryName: 'Транспорт',
+      },
     },
     19: {
       ru: {
@@ -762,8 +763,8 @@ export async function seedFAQs(prisma: PrismaClient, faqCategoryMap: Record<stri
           
           <div class="faq-important">❗️ Окончательная регистрация проходит с 16 по 22 июля! После 22 июля у тех, кто не завершит регистрацию в университете, сгорает приглашение. Поэтому поторопитесь все завершить!👌🏻</div>
         `,
-        categoryName: 'Образование'
-      }
+        categoryName: 'Образование',
+      },
     },
     20: {
       ru: {
@@ -801,8 +802,8 @@ export async function seedFAQs(prisma: PrismaClient, faqCategoryMap: Record<stri
           
           <div class="faq-tip">✨ Совет: Всегда сохраняйте договор аренды, выбирайте проверенные агентства и тщательно проверяйте условия аренды. Перед тем как заселиться, рекомендуется снять на видео всю квартиру, особенно, если стул, стол, шкаф, холодильник сломан или на стенах имеются царапины, дырки и другие повреждения.</div>
         `,
-        categoryName: 'Жилье'
-      }
+        categoryName: 'Жилье',
+      },
     },
     21: {
       ru: {
@@ -825,9 +826,9 @@ export async function seedFAQs(prisma: PrismaClient, faqCategoryMap: Record<stri
           
           <div class="faq-tip">🏫 Если вы студент и планируете активно пользоваться общественным транспортом, такая карта будет вам незаменимым помощником!</div>
         `,
-        categoryName: 'Транспорт'
-      }
-    }
+        categoryName: 'Транспорт',
+      },
+    },
   }
 
   // Create or update FAQs with translations based on new schema (idempotent)
@@ -849,7 +850,9 @@ export async function seedFAQs(prisma: PrismaClient, faqCategoryMap: Record<stri
     const categoryKey = (baseData as any).category
     const categoryId = faqCategoryMap[categoryKey]
     if (!categoryId) {
-      console.warn(`⚠️ No FAQ category found for key '${categoryKey}' (FAQ ID: ${baseData.id}), skipping...`)
+      console.warn(
+        `⚠️ No FAQ category found for key '${categoryKey}' (FAQ ID: ${baseData.id}), skipping...`,
+      )
       continue
     }
 
@@ -858,10 +861,10 @@ export async function seedFAQs(prisma: PrismaClient, faqCategoryMap: Record<stri
       where: {
         categoryId,
         translations: {
-          some: { locale: 'ru', question: ruTranslation.question }
-        }
+          some: { locale: 'ru', question: ruTranslation.question },
+        },
       },
-      select: { id: true }
+      select: { id: true },
     })
 
     let faqId: number
@@ -873,17 +876,17 @@ export async function seedFAQs(prisma: PrismaClient, faqCategoryMap: Record<stri
         where: { id: faqId },
         data: {
           featured: Boolean((baseData as any).featured),
-          categoryId
-        }
+          categoryId,
+        },
       })
       console.log(`❓ Updated FAQ item with ID: ${faqId} in category '${categoryKey}'`)
     } else {
       const created = await (prisma as any).faqItem.create({
         data: {
           categoryId,
-          featured: Boolean((baseData as any).featured)
+          featured: Boolean((baseData as any).featured),
         },
-        select: { id: true }
+        select: { id: true },
       })
       faqId = created.id
       console.log(`❓ Created FAQ item with ID: ${faqId} in category '${categoryKey}'`)
@@ -893,7 +896,12 @@ export async function seedFAQs(prisma: PrismaClient, faqCategoryMap: Record<stri
     await (prisma as any).faqTranslation.upsert({
       where: { faqId_locale: { faqId, locale: 'ru' } },
       update: { question: ruTranslation.question, answer: ruTranslation.answer },
-      create: { faqId, locale: 'ru', question: ruTranslation.question, answer: ruTranslation.answer }
+      create: {
+        faqId,
+        locale: 'ru',
+        question: ruTranslation.question,
+        answer: ruTranslation.answer,
+      },
     })
   }
 }

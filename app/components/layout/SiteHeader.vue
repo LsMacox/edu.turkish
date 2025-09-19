@@ -20,16 +20,18 @@
             />
           </NuxtLink>
         </div>
-        
+
         <!-- Desktop Navigation -->
         <nav class="hidden lg:flex items-center space-x-8">
           <NuxtLink
             to="#services"
-            @click.prevent="goToSection('#services')"
             :class="[
               'transition-colors font-medium cursor-pointer',
-              isActive('#services') ? 'text-primary border-b-2 border-primary pb-0.5' : 'text-secondary hover:text-primary'
+              isActive('#services')
+                ? 'text-primary border-b-2 border-primary pb-0.5'
+                : 'text-secondary hover:text-primary',
             ]"
+            @click.prevent="goToSection('#services')"
           >
             {{ t('nav.services') }}
           </NuxtLink>
@@ -37,7 +39,9 @@
             :to="localePath('/universities')"
             :class="[
               'transition-colors font-medium cursor-pointer',
-              isActive('/universities') ? 'text-primary border-b-2 border-primary pb-0.5' : 'text-secondary hover:text-primary'
+              isActive('/universities')
+                ? 'text-primary border-b-2 border-primary pb-0.5'
+                : 'text-secondary hover:text-primary',
             ]"
           >
             {{ t('nav.universities') }}
@@ -46,7 +50,9 @@
             :to="localePath('/reviews')"
             :class="[
               'transition-colors font-medium cursor-pointer',
-              isActive('/reviews') ? 'text-primary border-b-2 border-primary pb-0.5' : 'text-secondary hover:text-primary'
+              isActive('/reviews')
+                ? 'text-primary border-b-2 border-primary pb-0.5'
+                : 'text-secondary hover:text-primary',
             ]"
           >
             {{ t('nav.reviews') }}
@@ -55,7 +61,9 @@
             :to="localePath('/blog')"
             :class="[
               'transition-colors font-medium cursor-pointer',
-              isActive('/blog') ? 'text-primary border-b-2 border-primary pb-0.5' : 'text-secondary hover:text-primary'
+              isActive('/blog')
+                ? 'text-primary border-b-2 border-primary pb-0.5'
+                : 'text-secondary hover:text-primary',
             ]"
           >
             {{ t('nav.blog') }}
@@ -64,7 +72,9 @@
             :to="localePath('/about')"
             :class="[
               'transition-colors font-medium cursor-pointer',
-              isActive('/about') ? 'text-primary border-b-2 border-primary pb-0.5' : 'text-secondary hover:text-primary'
+              isActive('/about')
+                ? 'text-primary border-b-2 border-primary pb-0.5'
+                : 'text-secondary hover:text-primary',
             ]"
           >
             {{ t('nav.about') }}
@@ -73,17 +83,21 @@
             :to="localePath('/faq')"
             :class="[
               'transition-colors font-medium cursor-pointer',
-              isActive('/faq') ? 'text-primary border-b-2 border-primary pb-0.5' : 'text-secondary hover:text-primary'
+              isActive('/faq')
+                ? 'text-primary border-b-2 border-primary pb-0.5'
+                : 'text-secondary hover:text-primary',
             ]"
           >
             {{ t('nav.faq') }}
           </NuxtLink>
         </nav>
-        
+
         <!-- Right Section -->
         <div class="flex items-center space-x-3 md:space-x-4">
           <!-- Desktop Language Switcher -->
-          <div class="relative hidden md:flex items-center bg-background rounded-lg h-9 min-w-[200px] overflow-hidden p-1">
+          <div
+            class="relative hidden md:flex items-center bg-background rounded-lg h-9 min-w-[200px] overflow-hidden p-1"
+          >
             <!-- Active slider -->
             <div
               class="absolute top-1 bottom-1 left-1 rounded-md bg-white shadow-sm transition-transform duration-300 ease-out will-change-transform pointer-events-none z-0"
@@ -98,7 +112,11 @@
                 :key="opt.code"
                 type="button"
                 class="relative z-10 text-sm font-medium px-0 select-none h-7 flex items-center justify-center rounded-md transition-colors duration-200 min-h-touch-44"
-                :class="opt.code === currentLocale ? 'text-secondary' : 'text-gray-500 hover:text-secondary'"
+                :class="
+                  opt.code === currentLocale
+                    ? 'text-secondary'
+                    : 'text-gray-500 hover:text-secondary'
+                "
                 :aria-current="opt.code === currentLocale ? 'true' : 'false'"
                 @click="changeLocale(opt.code)"
               >
@@ -106,33 +124,33 @@
               </button>
             </div>
           </div>
-          
+
           <!-- CTA Button -->
-          <button 
-            @click="modal.openModal()" 
+          <button
             class="bg-primary text-white px-3 md:px-6 py-2 md:py-2 rounded-lg md:rounded-xl font-semibold hover:bg-red-600 transition-colors shadow-lg text-xs md:text-base"
+            @click="modal.openModal()"
           >
             {{ t('cta.apply') }}
           </button>
-          
+
           <!-- Mobile Menu Button -->
-          <button 
-            @click="toggleMobileNav"
+          <button
             class="lg:hidden flex items-center justify-center w-12 h-12 rounded-xl hover:bg-gray-100 transition-colors min-h-touch-44 min-w-touch-44"
             aria-label="Toggle navigation menu"
             :aria-expanded="isMobileNavOpen"
+            @click="toggleMobileNav"
           >
-            <Icon :name="isMobileNavOpen ? 'mdi:close' : 'mdi:menu'" class="text-secondary text-xl" />
+            <Icon
+              :name="isMobileNavOpen ? 'mdi:close' : 'mdi:menu'"
+              class="text-secondary text-xl"
+            />
           </button>
         </div>
       </div>
     </div>
-    
+
     <!-- Mobile Navigation Drawer -->
-    <MobileNavDrawer 
-      :is-open="isMobileNavOpen" 
-      @close="closeMobileNav"
-    />
+    <MobileNavDrawer :is-open="isMobileNavOpen" @close="closeMobileNav" />
   </header>
 </template>
 
@@ -156,16 +174,16 @@ const options: Opt[] = [
   { code: 'ru', label: 'RU' },
   { code: 'kz', label: 'KZ' },
   { code: 'en', label: 'EN' },
-  { code: 'tr', label: 'TR' }
+  { code: 'tr', label: 'TR' },
 ]
 
 const currentLocale = computed(() => i18n.locale.value)
-const activeIndex = computed(() => options.findIndex(o => o.code === currentLocale.value))
+const activeIndex = computed(() => options.findIndex((o) => o.code === currentLocale.value))
 
 // Slider: 4 equal columns -> width = 25%, translateX(100% * index)
 const sliderStyle = computed(() => ({
   width: 'calc((100% - 0.5rem) / 4)',
-  transform: `translateX(${Math.max(0, activeIndex.value) * 100}%)`
+  transform: `translateX(${Math.max(0, activeIndex.value) * 100}%)`,
 }))
 
 function changeLocale(code: Opt['code']) {
@@ -177,9 +195,8 @@ function changeLocale(code: Opt['code']) {
 
 // Mobile navigation functions
 function toggleMobileNav() {
-  console.log('Toggling mobile nav from:', isMobileNavOpen.value, 'to:', !isMobileNavOpen.value)
   isMobileNavOpen.value = !isMobileNavOpen.value
-  
+
   // Prevent body scroll when menu is open
   if (process.client) {
     if (isMobileNavOpen.value) {
@@ -191,9 +208,8 @@ function toggleMobileNav() {
 }
 
 function closeMobileNav() {
-  console.log('Closing mobile nav')
   isMobileNavOpen.value = false
-  
+
   // Restore body scroll
   if (process.client) {
     document.body.style.overflow = 'auto'
@@ -216,7 +232,10 @@ function goToSection(hash: string) {
 }
 
 // Close mobile nav on route change
-watch(() => route.path, () => {
-  closeMobileNav()
-})
+watch(
+  () => route.path,
+  () => {
+    closeMobileNav()
+  },
+)
 </script>

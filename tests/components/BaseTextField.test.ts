@@ -1,5 +1,4 @@
 import { describe, it, expect, vi } from 'vitest'
-import { describe, it, expect, vi } from 'vitest'
 import { mount } from '@vue/test-utils'
 import BaseTextField from '~/components/ui/forms/BaseTextField.vue'
 
@@ -8,21 +7,21 @@ vi.mock('@nuxt/icon', () => ({
   Icon: {
     name: 'Icon',
     template: '<span data-testid="icon">{{ name }}</span>',
-    props: ['name']
-  }
+    props: ['name'],
+  },
 }))
 
 describe('BaseTextField', () => {
   const defaultProps = {
     modelValue: '',
-    'onUpdate:modelValue': vi.fn()
+    'onUpdate:modelValue': vi.fn(),
   }
 
   it('renders correctly with minimal props', () => {
     const wrapper = mount(BaseTextField, {
-      props: defaultProps
+      props: defaultProps,
     })
-    
+
     expect(wrapper.find('input').exists()).toBe(true)
     expect(wrapper.find('input').attributes('type')).toBe('text')
   })
@@ -31,10 +30,10 @@ describe('BaseTextField', () => {
     const wrapper = mount(BaseTextField, {
       props: {
         ...defaultProps,
-        label: 'Email Address'
-      }
+        label: 'Email Address',
+      },
     })
-    
+
     const label = wrapper.find('label')
     expect(label.exists()).toBe(true)
     expect(label.text()).toBe('Email Address')
@@ -45,10 +44,10 @@ describe('BaseTextField', () => {
       props: {
         ...defaultProps,
         label: 'Name',
-        required: true
-      }
+        required: true,
+      },
     })
-    
+
     const requiredIndicator = wrapper.find('span[aria-label="required"]')
     expect(requiredIndicator.exists()).toBe(true)
     expect(requiredIndicator.text()).toBe('*')
@@ -59,10 +58,10 @@ describe('BaseTextField', () => {
     const wrapper = mount(BaseTextField, {
       props: {
         ...defaultProps,
-        error: errorMessage
-      }
+        error: errorMessage,
+      },
     })
-    
+
     const errorElement = wrapper.find('[role="alert"]')
     expect(errorElement.exists()).toBe(true)
     expect(errorElement.text()).toContain(errorMessage)
@@ -73,10 +72,10 @@ describe('BaseTextField', () => {
     const wrapper = mount(BaseTextField, {
       props: {
         ...defaultProps,
-        helperText
-      }
+        helperText,
+      },
     })
-    
+
     expect(wrapper.text()).toContain(helperText)
   })
 
@@ -84,10 +83,10 @@ describe('BaseTextField', () => {
     const wrapper = mount(BaseTextField, {
       props: {
         ...defaultProps,
-        icon: 'mdi:email'
-      }
+        icon: 'mdi:email',
+      },
     })
-    
+
     expect(wrapper.find('[data-testid="icon"]').exists()).toBe(true)
   })
 
@@ -96,10 +95,10 @@ describe('BaseTextField', () => {
       props: {
         ...defaultProps,
         modelValue: 'some text',
-        clearable: true
-      }
+        clearable: true,
+      },
     })
-    
+
     const clearButton = wrapper.find('button')
     expect(clearButton.exists()).toBe(true)
   })
@@ -109,13 +108,13 @@ describe('BaseTextField', () => {
     const wrapper = mount(BaseTextField, {
       props: {
         ...defaultProps,
-        'onUpdate:modelValue': mockUpdate
-      }
+        'onUpdate:modelValue': mockUpdate,
+      },
     })
-    
+
     const input = wrapper.find('input')
     await input.setValue('new value')
-    
+
     expect(mockUpdate).toHaveBeenCalledWith('new value')
   })
 
@@ -124,13 +123,13 @@ describe('BaseTextField', () => {
       props: {
         ...defaultProps,
         modelValue: 'some text',
-        clearable: true
-      }
+        clearable: true,
+      },
     })
-    
+
     const clearButton = wrapper.find('button')
     await clearButton.trigger('click')
-    
+
     expect(wrapper.emitted('clear')).toBeTruthy()
   })
 
@@ -140,10 +139,10 @@ describe('BaseTextField', () => {
         ...defaultProps,
         label: 'Email',
         required: true,
-        error: 'Invalid email'
-      }
+        error: 'Invalid email',
+      },
     })
-    
+
     const input = wrapper.find('input')
     expect(input.attributes('aria-required')).toBe('true')
     expect(input.attributes('aria-invalid')).toBe('true')
@@ -154,10 +153,10 @@ describe('BaseTextField', () => {
     const wrapper = mount(BaseTextField, {
       props: {
         ...defaultProps,
-        type: 'email'
-      }
+        type: 'email',
+      },
     })
-    
+
     expect(wrapper.find('input').attributes('type')).toBe('email')
   })
 
@@ -165,24 +164,24 @@ describe('BaseTextField', () => {
     const wrapper = mount(BaseTextField, {
       props: {
         ...defaultProps,
-        size: 'lg'
-      }
+        size: 'lg',
+      },
     })
-    
+
     const input = wrapper.find('input')
     expect(input.classes()).toContain('py-5')
   })
 
   it('handles focus and blur events', async () => {
     const wrapper = mount(BaseTextField, {
-      props: defaultProps
+      props: defaultProps,
     })
-    
+
     const input = wrapper.find('input')
-    
+
     await input.trigger('focus')
     expect(wrapper.emitted('focus')).toBeTruthy()
-    
+
     await input.trigger('blur')
     expect(wrapper.emitted('blur')).toBeTruthy()
   })
@@ -191,10 +190,10 @@ describe('BaseTextField', () => {
     const wrapper = mount(BaseTextField, {
       props: {
         ...defaultProps,
-        disabled: true
-      }
+        disabled: true,
+      },
     })
-    
+
     const input = wrapper.find('input')
     expect(input.attributes('disabled')).toBeDefined()
     expect(input.classes()).toContain('opacity-50')
@@ -204,10 +203,10 @@ describe('BaseTextField', () => {
     const wrapper = mount(BaseTextField, {
       props: {
         ...defaultProps,
-        readonly: true
-      }
+        readonly: true,
+      },
     })
-    
+
     const input = wrapper.find('input')
     expect(input.attributes('readonly')).toBeDefined()
   })

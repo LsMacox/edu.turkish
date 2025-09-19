@@ -1,24 +1,24 @@
 import { z } from 'zod'
 
 const createStringSanitizer = (maxLength: number) =>
-  z
-    .any()
-    .transform(value => {
-      if (typeof value !== 'string') {
-        return undefined
-      }
+  z.any().transform((value) => {
+    if (typeof value !== 'string') {
+      return undefined
+    }
 
-      const trimmed = value.trim()
+    const trimmed = value.trim()
 
-      if (trimmed.length === 0 || trimmed.length > maxLength) {
-        return undefined
-      }
+    if (trimmed.length === 0 || trimmed.length > maxLength) {
+      return undefined
+    }
 
-      return trimmed
-    })
+    return trimmed
+  })
 
-const createRequiredString = (maxLength: number) => createStringSanitizer(maxLength).pipe(z.string())
-const createOptionalString = (maxLength: number) => createStringSanitizer(maxLength).pipe(z.string().optional())
+const createRequiredString = (maxLength: number) =>
+  createStringSanitizer(maxLength).pipe(z.string())
+const createOptionalString = (maxLength: number) =>
+  createStringSanitizer(maxLength).pipe(z.string().optional())
 
 export interface MessengerEventMetadata {
   page?: string
@@ -36,11 +36,11 @@ const messengerEventMetadataSchemaBase = z
     component: createOptionalString(200),
     campaign: createOptionalString(200),
     referrer: createOptionalString(200),
-    notes: createOptionalString(500)
+    notes: createOptionalString(500),
   })
   .strip()
 
-export const messengerEventMetadataSchema = messengerEventMetadataSchemaBase.transform(value => {
+export const messengerEventMetadataSchema = messengerEventMetadataSchemaBase.transform((value) => {
   const metadata: MessengerEventMetadata = {}
 
   if (value.page) {
@@ -79,11 +79,11 @@ const messengerEventUtmSchemaBase = z
     utm_medium: createOptionalString(200),
     utm_campaign: createOptionalString(200),
     utm_content: createOptionalString(200),
-    utm_term: createOptionalString(200)
+    utm_term: createOptionalString(200),
   })
   .strip()
 
-export const messengerEventUtmSchema = messengerEventUtmSchemaBase.transform(value => {
+export const messengerEventUtmSchema = messengerEventUtmSchemaBase.transform((value) => {
   const utm: MessengerEventUtm = {}
 
   if (value.utm_source) {
@@ -111,16 +111,16 @@ const messengerEventPayloadSchemaBase = z
     referralCode: createRequiredString(120),
     session: createOptionalString(200),
     utm: messengerEventUtmSchema.optional(),
-    metadata: messengerEventMetadataSchema.optional()
+    metadata: messengerEventMetadataSchema.optional(),
   })
   .strip()
 
-export const messengerEventPayloadSchema = messengerEventPayloadSchemaBase.transform(value => ({
+export const messengerEventPayloadSchema = messengerEventPayloadSchemaBase.transform((value) => ({
   channel: value.channel,
   referralCode: value.referralCode,
   session: value.session,
   utm: value.utm,
-  metadata: value.metadata
+  metadata: value.metadata,
 }))
 
 export type MessengerEventPayload = z.input<typeof messengerEventPayloadSchema>

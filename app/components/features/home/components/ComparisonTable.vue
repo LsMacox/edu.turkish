@@ -3,9 +3,11 @@
     <div class="container mx-auto px-4 lg:px-6">
       <div class="text-center mb-12">
         <h2 class="text-3xl lg:text-4xl font-bold text-secondary mb-4">Почему через нас лучше?</h2>
-        <p class="text-lg text-gray-600 max-w-2xl mx-auto">Сравните подачу документов через агентство и самостоятельно</p>
+        <p class="text-lg text-gray-600 max-w-2xl mx-auto">
+          Сравните подачу документов через агентство и самостоятельно
+        </p>
       </div>
-      
+
       <div class="bg-white rounded-2xl shadow-custom overflow-hidden">
         <div class="overflow-x-auto">
           <table class="w-full">

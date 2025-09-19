@@ -5,7 +5,7 @@ import {
   type MessengerEventMetadata,
   type MessengerEventPayload,
   type MessengerEventUtm,
-  type SanitizedMessengerEventPayload
+  type SanitizedMessengerEventPayload,
 } from './bitrix.dto'
 
 export interface BitrixLead {
@@ -52,18 +52,20 @@ interface BitrixActivityFields {
   RESPONSIBLE_ID?: number
 }
 
-const hasMetadataValues = (metadata?: MessengerEventMetadata): metadata is MessengerEventMetadata => {
+const hasMetadataValues = (
+  metadata?: MessengerEventMetadata,
+): metadata is MessengerEventMetadata => {
   if (!metadata) {
     return false
   }
 
   return Boolean(
     metadata.page ||
-    metadata.section ||
-    metadata.component ||
-    metadata.campaign ||
-    metadata.referrer ||
-    metadata.notes
+      metadata.section ||
+      metadata.component ||
+      metadata.campaign ||
+      metadata.referrer ||
+      metadata.notes,
   )
 }
 
@@ -73,11 +75,7 @@ const hasUtmValues = (utm?: MessengerEventUtm): utm is MessengerEventUtm => {
   }
 
   return Boolean(
-    utm.utm_source ||
-    utm.utm_medium ||
-    utm.utm_campaign ||
-    utm.utm_content ||
-    utm.utm_term
+    utm.utm_source || utm.utm_medium || utm.utm_campaign || utm.utm_content || utm.utm_term,
   )
 }
 
@@ -88,27 +86,30 @@ export class BitrixService {
     this.config = config
   }
 
-  private async fetchWithTimeout(input: RequestInfo | URL, init: RequestInit & { timeoutMs?: number; retries?: number } = {}): Promise<Response> {
+  private async fetchWithTimeout(
+    input: RequestInfo | URL,
+    init: RequestInit & { timeoutMs?: number; retries?: number } = {},
+  ): Promise<Response> {
     const controller = new AbortController()
     const timeoutMs = init.timeoutMs ?? 15000 // Увеличиваем дефолтный таймаут до 15 секунд
     const retries = init.retries ?? 0
-    
+
     const timeout = setTimeout(() => controller.abort(), timeoutMs)
-    
+
     try {
       const response = await fetch(input, { ...init, signal: controller.signal })
       clearTimeout(timeout)
       return response
     } catch (error: any) {
       clearTimeout(timeout)
-      
+
       // Если это abort error и есть попытки retry, пробуем еще раз
       if ((error.name === 'AbortError' || error.message?.includes('aborted')) && retries > 0) {
         console.warn(`Bitrix request aborted, retrying... (${retries} attempts left)`)
-        await new Promise(resolve => setTimeout(resolve, 1000)) // Пауза 1 секунда перед retry
+        await new Promise((resolve) => setTimeout(resolve, 1000)) // Пауза 1 секунда перед retry
         return this.fetchWithTimeout(input, { ...init, retries: retries - 1 })
       }
-      
+
       throw error
     }
   }
@@ -116,10 +117,12 @@ export class BitrixService {
   /**
    * Создание лида в Bitrix CRM
    */
-  async createLead(applicationData: ApplicationRequest): Promise<{ id: number; success: boolean; error?: string }> {
+  async createLead(
+    applicationData: ApplicationRequest,
+  ): Promise<{ id: number; success: boolean; error?: string }> {
     try {
       const lead = this.transformApplicationToLead(applicationData)
-      
+
       const url = getBitrixApiUrl('crm.lead.add')
 
       const response = await this.fetchWithTimeout(url, {
@@ -128,15 +131,17 @@ export class BitrixService {
           'Content-Type': 'application/json',
         },
         body: JSON.stringify({
-          fields: lead
+          fields: lead,
         }),
         timeoutMs: 20000, // Увеличиваем таймаут для создания лида
-        retries: 2 // Добавляем 2 попытки retry
+        retries: 2, // Добавляем 2 попытки retry
       })
 
       if (!response.ok) {
         const text = await response.text().catch(() => '')
-        throw new Error(`HTTP error! status: ${response.status}${text ? ` | body: ${text.slice(0, 200)}` : ''}`)
+        throw new Error(
+          `HTTP error! status: ${response.status}${text ? ` | body: ${text.slice(0, 200)}` : ''}`,
+        )
       }
 
       const result = await response.json()
@@ -147,33 +152,39 @@ export class BitrixService {
 
       return {
         id: result.result,
-        success: true
+        success: true,
       }
-
     } catch (error: any) {
       console.error('Error creating Bitrix lead:', error)
       return {
         id: 0,
         success: false,
-        error: error.message
+        error: error.message,
       }
     }
   }
 
-  async logMessengerEvent(payload: MessengerEventPayload): Promise<{ success: boolean; activityId?: number; error?: string }> {
+  async logMessengerEvent(
+    payload: MessengerEventPayload,
+  ): Promise<{ success: boolean; activityId?: number; error?: string }> {
     try {
       const validationResult = messengerEventPayloadSchema.safeParse(payload)
 
       if (!validationResult.success) {
-        console.error('Invalid messenger event payload for Bitrix:', validationResult.error.flatten())
+        console.error(
+          'Invalid messenger event payload for Bitrix:',
+          validationResult.error.flatten(),
+        )
         return {
           success: false,
-          error: 'Invalid messenger event payload'
+          error: 'Invalid messenger event payload',
         }
       }
 
       const sanitizedPayload: SanitizedMessengerEventPayload = validationResult.data
-      const metadata = hasMetadataValues(sanitizedPayload.metadata) ? sanitizedPayload.metadata : undefined
+      const metadata = hasMetadataValues(sanitizedPayload.metadata)
+        ? sanitizedPayload.metadata
+        : undefined
       const utm = hasUtmValues(sanitizedPayload.utm) ? sanitizedPayload.utm : undefined
       const session = sanitizedPayload.session ?? undefined
 
@@ -181,7 +192,7 @@ export class BitrixService {
 
       const descriptionLines = [
         `Channel: ${sanitizedPayload.channel}`,
-        `Referral: ${sanitizedPayload.referralCode}`
+        `Referral: ${sanitizedPayload.referralCode}`,
       ]
 
       if (session) {
@@ -208,9 +219,9 @@ export class BitrixService {
         COMMUNICATIONS: [
           {
             TYPE: 'IM',
-            VALUE: sanitizedPayload.channel
-          }
-        ]
+            VALUE: sanitizedPayload.channel,
+          },
+        ],
       }
 
       const activityConfig = getBitrixActivityConfig()
@@ -230,16 +241,18 @@ export class BitrixService {
       const response = await this.fetchWithTimeout(url, {
         method: 'POST',
         headers: {
-          'Content-Type': 'application/json'
+          'Content-Type': 'application/json',
         },
         body: JSON.stringify({ fields }),
         timeoutMs: 10000,
-        retries: 1
+        retries: 1,
       })
 
       if (!response.ok) {
         const text = await response.text().catch(() => '')
-        throw new Error(`HTTP error! status: ${response.status}${text ? ` | body: ${text.slice(0, 200)}` : ''}`)
+        throw new Error(
+          `HTTP error! status: ${response.status}${text ? ` | body: ${text.slice(0, 200)}` : ''}`,
+        )
       }
 
       const result = await response.json()
@@ -250,13 +263,13 @@ export class BitrixService {
 
       return {
         success: true,
-        activityId: result.result
+        activityId: result.result,
       }
     } catch (error: any) {
       console.error('Error logging messenger event in Bitrix:', error)
       return {
         success: false,
-        error: error.message
+        error: error.message,
       }
     }
   }
@@ -274,15 +287,17 @@ export class BitrixService {
           'Content-Type': 'application/json',
         },
         body: JSON.stringify({
-          id: leadId
+          id: leadId,
         }),
         timeoutMs: 15000,
-        retries: 1
+        retries: 1,
       })
 
       if (!response.ok) {
         const text = await response.text().catch(() => '')
-        throw new Error(`HTTP error! status: ${response.status}${text ? ` | body: ${text.slice(0, 200)}` : ''}`)
+        throw new Error(
+          `HTTP error! status: ${response.status}${text ? ` | body: ${text.slice(0, 200)}` : ''}`,
+        )
       }
 
       const result = await response.json()
@@ -292,7 +307,6 @@ export class BitrixService {
       }
 
       return result.result
-
     } catch (error: any) {
       console.error('Error getting Bitrix lead:', error)
       throw error
@@ -313,15 +327,17 @@ export class BitrixService {
         },
         body: JSON.stringify({
           id: leadId,
-          fields
+          fields,
         }),
         timeoutMs: 15000,
-        retries: 1
+        retries: 1,
       })
 
       if (!response.ok) {
         const text = await response.text().catch(() => '')
-        throw new Error(`HTTP error! status: ${response.status}${text ? ` | body: ${text.slice(0, 200)}` : ''}`)
+        throw new Error(
+          `HTTP error! status: ${response.status}${text ? ` | body: ${text.slice(0, 200)}` : ''}`,
+        )
       }
 
       const result = await response.json()
@@ -331,7 +347,6 @@ export class BitrixService {
       }
 
       return result.result
-
     } catch (error: any) {
       console.error('Error updating Bitrix lead:', error)
       return false
@@ -354,7 +369,7 @@ export class BitrixService {
       SOURCE_ID: 'WEB', // Источник - веб-сайт
       SOURCE_DESCRIPTION: sourceDescription,
       ...contactFields,
-      ...customFields
+      ...customFields,
     }
 
     if (comments) {
@@ -364,11 +379,17 @@ export class BitrixService {
     return lead
   }
 
-  private prepareLeadHeaderAndSource(applicationData: ApplicationRequest): { title: string; sourceDescription: string } {
+  private prepareLeadHeaderAndSource(applicationData: ApplicationRequest): {
+    title: string
+    sourceDescription: string
+  } {
     let sourceDescription = 'Заявка с сайта EduTurkish'
     let leadTitle = `Заявка с сайта EduTurkish - ${applicationData.personal_info.first_name} ${applicationData.personal_info.last_name}`
 
-    if (applicationData.preferences?.universities && applicationData.preferences.universities.length > 0) {
+    if (
+      applicationData.preferences?.universities &&
+      applicationData.preferences.universities.length > 0
+    ) {
       const universityName = applicationData.preferences.universities[0]
       sourceDescription = `Карточка университета "${universityName}"`
       leadTitle = `Заявка - ${universityName} - ${applicationData.personal_info.first_name} ${applicationData.personal_info.last_name}`
@@ -383,7 +404,7 @@ export class BitrixService {
         university_page: 'Страница университета',
         university_card: 'Карточка университета',
         modal: 'Модальное окно',
-        cta: 'Призыв к действию'
+        cta: 'Призыв к действию',
       }
 
       sourceDescription = sourceMap[applicationData.source] || 'Заявка с сайта EduTurkish'
@@ -392,15 +413,17 @@ export class BitrixService {
     return { title: leadTitle, sourceDescription }
   }
 
-  private collectContactData(applicationData: ApplicationRequest): Partial<Pick<BitrixLead, 'PHONE' | 'EMAIL'>> {
+  private collectContactData(
+    applicationData: ApplicationRequest,
+  ): Partial<Pick<BitrixLead, 'PHONE' | 'EMAIL'>> {
     const contactFields: Partial<Pick<BitrixLead, 'PHONE' | 'EMAIL'>> = {}
 
     if (applicationData.personal_info.phone) {
       contactFields.PHONE = [
         {
           VALUE: applicationData.personal_info.phone,
-          VALUE_TYPE: 'WORK'
-        }
+          VALUE_TYPE: 'WORK',
+        },
       ]
     }
 
@@ -408,23 +431,31 @@ export class BitrixService {
       contactFields.EMAIL = [
         {
           VALUE: applicationData.personal_info.email,
-          VALUE_TYPE: 'WORK'
-        }
+          VALUE_TYPE: 'WORK',
+        },
       ]
     }
 
     return contactFields
   }
 
-  private generateLeadComments(applicationData: ApplicationRequest, sourceDescription: string): string | undefined {
+  private generateLeadComments(
+    applicationData: ApplicationRequest,
+    sourceDescription: string,
+  ): string | undefined {
     const comments: string[] = [`Источник заявки: ${sourceDescription}`]
 
     if (applicationData.referral_code) {
       comments.push(`Реферальный код: ${applicationData.referral_code}`)
     }
 
-    if (applicationData.preferences?.universities && applicationData.preferences.universities.length > 0) {
-      comments.push(`Интересующие университеты: ${applicationData.preferences.universities.join(', ')}`)
+    if (
+      applicationData.preferences?.universities &&
+      applicationData.preferences.universities.length > 0
+    ) {
+      comments.push(
+        `Интересующие университеты: ${applicationData.preferences.universities.join(', ')}`,
+      )
     }
 
     const explicitPrograms: string[] = Array.isArray(applicationData.preferences?.programs)
@@ -434,7 +465,8 @@ export class BitrixService {
       applicationData.education?.field && applicationData.education.field !== 'Не указано'
         ? applicationData.education.field
         : undefined
-    const unifiedPrograms: string[] = explicitPrograms.length > 0 ? explicitPrograms : directionField ? [directionField] : []
+    const unifiedPrograms: string[] =
+      explicitPrograms.length > 0 ? explicitPrograms : directionField ? [directionField] : []
     if (unifiedPrograms.length > 0) {
       comments.push(`Интересующие программы: ${unifiedPrograms.join(', ')}`)
     }
@@ -449,7 +481,7 @@ export class BitrixService {
       if (prefs?.userType) {
         const userTypeMap: Record<NonNullable<UserPreferencesDTO['userType']>, string> = {
           student: 'Студент',
-          parent: 'Родитель'
+          parent: 'Родитель',
         }
         prefLines.push(`Тип пользователя: ${userTypeMap[prefs.userType]}`)
       }
@@ -460,14 +492,14 @@ export class BitrixService {
         const langMap: Record<NonNullable<UserPreferencesDTO['language']>, string> = {
           turkish: 'Турецкий',
           english: 'Английский',
-          both: 'Оба языка'
+          both: 'Оба языка',
         }
         prefLines.push(`Язык обучения: ${langMap[prefs.language]}`)
       }
       if (prefs?.scholarship) {
         const scholarshipMap: Record<NonNullable<UserPreferencesDTO['scholarship']>, string> = {
           yes: 'Нужна стипендия',
-          no: 'Стипендия не нужна'
+          no: 'Стипендия не нужна',
         }
         prefLines.push(`Стипендия: ${scholarshipMap[prefs.scholarship]}`)
       }
@@ -486,7 +518,7 @@ export class BitrixService {
 
   private buildCustomFields(applicationData: ApplicationRequest): Partial<BitrixLead> {
     const customFields: Partial<BitrixLead> = {
-      UF_CRM_1234567892: applicationData.source
+      UF_CRM_1234567892: applicationData.source,
     }
 
     if (applicationData.referral_code) {
@@ -515,7 +547,10 @@ export class BitrixService {
       customFields.UF_CRM_1234567896 = chosenDirection
     }
 
-    if (applicationData.preferences?.universities && applicationData.preferences.universities.length > 0) {
+    if (
+      applicationData.preferences?.universities &&
+      applicationData.preferences.universities.length > 0
+    ) {
       customFields.UF_CRM_1234567897 = applicationData.preferences.universities[0]
     }
 
@@ -542,12 +577,14 @@ export class BitrixService {
           'Content-Type': 'application/json',
         },
         timeoutMs: 12000,
-        retries: 1
+        retries: 1,
       })
 
       if (!response.ok) {
         const text = await response.text().catch(() => '')
-        throw new Error(`HTTP error! status: ${response.status}${text ? ` | body: ${text.slice(0, 200)}` : ''}`)
+        throw new Error(
+          `HTTP error! status: ${response.status}${text ? ` | body: ${text.slice(0, 200)}` : ''}`,
+        )
       }
 
       const result = await response.json()
@@ -557,12 +594,11 @@ export class BitrixService {
       }
 
       return { success: true }
-
     } catch (error: any) {
       console.error('Error testing Bitrix connection:', error)
       return {
         success: false,
-        error: error.message
+        error: error.message,
       }
     }
   }

@@ -13,10 +13,13 @@ export const useToast = () => {
   const counter = useState<number>('ui:toasts:counter', () => 1)
 
   const remove = (id: number) => {
-    toasts.value = toasts.value.filter(t => t.id !== id)
+    toasts.value = toasts.value.filter((t) => t.id !== id)
   }
 
-  const show = (message: string, options: { title?: string; type?: ToastType; duration?: number } = {}) => {
+  const show = (
+    message: string,
+    options: { title?: string; type?: ToastType; duration?: number } = {},
+  ) => {
     const id = counter.value++
     const toast: ToastItem = {
       id,

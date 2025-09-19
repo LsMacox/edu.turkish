@@ -10,7 +10,7 @@ type TestLocale = 'en' | 'ru'
 
 const messagesByLocale: Record<TestLocale, typeof enUniversities> = {
   en: enUniversities,
-  ru: ruUniversities
+  ru: ruUniversities,
 }
 
 const resolveTranslation = (locale: TestLocale, key: string): string | undefined => {
@@ -34,20 +34,18 @@ const createPriceText = (locale: TestLocale, value: number) => {
     currency: 'USD',
     currencyDisplay: 'narrowSymbol',
     minimumFractionDigits: 0,
-    maximumFractionDigits: 0
+    maximumFractionDigits: 0,
   }).format(value)
 
-  const template =
-    messagesByLocale[locale].universities_page.popular_programs.dynamic.price_from
+  const template = messagesByLocale[locale].universities_page.popular_programs.dynamic.price_from
 
   return template.replace('{price}', formattedPrice)
 }
 
 const createUniversitiesText = (locale: TestLocale, count: number) => {
   const pluralCategory = new Intl.PluralRules(locale).select(count)
-  const dynamicMessages =
-    messagesByLocale[locale].universities_page.popular_programs.dynamic
-      .universities_count as Record<string, string>
+  const dynamicMessages = messagesByLocale[locale].universities_page.popular_programs.dynamic
+    .universities_count as Record<string, string>
 
   const template = dynamicMessages[pluralCategory] ?? dynamicMessages.other
 
@@ -72,7 +70,7 @@ const createI18nMock = (initialLocale: TestLocale) => {
 
   return {
     locale,
-    t: translate
+    t: translate,
   }
 }
 
@@ -83,34 +81,34 @@ describe('PopularProgramsSection', () => {
       it: {
         universities_count: 42,
         price_from: 3500,
-        direction_slugs: []
+        direction_slugs: [],
       },
       medicine: {
         universities_count: 28,
         price_from: 8000,
-        direction_slugs: []
+        direction_slugs: [],
       },
       engineering: {
         universities_count: 52,
         price_from: 4200,
-        direction_slugs: []
+        direction_slugs: [],
       },
       business: {
         universities_count: 38,
         price_from: 3800,
-        direction_slugs: []
+        direction_slugs: [],
       },
       design: {
         universities_count: 32,
         price_from: 5500,
-        direction_slugs: []
+        direction_slugs: [],
       },
       international: {
         universities_count: 25,
         price_from: 4000,
-        direction_slugs: []
-      }
-    }
+        direction_slugs: [],
+      },
+    },
   }
 
   let originalUseI18n: typeof globalThis.useI18n
@@ -126,7 +124,7 @@ describe('PopularProgramsSection', () => {
 
     globalThis.useI18n = () => ({
       locale: i18nMock.locale,
-      t: i18nMock.t
+      t: i18nMock.t,
     })
 
     globalThis.$fetch = fetchMock as typeof globalThis.$fetch
@@ -142,14 +140,14 @@ describe('PopularProgramsSection', () => {
     mount(PopularProgramsSection, {
       global: {
         stubs: {
-          Icon: true
+          Icon: true,
         },
         config: {
           globalProperties: {
-            $t: (key: string, params?: Record<string, unknown>) => i18nMock.t(key, params)
-          }
-        }
-      }
+            $t: (key: string, params?: Record<string, unknown>) => i18nMock.t(key, params),
+          },
+        },
+      },
     })
 
   it('renders dynamic values in the active locale', async () => {

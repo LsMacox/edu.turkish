@@ -29,15 +29,7 @@
         }
       ]
     },
-    "categoryOrder": [
-      "all",
-      "exams",
-      "scholarships",
-      "cost",
-      "life",
-      "applications",
-      "visas"
-    ],
+    "categoryOrder": ["all", "exams", "scholarships", "cost", "life", "applications", "visas"],
     "categories": {
       "all": {
         "label": "All"

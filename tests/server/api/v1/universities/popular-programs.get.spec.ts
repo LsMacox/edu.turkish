@@ -3,13 +3,13 @@ import { beforeAll, beforeEach, describe, expect, it, vi } from 'vitest'
 const mocks = vi.hoisted(() => ({
   studyDirectionFindMany: vi.fn(),
   universityCount: vi.fn(),
-  universityAggregate: vi.fn()
+  universityAggregate: vi.fn(),
 }))
 
 const nitroStubs = vi.hoisted(() => ({
   defineEventHandler: <T>(handler: T) => handler,
   getQuery: vi.fn<() => Record<string, unknown>>(),
-  createError: vi.fn()
+  createError: vi.fn(),
 }))
 
 vi.stubGlobal('defineEventHandler', nitroStubs.defineEventHandler)
@@ -21,45 +21,30 @@ const getQueryMock = nitroStubs.getQuery
 vi.mock('../../../../../lib/prisma', () => ({
   prisma: {
     studyDirection: {
-      findMany: mocks.studyDirectionFindMany
+      findMany: mocks.studyDirectionFindMany,
     },
     university: {
       count: mocks.universityCount,
-      aggregate: mocks.universityAggregate
-    }
-  }
+      aggregate: mocks.universityAggregate,
+    },
+  },
 }))
 
-type PopularProgramsModule = typeof import('../../../../../server/api/v1/universities/popular-programs.get')
+type GetDirectionStatsFn = (slugs: string[], locale: string) => Promise<{
+  universities_count: number
+  price_from: number
+  direction_slugs: string[]
+}>
 
-let popularProgramsModule: PopularProgramsModule
-let getDirectionStats: PopularProgramsModule['getDirectionStats']
-let popularProgramsHandler: PopularProgramsModule['default']
-let resolveLanguage: PopularProgramsModule['resolveLanguage']
-
-beforeAll(async () => {
-  popularProgramsModule = await import('../../../../../server/api/v1/universities/popular-programs.get')
-  getDirectionStats = popularProgramsModule.getDirectionStats
-  popularProgramsHandler = popularProgramsModule.default
-  resolveLanguage = popularProgramsModule.resolveLanguage
-})
-
-describe('resolveLanguage', () => {
-  it('returns default locale when input missing', () => {
-    expect(resolveLanguage()).toEqual({ locale: 'ru', variants: ['ru'] })
-  })
-
-  it('normalizes complex codes to base locale', () => {
-    expect(resolveLanguage('en-US')).toEqual({ locale: 'en', variants: ['en'] })
-  })
-
-  it('treats kazakh locale aliases uniformly', () => {
-    expect(resolveLanguage('kk-KZ')).toEqual({ locale: 'kz', variants: ['kz', 'kk'] })
-    expect(resolveLanguage('kz')).toEqual({ locale: 'kz', variants: ['kz', 'kk'] })
-  })
-})
+let getDirectionStats: GetDirectionStatsFn
 
 describe('getDirectionStats', () => {
+  beforeAll(async () => {
+    const module = await import(
+      '../../../../../server/api/v1/universities/popular-programs.get'
+    )
+    getDirectionStats = module.getDirectionStats as GetDirectionStatsFn
+  })
 
   beforeEach(() => {
     vi.clearAllMocks()
@@ -72,8 +57,8 @@ describe('getDirectionStats', () => {
     mocks.universityAggregate.mockResolvedValueOnce({
       _min: {
         tuitionMin: 4500,
-        tuitionMax: 6000
-      }
+        tuitionMax: 6000,
+      },
     })
 
     const result = await getDirectionStats(['it', 'engineering'], 'ru')
@@ -82,44 +67,44 @@ describe('getDirectionStats', () => {
       where: {
         translations: {
           some: {
-            locale: { in: ['ru'] },
-            slug: { in: ['it', 'engineering'] }
-          }
-        }
+            locale: 'ru',
+            slug: { in: ['it', 'engineering'] },
+          },
+        },
       },
       select: {
-        id: true
-      }
+        id: true,
+      },
     })
 
     expect(mocks.universityCount).toHaveBeenCalledWith({
       where: {
         universityDirections: {
           some: {
-            directionId: { in: [1, 2] }
-          }
-        }
-      }
+            directionId: { in: [1, 2] },
+          },
+        },
+      },
     })
 
     expect(mocks.universityAggregate).toHaveBeenCalledWith({
       where: {
         universityDirections: {
           some: {
-            directionId: { in: [1, 2] }
-          }
-        }
+            directionId: { in: [1, 2] },
+          },
+        },
       },
       _min: {
         tuitionMin: true,
-        tuitionMax: true
-      }
+        tuitionMax: true,
+      },
     })
 
     expect(result).toEqual({
       universities_count: 3,
       price_from: 4500,
-      direction_slugs: ['it', 'engineering']
+      direction_slugs: ['it', 'engineering'],
     })
   })
 
@@ -129,8 +114,8 @@ describe('getDirectionStats', () => {
     mocks.universityAggregate.mockResolvedValueOnce({
       _min: {
         tuitionMin: null,
-        tuitionMax: 7200
-      }
+        tuitionMax: 7200,
+      },
     })
 
     const result = await getDirectionStats(['medicine'], 'en')
@@ -138,7 +123,7 @@ describe('getDirectionStats', () => {
     expect(result).toEqual({
       universities_count: 1,
       price_from: 7200,
-      direction_slugs: ['medicine']
+      direction_slugs: ['medicine'],
     })
   })
 

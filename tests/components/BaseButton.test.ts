@@ -5,7 +5,7 @@ import BaseButton from '~/components/ui/forms/BaseButton.vue'
 const IconStub = {
   name: 'Icon',
   template: '<span data-testid="icon">{{ name }}</span>',
-  props: ['name']
+  props: ['name'],
 }
 
 const mountBaseButton = (options: Parameters<typeof mount>[1] = {}) => {
@@ -15,18 +15,18 @@ const mountBaseButton = (options: Parameters<typeof mount>[1] = {}) => {
       ...(options.global ?? {}),
       stubs: {
         Icon: IconStub,
-        ...(options.global?.stubs ?? {})
-      }
-    }
+        ...(options.global?.stubs ?? {}),
+      },
+    },
   })
 }
 
 describe('BaseButton', () => {
   it('renders as button by default', () => {
     const wrapper = mountBaseButton({
-      slots: { default: 'Click me' }
+      slots: { default: 'Click me' },
     })
-    
+
     expect(wrapper.element.tagName).toBe('BUTTON')
     expect(wrapper.text()).toBe('Click me')
   })
@@ -34,9 +34,9 @@ describe('BaseButton', () => {
   it('renders as anchor when href is provided', () => {
     const wrapper = mountBaseButton({
       props: { href: 'https://example.com' },
-      slots: { default: 'Link' }
+      slots: { default: 'Link' },
     })
-    
+
     expect(wrapper.element.tagName).toBe('A')
     expect(wrapper.attributes('href')).toBe('https://example.com')
   })
@@ -44,9 +44,9 @@ describe('BaseButton', () => {
   it('applies variant classes correctly', () => {
     const wrapper = mountBaseButton({
       props: { variant: 'outline' },
-      slots: { default: 'Button' }
+      slots: { default: 'Button' },
     })
-    
+
     expect(wrapper.classes()).toContain('bg-transparent')
     expect(wrapper.classes()).toContain('text-primary')
   })
@@ -54,9 +54,9 @@ describe('BaseButton', () => {
   it('applies size classes correctly', () => {
     const wrapper = mountBaseButton({
       props: { size: 'lg' },
-      slots: { default: 'Large Button' }
+      slots: { default: 'Large Button' },
     })
-    
+
     expect(wrapper.classes()).toContain('px-6')
     expect(wrapper.classes()).toContain('md:px-8')
     expect(wrapper.classes()).toContain('py-4')
@@ -65,9 +65,9 @@ describe('BaseButton', () => {
   it('shows loading spinner when loading', () => {
     const wrapper = mountBaseButton({
       props: { loading: true },
-      slots: { default: 'Loading' }
+      slots: { default: 'Loading' },
     })
-    
+
     expect(wrapper.find('[data-testid="icon"]').exists()).toBe(true)
     expect(wrapper.find('.sr-only').text()).toBe('Loading...')
   })
@@ -75,7 +75,7 @@ describe('BaseButton', () => {
   it('shows icon when provided', () => {
     const wrapper = mountBaseButton({
       props: { icon: 'mdi:heart' },
-      slots: { default: 'Like' }
+      slots: { default: 'Like' },
     })
 
     expect(wrapper.find('[data-testid="icon"]').exists()).toBe(true)
@@ -85,8 +85,8 @@ describe('BaseButton', () => {
     const wrapper = mountBaseButton({
       props: {
         icon: 'mdi:heart',
-        ariaLabel: 'Favorite'
-      }
+        ariaLabel: 'Favorite',
+      },
     })
 
     const icon = wrapper.find('[data-testid="icon"]')
@@ -97,9 +97,9 @@ describe('BaseButton', () => {
 
   it('emits click event when clicked', async () => {
     const wrapper = mountBaseButton({
-      slots: { default: 'Click me' }
+      slots: { default: 'Click me' },
     })
-    
+
     await wrapper.trigger('click')
     expect(wrapper.emitted('click')).toBeTruthy()
   })
@@ -107,9 +107,9 @@ describe('BaseButton', () => {
   it('does not emit click when disabled', async () => {
     const wrapper = mountBaseButton({
       props: { disabled: true },
-      slots: { default: 'Disabled' }
+      slots: { default: 'Disabled' },
     })
-    
+
     await wrapper.trigger('click')
     expect(wrapper.emitted('click')).toBeFalsy()
   })
@@ -117,21 +117,21 @@ describe('BaseButton', () => {
   it('does not emit click when loading', async () => {
     const wrapper = mountBaseButton({
       props: { loading: true },
-      slots: { default: 'Loading' }
+      slots: { default: 'Loading' },
     })
-    
+
     await wrapper.trigger('click')
     expect(wrapper.emitted('click')).toBeFalsy()
   })
 
   it('handles keyboard activation', async () => {
     const wrapper = mountBaseButton({
-      slots: { default: 'Button' }
+      slots: { default: 'Button' },
     })
-    
+
     await wrapper.trigger('keydown', { key: 'Enter' })
     expect(wrapper.emitted('click')).toBeTruthy()
-    
+
     await wrapper.trigger('keydown', { key: ' ' })
     expect(wrapper.emitted('click')).toHaveLength(2)
   })
@@ -140,11 +140,11 @@ describe('BaseButton', () => {
     const wrapper = mountBaseButton({
       props: {
         ariaLabel: 'Custom label',
-        ariaPressed: true
+        ariaPressed: true,
       },
-      slots: { default: 'Button' }
+      slots: { default: 'Button' },
     })
-    
+
     expect(wrapper.attributes('aria-label')).toBe('Custom label')
     expect(wrapper.attributes('aria-pressed')).toBe('true')
   })
@@ -152,18 +152,18 @@ describe('BaseButton', () => {
   it('applies full width styling when specified', () => {
     const wrapper = mountBaseButton({
       props: { fullWidth: true },
-      slots: { default: 'Full Width' }
+      slots: { default: 'Full Width' },
     })
-    
+
     expect(wrapper.classes()).toContain('w-full')
   })
 
   it('shows correct button type', () => {
     const wrapper = mountBaseButton({
       props: { type: 'submit' },
-      slots: { default: 'Submit' }
+      slots: { default: 'Submit' },
     })
-    
+
     expect(wrapper.attributes('type')).toBe('submit')
   })
 
@@ -171,9 +171,9 @@ describe('BaseButton', () => {
     const wrapper = mountBaseButton({
       props: {
         icon: 'mdi:arrow-right',
-        iconPosition: 'right'
+        iconPosition: 'right',
       },
-      slots: { default: 'Next' }
+      slots: { default: 'Next' },
     })
 
     const icon = wrapper.find('[data-testid="icon"]')
@@ -185,7 +185,7 @@ describe('BaseButton', () => {
 
   it('exposes focus and blur helpers', () => {
     const wrapper = mountBaseButton({
-      props: { icon: 'mdi:heart' }
+      props: { icon: 'mdi:heart' },
     })
 
     const focusSpy = vi.spyOn(wrapper.element, 'focus')

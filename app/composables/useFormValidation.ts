@@ -1,37 +1,37 @@
 /**
  * Enhanced Form Validation Composable
- * 
+ *
  * Provides comprehensive form validation with real-time feedback, multiple validation rules,
  * and accessibility support. Supports both synchronous and asynchronous validation.
- * 
+ *
  * @module useFormValidation
  * @author edu.turkish development team
  * @since 1.0.0
- * 
+ *
  * @example Basic usage
  * ```typescript
  * const { validateField, isFormValid, getFieldError } = useFormValidation()
- * 
+ *
  * // Validate a field
  * await validateField('email', email.value, [
  *   createRules.required(),
  *   createRules.email()
  * ])
- * 
+ *
  * // Check if field has errors
  * const emailError = getFieldError('email')
  * ```
- * 
+ *
  * @example Multiple field validation
  * ```typescript
  * const validation = useFormValidation()
- * 
+ *
  * const validateForm = async () => {
  *   const result = await validation.validateFields({
  *     name: { value: name.value, rules: [validation.createRules.required()] },
  *     email: { value: email.value, rules: [validation.createRules.email()] }
  *   })
- *   
+ *
  *   if (result.isValid) {
  *     // Submit form
  *   }
@@ -39,15 +39,13 @@
  * ```
  */
 
-import { ref, reactive, computed, nextTick } from 'vue'
-import type { 
-  ValidationRule, 
-  ValidationResult, 
-  FormValidationState, 
-  ValidationContext, 
+import { ref, reactive, computed } from 'vue'
+import type {
+  ValidationRule,
+  ValidationResult,
+  FormValidationState,
+  ValidationContext,
   CustomValidator,
-  ValidationPatterns,
-  ValidationMessages
 } from '~/types/validation'
 
 /**
@@ -69,7 +67,7 @@ export const useFormValidation = () => {
     strongPassword: /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/,
     alphaNumeric: /^[a-zA-Z0-9]+$/,
     alpha: /^[a-zA-Z\s]+$/,
-    numeric: /^[0-9]+$/
+    numeric: /^[0-9]+$/,
   }
 
   // Default error messages
@@ -82,7 +80,7 @@ export const useFormValidation = () => {
     maxLength: (max: number) => `Maximum length is ${max} characters`,
     min: (minimum: number) => `Minimum value is ${minimum}`,
     max: (maximum: number) => `Maximum value is ${maximum}`,
-    pattern: 'Invalid format'
+    pattern: 'Invalid format',
   }
 
   /**
@@ -95,7 +93,7 @@ export const useFormValidation = () => {
         isValid: true,
         errors: [],
         touched: false,
-        dirty: false
+        dirty: false,
       }
     }
   }
@@ -103,7 +101,11 @@ export const useFormValidation = () => {
   /**
    * Validate a single rule
    */
-  const validateRule = async (value: any, rule: ValidationRule, context?: ValidationContext): Promise<string | null> => {
+  const validateRule = async (
+    value: any,
+    rule: ValidationRule,
+    context?: ValidationContext,
+  ): Promise<string | null> => {
     const { type, value: ruleValue, message } = rule
 
     switch (type) {
@@ -171,7 +173,11 @@ export const useFormValidation = () => {
         if (ruleValue && typeof ruleValue === 'function') {
           const result = await ruleValue(value, context)
           if (result !== true) {
-            return typeof result === 'string' ? result : (typeof message === 'function' ? message(value, type) : message)
+            return typeof result === 'string'
+              ? result
+              : typeof message === 'function'
+                ? message(value, type)
+                : message
           }
         }
         break
@@ -183,14 +189,18 @@ export const useFormValidation = () => {
   /**
    * Validate a single field
    */
-  const validateField = async (fieldName: string, value: any, rules: ValidationRule[] = []): Promise<ValidationResult> => {
+  const validateField = async (
+    fieldName: string,
+    value: any,
+    rules: ValidationRule[] = [],
+  ): Promise<ValidationResult> => {
     initializeField(fieldName, value)
-    
+
     const errors: string[] = []
     const context: ValidationContext = {
       value,
       field: fieldName,
-      form: getFormValues()
+      form: getFormValues(),
     }
 
     // Run all validation rules
@@ -202,24 +212,27 @@ export const useFormValidation = () => {
     }
 
     // Update validation state
+    const previous = validationState[fieldName]
     validationState[fieldName] = {
-      ...validationState[fieldName],
       value,
       isValid: errors.length === 0,
       errors,
-      dirty: validationState[fieldName].value !== value
+      touched: previous?.touched ?? false,
+      dirty: previous ? previous.value !== value : false,
     }
 
     return {
       isValid: errors.length === 0,
-      errors
+      errors,
     }
   }
 
   /**
    * Validate multiple fields
    */
-  const validateFields = async (fieldsConfig: Record<string, { value: any; rules: ValidationRule[] }>): Promise<ValidationResult> => {
+  const validateFields = async (
+    fieldsConfig: Record<string, { value: any; rules: ValidationRule[] }>,
+  ): Promise<ValidationResult> => {
     isValidating.value = true
     const allErrors: string[] = []
 
@@ -230,12 +243,12 @@ export const useFormValidation = () => {
           if (!result.isValid) {
             allErrors.push(...result.errors)
           }
-        })
+        }),
       )
 
       return {
         isValid: allErrors.length === 0,
-        errors: allErrors
+        errors: allErrors,
       }
     } finally {
       isValidating.value = false
@@ -248,7 +261,9 @@ export const useFormValidation = () => {
   const touchField = (fieldName: string) => {
     initializeField(fieldName)
     touchedFields.value.add(fieldName)
-    validationState[fieldName].touched = true
+    if (validationState[fieldName]) {
+      validationState[fieldName].touched = true
+    }
   }
 
   /**
@@ -257,7 +272,9 @@ export const useFormValidation = () => {
   const untouchField = (fieldName: string) => {
     initializeField(fieldName)
     touchedFields.value.delete(fieldName)
-    validationState[fieldName].touched = false
+    if (validationState[fieldName]) {
+      validationState[fieldName].touched = false
+    }
   }
 
   /**
@@ -274,9 +291,11 @@ export const useFormValidation = () => {
    * Clear all validation
    */
   const clearAllValidation = () => {
-    Object.keys(validationState).forEach(fieldName => {
-      validationState[fieldName].errors = []
-      validationState[fieldName].isValid = true
+    Object.keys(validationState).forEach((fieldName) => {
+      if (validationState[fieldName]) {
+        validationState[fieldName].errors = []
+        validationState[fieldName].isValid = true
+      }
     })
     touchedFields.value.clear()
   }
@@ -285,7 +304,7 @@ export const useFormValidation = () => {
    * Reset form state
    */
   const resetForm = () => {
-    Object.keys(validationState).forEach(fieldName => {
+    Object.keys(validationState).forEach((fieldName) => {
       delete validationState[fieldName]
     })
     touchedFields.value.clear()
@@ -340,22 +359,22 @@ export const useFormValidation = () => {
 
   // Computed properties
   const isFormValid = computed(() => {
-    return Object.values(validationState).every(field => field.isValid)
+    return Object.values(validationState).every((field) => field.isValid)
   })
 
   const hasErrors = computed(() => {
-    return Object.values(validationState).some(field => field.errors.length > 0)
+    return Object.values(validationState).some((field) => field.errors.length > 0)
   })
 
   const isDirty = computed(() => {
-    return Object.values(validationState).some(field => field.dirty)
+    return Object.values(validationState).some((field) => field.dirty)
   })
 
   const touchedFieldsCount = computed(() => touchedFields.value.size)
 
   const allErrors = computed(() => {
     const errors: string[] = []
-    Object.values(validationState).forEach(field => {
+    Object.values(validationState).forEach((field) => {
       errors.push(...field.errors)
     })
     return errors
@@ -365,49 +384,49 @@ export const useFormValidation = () => {
   const createRules = {
     required: (message = messages.required): ValidationRule => ({
       type: 'required',
-      message
+      message,
     }),
 
     email: (message = messages.email): ValidationRule => ({
       type: 'email',
-      message
+      message,
     }),
 
     phone: (message = messages.phone): ValidationRule => ({
       type: 'phone',
-      message
+      message,
     }),
 
     minLength: (min: number, message?: string): ValidationRule => ({
       type: 'minLength',
       value: min,
-      message: message || messages.minLength(min)
+      message: message || messages.minLength(min),
     }),
 
     maxLength: (max: number, message?: string): ValidationRule => ({
       type: 'maxLength',
       value: max,
-      message: message || messages.maxLength(max)
+      message: message || messages.maxLength(max),
     }),
 
     pattern: (regex: RegExp, message = messages.pattern): ValidationRule => ({
       type: 'pattern',
       value: regex,
-      message
+      message,
     }),
 
     custom: (validator: CustomValidator, message = 'Invalid value'): ValidationRule => ({
       type: 'custom',
       value: validator,
-      message
-    })
+      message,
+    }),
   }
 
   return {
     // State
     validationState: readonly(validationState),
     isValidating: readonly(isValidating),
-    
+
     // Methods
     initializeField,
     validateField,
@@ -417,7 +436,7 @@ export const useFormValidation = () => {
     clearFieldValidation,
     clearAllValidation,
     resetForm,
-    
+
     // Getters
     getFormValues,
     getFieldErrors,
@@ -425,18 +444,18 @@ export const useFormValidation = () => {
     isFieldValid,
     isFieldTouched,
     isFieldDirty,
-    
+
     // Computed
     isFormValid,
     hasErrors,
     isDirty,
     touchedFieldsCount,
     allErrors,
-    
+
     // Helpers
     createRules,
     patterns,
-    messages
+    messages,
   }
 }
 
@@ -452,23 +471,21 @@ export const useContactFormValidation = () => {
       validation.createRules.required('Name is required'),
       validation.createRules.minLength(2, 'Name must be at least 2 characters'),
       validation.createRules.maxLength(50, 'Name must not exceed 50 characters'),
-      validation.createRules.pattern(/^[a-zA-Z\s]+$/, 'Name can only contain letters and spaces')
+      validation.createRules.pattern(/^[a-zA-Z\s]+$/, 'Name can only contain letters and spaces'),
     ],
     phone: [
       validation.createRules.required('Phone number is required'),
-      validation.createRules.phone('Please enter a valid Turkish phone number')
+      validation.createRules.phone('Please enter a valid Turkish phone number'),
     ],
     email: [
       validation.createRules.required('Email is required'),
-      validation.createRules.email('Please enter a valid email address')
+      validation.createRules.email('Please enter a valid email address'),
     ],
-    message: [
-      validation.createRules.maxLength(500, 'Message must not exceed 500 characters')
-    ]
+    message: [validation.createRules.maxLength(500, 'Message must not exceed 500 characters')],
   }
 
   return {
     ...validation,
-    contactFormRules
+    contactFormRules,
   }
 }

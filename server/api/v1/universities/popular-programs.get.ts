@@ -1,5 +1,4 @@
 import { prisma } from '../../../../lib/prisma'
-// import { UniversityRepository } from '../../../repositories/UniversityRepository'
 
 const DEFAULT_LOCALE = 'ru'
 
@@ -86,7 +85,7 @@ export default defineEventHandler(async (event) => {
       // Международные отношения и гуманитарные науки
       getDirectionStats(['international-relations', 'political-science'], locale),
     ])
-    
+
     return {
       success: true,
       data: {
@@ -95,14 +94,14 @@ export default defineEventHandler(async (event) => {
         engineering: popularPrograms[2],
         business: popularPrograms[3],
         design: popularPrograms[4],
-        international: popularPrograms[5]
-      }
+        international: popularPrograms[5],
+      },
     }
   } catch (error) {
     console.error('Error fetching popular programs stats:', error)
     throw createError({
       statusCode: 500,
-      statusMessage: 'Ошибка при получении статистики популярных направлений'
+      statusMessage: 'Ошибка при получении статистики популярных направлений',
     })
   }
 })
@@ -113,12 +112,15 @@ export interface DirectionStatsDto {
   direction_slugs: string[]
 }
 
-export async function getDirectionStats(directionSlugs: string[], locale: string): Promise<DirectionStatsDto> {
+export async function getDirectionStats(
+  directionSlugs: string[],
+  locale: string,
+): Promise<DirectionStatsDto> {
   if (directionSlugs.length === 0) {
     return {
       universities_count: 0,
       price_from: 0,
-      direction_slugs: directionSlugs
+      direction_slugs: directionSlugs,
     }
   }
 
@@ -134,37 +136,37 @@ export async function getDirectionStats(directionSlugs: string[], locale: string
       }
     },
     select: {
-      id: true
-    }
+      id: true,
+    },
   })
 
-  const directionIds = directions.map(direction => direction.id)
+  const directionIds = directions.map((direction) => direction.id)
 
   if (directionIds.length === 0) {
     return {
       universities_count: 0,
       price_from: 0,
-      direction_slugs: directionSlugs
+      direction_slugs: directionSlugs,
     }
   }
 
   const baseWhere = {
     universityDirections: {
       some: {
-        directionId: { in: directionIds }
-      }
-    }
+        directionId: { in: directionIds },
+      },
+    },
   }
 
   const universitiesCount = await prisma.university.count({
-    where: baseWhere
+    where: baseWhere,
   })
 
   if (universitiesCount === 0) {
     return {
       universities_count: 0,
       price_from: 0,
-      direction_slugs: directionSlugs
+      direction_slugs: directionSlugs,
     }
   }
 
@@ -172,8 +174,8 @@ export async function getDirectionStats(directionSlugs: string[], locale: string
     where: baseWhere,
     _min: {
       tuitionMin: true,
-      tuitionMax: true
-    }
+      tuitionMax: true,
+    },
   })
 
   const minTuition = priceAggregate._min.tuitionMin
@@ -189,6 +191,6 @@ export async function getDirectionStats(directionSlugs: string[], locale: string
   return {
     universities_count: universitiesCount,
     price_from: priceFrom,
-    direction_slugs: directionSlugs
+    direction_slugs: directionSlugs,
   }
 }

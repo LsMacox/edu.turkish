@@ -13,12 +13,14 @@ export function getBitrixConfig(): BitrixConfig {
   const config: BitrixConfig = {
     domain: process.env.BITRIX_DOMAIN || '',
     accessToken: process.env.BITRIX_ACCESS_TOKEN || '',
-    webhookUrl: process.env.BITRIX_WEBHOOK_URL
+    webhookUrl: process.env.BITRIX_WEBHOOK_URL,
   }
 
   // Проверяем что есть либо домен + токен, либо webhook URL
   if (!config.webhookUrl && (!config.domain || !config.accessToken)) {
-    throw new Error('Bitrix configuration is missing. Please set either BITRIX_WEBHOOK_URL or both BITRIX_DOMAIN and BITRIX_ACCESS_TOKEN environment variables.')
+    throw new Error(
+      'Bitrix configuration is missing. Please set either BITRIX_WEBHOOK_URL or both BITRIX_DOMAIN and BITRIX_ACCESS_TOKEN environment variables.',
+    )
   }
 
   return config
@@ -41,7 +43,7 @@ export function validateBitrixConfig(): boolean {
  */
 export function getBitrixApiUrl(method: string): string {
   const config = getBitrixConfig()
-  
+
   if (config.webhookUrl) {
     // Нормализуем: если в webhookUrl уже есть crm.<method>, заменяем его
     const withMethodRegex = /\/crm\.[a-z_]+(?:\.json)?$/
@@ -52,7 +54,7 @@ export function getBitrixApiUrl(method: string): string {
     const trailingSlash = config.webhookUrl.endsWith('/') ? '' : '/'
     return `${config.webhookUrl}${trailingSlash}${method}.json`
   }
-  
+
   // Support two auth modes when webhookUrl is not provided:
   // 1) Webhook style: /rest/<userId>/<code>/{method}.json
   // 2) OAuth style:   /rest/{method}.json?auth=<accessToken>
@@ -67,7 +69,11 @@ export function getBitrixApiUrl(method: string): string {
   return `https://${config.domain}/rest/${method}.json?auth=${config.accessToken}`
 }
 
-const parsePositiveInteger = (value: string | undefined, envKey: string, logger: Pick<Console, 'error'>): number | undefined => {
+const parsePositiveInteger = (
+  value: string | undefined,
+  envKey: string,
+  logger: Pick<Console, 'error'>,
+): number | undefined => {
   if (!value) {
     return undefined
   }
@@ -84,11 +90,23 @@ const parsePositiveInteger = (value: string | undefined, envKey: string, logger:
 
 export function getBitrixActivityConfig(
   env: NodeJS.ProcessEnv = process.env,
-  logger: Pick<Console, 'error'> = console
+  logger: Pick<Console, 'error'> = console,
 ): BitrixActivityConfig {
-  const ownerId = parsePositiveInteger(env.BITRIX_ACTIVITY_OWNER_ID, 'BITRIX_ACTIVITY_OWNER_ID', logger)
-  const ownerTypeId = parsePositiveInteger(env.BITRIX_ACTIVITY_OWNER_TYPE_ID, 'BITRIX_ACTIVITY_OWNER_TYPE_ID', logger)
-  const responsibleId = parsePositiveInteger(env.BITRIX_ACTIVITY_RESPONSIBLE_ID, 'BITRIX_ACTIVITY_RESPONSIBLE_ID', logger)
+  const ownerId = parsePositiveInteger(
+    env.BITRIX_ACTIVITY_OWNER_ID,
+    'BITRIX_ACTIVITY_OWNER_ID',
+    logger,
+  )
+  const ownerTypeId = parsePositiveInteger(
+    env.BITRIX_ACTIVITY_OWNER_TYPE_ID,
+    'BITRIX_ACTIVITY_OWNER_TYPE_ID',
+    logger,
+  )
+  const responsibleId = parsePositiveInteger(
+    env.BITRIX_ACTIVITY_RESPONSIBLE_ID,
+    'BITRIX_ACTIVITY_RESPONSIBLE_ID',
+    logger,
+  )
 
   const config: BitrixActivityConfig = {}
 

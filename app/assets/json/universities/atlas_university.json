@@ -64,25 +64,15 @@
     },
     {
       "category": "Психология и когнитивные науки",
-      "programs": [
-        "Психология",
-        "Нейронаука",
-        "Когнитивная реабилитация"
-      ]
+      "programs": ["Психология", "Нейронаука", "Когнитивная реабилитация"]
     },
     {
       "category": "Бизнес и управление",
-      "programs": [
-        "Бизнес-администрирование",
-        "Управление технологиями и инновациями"
-      ]
+      "programs": ["Бизнес-администрирование", "Управление технологиями и инновациями"]
     },
     {
       "category": "Языки и переводы",
-      "programs": [
-        "Английский язык и литература",
-        "Перевод и устный перевод"
-      ]
+      "programs": ["Английский язык и литература", "Перевод и устный перевод"]
     }
   ],
   "key_info_texts": {
@@ -123,74 +113,460 @@
   },
   "admission": {
     "requirements": [
-      { "category": "exam", "requirement": "TR-YÖS или SAT", "details": "Не обязательны, можно поступить по аттестату" },
-      { "category": "language", "requirement": "TOEFL iBT 75+ или внутренний экзамен Atlas", "details": "Для программ на английском" }
+      {
+        "category": "exam",
+        "requirement": "TR-YÖS или SAT",
+        "details": "Не обязательны, можно поступить по аттестату"
+      },
+      {
+        "category": "language",
+        "requirement": "TOEFL iBT 75+ или внутренний экзамен Atlas",
+        "details": "Для программ на английском"
+      }
     ],
     "documents": [
-      { "name": "Аттестат о среднем образовании", "description": "Апостиль и нотариальный перевод", "format_requirements": ["PDF"] },
-      { "name": "Загранпаспорт", "description": "Срок действия — не менее 2 лет", "format_requirements": ["PDF"] },
+      {
+        "name": "Аттестат о среднем образовании",
+        "description": "Апостиль и нотариальный перевод",
+        "format_requirements": ["PDF"]
+      },
+      {
+        "name": "Загранпаспорт",
+        "description": "Срок действия — не менее 2 лет",
+        "format_requirements": ["PDF"]
+      },
       { "name": "Фотографии", "description": "4 шт, белый фон" },
-      { "name": "Denklik belgesi", "description": "На турецком, оценивание по 100-балльной шкале", "format_requirements": ["PDF"] }
+      {
+        "name": "Denklik belgesi",
+        "description": "На турецком, оценивание по 100-балльной шкале",
+        "format_requirements": ["PDF"]
+      }
     ]
   },
   "programs": [
-    { "degree_type": "bachelor", "name": "Питание и диетология", "language": "tr", "tuition_per_year": 4500, "duration_years": 4 },
-    { "degree_type": "bachelor", "name": "Компьютерная инженерия", "language": "tr", "tuition_per_year": 3250, "duration_years": 4, "direction_slug": "computer-engineering" },
-    { "degree_type": "bachelor", "name": "Компьютерная инженерия", "language": "en", "tuition_per_year": 6300, "duration_years": 4, "direction_slug": "computer-engineering" },
-    { "degree_type": "bachelor", "name": "Биомедицинская инженерия", "language": "en", "tuition_per_year": 6300, "duration_years": 4 },
-    { "degree_type": "bachelor", "name": "Дизайн цифровых игр", "language": "tr", "tuition_per_year": 4660, "duration_years": 4, "direction_slug": "design" },
-    { "degree_type": "bachelor", "name": "Стоматология", "language": "tr", "tuition_per_year": 18530, "duration_years": 5, "direction_slug": "dentistry" },
-    { "degree_type": "bachelor", "name": "Стоматология", "language": "en", "tuition_per_year": 23560, "duration_years": 5, "direction_slug": "dentistry" },
-    { "degree_type": "bachelor", "name": "Акушерство", "language": "tr", "tuition_per_year": 4500, "duration_years": 4 },
-    { "degree_type": "bachelor", "name": "Электротехника и электроника", "language": "en", "tuition_per_year": 5550, "duration_years": 4, "direction_slug": "electrical-electronics-engineering" },
-    { "degree_type": "bachelor", "name": "Промышленная инженерия", "language": "en", "tuition_per_year": 5550, "duration_years": 4, "direction_slug": "industrial-engineering" },
-    { "degree_type": "bachelor", "name": "Эрготерапия", "language": "tr", "tuition_per_year": 4500, "duration_years": 4 },
-    { "degree_type": "bachelor", "name": "Физиотерапия и реабилитация", "language": "tr", "tuition_per_year": 5200, "duration_years": 4 },
-    { "degree_type": "bachelor", "name": "Физиотерапия и реабилитация", "language": "en", "tuition_per_year": 5900, "duration_years": 4 },
-    { "degree_type": "bachelor", "name": "Дизайн визуальных коммуникаций", "language": "tr", "tuition_per_year": 4660, "duration_years": 4, "direction_slug": "design" },
-    { "degree_type": "bachelor", "name": "Медсестринское дело", "language": "tr", "tuition_per_year": 5200, "duration_years": 4, "direction_slug": "nursing" },
-    { "degree_type": "bachelor", "name": "Медсестринское дело", "language": "en", "tuition_per_year": 5900, "duration_years": 4, "direction_slug": "nursing" },
-    { "degree_type": "bachelor", "name": "Логопедия и речевая терапия", "language": "tr", "tuition_per_year": 4500, "duration_years": 4 },
-    { "degree_type": "bachelor", "name": "Логопедия и речевая терапия", "language": "en", "tuition_per_year": 4500, "duration_years": 4 },
-    { "degree_type": "bachelor", "name": "Молекулярная биология и генетика", "language": "en", "tuition_per_year": 5550, "duration_years": 4, "direction_slug": "biology" },
-    { "degree_type": "bachelor", "name": "Психология", "language": "tr", "tuition_per_year": 4765, "duration_years": 4, "direction_slug": "psychology" },
-    { "degree_type": "bachelor", "name": "Психология", "language": "en", "tuition_per_year": 5510, "duration_years": 4, "direction_slug": "psychology" },
-    { "degree_type": "bachelor", "name": "Медицина", "language": "tr", "tuition_per_year": 20000, "duration_years": 6, "direction_slug": "medicine" },
-    { "degree_type": "bachelor", "name": "Медицина", "language": "en", "tuition_per_year": 25000, "duration_years": 6, "direction_slug": "medicine" },
-    { "degree_type": "bachelor", "name": "Программная инженерия", "language": "en", "tuition_per_year": 6300, "duration_years": 4, "direction_slug": "software-engineering" },
-    { "degree_type": "bachelor", "name": "Английский язык и литература", "language": "en", "tuition_per_year": 4660, "duration_years": 4, "direction_slug": "languages-linguistics" },
-    { "degree_type": "bachelor", "name": "Перевод и устный перевод", "language": "en", "tuition_per_year": 4660, "duration_years": 4, "direction_slug": "languages-linguistics" },
-    { "degree_type": "bachelor", "name": "Перевод и устный перевод", "language": "tr", "tuition_per_year": 4660, "duration_years": 4, "direction_slug": "languages-linguistics" },
-    { "degree_type": "bachelor", "name": "Дизайн интерьера и архитектурной среды", "language": "tr", "tuition_per_year": 5000, "duration_years": 4, "direction_slug": "design" },
-    { "degree_type": "bachelor", "name": "Бизнес-администрирование", "language": "en", "tuition_per_year": 5510, "duration_years": 4, "direction_slug": "business" },
+    {
+      "degree_type": "bachelor",
+      "name": "Питание и диетология",
+      "language": "tr",
+      "tuition_per_year": 4500,
+      "duration_years": 4
+    },
+    {
+      "degree_type": "bachelor",
+      "name": "Компьютерная инженерия",
+      "language": "tr",
+      "tuition_per_year": 3250,
+      "duration_years": 4,
+      "direction_slug": "computer-engineering"
+    },
+    {
+      "degree_type": "bachelor",
+      "name": "Компьютерная инженерия",
+      "language": "en",
+      "tuition_per_year": 6300,
+      "duration_years": 4,
+      "direction_slug": "computer-engineering"
+    },
+    {
+      "degree_type": "bachelor",
+      "name": "Биомедицинская инженерия",
+      "language": "en",
+      "tuition_per_year": 6300,
+      "duration_years": 4
+    },
+    {
+      "degree_type": "bachelor",
+      "name": "Дизайн цифровых игр",
+      "language": "tr",
+      "tuition_per_year": 4660,
+      "duration_years": 4,
+      "direction_slug": "design"
+    },
+    {
+      "degree_type": "bachelor",
+      "name": "Стоматология",
+      "language": "tr",
+      "tuition_per_year": 18530,
+      "duration_years": 5,
+      "direction_slug": "dentistry"
+    },
+    {
+      "degree_type": "bachelor",
+      "name": "Стоматология",
+      "language": "en",
+      "tuition_per_year": 23560,
+      "duration_years": 5,
+      "direction_slug": "dentistry"
+    },
+    {
+      "degree_type": "bachelor",
+      "name": "Акушерство",
+      "language": "tr",
+      "tuition_per_year": 4500,
+      "duration_years": 4
+    },
+    {
+      "degree_type": "bachelor",
+      "name": "Электротехника и электроника",
+      "language": "en",
+      "tuition_per_year": 5550,
+      "duration_years": 4,
+      "direction_slug": "electrical-electronics-engineering"
+    },
+    {
+      "degree_type": "bachelor",
+      "name": "Промышленная инженерия",
+      "language": "en",
+      "tuition_per_year": 5550,
+      "duration_years": 4,
+      "direction_slug": "industrial-engineering"
+    },
+    {
+      "degree_type": "bachelor",
+      "name": "Эрготерапия",
+      "language": "tr",
+      "tuition_per_year": 4500,
+      "duration_years": 4
+    },
+    {
+      "degree_type": "bachelor",
+      "name": "Физиотерапия и реабилитация",
+      "language": "tr",
+      "tuition_per_year": 5200,
+      "duration_years": 4
+    },
+    {
+      "degree_type": "bachelor",
+      "name": "Физиотерапия и реабилитация",
+      "language": "en",
+      "tuition_per_year": 5900,
+      "duration_years": 4
+    },
+    {
+      "degree_type": "bachelor",
+      "name": "Дизайн визуальных коммуникаций",
+      "language": "tr",
+      "tuition_per_year": 4660,
+      "duration_years": 4,
+      "direction_slug": "design"
+    },
+    {
+      "degree_type": "bachelor",
+      "name": "Медсестринское дело",
+      "language": "tr",
+      "tuition_per_year": 5200,
+      "duration_years": 4,
+      "direction_slug": "nursing"
+    },
+    {
+      "degree_type": "bachelor",
+      "name": "Медсестринское дело",
+      "language": "en",
+      "tuition_per_year": 5900,
+      "duration_years": 4,
+      "direction_slug": "nursing"
+    },
+    {
+      "degree_type": "bachelor",
+      "name": "Логопедия и речевая терапия",
+      "language": "tr",
+      "tuition_per_year": 4500,
+      "duration_years": 4
+    },
+    {
+      "degree_type": "bachelor",
+      "name": "Логопедия и речевая терапия",
+      "language": "en",
+      "tuition_per_year": 4500,
+      "duration_years": 4
+    },
+    {
+      "degree_type": "bachelor",
+      "name": "Молекулярная биология и генетика",
+      "language": "en",
+      "tuition_per_year": 5550,
+      "duration_years": 4,
+      "direction_slug": "biology"
+    },
+    {
+      "degree_type": "bachelor",
+      "name": "Психология",
+      "language": "tr",
+      "tuition_per_year": 4765,
+      "duration_years": 4,
+      "direction_slug": "psychology"
+    },
+    {
+      "degree_type": "bachelor",
+      "name": "Психология",
+      "language": "en",
+      "tuition_per_year": 5510,
+      "duration_years": 4,
+      "direction_slug": "psychology"
+    },
+    {
+      "degree_type": "bachelor",
+      "name": "Медицина",
+      "language": "tr",
+      "tuition_per_year": 20000,
+      "duration_years": 6,
+      "direction_slug": "medicine"
+    },
+    {
+      "degree_type": "bachelor",
+      "name": "Медицина",
+      "language": "en",
+      "tuition_per_year": 25000,
+      "duration_years": 6,
+      "direction_slug": "medicine"
+    },
+    {
+      "degree_type": "bachelor",
+      "name": "Программная инженерия",
+      "language": "en",
+      "tuition_per_year": 6300,
+      "duration_years": 4,
+      "direction_slug": "software-engineering"
+    },
+    {
+      "degree_type": "bachelor",
+      "name": "Английский язык и литература",
+      "language": "en",
+      "tuition_per_year": 4660,
+      "duration_years": 4,
+      "direction_slug": "languages-linguistics"
+    },
+    {
+      "degree_type": "bachelor",
+      "name": "Перевод и устный перевод",
+      "language": "en",
+      "tuition_per_year": 4660,
+      "duration_years": 4,
+      "direction_slug": "languages-linguistics"
+    },
+    {
+      "degree_type": "bachelor",
+      "name": "Перевод и устный перевод",
+      "language": "tr",
+      "tuition_per_year": 4660,
+      "duration_years": 4,
+      "direction_slug": "languages-linguistics"
+    },
+    {
+      "degree_type": "bachelor",
+      "name": "Дизайн интерьера и архитектурной среды",
+      "language": "tr",
+      "tuition_per_year": 5000,
+      "duration_years": 4,
+      "direction_slug": "design"
+    },
+    {
+      "degree_type": "bachelor",
+      "name": "Бизнес-администрирование",
+      "language": "en",
+      "tuition_per_year": 5510,
+      "duration_years": 4,
+      "direction_slug": "business"
+    },
 
-    { "degree_type": "master", "name": "Анатомия — с тезисом", "language": "tr", "tuition_per_year": 7415, "duration_years": 2 },
-    { "degree_type": "master", "name": "Питание и диетология — с тезисом", "language": "tr", "tuition_per_year": 7415, "duration_years": 2 },
-    { "degree_type": "master", "name": "Питание и диетология — без тезиса", "language": "tr", "tuition_per_year": 5295, "duration_years": 2 },
-    { "degree_type": "master", "name": "Компьютерная инженерия — с тезисом", "language": "tr", "tuition_per_year": 7415, "duration_years": 2, "direction_slug": "computer-engineering" },
-    { "degree_type": "master", "name": "Компьютерная инженерия — с тезисом", "language": "en", "tuition_per_year": 7415, "duration_years": 2, "direction_slug": "computer-engineering" },
-    { "degree_type": "master", "name": "Информационные технологии — с тезисом", "language": "en", "tuition_per_year": 7415, "duration_years": 2, "direction_slug": "information-systems" },
-    { "degree_type": "master", "name": "Когнитивная реабилитация — с тезисом", "language": "tr", "tuition_per_year": 5295, "duration_years": 2 },
-    { "degree_type": "master", "name": "Сестринское дело в хирургии — с тезисом", "language": "tr", "tuition_per_year": 7415, "duration_years": 2 },
-    { "degree_type": "master", "name": "Акушерство — с тезисом", "language": "tr", "tuition_per_year": 7415, "duration_years": 2 },
-    { "degree_type": "master", "name": "Акушерство — без тезиса", "language": "tr", "tuition_per_year": 5295, "duration_years": 2 },
-    { "degree_type": "master", "name": "Электротехника и электроника — с тезисом", "language": "en", "tuition_per_year": 7415, "duration_years": 2, "direction_slug": "electrical-electronics-engineering" },
-    { "degree_type": "master", "name": "Промышленная инженерия — с тезисом", "language": "tr", "tuition_per_year": 7415, "duration_years": 2, "direction_slug": "industrial-engineering" },
-    { "degree_type": "master", "name": "Физиология — с тезисом", "language": "tr", "tuition_per_year": 7415, "duration_years": 2 },
-    { "degree_type": "master", "name": "Физиотерапия и реабилитация — с тезисом", "language": "tr", "tuition_per_year": 7415, "duration_years": 2 },
-    { "degree_type": "master", "name": "Гистология и эмбриология — с тезисом", "language": "tr", "tuition_per_year": 7415, "duration_years": 2 },
-    { "degree_type": "master", "name": "Сестринское дело в области акушерства и гинекологии — с тезисом", "language": "tr", "tuition_per_year": 7415, "duration_years": 2 },
-    { "degree_type": "master", "name": "Логопедия и речевая терапия — с тезисом", "language": "tr", "tuition_per_year": 15000, "duration_years": 2 },
-    { "degree_type": "master", "name": "Эрготерапия — с тезисом", "language": "tr", "tuition_per_year": 7415, "duration_years": 2 },
-    { "degree_type": "master", "name": "Молекулярная биология и генетика — с тезисом", "language": "tr", "tuition_per_year": 7415, "duration_years": 2, "direction_slug": "biology" },
-    { "degree_type": "master", "name": "Молекулярная биология и генетика — с тезисом", "language": "en", "tuition_per_year": 7415, "duration_years": 2, "direction_slug": "biology" },
-    { "degree_type": "master", "name": "Нейронаука — с тезисом", "language": "tr", "tuition_per_year": 7415, "duration_years": 2 },
-    { "degree_type": "master", "name": "Психология — с тезисом", "language": "tr", "tuition_per_year": 8500, "duration_years": 2, "direction_slug": "psychology" },
-    { "degree_type": "master", "name": "Управление технологиями и инновациями — без тезиса", "language": "tr", "tuition_per_year": 5295, "duration_years": 2, "direction_slug": "management" },
-    { "degree_type": "master", "name": "Медицинская биохимия — с тезисом", "language": "tr", "tuition_per_year": 7415, "duration_years": 2 },
-    { "degree_type": "master", "name": "Медицинская биология и генетика — с тезисом", "language": "tr", "tuition_per_year": 7415, "duration_years": 2 },
-    { "degree_type": "master", "name": "Медицинская фармакология — с тезисом", "language": "tr", "tuition_per_year": 7415, "duration_years": 2 },
-    { "degree_type": "master", "name": "Сестринское дело во внутренней медицине — с тезисом", "language": "tr", "tuition_per_year": 7415, "duration_years": 2 }
+    {
+      "degree_type": "master",
+      "name": "Анатомия — с тезисом",
+      "language": "tr",
+      "tuition_per_year": 7415,
+      "duration_years": 2
+    },
+    {
+      "degree_type": "master",
+      "name": "Питание и диетология — с тезисом",
+      "language": "tr",
+      "tuition_per_year": 7415,
+      "duration_years": 2
+    },
+    {
+      "degree_type": "master",
+      "name": "Питание и диетология — без тезиса",
+      "language": "tr",
+      "tuition_per_year": 5295,
+      "duration_years": 2
+    },
+    {
+      "degree_type": "master",
+      "name": "Компьютерная инженерия — с тезисом",
+      "language": "tr",
+      "tuition_per_year": 7415,
+      "duration_years": 2,
+      "direction_slug": "computer-engineering"
+    },
+    {
+      "degree_type": "master",
+      "name": "Компьютерная инженерия — с тезисом",
+      "language": "en",
+      "tuition_per_year": 7415,
+      "duration_years": 2,
+      "direction_slug": "computer-engineering"
+    },
+    {
+      "degree_type": "master",
+      "name": "Информационные технологии — с тезисом",
+      "language": "en",
+      "tuition_per_year": 7415,
+      "duration_years": 2,
+      "direction_slug": "information-systems"
+    },
+    {
+      "degree_type": "master",
+      "name": "Когнитивная реабилитация — с тезисом",
+      "language": "tr",
+      "tuition_per_year": 5295,
+      "duration_years": 2
+    },
+    {
+      "degree_type": "master",
+      "name": "Сестринское дело в хирургии — с тезисом",
+      "language": "tr",
+      "tuition_per_year": 7415,
+      "duration_years": 2
+    },
+    {
+      "degree_type": "master",
+      "name": "Акушерство — с тезисом",
+      "language": "tr",
+      "tuition_per_year": 7415,
+      "duration_years": 2
+    },
+    {
+      "degree_type": "master",
+      "name": "Акушерство — без тезиса",
+      "language": "tr",
+      "tuition_per_year": 5295,
+      "duration_years": 2
+    },
+    {
+      "degree_type": "master",
+      "name": "Электротехника и электроника — с тезисом",
+      "language": "en",
+      "tuition_per_year": 7415,
+      "duration_years": 2,
+      "direction_slug": "electrical-electronics-engineering"
+    },
+    {
+      "degree_type": "master",
+      "name": "Промышленная инженерия — с тезисом",
+      "language": "tr",
+      "tuition_per_year": 7415,
+      "duration_years": 2,
+      "direction_slug": "industrial-engineering"
+    },
+    {
+      "degree_type": "master",
+      "name": "Физиология — с тезисом",
+      "language": "tr",
+      "tuition_per_year": 7415,
+      "duration_years": 2
+    },
+    {
+      "degree_type": "master",
+      "name": "Физиотерапия и реабилитация — с тезисом",
+      "language": "tr",
+      "tuition_per_year": 7415,
+      "duration_years": 2
+    },
+    {
+      "degree_type": "master",
+      "name": "Гистология и эмбриология — с тезисом",
+      "language": "tr",
+      "tuition_per_year": 7415,
+      "duration_years": 2
+    },
+    {
+      "degree_type": "master",
+      "name": "Сестринское дело в области акушерства и гинекологии — с тезисом",
+      "language": "tr",
+      "tuition_per_year": 7415,
+      "duration_years": 2
+    },
+    {
+      "degree_type": "master",
+      "name": "Логопедия и речевая терапия — с тезисом",
+      "language": "tr",
+      "tuition_per_year": 15000,
+      "duration_years": 2
+    },
+    {
+      "degree_type": "master",
+      "name": "Эрготерапия — с тезисом",
+      "language": "tr",
+      "tuition_per_year": 7415,
+      "duration_years": 2
+    },
+    {
+      "degree_type": "master",
+      "name": "Молекулярная биология и генетика — с тезисом",
+      "language": "tr",
+      "tuition_per_year": 7415,
+      "duration_years": 2,
+      "direction_slug": "biology"
+    },
+    {
+      "degree_type": "master",
+      "name": "Молекулярная биология и генетика — с тезисом",
+      "language": "en",
+      "tuition_per_year": 7415,
+      "duration_years": 2,
+      "direction_slug": "biology"
+    },
+    {
+      "degree_type": "master",
+      "name": "Нейронаука — с тезисом",
+      "language": "tr",
+      "tuition_per_year": 7415,
+      "duration_years": 2
+    },
+    {
+      "degree_type": "master",
+      "name": "Психология — с тезисом",
+      "language": "tr",
+      "tuition_per_year": 8500,
+      "duration_years": 2,
+      "direction_slug": "psychology"
+    },
+    {
+      "degree_type": "master",
+      "name": "Управление технологиями и инновациями — без тезиса",
+      "language": "tr",
+      "tuition_per_year": 5295,
+      "duration_years": 2,
+      "direction_slug": "management"
+    },
+    {
+      "degree_type": "master",
+      "name": "Медицинская биохимия — с тезисом",
+      "language": "tr",
+      "tuition_per_year": 7415,
+      "duration_years": 2
+    },
+    {
+      "degree_type": "master",
+      "name": "Медицинская биология и генетика — с тезисом",
+      "language": "tr",
+      "tuition_per_year": 7415,
+      "duration_years": 2
+    },
+    {
+      "degree_type": "master",
+      "name": "Медицинская фармакология — с тезисом",
+      "language": "tr",
+      "tuition_per_year": 7415,
+      "duration_years": 2
+    },
+    {
+      "degree_type": "master",
+      "name": "Сестринское дело во внутренней медицине — с тезисом",
+      "language": "tr",
+      "tuition_per_year": 7415,
+      "duration_years": 2
+    }
   ],
   "directions": [
     "medicine",

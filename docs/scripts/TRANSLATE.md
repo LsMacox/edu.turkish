@@ -31,15 +31,16 @@ export OPENROUTER_API_KEY=sk-or-...
 - **documents**: создаёт в `document_translations` поля `name`, `description`, `format_requirements` (JSON)
 - **dates**: создаёт в `date_translations` поле `event`
 - **directions**: создаёт в `direction_translations` поля `name`, `description`
+- **articles**: создаёт в `blog_article_translations` поля `slug` (уникальный), `title`, `excerpt`, `reading_time`, `hero_kicker`, `hero_subtitle`, `hero_location`, `image_alt`, `hero_image_alt`, `seo_description`, `content` (JSON-массив блоков)
 - **all**: запускает перевод последовательно для всех перечисленных выше сущностей
 
 ## Логика выбора исходного текста
 
 - **Источник по умолчанию**: `ru` (можно изменить флагом `--source`)
 - **Порядок фолбэков** для каждого поля:
-  1) перевод с локалью `--source`
-  2) любой доступный перевод
-  3) базовое поле сущности (если есть)
+  1. перевод с локалью `--source`
+  2. любой доступный перевод
+  3. базовое поле сущности (если есть)
 
 ## Запуск
 
@@ -55,7 +56,7 @@ npm run translate -- <entity> [опции]
 npx tsx scripts/translate.ts <entity> [опции]
 ```
 
-Где `<entity>` одна из: `universities`, `reviews`, `programs`, `faqs`, `facilities`, `dormitories`, `requirements`, `documents`, `dates`, `directions`, `all`.
+Где `<entity>` одна из: `universities`, `reviews`, `programs`, `faqs`, `facilities`, `dormitories`, `requirements`, `documents`, `dates`, `directions`, `articles`, `all`.
 
 Примечание: этот скрипт не принимает файлов. Для импорта данных из JSON используйте отдельный скрипт импорта: см. `docs/scripts/IMPORT_UNIVERSITY.md`.
 
@@ -136,5 +137,3 @@ npx tsx scripts/translate.ts all --targets=tr,en --source=ru --concurrency=4
 - Начинайте с `--dry-run`, чтобы проверить качество перевода на небольшом `--limit`.
 - Увеличивайте `--concurrency` постепенно (например, до `4`) при стабильной работе.
 - Разделяйте большие прогоны по сущностям (например, отдельно `universities`, затем `reviews`).
-
-

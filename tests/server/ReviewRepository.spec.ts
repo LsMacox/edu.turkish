@@ -1,6 +1,5 @@
 import { describe, expect, it, vi } from 'vitest'
-import type { PrismaClient } from '@prisma/client'
-import type { Prisma } from '@prisma/client'
+import type { PrismaClient, Prisma } from '@prisma/client'
 
 import { ReviewRepository } from '../../server/repositories/ReviewRepository'
 
@@ -34,34 +33,34 @@ const createRepositoryWithMocks = () => {
       findMany: reviewFindMany,
       count: reviewCount,
       aggregate: reviewAggregate,
-      create: reviewCreate
+      create: reviewCreate,
     },
     university: {
       count: universityCount,
-      findMany: universityFindMany
+      findMany: universityFindMany,
     },
     academicProgram: {
-      count: academicProgramCount
+      count: academicProgramCount,
     },
     scholarship: {
-      count: scholarshipCount
+      count: scholarshipCount,
     },
     application: {
-      count: applicationCount
+      count: applicationCount,
     },
     universityTranslation: {
-      findMany: universityTranslationFindMany
+      findMany: universityTranslationFindMany,
     },
     programTranslation: {
-      findMany: programTranslationFindMany
+      findMany: programTranslationFindMany,
     },
     reviewTranslation: {
-      findMany: reviewTranslationFindMany
+      findMany: reviewTranslationFindMany,
     },
     faqTranslation: {
-      findMany: faqTranslationFindMany
+      findMany: faqTranslationFindMany,
     },
-    $transaction: transaction
+    $transaction: transaction,
   } as unknown as PrismaClient
 
   const repository = new ReviewRepository(prisma)
@@ -82,8 +81,8 @@ const createRepositoryWithMocks = () => {
       programTranslationFindMany,
       reviewTranslationFindMany,
       faqTranslationFindMany,
-      transaction
-    }
+      transaction,
+    },
   }
 }
 
@@ -113,10 +112,10 @@ describe('ReviewRepository.findAll', () => {
             yos_score: 95,
             helpful_aspects: ['Scholarships', 123],
             recommendation: 'Highly recommend',
-            contact: 'hidden@example.com'
+            contact: 'hidden@example.com',
           },
           createdAt: baseDate,
-          updatedAt: baseDate
+          updatedAt: baseDate,
         },
         {
           id: 11,
@@ -127,10 +126,10 @@ describe('ReviewRepository.findAll', () => {
           universityName: 'Технический университет',
           achievements: null,
           createdAt: baseDate,
-          updatedAt: baseDate
-        }
+          updatedAt: baseDate,
+        },
       ],
-      university: null
+      university: null,
     }
 
     mocks.reviewFindMany.mockResolvedValue([review])
@@ -138,7 +137,7 @@ describe('ReviewRepository.findAll', () => {
 
     const result = await repository.findAll(
       { type: 'student', featured: true, page: 2, limit: 1 },
-      'en'
+      'en',
     )
 
     expect(mocks.reviewFindMany).toHaveBeenCalledWith(
@@ -146,12 +145,8 @@ describe('ReviewRepository.findAll', () => {
         where: { type: 'student', featured: true },
         skip: 1,
         take: 1,
-        orderBy: [
-          { featured: 'desc' },
-          { rating: 'desc' },
-          { createdAt: 'desc' }
-        ]
-      })
+        orderBy: [{ featured: 'desc' }, { rating: 'desc' }, { createdAt: 'desc' }],
+      }),
     )
     expect(mocks.reviewCount).toHaveBeenCalledWith({ where: { type: 'student', featured: true } })
 
@@ -170,11 +165,11 @@ describe('ReviewRepository.findAll', () => {
           achievements: {
             yos_score: 95,
             helpful_aspects: ['Scholarships'],
-            recommendation: 'Highly recommend'
-          }
-        }
+            recommendation: 'Highly recommend',
+          },
+        },
       ],
-      total: 1
+      total: 1,
     })
   })
 
@@ -318,8 +313,8 @@ describe('ReviewRepository.findFeatured', () => {
           universityName: null,
           achievements: { english_level: 'C1' },
           createdAt: baseDate,
-          updatedAt: baseDate
-        }
+          updatedAt: baseDate,
+        },
       ],
       university: {
         id: 50,
@@ -350,10 +345,10 @@ describe('ReviewRepository.findFeatured', () => {
             about: null,
             keyInfoTexts: null,
             createdAt: baseDate,
-            updatedAt: baseDate
-          }
-        ]
-      }
+            updatedAt: baseDate,
+          },
+        ],
+      },
     }
 
     mocks.reviewFindMany.mockResolvedValue([review])
@@ -364,11 +359,8 @@ describe('ReviewRepository.findFeatured', () => {
       expect.objectContaining({
         where: { featured: true },
         take: 2,
-        orderBy: [
-          { rating: 'desc' },
-          { createdAt: 'desc' }
-        ]
-      })
+        orderBy: [{ rating: 'desc' }, { createdAt: 'desc' }],
+      }),
     )
 
     expect(result).toEqual([
@@ -383,9 +375,9 @@ describe('ReviewRepository.findFeatured', () => {
         avatar: '',
         featured: true,
         achievements: {
-          english_level: 'C1'
-        }
-      }
+          english_level: 'C1',
+        },
+      },
     ])
   })
 })
@@ -414,7 +406,7 @@ describe('ReviewRepository.create', () => {
           universityName: 'Университет Анкары',
           achievements: { helpful_aspects: ['Общежития'] },
           createdAt: baseDate,
-          updatedAt: baseDate
+          updatedAt: baseDate,
         },
         {
           id: 32,
@@ -425,8 +417,8 @@ describe('ReviewRepository.create', () => {
           universityName: 'Ankara University',
           achievements: null,
           createdAt: baseDate,
-          updatedAt: baseDate
-        }
+          updatedAt: baseDate,
+        },
       ],
       university: {
         id: 10,
@@ -457,7 +449,7 @@ describe('ReviewRepository.create', () => {
             about: null,
             keyInfoTexts: null,
             createdAt: baseDate,
-            updatedAt: baseDate
+            updatedAt: baseDate,
           },
           {
             id: 42,
@@ -469,10 +461,10 @@ describe('ReviewRepository.create', () => {
             about: null,
             keyInfoTexts: null,
             createdAt: baseDate,
-            updatedAt: baseDate
-          }
-        ]
-      }
+            updatedAt: baseDate,
+          },
+        ],
+      },
     }
 
     mocks.reviewCreate.mockResolvedValue(review)
@@ -490,15 +482,15 @@ describe('ReviewRepository.create', () => {
           locale: 'ru',
           name: 'Анна',
           quote: 'Отличный университет',
-          universityName: 'Университет Анкары'
+          universityName: 'Университет Анкары',
         },
         {
           locale: 'en',
           name: 'Anna',
           quote: 'Great university',
-          universityName: 'Ankara University'
-        }
-      ]
+          universityName: 'Ankara University',
+        },
+      ],
     })
 
     expect(mocks.reviewCreate).toHaveBeenCalledWith(
@@ -515,22 +507,22 @@ describe('ReviewRepository.create', () => {
                 name: 'Анна',
                 quote: 'Отличный университет',
                 universityName: 'Университет Анкары',
-                achievements: { helpful_aspects: ['Общежития'] }
+                achievements: { helpful_aspects: ['Общежития'] },
               },
               {
                 locale: 'en',
                 name: 'Anna',
                 quote: 'Great university',
-                universityName: 'Ankara University'
-              }
-            ]
-          }
+                universityName: 'Ankara University',
+              },
+            ],
+          },
         },
         include: {
           translations: true,
-          university: { include: { translations: true } }
-        }
-      })
+          university: { include: { translations: true } },
+        },
+      }),
     )
 
     expect(result).toEqual({
@@ -543,7 +535,7 @@ describe('ReviewRepository.create', () => {
       rating: 5,
       avatar: '',
       featured: false,
-      achievements: { helpful_aspects: ['Общежития'] }
+      achievements: { helpful_aspects: ['Общежития'] },
     })
   })
 })
@@ -554,7 +546,7 @@ describe('ReviewRepository.getStatistics', () => {
 
     mocks.reviewAggregate.mockResolvedValue({
       _count: { id: 5 },
-      _avg: { rating: 4.3333 }
+      _avg: { rating: 4.3333 },
     })
     mocks.universityCount.mockResolvedValue(7)
     mocks.universityFindMany.mockResolvedValue([{ cityId: 1 }, { cityId: 2 }])
@@ -579,7 +571,7 @@ describe('ReviewRepository.getStatistics', () => {
       scholarships_provided: 3,
       cities_covered: 2,
       languages_supported: 3,
-      specialties_available: 12
+      specialties_available: 12,
     })
   })
 })

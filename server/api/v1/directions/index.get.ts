@@ -17,20 +17,18 @@ export default defineEventHandler(async (event): Promise<DirectionResponse> => {
     const { data, total } = await repo.getAllDirections(query.lang || locale, {
       search: searchTerm,
       page,
-      limit
+      limit,
     })
 
     return {
       data,
-      meta: calculatePagination(total, page, limit)
+      meta: calculatePagination(total, page, limit),
     }
   } catch (error) {
     console.error('Error fetching directions:', error)
     throw createError({
       statusCode: 500,
-      statusMessage: 'Failed to fetch directions'
+      statusMessage: 'Failed to fetch directions',
     })
   }
 })
-
-

@@ -21,14 +21,13 @@ export default defineEventHandler(async (event): Promise<BlogArticlesResponse> =
       meta: calculatePagination(result.total, page, limit),
       featured: result.featured,
       categories: result.categories,
-      popular: result.popular
+      popular: result.popular,
     }
   } catch (error) {
     console.error('Error fetching blog articles:', error)
     throw createError({
       statusCode: 500,
-      statusMessage: 'Failed to fetch blog articles'
+      statusMessage: 'Failed to fetch blog articles',
     })
   }
 })
-

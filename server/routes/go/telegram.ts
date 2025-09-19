@@ -21,12 +21,13 @@ const buildGreeting = (template: string | undefined, referral: string): string |
   return text.length > 0 ? text : undefined
 }
 
-export default defineEventHandler(async event => {
+export default defineEventHandler(async (event) => {
   const query = getQuery(event)
   const referralCode = typeof query.referral_code === 'string' ? query.referral_code : ''
   const hasReferralCode = referralCode.length > 0
 
-  const sessionId = typeof query.session === 'string' && query.session.length > 0 ? query.session : undefined
+  const sessionId =
+    typeof query.session === 'string' && query.session.length > 0 ? query.session : undefined
   const utmParams = extractUtmParams(query as Record<string, any>)
 
   if (hasReferralCode) {
@@ -100,7 +101,7 @@ export default defineEventHandler(async event => {
 
   return new Response(html, {
     headers: {
-      'Content-Type': 'text/html; charset=utf-8'
-    }
+      'Content-Type': 'text/html; charset=utf-8',
+    },
   })
 })

@@ -5,5 +5,3 @@ export type UniversityType = 'state' | 'private' | 'tech' | 'elite'
 export type DegreeType = 'bachelor' | 'master' | 'phd'
 
 export type UserType = 'student' | 'parent'
-
-

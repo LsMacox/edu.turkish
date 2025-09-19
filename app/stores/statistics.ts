@@ -1,5 +1,5 @@
 import { defineStore } from 'pinia'
-import { ref, computed, readonly } from 'vue'
+import { ref, computed } from 'vue'
 
 interface ReviewStatistics {
   total_students: number
@@ -45,21 +45,26 @@ export const useStatisticsStore = defineStore('statistics', () => {
 
   // Actions
   const fetchStatistics = async () => {
-    if (process.client) console.debug('[statistics] fetch start')
+    if (process.client) {
+      /* debug removed */
+    }
     loading.value = true
     error.value = null
-    
+
     try {
       const response = await $fetch<ReviewStatistics>('/api/v1/statistics')
       statistics.value = response
-      if (process.client) console.debug('[statistics] fetched', response)
-      
+      if (process.client) {
+        /* debug removed */
+      }
     } catch (err: any) {
       error.value = err.message || 'Failed to fetch statistics'
       if (process.client) console.error('[statistics] fetch error', err)
     } finally {
       loading.value = false
-      if (process.client) console.debug('[statistics] fetch end')
+      if (process.client) {
+        /* debug removed */
+      }
     }
   }
 
@@ -75,7 +80,7 @@ export const useStatisticsStore = defineStore('statistics', () => {
     statistics,
     loading,
     error,
-    
+
     // Getters
     universitiesCount,
     citiesCount,
@@ -85,9 +90,9 @@ export const useStatisticsStore = defineStore('statistics', () => {
     formattedCities,
     formattedPrograms,
     formattedCostFrom,
-    
+
     // Actions
     fetchStatistics,
-    reset
+    reset,
   }
 })

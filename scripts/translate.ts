@@ -9,7 +9,19 @@ Environment:
 
 import { prisma } from '../lib/prisma'
 
-type EntityType = 'universities' | 'reviews' | 'programs' | 'faqs' | 'facilities' | 'requirements' | 'documents' | 'dates' | 'directions' | 'scholarships' | 'all'
+type EntityType =
+  | 'universities'
+  | 'reviews'
+  | 'programs'
+  | 'faqs'
+  | 'facilities'
+  | 'requirements'
+  | 'documents'
+  | 'dates'
+  | 'directions'
+  | 'scholarships'
+  | 'articles'
+  | 'all'
 
 interface CliOptions {
   entity: EntityType
@@ -27,7 +39,20 @@ const OPENROUTER_MODEL = 'google/gemini-2.5-flash'
 
 function parseArgs(argv: string[]): CliOptions {
   const [entityRaw, ...rest] = argv
-  const allowed: EntityType[] = ['universities','reviews','programs','faqs','facilities','requirements','documents','dates','directions','scholarships','all']
+  const allowed: EntityType[] = [
+    'universities',
+    'reviews',
+    'programs',
+    'faqs',
+    'facilities',
+    'requirements',
+    'documents',
+    'dates',
+    'directions',
+    'scholarships',
+    'articles',
+    'all',
+  ]
   if (!entityRaw || !allowed.includes(entityRaw as EntityType)) {
     console.error(`First argument must be one of: ${allowed.join(', ')}`)
     process.exit(1)
@@ -37,14 +62,18 @@ function parseArgs(argv: string[]): CliOptions {
     sourceLocale: DEFAULT_SOURCE,
     targetLocales: [...DEFAULT_TARGETS],
     dryRun: false,
-    concurrency: 2
+    concurrency: 2,
   }
   for (const arg of rest) {
     if (arg.startsWith('--source=')) {
       opts.sourceLocale = arg.split('=')[1] || DEFAULT_SOURCE
     } else if (arg.startsWith('--targets=')) {
       const v = arg.split('=')[1]
-      if (v) opts.targetLocales = v.split(',').map(s => s.trim()).filter(Boolean)
+      if (v)
+        opts.targetLocales = v
+          .split(',')
+          .map((s) => s.trim())
+          .filter(Boolean)
     } else if (arg.startsWith('--limit=')) {
       const v = Number(arg.split('=')[1])
       if (!Number.isNaN(v) && v > 0) opts.limit = v
@@ -55,7 +84,7 @@ function parseArgs(argv: string[]): CliOptions {
       if (!Number.isNaN(v) && v >= 1 && v <= 8) opts.concurrency = v
     }
   }
-  opts.targetLocales = opts.targetLocales.filter(l => l !== opts.sourceLocale)
+  opts.targetLocales = opts.targetLocales.filter((l) => l !== opts.sourceLocale)
   return opts
 }
 
@@ -72,7 +101,7 @@ async function callOpenRouterTranslate(
   input: Record<string, string | null | undefined>,
   sourceLocale: string,
   targetLocale: string,
-  context: string
+  context: string,
 ): Promise<Record<string, string>> {
   const apiKey = requireEnv('OPENROUTER_API_KEY')
   const payload = {
@@ -81,7 +110,7 @@ async function callOpenRouterTranslate(
       {
         role: 'system',
         content:
-          'You are a professional, faithful, concise translator. Preserve proper nouns and academic terminology. Return ONLY valid JSON with the same keys as provided. Do not add extra keys or commentary.'
+          'You are a professional, faithful, concise translator. Preserve proper nouns and academic terminology. Return ONLY valid JSON with the same keys as provided. Do not add extra keys or commentary.',
       },
       {
         role: 'user',
@@ -91,25 +120,25 @@ async function callOpenRouterTranslate(
           'Context:',
           context,
           'Translate the following JSON. Keep line breaks. For empty/undefined fields, return an empty string. Respond with JSON only:',
-          JSON.stringify(input)
-        ].join('\n')
-      }
-    ]
+          JSON.stringify(input),
+        ].join('\n'),
+      },
+    ],
   }
 
   const res = await fetch(OPENROUTER_URL, {
     method: 'POST',
     headers: {
-      'Authorization': `Bearer ${apiKey}`,
-      'Content-Type': 'application/json'
+      Authorization: `Bearer ${apiKey}`,
+      'Content-Type': 'application/json',
     },
-    body: JSON.stringify(payload)
+    body: JSON.stringify(payload),
   })
   if (!res.ok) {
     const txt = await res.text().catch(() => '')
     throw new Error(`OpenRouter error ${res.status}: ${txt}`)
   }
-  const data = await res.json() as any
+  const data = (await res.json()) as any
   const content: string = data?.choices?.[0]?.message?.content ?? ''
   const jsonText = extractJson(content)
   try {
@@ -131,7 +160,9 @@ async function callOpenRouterTranslate(
     }
     return out
   } catch (e) {
-    throw new Error(`Failed to parse OpenRouter JSON: ${e instanceof Error ? e.message : String(e)}\nContent: ${content}`)
+    throw new Error(
+      `Failed to parse OpenRouter JSON: ${e instanceof Error ? e.message : String(e)}\nContent: ${content}`,
+    )
   }
 }
 
@@ -153,7 +184,9 @@ function stringifyMaybeJson(v: unknown): string {
 }
 
 function slugify(input: string): string {
-  const s = (input || '').toString().normalize('NFKD')
+  const s = (input || '')
+    .toString()
+    .normalize('NFKD')
     .replace(/[\u0300-\u036f]/g, '')
     .toLowerCase()
     .replace(/[^a-z0-9\s-]/g, '')
@@ -167,7 +200,9 @@ async function uniqueUniversitySlug(locale: string, base: string): Promise<strin
   let candidate = base
   let i = 0
   while (true) {
-    const exists = await (prisma as any).universityTranslation.findFirst({ where: { locale, slug: candidate } })
+    const exists = await (prisma as any).universityTranslation.findFirst({
+      where: { locale, slug: candidate },
+    })
     if (!exists) return candidate
     i += 1
     candidate = `${base}-${i}`
@@ -178,7 +213,22 @@ async function uniqueDirectionSlug(locale: string, base: string): Promise<string
   let candidate = base
   let i = 0
   while (true) {
-    const exists = await (prisma as any).directionTranslation.findFirst({ where: { locale, slug: candidate } })
+    const exists = await (prisma as any).directionTranslation.findFirst({
+      where: { locale, slug: candidate },
+    })
+    if (!exists) return candidate
+    i += 1
+    candidate = `${base}-${i}`
+  }
+}
+
+async function uniqueArticleSlug(locale: string, base: string): Promise<string> {
+  let candidate = base
+  let i = 0
+  while (true) {
+    const exists = await (prisma as any).blogArticleTranslation.findFirst({
+      where: { locale, slug: candidate },
+    })
     if (!exists) return candidate
     i += 1
     candidate = `${base}-${i}`
@@ -187,11 +237,14 @@ async function uniqueDirectionSlug(locale: string, base: string): Promise<string
 
 async function translateUniversities(opts: CliOptions): Promise<void> {
   const { sourceLocale, targetLocales, limit, dryRun, concurrency } = opts
-  const universities = await prisma.university.findMany({ include: { translations: true }, take: limit })
+  const universities = await prisma.university.findMany({
+    include: { translations: true },
+    take: limit,
+  })
   const jobs: Array<() => Promise<void>> = []
   for (const u of universities as any[]) {
     const existing = new Set(u.translations.map((t: any) => t.locale))
-    const missing = targetLocales.filter(l => !existing.has(l))
+    const missing = targetLocales.filter((l) => !existing.has(l))
     const incomplete = u.translations
       .filter((t: any) => targetLocales.includes(t.locale) && !t.about)
       .map((t: any) => t.locale)
@@ -203,13 +256,26 @@ async function translateUniversities(opts: CliOptions): Promise<void> {
     for (const target of missing) {
       jobs.push(async () => {
         const input = { title: base.title, description: base.description, about: baseAbout }
-        const ctx = 'University translation fields. about is a JSON object with text fields. Translate values, keep JSON structure.'
+        const ctx =
+          'University translation fields. about is a JSON object with text fields. Translate values, keep JSON structure.'
         const out = await callOpenRouterTranslate(input, sourceLocale, target, ctx)
-        if (dryRun) { console.log(`[DryRun][University ${u.id}] => ${target}`, out); return }
+        if (dryRun) {
+          console.log(`[DryRun][University ${u.id}] => ${target}`, out)
+          return
+        }
         const titleOut = out.title || ''
         const slugBase = slugify(titleOut || base.title || `university-${u.id}`)
         const unique = await uniqueUniversitySlug(target, slugBase)
-        await (prisma as any).universityTranslation.create({ data: { universityId: u.id, locale: target, slug: unique, title: titleOut, description: out.description || '', about: tryParseJson(out.about) } })
+        await (prisma as any).universityTranslation.create({
+          data: {
+            universityId: u.id,
+            locale: target,
+            slug: unique,
+            title: titleOut,
+            description: out.description || '',
+            about: tryParseJson(out.about),
+          },
+        })
         console.log(`[Created] university_translation u=${u.id} ${sourceLocale}->${target}`)
       })
     }
@@ -220,10 +286,16 @@ async function translateUniversities(opts: CliOptions): Promise<void> {
         const input = { about: baseAbout }
         const ctx = 'Backfill university about (JSON object). Translate values and preserve JSON.'
         const out = await callOpenRouterTranslate(input, sourceLocale, target, ctx)
-        if (dryRun) { console.log(`[DryRun][University-Backfill ${u.id}] => ${target}`, out); return }
+        if (dryRun) {
+          console.log(`[DryRun][University-Backfill ${u.id}] => ${target}`, out)
+          return
+        }
         const data: any = {}
         if (out.about != null) data.about = tryParseJson(out.about)
-        await (prisma as any).universityTranslation.updateMany({ where: { universityId: u.id, locale: target }, data })
+        await (prisma as any).universityTranslation.updateMany({
+          where: { universityId: u.id, locale: target },
+          data,
+        })
         console.log(`[Updated] university_translation u=${u.id} about for ${target}`)
       })
     }
@@ -233,22 +305,41 @@ async function translateUniversities(opts: CliOptions): Promise<void> {
 
 async function translateReviews(opts: CliOptions): Promise<void> {
   const { sourceLocale, targetLocales, limit, dryRun, concurrency } = opts
-  const reviews = await prisma.review.findMany({ where: { featured: true }, include: { translations: true }, take: limit })
+  const reviews = await prisma.review.findMany({
+    where: { featured: true },
+    include: { translations: true },
+    take: limit,
+  })
   const jobs: Array<() => Promise<void>> = []
   for (const r of reviews as any[]) {
     if (typeof r.featured === 'boolean' && !r.featured) continue
     const existing = new Set(r.translations.map((t: any) => t.locale))
-    const missing = targetLocales.filter(l => !existing.has(l))
+    const missing = targetLocales.filter((l) => !existing.has(l))
     if (missing.length === 0) continue
     const by = r.translations.find((t: any) => t.locale === sourceLocale) || r.translations[0]
-    const base = { name: by?.name || '', quote: by?.quote || '', universityName: by?.universityName || '' }
+    const base = {
+      name: by?.name || '',
+      quote: by?.quote || '',
+      universityName: by?.universityName || '',
+    }
     for (const target of missing) {
       jobs.push(async () => {
         const input = { name: base.name, quote: base.quote, universityName: base.universityName }
         const ctx = 'Review fields.'
         const out = await callOpenRouterTranslate(input, sourceLocale, target, ctx)
-        if (dryRun) { console.log(`[DryRun][Review ${r.id}] => ${target}`, out); return }
-        await prisma.reviewTranslation.create({ data: { reviewId: r.id, locale: target, name: out.name || '', quote: out.quote || '', universityName: out.universityName || '' } })
+        if (dryRun) {
+          console.log(`[DryRun][Review ${r.id}] => ${target}`, out)
+          return
+        }
+        await prisma.reviewTranslation.create({
+          data: {
+            reviewId: r.id,
+            locale: target,
+            name: out.name || '',
+            quote: out.quote || '',
+            universityName: out.universityName || '',
+          },
+        })
         console.log(`[Created] review_translation r=${r.id} ${sourceLocale}->${target}`)
       })
     }
@@ -258,11 +349,14 @@ async function translateReviews(opts: CliOptions): Promise<void> {
 
 async function translatePrograms(opts: CliOptions): Promise<void> {
   const { sourceLocale, targetLocales, limit, dryRun, concurrency } = opts
-  const rows = await prisma.academicProgram.findMany({ include: { translations: true }, take: limit })
+  const rows = await prisma.academicProgram.findMany({
+    include: { translations: true },
+    take: limit,
+  })
   const jobs: Array<() => Promise<void>> = []
   for (const rec of rows as any[]) {
     const existing = new Set(rec.translations.map((t: any) => t.locale))
-    const missing = targetLocales.filter(l => !existing.has(l))
+    const missing = targetLocales.filter((l) => !existing.has(l))
     if (missing.length === 0) continue
     const by = rec.translations.find((t: any) => t.locale === sourceLocale) || rec.translations[0]
     const base = { name: by?.name || '', description: by?.description || '' }
@@ -271,8 +365,18 @@ async function translatePrograms(opts: CliOptions): Promise<void> {
         const input = { name: base.name, description: base.description }
         const ctx = 'Academic program fields.'
         const out = await callOpenRouterTranslate(input, sourceLocale, target, ctx)
-        if (dryRun) { console.log(`[DryRun][Program ${rec.id}] => ${target}`, out); return }
-        await prisma.programTranslation.create({ data: { programId: rec.id, locale: target, name: out.name || '', description: out.description || '' } })
+        if (dryRun) {
+          console.log(`[DryRun][Program ${rec.id}] => ${target}`, out)
+          return
+        }
+        await prisma.programTranslation.create({
+          data: {
+            programId: rec.id,
+            locale: target,
+            name: out.name || '',
+            description: out.description || '',
+          },
+        })
         console.log(`[Created] program_translation id=${rec.id} ${sourceLocale}->${target}`)
       })
     }
@@ -282,12 +386,16 @@ async function translatePrograms(opts: CliOptions): Promise<void> {
 
 async function translateFaqs(opts: CliOptions): Promise<void> {
   const { sourceLocale, targetLocales, limit, dryRun, concurrency } = opts
-  const rows = await prisma.faqItem.findMany({ where: { featured: true }, include: { translations: true }, take: limit })
+  const rows = await prisma.faqItem.findMany({
+    where: { featured: true },
+    include: { translations: true },
+    take: limit,
+  })
   const jobs: Array<() => Promise<void>> = []
   for (const rec of rows as any[]) {
     if (typeof rec.featured === 'boolean' && !rec.featured) continue
     const existing = new Set(rec.translations.map((t: any) => t.locale))
-    const missing = targetLocales.filter(l => !existing.has(l))
+    const missing = targetLocales.filter((l) => !existing.has(l))
     if (missing.length === 0) continue
     const by = rec.translations.find((t: any) => t.locale === sourceLocale) || rec.translations[0]
     const base = { question: by?.question || '', answer: by?.answer || '' }
@@ -296,8 +404,18 @@ async function translateFaqs(opts: CliOptions): Promise<void> {
         const input = { question: base.question, answer: base.answer }
         const ctx = 'FAQ fields.'
         const out = await callOpenRouterTranslate(input, sourceLocale, target, ctx)
-        if (dryRun) { console.log(`[DryRun][FAQ ${rec.id}] => ${target}`, out); return }
-        await prisma.faqTranslation.create({ data: { faqId: rec.id, locale: target, question: out.question || '', answer: out.answer || '' } })
+        if (dryRun) {
+          console.log(`[DryRun][FAQ ${rec.id}] => ${target}`, out)
+          return
+        }
+        await prisma.faqTranslation.create({
+          data: {
+            faqId: rec.id,
+            locale: target,
+            question: out.question || '',
+            answer: out.answer || '',
+          },
+        })
         console.log(`[Created] faq_translation id=${rec.id} ${sourceLocale}->${target}`)
       })
     }
@@ -307,11 +425,14 @@ async function translateFaqs(opts: CliOptions): Promise<void> {
 
 async function translateFacilities(opts: CliOptions): Promise<void> {
   const { sourceLocale, targetLocales, limit, dryRun, concurrency } = opts
-  const rows = await prisma.campusFacility.findMany({ include: { translations: true }, take: limit })
+  const rows = await prisma.campusFacility.findMany({
+    include: { translations: true },
+    take: limit,
+  })
   const jobs: Array<() => Promise<void>> = []
   for (const rec of rows as any[]) {
     const existing = new Set(rec.translations.map((t: any) => t.locale))
-    const missing = targetLocales.filter(l => !existing.has(l))
+    const missing = targetLocales.filter((l) => !existing.has(l))
     if (missing.length === 0) continue
     const by = rec.translations.find((t: any) => t.locale === sourceLocale) || rec.translations[0]
     const base = { name: by?.name || '', description: by?.description || '' }
@@ -320,8 +441,18 @@ async function translateFacilities(opts: CliOptions): Promise<void> {
         const input = { name: base.name, description: base.description }
         const ctx = 'Facility fields.'
         const out = await callOpenRouterTranslate(input, sourceLocale, target, ctx)
-        if (dryRun) { console.log(`[DryRun][Facility ${rec.id}] => ${target}`, out); return }
-        await prisma.facilityTranslation.create({ data: { facilityId: rec.id, locale: target, name: out.name || '', description: out.description || '' } })
+        if (dryRun) {
+          console.log(`[DryRun][Facility ${rec.id}] => ${target}`, out)
+          return
+        }
+        await prisma.facilityTranslation.create({
+          data: {
+            facilityId: rec.id,
+            locale: target,
+            name: out.name || '',
+            description: out.description || '',
+          },
+        })
         console.log(`[Created] facility_translation id=${rec.id} ${sourceLocale}->${target}`)
       })
     }
@@ -331,21 +462,43 @@ async function translateFacilities(opts: CliOptions): Promise<void> {
 
 async function translateRequirements(opts: CliOptions): Promise<void> {
   const { sourceLocale, targetLocales, limit, dryRun, concurrency } = opts
-  const rows = await prisma.admissionRequirement.findMany({ include: { translations: true }, take: limit })
+  const rows = await prisma.admissionRequirement.findMany({
+    include: { translations: true },
+    take: limit,
+  })
   const jobs: Array<() => Promise<void>> = []
   for (const rec of rows as any[]) {
     const existing = new Set(rec.translations.map((t: any) => t.locale))
-    const missing = targetLocales.filter(l => !existing.has(l))
+    const missing = targetLocales.filter((l) => !existing.has(l))
     if (missing.length === 0) continue
     const by = rec.translations.find((t: any) => t.locale === sourceLocale) || rec.translations[0]
-    const base = { category: by?.category || '', requirement: by?.requirement || '', details: by?.details || '' }
+    const base = {
+      category: by?.category || '',
+      requirement: by?.requirement || '',
+      details: by?.details || '',
+    }
     for (const target of missing) {
       jobs.push(async () => {
-        const input = { category: base.category, requirement: base.requirement, details: base.details }
+        const input = {
+          category: base.category,
+          requirement: base.requirement,
+          details: base.details,
+        }
         const ctx = 'Admission requirement fields.'
         const out = await callOpenRouterTranslate(input, sourceLocale, target, ctx)
-        if (dryRun) { console.log(`[DryRun][Req ${rec.id}] => ${target}`, out); return }
-        await prisma.requirementTranslation.create({ data: { requirementId: rec.id, locale: target, category: out.category || '', requirement: out.requirement || '', details: out.details || '' } })
+        if (dryRun) {
+          console.log(`[DryRun][Req ${rec.id}] => ${target}`, out)
+          return
+        }
+        await prisma.requirementTranslation.create({
+          data: {
+            requirementId: rec.id,
+            locale: target,
+            category: out.category || '',
+            requirement: out.requirement || '',
+            details: out.details || '',
+          },
+        })
         console.log(`[Created] requirement_translation id=${rec.id} ${sourceLocale}->${target}`)
       })
     }
@@ -355,21 +508,44 @@ async function translateRequirements(opts: CliOptions): Promise<void> {
 
 async function translateDocuments(opts: CliOptions): Promise<void> {
   const { sourceLocale, targetLocales, limit, dryRun, concurrency } = opts
-  const rows = await (prisma as any).requiredDocument.findMany({ include: { translations: true }, take: limit })
+  const rows = await (prisma as any).requiredDocument.findMany({
+    include: { translations: true },
+    take: limit,
+  })
   const jobs: Array<() => Promise<void>> = []
   for (const rec of rows as any[]) {
     const existing = new Set(rec.translations.map((t: any) => t.locale))
-    const missing = targetLocales.filter(l => !existing.has(l))
+    const missing = targetLocales.filter((l) => !existing.has(l))
     if (missing.length === 0) continue
     const by = rec.translations.find((t: any) => t.locale === sourceLocale) || rec.translations[0]
-    const base = { name: by?.name || '', description: by?.description || '', formatRequirements: stringifyMaybeJson(by?.formatRequirements) }
+    const base = {
+      name: by?.name || '',
+      description: by?.description || '',
+      formatRequirements: stringifyMaybeJson(by?.formatRequirements),
+    }
     for (const target of missing) {
       jobs.push(async () => {
-        const input = { name: base.name, description: base.description, formatRequirements: base.formatRequirements }
-        const ctx = 'Required document fields. formatRequirements is a JSON-like list; translate values naturally.'
+        const input = {
+          name: base.name,
+          description: base.description,
+          formatRequirements: base.formatRequirements,
+        }
+        const ctx =
+          'Required document fields. formatRequirements is a JSON-like list; translate values naturally.'
         const out = await callOpenRouterTranslate(input, sourceLocale, target, ctx)
-        if (dryRun) { console.log(`[DryRun][Doc ${rec.id}] => ${target}`, out); return }
-        await (prisma as any).documentTranslation.create({ data: { documentId: rec.id, locale: target, name: out.name || '', description: out.description || '', formatRequirements: tryParseJson(out.formatRequirements) } })
+        if (dryRun) {
+          console.log(`[DryRun][Doc ${rec.id}] => ${target}`, out)
+          return
+        }
+        await (prisma as any).documentTranslation.create({
+          data: {
+            documentId: rec.id,
+            locale: target,
+            name: out.name || '',
+            description: out.description || '',
+            formatRequirements: tryParseJson(out.formatRequirements),
+          },
+        })
         console.log(`[Created] document_translation id=${rec.id} ${sourceLocale}->${target}`)
       })
     }
@@ -379,11 +555,14 @@ async function translateDocuments(opts: CliOptions): Promise<void> {
 
 async function translateDates(opts: CliOptions): Promise<void> {
   const { sourceLocale, targetLocales, limit, dryRun, concurrency } = opts
-  const rows = await (prisma as any).importantDate.findMany({ include: { translations: true }, take: limit })
+  const rows = await (prisma as any).importantDate.findMany({
+    include: { translations: true },
+    take: limit,
+  })
   const jobs: Array<() => Promise<void>> = []
   for (const rec of rows as any[]) {
     const existing = new Set(rec.translations.map((t: any) => t.locale))
-    const missing = targetLocales.filter(l => !existing.has(l))
+    const missing = targetLocales.filter((l) => !existing.has(l))
     if (missing.length === 0) continue
     const by = rec.translations.find((t: any) => t.locale === sourceLocale) || rec.translations[0]
     const base = { event: by?.event || '' }
@@ -392,9 +571,86 @@ async function translateDates(opts: CliOptions): Promise<void> {
         const input = { event: base.event }
         const ctx = 'Important date event title.'
         const out = await callOpenRouterTranslate(input, sourceLocale, target, ctx)
-        if (dryRun) { console.log(`[DryRun][Date ${rec.id}] => ${target}`, out); return }
-        await (prisma as any).dateTranslation.create({ data: { dateId: rec.id, locale: target, event: out.event || '' } })
+        if (dryRun) {
+          console.log(`[DryRun][Date ${rec.id}] => ${target}`, out)
+          return
+        }
+        await (prisma as any).dateTranslation.create({
+          data: { dateId: rec.id, locale: target, event: out.event || '' },
+        })
         console.log(`[Created] date_translation id=${rec.id} ${sourceLocale}->${target}`)
+      })
+    }
+  }
+  await runWithConcurrency(jobs, concurrency)
+}
+
+async function translateArticles(opts: CliOptions): Promise<void> {
+  const { sourceLocale, targetLocales, limit, dryRun, concurrency } = opts
+  const rows = await (prisma as any).blogArticle.findMany({
+    include: { translations: true },
+    take: limit,
+  })
+  const jobs: Array<() => Promise<void>> = []
+  for (const rec of rows as any[]) {
+    const existing = new Set(rec.translations.map((t: any) => t.locale))
+    const missing = targetLocales.filter((l) => !existing.has(l))
+    if (missing.length === 0) continue
+    const by = rec.translations.find((t: any) => t.locale === sourceLocale) || rec.translations[0]
+    const base = {
+      title: by?.title || '',
+      excerpt: by?.excerpt || '',
+      readingTime: by?.readingTime || '',
+      heroKicker: by?.heroKicker || '',
+      heroSubtitle: by?.heroSubtitle || '',
+      heroLocation: by?.heroLocation || '',
+      imageAlt: by?.imageAlt || '',
+      heroImageAlt: by?.heroImageAlt || '',
+      seoDescription: by?.seoDescription || '',
+      content: stringifyMaybeJson(by?.content),
+    }
+    for (const target of missing) {
+      jobs.push(async () => {
+        const input = {
+          title: base.title,
+          excerpt: base.excerpt,
+          readingTime: base.readingTime,
+          heroKicker: base.heroKicker,
+          heroSubtitle: base.heroSubtitle,
+          heroLocation: base.heroLocation,
+          imageAlt: base.imageAlt,
+          heroImageAlt: base.heroImageAlt,
+          seoDescription: base.seoDescription,
+          content: base.content,
+        }
+        const ctx =
+          'Blog article translation fields. content is an array of content blocks (JSON). Translate text values, keep JSON structure and keys.'
+        const out = await callOpenRouterTranslate(input, sourceLocale, target, ctx)
+        if (dryRun) {
+          console.log(`[DryRun][Article ${rec.id}] => ${target}`, out)
+          return
+        }
+        const titleOut = out.title || base.title || `article-${rec.id}`
+        const slugBase = slugify(titleOut)
+        const unique = await uniqueArticleSlug(target, slugBase)
+        await (prisma as any).blogArticleTranslation.create({
+          data: {
+            articleId: rec.id,
+            locale: target,
+            slug: unique,
+            title: out.title || '',
+            excerpt: out.excerpt || '',
+            readingTime: out.readingTime || null,
+            heroKicker: out.heroKicker || null,
+            heroSubtitle: out.heroSubtitle || null,
+            heroLocation: out.heroLocation || null,
+            imageAlt: out.imageAlt || null,
+            heroImageAlt: out.heroImageAlt || null,
+            seoDescription: out.seoDescription || null,
+            content: tryParseJson(out.content),
+          },
+        })
+        console.log(`[Created] blog_article_translation id=${rec.id} ${sourceLocale}->${target}`)
       })
     }
   }
@@ -403,11 +659,14 @@ async function translateDates(opts: CliOptions): Promise<void> {
 
 async function translateDirections(opts: CliOptions): Promise<void> {
   const { sourceLocale, targetLocales, limit, dryRun, concurrency } = opts
-  const rows = await (prisma as any).studyDirection.findMany({ include: { translations: true }, take: limit })
+  const rows = await (prisma as any).studyDirection.findMany({
+    include: { translations: true },
+    take: limit,
+  })
   const jobs: Array<() => Promise<void>> = []
   for (const rec of rows as any[]) {
     const existing = new Set(rec.translations.map((t: any) => t.locale))
-    const missing = targetLocales.filter(l => !existing.has(l))
+    const missing = targetLocales.filter((l) => !existing.has(l))
     if (missing.length === 0) continue
     const by = rec.translations.find((t: any) => t.locale === sourceLocale) || rec.translations[0]
     const base = { name: by?.name || '', description: by?.description || '' }
@@ -416,11 +675,22 @@ async function translateDirections(opts: CliOptions): Promise<void> {
         const input = { name: base.name, description: base.description }
         const ctx = 'Study direction fields.'
         const out = await callOpenRouterTranslate(input, sourceLocale, target, ctx)
-        if (dryRun) { console.log(`[DryRun][Direction ${rec.id}] => ${target}`, out); return }
+        if (dryRun) {
+          console.log(`[DryRun][Direction ${rec.id}] => ${target}`, out)
+          return
+        }
         const nameOut = out.name || ''
         const slugBase = slugify(nameOut || base.name || `direction-${rec.id}`)
         const unique = await uniqueDirectionSlug(target, slugBase)
-        await (prisma as any).directionTranslation.create({ data: { directionId: rec.id, locale: target, name: nameOut, description: out.description || '', slug: unique } })
+        await (prisma as any).directionTranslation.create({
+          data: {
+            directionId: rec.id,
+            locale: target,
+            name: nameOut,
+            description: out.description || '',
+            slug: unique,
+          },
+        })
         console.log(`[Created] direction_translation id=${rec.id} ${sourceLocale}->${target}`)
       })
     }
@@ -430,21 +700,37 @@ async function translateDirections(opts: CliOptions): Promise<void> {
 
 async function translateScholarships(opts: CliOptions): Promise<void> {
   const { sourceLocale, targetLocales, limit, dryRun, concurrency } = opts
-  const rows = await (prisma as any).scholarship.findMany({ include: { translations: true }, take: limit })
+  const rows = await (prisma as any).scholarship.findMany({
+    include: { translations: true },
+    take: limit,
+  })
   const jobs: Array<() => Promise<void>> = []
   for (const rec of rows as any[]) {
     const existing = new Set(rec.translations.map((t: any) => t.locale))
-    const missing = targetLocales.filter(l => !existing.has(l))
+    const missing = targetLocales.filter((l) => !existing.has(l))
     if (missing.length === 0) continue
     const by = rec.translations.find((t: any) => t.locale === sourceLocale) || rec.translations[0]
-    const base = { name: by?.name || '', eligibilityCriteria: stringifyMaybeJson(by?.eligibilityCriteria) }
+    const base = {
+      name: by?.name || '',
+      eligibilityCriteria: stringifyMaybeJson(by?.eligibilityCriteria),
+    }
     for (const target of missing) {
       jobs.push(async () => {
         const input = { name: base.name, eligibilityCriteria: base.eligibilityCriteria }
         const ctx = 'Scholarship name and eligibility criteria (JSON array of strings).'
         const out = await callOpenRouterTranslate(input, sourceLocale, target, ctx)
-        if (dryRun) { console.log(`[DryRun][Scholarship ${rec.id}] => ${target}`, out); return }
-        await (prisma as any).scholarshipTranslation.create({ data: { scholarshipId: rec.id, locale: target, name: out.name || '', eligibilityCriteria: tryParseJson(out.eligibilityCriteria) } })
+        if (dryRun) {
+          console.log(`[DryRun][Scholarship ${rec.id}] => ${target}`, out)
+          return
+        }
+        await (prisma as any).scholarshipTranslation.create({
+          data: {
+            scholarshipId: rec.id,
+            locale: target,
+            name: out.name || '',
+            eligibilityCriteria: tryParseJson(out.eligibilityCriteria),
+          },
+        })
         console.log(`[Created] scholarship_translation id=${rec.id} ${sourceLocale}->${target}`)
       })
     }
@@ -454,23 +740,33 @@ async function translateScholarships(opts: CliOptions): Promise<void> {
 
 function tryParseJson(s: string | undefined): any {
   if (!s) return null
-  try { return JSON.parse(s) } catch { return s }
+  try {
+    return JSON.parse(s)
+  } catch {
+    return s
+  }
 }
 
-async function runWithConcurrency(jobs: Array<() => Promise<void>>, concurrency: number): Promise<void> {
+async function runWithConcurrency(
+  jobs: Array<() => Promise<void>>,
+  concurrency: number,
+): Promise<void> {
   let index = 0
-  const workers = Array.from({ length: Math.min(concurrency, Math.max(1, jobs.length)) }, async () => {
-    while (true) {
-      const i = index++
-      if (i >= jobs.length) return
-      try {
-        await jobs[i]()
-        await new Promise(r => setTimeout(r, 250))
-      } catch (e) {
-        console.error('[JobError]', e)
+  const workers = Array.from(
+    { length: Math.min(concurrency, Math.max(1, jobs.length)) },
+    async () => {
+      while (true) {
+        const i = index++
+        if (i >= jobs.length) return
+        try {
+          await jobs[i]()
+          await new Promise((r) => setTimeout(r, 250))
+        } catch (e) {
+          console.error('[JobError]', e)
+        }
       }
-    }
-  })
+    },
+  )
   await Promise.all(workers)
 }
 
@@ -479,7 +775,9 @@ async function main() {
   if (!process.env.OPENROUTER_API_KEY) {
     console.warn('OPENROUTER_API_KEY is not set. Use --dry-run to preview or set it for writes.')
   }
-  console.log(`Entity=${opts.entity} source=${opts.sourceLocale} targets=${opts.targetLocales.join(',')} dryRun=${opts.dryRun}`)
+  console.log(
+    `Entity=${opts.entity} source=${opts.sourceLocale} targets=${opts.targetLocales.join(',')} dryRun=${opts.dryRun}`,
+  )
   try {
     switch (opts.entity) {
       case 'universities':
@@ -512,6 +810,9 @@ async function main() {
       case 'scholarships':
         await translateScholarships(opts)
         break
+      case 'articles':
+        await translateArticles(opts)
+        break
       case 'all':
         await translateUniversities(opts)
         await translateReviews(opts)
@@ -523,6 +824,7 @@ async function main() {
         await translateDates(opts)
         await translateDirections(opts)
         await translateScholarships(opts)
+        await translateArticles(opts)
         break
     }
   } finally {
@@ -530,8 +832,7 @@ async function main() {
   }
 }
 
-main().catch(err => {
+main().catch((err) => {
   console.error(err)
   process.exit(1)
 })
-

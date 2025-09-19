@@ -8,33 +8,43 @@
         <p class="text-xl mb-8 opacity-90">
           {{ $t('universities_page.final_cta.subtitle') }}
         </p>
-        
+
         <div class="bg-white rounded-2xl p-8 max-w-2xl mx-auto mb-8">
-          <h3 class="text-2xl font-bold text-secondary mb-6">{{ $t('universities_page.final_cta.benefits_title') }}</h3>
+          <h3 class="text-2xl font-bold text-secondary mb-6">
+            {{ $t('universities_page.final_cta.benefits_title') }}
+          </h3>
           <div class="grid md:grid-cols-2 gap-4 text-left">
             <div class="flex items-center space-x-3">
               <Icon name="mdi:check-circle" class="text-green-500" />
-              <span class="text-secondary">{{ $t('universities_page.final_cta.benefits.consultation') }}</span>
+              <span class="text-secondary">{{
+                $t('universities_page.final_cta.benefits.consultation')
+              }}</span>
             </div>
             <div class="flex items-center space-x-3">
               <Icon name="mdi:check-circle" class="text-green-500" />
-              <span class="text-secondary">{{ $t('universities_page.final_cta.benefits.university_selection') }}</span>
+              <span class="text-secondary">{{
+                $t('universities_page.final_cta.benefits.university_selection')
+              }}</span>
             </div>
             <div class="flex items-center space-x-3">
               <Icon name="mdi:check-circle" class="text-green-500" />
-              <span class="text-secondary">{{ $t('universities_page.final_cta.benefits.cost_calculation') }}</span>
+              <span class="text-secondary">{{
+                $t('universities_page.final_cta.benefits.cost_calculation')
+              }}</span>
             </div>
             <div class="flex items-center space-x-3">
               <Icon name="mdi:check-circle" class="text-green-500" />
-              <span class="text-secondary">{{ $t('universities_page.final_cta.benefits.admission_plan') }}</span>
+              <span class="text-secondary">{{
+                $t('universities_page.final_cta.benefits.admission_plan')
+              }}</span>
             </div>
           </div>
         </div>
-        
+
         <div class="space-y-4">
-          <button 
-            @click="openApplicationForm"
+          <button
             class="bg-white text-primary px-12 py-4 rounded-xl font-bold text-xl hover:bg-gray-100 transition-all transform hover:scale-105 shadow-2xl"
+            @click="openApplicationForm"
           >
             {{ $t('universities_page.final_cta.button') }}
           </button>
@@ -58,9 +68,9 @@ const openApplicationForm = () => {
   // Простые предпочтения с информацией об источнике
   const simplePreferences = {
     source: 'universities_cta',
-    description: FORM_SOURCES.universities_cta
+    description: FORM_SOURCES.universities_cta,
   }
-  
+
   modal.openModal(simplePreferences)
 }
 </script>

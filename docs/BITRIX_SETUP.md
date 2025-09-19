@@ -7,6 +7,7 @@
 1. **Выберите способ аутентификации.**
 
    ### Вариант A — Webhook URL (рекомендуемый)
+
    ```env
    BITRIX_WEBHOOK_URL="https://<domain>.bitrix24.ru/rest/<userId>/<webhook_code>/"
    ```
@@ -14,6 +15,7 @@
    Один URL закрывает все вопросы с авторизацией, дополнительные параметры не нужны.
 
    ### Вариант B — Домен + токен
+
    ```env
    BITRIX_DOMAIN="<domain>.bitrix24.ru"
    BITRIX_ACCESS_TOKEN="<token>"
@@ -46,11 +48,13 @@
 ## Проверка
 
 - Проверить конфиг:
+
 ```bash
 curl http://localhost:3000/api/v1/bitrix/test
 ```
 
 - Посмотреть, какие данные будут отправлены в лид (ничего не уходит в Bitrix):
+
 ```bash
 curl -X POST http://localhost:3000/api/v1/bitrix/preview \
   -H "Content-Type: application/json" \

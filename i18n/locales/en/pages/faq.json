@@ -175,11 +175,7 @@
           "types": [
             {
               "title": "🏛️ Government Scholarships",
-              "items": [
-                "Türkiye Bursları (100%)",
-                "YTB scholarships",
-                "Regional scholarships"
-              ]
+              "items": ["Türkiye Bursları (100%)", "YTB scholarships", "Regional scholarships"]
             },
             {
               "title": "🏢 University Scholarships",
@@ -209,11 +205,7 @@
             },
             {
               "title": "Benefits of learning 📚",
-              "items": [
-                "More university options",
-                "Easier adaptation",
-                "Better career prospects"
-              ],
+              "items": ["More university options", "Easier adaptation", "Better career prospects"],
               "type": "blue"
             }
           ]

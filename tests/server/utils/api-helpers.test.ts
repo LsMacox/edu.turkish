@@ -1,6 +1,10 @@
 import { describe, expect, it } from 'vitest'
 
-import { calculatePagination, parseFAQFilters, parseReviewFilters } from '../../../server/utils/api-helpers'
+import {
+  calculatePagination,
+  parseFAQFilters,
+  parseReviewFilters,
+} from '../../../server/utils/api-helpers'
 
 describe('parseReviewFilters', () => {
   it('returns defaults for invalid pagination values', () => {
@@ -8,14 +12,14 @@ describe('parseReviewFilters', () => {
       page: '0',
       limit: '-5',
       type: ['student'],
-      featured: 'true'
+      featured: 'true',
     })
 
     expect(filters).toEqual({
       type: 'all',
       featured: true,
       page: 1,
-      limit: 50
+      limit: 50,
     })
   })
 })
@@ -25,7 +29,7 @@ describe('parseFAQFilters', () => {
     const filters = parseFAQFilters({
       q: 'visa',
       category: 'documents',
-      limit: 'page'
+      limit: 'page',
     })
 
     expect(filters.limit).toBe(50)
@@ -40,8 +44,7 @@ describe('calculatePagination', () => {
       total: 0,
       page: 1,
       limit: 1,
-      totalPages: 1
+      totalPages: 1,
     })
   })
 })
-

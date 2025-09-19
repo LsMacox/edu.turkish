@@ -3,7 +3,18 @@
 /**
  * Validation rule types
  */
-export type ValidationType = 'required' | 'email' | 'phone' | 'url' | 'number' | 'pattern' | 'minLength' | 'maxLength' | 'min' | 'max' | 'custom'
+export type ValidationType =
+  | 'required'
+  | 'email'
+  | 'phone'
+  | 'url'
+  | 'number'
+  | 'pattern'
+  | 'minLength'
+  | 'maxLength'
+  | 'min'
+  | 'max'
+  | 'custom'
 
 /**
  * Validation rule configuration
@@ -58,7 +69,7 @@ export interface ValidationContext {
  */
 export type CustomValidator = (
   value: any,
-  context?: ValidationContext
+  context?: ValidationContext,
 ) => boolean | string | Promise<boolean | string>
 
 /**
@@ -76,54 +87,54 @@ export interface AsyncValidationResult {
 export const ValidationRules = {
   required: (message = 'This field is required'): ValidationRule => ({
     type: 'required',
-    message
+    message,
   }),
 
   email: (message = 'Please enter a valid email address'): ValidationRule => ({
     type: 'email',
-    message
+    message,
   }),
 
   phone: (message = 'Please enter a valid phone number'): ValidationRule => ({
     type: 'phone',
-    message
+    message,
   }),
 
   minLength: (min: number, message?: string): ValidationRule => ({
     type: 'minLength',
     value: min,
-    message: message || `Minimum length is ${min} characters`
+    message: message || `Minimum length is ${min} characters`,
   }),
 
   maxLength: (max: number, message?: string): ValidationRule => ({
     type: 'maxLength',
     value: max,
-    message: message || `Maximum length is ${max} characters`
+    message: message || `Maximum length is ${max} characters`,
   }),
 
   pattern: (regex: RegExp, message = 'Invalid format'): ValidationRule => ({
     type: 'pattern',
     value: regex,
-    message
+    message,
   }),
 
   min: (minimum: number, message?: string): ValidationRule => ({
     type: 'min',
     value: minimum,
-    message: message || `Minimum value is ${minimum}`
+    message: message || `Minimum value is ${minimum}`,
   }),
 
   max: (maximum: number, message?: string): ValidationRule => ({
     type: 'max',
     value: maximum,
-    message: message || `Maximum value is ${maximum}`
+    message: message || `Maximum value is ${maximum}`,
   }),
 
   custom: (validator: CustomValidator, message = 'Invalid value'): ValidationRule => ({
     type: 'custom',
     value: validator,
-    message
-  })
+    message,
+  }),
 }
 
 /**
@@ -137,7 +148,7 @@ export const ValidationPatterns = {
   strongPassword: /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/,
   alphaNumeric: /^[a-zA-Z0-9]+$/,
   alpha: /^[a-zA-Z]+$/,
-  numeric: /^[0-9]+$/
+  numeric: /^[0-9]+$/,
 }
 
 /**
@@ -152,5 +163,5 @@ export const ValidationMessages = {
   maxLength: (max: number) => `Maximum length is ${max} characters`,
   min: (minimum: number) => `Minimum value is ${minimum}`,
   max: (maximum: number) => `Maximum value is ${maximum}`,
-  pattern: 'Invalid format'
+  pattern: 'Invalid format',
 } as const

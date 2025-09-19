@@ -2,22 +2,24 @@
   <div class="space-y-4">
     <div class="flex items-center justify-between">
       <span class="text-sm font-medium text-secondary">{{ label }}</span>
-      <span class="text-sm text-gray-600">{{ formatValue(modelValue[0]) }} - {{ formatValue(modelValue[1]) }}</span>
+      <span class="text-sm text-gray-600"
+        >{{ formatValue(modelValue[0]) }} - {{ formatValue(modelValue[1]) }}</span
+      >
     </div>
-    
-    <div class="relative h-6 isolate" style="z-index: 0; contain: layout;">
+
+    <div class="relative h-6 isolate" style="z-index: 0; contain: layout">
       <!-- Track -->
       <div class="absolute w-full h-2 bg-gray-200 rounded-lg top-1/2 -translate-y-1/2"></div>
-      
+
       <!-- Progress -->
-      <div 
+      <div
         class="absolute h-2 bg-primary rounded-lg top-1/2 -translate-y-1/2"
         :style="{
-          left: `${(modelValue[0] - min) / (max - min) * 100}%`,
-          width: `${(modelValue[1] - modelValue[0]) / (max - min) * 100}%`
+          left: `${((modelValue[0] - min) / (max - min)) * 100}%`,
+          width: `${((modelValue[1] - modelValue[0]) / (max - min)) * 100}%`,
         }"
       ></div>
-      
+
       <!-- Single input that controls both handles -->
       <input
         ref="sliderRef"
@@ -26,33 +28,33 @@
         :max="max"
         :step="step"
         :value="activeHandle === 'min' ? modelValue[0] : modelValue[1]"
+        class="absolute w-full h-2 bg-transparent appearance-none cursor-pointer slider-thumb top-1/2 -translate-y-1/2"
+        style="z-index: 1"
         @input="handleInput"
         @mousedown="handleMouseDown"
-        class="absolute w-full h-2 bg-transparent appearance-none cursor-pointer slider-thumb top-1/2 -translate-y-1/2"
-        style="z-index: 1;"
       />
     </div>
-    
+
     <!-- Input fields -->
     <div class="flex items-center gap-3">
-      <input 
-        :value="modelValue[0]" 
-        @input="updateMinInput"
-        type="number" 
-        :min="min" 
+      <input
+        :value="modelValue[0]"
+        type="number"
+        :min="min"
         :max="max"
         :step="step"
         class="w-24 px-3 py-2 border border-gray-300 rounded-xl text-sm focus:ring-2 focus:ring-primary focus:border-transparent"
+        @input="updateMinInput"
       />
       <div class="flex-1 text-center text-gray-400 text-sm">{{ t('range.to') }}</div>
-      <input 
-        :value="modelValue[1]" 
-        @input="updateMaxInput"
-        type="number" 
-        :min="min" 
+      <input
+        :value="modelValue[1]"
+        type="number"
+        :min="min"
         :max="max"
         :step="step"
         class="w-24 px-3 py-2 border border-gray-300 rounded-xl text-sm focus:ring-2 focus:ring-primary focus:border-transparent"
+        @input="updateMaxInput"
       />
     </div>
   </div>
@@ -82,20 +84,6 @@ const formatValue = (value: number) => {
   return `$${value.toLocaleString('en-US')}`
 }
 
-const updateMin = (event: Event) => {
-  const value = Number((event.target as HTMLInputElement).value)
-  if (value <= props.modelValue[1]) {
-    emit('update:modelValue', [value, props.modelValue[1]])
-  }
-}
-
-const updateMax = (event: Event) => {
-  const value = Number((event.target as HTMLInputElement).value)
-  if (value >= props.modelValue[0]) {
-    emit('update:modelValue', [props.modelValue[0], value])
-  }
-}
-
 const updateMinInput = (event: Event) => {
   const value = Number((event.target as HTMLInputElement).value)
   if (value >= props.min && value <= props.modelValue[1]) {
@@ -112,21 +100,21 @@ const updateMaxInput = (event: Event) => {
 
 const handleMouseDown = (event: MouseEvent) => {
   if (!sliderRef.value) return
-  
+
   const rect = sliderRef.value.getBoundingClientRect()
   const percent = (event.clientX - rect.left) / rect.width
   const value = props.min + percent * (props.max - props.min)
-  
+
   // Определяем какой ползунок ближе к точке клика
   const minDistance = Math.abs(value - props.modelValue[0])
   const maxDistance = Math.abs(value - props.modelValue[1])
-  
+
   activeHandle.value = minDistance <= maxDistance ? 'min' : 'max'
 }
 
 const handleInput = (event: Event) => {
   const value = Number((event.target as HTMLInputElement).value)
-  
+
   if (activeHandle.value === 'min') {
     if (value <= props.modelValue[1]) {
       emit('update:modelValue', [value, props.modelValue[1]])
@@ -153,7 +141,7 @@ const handleInput = (event: Event) => {
   height: 20px;
   width: 20px;
   border-radius: 50%;
-  background: #F44336;
+  background: #f44336;
   border: 2px solid white;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
   cursor: pointer;
@@ -169,7 +157,7 @@ const handleInput = (event: Event) => {
   height: 20px;
   width: 20px;
   border-radius: 50%;
-  background: #F44336;
+  background: #f44336;
   border: 2px solid white;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
   cursor: pointer;

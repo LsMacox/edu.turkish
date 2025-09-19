@@ -24,8 +24,7 @@
     "internationalCount": "{count}+ students",
     "programDuration": {
       "durationYears": "{count} year | {count} years"
-    }
-    ,
+    },
     "aboutUniversity": {
       "title": "About University",
       "history": "History and Mission",

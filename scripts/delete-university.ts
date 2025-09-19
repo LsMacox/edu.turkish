@@ -48,16 +48,16 @@ async function resolveUniversityBySlug(slug: string, locale?: string) {
 
   const matches = await prisma.universityTranslation.findMany({
     where,
-    select: { universityId: true, locale: true }
+    select: { universityId: true, locale: true },
   })
 
   if (matches.length === 0) return null
 
   if (!locale) {
-    const uniqueUniversityIds = Array.from(new Set(matches.map(m => m.universityId)))
+    const uniqueUniversityIds = Array.from(new Set(matches.map((m) => m.universityId)))
     if (uniqueUniversityIds.length > 1) {
       throw new Error(
-        `Slug '${slug}' matches multiple universities across locales. Provide --locale to disambiguate.`
+        `Slug '${slug}' matches multiple universities across locales. Provide --locale to disambiguate.`,
       )
     }
   }
@@ -85,7 +85,7 @@ async function countRelated(universityId: number) {
     media,
     mediaTranslations,
     reviews,
-    reviewTranslations
+    reviewTranslations,
   ] = await Promise.all([
     prisma.universityTranslation.count({ where: { universityId } }),
     prisma.academicProgram.count({ where: { universityId } }),
@@ -104,7 +104,7 @@ async function countRelated(universityId: number) {
     (prisma as any).universityMedia.count({ where: { universityId } }),
     (prisma as any).universityMediaTranslation.count({ where: { media: { universityId } } }),
     prisma.review.count({ where: { universityId } }),
-    prisma.reviewTranslation.count({ where: { review: { universityId } } })
+    prisma.reviewTranslation.count({ where: { review: { universityId } } }),
   ])
   return {
     translations,
@@ -124,7 +124,7 @@ async function countRelated(universityId: number) {
     media,
     mediaTranslations,
     reviews,
-    reviewTranslations
+    reviewTranslations,
   }
 }
 
@@ -134,7 +134,12 @@ async function confirm(question: string, assumeYes: boolean): Promise<boolean> {
   return false
 }
 
-async function deleteUniversityBySlug(slug: string, locale: string | null, dryRun: boolean, yes: boolean): Promise<void> {
+async function deleteUniversityBySlug(
+  slug: string,
+  locale: string | null,
+  dryRun: boolean,
+  yes: boolean,
+): Promise<void> {
   const resolved = await resolveUniversityBySlug(slug, locale ?? undefined)
   if (!resolved) {
     console.error(`University not found by slug: ${slug}`)
@@ -161,7 +166,9 @@ async function deleteUniversityBySlug(slug: string, locale: string | null, dryRu
     related.mediaTranslations
   const totalReviews = related.reviews + related.reviewTranslations
 
-  console.log(`About to delete university id=${resolved.id} matchedSlug=${resolved.matchedSlug} locale=${resolved.matchedLocale}`)
+  console.log(
+    `About to delete university id=${resolved.id} matchedSlug=${resolved.matchedSlug} locale=${resolved.matchedLocale}`,
+  )
   console.log(`Cascade-related records to remove: ${totalCascade}`)
   console.log(`Reviews (+translations) to remove: ${totalReviews}`)
 
@@ -178,7 +185,7 @@ async function deleteUniversityBySlug(slug: string, locale: string | null, dryRu
 
   await prisma.$transaction([
     prisma.review.deleteMany({ where: { universityId: resolved.id } }),
-    prisma.university.delete({ where: { id: resolved.id } })
+    prisma.university.delete({ where: { id: resolved.id } }),
   ])
 
   console.log(`Deleted university id=${resolved.id} and related data.`)
@@ -187,7 +194,9 @@ async function deleteUniversityBySlug(slug: string, locale: string | null, dryRu
 async function main() {
   const opts = parseArgs(process.argv.slice(2))
   if (!opts.slug) {
-    console.error('Usage: tsx scripts/delete-university.ts --slug=your-university-slug [--locale=ru] [--dry-run] [--yes]')
+    console.error(
+      'Usage: tsx scripts/delete-university.ts --slug=your-university-slug [--locale=ru] [--dry-run] [--yes]',
+    )
     process.exit(1)
   }
   try {
@@ -197,9 +206,7 @@ async function main() {
   }
 }
 
-main().catch(err => {
+main().catch((err) => {
   console.error(err)
   process.exit(1)
 })
-
-

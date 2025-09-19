@@ -10,11 +10,7 @@ export interface ContactChannelDefinition {
   copyOnNavigate?: boolean
 }
 
-export type ContactChannelKey =
-  | 'telegramPersonal'
-  | 'telegramBot'
-  | 'whatsapp'
-  | 'instagram'
+export type ContactChannelKey = 'telegramPersonal' | 'telegramBot' | 'whatsapp' | 'instagram'
 
 export const contactChannels: Record<ContactChannelKey, ContactChannelDefinition> = {
   telegramPersonal: {
@@ -22,8 +18,9 @@ export const contactChannels: Record<ContactChannelKey, ContactChannelDefinition
     type: 'personal',
     baseUrl: 'https://t.me/eduturkish',
     defaultCta: 'Связаться с консультантом',
-    defaultMessage: 'Здравствуйте! Меня направил партнёр с кодом {{referral}}. Хочу получить консультацию по обучению в Турции.',
-    copyOnNavigate: true
+    defaultMessage:
+      'Здравствуйте! Меня направил партнёр с кодом {{referral}}. Хочу получить консультацию по обучению в Турции.',
+    copyOnNavigate: true,
   },
   telegramBot: {
     key: 'telegramBot',
@@ -31,22 +28,23 @@ export const contactChannels: Record<ContactChannelKey, ContactChannelDefinition
     baseUrl: 'https://t.me/eduturkish_bot',
     defaultCta: 'Запустить Telegram-бота',
     defaultMessage: '{{referral}}',
-    queryParam: 'start'
+    queryParam: 'start',
   },
   whatsapp: {
     key: 'whatsapp',
     type: 'personal',
     baseUrl: 'https://wa.me/905438679950',
     defaultCta: 'Написать в WhatsApp',
-    defaultMessage: 'Здравствуйте! Меня направил партнёр с кодом {{referral}}. Подскажите, пожалуйста, по обучению в Турции.',
-    queryParam: 'text'
+    defaultMessage:
+      'Здравствуйте! Меня направил партнёр с кодом {{referral}}. Подскажите, пожалуйста, по обучению в Турции.',
+    queryParam: 'text',
   },
   instagram: {
     key: 'instagram',
     type: 'social',
     baseUrl: 'https://www.instagram.com/edu.turkish/',
-    defaultCta: 'Подписаться в Instagram'
-  }
+    defaultCta: 'Подписаться в Instagram',
+  },
 }
 
 export const personalTelegramChannelKey: ContactChannelKey = 'telegramPersonal'

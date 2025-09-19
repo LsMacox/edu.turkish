@@ -9,18 +9,18 @@ declare global {
 const readBodyMock = vi.fn()
 const logMessengerEventMock = vi.fn()
 const BitrixServiceMock = vi.fn(() => ({
-  logMessengerEvent: logMessengerEventMock
+  logMessengerEvent: logMessengerEventMock,
 }))
 const getBitrixConfigMock = vi.fn(() => ({ domain: 'example.com', accessToken: 'token' }))
 const validateBitrixConfigMock = vi.fn(() => true)
 
 vi.mock('../../../../server/services/BitrixService', () => ({
-  BitrixService: BitrixServiceMock
+  BitrixService: BitrixServiceMock,
 }))
 
 vi.mock('../../../../server/utils/bitrix-config', () => ({
   getBitrixConfig: getBitrixConfigMock,
-  validateBitrixConfig: validateBitrixConfigMock
+  validateBitrixConfig: validateBitrixConfigMock,
 }))
 
 beforeEach(() => {
@@ -33,8 +33,8 @@ beforeEach(() => {
 })
 
 globalThis.defineEventHandler = (<T>(handler: T) => handler) as any
-; (globalThis as any).readBody = readBodyMock
-; (globalThis as any).createError = (input: unknown) => input
+;(globalThis as any).readBody = readBodyMock
+;(globalThis as any).createError = (input: unknown) => input
 
 describe('POST /api/v1/messenger-events', () => {
   it('requires referral code to be provided', async () => {
@@ -45,7 +45,7 @@ describe('POST /api/v1/messenger-events', () => {
 
     await expect(handler({} as any)).rejects.toMatchObject({
       statusCode: 400,
-      statusMessage: 'Referral code is required'
+      statusMessage: 'Referral code is required',
     })
 
     expect(BitrixServiceMock).not.toHaveBeenCalled()
@@ -59,11 +59,11 @@ describe('POST /api/v1/messenger-events', () => {
       utm: {
         utm_source: 'test-source',
         utm_medium: '',
-        other: 42
+        other: 42,
       },
       metadata: {
-        page: '/contacts'
-      }
+        page: '/contacts',
+      },
     })
 
     logMessengerEventMock.mockResolvedValue({ success: true, activityId: 99 })
@@ -79,22 +79,22 @@ describe('POST /api/v1/messenger-events', () => {
       referralCode: 'ref-123',
       session: 'session-1',
       utm: {
-        utm_source: 'test-source'
+        utm_source: 'test-source',
       },
       metadata: {
-        page: '/contacts'
-      }
+        page: '/contacts',
+      },
     })
     expect(result).toEqual({
       success: true,
-      activityId: 99
+      activityId: 99,
     })
   })
 
   it('returns 502 when Bitrix logging fails', async () => {
     readBodyMock.mockResolvedValue({
       channel: 'telegramPersonal',
-      referral_code: 'ref-123'
+      referral_code: 'ref-123',
     })
 
     logMessengerEventMock.mockResolvedValue({ success: false, error: 'Failed to log' })
@@ -104,14 +104,14 @@ describe('POST /api/v1/messenger-events', () => {
 
     await expect(handler({} as any)).rejects.toMatchObject({
       statusCode: 502,
-      statusMessage: 'Failed to log'
+      statusMessage: 'Failed to log',
     })
   })
 
   it('returns 503 when Bitrix is not configured', async () => {
     readBodyMock.mockResolvedValue({
       channel: 'telegramPersonal',
-      referral_code: 'ref-123'
+      referral_code: 'ref-123',
     })
 
     validateBitrixConfigMock.mockReturnValue(false)
@@ -121,7 +121,7 @@ describe('POST /api/v1/messenger-events', () => {
 
     await expect(handler({} as any)).rejects.toMatchObject({
       statusCode: 503,
-      statusMessage: 'Bitrix integration is not configured'
+      statusMessage: 'Bitrix integration is not configured',
     })
 
     expect(BitrixServiceMock).not.toHaveBeenCalled()

@@ -8,7 +8,7 @@ declare global {
 
 const getQueryMock = vi.fn()
 const repositoryInstance = {
-  findAll: vi.fn()
+  findAll: vi.fn(),
 }
 const UniversityRepositoryMock = vi.fn(() => repositoryInstance)
 
@@ -23,11 +23,11 @@ globalThis.getQuery = getQueryMock as any
 globalThis.createError = (input: unknown) => input
 
 vi.mock('../../../../../lib/prisma', () => ({
-  prisma: {}
+  prisma: {},
 }))
 
 vi.mock('../../../../../server/repositories', () => ({
-  UniversityRepository: UniversityRepositoryMock
+  UniversityRepository: UniversityRepositoryMock,
 }))
 
 describe('GET /api/v1/universities', () => {
@@ -37,13 +37,13 @@ describe('GET /api/v1/universities', () => {
       price_max: '4500',
       sort: 'price_desc',
       page: '2',
-      limit: '3'
+      limit: '3',
     })
 
     const repositoryResponse = {
       data: [
         { id: 1, title: 'Uni C', tuitionRange: { min: 4200, max: 4800, currency: 'USD' } },
-        { id: 2, title: 'Uni A', tuitionRange: { min: 3600, max: 4000, currency: 'USD' } }
+        { id: 2, title: 'Uni A', tuitionRange: { min: 3600, max: 4000, currency: 'USD' } },
       ],
       total: 8,
       filters: {
@@ -51,8 +51,8 @@ describe('GET /api/v1/universities', () => {
         types: ['state'],
         levels: ['bachelor'],
         languages: ['EN'],
-        priceRange: [1000, 9000]
-      }
+        priceRange: [1000, 9000],
+      },
     }
 
     repositoryInstance.findAll.mockResolvedValue(repositoryResponse)
@@ -75,9 +75,9 @@ describe('GET /api/v1/universities', () => {
         price_max: 4500,
         sort: 'price_desc',
         page: 2,
-        limit: 3
+        limit: 3,
       },
-      'en'
+      'en',
     )
 
     expect(result).toEqual({
@@ -86,11 +86,11 @@ describe('GET /api/v1/universities', () => {
         total: 8,
         page: 2,
         limit: 3,
-        totalPages: 3
+        totalPages: 3,
       },
-      filters: repositoryResponse.filters
+      filters: repositoryResponse.filters,
     })
-    expect(result.data.map(item => item.title)).toEqual(['Uni C', 'Uni A'])
+    expect(result.data.map((item) => item.title)).toEqual(['Uni C', 'Uni A'])
   })
 
   it('returns localized university data when lang=kz is requested', async () => {

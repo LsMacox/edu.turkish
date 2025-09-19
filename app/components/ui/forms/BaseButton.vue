@@ -39,8 +39,8 @@
 -->
 <template>
   <component
-    ref="rootEl"
     :is="tag"
+    ref="rootEl"
     :href="href"
     :to="to"
     :type="type"
@@ -63,55 +63,49 @@
       fullWidth ? 'w-full' : '',
       loading ? 'cursor-wait' : '',
       // Ensure minimum touch target size
-      'min-h-touch-44 min-w-touch-44'
+      'min-h-touch-44 min-w-touch-44',
     ]"
     @click="handleClick"
     @keydown="handleKeydown"
   >
     <!-- Loading spinner with accessibility -->
-    <Icon 
-      v-if="loading" 
-      name="mdi:loading" 
+    <Icon
+      v-if="loading"
+      name="mdi:loading"
       :class="[
         'animate-spin',
         iconSizeClasses,
-        (icon && iconPosition === 'left') || $slots.default ? 'mr-2' : ''
+        (icon && iconPosition === 'left') || $slots.default ? 'mr-2' : '',
       ]"
       :aria-hidden="true"
     />
-    
+
     <!-- Loading text for screen readers -->
     <span v-if="loading" class="sr-only">{{ loadingText || 'Loading...' }}</span>
-    
+
     <!-- Left icon -->
-    <Icon 
-      v-else-if="icon && iconPosition === 'left'" 
-      :name="icon" 
-      :class="[
-        iconSizeClasses,
-        $slots.default ? 'mr-2' : ''
-      ]"
+    <Icon
+      v-else-if="icon && iconPosition === 'left'"
+      :name="icon"
+      :class="[iconSizeClasses, $slots.default ? 'mr-2' : '']"
       :aria-hidden="!iconOnly"
-      :aria-label="iconOnly ? (ariaLabel || 'Action button') : undefined"
+      :aria-label="iconOnly ? ariaLabel || 'Action button' : undefined"
     />
-    
+
     <!-- Button content -->
     <span v-if="$slots.default" :class="loading ? 'opacity-75' : ''">
       <slot />
     </span>
-    
+
     <!-- Right icon -->
-    <Icon 
-      v-if="!loading && icon && iconPosition === 'right'" 
-      :name="icon" 
-      :class="[
-        iconSizeClasses,
-        $slots.default ? 'ml-2' : ''
-      ]"
+    <Icon
+      v-if="!loading && icon && iconPosition === 'right'"
+      :name="icon"
+      :class="[iconSizeClasses, $slots.default ? 'ml-2' : '']"
       :aria-hidden="!iconOnly"
-      :aria-label="iconOnly ? (ariaLabel || 'Action button') : undefined"
+      :aria-label="iconOnly ? ariaLabel || 'Action button' : undefined"
     />
-    
+
     <!-- Screen reader text for icon-only buttons -->
     <span v-if="iconOnly && !$slots.default" class="sr-only">
       {{ ariaLabel || 'Action button' }}
@@ -120,8 +114,7 @@
 </template>
 
 <script setup lang="ts">
-import { computed, ref, useSlots } from 'vue'
-import type { ComponentPublicInstance } from 'vue'
+import { computed, ref, useSlots, type ComponentPublicInstance } from 'vue'
 import type { BaseButtonProps, BaseButtonEvents } from '~/types/ui'
 
 const props = withDefaults(defineProps<BaseButtonProps>(), {
@@ -133,7 +126,7 @@ const props = withDefaults(defineProps<BaseButtonProps>(), {
   iconPosition: 'left',
   type: 'button',
   preventDefault: false,
-  stopPropagation: false
+  stopPropagation: false,
 })
 
 const emit = defineEmits<BaseButtonEvents>()
@@ -189,25 +182,25 @@ const variantClasses = computed(() => {
       return [
         'bg-white text-secondary border border-gray-300',
         'hover:bg-gray-50 hover:border-gray-400',
-        'focus:ring-gray-500 focus-visible:ring-gray-500'
+        'focus:ring-gray-500 focus-visible:ring-gray-500',
       ].join(' ')
     case 'outline':
       return [
         'bg-transparent text-primary border border-primary',
         'hover:bg-primary hover:text-white',
-        'focus:ring-primary focus-visible:ring-primary'
+        'focus:ring-primary focus-visible:ring-primary',
       ].join(' ')
     case 'ghost':
       return [
         'bg-transparent text-primary border border-transparent',
         'hover:bg-red-50 hover:text-red-600',
-        'focus:ring-primary focus-visible:ring-primary'
+        'focus:ring-primary focus-visible:ring-primary',
       ].join(' ')
     default: // primary
       return [
         'bg-primary text-white border border-primary',
         'hover:bg-red-600 hover:border-red-600',
-        'focus:ring-primary focus-visible:ring-primary'
+        'focus:ring-primary focus-visible:ring-primary',
       ].join(' ')
   }
 })
@@ -219,15 +212,15 @@ const handleClick = (event: Event) => {
     event.stopPropagation()
     return
   }
-  
+
   if (props.preventDefault) {
     event.preventDefault()
   }
-  
+
   if (props.stopPropagation) {
     event.stopPropagation()
   }
-  
+
   emit('click', event)
 }
 
@@ -261,6 +254,6 @@ defineExpose({
   },
   blur: () => {
     getElement()?.blur()
-  }
+  },
 })
 </script>

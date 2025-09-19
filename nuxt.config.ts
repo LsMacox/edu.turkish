@@ -5,11 +5,11 @@ export default defineNuxtConfig({
   ssr: true,
   compatibilityDate: '2025-07-15',
   devtools: { enabled: true },
-  
+
   vite: {
     build: {
-      cssCodeSplit: false
-    }
+      cssCodeSplit: false,
+    },
   },
   modules: [
     '@pinia/nuxt',
@@ -19,53 +19,56 @@ export default defineNuxtConfig({
     '@nuxtjs/i18n',
     '@nuxt/fonts',
     '@nuxt/scripts',
-    ['@nuxt/image', {
-      quality: 78,
-      format: ['avif', 'webp', 'auto'],
-      screens: {
-        xs: 360,
-        sm: 640,
-        md: 768,
-        lg: 1024,
-        xl: 1280,
-        '2xl': 1536
+    [
+      '@nuxt/image',
+      {
+        quality: 78,
+        format: ['avif', 'webp', 'auto'],
+        screens: {
+          xs: 360,
+          sm: 640,
+          md: 768,
+          lg: 1024,
+          xl: 1280,
+          '2xl': 1536,
+        },
+        domains: ['storage.googleapis.com'],
+        placeholder: true,
       },
-      domains: ['storage.googleapis.com'],
-      placeholder: true
-    }],
+    ],
     '@nuxtjs/robots',
-    '@nuxtjs/sitemap'
+    '@nuxtjs/sitemap',
   ],
   // Enhanced component auto-import configuration
   components: [
     {
       path: '~/components/layout',
-      global: true
+      global: true,
     },
     {
       path: '~/components/modals',
-      global: true
+      global: true,
     },
     {
       path: '~/components/features',
-      pathPrefix: false
+      pathPrefix: false,
     },
     {
       path: '~/components/ui',
-      prefix: 'Ui'
+      prefix: 'Ui',
     },
     {
       path: '~/components/shared',
-      global: true
-    }
+      global: true,
+    },
   ],
   icon: {
     collections: ['mdi', 'ph'],
   },
   fonts: {
-    provider: 'google'
+    provider: 'google',
   },
-  
+
   app: {
     head: {
       // Let @nuxtjs/i18n manage the <html lang> attribute for correct SEO per-locale
@@ -73,7 +76,10 @@ export default defineNuxtConfig({
       meta: [
         { charset: 'utf-8' },
         { name: 'viewport', content: 'width=device-width, initial-scale=1' },
-        { name: 'description', content: 'Обучение в Турции: поступление, программы, стипендии и поддержка.' },
+        {
+          name: 'description',
+          content: 'Обучение в Турции: поступление, программы, стипендии и поддержка.',
+        },
         { name: 'robots', content: 'index, follow' },
         { property: 'og:type', content: 'website' },
         { property: 'og:site_name', content: 'Edu.turkish' },
@@ -83,24 +89,27 @@ export default defineNuxtConfig({
         { name: 'msapplication-config', content: '/browserconfig.xml' },
         { property: 'og:image', content: '/og-white-1200x630.jpg' },
         { property: 'og:image:width', content: '1200' },
-        { property: 'og:image:height', content: '630' }
+        { property: 'og:image:height', content: '630' },
       ],
       link: [
         { rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' },
         { rel: 'icon', type: 'image/png', sizes: '16x16', href: '/favicon-16x16.png' },
         { rel: 'icon', type: 'image/png', sizes: '32x32', href: '/favicon-32x32.png' },
         { rel: 'apple-touch-icon', sizes: '180x180', href: '/apple-touch-icon.png' },
-        { rel: 'manifest', href: '/site.webmanifest' }
-      ]
-    }
+        { rel: 'manifest', href: '/site.webmanifest' },
+      ],
+    },
   },
   runtimeConfig: {
     directusStaticToken: process.env.DIRECTUS_STATIC_TOKEN || '',
     public: {
       siteUrl,
-      directusUrl: process.env.NUXT_PUBLIC_DIRECTUS_URL || process.env.DIRECTUS_PUBLIC_URL || 'http://localhost:8055',
-      yandexMetrikaId: process.env.NUXT_PUBLIC_YANDEX_METRIKA_ID || ''
-    }
+      directusUrl:
+        process.env.NUXT_PUBLIC_DIRECTUS_URL ||
+        process.env.DIRECTUS_PUBLIC_URL ||
+        'http://localhost:8055',
+      yandexMetrikaId: process.env.NUXT_PUBLIC_YANDEX_METRIKA_ID || '',
+    },
   },
   robots: {
     enabled: true,
@@ -108,14 +117,14 @@ export default defineNuxtConfig({
       {
         userAgent: '*',
         allow: '/',
-        disallow: ''
-      }
+        disallow: '',
+      },
     ],
-    sitemap: [`${siteUrl}/sitemap.xml`]
+    sitemap: [`${siteUrl}/sitemap.xml`],
   },
   sitemap: {
     // Uses runtimeConfig.public.siteUrl implicitly
-    autoLastmod: true
+    autoLastmod: true,
   },
   nitro: {
     compressPublicAssets: true,
@@ -126,29 +135,29 @@ export default defineNuxtConfig({
         '/kz',
         '/en',
         '/tr',
-        '/ru/about', 
-        '/ru/faq', 
+        '/ru/about',
+        '/ru/faq',
         '/ru/blog',
-        '/ru/contract', 
+        '/ru/contract',
         '/ru/privacy-policy',
         '/ru/universities',
         '/ru/reviews',
-        '/kz/about', 
-        '/kz/faq', 
+        '/kz/about',
+        '/kz/faq',
         '/kz/blog',
         '/kz/contract',
         '/kz/privacy-policy',
         '/kz/universities',
         '/kz/reviews',
-        '/en/about', 
-        '/en/faq', 
+        '/en/about',
+        '/en/faq',
         '/en/blog',
-        '/en/contract', 
+        '/en/contract',
         '/en/privacy-policy',
         '/en/universities',
         '/en/reviews',
-        '/tr/about', 
-        '/tr/faq', 
+        '/tr/about',
+        '/tr/faq',
         '/tr/blog',
         '/tr/contract',
         '/tr/privacy-policy',
@@ -158,15 +167,15 @@ export default defineNuxtConfig({
         '/__sitemap__/ru-RU.xml',
         '/__sitemap__/kk-KZ.xml',
         '/__sitemap__/en-US.xml',
-        '/__sitemap__/tr-TR.xml'
-      ]
+        '/__sitemap__/tr-TR.xml',
+      ],
     },
     routeRules: {
       // Cache optimized images aggressively on edge/CDN
       '/_ipx/**': {
-        headers: { 'cache-control': 'public, max-age=31536000, immutable' }
-      }
-    }
+        headers: { 'cache-control': 'public, max-age=31536000, immutable' },
+      },
+    },
   },
   routeRules: {
     '/': { prerender: true },
@@ -211,19 +220,19 @@ export default defineNuxtConfig({
     '/tr/university/**': { prerender: true },
     '/tr/articles/**': { prerender: true },
     '/api/**': {
-      headers: { 'cache-control': 'public, max-age=60, stale-while-revalidate=300' }
+      headers: { 'cache-control': 'public, max-age=60, stale-while-revalidate=300' },
     },
     '/_nuxt/**': {
-      headers: { 'cache-control': 'public, max-age=31536000, immutable' }
+      headers: { 'cache-control': 'public, max-age=31536000, immutable' },
     },
     '/sitemap.xml': { prerender: true },
     '/__sitemap__/**': { prerender: true },
     /** Ensure all pages are indexable unless overridden */
     '/**': {
       headers: {
-        'x-robots-tag': 'index, follow'
-      }
-    }
+        'x-robots-tag': 'index, follow',
+      },
+    },
   },
   scripts: {
     // Оптимизированная загрузка внешних скриптов
@@ -253,8 +262,8 @@ export default defineNuxtConfig({
           'ru/components/forms.json',
           'ru/components/modals.json',
           'ru/components/ui.json',
-          'ru/errors.json'
-        ]
+          'ru/errors.json',
+        ],
       },
       {
         // Use 'kz' as URL prefix while keeping correct language tag
@@ -276,8 +285,8 @@ export default defineNuxtConfig({
           'kk/components/forms.json',
           'kk/components/modals.json',
           'kk/components/ui.json',
-          'kk/errors.json'
-        ]
+          'kk/errors.json',
+        ],
       },
       {
         code: 'en',
@@ -298,8 +307,8 @@ export default defineNuxtConfig({
           'en/components/forms.json',
           'en/components/modals.json',
           'en/components/ui.json',
-          'en/errors.json'
-        ]
+          'en/errors.json',
+        ],
       },
       {
         code: 'tr',
@@ -320,14 +329,14 @@ export default defineNuxtConfig({
           'tr/components/forms.json',
           'tr/components/modals.json',
           'tr/components/ui.json',
-          'tr/errors.json'
-        ]
-      }
+          'tr/errors.json',
+        ],
+      },
     ],
     defaultLocale: 'ru',
     detectBrowserLanguage: { useCookie: true, cookieKey: 'i18n_locale', redirectOn: 'root' },
     // Missing-key config removed for compatibility
     // Always prefix routes with locale (including default) for consistent SEO-friendly URLs
-    strategy: 'prefix'
-  }
+    strategy: 'prefix',
+  },
 })

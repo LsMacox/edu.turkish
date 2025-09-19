@@ -1,7 +1,12 @@
 import { defineStore } from 'pinia'
 import { ref, computed, nextTick } from 'vue'
 import type { DegreeType } from '../types/domain'
-import type { University, UniversityQueryParams, UniversityResponse, UniversityFilters as ApiUniversityFilters } from '../../server/types/api'
+import type {
+  University,
+  UniversityQueryParams,
+  UniversityResponse,
+  UniversityFilters as ApiUniversityFilters,
+} from '../../server/types/api'
 
 const LEVEL_ALL_VALUE = 'all'
 
@@ -24,7 +29,7 @@ const LEVEL_CANONICAL_MAP: Record<string, DegreeType | typeof LEVEL_ALL_VALUE> =
   Doctorate: 'phd',
   doctorate: 'phd',
   PhD: 'phd',
-  Doktora: 'phd'
+  Doktora: 'phd',
 }
 
 const normalizeLevel = (level: string): string => {
@@ -45,7 +50,7 @@ export const useUniversitiesStore = defineStore('universities', () => {
     types: [],
     levels: [],
     languages: [],
-    priceRange: [0, 20000]
+    priceRange: [0, 20000],
   })
 
   // Default filter values
@@ -55,43 +60,47 @@ export const useUniversitiesStore = defineStore('universities', () => {
     langs: [],
     type: 'Все',
     level: LEVEL_ALL_VALUE,
-    price: [
-      availableFilters.value.priceRange[0],
-      availableFilters.value.priceRange[1]
-    ] as [number, number]
+    price: [availableFilters.value.priceRange[0], availableFilters.value.priceRange[1]] as [
+      number,
+      number,
+    ],
   })
 
   // Initialize filters from URL params
   const initializeFiltersFromURL = () => {
     const route = useRoute()
     const query = route.query
-    
+
     // If no query parameters at all, return default filters
     if (Object.keys(query).length === 0) {
       return getDefaultFilters()
     }
-    
+
     // Normalize city value coming from URL (handle "Все"/"All" variants)
     const rawCity = (query.city as string) || 'Все города'
-    const normalizedCity = rawCity === 'Все'
-      ? 'Все города'
-      : (rawCity === 'All' ? 'All cities' : rawCity)
+    const normalizedCity =
+      rawCity === 'Все' ? 'Все города' : rawCity === 'All' ? 'All cities' : rawCity
 
     return {
       q: (query.q as string) || '',
       city: normalizedCity,
-      langs: query.langs ? (Array.isArray(query.langs) ? query.langs as string[] : [query.langs as string]) : [],
+      langs: query.langs
+        ? Array.isArray(query.langs)
+          ? (query.langs as string[])
+          : [query.langs as string]
+        : [],
       type: (query.type as string) || 'Все',
       level: normalizeLevel((query.level as string) || LEVEL_ALL_VALUE),
-      price: query.price_min || query.price_max
-        ? [
-            Number(query.price_min) || availableFilters.value.priceRange[0],
-            Number(query.price_max) || availableFilters.value.priceRange[1]
-          ] as [number, number]
-        : [
-            availableFilters.value.priceRange[0],
-            availableFilters.value.priceRange[1]
-          ] as [number, number]
+      price:
+        query.price_min || query.price_max
+          ? ([
+              Number(query.price_min) || availableFilters.value.priceRange[0],
+              Number(query.price_max) || availableFilters.value.priceRange[1],
+            ] as [number, number])
+          : ([availableFilters.value.priceRange[0], availableFilters.value.priceRange[1]] as [
+              number,
+              number,
+            ]),
     }
   }
 
@@ -123,58 +132,78 @@ export const useUniversitiesStore = defineStore('universities', () => {
   })
 
   // Actions
-  type FetchOverrides = Partial<UniversityFilters> & { sort?: 'pop' | 'price_asc' | 'price_desc' | 'alpha' | 'lang_en' }
-  const fetchUniversities = async (options?: { limit?: number; page?: number; overrides?: FetchOverrides }) => {
-    if (process.client) console.debug('[universities] fetch start')
+  type FetchOverrides = Partial<UniversityFilters> & {
+    sort?: 'pop' | 'price_asc' | 'price_desc' | 'alpha' | 'lang_en'
+  }
+  const fetchUniversities = async (options?: {
+    limit?: number
+    page?: number
+    overrides?: FetchOverrides
+  }) => {
+    if (process.client) console.warn('[universities] fetch start')
     loading.value = true
     error.value = null
-    
+
     try {
       const effectiveFilters = { ...filters.value, ...(options?.overrides || {}) }
       const defaults = getDefaultFilters()
 
       const queryParams: UniversityQueryParams = {
         q: effectiveFilters.q || undefined,
-        city: (effectiveFilters.city !== 'Все города' 
-          && effectiveFilters.city !== 'All cities'
-          && effectiveFilters.city !== 'Все'
-          && effectiveFilters.city !== 'All') ? effectiveFilters.city : undefined,
-        langs: (effectiveFilters.langs && effectiveFilters.langs.length > 0) ? effectiveFilters.langs : undefined,
+        city:
+          effectiveFilters.city !== 'Все города' &&
+          effectiveFilters.city !== 'All cities' &&
+          effectiveFilters.city !== 'Все' &&
+          effectiveFilters.city !== 'All'
+            ? effectiveFilters.city
+            : undefined,
+        langs:
+          effectiveFilters.langs && effectiveFilters.langs.length > 0
+            ? effectiveFilters.langs
+            : undefined,
         type: effectiveFilters.type !== 'Все' ? effectiveFilters.type : undefined,
         level: effectiveFilters.level !== LEVEL_ALL_VALUE ? effectiveFilters.level : undefined,
-        price_min: effectiveFilters.price?.[0] !== undefined && effectiveFilters.price?.[0] !== defaults.price[0]
-          ? effectiveFilters.price[0]
-          : undefined,
-        price_max: effectiveFilters.price?.[1] !== undefined && effectiveFilters.price?.[1] !== defaults.price[1]
-          ? effectiveFilters.price[1]
-          : undefined,
-        sort: (options?.overrides?.sort || sort.value) !== 'pop' ? (options?.overrides?.sort || sort.value) : undefined,
+        price_min:
+          effectiveFilters.price?.[0] !== undefined &&
+          effectiveFilters.price?.[0] !== defaults.price[0]
+            ? effectiveFilters.price[0]
+            : undefined,
+        price_max:
+          effectiveFilters.price?.[1] !== undefined &&
+          effectiveFilters.price?.[1] !== defaults.price[1]
+            ? effectiveFilters.price[1]
+            : undefined,
+        sort:
+          (options?.overrides?.sort || sort.value) !== 'pop'
+            ? options?.overrides?.sort || sort.value
+            : undefined,
         page: options?.page ?? 1,
         limit: options?.limit ?? 6, // Default 6 universities per page
-        lang: locale.value
+        lang: locale.value,
       }
-      
-      if (process.client) console.debug('[universities] query', queryParams)
+
+      if (process.client) console.warn('[universities] query', queryParams)
       const response = await $fetch<UniversityResponse>('/api/v1/universities', {
-        query: queryParams
+        query: queryParams,
       })
-      
+
       // If this is page 1, replace universities. If page > 1, append new universities
       if (options?.page && options.page > 1) {
         // Avoid duplicates when loading more
-        const existingIds = new Set(universities.value.map(u => u.id))
-        const newUniversities = response.data.filter(u => !existingIds.has(u.id))
+        const existingIds = new Set(universities.value.map((u) => u.id))
+        const newUniversities = response.data.filter((u) => !existingIds.has(u.id))
         universities.value = [...universities.value, ...newUniversities]
       } else {
         universities.value = response.data
       }
-      
+
       totalUniversities.value = response.meta.total
       availableFilters.value = response.filters
 
       const [minPrice, maxPrice] = response.filters.priceRange
       const route = useRoute()
-      const hasPriceQuery = route.query.price_min !== undefined || route.query.price_max !== undefined
+      const hasPriceQuery =
+        route.query.price_min !== undefined || route.query.price_max !== undefined
 
       if (!hasPriceQuery) {
         filters.value.price = [minPrice, maxPrice] as [number, number]
@@ -190,18 +219,17 @@ export const useUniversitiesStore = defineStore('universities', () => {
         }
       }
 
-      if (process.client) console.debug('[universities] fetched', response.data?.length)
-      
+      if (process.client) console.warn('[universities] fetched', response.data?.length)
+
       // Return response for loadMore logic
       return response
-      
     } catch (err: any) {
       error.value = err.message || 'Failed to fetch universities'
       if (process.client) console.error('[universities] fetch error', err)
       return null
     } finally {
       loading.value = false
-      if (process.client) console.debug('[universities] fetch end')
+      if (process.client) console.warn('[universities] fetch end')
     }
   }
 
@@ -210,7 +238,7 @@ export const useUniversitiesStore = defineStore('universities', () => {
       isUpdatingFromURL.value = false
       return
     }
-    
+
     const router = useRouter()
     const defaults = getDefaultFilters()
     type RouteQuery = Partial<{
@@ -224,7 +252,7 @@ export const useUniversitiesStore = defineStore('universities', () => {
       sort: SortOption
     }>
     const query: RouteQuery = {}
-    
+
     if (filters.value.q) query.q = filters.value.q
     if (filters.value.city !== defaults.city) query.city = filters.value.city
     if (filters.value.langs.length > 0) query.langs = filters.value.langs
@@ -242,7 +270,7 @@ export const useUniversitiesStore = defineStore('universities', () => {
     } else {
       // Regular filter updates: preserve scroll position
       const currentScrollY = typeof window !== 'undefined' ? window.scrollY : 0
-      
+
       // Use router.replace but prevent auto-scroll by saving/restoring position
       router.replace({ query }).then(() => {
         if (typeof window !== 'undefined') {
@@ -253,15 +281,15 @@ export const useUniversitiesStore = defineStore('universities', () => {
         }
       })
     }
-    
+
     // Don't fetch if only page parameter changed (this is handled by loadMore)
     const route = useRoute()
-    const { page: _page, ...currentFilters } = route.query
-    const { page: _newPage, ...newFilters } = query
-    
+    const { page: _page, ...currentFilters } = route.query as Record<string, unknown>
+    const { page: _newPage, ...newFilters } = query as Record<string, unknown>
+
     // Only fetch if filters actually changed, not just page
     const filtersChanged = JSON.stringify(currentFilters) !== JSON.stringify(newFilters)
-    
+
     if (filtersChanged) {
       nextTick(() => {
         fetchUniversities()
@@ -270,11 +298,17 @@ export const useUniversitiesStore = defineStore('universities', () => {
   }
 
   function applyFilters(newFilters: Partial<UniversityFilters>, options?: { sort?: SortOption }) {
-    (Object.entries(newFilters) as [keyof UniversityFilters, UniversityFilters[keyof UniversityFilters]][]).forEach(([key, value]) => {
+    ;(
+      Object.entries(newFilters) as [
+        keyof UniversityFilters,
+        UniversityFilters[keyof UniversityFilters],
+      ][]
+    ).forEach(([key, value]) => {
       if (key === 'level' && typeof value === 'string') {
         filters.value.level = normalizeLevel(value)
       } else {
-        filters.value[key] = value
+        // Assign with explicit casting to maintain type safety across union types
+        ;(filters.value as any)[key] = value as any
       }
     })
 
@@ -324,7 +358,9 @@ export const useUniversitiesStore = defineStore('universities', () => {
     filters.value = initializeFiltersFromURL()
     const rq = route.query as Partial<Record<string, unknown>>
     const qSort = typeof rq.sort === 'string' ? (rq.sort as SortOption) : 'pop'
-    sort.value = (['pop','price_asc','price_desc','alpha','lang_en'] as const).includes(qSort) ? qSort : 'pop'
+    sort.value = (['pop', 'price_asc', 'price_desc', 'alpha', 'lang_en'] as const).includes(qSort)
+      ? qSort
+      : 'pop'
     nextTick(() => {
       isUpdatingFromURL.value = false
       fetchUniversities()
@@ -332,12 +368,18 @@ export const useUniversitiesStore = defineStore('universities', () => {
   }
 
   // Helper to initialize and fetch during SSR
-  const initAndFetchSSR = async (options?: { limit?: number; page?: number; overrides?: FetchOverrides }) => {
+  const initAndFetchSSR = async (options?: {
+    limit?: number
+    page?: number
+    overrides?: FetchOverrides
+  }) => {
     const route = useRoute()
     filters.value = initializeFiltersFromURL()
     const rq = route.query as Partial<Record<string, unknown>>
     const qSort = typeof rq.sort === 'string' ? (rq.sort as SortOption) : 'pop'
-    sort.value = (['pop','price_asc','price_desc','alpha','lang_en'] as const).includes(qSort) ? qSort : 'pop'
+    sort.value = (['pop', 'price_asc', 'price_desc', 'alpha', 'lang_en'] as const).includes(qSort)
+      ? qSort
+      : 'pop'
     await fetchUniversities(options)
   }
 
@@ -361,12 +403,12 @@ export const useUniversitiesStore = defineStore('universities', () => {
     totalUniversities,
     availableFilters,
     isUpdatingFromURL,
-    
+
     // Getters
     filteredUniversities,
     popularUniversities,
     availableCities,
-    
+
     // Actions
     setFilter,
     applyFilters,
@@ -379,7 +421,7 @@ export const useUniversitiesStore = defineStore('universities', () => {
     updateURL,
     fetchUniversities,
     initialize,
-    initAndFetchSSR
+    initAndFetchSSR,
   }
 })
 
