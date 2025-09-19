@@ -161,6 +161,8 @@ npm run db:deploy   # применить миграции на проде
 - **Directus**: `DIRECTUS_KEY`, `DIRECTUS_SECRET`, `DIRECTUS_PUBLIC_URL`, `DIRECTUS_ADMIN_EMAIL`, `DIRECTUS_ADMIN_PASSWORD`, `DIRECTUS_STATIC_TOKEN`, `NUXT_PUBLIC_DIRECTUS_URL`.
 - **Аналитика**: `NUXT_PUBLIC_YANDEX_METRIKA_ID`.
 
+> ℹ️ Переменные `SMTP_*`, `API_RATE_LIMIT`, `API_TIMEOUT`, `LOG_FILE_PATH` сохранены в `.env.example` как задел на будущие интеграции (SMTP, лимиты API, файловый лог). Текущее приложение их не считывает, поэтому их настройка не обязательна.
+
 ```bash
 # База данных и приложение
 DATABASE_URL="mysql://user:password@host:3306/database"
