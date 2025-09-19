@@ -5,7 +5,8 @@ import type {
   BlogArticleQueryParams,
   BlogCategory,
   BlogArticleContentBlock,
-  BlogPopularArticle
+  BlogPopularArticle,
+  BlogArticleQuickFact
 } from '../types/api'
 
 type ArticleWithRelations = Prisma.BlogArticleGetPayload<{
@@ -244,6 +245,7 @@ export class BlogRepository {
   private mapArticleToDetail(article: ArticleWithRelations, locale: string): BlogArticleDetail {
     const base = this.mapArticleToListItem(article, locale)
     const translation = this.pickTranslation(article.translations, locale)
+    const meta = this.parseArticleMeta(article.meta)
 
     return {
       ...base,
@@ -253,8 +255,57 @@ export class BlogRepository {
       heroSubtitle: translation?.heroSubtitle ?? translation?.excerpt ?? undefined,
       heroLocation: translation?.heroLocation ?? undefined,
       seoDescription: translation?.seoDescription ?? undefined,
-      content: this.normalizeContent(translation?.content)
+      content: this.normalizeContent(translation?.content),
+      quickFacts: meta.quickFacts,
+      highlights: meta.highlights,
+      tags: meta.tags
     }
+  }
+
+  private parseArticleMeta(meta: Prisma.JsonValue | null | undefined): {
+    quickFacts: BlogArticleQuickFact[]
+    highlights: string[]
+    tags: string[]
+  } {
+    if (!meta || typeof meta !== 'object' || Array.isArray(meta)) {
+      return { quickFacts: [], highlights: [], tags: [] }
+    }
+
+    const record = meta as Record<string, unknown>
+
+    const quickFacts = Array.isArray(record.quickFacts)
+      ? (record.quickFacts as Array<Record<string, unknown>>)
+          .map((fact): BlogArticleQuickFact | null => {
+            if (!fact || typeof fact !== 'object') {
+              return null
+            }
+
+            const title = typeof fact.title === 'string' ? fact.title.trim() : ''
+            const value = typeof fact.value === 'string' ? fact.value.trim() : ''
+            const icon = typeof fact.icon === 'string' ? fact.icon.trim() : undefined
+
+            if (!title || !value) {
+              return null
+            }
+
+            return { title, value, icon }
+          })
+          .filter((fact): fact is BlogArticleQuickFact => fact !== null)
+      : []
+
+    const highlights = Array.isArray(record.highlights)
+      ? record.highlights
+          .map(item => (typeof item === 'string' ? item.trim() : ''))
+          .filter(item => item.length > 0)
+      : []
+
+    const tags = Array.isArray(record.tags)
+      ? record.tags
+          .map(item => (typeof item === 'string' ? item.trim() : ''))
+          .filter(item => item.length > 0)
+      : []
+
+    return { quickFacts, highlights, tags }
   }
 
   async getCategories(locale: string): Promise<BlogCategory[]> {

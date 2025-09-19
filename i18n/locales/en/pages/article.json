@@ -1,0 +1,33 @@
+{
+  "article": {
+    "loading": "Loading article...",
+    "notFound": "Article not found",
+    "error": "We couldn't load the article. Please try refreshing the page.",
+    "tableOfContents": "Table of contents",
+    "quickFacts": {
+      "title": "Quick facts",
+      "category": "Category",
+      "published": "Published",
+      "readingTime": "Reading time"
+    },
+    "highlights": {
+      "title": "Key takeaways"
+    },
+    "share": {
+      "title": "Share",
+      "description": "Let your friends know about this article — it might inspire them to study in Türkiye.",
+      "copyLink": "Copy link",
+      "copySuccess": "Link copied to clipboard",
+      "copyError": "Failed to copy the link"
+    },
+    "tags": {
+      "title": "Tags"
+    },
+    "related": {
+      "title": "You might also like",
+      "description": "More stories and helpful tips from our students.",
+      "allArticles": "All articles",
+      "empty": "No similar articles yet."
+    }
+  }
+}
