@@ -102,15 +102,33 @@ export function parseUniversityFilters(query: Record<string, any>): UniversityQu
   return filters
 }
 
+const toPositiveIntegerWithDefault = (value: unknown, defaultValue: number) => {
+  const candidate = Array.isArray(value) ? value[0] : value
+
+  if (candidate === undefined || candidate === null || candidate === '') {
+    return defaultValue
+  }
+
+  const parsed = Number(candidate)
+
+  if (!Number.isFinite(parsed) || parsed <= 0) {
+    return defaultValue
+  }
+
+  return Math.floor(parsed)
+}
+
 /**
  * Parse query parameters for reviews endpoint
  */
 export function parseReviewFilters(query: Record<string, any>) {
+  const type = typeof query.type === 'string' ? query.type.trim() : ''
+
   return {
-    type: query.type as string || 'all',
+    type: type !== '' ? type : 'all',
     featured: query.featured === 'true',
-    page: query.page ? Number(query.page) : 1,
-    limit: query.limit ? Number(query.limit) : 50
+    page: toPositiveIntegerWithDefault(query.page, 1),
+    limit: toPositiveIntegerWithDefault(query.limit, 50)
   }
 }
 
@@ -122,7 +140,7 @@ export function parseFAQFilters(query: Record<string, any>) {
     q: query.q as string || '',
     category: query.category as string || 'all',
     featured: query.featured === 'true',
-    limit: query.limit ? Number(query.limit) : 50
+    limit: toPositiveIntegerWithDefault(query.limit, 50)
   }
 }
 
@@ -217,12 +235,15 @@ export function getFAQCategories(faqs: FAQItem[]): FAQCategory[] {
  * Calculate pagination metadata
  */
 export function calculatePagination(total: number, page: number, limit: number) {
-  const totalPages = Math.ceil(total / limit)
-  
+  const safeTotal = Number.isFinite(total) && total > 0 ? Math.floor(total) : 0
+  const safeLimit = Number.isFinite(limit) && limit > 0 ? Math.floor(limit) : 1
+  const safePage = Number.isFinite(page) && page > 0 ? Math.floor(page) : 1
+  const totalPages = Math.ceil(safeTotal / safeLimit)
+
   return {
-    total,
-    page: Math.max(1, page),
-    limit: Math.max(1, limit),
+    total: safeTotal,
+    page: Math.max(1, safePage),
+    limit: Math.max(1, safeLimit),
     totalPages: Math.max(1, totalPages)
   }
 }
