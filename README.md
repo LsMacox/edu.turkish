@@ -93,9 +93,10 @@ npm run docker:logs  # Логи MySQL
 - `GET /api/v1/universities` — список университетов
 - `GET /api/v1/universities/[id]` — детали университета
 - `GET /api/v1/reviews` — список отзывов
-- `GET /api/v1/reviews/statistics` — статистика отзывов
+- `GET /api/v1/statistics` — статистика отзывов
 - `GET /api/v1/content/faq` — список FAQ
 - `POST /api/v1/applications` — отправка заявки (интеграция с Bitrix)
+- `POST /api/v1/messenger-events` — логирование событий в мессенджерах ([требования к payload-у](./server/services/bitrix.dto.ts))
 
 ## 🧪 Тесты
 
