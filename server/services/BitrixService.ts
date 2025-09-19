@@ -342,99 +342,107 @@ export class BitrixService {
    * Преобразование данных заявки в формат лида Bitrix
    */
   private transformApplicationToLead(applicationData: ApplicationRequest): BitrixLead {
-    // Определяем источник заявки с учетом университета
+    const { title, sourceDescription } = this.prepareLeadHeaderAndSource(applicationData)
+    const contactFields = this.collectContactData(applicationData)
+    const comments = this.generateLeadComments(applicationData, sourceDescription)
+    const customFields = this.buildCustomFields(applicationData)
+
+    const lead: BitrixLead = {
+      TITLE: title,
+      NAME: applicationData.personal_info.first_name,
+      LAST_NAME: applicationData.personal_info.last_name,
+      SOURCE_ID: 'WEB', // Источник - веб-сайт
+      SOURCE_DESCRIPTION: sourceDescription,
+      ...contactFields,
+      ...customFields
+    }
+
+    if (comments) {
+      lead.COMMENTS = comments
+    }
+
+    return lead
+  }
+
+  private prepareLeadHeaderAndSource(applicationData: ApplicationRequest): { title: string; sourceDescription: string } {
     let sourceDescription = 'Заявка с сайта EduTurkish'
     let leadTitle = `Заявка с сайта EduTurkish - ${applicationData.personal_info.first_name} ${applicationData.personal_info.last_name}`
-    
-    // Если есть информация о выбранном университете
+
     if (applicationData.preferences?.universities && applicationData.preferences.universities.length > 0) {
       const universityName = applicationData.preferences.universities[0]
       sourceDescription = `Карточка университета "${universityName}"`
       leadTitle = `Заявка - ${universityName} - ${applicationData.personal_info.first_name} ${applicationData.personal_info.last_name}`
     } else {
-      // Определяем источник заявки по source
       const sourceMap: Record<string, string> = {
-        'website': 'Главная страница сайта',
-        'home_faq': 'Главная страница — FAQ',
-        'home_questionnaire': 'Главная страница — Кто вы?',
-        'universities_cta': 'Страница каталог университетов — CTA',
-        'universities_not_found': 'Подходящий университет',
-        'university_detail': 'Страница университета',
-        'university_page': 'Страница университета',
-        'university_card': 'Карточка университета',
-        'modal': 'Модальное окно',
-        'cta': 'Призыв к действию'
+        website: 'Главная страница сайта',
+        home_faq: 'Главная страница — FAQ',
+        home_questionnaire: 'Главная страница — Кто вы?',
+        universities_cta: 'Страница каталог университетов — CTA',
+        universities_not_found: 'Подходящий университет',
+        university_detail: 'Страница университета',
+        university_page: 'Страница университета',
+        university_card: 'Карточка университета',
+        modal: 'Модальное окно',
+        cta: 'Призыв к действию'
       }
-      
+
       sourceDescription = sourceMap[applicationData.source] || 'Заявка с сайта EduTurkish'
     }
-    
-    const lead: BitrixLead = {
-      TITLE: leadTitle,
-      NAME: applicationData.personal_info.first_name,
-      LAST_NAME: applicationData.personal_info.last_name,
-      SOURCE_ID: 'WEB', // Источник - веб-сайт
-      SOURCE_DESCRIPTION: sourceDescription
-    }
 
-    // Добавляем телефон
+    return { title: leadTitle, sourceDescription }
+  }
+
+  private collectContactData(applicationData: ApplicationRequest): Partial<Pick<BitrixLead, 'PHONE' | 'EMAIL'>> {
+    const contactFields: Partial<Pick<BitrixLead, 'PHONE' | 'EMAIL'>> = {}
+
     if (applicationData.personal_info.phone) {
-      lead.PHONE = [{
-        VALUE: applicationData.personal_info.phone,
-        VALUE_TYPE: 'WORK'
-      }]
+      contactFields.PHONE = [
+        {
+          VALUE: applicationData.personal_info.phone,
+          VALUE_TYPE: 'WORK'
+        }
+      ]
     }
 
-    // Добавляем email
     if (applicationData.personal_info.email) {
-      lead.EMAIL = [{
-        VALUE: applicationData.personal_info.email,
-        VALUE_TYPE: 'WORK'
-      }]
+      contactFields.EMAIL = [
+        {
+          VALUE: applicationData.personal_info.email,
+          VALUE_TYPE: 'WORK'
+        }
+      ]
     }
 
-    // Комментарии с полной информацией о заявке
-    const comments = []
-    comments.push(`Источник заявки: ${sourceDescription}`)
-    
-    // Добавляем реферальный код если есть
+    return contactFields
+  }
+
+  private generateLeadComments(applicationData: ApplicationRequest, sourceDescription: string): string | undefined {
+    const comments: string[] = [`Источник заявки: ${sourceDescription}`]
+
     if (applicationData.referral_code) {
       comments.push(`Реферальный код: ${applicationData.referral_code}`)
     }
 
-    // Добавляем информацию об образовании и интересах
-    if (applicationData.education) {
-      // Уровень образования не передаем в Bitrix, так как он фиксированный
+    if (applicationData.preferences?.universities && applicationData.preferences.universities.length > 0) {
+      comments.push(`Интересующие университеты: ${applicationData.preferences.universities.join(', ')}`)
     }
 
-    // Добавляем информацию о предпочтениях по университетам и программам
-    if (applicationData.preferences) {
-      if (applicationData.preferences.universities && applicationData.preferences.universities.length > 0) {
-        comments.push(`Интересующие университеты: ${applicationData.preferences.universities.join(', ')}`)
-      }
-    }
-
-    // Исключаем дублирование «Направление» и «Интересующие программы»
-    // Отправляем только одно поле программ: если указаны programs — берем их, иначе берем education.field
     const explicitPrograms: string[] = Array.isArray(applicationData.preferences?.programs)
       ? (applicationData.preferences?.programs || []).filter((p) => !!p && p.trim() !== '')
       : []
-    const directionField: string | undefined = (applicationData.education?.field && applicationData.education.field !== 'Не указано')
-      ? applicationData.education.field
-      : undefined
-    const unifiedPrograms: string[] = explicitPrograms.length > 0
-      ? explicitPrograms
-      : (directionField ? [directionField] : [])
+    const directionField: string | undefined =
+      applicationData.education?.field && applicationData.education.field !== 'Не указано'
+        ? applicationData.education.field
+        : undefined
+    const unifiedPrograms: string[] = explicitPrograms.length > 0 ? explicitPrograms : directionField ? [directionField] : []
     if (unifiedPrograms.length > 0) {
       comments.push(`Интересующие программы: ${unifiedPrograms.join(', ')}`)
     }
 
-    // Добавляем дополнительную информацию от пользователя
     if (applicationData.additional_info && applicationData.additional_info.trim()) {
       comments.push(`\nДополнительная информация: ${applicationData.additional_info}`)
     }
 
-    // Добавляем предпочтения пользователя из анкеты на главной (если есть и есть данные)
     if (applicationData.user_preferences && applicationData.source === 'home_questionnaire') {
       const prefs = applicationData.user_preferences
       const prefLines: string[] = []
@@ -469,55 +477,49 @@ export class BitrixService {
       }
     }
 
-    if (comments.length > 0) {
-      lead.COMMENTS = comments.join('\n')
+    if (comments.length === 0) {
+      return undefined
     }
 
-    // Поле источника (системный код)
-    lead.UF_CRM_1234567892 = applicationData.source
-    
-    // Добавляем реферальный код если есть
+    return comments.join('\n')
+  }
+
+  private buildCustomFields(applicationData: ApplicationRequest): Partial<BitrixLead> {
+    const customFields: Partial<BitrixLead> = {
+      UF_CRM_1234567892: applicationData.source
+    }
+
     if (applicationData.referral_code) {
-      lead.UF_CRM_REFERRAL_CODE = applicationData.referral_code
+      customFields.UF_CRM_REFERRAL_CODE = applicationData.referral_code
     }
 
-    // Сохраняем только релевантные поля предпочтений из попапа
     if (applicationData.user_preferences) {
       const prefs = applicationData.user_preferences
       if (prefs.userType) {
-        lead.UF_CRM_1234567893 = prefs.userType
+        customFields.UF_CRM_1234567893 = prefs.userType
       }
       if (prefs.language) {
-        lead.UF_CRM_1234567894 = prefs.language
+        customFields.UF_CRM_1234567894 = prefs.language
       }
     }
 
-    // Добавляем поля образования и предпочтений
-    if (applicationData.education) {
-      // Уровень образования не отправляем в Bitrix
-    }
-
-    // Для поля «Направление обучения» заполняем значение без дублирования:
-    // если есть явные программы — берем первую, иначе берем поле направления
-    if (!lead.UF_CRM_1234567896) {
-      const programsForLead: string[] = Array.isArray(applicationData.preferences?.programs)
-        ? (applicationData.preferences?.programs || []).filter((p) => !!p && p.trim() !== '')
-        : []
-      const directionForLead: string | undefined = (applicationData.education?.field && applicationData.education.field !== 'Не указано')
+    const programsForLead: string[] = Array.isArray(applicationData.preferences?.programs)
+      ? (applicationData.preferences?.programs || []).filter((p) => !!p && p.trim() !== '')
+      : []
+    const directionForLead: string | undefined =
+      applicationData.education?.field && applicationData.education.field !== 'Не указано'
         ? applicationData.education.field
         : undefined
-      const chosenDirection = programsForLead.length > 0 ? programsForLead[0] : directionForLead
-      if (chosenDirection) {
-        lead.UF_CRM_1234567896 = chosenDirection
-      }
+    const chosenDirection = programsForLead.length > 0 ? programsForLead[0] : directionForLead
+    if (chosenDirection) {
+      customFields.UF_CRM_1234567896 = chosenDirection
     }
 
-    // Добавляем интересующий университет
     if (applicationData.preferences?.universities && applicationData.preferences.universities.length > 0) {
-      lead.UF_CRM_1234567897 = applicationData.preferences.universities[0]
+      customFields.UF_CRM_1234567897 = applicationData.preferences.universities[0]
     }
 
-    return lead
+    return customFields
   }
 
   /**
