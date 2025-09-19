@@ -4,7 +4,6 @@
     <WhoWeAreSection />
     <TeamSection />
     <GuaranteesSection />
-    <MiniReviews />
     <StorySection />
     <WhyChooseUsSection />
     <ContactInfo />

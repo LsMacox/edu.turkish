@@ -31,13 +31,13 @@
               <p class="text-sm text-gray-500 leading-relaxed mb-4">
                 {{ member.description }}
               </p>
-              <div class="flex space-x-3">
-                <span class="w-8 h-8 bg-blue-100 rounded-lg flex items-center justify-center cursor-pointer">
+              <div class="flex space-x-3" v-if="member.linkedin || member.whatsapp">
+                <a v-if="member.linkedin" :href="member.linkedin" target="_blank" rel="noopener noreferrer" class="w-8 h-8 bg-blue-100 rounded-lg flex items-center justify-center cursor-pointer">
                   <Icon name="mdi:linkedin" class="text-blue-600" />
-                </span>
-                <span class="w-8 h-8 bg-green-100 rounded-lg flex items-center justify-center cursor-pointer">
+                </a>
+                <a v-if="member.whatsapp" :href="`https://wa.me/${member.whatsapp}`" target="_blank" rel="noopener noreferrer" class="w-8 h-8 bg-green-100 rounded-lg flex items-center justify-center cursor-pointer">
                   <Icon name="mdi:whatsapp" class="text-green-600" />
-                </span>
+                </a>
               </div>
             </div>
           </div>
@@ -57,56 +57,27 @@ interface TeamMember {
   role: string
   description: string
   photo: string
+  linkedin?: string
+  whatsapp?: string
 }
 
 const teamMembers: TeamMember[] = [
   {
     id: 1,
-    name: 'Алия Касымова',
-    position: t('about.team.ceo_founder'),
-    role: 'CEO',
-    description: t('about.team.aliya_description'),
-    photo: 'https://storage.googleapis.com/uxpilot-auth.appspot.com/avatars/avatar-1.jpg'
+    name: 'Адам Зугираев',
+    position: 'Ведущий backend-разработчик',
+    role: 'Backend',
+    description: 'Мастерит платформу для лёгкого прорыва в вуз — без лагов, с умными тестами и фокусом на твою победу.',
+    photo: '/images/team/adam-zugiraev.jpeg',
+    linkedin: 'https://www.linkedin.com/in/adam-zugiraev/'
   },
   {
     id: 2,
-    name: 'Дмитрий Волков',
-    position: t('about.team.bachelor_consultant'),
-    role: t('about.team.consultant'),
-    description: t('about.team.dmitry_description'),
-    photo: 'https://storage.googleapis.com/uxpilot-auth.appspot.com/avatars/avatar-2.jpg'
-  },
-  {
-    id: 3,
-    name: 'Айгуль Нурланова',
-    position: t('about.team.master_consultant'),
-    role: t('about.team.consultant'),
-    description: t('about.team.aigul_description'),
-    photo: 'https://storage.googleapis.com/uxpilot-auth.appspot.com/avatars/avatar-5.jpg'
-  },
-  {
-    id: 4,
-    name: 'Мехмет Озкан',
-    position: t('about.team.university_manager'),
-    role: t('about.team.manager'),
-    description: t('about.team.mehmet_description'),
-    photo: 'https://storage.googleapis.com/uxpilot-auth.appspot.com/avatars/avatar-3.jpg'
-  },
-  {
-    id: 5,
-    name: 'Анна Петрова',
-    position: t('about.team.document_specialist'),
-    role: t('about.team.specialist'),
-    description: t('about.team.anna_description'),
-    photo: 'https://storage.googleapis.com/uxpilot-auth.appspot.com/avatars/avatar-6.jpg'
-  },
-  {
-    id: 6,
-    name: 'Артем Козлов',
-    position: t('about.team.support_manager'),
-    role: t('about.team.support'),
-    description: t('about.team.artem_description'),
-    photo: 'https://storage.googleapis.com/uxpilot-auth.appspot.com/avatars/avatar-4.jpg'
+    name: 'Туран Лалаев',
+    position: 'Преподаватель TR-YÖS',
+    role: 'TR-YÖS',
+    description: 'Уже более 5 лет я преподаю и готовлю учеников к TR-YÖS. За это время я сам прошёл через более чем 20 экзаменов (YÖS и TR-YÖS), поэтому прекрасно понимаю их структуру и требования. Сейчас я учусь на 2-м курсе медицинского факультета. Это помогает мне быть максимально дисциплинированным, организованным и ответственным как в учёбе, так и в преподавании. Я отношусь к обучению очень серьёзно: моя цель — не просто дать готовые ответы, а объяснить материал так, чтобы ученик сам понимал логику заданий и мог уверенно решать даже сложные вопросы.',
+    photo: '/images/team/turan-lalaev.jpg'
   }
 ]
 </script>

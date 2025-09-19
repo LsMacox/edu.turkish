@@ -13,4 +13,3 @@ export { default as WhoWeAreSection } from './sections/WhoWeAreSection.vue'
 
 // About Support Components
 export { default as ContactInfo } from './components/ContactInfo.vue'
-export { default as MiniReviews } from './components/MiniReviews.vue'
