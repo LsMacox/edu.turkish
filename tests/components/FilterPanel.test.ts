@@ -94,6 +94,17 @@ describe('FilterPanel', () => {
     routeMock.query = {}
   })
 
+  it('renders language checkboxes from available filters', async () => {
+    createStoreWithRange([500, 15000], ['TR', 'EN', 'RU'])
+
+    const wrapper = mountFilterPanel()
+
+    await nextTick()
+
+    const checkboxInputs = wrapper.findAll('input[type="checkbox"]')
+    expect(checkboxInputs).toHaveLength(3)
+  })
+
   it('renders range slider with available price bounds', async () => {
     const initialRange: [number, number] = [500, 15000]
     const updatedRange: [number, number] = [1000, 20000]

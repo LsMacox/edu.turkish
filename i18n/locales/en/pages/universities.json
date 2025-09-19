@@ -29,8 +29,10 @@
       },
       "language_label": "Language of instruction",
       "languages": {
-        "turkish": "Turkish",
-        "english": "English"
+        "TR": "Turkish",
+        "EN": "English",
+        "RU": "Russian",
+        "AR": "Arabic"
       },
       "type_label": "Type",
       "all_types": "All types",
