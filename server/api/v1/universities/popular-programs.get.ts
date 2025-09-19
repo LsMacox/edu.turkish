@@ -124,7 +124,7 @@ export async function getDirectionStats(
     }
   }
 
-  const { locale: normalizedLocale, variants } = resolveLanguage(locale)
+  const { variants } = resolveLanguage(locale)
 
   const directions = await prisma.studyDirection.findMany({
     where: {

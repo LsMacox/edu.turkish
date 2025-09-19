@@ -1,11 +1,8 @@
 import { afterAll, beforeEach, describe, expect, it, vi } from 'vitest'
 
 declare global {
-  // eslint-disable-next-line no-var
   var defineEventHandler: <T>(handler: T) => T
-  // eslint-disable-next-line no-var
   var getQuery: (event: unknown) => Record<string, unknown>
-  // eslint-disable-next-line no-var
   var setCookie: ReturnType<typeof vi.fn>
 }
 
