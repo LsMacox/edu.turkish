@@ -216,7 +216,6 @@ export function getFAQCategories(faqs: FAQItem[]): FAQCategory[] {
     { key: 'all', name: 'All Questions', count: faqs.length }
   ]
   
-  // Add specific categories
   const categoryNames: Record<string, string> = {
     'documents': 'Documents and Application',
     'exams': 'Exams and Testing',
@@ -265,8 +264,6 @@ export function validateApplicationData(data: any): { isValid: boolean; errors: 
     errors.push('First name is required')
   }
   
-  // Last name is optional
-  // Email is optional, but if provided validate format
   if (data.personal_info?.email?.trim()) {
     if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(data.personal_info.email)) {
       errors.push('Invalid email format')
@@ -280,8 +277,6 @@ export function validateApplicationData(data: any): { isValid: boolean; errors: 
   if (!data.education?.level?.trim()) {
     errors.push('Education level is required')
   }
-  
-  // Universities preference is optional
   
   return {
     isValid: errors.length === 0,

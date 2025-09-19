@@ -8,15 +8,11 @@ export class FAQRepository {
   private normalizeLocale(input?: string): { normalized: string; fallbacks: string[] } {
     const base = (input || 'ru').toLowerCase()
     const raw = base.split('-')[0]
-    // Normalize URL/code 'kz' to stored locale 'kk'
     const normalized = raw === 'kz' ? 'kk' : raw
-    // Include both 'kk' and 'kz' in fallbacks to support legacy records
     const kkVariants = normalized === 'kk' ? ['kk', 'kz'] : (normalized === 'kz' ? ['kk', 'kz'] : [normalized])
     const fallbacks = Array.from(new Set([...kkVariants, 'ru']))
     return { normalized: normalized === 'kz' ? 'kk' : normalized, fallbacks }
   }
-
-  // ===== Helper utilities to reduce duplication =====
 
   private buildTranslationWhere(fallbacks: string[], q?: string): Prisma.FaqTranslationWhereInput {
     const where: Prisma.FaqTranslationWhereInput = { locale: { in: fallbacks } }
@@ -58,10 +54,8 @@ export class FAQRepository {
     const { normalized, fallbacks } = this.normalizeLocale(locale)
     const { q, category, featured, limit = 50 } = params
 
-    // Build where clause for FAQ items
     const where: Prisma.FaqItemWhereInput = {}
 
-    // Interpret category as categoryId
     if (category && String(category).trim().length > 0) {
       const categoryId = Number(category)
       if (!Number.isNaN(categoryId) && categoryId > 0) {
@@ -73,11 +67,9 @@ export class FAQRepository {
       where.featured = true
     }
 
-    // Build where clause for translations (for search)
     const translationWhere = this.buildTranslationWhere(fallbacks, q)
     const include = this.buildIncludes(fallbacks)
 
-    // Execute queries
     const [faqs, filteredCount] = await this.prisma.$transaction([
       this.prisma.faqItem.findMany({
         where: {
@@ -99,17 +91,14 @@ export class FAQRepository {
       })
     ])
 
-    // Get categories list with counts
     const categoriesRaw = await this.prisma.faqCategory.findMany({
       include: this.buildCategoryInclude(fallbacks)
     })
 
     const categories: FAQCategory[] = categoriesRaw.map(cat => mapFaqCategoryToApi(cat, normalized))
 
-    // Transform to API format
     const transformedFAQs: FAQItem[] = faqs.map(faq => mapFaqItemToApi(faq, normalized, q))
 
-    // Sort by relevance if searching
     if (q) {
       transformedFAQs.sort((a, b) => (b.relevance_score || 0) - (a.relevance_score || 0))
     }

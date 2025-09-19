@@ -311,10 +311,10 @@ export interface UniversityResponse {
 // ==========================================
 
 export interface DirectionQueryParams {
-  q?: string           // Search query
-  page?: number        // Page number
-  limit?: number       // Items per page
-  lang?: string        // API language
+  q?: string
+  page?: number
+  limit?: number
+  lang?: string
 }
 
 export interface DirectionInfo {
@@ -408,11 +408,11 @@ export interface CreateReviewResponse {
 // ==========================================
 
 export interface FAQQueryParams {
-  q?: string           // Search query for questions and answers
-  category?: string    // Filter by category
-  featured?: boolean   // Show only featured FAQs
-  limit?: number       // Number of results
-  lang?: string        // API language
+  q?: string
+  category?: string
+  featured?: boolean
+  limit?: number
+  lang?: string
 }
 
 // Simplified FAQ data structure - using plain HTML strings for answers
