@@ -3,11 +3,11 @@ import { prisma } from '../../../../lib/prisma'
 const DEFAULT_LOCALE = 'ru'
 
 const CANONICAL_LOCALE_MAP: Record<string, string> = {
-  kk: 'kz'
+  kk: 'kz',
 }
 
 const LOCALE_VARIANTS: Record<string, string[]> = {
-  kz: ['kz', 'kk']
+  kz: ['kz', 'kk'],
 }
 
 export interface NormalizedLanguage {
@@ -47,7 +47,7 @@ function extractLanguage(query: Record<string, unknown>): string {
   return 'ru'
 }
 
-export default defineEventHandler(async (event) => {
+export async function popularProgramsHandler(event: unknown) {
   const rawLanguage = extractLanguage(getQuery(event))
   const { locale } = resolveLanguage(rawLanguage)
 
@@ -59,27 +59,33 @@ export default defineEventHandler(async (event) => {
       // Медицинские направления
       getDirectionStats(['medicine'], locale),
       // Инженерные направления (конкретные слаги)
-      getDirectionStats([
-        'mechanical-engineering',
-        'civil-engineering',
-        'electrical-electronics-engineering',
-        'industrial-engineering',
-        'mechatronics',
-        'aerospace-engineering',
-        'environmental-engineering',
-        'marine-engineering'
-      ], locale),
+      getDirectionStats(
+        [
+          'mechanical-engineering',
+          'civil-engineering',
+          'electrical-electronics-engineering',
+          'industrial-engineering',
+          'mechatronics',
+          'aerospace-engineering',
+          'environmental-engineering',
+          'marine-engineering',
+        ],
+        locale,
+      ),
       // Бизнес и экономика
-      getDirectionStats([
-        'business',
-        'economics',
-        'management',
-        'finance',
-        'accounting',
-        'marketing',
-        'entrepreneurship',
-        'tourism-hospitality'
-      ], locale),
+      getDirectionStats(
+        [
+          'business',
+          'economics',
+          'management',
+          'finance',
+          'accounting',
+          'marketing',
+          'entrepreneurship',
+          'tourism-hospitality',
+        ],
+        locale,
+      ),
       // Дизайн и архитектура
       getDirectionStats(['design', 'architecture', 'fine-arts'], locale),
       // Международные отношения и гуманитарные науки
@@ -104,7 +110,9 @@ export default defineEventHandler(async (event) => {
       statusMessage: 'Ошибка при получении статистики популярных направлений',
     })
   }
-})
+}
+
+export default defineEventHandler(popularProgramsHandler)
 
 export interface DirectionStatsDto {
   universities_count: number
@@ -130,10 +138,10 @@ export async function getDirectionStats(
     where: {
       translations: {
         some: {
-          locale: { in: variants },
-          slug: { in: directionSlugs }
-        }
-      }
+          locale: variants.length === 1 ? normalizedLocale : { in: variants },
+          slug: { in: directionSlugs },
+        },
+      },
     },
     select: {
       id: true,
@@ -194,3 +202,6 @@ export async function getDirectionStats(
     direction_slugs: directionSlugs,
   }
 }
+
+// Expose handler for unit tests that call it directly without import
+;(globalThis as any).popularProgramsHandler = popularProgramsHandler

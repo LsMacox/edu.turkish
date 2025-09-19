@@ -30,7 +30,10 @@ vi.mock('../../../../../lib/prisma', () => ({
   },
 }))
 
-type GetDirectionStatsFn = (slugs: string[], locale: string) => Promise<{
+type GetDirectionStatsFn = (
+  slugs: string[],
+  locale: string,
+) => Promise<{
   universities_count: number
   price_from: number
   direction_slugs: string[]
@@ -40,9 +43,7 @@ let getDirectionStats: GetDirectionStatsFn
 
 describe('getDirectionStats', () => {
   beforeAll(async () => {
-    const module = await import(
-      '../../../../../server/api/v1/universities/popular-programs.get'
-    )
+    const module = await import('../../../../../server/api/v1/universities/popular-programs.get')
     getDirectionStats = module.getDirectionStats as GetDirectionStatsFn
   })
 
@@ -138,13 +139,13 @@ describe('getDirectionStats', () => {
         translations: {
           some: {
             locale: { in: ['kz', 'kk'] },
-            slug: { in: ['computer-science'] }
-          }
-        }
+            slug: { in: ['computer-science'] },
+          },
+        },
       },
       select: {
-        id: true
-      }
+        id: true,
+      },
     })
 
     expect(mocks.universityAggregate).not.toHaveBeenCalled()
@@ -163,8 +164,8 @@ describe('popular programs handler', () => {
     mocks.universityAggregate.mockResolvedValue({
       _min: {
         tuitionMin: 5000,
-        tuitionMax: 7000
-      }
+        tuitionMax: 7000,
+      },
     })
 
     getQueryMock.mockReturnValue({ lang: 'kz' })
@@ -176,10 +177,10 @@ describe('popular programs handler', () => {
       where: {
         translations: {
           some: {
-            locale: { in: ['kz', 'kk'] }
-          }
-        }
-      }
+            locale: { in: ['kz', 'kk'] },
+          },
+        },
+      },
     })
     expect(mocks.studyDirectionFindMany).toHaveBeenCalledTimes(6)
 
@@ -187,7 +188,7 @@ describe('popular programs handler', () => {
     expect(result.data.it).toEqual({
       universities_count: 2,
       price_from: 5000,
-      direction_slugs: ['it', 'computer-science', 'software-engineering']
+      direction_slugs: ['it', 'computer-science', 'software-engineering'],
     })
   })
 })
