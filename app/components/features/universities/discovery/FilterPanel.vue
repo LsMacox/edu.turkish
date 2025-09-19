@@ -111,7 +111,7 @@ const emit = defineEmits<{
 // Use universities store to get current filters
 const universitiesStore = useUniversitiesStore()
 const { filters, availableFilters } = storeToRefs(universitiesStore)
-const { setFilter } = universitiesStore
+const { applyFilters } = universitiesStore
 
 const state = reactive({
   q: '',
@@ -206,14 +206,16 @@ function reset() {
 
 function apply() {
   const cityValue = state.city === 'Все' ? 'Все города' : state.city
-  
+
   // Apply filters through composable which updates URL
-  setFilter('q', state.q)
-  setFilter('city', cityValue)
-  setFilter('langs', state.langs)
-  setFilter('type', state.type)
-  setFilter('level', state.level)
-  setFilter('price', priceRange.value)
+  applyFilters({
+    q: state.q,
+    city: cityValue,
+    langs: [...state.langs],
+    type: state.type,
+    level: state.level,
+    price: [priceRange.value[0], priceRange.value[1]] as [number, number]
+  })
 
   // Legacy emit for backwards compatibility
   emit('apply', {
