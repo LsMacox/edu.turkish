@@ -474,8 +474,16 @@ export interface ApplicationRequest {
   }
   additional_info?: string // общее поле для дополнительной информации
   source: string // источник заявки
-  user_preferences?: any // предпочтения пользователя из анкеты
+  user_preferences?: UserPreferencesDTO // предпочтения пользователя из анкеты
   referral_code?: string // New field for explicit referral tracking
+}
+
+export interface UserPreferencesDTO {
+  source?: string
+  userType?: 'student' | 'parent'
+  universityChosen?: 'yes' | 'no'
+  language?: 'turkish' | 'english' | 'both'
+  scholarship?: 'yes' | 'no'
 }
 
 export interface ApplicationResponse {
