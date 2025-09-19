@@ -1,7 +1,7 @@
 {
-  "name": "EDU.Turkish",
-  "short_name": "EDU.T",
-  "description": "EDU.Turkish — онлайн‑курсы турецкого языка",
+  "name": "edu.turkish",
+  "short_name": "edu.t",
+  "description": "edu.turkish — платформа для поиска университетов Турции и подачи заявок",
   "id": "/",
   "start_url": "/",
   "scope": "/",
