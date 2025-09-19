@@ -266,7 +266,8 @@ import type {
   BlogArticleDetail,
   BlogArticleListItem,
   BlogArticlesResponse,
-  BlogArticleQuickFact
+  BlogArticleQuickFact,
+  BlogArticleQueryParams
 } from '~/server/types/api'
 
 definePageMeta({
@@ -494,6 +495,23 @@ const copyShareLink = async () => {
 
 const relatedArticles = ref<BlogArticleListItem[]>([])
 
+const fetchArticles = (query: BlogArticleQueryParams = {}) => {
+  const baseQuery = {
+    page: 1,
+    limit: 4,
+    lang: locale.value,
+    ...query
+  }
+
+  const sanitizedQuery = Object.fromEntries(
+    Object.entries(baseQuery).filter(([, value]) => value !== undefined && value !== null)
+  )
+
+  return $fetch<BlogArticlesResponse>('/api/v1/blog/articles', {
+    query: sanitizedQuery
+  })
+}
+
 const loadRelatedArticles = async () => {
   if (!article.value) {
     relatedArticles.value = []
@@ -501,20 +519,21 @@ const loadRelatedArticles = async () => {
   }
 
   try {
-    const response = await $fetch<BlogArticlesResponse>('/api/v1/blog/articles', {
-      query: {
-        page: 1,
-        limit: 4,
-        category: article.value.category?.key,
-        lang: locale.value
-      }
-    })
+    const categoryKey = article.value.category?.key
+    const primaryResponse = await fetchArticles({ category: categoryKey })
 
-    const filtered = response.data
+    let candidates = primaryResponse.data
       .filter((item) => item.slug !== article.value?.slug)
       .slice(0, 3)
 
-    relatedArticles.value = filtered
+    if (candidates.length === 0) {
+      const fallbackResponse = await fetchArticles()
+      candidates = fallbackResponse.data
+        .filter((item) => item.slug !== article.value?.slug)
+        .slice(0, 3)
+    }
+
+    relatedArticles.value = candidates
   } catch (err) {
     if (process.client) {
       console.error('[article] Failed to load related articles', err)
