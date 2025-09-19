@@ -112,6 +112,27 @@ const loading = ref(true)
 const dynamicData = ref<PopularProgramsResponse['data'] | null>(null)
 const { t, locale } = useI18n()
 
+const DEFAULT_LOCALE = 'ru'
+const CANONICAL_LOCALE_MAP: Record<string, string> = {
+  kk: 'kz'
+}
+
+const normalizeLanguageCode = (value?: string | null) => {
+  if (!value) {
+    return DEFAULT_LOCALE
+  }
+
+  const trimmed = value.trim().toLowerCase()
+
+  if (!trimmed) {
+    return DEFAULT_LOCALE
+  }
+
+  const base = trimmed.split(/[-_]/)[0]
+
+  return CANONICAL_LOCALE_MAP[base] ?? base
+}
+
 const pluralRules = computed(() => new Intl.PluralRules(locale.value))
 const currencyFormatter = computed(
   () =>
@@ -145,7 +166,7 @@ const formatPrice = (price: number) => {
 onMounted(async () => {
   try {
     const response = await $fetch<PopularProgramsResponse>('/api/v1/universities/popular-programs', {
-      query: { locale: locale.value }
+      query: { lang: normalizeLanguageCode(locale.value) }
     })
     
     if (response.success) {

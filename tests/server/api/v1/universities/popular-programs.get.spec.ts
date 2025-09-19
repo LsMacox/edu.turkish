@@ -32,13 +32,34 @@ vi.mock('../../../../../lib/prisma', () => ({
 
 type PopularProgramsModule = typeof import('../../../../../server/api/v1/universities/popular-programs.get')
 
+let popularProgramsModule: PopularProgramsModule
 let getDirectionStats: PopularProgramsModule['getDirectionStats']
+let popularProgramsHandler: PopularProgramsModule['default']
+let resolveLanguage: PopularProgramsModule['resolveLanguage']
+
+beforeAll(async () => {
+  popularProgramsModule = await import('../../../../../server/api/v1/universities/popular-programs.get')
+  getDirectionStats = popularProgramsModule.getDirectionStats
+  popularProgramsHandler = popularProgramsModule.default
+  resolveLanguage = popularProgramsModule.resolveLanguage
+})
+
+describe('resolveLanguage', () => {
+  it('returns default locale when input missing', () => {
+    expect(resolveLanguage()).toEqual({ locale: 'ru', variants: ['ru'] })
+  })
+
+  it('normalizes complex codes to base locale', () => {
+    expect(resolveLanguage('en-US')).toEqual({ locale: 'en', variants: ['en'] })
+  })
+
+  it('treats kazakh locale aliases uniformly', () => {
+    expect(resolveLanguage('kk-KZ')).toEqual({ locale: 'kz', variants: ['kz', 'kk'] })
+    expect(resolveLanguage('kz')).toEqual({ locale: 'kz', variants: ['kz', 'kk'] })
+  })
+})
 
 describe('getDirectionStats', () => {
-  beforeAll(async () => {
-    const module = await import('../../../../../server/api/v1/universities/popular-programs.get')
-    getDirectionStats = module.getDirectionStats
-  })
 
   beforeEach(() => {
     vi.clearAllMocks()
@@ -61,7 +82,7 @@ describe('getDirectionStats', () => {
       where: {
         translations: {
           some: {
-            locale: 'ru',
+            locale: { in: ['ru'] },
             slug: { in: ['it', 'engineering'] }
           }
         }
@@ -118,6 +139,70 @@ describe('getDirectionStats', () => {
       universities_count: 1,
       price_from: 7200,
       direction_slugs: ['medicine']
+    })
+  })
+
+  it('normalizes locale values before querying Prisma', async () => {
+    mocks.studyDirectionFindMany.mockResolvedValueOnce([{ id: 5 }])
+    mocks.universityCount.mockResolvedValueOnce(0)
+
+    await getDirectionStats(['computer-science'], 'kZ')
+
+    expect(mocks.studyDirectionFindMany).toHaveBeenCalledWith({
+      where: {
+        translations: {
+          some: {
+            locale: { in: ['kz', 'kk'] },
+            slug: { in: ['computer-science'] }
+          }
+        }
+      },
+      select: {
+        id: true
+      }
+    })
+
+    expect(mocks.universityAggregate).not.toHaveBeenCalled()
+  })
+})
+
+describe('popular programs handler', () => {
+  beforeEach(() => {
+    vi.clearAllMocks()
+    getQueryMock.mockReturnValue({})
+  })
+
+  it('normalizes query language before fetching stats', async () => {
+    mocks.studyDirectionFindMany.mockResolvedValue([{ id: 42 }])
+    mocks.universityCount.mockResolvedValue(2)
+    mocks.universityAggregate.mockResolvedValue({
+      _min: {
+        tuitionMin: 5000,
+        tuitionMax: 7000
+      }
+    })
+
+    getQueryMock.mockReturnValue({ lang: 'kz' })
+
+    const result = await popularProgramsHandler({} as never)
+
+    expect(mocks.studyDirectionFindMany).toHaveBeenCalled()
+    expect(mocks.studyDirectionFindMany.mock.calls[0][0]).toMatchObject({
+      where: {
+        translations: {
+          some: {
+            locale: { in: ['kz', 'kk'] }
+          }
+        }
+      }
+    })
+    expect(mocks.studyDirectionFindMany).toHaveBeenCalledTimes(6)
+
+    expect(result.success).toBe(true)
+    expect(result.data.it).toEqual({
+      universities_count: 2,
+      price_from: 5000,
+      direction_slugs: ['it', 'computer-science', 'software-engineering']
     })
   })
 })
