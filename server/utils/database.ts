@@ -1,5 +1,5 @@
 import { prisma } from '../../lib/prisma'
-import type { PrismaClient } from '@prisma/client'
+import type { Prisma } from '@prisma/client'
 
 export { prisma }
 
@@ -19,10 +19,10 @@ export async function checkDatabaseConnection(): Promise<boolean> {
 /**
  * Database transaction helper
  */
-export async function withTransaction<T>(fn: (tx: PrismaClient) => Promise<T>): Promise<T> {
+export async function withTransaction<T>(fn: (tx: Prisma.TransactionClient) => Promise<T>): Promise<T> {
   // Use interactive transaction to get a fully-typed tx client
   return await prisma.$transaction(async (tx) => {
-    return await fn(tx as unknown as PrismaClient)
+    return await fn(tx)
   })
 }
 
