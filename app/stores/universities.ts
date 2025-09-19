@@ -140,7 +140,6 @@ export const useUniversitiesStore = defineStore('universities', () => {
     page?: number
     overrides?: FetchOverrides
   }) => {
-    if (process.client) console.warn('[universities] fetch start')
     loading.value = true
     error.value = null
 
@@ -182,7 +181,6 @@ export const useUniversitiesStore = defineStore('universities', () => {
         lang: locale.value,
       }
 
-      if (process.client) console.warn('[universities] query', queryParams)
       const response = await $fetch<UniversityResponse>('/api/v1/universities', {
         query: queryParams,
       })
@@ -219,17 +217,13 @@ export const useUniversitiesStore = defineStore('universities', () => {
         }
       }
 
-      if (process.client) console.warn('[universities] fetched', response.data?.length)
-
       // Return response for loadMore logic
       return response
     } catch (err: any) {
       error.value = err.message || 'Failed to fetch universities'
-      if (process.client) console.error('[universities] fetch error', err)
       return null
     } finally {
       loading.value = false
-      if (process.client) console.warn('[universities] fetch end')
     }
   }
 
