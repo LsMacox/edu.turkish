@@ -3,15 +3,8 @@ import type { PrismaClient } from '@prisma/client'
 import { Prisma } from '@prisma/client'
 
 import { UniversityRepository } from '../../server/repositories/UniversityRepository'
+import type { UniversityListItem } from '../../server/repositories/UniversityRepository'
 import type { UniversityQueryParams } from '../../server/types/api'
-
-type UniversityListItem = Prisma.UniversityGetPayload<{
-  include: {
-    translations: true
-    academicPrograms: true
-    city: { include: { translations: true } }
-  }
-}>
 
 describe('UniversityRepository.findAll', () => {
   const createParams = (overrides: Partial<UniversityQueryParams> = {}): UniversityQueryParams => ({
@@ -58,7 +51,7 @@ describe('UniversityRepository.findAll', () => {
 
     const repository = new UniversityRepository(prisma)
 
-    return { repository, findMany }
+    return { repository, findMany, count }
   }
 
   type TuitionRange = { tuitionMin: Prisma.Decimal | null; tuitionMax: Prisma.Decimal | null }
@@ -325,5 +318,232 @@ describe('UniversityRepository.findAll', () => {
     expect(matchesTuitionWhere(where, openUpper)).toBe(true)
     expect(matchesTuitionWhere(where, unbounded)).toBe(true)
     expect(matchesTuitionWhere(where, nonOverlapping)).toBe(false)
+  })
+
+  it('applies search, city, type, level and language filters', async () => {
+    const { repository, findMany } = createRepositoryWithMocks()
+
+    await repository.findAll(
+      createParams({
+        q: 'Tech',
+        city: 'Ankara',
+        type: 'Государственный',
+        level: 'Магистратура',
+        langs: ['en'],
+        price_min: undefined,
+        price_max: undefined
+      }),
+      'en'
+    )
+
+    const where = findMany.mock.calls[0][0]?.where as Prisma.UniversityWhereInput
+
+    expect(where.type).toBe('state')
+    expect(where.academicPrograms).toEqual({ some: { degreeType: 'master' } })
+    expect(where.AND).toHaveLength(3)
+    expect(where.AND?.[2]).toEqual({
+      academicPrograms: {
+        some: {
+          languageCode: {
+            in: ['en']
+          }
+        }
+      }
+    })
+  })
+
+  it('sorts results alphabetically when requested', async () => {
+    const baseDate = new Date('2024-01-01T00:00:00.000Z')
+    const { repository, findMany, count } = createRepositoryWithMocks()
+
+    const alphaUniversities: UniversityListItem[] = [
+      {
+        id: 1,
+        countryId: null,
+        cityId: null,
+        foundedYear: 1950,
+        type: 'state',
+        tuitionMin: new Prisma.Decimal(1000),
+        tuitionMax: new Prisma.Decimal(2000),
+        currency: 'USD',
+        totalStudents: 1000,
+        internationalStudents: 200,
+        rankingScore: null,
+        hasAccommodation: false,
+        hasScholarships: false,
+        heroImage: null,
+        image: null,
+        createdAt: baseDate,
+        updatedAt: baseDate,
+        translations: [
+          {
+            id: 1,
+            universityId: 1,
+            locale: 'en',
+            title: 'Zeta Institute',
+            description: 'Tech university',
+            slug: 'zeta-institute',
+            about: null,
+            keyInfoTexts: null,
+            createdAt: baseDate,
+            updatedAt: baseDate
+          }
+        ],
+        academicPrograms: [],
+        city: null
+      },
+      {
+        id: 2,
+        countryId: null,
+        cityId: null,
+        foundedYear: 1960,
+        type: 'state',
+        tuitionMin: new Prisma.Decimal(1000),
+        tuitionMax: new Prisma.Decimal(2000),
+        currency: 'USD',
+        totalStudents: 1000,
+        internationalStudents: 200,
+        rankingScore: null,
+        hasAccommodation: false,
+        hasScholarships: false,
+        heroImage: null,
+        image: null,
+        createdAt: baseDate,
+        updatedAt: baseDate,
+        translations: [
+          {
+            id: 2,
+            universityId: 2,
+            locale: 'en',
+            title: 'Alpha University',
+            description: 'Liberal arts',
+            slug: 'alpha-university',
+            about: null,
+            keyInfoTexts: null,
+            createdAt: baseDate,
+            updatedAt: baseDate
+          }
+        ],
+        academicPrograms: [],
+        city: null
+      }
+    ]
+
+    findMany.mockResolvedValue(alphaUniversities)
+    count.mockResolvedValue(alphaUniversities.length)
+
+    const result = await repository.findAll(createParams({ sort: 'alpha' }), 'en')
+
+    expect(result.data.map(item => item.title)).toEqual(['Alpha University', 'Zeta Institute'])
+  })
+
+  it('prioritizes English language programs for lang_en sort regardless of case', async () => {
+    const baseDate = new Date('2024-01-01T00:00:00.000Z')
+    const { repository, findMany, count } = createRepositoryWithMocks()
+
+    const universities: UniversityListItem[] = [
+      {
+        id: 1,
+        countryId: null,
+        cityId: null,
+        foundedYear: 1950,
+        type: 'state',
+        tuitionMin: new Prisma.Decimal(1000),
+        tuitionMax: new Prisma.Decimal(2000),
+        currency: 'USD',
+        totalStudents: 1000,
+        internationalStudents: 200,
+        rankingScore: null,
+        hasAccommodation: false,
+        hasScholarships: false,
+        heroImage: null,
+        image: null,
+        createdAt: baseDate,
+        updatedAt: baseDate,
+        translations: [
+          {
+            id: 1,
+            universityId: 1,
+            locale: 'en',
+            title: 'Turkish Academy',
+            description: 'Local language programs',
+            slug: 'turkish-academy',
+            about: null,
+            keyInfoTexts: null,
+            createdAt: baseDate,
+            updatedAt: baseDate
+          }
+        ],
+        academicPrograms: [
+          {
+            id: 1,
+            universityId: 1,
+            degreeType: 'bachelor',
+            languageCode: 'TR',
+            durationYears: 4,
+            tuitionPerYear: new Prisma.Decimal(3000),
+            createdAt: baseDate,
+            updatedAt: baseDate
+          }
+        ],
+        city: null
+      },
+      {
+        id: 2,
+        countryId: null,
+        cityId: null,
+        foundedYear: 1950,
+        type: 'state',
+        tuitionMin: new Prisma.Decimal(1000),
+        tuitionMax: new Prisma.Decimal(2000),
+        currency: 'USD',
+        totalStudents: 1000,
+        internationalStudents: 200,
+        rankingScore: null,
+        hasAccommodation: false,
+        hasScholarships: false,
+        heroImage: null,
+        image: null,
+        createdAt: baseDate,
+        updatedAt: baseDate,
+        translations: [
+          {
+            id: 2,
+            universityId: 2,
+            locale: 'en',
+            title: 'International College',
+            description: 'English programs available',
+            slug: 'international-college',
+            about: null,
+            keyInfoTexts: null,
+            createdAt: baseDate,
+            updatedAt: baseDate
+          }
+        ],
+        academicPrograms: [
+          {
+            id: 2,
+            universityId: 2,
+            degreeType: 'bachelor',
+            languageCode: 'EN',
+            durationYears: 4,
+            tuitionPerYear: new Prisma.Decimal(3000),
+            createdAt: baseDate,
+            updatedAt: baseDate
+          }
+        ],
+        city: null
+      }
+    ]
+
+    findMany.mockResolvedValue(universities)
+    count.mockResolvedValue(universities.length)
+
+    const result = await repository.findAll(createParams({ sort: 'lang_en' }), 'en')
+
+    expect(result.data.map(item => item.title)).toEqual([
+      'International College',
+      'Turkish Academy'
+    ])
   })
 })

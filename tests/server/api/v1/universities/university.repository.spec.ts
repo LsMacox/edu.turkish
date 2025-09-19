@@ -67,7 +67,7 @@ describe('UniversityRepository price filtering', () => {
     const args = prismaMock.findMany.mock.calls[0][0]
     expect(args.where?.AND?.[0]?.OR).toEqual([
       { tuitionMin: { lte: 3000 } },
-      { tuitionMax: { lte: 3000 } }
+      { tuitionMin: { equals: null } }
     ])
   })
 
@@ -79,7 +79,7 @@ describe('UniversityRepository price filtering', () => {
     const args = prismaMock.findMany.mock.calls[0][0]
     expect(args.where?.AND?.[0]?.OR).toEqual([
       { tuitionMin: { lte: 2000 } },
-      { tuitionMax: { lte: 2000 } }
+      { tuitionMin: { equals: null } }
     ])
   })
 
@@ -88,8 +88,12 @@ describe('UniversityRepository price filtering', () => {
 
     const args = prismaMock.findMany.mock.calls[0][0]
     expect(args.where?.AND?.[0]?.OR).toEqual([
-      { tuitionMin: { gte: 2000, lte: 5000 } },
-      { tuitionMax: { gte: 2000, lte: 5000 } }
+      { tuitionMin: { lte: 5000 } },
+      { tuitionMin: { equals: null } }
+    ])
+    expect(args.where?.AND?.[1]?.OR).toEqual([
+      { tuitionMax: { gte: 2000 } },
+      { tuitionMax: { equals: null } }
     ])
   })
 })
