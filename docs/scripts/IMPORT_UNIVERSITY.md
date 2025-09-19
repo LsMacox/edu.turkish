@@ -30,21 +30,181 @@ npx tsx scripts/import-university.ts ./app/assets/json/universities/atlas_univer
 Полная схема входных данных приведена в описании и примере в ответе ассистента, а также соответствует проверкам в `scripts/import-university.ts`.
 Основные разделы (все блоки опциональны, кроме базовых полей университета):
 
-- Базовые поля университета: `title`, `description`, `slug`, `city`, `foundedYear`, `type`, `tuitionMin/Max`, `currency`, `totalStudents`, `internationalStudents`, `hasAccommodation`, `heroImage`, `image`, `about`, `strongPrograms` (заполняет таблицу FeaturedProgram), `campusGallery`, `multilingualSlugs`
-  - Примечание: данные рейтинга теперь переводимые и должны задаваться через переводы (`ranking_text`, `key_info_texts.ranking`) вместо числовых полей.
-- `translations`: массив переводов университета
-- `languages`: массив языков обучения (создаёт записи `university_languages`)
-- `programs`: академические программы + `translations`
-- `directions`: направления + `translations` и связка через `university_directions` (создаёт направление, если отсутствует)
-- `facilities`: инфраструктура + `translations`
-- `dormitories`: общежития + `translations`
-- `requirements`: требования к поступлению + `translations`
-- `documents`: необходимые документы + `translations`
-- `dates`: важные даты/дедлайны + `translations`
-- `scholarships`: стипендии + `translations`
-- `reviews`: отзывы + `translations`
+- Базовые поля университета: `locale`, `countryCode`, `title`, `description`, `slug`, `city`, `foundedYear`, `type`, `tuitionRange`, `totalStudents`, `internationalStudents`, `hasAccommodation`, `heroImage`, `image`, `about`, `strong_programs` (заполняет таблицу FeaturedProgram)
+  - Примечание: данные рейтинга теперь переводимые и задаются через `key_info_texts.ranking_text` (и его переводы) вместо числовых полей.
+- `translation`: дополнительный перевод университета (опциональный объект с вложенными `about`, `strong_programs`, `key_info_texts`)
+- `programs`: академические программы; каждая запись поддерживает `translation`
+- `directions`: список `slug` направлений для связи через `university_directions`
+- `campus_life.facilities`: инфраструктура кампуса + `translation`
+- `campus_life.gallery`: медиа-галерея + `translation`
+- `admission.requirements`: требования к поступлению + `translation`
+- `admission.documents`: необходимые документы + `translation`
+- `admission.dates`: важные даты/дедлайны + `translation`
+- `admission.scholarships`: стипендии + `translation`
 
-См. также пример полного JSON в документации/переписке или используйте ранее предоставленный шаблон.
+Ниже — укороченный пример JSON, покрывающий все ключевые разделы и соответствующий проверкам в `scripts/import-university.ts`:
+
+```jsonc
+{
+  "locale": "ru",
+  "countryCode": "TUR",
+  "countryName": "Турция",
+  "title": "Пример технологического университета",
+  "description": "Частный технологический вуз в Стамбуле, сильный в инженерии и бизнесе.",
+  "slug": "example-tech-university",
+  "city": "Стамбул",
+  "foundedYear": 1998,
+  "type": "private",
+  "tuitionRange": { "min": 3500, "max": 9000, "currency": "USD" },
+  "totalStudents": 12000,
+  "internationalStudents": 2200,
+  "hasAccommodation": true,
+  "hasScholarships": true,
+  "heroImage": "/images/universities/example-hero.jpg",
+  "image": "/images/universities/example-card.jpg",
+  "about": {
+    "history": "Основан в 1998 году как технологический институт.",
+    "mission": "Готовим инженеров и предпринимателей для глобального рынка.",
+    "advantages": [
+      "Современные лаборатории и акселератор стартапов",
+      { "title": "Карьерный центр", "description": "Оплачиваемые стажировки в Турции и ЕС" }
+    ]
+  },
+  "strong_programs": [
+    { "category": "Инженерия", "programs": ["Мехатроника", "Программная инженерия"] },
+    { "category": "Бизнес", "programs": ["Цифровой маркетинг"] }
+  ],
+  "key_info_texts": {
+    "languages_note": "Английский, Турецкий",
+    "ranking_label": "Рейтинг",
+    "ranking_text": "Top-50 в Турции по версии QS Europe 2024"
+  },
+  "campus_life": {
+    "gallery": [
+      {
+        "kind": "image",
+        "url": "https://cdn.example.com/university/campus-day.jpg",
+        "title": "Главный кампус",
+        "caption": "Вид на кампус днём",
+        "translation": {
+          "locale": "en",
+          "title": "Main campus",
+          "caption": "Campus overview"
+        }
+      }
+    ],
+    "facilities": [
+      {
+        "name": "Научная библиотека",
+        "description": "24/7 доступ и медиатека",
+        "icon": "ph:books",
+        "translation": {
+          "locale": "en",
+          "name": "Science library",
+          "description": "24/7 access and media center"
+        }
+      }
+    ]
+  },
+  "admission": {
+    "requirements": [
+      {
+        "category": "Бакалавриат",
+        "requirement": "IELTS 6.0 и GPA 3.0+",
+        "translation": {
+          "locale": "en",
+          "category": "Undergraduate",
+          "requirement": "IELTS 6.0 and GPA 3.0+"
+        }
+      }
+    ],
+    "documents": [
+      {
+        "name": "Аттестат",
+        "description": "Перевод на английский, нотариальное заверение",
+        "format_requirements": ["PDF", "Цветной скан"],
+        "translation": {
+          "locale": "en",
+          "name": "High school diploma",
+          "description": "Official translation"
+        }
+      }
+    ],
+    "dates": [
+      {
+        "event": "Дедлайн подачи",
+        "date": "2024-07-15",
+        "type": "deadline",
+        "translation": {
+          "locale": "en",
+          "event": "Application deadline"
+        }
+      }
+    ],
+    "scholarships": [
+      {
+        "name": "Стипендия успеха",
+        "type": "university",
+        "coverage_percentage": 50,
+        "eligibility_criteria": ["GPA ≥ 3.2", "Мотивационное письмо"],
+        "application_deadline": "2024-05-01",
+        "translation": {
+          "locale": "en",
+          "name": "Merit scholarship",
+          "eligibility_criteria": ["GPA ≥ 3.2", "Motivation letter"]
+        }
+      }
+    ]
+  },
+  "programs": [
+    {
+      "name": "Программная инженерия",
+      "description": "4-летняя программа с акцентом на R&D",
+      "degree_type": "bachelor",
+      "language": "en",
+      "duration_years": 4,
+      "tuition_per_year": 6000,
+      "direction_slug": "software-engineering",
+      "translation": {
+        "locale": "en",
+        "name": "Software Engineering",
+        "description": "4-year R&D focused curriculum"
+      }
+    },
+    {
+      "name": "Бизнес-аналитика",
+      "degree_type": "master",
+      "language": "en",
+      "duration_years": 2,
+      "tuition_per_year": 7000,
+      "direction_slug": "management"
+    }
+  ],
+  "directions": ["software-engineering", "management", "data-science"],
+  "translation": {
+    "locale": "en",
+    "title": "Example Tech University",
+    "description": "Private tech-focused university in Istanbul.",
+    "slug": "example-tech-university-en",
+    "about": {
+      "history": "Founded in 1998 as a technology institute.",
+      "mission": "Preparing engineers and entrepreneurs for global careers.",
+      "advantages": [
+        "Cutting-edge labs and startup accelerator",
+        { "title": "Career center", "description": "Internships across Turkey and the EU" }
+      ]
+    },
+    "strong_programs": [
+      { "category": "Engineering", "programs": ["Mechatronics", "Software Engineering"] },
+      { "category": "Business", "programs": ["Digital Marketing"] }
+    ],
+    "key_info_texts": {
+      "ranking_text": "Top-50 in Turkey (QS Europe 2024)",
+      "languages_note": "English, Turkish"
+    }
+  }
+}
+```
 
 ## Поведение
 
