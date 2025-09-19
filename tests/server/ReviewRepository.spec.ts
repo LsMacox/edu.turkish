@@ -177,6 +177,121 @@ describe('ReviewRepository.findAll', () => {
       total: 1
     })
   })
+
+  it('selects kz translations when locale is requested as kk', async () => {
+    const { repository, mocks } = createRepositoryWithMocks()
+
+    const review: ReviewRecord = {
+      id: 3,
+      universityId: null,
+      type: 'student',
+      year: 2023,
+      rating: 5,
+      avatar: null,
+      featured: false,
+      createdAt: baseDate,
+      updatedAt: baseDate,
+      translations: [
+        {
+          id: 30,
+          reviewId: 3,
+          locale: 'kz',
+          name: 'Әружан',
+          quote: 'Тамаша тәжірибе',
+          universityName: 'Қазақ ұлттық университеті',
+          achievements: null,
+          createdAt: baseDate,
+          updatedAt: baseDate
+        },
+        {
+          id: 31,
+          reviewId: 3,
+          locale: 'ru',
+          name: 'Аружан',
+          quote: 'Отличный опыт',
+          universityName: 'Казахский национальный университет',
+          achievements: null,
+          createdAt: baseDate,
+          updatedAt: baseDate
+        }
+      ],
+      university: {
+        id: 11,
+        countryId: null,
+        cityId: null,
+        createdAt: baseDate,
+        updatedAt: baseDate,
+        translations: [
+          {
+            id: 40,
+            universityId: 11,
+            locale: 'ru',
+            title: 'КазНУ',
+            description: null,
+            slug: 'kaznu',
+            about: null,
+            keyInfoTexts: null,
+            createdAt: baseDate,
+            updatedAt: baseDate
+          }
+        ]
+      }
+    }
+
+    mocks.reviewFindMany.mockResolvedValue([review])
+    mocks.reviewCount.mockResolvedValue(1)
+
+    const result = await repository.findAll({ type: 'all', page: 1, limit: 1 }, 'kk')
+
+    expect(result.data).toHaveLength(1)
+    expect(result.data[0]).toMatchObject({
+      name: 'Әружан',
+      quote: 'Тамаша тәжірибе',
+      university: 'Қазақ ұлттық университеті'
+    })
+  })
+
+  it('falls back to Russian translations when Kazakh variants are absent', async () => {
+    const { repository, mocks } = createRepositoryWithMocks()
+
+    const review: ReviewRecord = {
+      id: 4,
+      universityId: null,
+      type: 'student',
+      year: null,
+      rating: 4,
+      avatar: null,
+      featured: false,
+      createdAt: baseDate,
+      updatedAt: baseDate,
+      translations: [
+        {
+          id: 41,
+          reviewId: 4,
+          locale: 'ru',
+          name: 'Ирина',
+          quote: 'Опыт только на русском',
+          universityName: 'МГУ',
+          achievements: null,
+          createdAt: baseDate,
+          updatedAt: baseDate
+        }
+      ],
+      university: null
+    }
+
+    mocks.reviewFindMany.mockResolvedValue([review])
+    mocks.reviewCount.mockResolvedValue(1)
+
+    const result = await repository.findAll({ type: 'all', page: 1, limit: 1 }, 'kz')
+
+    expect(result.data).toHaveLength(1)
+    expect(result.data[0]).toMatchObject({
+      name: 'Ирина',
+      quote: 'Опыт только на русском',
+      university: 'МГУ'
+    })
+  })
 })
 
 describe('ReviewRepository.findFeatured', () => {

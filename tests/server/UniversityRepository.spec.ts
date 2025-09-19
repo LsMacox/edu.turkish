@@ -546,4 +546,163 @@ describe('UniversityRepository.findAll', () => {
       'Turkish Academy'
     ])
   })
+
+  it('returns Kazakh translations when requested locale is kz', async () => {
+    const baseDate = new Date('2024-01-01T00:00:00.000Z')
+    const { repository, findMany, count } = createRepositoryWithMocks()
+
+    const universities: UniversityListItem[] = [
+      {
+        id: 5,
+        countryId: 1,
+        cityId: 20,
+        foundedYear: 1995,
+        type: 'state',
+        tuitionMin: new Prisma.Decimal(1800),
+        tuitionMax: new Prisma.Decimal(3200),
+        currency: 'USD',
+        totalStudents: 8000,
+        internationalStudents: 600,
+        rankingScore: null,
+        hasAccommodation: true,
+        hasScholarships: false,
+        heroImage: null,
+        image: 'kazakh-uni.jpg',
+        createdAt: baseDate,
+        updatedAt: baseDate,
+        translations: [
+          {
+            id: 51,
+            universityId: 5,
+            locale: 'kz',
+            title: 'Қазақ Университеті',
+            description: 'Қазақ тіліндегі сипаттама',
+            slug: 'qazaq-universiteti',
+            about: null,
+            keyInfoTexts: null,
+            createdAt: baseDate,
+            updatedAt: baseDate
+          },
+          {
+            id: 52,
+            universityId: 5,
+            locale: 'ru',
+            title: 'Казахский университет',
+            description: 'Описание на русском',
+            slug: 'kazahskiy-universitet',
+            about: null,
+            keyInfoTexts: null,
+            createdAt: baseDate,
+            updatedAt: baseDate
+          }
+        ],
+        academicPrograms: [
+          {
+            id: 501,
+            universityId: 5,
+            degreeType: 'bachelor',
+            languageCode: 'KK',
+            durationYears: 4,
+            tuitionPerYear: new Prisma.Decimal(2200),
+            createdAt: baseDate,
+            updatedAt: baseDate
+          }
+        ],
+        city: {
+          id: 20,
+          countryId: 1,
+          createdAt: baseDate,
+          updatedAt: baseDate,
+          translations: [
+            { id: 201, cityId: 20, locale: 'kz', name: 'Алматы', createdAt: baseDate, updatedAt: baseDate },
+            { id: 202, cityId: 20, locale: 'ru', name: 'Алма-Ата', createdAt: baseDate, updatedAt: baseDate }
+          ]
+        }
+      }
+    ]
+
+    findMany.mockResolvedValue(universities)
+    count.mockResolvedValue(universities.length)
+
+    const result = await repository.findAll(createParams(), 'kz')
+
+    expect(findMany).toHaveBeenCalledWith(
+      expect.objectContaining({
+        where: expect.any(Object),
+        include: expect.objectContaining({ translations: true })
+      })
+    )
+
+    expect(result.data).toHaveLength(1)
+    expect(result.data[0]).toMatchObject({
+      title: 'Қазақ Университеті',
+      description: 'Қазақ тіліндегі сипаттама',
+      city: 'Алматы',
+      slug: 'qazaq-universiteti'
+    })
+  })
+
+  it('falls back to Russian when Kazakh translation is missing', async () => {
+    const baseDate = new Date('2024-01-01T00:00:00.000Z')
+    const { repository, findMany, count } = createRepositoryWithMocks()
+
+    const universities: UniversityListItem[] = [
+      {
+        id: 6,
+        countryId: 1,
+        cityId: 21,
+        foundedYear: 2001,
+        type: 'state',
+        tuitionMin: new Prisma.Decimal(2000),
+        tuitionMax: new Prisma.Decimal(3400),
+        currency: 'USD',
+        totalStudents: 7000,
+        internationalStudents: 400,
+        rankingScore: null,
+        hasAccommodation: false,
+        hasScholarships: false,
+        heroImage: null,
+        image: 'fallback-uni.jpg',
+        createdAt: baseDate,
+        updatedAt: baseDate,
+        translations: [
+          {
+            id: 61,
+            universityId: 6,
+            locale: 'ru',
+            title: 'Российский университет',
+            description: 'Описание только на русском',
+            slug: 'rossiyskiy-universitet',
+            about: null,
+            keyInfoTexts: null,
+            createdAt: baseDate,
+            updatedAt: baseDate
+          }
+        ],
+        academicPrograms: [],
+        city: {
+          id: 21,
+          countryId: 1,
+          createdAt: baseDate,
+          updatedAt: baseDate,
+          translations: [
+            { id: 211, cityId: 21, locale: 'ru', name: 'Нур-Султан', createdAt: baseDate, updatedAt: baseDate }
+          ]
+        }
+      }
+    ]
+
+    findMany.mockResolvedValue(universities)
+    count.mockResolvedValue(universities.length)
+
+    const result = await repository.findAll(createParams(), 'kz')
+
+    expect(result.data).toHaveLength(1)
+    expect(result.data[0]).toMatchObject({
+      title: 'Российский университет',
+      description: 'Описание только на русском',
+      city: 'Нур-Султан',
+      slug: 'rossiyskiy-universitet'
+    })
+  })
 })
