@@ -19,7 +19,7 @@ CLI `scripts/import-university.ts` импортирует/обновляет о�
 npm run import:university -- /absolute/path/university.json --upsert-by=slug
 
 # Напрямую через tsx/npx
-npx tsx scripts/import-university.ts ./app/assets/json/universities/technica_university.json --upsert-by=title
+npx tsx scripts/import-university.ts ./app/assets/json/universities/atlas_university.json --upsert-by=title
 ```
 
 - `--upsert-by=slug|title` — по какому полю искать существующий университет (по умолчанию: `slug`).
