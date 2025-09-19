@@ -1,16 +1,64 @@
 import { prisma } from '../../../../lib/prisma'
 // import { UniversityRepository } from '../../../repositories/UniversityRepository'
 
+const DEFAULT_LOCALE = 'ru'
+
+const CANONICAL_LOCALE_MAP: Record<string, string> = {
+  kk: 'kz'
+}
+
+const LOCALE_VARIANTS: Record<string, string[]> = {
+  kz: ['kz', 'kk']
+}
+
+export interface NormalizedLanguage {
+  locale: string
+  variants: string[]
+}
+
+export function resolveLanguage(input?: string | null): NormalizedLanguage {
+  const raw = typeof input === 'string' ? input.trim().toLowerCase() : ''
+
+  if (!raw) {
+    return { locale: DEFAULT_LOCALE, variants: [DEFAULT_LOCALE] }
+  }
+
+  const base = raw.split(/[-_]/)[0]
+  const locale = CANONICAL_LOCALE_MAP[base] ?? base
+  const variants = LOCALE_VARIANTS[locale] ?? [locale]
+
+  return { locale, variants }
+}
+
+export function normalizeLanguageCode(input?: string | null): string {
+  return resolveLanguage(input).locale
+}
+
+function extractLanguage(query: Record<string, unknown>): string {
+  const candidate = query.lang ?? query.locale
+
+  if (Array.isArray(candidate)) {
+    return candidate[0] as string
+  }
+
+  if (typeof candidate === 'string') {
+    return candidate
+  }
+
+  return 'ru'
+}
+
 export default defineEventHandler(async (event) => {
-  const { locale = 'ru' } = getQuery(event)
-  
+  const rawLanguage = extractLanguage(getQuery(event))
+  const { locale } = resolveLanguage(rawLanguage)
+
   try {
     // Получаем статистику по каждому направлению
     const popularPrograms = await Promise.all([
       // ИТ направления
-      getDirectionStats(['it', 'computer-science', 'software-engineering'], locale as string),
+      getDirectionStats(['it', 'computer-science', 'software-engineering'], locale),
       // Медицинские направления
-      getDirectionStats(['medicine'], locale as string),
+      getDirectionStats(['medicine'], locale),
       // Инженерные направления (конкретные слаги)
       getDirectionStats([
         'mechanical-engineering',
@@ -21,7 +69,7 @@ export default defineEventHandler(async (event) => {
         'aerospace-engineering',
         'environmental-engineering',
         'marine-engineering'
-      ], locale as string),
+      ], locale),
       // Бизнес и экономика
       getDirectionStats([
         'business',
@@ -32,11 +80,11 @@ export default defineEventHandler(async (event) => {
         'marketing',
         'entrepreneurship',
         'tourism-hospitality'
-      ], locale as string),
+      ], locale),
       // Дизайн и архитектура
-      getDirectionStats(['design', 'architecture', 'fine-arts'], locale as string),
+      getDirectionStats(['design', 'architecture', 'fine-arts'], locale),
       // Международные отношения и гуманитарные науки
-      getDirectionStats(['international-relations', 'political-science'], locale as string),
+      getDirectionStats(['international-relations', 'political-science'], locale),
     ])
     
     return {
@@ -74,11 +122,13 @@ export async function getDirectionStats(directionSlugs: string[], locale: string
     }
   }
 
+  const { locale: normalizedLocale, variants } = resolveLanguage(locale)
+
   const directions = await prisma.studyDirection.findMany({
     where: {
       translations: {
         some: {
-          locale,
+          locale: { in: variants },
           slug: { in: directionSlugs }
         }
       }
