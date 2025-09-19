@@ -31,6 +31,12 @@ export type BlogArticleContentBlock =
   | { type: 'quote'; text: string; author?: string }
   | { type: 'image'; url: string; alt: string; caption?: string }
 
+export interface BlogArticleQuickFact {
+  title: string
+  value: string
+  icon?: string
+}
+
 export interface BlogArticleListItem {
   id: number
   slug: string
@@ -53,6 +59,9 @@ export interface BlogArticleDetail extends BlogArticleListItem {
   heroLocation?: string
   seoDescription?: string
   content: BlogArticleContentBlock[]
+  quickFacts: BlogArticleQuickFact[]
+  highlights: string[]
+  tags: string[]
 }
 
 export interface BlogPopularArticle {
