@@ -71,7 +71,7 @@ export default defineNuxtConfig({
       // Let @nuxtjs/i18n manage the <html lang> attribute for correct SEO per-locale
       titleTemplate: '%s | Edu.turkish',
       meta: [
-        { name: 'charset', content: 'utf-8' },
+        { charset: 'utf-8' },
         { name: 'viewport', content: 'width=device-width, initial-scale=1' },
         { name: 'description', content: 'Обучение в Турции: поступление, программы, стипендии и поддержка.' },
         { name: 'robots', content: 'index, follow' },
