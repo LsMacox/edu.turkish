@@ -79,4 +79,21 @@ describe('GET /go/telegram', () => {
 
     consoleErrorSpy.mockRestore()
   })
+
+  it('redirects without logging when referral code is missing', async () => {
+    getQueryMock.mockReturnValue({})
+
+    const handlerModule = await import('../../../../server/routes/go/telegram')
+    const handler = handlerModule.default
+
+    const response = await handler({} as any)
+
+    expect(fetchMock).not.toHaveBeenCalled()
+    expect(response).toBeInstanceOf(Response)
+    expect(response.ok).toBe(true)
+    expect(response.headers.get('content-type')).toContain('text/html')
+
+    const body = await response.text()
+    expect(body).toContain('const targetUrl = "https://t.me/example"')
+  })
 })
