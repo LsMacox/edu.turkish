@@ -1,5 +1,5 @@
 import { BitrixService } from '../../services/BitrixService'
-import { getBitrixConfig } from '../../utils/bitrix-config'
+import { getBitrixConfig, validateBitrixConfig } from '../../utils/bitrix-config'
 import type { MessengerEventUtm } from '../../services/bitrix.dto'
 
 interface MessengerEventRequestBody {
@@ -82,6 +82,14 @@ export default defineEventHandler(async event => {
     throw createError({
       statusCode: 400,
       statusMessage: 'Referral code is required'
+    })
+  }
+
+  if (!validateBitrixConfig()) {
+    console.warn('[Bitrix] Configuration is missing. Unable to log messenger event.')
+    throw createError({
+      statusCode: 503,
+      statusMessage: 'Bitrix integration is not configured'
     })
   }
 
