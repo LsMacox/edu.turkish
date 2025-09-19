@@ -23,20 +23,15 @@
     <!-- Language -->
     <div class="md:col-span-1 lg:col-span-1">
       <label class="block text-sm font-medium text-secondary mb-2">{{ $t('universities_page.filters.language_label') }}</label>
-      <div class="space-y-2">
-        <UiFormsBaseCheckbox 
-          :checked="state.langs.includes('TR')" 
-          @update:checked="toggleLang('TR', $event)"
-          value="TR"
+      <div v-if="availableLanguageCodes.length" class="space-y-2">
+        <UiFormsBaseCheckbox
+          v-for="lang in availableLanguageCodes"
+          :key="lang"
+          :checked="state.langs.includes(lang)"
+          :value="lang"
+          @update:checked="toggleLang(lang, $event)"
         >
-          {{ $t('universities_page.filters.languages.turkish') }}
-        </UiFormsBaseCheckbox>
-        <UiFormsBaseCheckbox 
-          :checked="state.langs.includes('EN')" 
-          @update:checked="toggleLang('EN', $event)"
-          value="EN"
-        >
-          {{ $t('universities_page.filters.languages.english') }}
+          {{ getLanguageLabel(lang) }}
         </UiFormsBaseCheckbox>
       </div>
     </div>
@@ -112,6 +107,7 @@ const emit = defineEmits<{
 const universitiesStore = useUniversitiesStore()
 const { filters, availableFilters } = storeToRefs(universitiesStore)
 const { applyFilters } = universitiesStore
+const { tm, locale } = useI18n()
 
 const state = reactive({
   q: '',
@@ -119,6 +115,15 @@ const state = reactive({
   langs: [] as string[],
   type: 'Все',
   level: 'Все'
+})
+
+const availableLanguageCodes = computed<string[]>(() => {
+  const languages = availableFilters.value.languages || []
+  const normalized = languages
+    .map(lang => (typeof lang === 'string' ? lang.toUpperCase() : ''))
+    .filter((lang): lang is string => Boolean(lang))
+
+  return normalized.filter((lang, index) => normalized.indexOf(lang) === index)
 })
 
 const priceRangeBounds = computed<[number, number]>(() => {
@@ -130,6 +135,51 @@ const priceRange = ref<[number, number]>([
   priceRangeBounds.value[0],
   priceRangeBounds.value[1]
 ])
+
+const languageLabelMap = computed<Record<string, string>>(() => {
+  if (typeof tm !== 'function') {
+    return {}
+  }
+
+  const dictionary = tm('universities_page.filters.languages') as Record<string, unknown> | undefined
+  if (!dictionary) {
+    return {}
+  }
+
+  return Object.entries(dictionary).reduce((acc, [code, label]) => {
+    if (typeof label === 'string') {
+      acc[code.toUpperCase()] = label
+    }
+    return acc
+  }, {} as Record<string, string>)
+})
+
+const languageDisplayNames = computed<Intl.DisplayNames | null>(() => {
+  if (typeof Intl === 'undefined' || typeof Intl.DisplayNames === 'undefined') {
+    return null
+  }
+
+  try {
+    return new Intl.DisplayNames([locale.value], { type: 'language' })
+  } catch {
+    return null
+  }
+})
+
+function getLanguageLabel(lang: string): string {
+  const normalizedLang = lang.toUpperCase()
+  const translated = languageLabelMap.value[normalizedLang]
+  if (translated) {
+    return translated
+  }
+
+  const intlLabel = languageDisplayNames.value?.of(normalizedLang.toLowerCase())
+  if (intlLabel) {
+    return intlLabel
+  }
+
+  return normalizedLang
+}
 
 function getTypeLabel(t: string): string {
   switch (t) {
@@ -150,7 +200,11 @@ function getTypeLabel(t: string): string {
 const initializeFromFilters = () => {
   state.q = filters.value.q
   state.city = filters.value.city === 'Все города' ? 'Все' : filters.value.city
-  state.langs = [...filters.value.langs]
+  const availableSet = new Set(availableLanguageCodes.value)
+  const normalizedLangs = filters.value.langs
+    .map(lang => lang.toUpperCase())
+    .filter(lang => (availableSet.size > 0 ? availableSet.has(lang) : true))
+  state.langs = normalizedLangs
   state.type = filters.value.type
   state.level = filters.value.level
   const price = filters.value.price?.length === 2
@@ -169,6 +223,17 @@ watch(() => filters.value, () => {
   initializeFromFilters()
 }, { deep: true })
 
+watch(availableLanguageCodes, (codes) => {
+  if (codes.length === 0) {
+    return
+  }
+
+  const filteredLangs = state.langs.filter(lang => codes.includes(lang.toUpperCase()))
+  if (filteredLangs.length !== state.langs.length) {
+    state.langs = filteredLangs.map(lang => lang.toUpperCase())
+  }
+})
+
 watch(priceRangeBounds, ([min, max]) => {
   const [currentMin, currentMax] = priceRange.value
   const boundedMin = Math.min(Math.max(currentMin, min), max)
@@ -180,12 +245,13 @@ watch(priceRangeBounds, ([min, max]) => {
 })
 
 function toggleLang(lang: string, checked: boolean) {
+  const normalizedLang = lang.toUpperCase()
   if (checked) {
-    if (!state.langs.includes(lang)) {
-      state.langs.push(lang)
+    if (!state.langs.includes(normalizedLang)) {
+      state.langs = [...state.langs, normalizedLang]
     }
   } else {
-    state.langs = state.langs.filter(l => l !== lang)
+    state.langs = state.langs.filter(l => l !== normalizedLang)
   }
 }
 

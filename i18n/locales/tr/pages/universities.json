@@ -29,8 +29,10 @@
       },
       "language_label": "Eğitim dili",
       "languages": {
-        "turkish": "Türkçe",
-        "english": "İngilizce"
+        "TR": "Türkçe",
+        "EN": "İngilizce",
+        "RU": "Rusça",
+        "AR": "Arapça"
       },
       "type_label": "Tür",
       "all_types": "Tüm türler",

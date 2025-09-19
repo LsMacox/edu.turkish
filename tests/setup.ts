@@ -6,6 +6,17 @@ import '@testing-library/jest-dom'
 vi.mock('#imports', () => ({
   useI18n: () => ({
     t: (key: string) => key,
+    tm: (key: string) => {
+      if (key === 'universities_page.filters.languages') {
+        return {
+          TR: 'Turkish',
+          EN: 'English',
+          RU: 'Russian',
+          AR: 'Arabic'
+        }
+      }
+      return {}
+    },
     locale: vueRef('en')
   }),
   useId: () => 'test-id',
@@ -16,6 +27,17 @@ vi.mock('#imports', () => ({
 
 vi.stubGlobal('useI18n', () => ({
   t: (key: string) => key,
+  tm: (key: string) => {
+    if (key === 'universities_page.filters.languages') {
+      return {
+        TR: 'Turkish',
+        EN: 'English',
+        RU: 'Russian',
+        AR: 'Arabic'
+      }
+    }
+    return {}
+  },
   locale: vueRef('en')
 }))
 
