@@ -152,16 +152,43 @@ npm run build
 npm run db:deploy   # применить миграции на проде
 ```
 
-## 🔒 Переменные окружения (пример)
+## 🔒 Переменные окружения
+
+Ключевые переменные группируются по подсистемам:
+
+- **База данных и приложение**: `DATABASE_URL`, `NODE_ENV`, `NUXT_SECRET_KEY`.
+- **CRM (Bitrix24)**: `BITRIX_WEBHOOK_URL`, `BITRIX_DOMAIN`, `BITRIX_ACCESS_TOKEN`.
+- **Directus**: `DIRECTUS_KEY`, `DIRECTUS_SECRET`, `DIRECTUS_PUBLIC_URL`, `DIRECTUS_ADMIN_EMAIL`, `DIRECTUS_ADMIN_PASSWORD`, `DIRECTUS_STATIC_TOKEN`, `NUXT_PUBLIC_DIRECTUS_URL`.
+- **Аналитика**: `NUXT_PUBLIC_YANDEX_METRIKA_ID`.
 
 ```bash
-# База данных
-DATABASE_URL="mysql://user:password@host:port/database"
-
-# Приложение
+# База данных и приложение
+DATABASE_URL="mysql://user:password@host:3306/database"
 NODE_ENV=production
-NUXT_SECRET_KEY=your_secret_key
+NUXT_SECRET_KEY="your_secret_key"
+
+# CRM (Bitrix24)
+BITRIX_WEBHOOK_URL="https://your-domain.bitrix24.ru/rest/1/your_webhook_key/"
+BITRIX_DOMAIN="your-domain.bitrix24.ru"
+BITRIX_ACCESS_TOKEN="your_access_token_here"
+
+# Directus
+DIRECTUS_KEY="local_project_key"
+DIRECTUS_SECRET="generated_jwt_secret"
+DIRECTUS_PUBLIC_URL="http://localhost:8055"
+DIRECTUS_ADMIN_EMAIL="admin@example.com"
+DIRECTUS_ADMIN_PASSWORD="ChangeMe123!"
+DIRECTUS_STATIC_TOKEN="service_static_token"
+NUXT_PUBLIC_DIRECTUS_URL="http://localhost:8055"
+
+# Аналитика
+NUXT_PUBLIC_YANDEX_METRIKA_ID="your_metrika_id"
 ```
+
+- `DATABASE_URL`, `NODE_ENV`, `NUXT_SECRET_KEY` — базовая конфигурация Nuxt-приложения и подключения к MySQL.
+- `BITRIX_WEBHOOK_URL` или связка `BITRIX_DOMAIN` + `BITRIX_ACCESS_TOKEN` — авторизация CRM-интеграции Bitrix24.
+- `DIRECTUS_*`, `NUXT_PUBLIC_DIRECTUS_URL` — параметры headless-CMS Directus (админ-доступ и публичный API для Nuxt).
+- `NUXT_PUBLIC_YANDEX_METRIKA_ID` — идентификатор счётчика для клиентской аналитики (Яндекс.Метрика).
 
 ## 🤝 Вклад
 
