@@ -11,12 +11,25 @@ describe('tracking code generation', () => {
   it('creates tracking code with EDU prefix via request helper', () => {
     const trackingCode = helperGenerateTrackingCode()
 
-    expect(trackingCode.startsWith('EDU-')).toBe(true)
+    expect(trackingCode).toMatch(/^EDU-[0-9A-Z]+-[0-9A-F]{8}$/)
 
     const parts = trackingCode.split('-')
     expect(parts).toHaveLength(3)
+    expect(parts[0]).toBe('EDU')
     expect(parts[1]).toMatch(/^[0-9A-Z]+$/)
-    expect(parts[2]).toMatch(/^[0-9A-Z]{4}$/)
+    expect(parts[2]).toHaveLength(8)
+    expect(parts[2]).toMatch(/^[0-9A-F]+$/)
+  })
+
+  it('generates sufficiently unique tracking codes', () => {
+    const iterations = 1000
+    const codes = new Set<string>()
+
+    for (let i = 0; i < iterations; i++) {
+      codes.add(helperGenerateTrackingCode())
+    }
+
+    expect(codes.size).toBe(iterations)
   })
 
   it('uses shared tracking generator in repository', async () => {
