@@ -59,6 +59,7 @@ export const useContactChannels = () => {
 
   const channels = computed<Record<ContactChannelKey, ContactChannelInstance>>(() => {
     const referral = referralCode.value || ''
+    const analyticsReferral = referralCode.value || 'direct'
     const sessionId = typeof route.query.session === 'string' ? route.query.session : undefined
     const utmParams = extractUtmParams(route.query as Record<string, any>)
 
@@ -69,7 +70,7 @@ export const useContactChannels = () => {
         let href = definition.baseUrl
 
         if (typedKey === personalTelegramChannelKey) {
-          href = buildGoTelegramHref(referral, sessionId, utmParams)
+          href = buildGoTelegramHref(analyticsReferral, sessionId, utmParams)
         } else if (definition.queryParam && message) {
           href = withQuery(definition.baseUrl, { [definition.queryParam]: message })
         } else if (typedKey === 'telegramBot' && referral) {

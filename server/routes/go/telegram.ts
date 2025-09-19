@@ -24,31 +24,27 @@ const buildGreeting = (template: string | undefined, referral: string): string |
 export default defineEventHandler(async event => {
   const query = getQuery(event)
   const referralCode = typeof query.referral_code === 'string' ? query.referral_code : ''
-
-  if (!referralCode) {
-    throw createError({
-      statusCode: 400,
-      statusMessage: 'Referral code is required'
-    })
-  }
+  const hasReferralCode = referralCode.length > 0
 
   const sessionId = typeof query.session === 'string' && query.session.length > 0 ? query.session : undefined
   const utmParams = extractUtmParams(query as Record<string, any>)
 
-  const requestUrl = getRequestURL(event)
-  try {
-    await $fetch('/api/v1/messenger-events', {
-      method: 'POST',
-      body: {
-        channel: personalTelegramChannelKey,
-        referral_code: referralCode,
-        session: sessionId,
-        utm: utmParams
-      },
-      baseURL: requestUrl.origin
-    })
-  } catch (error) {
-    console.error('[go/telegram] Failed to log messenger event', error)
+  if (hasReferralCode) {
+    const requestUrl = getRequestURL(event)
+    try {
+      await $fetch('/api/v1/messenger-events', {
+        method: 'POST',
+        body: {
+          channel: personalTelegramChannelKey,
+          referral_code: referralCode,
+          session: sessionId,
+          utm: utmParams
+        },
+        baseURL: requestUrl.origin
+      })
+    } catch (error) {
+      console.error('[go/telegram] Failed to log messenger event', error)
+    }
   }
 
   const channelConfig = contactChannels[personalTelegramChannelKey]
