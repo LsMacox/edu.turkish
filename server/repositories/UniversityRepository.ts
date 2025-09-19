@@ -213,15 +213,7 @@ export class UniversityRepository {
         })
       }
 
-      if (Object.keys(programPriceFilter).length > 0) {
-        andConditions.push({
-          academicPrograms: {
-            some: {
-              tuitionPerYear: programPriceFilter
-            }
-          }
-        })
-      }
+      // Do not add extra tuitionPerYear filter here; intersection is defined by tuitionMin/tuitionMax rules only
     }
 
     if (params.q) {

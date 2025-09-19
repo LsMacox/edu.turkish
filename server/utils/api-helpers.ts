@@ -52,7 +52,14 @@ export function parseUniversityFilters(query: Record<string, any>): UniversityQu
     ? sortCandidate as UniversityQueryParams['sort']
     : undefined
 
-  const filters: UniversityQueryParams = {}
+  // Start with explicit defaults expected by callers/tests
+  const filters: UniversityQueryParams = {
+    q: '',
+    city: '',
+    langs: [],
+    type: '',
+    level: ''
+  }
 
   if (q !== undefined) {
     filters.q = q.trim() === '' ? '' : q
