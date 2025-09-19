@@ -1,18 +1,10 @@
 import { Prisma, PrismaClient } from '@prisma/client'
 import type { FAQItem, FAQQueryParams, FAQCategory } from '../types/api'
 import { mapFaqCategoryToApi, mapFaqItemToApi } from './faqMapper'
+import { normalizeLocale } from '../utils/locale'
 
 export class FAQRepository {
   constructor(private prisma: PrismaClient) {}
-
-  private normalizeLocale(input?: string): { normalized: string; fallbacks: string[] } {
-    const base = (input || 'ru').toLowerCase()
-    const raw = base.split('-')[0]
-    const normalized = raw === 'kz' ? 'kk' : raw
-    const kkVariants = normalized === 'kk' ? ['kk', 'kz'] : (normalized === 'kz' ? ['kk', 'kz'] : [normalized])
-    const fallbacks = Array.from(new Set([...kkVariants, 'ru']))
-    return { normalized: normalized === 'kz' ? 'kk' : normalized, fallbacks }
-  }
 
   private buildTranslationWhere(fallbacks: string[], q?: string): Prisma.FaqTranslationWhereInput {
     const where: Prisma.FaqTranslationWhereInput = { locale: { in: fallbacks } }
@@ -51,7 +43,7 @@ export class FAQRepository {
       query?: string | null
     }
   }> {
-    const { normalized, fallbacks } = this.normalizeLocale(locale)
+    const { normalized, fallbacks } = normalizeLocale(locale)
     const { q, category, featured, limit = 50 } = params
 
     const where: Prisma.FaqItemWhereInput = {}
@@ -120,7 +112,7 @@ export class FAQRepository {
    * Find FAQ by ID
    */
   async findById(id: number, locale: string = 'ru'): Promise<FAQItem | null> {
-    const { normalized, fallbacks } = this.normalizeLocale(locale)
+    const { normalized, fallbacks } = normalizeLocale(locale)
     const faq = await this.prisma.faqItem.findUnique({
       where: { id },
       include: this.buildIncludes(fallbacks)
@@ -135,7 +127,7 @@ export class FAQRepository {
    * Find featured FAQs
    */
   async findFeatured(locale: string = 'ru', limit: number = 10): Promise<FAQItem[]> {
-    const { normalized, fallbacks } = this.normalizeLocale(locale)
+    const { normalized, fallbacks } = normalizeLocale(locale)
     const faqs = await this.prisma.faqItem.findMany({
       where: { featured: true },
       include: this.buildIncludes(fallbacks),
@@ -152,7 +144,7 @@ export class FAQRepository {
    * Search FAQs by query
    */
   async search(query: string, locale: string = 'ru', limit: number = 20): Promise<FAQItem[]> {
-    const { normalized, fallbacks } = this.normalizeLocale(locale)
+    const { normalized, fallbacks } = normalizeLocale(locale)
     const faqs = await this.prisma.faqItem.findMany({
       where: {
         translations: {
@@ -172,7 +164,7 @@ export class FAQRepository {
    * Get FAQ categories
    */
   async getCategories(locale: string = 'ru'): Promise<FAQCategory[]> {
-    const { normalized, fallbacks } = this.normalizeLocale(locale)
+    const { normalized, fallbacks } = normalizeLocale(locale)
     const categories = await this.prisma.faqCategory.findMany({
       include: this.buildCategoryInclude(fallbacks)
     })
@@ -193,7 +185,7 @@ export class FAQRepository {
     }>
   }): Promise<FAQItem> {
     const { translations, categoryId, featured } = data
-    const { normalized, fallbacks } = this.normalizeLocale('ru')
+    const { normalized, fallbacks } = normalizeLocale('ru')
 
     const faq = await this.prisma.faqItem.create({
       data: {

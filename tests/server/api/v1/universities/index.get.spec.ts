@@ -92,4 +92,33 @@ describe('GET /api/v1/universities', () => {
     })
     expect(result.data.map(item => item.title)).toEqual(['Uni C', 'Uni A'])
   })
+
+  it('returns localized university data when lang=kz is requested', async () => {
+    getQueryMock.mockReturnValue({ lang: 'kz' })
+
+    repositoryInstance.findAll.mockImplementation(async (_filters, locale) => {
+      expect(locale).toBe('kz')
+      return {
+        data: [
+          { id: 10, title: 'Қазақ Университеті', description: 'Kazakh locale data' }
+        ],
+        total: 1,
+        filters: { cities: [], types: [], levels: [], languages: [], priceRange: [0, 0] }
+      }
+    })
+
+    const handlerModule = await import('../../../../../server/api/v1/universities/index.get')
+    const handler = handlerModule.default
+
+    const event = { context: { locale: 'kz' } }
+    const result = await handler(event as any)
+
+    expect(repositoryInstance.findAll).toHaveBeenCalledWith(
+      expect.any(Object),
+      'kz'
+    )
+    expect(result.data).toEqual([
+      { id: 10, title: 'Қазақ Университеті', description: 'Kazakh locale data' }
+    ])
+  })
 })
