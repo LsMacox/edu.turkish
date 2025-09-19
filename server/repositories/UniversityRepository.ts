@@ -191,7 +191,10 @@ export class UniversityRepository {
 
     const priceRange = this.normalizePriceRange(params.price_min, params.price_max)
     if (priceRange) {
+      const programPriceFilter: Prisma.DecimalFilter = {}
+
       if (priceRange.max !== undefined) {
+        programPriceFilter.lte = priceRange.max
         andConditions.push({
           OR: [
             { tuitionMin: { lte: priceRange.max } },
@@ -201,11 +204,22 @@ export class UniversityRepository {
       }
 
       if (priceRange.min !== undefined) {
+        programPriceFilter.gte = priceRange.min
         andConditions.push({
           OR: [
             { tuitionMax: { gte: priceRange.min } },
             { tuitionMax: { equals: null } }
           ]
+        })
+      }
+
+      if (Object.keys(programPriceFilter).length > 0) {
+        andConditions.push({
+          academicPrograms: {
+            some: {
+              tuitionPerYear: programPriceFilter
+            }
+          }
         })
       }
     }
