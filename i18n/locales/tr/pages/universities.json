@@ -28,7 +28,10 @@
         "TR": "Türkçe",
         "EN": "İngilizce",
         "RU": "Rusça",
-        "AR": "Arapça"
+        "AR": "Arapça",
+        "tr": "Türkçe",
+        "en": "İngilizce",
+        "ru": "Rusça"
       },
       "type_label": "Tür",
       "all_types": "Tüm türler",
