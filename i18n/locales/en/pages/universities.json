@@ -28,7 +28,10 @@
         "TR": "Turkish",
         "EN": "English",
         "RU": "Russian",
-        "AR": "Arabic"
+        "AR": "Arabic",
+        "tr": "Turkish",
+        "en": "English",
+        "ru": "Russian"
       },
       "type_label": "Type",
       "all_types": "All types",
