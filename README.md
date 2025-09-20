@@ -231,3 +231,27 @@ MIT License
 ---
 
 **Сделано с ❤️ для абитуриентов, выбирающих образование в Турции**
+
+## Деплой (Docker + docker-compose + GitHub Actions)
+
+- Локальный запуск:
+  - `docker compose up -d mysql directus`
+  - через несколько секунд: `docker compose up --build app`
+  - открыть http://localhost:3000 (Nuxt) и http://localhost:8055 (Directus)
+
+- Обязательные переменные окружения:
+  - Переменные `DB_*` или `DATABASE_URL`
+  - `NUXT_PUBLIC_DIRECTUS_URL` (по умолчанию http://localhost:8055)
+  - `ALLOWED_HOSTS` для продакшена (через запятую, напр. `edu-turkish.com,www.edu-turkish.com`)
+
+- Настройка сервера (однократно):
+  - установить Docker и docker compose
+  - создать каталог проекта и указать `REMOTE_PATH`
+  - добавить SSH-ключ в секрет `SSH_PRIVATE_KEY`
+  - задать секреты репозитория GitHub: `SERVER_HOST`, `SERVER_USER`, `REMOTE_PATH`, `GIT_REPO`
+  - опционально: `DEPLOY_ENV_FILE` — содержимое `.env` для сервера
+
+- CI/CD:
+  - При пуше в `main` GitHub Actions подключается по SSH к серверу, подтягивает код, собирает `app` и перезапускает `app mysql directus` через docker compose.
+
+Примечание: В Docker используется Bun (oven/bun) для установки, сборки и рантайма.
