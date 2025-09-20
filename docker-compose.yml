@@ -1,64 +1,120 @@
 services:
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+      args:
+        # ⬇️ отключим prerender во время docker build
+        NITRO_PRERENDER: "false"
+    container_name: edu_turkish_app
+    restart: unless-stopped
+    env_file:
+      - .env
+    environment:
+      # БД приложения (отдельно от Directus)
+      DB_HOST: ${DB_HOST:-mysql}
+      DB_PORT: 3306
+      APP_DB_NAME: ${APP_DB_NAME:-edu_turkish_app}
+      DB_USER: ${DB_USER:-edu_turkish_user}
+      DB_PASSWORD: ${DB_PASSWORD:-secure_password_123}
+      DATABASE_URL: ${DATABASE_URL:-}
+      NODE_ENV: production
+
+      # Интеграция с Directus
+      NUXT_PUBLIC_DIRECTUS_URL: ${DIRECTUS_PUBLIC_URL:-http://localhost:8055}
+
+      # Доп. настройки (если нужны)
+      ALLOWED_HOSTS: ${ALLOWED_HOSTS:-}
+
+      # Nitro/NUXT сетевые
+      NITRO_HOST: 0.0.0.0
+      NITRO_PORT: 3000
+    ports:
+      - "3000:3000"
+    depends_on:
+      mysql:
+        condition: service_healthy
+    networks:
+      - edu_turkish_network
+
   mysql:
     image: mysql:8.0
     container_name: edu_turkish_mysql
     restart: unless-stopped
+    env_file:
+      - .env
     environment:
+      # Общие учётные данные (можешь развести на разные при желании)
       MYSQL_ROOT_PASSWORD: ${DB_ROOT_PASSWORD:-root_password_123}
-      MYSQL_DATABASE: ${DB_NAME:-edu_turkish}
       MYSQL_USER: ${DB_USER:-edu_turkish_user}
       MYSQL_PASSWORD: ${DB_PASSWORD:-secure_password_123}
+
+      # Какой БД создать по умолчанию при первом старте:
+      # создадим БД для Directus, а вторую (для app) создадим init-скриптом
+      MYSQL_DATABASE: ${DIRECTUS_DB_NAME:-edu_turkish}
     ports:
-      - '${DB_PORT:-3306}:3306'
+      - "${DB_PORT:-3306}:3306"
     volumes:
       - mysql_data:/var/lib/mysql
       - ./contrib/sql/init:/docker-entrypoint-initdb.d
     networks:
       - edu_turkish_network
     healthcheck:
-      test: ['CMD', 'mysqladmin', 'ping', '-h', 'localhost']
-      timeout: 20s
+      test: ["CMD", "mysqladmin", "ping", "-h", "127.0.0.1", "-u", "edu_turkish_user", "-psecure_password_123"]
+      interval: 10s
+      timeout: 5s
       retries: 10
+      start_period: 20s
 
   adminer:
     image: adminer
     container_name: edu_turkish_adminer
     restart: unless-stopped
     ports:
-      - '8080:8080'
+      - "8080:8080"
     environment:
       ADMINER_DEFAULT_SERVER: mysql
+    depends_on:
+      mysql:
+        condition: service_healthy
     networks:
       - edu_turkish_network
-    depends_on:
-      - mysql
 
   directus:
     image: directus/directus:latest
     container_name: edu_turkish_directus
     restart: unless-stopped
     ports:
-      - '8055:8055'
+      - "8055:8055"
+    env_file:
+      - .env
     environment:
+      # Ключи (замени в проде)
       KEY: ${DIRECTUS_KEY:-insecure_local_key}
       SECRET: ${DIRECTUS_SECRET:-insecure_local_secret}
+
+      # Подключение к MySQL (отдельная БД)
       DB_CLIENT: mysql
-      DB_HOST: mysql
+      DB_HOST: ${DB_HOST:-mysql}
       DB_PORT: 3306
-      DB_DATABASE: ${DB_NAME:-edu_turkish}
+      DB_DATABASE: ${DIRECTUS_DB_NAME:-edu_turkish}
       DB_USER: ${DB_USER:-edu_turkish_user}
       DB_PASSWORD: ${DB_PASSWORD:-secure_password_123}
-      WEBSOCKETS_ENABLED: 'true'
+
+      # Directus базовые настройки
+      WEBSOCKETS_ENABLED: "true"
       ADMIN_EMAIL: ${DIRECTUS_ADMIN_EMAIL:-admin@example.com}
       ADMIN_PASSWORD: ${DIRECTUS_ADMIN_PASSWORD:-ChangeMe123!}
-      CORS_ENABLED: 'true'
-      CORS_ORIGIN: 'http://localhost:3000'
+      CORS_ENABLED: "true"
+      # Разрешим локальный фронт и домен контейнера (на всякий случай host.docker.internal)
+      CORS_ORIGIN: "http://localhost:3000,http://host.docker.internal:3000"
       PUBLIC_URL: ${DIRECTUS_PUBLIC_URL:-http://localhost:8055}
       STORAGE_LOCATIONS: local
     volumes:
       - directus_uploads:/directus/uploads
     depends_on:
-      - mysql
+      mysql:
+        condition: service_healthy
     networks:
       - edu_turkish_network
 
