@@ -301,7 +301,6 @@
 
 <script setup lang="ts">
 import { computed, ref, watch } from 'vue'
-import type { FetchError } from 'ofetch'
 import type {
   BlogArticleContentBlock,
   BlogArticleDetail,
@@ -617,7 +616,9 @@ const headingTag = (level: number) => {
   return 'h5'
 }
 
-const fetchError = computed(() => error.value as FetchError | null)
+type ApiErrorLike = { status?: number; statusCode?: number; data?: { statusMessage?: string } }
+
+const fetchError = computed(() => error.value as ApiErrorLike | null)
 
 const errorMessage = computed(() => {
   const err = fetchError.value
