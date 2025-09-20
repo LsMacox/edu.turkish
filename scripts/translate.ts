@@ -608,6 +608,9 @@ async function translateArticles(opts: CliOptions): Promise<void> {
       heroImageAlt: by?.heroImageAlt || '',
       seoDescription: by?.seoDescription || '',
       content: stringifyMaybeJson(by?.content),
+      quickFacts: stringifyMaybeJson(by?.quickFacts),
+      highlights: stringifyMaybeJson(by?.highlights),
+      tags: stringifyMaybeJson(by?.tags),
     }
     for (const target of missing) {
       jobs.push(async () => {
@@ -622,9 +625,12 @@ async function translateArticles(opts: CliOptions): Promise<void> {
           heroImageAlt: base.heroImageAlt,
           seoDescription: base.seoDescription,
           content: base.content,
+          quickFacts: base.quickFacts,
+          highlights: base.highlights,
+          tags: base.tags,
         }
         const ctx =
-          'Blog article translation fields. content is an array of content blocks (JSON). Translate text values, keep JSON structure and keys.'
+          'Blog article translation fields. content is an array of content blocks (JSON). quickFacts is an array of {title, value, icon?}. highlights and tags are arrays of strings. Translate text values only and keep JSON structure and keys.'
         const out = await callOpenRouterTranslate(input, sourceLocale, target, ctx)
         if (dryRun) {
           console.log(`[DryRun][Article ${rec.id}] => ${target}`, out)
@@ -648,6 +654,9 @@ async function translateArticles(opts: CliOptions): Promise<void> {
             heroImageAlt: out.heroImageAlt || null,
             seoDescription: out.seoDescription || null,
             content: tryParseJson(out.content),
+          quickFacts: tryParseJson(out.quickFacts),
+          highlights: tryParseJson(out.highlights),
+          tags: tryParseJson(out.tags),
           },
         })
         console.log(`[Created] blog_article_translation id=${rec.id} ${sourceLocale}->${target}`)
