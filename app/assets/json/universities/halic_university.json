@@ -180,19 +180,10 @@
     ],
     "scholarships": [
       {
-        "name": "Стипендии университета за успеваемость",
+        "name": "Скидка на обучение",
         "type": "university",
-        "coverage_percentage": 50,
-        "eligibility_criteria": [
-          "Высокий средний балл",
-          "Портфолио или достижения (для творческих программ)"
-        ]
-      },
-      {
-        "name": "Erasmus+ и международные обмены",
-        "type": "government",
-        "coverage_percentage": 20,
-        "eligibility_criteria": ["Участие в конкурсном отборе", "Успеваемость и мотивация"]
+        "coverage_percentage": 10,
+        "eligibility_criteria": ["Скидка действует на все направления обучения"]
       }
     ]
   },

@@ -174,10 +174,10 @@
     ],
     "scholarships": [
       {
-        "name": "Скидки на обучение по успеваемости",
+        "name": "Скидка на обучение",
         "type": "university",
         "coverage_percentage": 50,
-        "eligibility_criteria": ["Высокий GPA", "Результаты внутренних/внешних экзаменов"]
+        "eligibility_criteria": ["Скидка действует на все направления обучения"]
       }
     ]
   },

@@ -196,6 +196,14 @@
         "name": "Резюме (для магистратуры)",
         "format_requirements": ["PDF"]
       }
+    ],
+    "scholarships": [
+      {
+        "name": "Скидка на обучение",
+        "type": "university",
+        "coverage_percentage": 55,
+        "eligibility_criteria": ["Скидка действует на все направления обучения"]
+      }
     ]
   },
   "programs": [
