@@ -153,6 +153,14 @@
         "format_requirements": ["PDF"]
       }
     ],
+    "scholarships": [
+      {
+        "name": "Скидка на обучение",
+        "type": "university",
+        "coverage_percentage": 71,
+        "eligibility_criteria": ["Максимальная скидка до 71% доступна на всех направлениях"]
+      }
+    ],
     "dates": [
       {
         "event": "Начало приёма документов",

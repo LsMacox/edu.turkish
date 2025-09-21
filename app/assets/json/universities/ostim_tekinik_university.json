@@ -156,20 +156,10 @@
     ],
     "scholarships": [
       {
-        "name": "Стипендия OSTİM Industrial",
+        "name": "Скидка на обучение",
         "type": "university",
-        "coverage_percentage": 50,
-        "eligibility_criteria": [
-          "Высокий средний балл",
-          "Результаты YÖS/SAT",
-          "Участие в индустриальных проектах"
-        ]
-      },
-      {
-        "name": "Стипендия Entrepreneurship Support",
-        "type": "university",
-        "coverage_percentage": 75,
-        "eligibility_criteria": ["Успехи в стартап-проектах", "Победы в технологических конкурсах"]
+        "coverage_percentage": 80,
+        "eligibility_criteria": ["Максимальная скидка до 80% действует на все направления обучения"]
       }
     ]
   },

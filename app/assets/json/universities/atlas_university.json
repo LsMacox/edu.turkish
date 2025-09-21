@@ -141,6 +141,14 @@
         "description": "На турецком, оценивание по 100-балльной шкале",
         "format_requirements": ["PDF"]
       }
+    ],
+    "scholarships": [
+      {
+        "name": "Скидка на обучение",
+        "type": "university",
+        "coverage_percentage": 25,
+        "eligibility_criteria": ["Скидка действует на все направления обучения"]
+      }
     ]
   },
   "programs": [

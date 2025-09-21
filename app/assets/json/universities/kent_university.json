@@ -161,6 +161,16 @@
         "format_requirements": ["PDF"]
       }
     ],
+    "scholarships": [
+      {
+        "name": "Скидка на обучение",
+        "type": "university",
+        "coverage_percentage": 50,
+        "eligibility_criteria": [
+          "Применяется ко всем программам, кроме Стоматологии и Фармацевтики"
+        ]
+      }
+    ],
     "dates": [
       {
         "event": "Начало приёма документов",

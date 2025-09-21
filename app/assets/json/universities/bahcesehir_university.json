@@ -134,6 +134,14 @@
         "format_requirements": ["PDF"]
       },
       { "name": "Фото", "description": "Белый фон" }
+    ],
+    "scholarships": [
+      {
+        "name": "Скидка на обучение",
+        "type": "university",
+        "coverage_percentage": 25,
+        "eligibility_criteria": ["Размер скидки зависит от выбранного направления"]
+      }
     ]
   },
   "programs": [

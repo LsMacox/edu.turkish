@@ -175,14 +175,10 @@
     ],
     "scholarships": [
       {
-        "name": "Beykoz International Merit Scholarship",
+        "name": "Скидка на обучение",
         "type": "university",
         "coverage_percentage": 50,
-        "eligibility_criteria": [
-          "Высокий GPA",
-          "Активность в студенческих проектах",
-          "Мотивационное письмо"
-        ]
+        "eligibility_criteria": ["Скидка действует на все направления обучения"]
       }
     ]
   },

@@ -148,14 +148,10 @@
     ],
     "scholarships": [
       {
-        "name": "International Student Scholarship",
+        "name": "Скидка на обучение",
         "type": "university",
-        "coverage_percentage": 50,
-        "eligibility_criteria": [
-          "Высокий средний балл (GPA)",
-          "Результаты вступительных/языковых экзаменов",
-          "Портфолио достижений"
-        ]
+        "coverage_percentage": 5,
+        "eligibility_criteria": ["Скидка действует на все направления обучения"]
       }
     ]
   },
