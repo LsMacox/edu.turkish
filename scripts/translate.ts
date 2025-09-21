@@ -654,9 +654,9 @@ async function translateArticles(opts: CliOptions): Promise<void> {
             heroImageAlt: out.heroImageAlt || null,
             seoDescription: out.seoDescription || null,
             content: tryParseJson(out.content),
-          quickFacts: tryParseJson(out.quickFacts),
-          highlights: tryParseJson(out.highlights),
-          tags: tryParseJson(out.tags),
+            quickFacts: tryParseJson(out.quickFacts),
+            highlights: tryParseJson(out.highlights),
+            tags: tryParseJson(out.tags),
           },
         })
         console.log(`[Created] blog_article_translation id=${rec.id} ${sourceLocale}->${target}`)

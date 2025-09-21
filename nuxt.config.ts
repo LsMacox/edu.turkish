@@ -3,7 +3,7 @@ import { resolve } from 'node:path'
 
 const siteUrl = process.env.NUXT_SITE_URL || 'https://edu-turkish.com'
 
-const enablePrerender = process.env.NITRO_PRERENDER === 'true'; 
+const enablePrerender = process.env.NITRO_PRERENDER === 'true'
 
 export default defineNuxtConfig({
   ssr: true,

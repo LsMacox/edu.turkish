@@ -305,15 +305,41 @@
         "q3": "How much does tuition cost?",
         "a3": "🎓 Tuition for bachelor's programs starts at $2,000 per year. The exact fee depends on the university and major.",
         "q4": "What documents are required for admission?",
-        "a4": "📂 Minimum set:<ul><li>High school diploma translated into Turkish</li><li>Passport</li><li>Biometric photo</li></ul>",
+        "a4": {
+          "title": "📂 Minimum set:",
+          "items": ["High school diploma translated into Turkish", "Passport", "Biometric photo"]
+        },
         "q5": "Are there scholarships or discounts?",
-        "a5": "✅ Absolutely! You have several options:<ul><li>Türkiye Bursları — a government program with a monthly stipend.</li><li>Academic discounts — for a high GPA.</li><li>Sports discounts — if you represent the university in competitions.</li></ul>",
+        "a5": {
+          "title": "✅ Absolutely! You have several options:",
+          "items": [
+            "Türkiye Bursları — a government program with a monthly stipend.",
+            "Academic discounts — for a high GPA.",
+            "Sports discounts — if you represent the university in competitions."
+          ]
+        },
         "q6": "How fast are the documents reviewed?",
         "a6": "⏳ Officially it takes up to 2 weeks. Through us you can receive an invitation letter in just a few days.",
         "q7": "Do I need a visa?",
-        "a7": "🌍 <ul><li>Citizens of Kazakhstan, Russia, Uzbekistan, and Kyrgyzstan do not need a visa if visa-free days are available.</li><li>Students on Türkiye Bursları must obtain a student visa.</li></ul>",
+        "a7": {
+          "title": "🌍",
+          "items": [
+            "Citizens of Kazakhstan, Russia, Uzbekistan, and Kyrgyzstan do not need a visa if visa-free days are available.",
+            "Students on Türkiye Bursları must obtain a student visa."
+          ]
+        },
         "q8": "What does the admission process look like?",
-        "a8": "🔹 Just a few simple steps:<ol><li>Send us your documents</li><li>Receive a preliminary acceptance letter</li><li>Pay the deposit to the university's bank details</li><li>Get the final admission letter</li><li>Arrive in Turkey and complete on-campus registration</li></ol>",
+        "a8": {
+          "title": "🔹 Just a few simple steps:",
+          "items": [
+            "Send us your documents",
+            "Receive a preliminary acceptance letter",
+            "Pay the deposit to the university's bank details",
+            "Get the final admission letter",
+            "Arrive in Turkey and complete on-campus registration"
+          ],
+          "ordered": true
+        },
         "q9": "Do you support only the admission and final registration at the university?",
         "a9": "✨ Yes, we accompany you at every stage — from submitting documents to arriving in Turkey."
       },

@@ -5,7 +5,7 @@ services:
       dockerfile: Dockerfile
       args:
         # ⬇️ отключим prerender во время docker build
-        NITRO_PRERENDER: "false"
+        NITRO_PRERENDER: 'false'
     container_name: edu_turkish_app
     restart: unless-stopped
     env_file:
@@ -30,7 +30,7 @@ services:
       NITRO_HOST: 0.0.0.0
       NITRO_PORT: 3000
     ports:
-      - "3000:3000"
+      - '3000:3000'
     depends_on:
       mysql:
         condition: service_healthy
@@ -53,14 +53,24 @@ services:
       # создадим БД для Directus, а вторую (для app) создадим init-скриптом
       MYSQL_DATABASE: ${DIRECTUS_DB_NAME:-edu_turkish}
     ports:
-      - "${DB_PORT:-3306}:3306"
+      - '${DB_PORT:-3306}:3306'
     volumes:
       - mysql_data:/var/lib/mysql
       - ./contrib/sql/init:/docker-entrypoint-initdb.d
     networks:
       - edu_turkish_network
     healthcheck:
-      test: ["CMD", "mysqladmin", "ping", "-h", "127.0.0.1", "-u", "edu_turkish_user", "-psecure_password_123"]
+      test:
+        [
+          'CMD',
+          'mysqladmin',
+          'ping',
+          '-h',
+          '127.0.0.1',
+          '-u',
+          'edu_turkish_user',
+          '-psecure_password_123',
+        ]
       interval: 10s
       timeout: 5s
       retries: 10
@@ -71,7 +81,7 @@ services:
     container_name: edu_turkish_adminer
     restart: unless-stopped
     ports:
-      - "8080:8080"
+      - '8080:8080'
     environment:
       ADMINER_DEFAULT_SERVER: mysql
     depends_on:
@@ -85,7 +95,7 @@ services:
     container_name: edu_turkish_directus
     restart: unless-stopped
     ports:
-      - "8055:8055"
+      - '8055:8055'
     env_file:
       - .env
     environment:
@@ -102,12 +112,12 @@ services:
       DB_PASSWORD: ${DB_PASSWORD:-secure_password_123}
 
       # Directus базовые настройки
-      WEBSOCKETS_ENABLED: "true"
+      WEBSOCKETS_ENABLED: 'true'
       ADMIN_EMAIL: ${DIRECTUS_ADMIN_EMAIL:-admin@example.com}
       ADMIN_PASSWORD: ${DIRECTUS_ADMIN_PASSWORD:-ChangeMe123!}
-      CORS_ENABLED: "true"
+      CORS_ENABLED: 'true'
       # Разрешим локальный фронт и домен контейнера (на всякий случай host.docker.internal)
-      CORS_ORIGIN: "http://localhost:3000,http://host.docker.internal:3000"
+      CORS_ORIGIN: 'http://localhost:3000,http://host.docker.internal:3000'
       PUBLIC_URL: ${DIRECTUS_PUBLIC_URL:-http://localhost:8055}
       STORAGE_LOCATIONS: local
     volumes:
