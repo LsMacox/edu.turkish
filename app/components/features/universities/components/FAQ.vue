@@ -45,9 +45,5 @@ const faqs = computed(() => [
     question: t('home.faq.universities.q9'),
     answer: t('home.faq.universities.a9'),
   },
-  {
-    question: t('home.faq.universities.q10'),
-    answer: t('home.faq.universities.a10'),
-  },
-])
+  ])
 </script>
