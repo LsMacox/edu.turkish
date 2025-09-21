@@ -14,8 +14,15 @@ RUN apt-get update \
 # Copy lockfiles separately to maximise cache reuse
 COPY package.json package-lock.json ./
 
-# Install all dependencies (dev + prod) for build tooling
-RUN npm ci
+# Configure npm for better performance in containers
+RUN npm config set prefer-offline true \
+  && npm config set progress false \
+  && npm config set fund false \
+  && npm config set update-notifier false \
+  && npm config set audit false
+
+# Install dependencies in layers for better caching
+RUN npm ci --prefer-offline --no-audit --include=dev && npm cache clean --force
 
 # =========================
 # 1) Builder
@@ -51,8 +58,16 @@ RUN apt-get update \
   && apt-get install -y --no-install-recommends openssl ca-certificates \
   && rm -rf /var/lib/apt/lists/*
 
+# Configure npm for better performance in containers
+RUN npm config set prefer-offline true \
+  && npm config set progress false \
+  && npm config set fund false \
+  && npm config set update-notifier false \
+  && npm config set audit false
+
 COPY package.json package-lock.json ./
-RUN npm ci --omit=dev
+# Install only production dependencies
+RUN npm ci --omit=dev --prefer-offline --no-audit && npm cache clean --force
 
 # =========================
 # 3) Production runner
