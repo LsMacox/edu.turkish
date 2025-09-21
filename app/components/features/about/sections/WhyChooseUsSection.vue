@@ -80,7 +80,7 @@
           <div>
             <img
               class="w-full h-96 object-cover rounded-2xl shadow-custom"
-              src="https://storage.googleapis.com/uxpilot-auth.appspot.com/35f9c97132-5ca3689ed5ddf458915c.png"
+              src="/images/team/who-we-are.jpg"
               :alt="$t('about.whyChooseUs.imageAlt')"
             />
           </div>

@@ -87,7 +87,8 @@
 </template>
 
 <script setup lang="ts">
-const whoWeAre = '/images/team/who-we-are.jpg'
+const whoWeAre =
+  'https://storage.googleapis.com/uxpilot-auth.appspot.com/35f9c97132-5ca3689ed5ddf458915c.png'
 const { t } = useI18n()
 </script>
 
