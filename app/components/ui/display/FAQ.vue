@@ -27,8 +27,29 @@
                 class="transition-transform duration-200"
               />
             </button>
-            <!-- eslint-disable-next-line vue/no-v-html -->
-            <div v-show="isOpen(index)" class="px-6 pb-4 text-gray-600" v-html="faq.answer"></div>
+            <div v-show="isOpen(index)" class="px-6 pb-4 text-gray-600">
+              <template v-if="isStringAnswer(faq.answer)">
+                <p>{{ faq.answer }}</p>
+              </template>
+              <div v-else class="space-y-3">
+                <p v-if="faq.answer.title" class="font-medium text-gray-700">
+                  {{ faq.answer.title }}
+                </p>
+                <ul
+                  v-if="faq.answer.items?.length && !faq.answer.ordered"
+                  class="list-disc pl-5 space-y-1"
+                >
+                  <li v-for="(item, itemIndex) in faq.answer.items" :key="itemIndex">
+                    {{ item }}
+                  </li>
+                </ul>
+                <ol v-else-if="faq.answer.items?.length" class="list-decimal pl-5 space-y-1">
+                  <li v-for="(item, itemIndex) in faq.answer.items" :key="itemIndex">
+                    {{ item }}
+                  </li>
+                </ol>
+              </div>
+            </div>
           </div>
         </div>
       </div>
@@ -37,9 +58,17 @@
 </template>
 
 <script setup lang="ts">
+interface FaqStructuredAnswer {
+  title?: string
+  items?: string[]
+  ordered?: boolean
+}
+
+type FaqAnswer = string | FaqStructuredAnswer
+
 interface FaqItem {
   question: string
-  answer: string
+  answer: FaqAnswer
 }
 
 interface Props {
@@ -77,6 +106,8 @@ const toggle = (index: number) => {
 }
 
 const isOpen = (index: number) => openFaqs.value.includes(index)
+
+const isStringAnswer = (answer: FaqAnswer): answer is string => typeof answer === 'string'
 </script>
 
 <style scoped>
