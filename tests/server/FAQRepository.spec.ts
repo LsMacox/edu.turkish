@@ -112,7 +112,7 @@ describe('FAQRepository', () => {
       )
 
       const prisma = {
-        faqItem: {
+        faq: {
           findMany,
           count,
         },
@@ -130,10 +130,10 @@ describe('FAQRepository', () => {
       expect(count).toHaveBeenCalledTimes(2)
       expect(categoryFindMany).toHaveBeenCalledTimes(1)
 
-      const [findManyArgs] = findMany.mock.calls[0] as [Prisma.FaqItemFindManyArgs]
-      const include = findManyArgs.include as Prisma.FaqItemInclude
+      const [findManyArgs] = findMany.mock.calls[0] as [Prisma.FaqFindManyArgs]
+      const include = findManyArgs.include as Prisma.FaqInclude
       const translationInclude = include?.translations as Prisma.FaqTranslationFindManyArgs
-      const where = findManyArgs.where as Prisma.FaqItemWhereInput
+      const where = findManyArgs.where as Prisma.FaqWhereInput
       const translationFilter = where?.translations?.some as Prisma.FaqTranslationWhereInput
 
       expect(findManyArgs.take).toBe(10)
@@ -157,7 +157,7 @@ describe('FAQRepository', () => {
 
       const findMany = vi.fn().mockResolvedValue([faqAnswerMatch, faqQuestionMatch])
       const prisma = {
-        faqItem: {
+        faq: {
           findMany,
         },
         faqCategory: {
@@ -169,8 +169,8 @@ describe('FAQRepository', () => {
       const repository = new FAQRepository(prisma)
       const result = await repository.search('Visa', 'kk', 2)
 
-      const [findManyArgs] = findMany.mock.calls[0] as [Prisma.FaqItemFindManyArgs]
-      const include = findManyArgs.include as Prisma.FaqItemInclude
+      const [findManyArgs] = findMany.mock.calls[0] as [Prisma.FaqFindManyArgs]
+      const include = findManyArgs.include as Prisma.FaqInclude
       const translationInclude = include?.translations as Prisma.FaqTranslationFindManyArgs
       const searchFilter = findManyArgs.where?.translations?.some as Prisma.FaqTranslationWhereInput
 

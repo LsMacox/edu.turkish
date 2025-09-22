@@ -41,7 +41,7 @@ describe('UniversityRepository.findAll', () => {
         groupBy: universityGroupBy,
         aggregate,
       },
-      academicProgram: {
+      universityProgram: {
         groupBy: academicProgramGroupBy,
       },
       cityTranslation: {
@@ -216,7 +216,7 @@ describe('UniversityRepository.findAll', () => {
     })
     const academicProgramGroupBy = vi
       .fn()
-      .mockImplementation((args: Prisma.AcademicProgramGroupByArgs) => {
+      .mockImplementation((args: Prisma.UniversityProgramGroupByArgs) => {
         if ('by' in args && Array.isArray(args.by) && args.by.includes('degreeType')) {
           return Promise.resolve([{ degreeType: 'bachelor' }, { degreeType: 'master' }])
         }
@@ -238,7 +238,7 @@ describe('UniversityRepository.findAll', () => {
         groupBy: universityGroupBy,
         aggregate,
       },
-      academicProgram: {
+      universityProgram: {
         groupBy: academicProgramGroupBy,
       },
       cityTranslation: {

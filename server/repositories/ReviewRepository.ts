@@ -10,9 +10,9 @@ const REVIEW_INCLUDE = {
       translations: true,
     },
   },
-} satisfies Prisma.ReviewInclude
+} satisfies Prisma.UniversityReviewInclude
 
-type ReviewWithRelations = Prisma.ReviewGetPayload<{
+type ReviewWithRelations = Prisma.UniversityReviewGetPayload<{
   include: typeof REVIEW_INCLUDE
 }>
 
@@ -36,7 +36,7 @@ export class ReviewRepository {
     const localeInfo = normalizeLocale(locale)
     const { type, featured, page = 1, limit = 10 } = params
 
-    const where: Prisma.ReviewWhereInput = {}
+    const where: Prisma.UniversityReviewWhereInput = {}
 
     if (type && type !== 'all') {
       where.type = type
@@ -50,14 +50,14 @@ export class ReviewRepository {
     const safeLimit = Math.max(limit, 1)
 
     const [reviews, total] = await this.prisma.$transaction([
-      this.prisma.review.findMany({
+      this.prisma.universityReview.findMany({
         where,
         include: REVIEW_INCLUDE,
         orderBy: [{ featured: 'desc' }, { rating: 'desc' }, { createdAt: 'desc' }],
         skip: (safePage - 1) * safeLimit,
         take: safeLimit,
       }),
-      this.prisma.review.count({ where }),
+      this.prisma.universityReview.count({ where }),
     ])
 
     return {
@@ -92,7 +92,7 @@ export class ReviewRepository {
       reviewLocales,
       faqLocales,
     ] = await this.prisma.$transaction([
-      this.prisma.review.aggregate({
+      this.prisma.universityReview.aggregate({
         _count: { id: true },
         _avg: { rating: true },
       }),
@@ -102,8 +102,8 @@ export class ReviewRepository {
         select: { cityId: true },
         distinct: ['cityId'],
       }),
-      this.prisma.academicProgram.count(),
-      this.prisma.scholarship.count(),
+      this.prisma.universityProgram.count(),
+      this.prisma.universityScholarship.count(),
       this.prisma.application.count(),
       this.prisma.application.count({
         where: { status: ApplicationStatus.approved },
@@ -112,11 +112,11 @@ export class ReviewRepository {
         distinct: ['locale'],
         select: { locale: true },
       }),
-      this.prisma.programTranslation.findMany({
+      this.prisma.universityProgramTranslation.findMany({
         distinct: ['locale'],
         select: { locale: true },
       }),
-      this.prisma.reviewTranslation.findMany({
+      this.prisma.universityReviewTranslation.findMany({
         distinct: ['locale'],
         select: { locale: true },
       }),
@@ -164,7 +164,7 @@ export class ReviewRepository {
     const localeInfo = normalizeLocale(locale)
     const safeLimit = Math.max(limit, 1)
 
-    const reviews = await this.prisma.review.findMany({
+    const reviews = await this.prisma.universityReview.findMany({
       where: { featured: true },
       include: REVIEW_INCLUDE,
       orderBy: [{ rating: 'desc' }, { createdAt: 'desc' }],
@@ -211,7 +211,7 @@ export class ReviewRepository {
       }
     })
 
-    const review = await this.prisma.review.create({
+    const review = await this.prisma.universityReview.create({
       data: {
         ...reviewData,
         translations: {

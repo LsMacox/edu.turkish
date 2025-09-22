@@ -3,7 +3,7 @@ import type { PrismaClient, Prisma } from '@prisma/client'
 
 import { ReviewRepository } from '../../server/repositories/ReviewRepository'
 
-type ReviewRecord = Prisma.ReviewGetPayload<{
+type ReviewRecord = Prisma.UniversityReviewGetPayload<{
   include: {
     translations: true
     university: { include: { translations: true } }
@@ -29,7 +29,7 @@ const createRepositoryWithMocks = () => {
   const transaction = vi.fn(async (queries: Promise<unknown>[]) => Promise.all(queries))
 
   const prisma = {
-    review: {
+    universityReview: {
       findMany: reviewFindMany,
       count: reviewCount,
       aggregate: reviewAggregate,
@@ -39,10 +39,10 @@ const createRepositoryWithMocks = () => {
       count: universityCount,
       findMany: universityFindMany,
     },
-    academicProgram: {
+    universityProgram: {
       count: academicProgramCount,
     },
-    scholarship: {
+    universityScholarship: {
       count: scholarshipCount,
     },
     application: {
@@ -51,10 +51,10 @@ const createRepositoryWithMocks = () => {
     universityTranslation: {
       findMany: universityTranslationFindMany,
     },
-    programTranslation: {
+    universityProgramTranslation: {
       findMany: programTranslationFindMany,
     },
-    reviewTranslation: {
+    universityReviewTranslation: {
       findMany: reviewTranslationFindMany,
     },
     faqTranslation: {

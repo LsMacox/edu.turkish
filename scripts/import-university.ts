@@ -393,10 +393,12 @@ async function replacePrograms(
   locale: string,
   programs: Array<z.infer<typeof ProgramInput>>,
 ): Promise<void> {
-  await (prisma as any).programTranslation.deleteMany({ where: { program: { universityId } } })
-  await (prisma as any).academicProgram.deleteMany({ where: { universityId } })
+  await (prisma as any).universityProgramTranslation.deleteMany({
+    where: { program: { universityId } },
+  })
+  await (prisma as any).universityProgram.deleteMany({ where: { universityId } })
   for (const p of programs) {
-    const created = await (prisma as any).academicProgram.create({
+    const created = await (prisma as any).universityProgram.create({
       data: {
         universityId,
         degreeType: p.degree_type as DegreeType,
@@ -405,7 +407,7 @@ async function replacePrograms(
         tuitionPerYear: new Prisma.Decimal(p.tuition_per_year),
       },
     })
-    await (prisma as any).programTranslation.create({
+    await (prisma as any).universityProgramTranslation.create({
       data: {
         programId: created.id,
         locale,
@@ -414,7 +416,7 @@ async function replacePrograms(
       },
     })
     if (p.translation?.locale) {
-      await (prisma as any).programTranslation.upsert({
+      await (prisma as any).universityProgramTranslation.upsert({
         where: { programId_locale: { programId: created.id, locale: p.translation.locale } },
         update: { name: p.translation.name, description: p.translation.description },
         create: {
@@ -434,14 +436,14 @@ async function replaceFeaturedPrograms(
   categories: Array<z.infer<typeof StrongProgramCategory>>,
   translation?: z.infer<typeof UniversityInput>['translation'],
 ): Promise<void> {
-  await (prisma as any).featuredProgramTranslation.deleteMany({
+  await (prisma as any).universityFeaturedProgramTranslation.deleteMany({
     where: { featuredProgram: { universityId } },
   })
-  await (prisma as any).featuredProgram.deleteMany({ where: { universityId } })
+  await (prisma as any).universityFeaturedProgram.deleteMany({ where: { universityId } })
 
   if (!categories || categories.length === 0) return
 
-  const programTranslations = await (prisma as any).programTranslation.findMany({
+  const programTranslations = await (prisma as any).universityProgramTranslation.findMany({
     where: { program: { universityId } },
     include: { program: true },
   })
@@ -490,7 +492,7 @@ async function replaceFeaturedPrograms(
         continue
       }
 
-      const created = await (prisma as any).featuredProgram.create({
+      const created = await (prisma as any).universityFeaturedProgram.create({
         data: {
           universityId,
           programId,
@@ -520,7 +522,7 @@ async function replaceFeaturedPrograms(
     const translatedLabel = translatedCategory?.category?.trim()
     if (!translatedLabel) continue
 
-    await (prisma as any).featuredProgramTranslation.upsert({
+    await (prisma as any).universityFeaturedProgramTranslation.upsert({
       where: {
         featuredProgramId_locale: { featuredProgramId: entry.id, locale: translationLocale },
       },
@@ -551,7 +553,7 @@ async function ensureDirectionAndTranslation(slug: DirectionSlug, locale: string
     // Сразу создаем RU/EN/TR/KK переводы для удобства
     const locales = ['ru', 'en', 'tr', 'kk'] as const
     for (const loc of locales) {
-      await (prisma as any).directionTranslation.create({
+      await (prisma as any).studyDirectionTranslation.create({
         data: {
           directionId,
           locale: loc,
@@ -568,7 +570,7 @@ async function ensureDirectionAndTranslation(slug: DirectionSlug, locale: string
     )
     if (!hasLocale) {
       const names = getDirectionNames()[slug]
-      await (prisma as any).directionTranslation.create({
+      await (prisma as any).studyDirectionTranslation.create({
         data: { directionId, locale, slug, name: (names as any)?.[locale] ?? slug },
       })
     }
@@ -609,7 +611,7 @@ async function linkDirectionsForUniversity(
   for (const slug of slugs) {
     const directionId = await ensureDirectionAndTranslation(slug, locale)
     // Связь уникальна по [universityId, directionId]
-    await (prisma as any).universityDirection.upsert({
+    await (prisma as any).universityStudyDirection.upsert({
       where: { universityId_directionId: { universityId, directionId } },
       update: {},
       create: { universityId, directionId },

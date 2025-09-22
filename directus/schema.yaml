@@ -112,14 +112,14 @@ collections:
       translations: null
       unarchive_value: null
       versioning: false
-  - collection: academic_programs
+  - collection: university_programs
     meta:
       accountability: all
       archive_app_filter: true
       archive_field: null
       archive_value: null
       collapse: open
-      collection: academic_programs
+      collection: university_programs
       color: null
       display_template: null
       group: University
@@ -135,15 +135,15 @@ collections:
       unarchive_value: null
       versioning: false
     schema:
-      name: academic_programs
-  - collection: admission_requirements
+      name: university_programs
+  - collection: university_admission_requirements
     meta:
       accountability: all
       archive_app_filter: true
       archive_field: null
       archive_value: null
       collapse: open
-      collection: admission_requirements
+      collection: university_admission_requirements
       color: null
       display_template: null
       group: University
@@ -159,7 +159,7 @@ collections:
       unarchive_value: null
       versioning: false
     schema:
-      name: admission_requirements
+      name: university_admission_requirements
   - collection: applications
     meta:
       accountability: all
@@ -280,14 +280,14 @@ collections:
       versioning: false
     schema:
       name: blog_category_translations
-  - collection: campus_facilities
+  - collection: university_campus_facilities
     meta:
       accountability: all
       archive_app_filter: true
       archive_field: null
       archive_value: null
       collapse: open
-      collection: campus_facilities
+      collection: university_campus_facilities
       color: null
       display_template: null
       group: University
@@ -303,7 +303,7 @@ collections:
       unarchive_value: null
       versioning: false
     schema:
-      name: campus_facilities
+      name: university_campus_facilities
   - collection: cities
     meta:
       accountability: all
@@ -400,17 +400,17 @@ collections:
       versioning: false
     schema:
       name: country_translations
-  - collection: date_translations
+  - collection: university_important_date_translations
     meta:
       accountability: all
       archive_app_filter: true
       archive_field: null
       archive_value: null
       collapse: open
-      collection: date_translations
+      collection: university_important_date_translations
       color: null
       display_template: null
-      group: important_dates
+      group: university_important_dates
       hidden: false
       icon: null
       item_duplication_fields: null
@@ -423,15 +423,15 @@ collections:
       unarchive_value: null
       versioning: false
     schema:
-      name: date_translations
-  - collection: direction_translations
+      name: university_important_date_translations
+  - collection: study_direction_translations
     meta:
       accountability: all
       archive_app_filter: true
       archive_field: null
       archive_value: null
       collapse: open
-      collection: direction_translations
+      collection: study_direction_translations
       color: null
       display_template: null
       group: study_directions
@@ -447,18 +447,18 @@ collections:
       unarchive_value: null
       versioning: false
     schema:
-      name: direction_translations
-  - collection: document_translations
+      name: study_direction_translations
+  - collection: university_required_document_translations
     meta:
       accountability: all
       archive_app_filter: true
       archive_field: null
       archive_value: null
       collapse: open
-      collection: document_translations
+      collection: university_required_document_translations
       color: null
       display_template: null
-      group: required_documents
+      group: university_required_documents
       hidden: false
       icon: null
       item_duplication_fields: null
@@ -471,18 +471,18 @@ collections:
       unarchive_value: null
       versioning: false
     schema:
-      name: document_translations
-  - collection: facility_translations
+      name: university_required_document_translations
+  - collection: university_campus_facility_translations
     meta:
       accountability: all
       archive_app_filter: true
       archive_field: null
       archive_value: null
       collapse: open
-      collection: facility_translations
+      collection: university_campus_facility_translations
       color: null
       display_template: null
-      group: campus_facilities
+      group: university_campus_facilities
       hidden: false
       icon: null
       item_duplication_fields: null
@@ -495,7 +495,7 @@ collections:
       unarchive_value: null
       versioning: false
     schema:
-      name: facility_translations
+      name: university_campus_facility_translations
   - collection: faq_categories
     meta:
       accountability: all
@@ -544,14 +544,14 @@ collections:
       versioning: false
     schema:
       name: faq_category_translations
-  - collection: faq_items
+  - collection: faqs
     meta:
       accountability: all
       archive_app_filter: true
       archive_field: null
       archive_value: null
       collapse: open
-      collection: faq_items
+      collection: faqs
       color: null
       display_template: null
       group: FAQ
@@ -567,7 +567,7 @@ collections:
       unarchive_value: null
       versioning: false
     schema:
-      name: faq_items
+      name: faqs
   - collection: faq_translations
     meta:
       accountability: all
@@ -592,17 +592,17 @@ collections:
       versioning: false
     schema:
       name: faq_translations
-  - collection: featured_program_translations
+  - collection: university_pivot_featured_program_translations
     meta:
       accountability: all
       archive_app_filter: true
       archive_field: null
       archive_value: null
       collapse: open
-      collection: featured_program_translations
+      collection: university_pivot_featured_program_translations
       color: null
       display_template: null
-      group: featured_programs
+      group: university_pivot_featured_programs
       hidden: false
       icon: null
       item_duplication_fields: null
@@ -615,15 +615,15 @@ collections:
       unarchive_value: null
       versioning: false
     schema:
-      name: featured_program_translations
-  - collection: featured_programs
+      name: university_pivot_featured_program_translations
+  - collection: university_pivot_featured_programs
     meta:
       accountability: all
       archive_app_filter: true
       archive_field: null
       archive_value: null
       collapse: open
-      collection: featured_programs
+      collection: university_pivot_featured_programs
       color: null
       display_template: null
       group: University
@@ -639,15 +639,15 @@ collections:
       unarchive_value: null
       versioning: false
     schema:
-      name: featured_programs
-  - collection: important_dates
+      name: university_pivot_featured_programs
+  - collection: university_important_dates
     meta:
       accountability: all
       archive_app_filter: true
       archive_field: null
       archive_value: null
       collapse: open
-      collection: important_dates
+      collection: university_important_dates
       color: null
       display_template: null
       group: University
@@ -663,18 +663,18 @@ collections:
       unarchive_value: null
       versioning: false
     schema:
-      name: important_dates
-  - collection: program_translations
+      name: university_important_dates
+  - collection: university_program_translations
     meta:
       accountability: all
       archive_app_filter: true
       archive_field: null
       archive_value: null
       collapse: open
-      collection: program_translations
+      collection: university_program_translations
       color: null
       display_template: null
-      group: academic_programs
+      group: university_programs
       hidden: false
       icon: null
       item_duplication_fields: null
@@ -687,15 +687,15 @@ collections:
       unarchive_value: null
       versioning: false
     schema:
-      name: program_translations
-  - collection: required_documents
+      name: university_program_translations
+  - collection: university_required_documents
     meta:
       accountability: all
       archive_app_filter: true
       archive_field: null
       archive_value: null
       collapse: open
-      collection: required_documents
+      collection: university_required_documents
       color: null
       display_template: null
       group: University
@@ -711,18 +711,18 @@ collections:
       unarchive_value: null
       versioning: false
     schema:
-      name: required_documents
-  - collection: requirement_translations
+      name: university_required_documents
+  - collection: university_admission_requirement_translations
     meta:
       accountability: all
       archive_app_filter: true
       archive_field: null
       archive_value: null
       collapse: open
-      collection: requirement_translations
+      collection: university_admission_requirement_translations
       color: null
       display_template: null
-      group: admission_requirements
+      group: university_admission_requirements
       hidden: false
       icon: null
       item_duplication_fields: null
@@ -735,18 +735,18 @@ collections:
       unarchive_value: null
       versioning: false
     schema:
-      name: requirement_translations
-  - collection: review_translations
+      name: university_admission_requirement_translations
+  - collection: university_review_translations
     meta:
       accountability: all
       archive_app_filter: true
       archive_field: null
       archive_value: null
       collapse: open
-      collection: review_translations
+      collection: university_review_translations
       color: null
       display_template: null
-      group: reviews
+      group: university_reviews
       hidden: false
       icon: null
       item_duplication_fields: null
@@ -759,15 +759,15 @@ collections:
       unarchive_value: null
       versioning: false
     schema:
-      name: review_translations
-  - collection: reviews
+      name: university_review_translations
+  - collection: university_reviews
     meta:
       accountability: all
       archive_app_filter: true
       archive_field: null
       archive_value: null
       collapse: open
-      collection: reviews
+      collection: university_reviews
       color: null
       display_template: null
       group: Review
@@ -783,18 +783,18 @@ collections:
       unarchive_value: null
       versioning: false
     schema:
-      name: reviews
-  - collection: scholarship_translations
+      name: university_reviews
+  - collection: university_scholarship_translations
     meta:
       accountability: all
       archive_app_filter: true
       archive_field: null
       archive_value: null
       collapse: open
-      collection: scholarship_translations
+      collection: university_scholarship_translations
       color: null
       display_template: null
-      group: scholarships
+      group: university_scholarships
       hidden: false
       icon: null
       item_duplication_fields: null
@@ -807,15 +807,15 @@ collections:
       unarchive_value: null
       versioning: false
     schema:
-      name: scholarship_translations
-  - collection: scholarships
+      name: university_scholarship_translations
+  - collection: university_scholarships
     meta:
       accountability: all
       archive_app_filter: true
       archive_field: null
       archive_value: null
       collapse: open
-      collection: scholarships
+      collection: university_scholarships
       color: null
       display_template: null
       group: University
@@ -831,7 +831,7 @@ collections:
       unarchive_value: null
       versioning: false
     schema:
-      name: scholarships
+      name: university_scholarships
   - collection: study_directions
     meta:
       accountability: all
@@ -880,14 +880,14 @@ collections:
       versioning: false
     schema:
       name: universities
-  - collection: university_directions
+  - collection: university_pivot_study_directions
     meta:
       accountability: all
       archive_app_filter: true
       archive_field: null
       archive_value: null
       collapse: open
-      collection: university_directions
+      collection: university_pivot_study_directions
       color: null
       display_template: null
       group: universities
@@ -903,15 +903,15 @@ collections:
       unarchive_value: null
       versioning: false
     schema:
-      name: university_directions
-  - collection: university_media
+      name: university_pivot_study_directions
+  - collection: university_media_assets
     meta:
       accountability: all
       archive_app_filter: true
       archive_field: null
       archive_value: null
       collapse: open
-      collection: university_media
+      collection: university_media_assets
       color: null
       display_template: null
       group: universities
@@ -927,18 +927,18 @@ collections:
       unarchive_value: null
       versioning: false
     schema:
-      name: university_media
-  - collection: university_media_translations
+      name: university_media_assets
+  - collection: university_media_asset_translations
     meta:
       accountability: all
       archive_app_filter: true
       archive_field: null
       archive_value: null
       collapse: open
-      collection: university_media_translations
+      collection: university_media_asset_translations
       color: null
       display_template: null
-      group: university_media
+      group: university_media_assets
       hidden: false
       icon: null
       item_duplication_fields: null
@@ -951,7 +951,7 @@ collections:
       unarchive_value: null
       versioning: false
     schema:
-      name: university_media_translations
+      name: university_media_asset_translations
   - collection: university_translations
     meta:
       accountability: all
@@ -977,11 +977,11 @@ collections:
     schema:
       name: university_translations
 fields:
-  - collection: academic_programs
+  - collection: university_programs
     field: university_id
     type: integer
     meta:
-      collection: academic_programs
+      collection: university_programs
       conditions: null
       display: null
       display_options: null
@@ -1001,7 +1001,7 @@ fields:
       width: full
     schema:
       name: university_id
-      table: academic_programs
+      table: university_programs
       data_type: int
       default_value: null
       max_length: null
