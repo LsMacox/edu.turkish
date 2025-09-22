@@ -1,8 +1,8 @@
 <template>
   <UiDisplayFAQ
     :items="faqs"
-    :title="t('home.faq.universities_title')"
-    :subtitle="t('home.faq.universities_subtitle')"
+    :title="t('universityDetail.faq.title')"
+    :subtitle="t('universityDetail.faq.subtitle')"
   />
 </template>
 
@@ -40,40 +40,40 @@ const resolveAnswer = (path: string): FaqAnswer => {
 
 const faqs = computed(() => [
   {
-    question: t('home.faq.universities.q1'),
-    answer: resolveAnswer('home.faq.universities.a1'),
+    question: t('universityDetail.faq.q1'),
+    answer: resolveAnswer('universityDetail.faq.a1'),
   },
   {
-    question: t('home.faq.universities.q2'),
-    answer: resolveAnswer('home.faq.universities.a2'),
+    question: t('universityDetail.faq.q2'),
+    answer: resolveAnswer('universityDetail.faq.a2'),
   },
   {
-    question: t('home.faq.universities.q3'),
-    answer: resolveAnswer('home.faq.universities.a3'),
+    question: t('universityDetail.faq.q3'),
+    answer: resolveAnswer('universityDetail.faq.a3'),
   },
   {
-    question: t('home.faq.universities.q4'),
-    answer: resolveAnswer('home.faq.universities.a4'),
+    question: t('universityDetail.faq.q4'),
+    answer: resolveAnswer('universityDetail.faq.a4'),
   },
   {
-    question: t('home.faq.universities.q5'),
-    answer: resolveAnswer('home.faq.universities.a5'),
+    question: t('universityDetail.faq.q5'),
+    answer: resolveAnswer('universityDetail.faq.a5'),
   },
   {
-    question: t('home.faq.universities.q6'),
-    answer: resolveAnswer('home.faq.universities.a6'),
+    question: t('universityDetail.faq.q6'),
+    answer: resolveAnswer('universityDetail.faq.a6'),
   },
   {
-    question: t('home.faq.universities.q7'),
-    answer: resolveAnswer('home.faq.universities.a7'),
+    question: t('universityDetail.faq.q7'),
+    answer: resolveAnswer('universityDetail.faq.a7'),
   },
   {
-    question: t('home.faq.universities.q8'),
-    answer: resolveAnswer('home.faq.universities.a8'),
+    question: t('universityDetail.faq.q8'),
+    answer: resolveAnswer('universityDetail.faq.a8'),
   },
   {
-    question: t('home.faq.universities.q9'),
-    answer: resolveAnswer('home.faq.universities.a9'),
+    question: t('universityDetail.faq.q9'),
+    answer: resolveAnswer('universityDetail.faq.a9'),
   },
 ])
 </script>

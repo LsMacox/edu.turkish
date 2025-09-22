@@ -1,4 +1,5 @@
 import { prisma } from '../../../../lib/prisma'
+import type { H3Event } from 'h3'
 
 const DEFAULT_LOCALE = 'ru'
 
@@ -47,7 +48,7 @@ function extractLanguage(query: Record<string, unknown>): string {
   return 'ru'
 }
 
-export async function popularProgramsHandler(event: unknown) {
+export async function popularProgramsHandler(event: H3Event) {
   const rawLanguage = extractLanguage(getQuery(event))
   const { locale } = resolveLanguage(rawLanguage)
 
@@ -138,7 +139,7 @@ export async function getDirectionStats(
     where: {
       translations: {
         some: {
-          locale: variants.length === 1 ? normalizedLocale : { in: variants },
+          locale: variants.length === 1 ? locale : { in: variants },
           slug: { in: directionSlugs },
         },
       },

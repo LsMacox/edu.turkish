@@ -96,8 +96,6 @@ services:
     restart: unless-stopped
     ports:
       - '8055:8055'
-    env_file:
-      - .env
     environment:
       # Ключи (замени в проде)
       KEY: ${DIRECTUS_KEY:-insecure_local_key}
@@ -105,7 +103,8 @@ services:
 
       # Подключение к MySQL (отдельная БД)
       DB_CLIENT: mysql
-      DB_HOST: ${DB_HOST:-mysql}
+      # Жестко укажем хост Docker-сети, чтобы не подцепился localhost из .env
+      DB_HOST: mysql
       DB_PORT: 3306
       DB_DATABASE: ${DIRECTUS_DB_NAME:-edu_turkish}
       DB_USER: ${DB_USER:-edu_turkish_user}
@@ -122,6 +121,8 @@ services:
       STORAGE_LOCATIONS: local
     volumes:
       - directus_uploads:/directus/uploads
+      # Монтируем директорию схемы/конфига из репозитория внутрь контейнера
+      - ./directus:/project/directus
     depends_on:
       mysql:
         condition: service_healthy

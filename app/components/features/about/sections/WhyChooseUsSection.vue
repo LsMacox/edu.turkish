@@ -80,7 +80,7 @@
           <div>
             <img
               class="w-full h-96 object-cover rounded-2xl shadow-custom"
-              src="/images/team/who-we-are.jpg"
+              src="/images/team/why-choose.jpg"
               :alt="$t('about.whyChooseUs.imageAlt')"
             />
           </div>

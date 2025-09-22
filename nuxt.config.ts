@@ -10,31 +10,7 @@ export default defineNuxtConfig({
   compatibilityDate: '2025-07-15',
   devtools: { enabled: true },
 
-  alias: {
-    '~/types': resolve('./app/types'),
-    '@/types': resolve('./app/types'),
-  },
-
-  typescript: {
-    tsConfig: {
-      compilerOptions: {
-        paths: {
-          '~/types': ['./app/types'],
-          '~/types/*': ['./app/types/*'],
-          '@/types': ['./app/types'],
-          '@/types/*': ['./app/types/*'],
-        },
-      },
-    },
-  },
-
   vite: {
-    resolve: {
-      alias: {
-        '~/types': resolve('./app/types'),
-        '@/types': resolve('./app/types'),
-      },
-    },
     build: {
       cssCodeSplit: false,
     },
@@ -225,6 +201,7 @@ export default defineNuxtConfig({
   i18n: {
     // Used for generating absolute alternate/canonical links
     baseUrl: siteUrl,
+    // Don't change this path, it is ccrrect 
     langDir: 'locales',
     locales: [
       {

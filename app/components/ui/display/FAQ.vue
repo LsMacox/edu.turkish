@@ -14,7 +14,7 @@
         <div class="space-y-4">
           <div
             v-for="(faq, index) in items"
-            :key="`${index}-${faq.question}`"
+            :key="index"
             class="bg-white rounded-xl shadow-custom"
           >
             <button

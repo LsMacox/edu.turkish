@@ -122,8 +122,7 @@
       "subtitle": "Başvuru hakkında en popüler sorulara yanıtlar",
       "reviews_title": "Sık Sorulan Sorular",
       "reviews_subtitle": "Yorumlar ve çalışmamız hakkında popüler sorulara yanıtlar",
-      "universities_title": "📌 Türkiye üniversitelerine başvuru hakkındaki sık sorulan sorular",
-      "universities_subtitle": "Türkiye üniversitelerine başvuru hakkındaki en popüler sorulara yanıtlar",
+      
       "categories": {
         "all": "Tümü",
         "documents": {
@@ -300,52 +299,7 @@
         "q5": "Burs alabilir miyim?",
         "a5": "Evet! Çeşitli burs türleri mevcut: akademik (%75'e kadar), spor (%50'ye kadar), erken başvuru (%25'e kadar). Ayrıca uluslararası öğrenciler için Türkiye Bursları devlet bursu da var."
       },
-      "universities": {
-        "q1": "Başvuru için Türkçe veya İngilizce bilmek gerekiyor mu?",
-        "a1": "✨ Hayır! Dili bilmiyorsanız bile üniversite Türkçe, İngilizce veya Arapça hazırlık yılı sunar. Rahat tempoda uyum sağlayıp okuyabilirsiniz.",
-        "q2": "TR-YÖS veya SAT zorunlu mu?",
-        "a2": "🚀 Hayır, başvuru için lise diploması yeterli.",
-        "q3": "Öğrenim ücreti ne kadar?",
-        "a3": "🎓 Lisans eğitimi yıllık $2000'dan başlar. Kesin tutar üniversiteye ve bölüme bağlıdır.",
-        "q4": "Başvuru için hangi belgeler gerekli?",
-        "a4": {
-          "title": "📂 Minimum paket:",
-          "items": ["Türkçeye çevrilmiş lise diploması", "Pasaport", "Biyometrik fotoğraf"]
-        },
-        "q5": "Burs veya indirimler var mı?",
-        "a5": {
-          "title": "✅ Elbette! Birkaç seçeneğiniz var:",
-          "items": [
-            "Türkiye Bursları — aylık burslu devlet programı.",
-            "Akademik indirimler — yüksek GPA için.",
-            "Spor indirimleri — üniversiteyi yarışmalarda temsil ederseniz."
-          ]
-        },
-        "q6": "Belgeler ne kadar hızlı incelenir?",
-        "a6": "⏳ Resmi olarak en fazla 2 hafta sürer. Bizimle sadece birkaç gün içinde davet mektubu alabilirsiniz.",
-        "q7": "Vize gerekiyor mu?",
-        "a7": {
-          "title": "🌍",
-          "items": [
-            "Kazakistan, Rusya, Özbekistan ve Kırgızistan vatandaşlarının vizesiz günleri varsa vize gerekmiyor.",
-            "Türkiye Bursları öğrencileri için öğrenci vizesi zorunludur."
-          ]
-        },
-        "q8": "Başvuru süreci nasıl ilerliyor?",
-        "a8": {
-          "title": "🔹 Yalnızca birkaç basit adım:",
-          "items": [
-            "Belgelerinizi bize gönderin",
-            "Ön kabul mektubu alın",
-            "Üniversitenin hesap bilgilerine depozitoyu yatırın",
-            "Nihai kabul mektubunu alın",
-            "Türkiye'ye gelip üniversitede kesin kaydı tamamlayın"
-          ],
-          "ordered": true
-        },
-        "q9": "Yalnızca başvuru ve üniversitedeki kesin kayıtta mı eşlik ediyorsunuz?",
-        "a9": "✨ Evet, belgeleri göndermekten Türkiye'ye gelişinize kadar her aşamada yanınızdayız."
-      },
+      
       "reviews": {
         "q1": "Başvuru süreci genellikle ne kadar sürer?",
         "a1": "Başvuru süreci seçilen üniversite ve programa bağlı olarak 6 ila 12 ay sürer. Planlanan başvurudan bir yıl önce hazırlığa başlamanızı öneririz.",

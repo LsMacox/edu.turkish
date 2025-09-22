@@ -24,7 +24,7 @@
 
 <script setup lang="ts">
 import { computed } from 'vue'
-import type { BaseSectionHeaderProps } from '~/types/ui'
+import type { BaseSectionHeaderProps } from '../../../types/ui'
 
 const props = withDefaults(defineProps<BaseSectionHeaderProps>(), {
   titleTag: 'h2',

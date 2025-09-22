@@ -15,7 +15,7 @@
           <div>
             <img
               class="w-full h-80 object-cover rounded-2xl shadow-custom"
-              src="https://storage.googleapis.com/uxpilot-auth.appspot.com/66da50d4a4-89cd1b3aec9541bbaf42.png"
+              src="/images/our-story.png"
               :alt="$t('about.story.imageAlt')"
             />
           </div>
