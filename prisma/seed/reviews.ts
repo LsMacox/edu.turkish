@@ -73,7 +73,7 @@ export async function seedReviews(prisma: PrismaClient) {
   const reviews = [...studentReviews, ...parentReviews]
 
   for (const review of reviews) {
-    await prisma.review.create({
+    await prisma.universityReview.create({
       data: {
         type: review.type,
         year: review.year,

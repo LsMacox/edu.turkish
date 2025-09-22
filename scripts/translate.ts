@@ -213,7 +213,7 @@ async function uniqueDirectionSlug(locale: string, base: string): Promise<string
   let candidate = base
   let i = 0
   while (true) {
-    const exists = await (prisma as any).directionTranslation.findFirst({
+    const exists = await (prisma as any).studyDirectionTranslation.findFirst({
       where: { locale, slug: candidate },
     })
     if (!exists) return candidate
@@ -305,7 +305,7 @@ async function translateUniversities(opts: CliOptions): Promise<void> {
 
 async function translateReviews(opts: CliOptions): Promise<void> {
   const { sourceLocale, targetLocales, limit, dryRun, concurrency } = opts
-  const reviews = await prisma.review.findMany({
+  const reviews = await prisma.universityReview.findMany({
     where: { featured: true },
     include: { translations: true },
     take: limit,
@@ -331,7 +331,7 @@ async function translateReviews(opts: CliOptions): Promise<void> {
           console.log(`[DryRun][Review ${r.id}] => ${target}`, out)
           return
         }
-        await prisma.reviewTranslation.create({
+        await prisma.universityReviewTranslation.create({
           data: {
             reviewId: r.id,
             locale: target,
@@ -349,7 +349,7 @@ async function translateReviews(opts: CliOptions): Promise<void> {
 
 async function translatePrograms(opts: CliOptions): Promise<void> {
   const { sourceLocale, targetLocales, limit, dryRun, concurrency } = opts
-  const rows = await prisma.academicProgram.findMany({
+  const rows = await prisma.universityProgram.findMany({
     include: { translations: true },
     take: limit,
   })
@@ -369,7 +369,7 @@ async function translatePrograms(opts: CliOptions): Promise<void> {
           console.log(`[DryRun][Program ${rec.id}] => ${target}`, out)
           return
         }
-        await prisma.programTranslation.create({
+        await prisma.universityProgramTranslation.create({
           data: {
             programId: rec.id,
             locale: target,
@@ -386,7 +386,7 @@ async function translatePrograms(opts: CliOptions): Promise<void> {
 
 async function translateFaqs(opts: CliOptions): Promise<void> {
   const { sourceLocale, targetLocales, limit, dryRun, concurrency } = opts
-  const rows = await prisma.faqItem.findMany({
+  const rows = await prisma.faq.findMany({
     where: { featured: true },
     include: { translations: true },
     take: limit,
@@ -425,7 +425,7 @@ async function translateFaqs(opts: CliOptions): Promise<void> {
 
 async function translateFacilities(opts: CliOptions): Promise<void> {
   const { sourceLocale, targetLocales, limit, dryRun, concurrency } = opts
-  const rows = await prisma.campusFacility.findMany({
+  const rows = await prisma.universityCampusFacility.findMany({
     include: { translations: true },
     take: limit,
   })
@@ -445,7 +445,7 @@ async function translateFacilities(opts: CliOptions): Promise<void> {
           console.log(`[DryRun][Facility ${rec.id}] => ${target}`, out)
           return
         }
-        await prisma.facilityTranslation.create({
+        await prisma.universityCampusFacilityTranslation.create({
           data: {
             facilityId: rec.id,
             locale: target,
@@ -462,7 +462,7 @@ async function translateFacilities(opts: CliOptions): Promise<void> {
 
 async function translateRequirements(opts: CliOptions): Promise<void> {
   const { sourceLocale, targetLocales, limit, dryRun, concurrency } = opts
-  const rows = await prisma.admissionRequirement.findMany({
+  const rows = await prisma.universityAdmissionRequirement.findMany({
     include: { translations: true },
     take: limit,
   })
@@ -490,7 +490,7 @@ async function translateRequirements(opts: CliOptions): Promise<void> {
           console.log(`[DryRun][Req ${rec.id}] => ${target}`, out)
           return
         }
-        await prisma.requirementTranslation.create({
+        await prisma.universityAdmissionRequirementTranslation.create({
           data: {
             requirementId: rec.id,
             locale: target,
@@ -691,7 +691,7 @@ async function translateDirections(opts: CliOptions): Promise<void> {
         const nameOut = out.name || ''
         const slugBase = slugify(nameOut || base.name || `direction-${rec.id}`)
         const unique = await uniqueDirectionSlug(target, slugBase)
-        await (prisma as any).directionTranslation.create({
+        await (prisma as any).studyDirectionTranslation.create({
           data: {
             directionId: rec.id,
             locale: target,

@@ -1,15 +1,15 @@
 import type { PrismaClient, Prisma } from '@prisma/client'
 import type { DegreeType, UniversityType } from '../../app/types/domain'
 import type {
-  AcademicProgram as AcademicProgramDto,
-  AdmissionRequirement,
-  CampusFacility as CampusFacilityDto,
-  CampusGalleryItem,
-  ImportantDate,
-  RequiredDocument,
-  ScholarshipInfo,
+  UniversityProgram as UniversityProgramDto,
+  UniversityAdmissionRequirement,
+  UniversityCampusFacility as UniversityCampusFacilityDto,
+  UniversityCampusGalleryItem,
+  UniversityImportantDate,
+  UniversityRequiredDocument,
+  UniversityScholarship,
   StrongProgramCategory,
-  StudyDirection,
+  UniversityStudyDirection,
   University,
   UniversityDetail,
   UniversityFilters,
@@ -25,7 +25,7 @@ export type UniversityListItem = Prisma.UniversityGetPayload<{
   }
 }>
 
-type FeaturedProgramWithRelations = Prisma.FeaturedProgramGetPayload<{
+type FeaturedProgramWithRelations = Prisma.UniversityFeaturedProgramGetPayload<{
   include: {
     translations: true
     program: { include: { translations: true } }
@@ -79,7 +79,10 @@ const LEVEL_LABEL_MAP: Record<string, DegreeType> = {
   PhD: 'phd',
 }
 
-const IMPORTANT_DATE_TYPE_MAP: Record<Prisma.ImportantDateType, ImportantDate['deadline_type']> = {
+const IMPORTANT_DATE_TYPE_MAP: Record<
+  Prisma.ImportantDateType,
+  UniversityImportantDate['deadline_type']
+> = {
   deadline: 'application',
   event: 'document',
   exam: 'exam',
@@ -400,7 +403,7 @@ export class UniversityRepository {
   private mapCampusFacilities(
     facilities: UniversityDetailWithRelations['campusFacilities'],
     locale: NormalizedLocale,
-  ): CampusFacilityDto[] {
+  ): UniversityCampusFacilityDto[] {
     return facilities
       .filter((facility) => facility.isActive !== false)
       .map((facility) => {
@@ -419,7 +422,7 @@ export class UniversityRepository {
   private mapGallery(
     media: UniversityDetailWithRelations['media'],
     locale: NormalizedLocale,
-  ): CampusGalleryItem[] {
+  ): UniversityCampusGalleryItem[] {
     return media
       .filter((item) => item.kind === 'image')
       .map((item) => {
@@ -435,7 +438,7 @@ export class UniversityRepository {
   private mapDirections(
     directions: UniversityDetailWithRelations['universityDirections'],
     locale: NormalizedLocale,
-  ): StudyDirection[] {
+  ): UniversityStudyDirection[] {
     return directions.map((direction) => {
       const translation = this.selectBestTranslation(
         direction.direction.translations,
@@ -447,8 +450,6 @@ export class UniversityRepository {
         description: translation?.description ?? '',
         slug: translation?.slug ?? '',
         languages: [],
-        duration_years: direction.durationYears ?? undefined,
-        cost_per_year: direction.costPerYear != null ? Number(direction.costPerYear) : undefined,
       }
     })
   }
@@ -456,7 +457,7 @@ export class UniversityRepository {
   private mapAdmissionRequirements(
     requirements: UniversityDetailWithRelations['admissionRequirements'],
     locale: NormalizedLocale,
-  ): AdmissionRequirement[] {
+  ): UniversityAdmissionRequirement[] {
     return requirements.map((requirement) => {
       const translation = this.selectBestTranslation(requirement.translations, locale.fallbacks)
       return {
@@ -472,7 +473,7 @@ export class UniversityRepository {
   private mapRequiredDocuments(
     documents: UniversityDetailWithRelations['requiredDocuments'],
     locale: NormalizedLocale,
-  ): RequiredDocument[] {
+  ): UniversityRequiredDocument[] {
     return documents.map((document) => {
       const translation = this.selectBestTranslation(document.translations, locale.fallbacks)
       const formatRequirements = this.extractStringArray(translation?.formatRequirements ?? null)
@@ -489,7 +490,7 @@ export class UniversityRepository {
   private mapImportantDates(
     dates: UniversityDetailWithRelations['importantDates'],
     locale: NormalizedLocale,
-  ): ImportantDate[] {
+  ): UniversityImportantDate[] {
     return dates.map((date) => {
       const translation = this.selectBestTranslation(date.translations, locale.fallbacks)
       return {
@@ -504,7 +505,7 @@ export class UniversityRepository {
   private mapScholarships(
     scholarships: UniversityDetailWithRelations['scholarships'],
     locale: NormalizedLocale,
-  ): ScholarshipInfo[] {
+  ): UniversityScholarship[] {
     return scholarships.map((scholarship) => {
       const translation = this.selectBestTranslation(scholarship.translations, locale.fallbacks)
       const criteria = this.extractStringArray(translation?.eligibilityCriteria ?? null)
@@ -524,7 +525,7 @@ export class UniversityRepository {
   private mapAcademicPrograms(
     programs: UniversityDetailWithRelations['academicPrograms'],
     locale: NormalizedLocale,
-  ): AcademicProgramDto[] {
+  ): UniversityProgramDto[] {
     return programs.map((program) => {
       const translation = this.selectBestTranslation(program.translations, locale.fallbacks)
       return {
@@ -629,14 +630,14 @@ export class UniversityRepository {
         this.prisma.university.groupBy({
           by: ['type'],
         }),
-        this.prisma.academicProgram.groupBy({
+        this.prisma.universityProgram.groupBy({
           by: ['degreeType'],
         }),
         this.prisma.university.aggregate({
           _min: { tuitionMin: true, tuitionMax: true },
           _max: { tuitionMin: true, tuitionMax: true },
         }),
-        this.prisma.academicProgram.groupBy({
+        this.prisma.universityProgram.groupBy({
           by: ['languageCode'],
         }),
       ])

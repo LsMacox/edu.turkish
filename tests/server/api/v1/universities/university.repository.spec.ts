@@ -20,7 +20,7 @@ const createPrismaMock = () => {
       groupBy,
       aggregate,
     },
-    academicProgram: {
+    universityProgram: {
       groupBy: academicProgramGroupBy,
     },
     cityTranslation: {

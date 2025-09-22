@@ -9,7 +9,7 @@
   - Deletes the University record. Due to onDelete: Cascade in Prisma schema, all related rows
     (translations, programs (+translations), facilities (+translations), requirements (+translations),
      documents (+translations), dates (+translations), scholarships (+translations), media (+translations),
-     universityDirections link table) are removed automatically.
+     universityStudyDirections link table) are removed automatically.
   - Reviews have onDelete SetNull; this script will explicitly delete reviews (their translations cascade from review).
   - Supports --dry-run to preview what would be deleted.
   - Use --yes for non-interactive confirmation.
@@ -88,23 +88,23 @@ async function countRelated(universityId: number) {
     reviewTranslations,
   ] = await Promise.all([
     prisma.universityTranslation.count({ where: { universityId } }),
-    prisma.academicProgram.count({ where: { universityId } }),
-    prisma.programTranslation.count({ where: { program: { universityId } } }),
-    prisma.campusFacility.count({ where: { universityId } }),
-    prisma.facilityTranslation.count({ where: { facility: { universityId } } }),
-    prisma.admissionRequirement.count({ where: { universityId } }),
-    prisma.requirementTranslation.count({ where: { admissionRequirement: { universityId } } }),
-    prisma.requiredDocument.count({ where: { universityId } }),
-    prisma.documentTranslation.count({ where: { document: { universityId } } }),
-    prisma.importantDate.count({ where: { universityId } }),
-    prisma.dateTranslation.count({ where: { importantDate: { universityId } } }),
-    prisma.scholarship.count({ where: { universityId } }),
-    prisma.scholarshipTranslation.count({ where: { scholarship: { universityId } } }),
-    prisma.universityDirection.count({ where: { universityId } }),
+    prisma.universityProgram.count({ where: { universityId } }),
+    prisma.universityProgramTranslation.count({ where: { program: { universityId } } }),
+    prisma.universityCampusFacility.count({ where: { universityId } }),
+    prisma.universityCampusFacilityTranslation.count({ where: { facility: { universityId } } }),
+    prisma.universityAdmissionRequirement.count({ where: { universityId } }),
+    prisma.universityAdmissionRequirementTranslation.count({ where: { admissionRequirement: { universityId } } }),
+    prisma.universityRequiredDocument.count({ where: { universityId } }),
+    prisma.universityRequiredDocumentTranslation.count({ where: { document: { universityId } } }),
+    prisma.universityImportantDate.count({ where: { universityId } }),
+    prisma.universityImportantDateTranslation.count({ where: { importantDate: { universityId } } }),
+    prisma.universityScholarship.count({ where: { universityId } }),
+    prisma.universityScholarshipTranslation.count({ where: { scholarship: { universityId } } }),
+    prisma.universityStudyDirection.count({ where: { universityId } }),
     (prisma as any).universityMedia.count({ where: { universityId } }),
     (prisma as any).universityMediaTranslation.count({ where: { media: { universityId } } }),
-    prisma.review.count({ where: { universityId } }),
-    prisma.reviewTranslation.count({ where: { review: { universityId } } }),
+    prisma.universityReview.count({ where: { universityId } }),
+    prisma.universityReviewTranslation.count({ where: { review: { universityId } } }),
   ])
   return {
     translations,
@@ -184,7 +184,7 @@ async function deleteUniversityBySlug(
   }
 
   await prisma.$transaction([
-    prisma.review.deleteMany({ where: { universityId: resolved.id } }),
+    prisma.universityReview.deleteMany({ where: { universityId: resolved.id } }),
     prisma.university.delete({ where: { id: resolved.id } }),
   ])
 

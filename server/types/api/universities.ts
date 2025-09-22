@@ -33,7 +33,7 @@ export interface University {
   badge?: { label?: string; labelKey?: string; color: string }
 }
 
-export interface CampusFacility {
+export interface UniversityCampusFacility {
   id: number
   name: string
   description: string
@@ -55,7 +55,7 @@ export interface CampusFacility {
   features?: Record<string, any>
 }
 
-export interface AdmissionRequirement {
+export interface UniversityAdmissionRequirement {
   id: number
   category: string
   requirement: string
@@ -63,7 +63,7 @@ export interface AdmissionRequirement {
   details?: string
 }
 
-export interface RequiredDocument {
+export interface UniversityRequiredDocument {
   id: number
   name: string
   description: string
@@ -71,14 +71,14 @@ export interface RequiredDocument {
   format_requirements?: string[]
 }
 
-export interface ImportantDate {
+export interface UniversityImportantDate {
   id: number
   event: string
   date: string
   deadline_type: 'application' | 'document' | 'exam' | 'notification'
 }
 
-export interface ScholarshipInfo {
+export interface UniversityScholarship {
   id: number
   name: string
   type: 'government' | 'university' | 'private'
@@ -87,7 +87,7 @@ export interface ScholarshipInfo {
   application_deadline?: string
 }
 
-export interface AcademicProgram {
+export interface UniversityProgram {
   id: number
   name: string
   degree_type: DegreeType
@@ -98,14 +98,12 @@ export interface AcademicProgram {
   specializations?: string[]
 }
 
-export interface StudyDirection {
+export interface UniversityStudyDirection {
   id: number
   name: string
   description: string
   slug: string
   languages: string[]
-  duration_years?: number
-  cost_per_year?: number
 }
 
 export interface StrongProgramCategory {
@@ -113,7 +111,7 @@ export interface StrongProgramCategory {
   programs: string[]
 }
 
-export interface CampusGalleryItem {
+export interface UniversityCampusGalleryItem {
   url: string
   alt: string
   title: string
@@ -140,16 +138,20 @@ export interface UniversityDetail extends University {
     strong_programs: string[]
     advantages: Array<{ title: string; description: string }>
   }
-  campus_life: { facilities: CampusFacility[]; gallery: CampusGalleryItem[]; activities: string[] }
-  strong_programs: StrongProgramCategory[]
-  directions: StudyDirection[]
-  admission: {
-    requirements: AdmissionRequirement[]
-    documents: RequiredDocument[]
-    deadlines: ImportantDate[]
-    scholarships: ScholarshipInfo[]
+  campus_life: {
+    facilities: UniversityCampusFacility[]
+    gallery: UniversityCampusGalleryItem[]
+    activities: string[]
   }
-  programs: AcademicProgram[]
+  strong_programs: StrongProgramCategory[]
+  directions: UniversityStudyDirection[]
+  admission: {
+    requirements: UniversityAdmissionRequirement[]
+    documents: UniversityRequiredDocument[]
+    deadlines: UniversityImportantDate[]
+    scholarships: UniversityScholarship[]
+  }
+  programs: UniversityProgram[]
 }
 
 export interface UniversityFilters {

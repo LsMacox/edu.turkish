@@ -1,7 +1,7 @@
 import type { Prisma } from '@prisma/client'
 import type { FAQCategory, FAQItem } from '../types/api'
 
-export type FaqItemWithLocalizedRelations = Prisma.FaqItemGetPayload<{
+export type FaqItemWithLocalizedRelations = Prisma.FaqGetPayload<{
   include: {
     translations: true
     category: {

@@ -34,7 +34,7 @@ npx tsx scripts/import-university.ts ./app/assets/json/universities/atlas_univer
   - Примечание: данные рейтинга теперь переводимые и задаются через `key_info_texts.ranking_text` (и его переводы) вместо числовых полей.
 - `translation`: дополнительный перевод университета (опциональный объект с вложенными `about`, `strong_programs`, `key_info_texts`)
 - `programs`: академические программы; каждая запись поддерживает `translation`
-- `directions`: список `slug` направлений для связи через `university_directions`
+- `directions`: список `slug` направлений для связи через `university_pivot_study_directions`
 - `campus_life.facilities`: инфраструктура кампуса + `translation`
 - `campus_life.gallery`: медиа-галерея + `translation`
 - `admission.requirements`: требования к поступлению + `translation`

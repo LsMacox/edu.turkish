@@ -60,16 +60,16 @@ model University {
 
   // Relations
   translations        UniversityTranslation[]
-  academicPrograms    AcademicProgram[]
-  featuredPrograms    FeaturedProgram[]
-  reviews             Review[]
-  campusFacilities    CampusFacility[]
-  admissionRequirements AdmissionRequirement[]
-  requiredDocuments   RequiredDocument[]
-  importantDates      ImportantDate[]
-  scholarships        Scholarship[]
-  universityDirections UniversityDirection[]
-  media               UniversityMedia[]
+  academicPrograms    UniversityProgram[]
+  featuredPrograms    UniversityFeaturedProgram[]
+  reviews             UniversityReview[]
+  campusFacilities    UniversityCampusFacility[]
+  admissionRequirements UniversityAdmissionRequirement[]
+  requiredDocuments   UniversityRequiredDocument[]
+  importantDates      UniversityImportantDate[]
+  scholarships        UniversityScholarship[]
+  universityDirections UniversityStudyDirection[]
+  media               UniversityMediaAsset[]
   /// Нормализованные связи локации
   country             Country?  @relation(fields: [countryId], references: [id], onDelete: SetNull)
   city                City?     @relation(fields: [cityId], references: [id], onDelete: SetNull)
@@ -185,7 +185,7 @@ model CityTranslation {
 // University Media (gallery/video) with Translations
 // ==========================================
 
-model UniversityMedia {
+model UniversityMediaAsset {
   id            Int        @id @default(autoincrement())
   universityId  Int        @map("university_id")
   /// Тип медиа (изображение/видео)
@@ -197,15 +197,15 @@ model UniversityMedia {
 
   // Relations
   university    University @relation(fields: [universityId], references: [id], onDelete: Cascade)
-  translations  UniversityMediaTranslation[]
+  translations  UniversityMediaAssetTranslation[]
 
-  @@map("university_media")
+  @@map("university_media_assets")
   @@index([universityId], map: "idx_media_university")
 }
 
-model UniversityMediaTranslation {
+model UniversityMediaAssetTranslation {
   id          Int               @id @default(autoincrement())
-  mediaId     Int               @map("media_id")
+  mediaId     Int               @map("university_media_asset_id")
   locale      String            @db.VarChar(5)
   title       String?           @db.VarChar(255)
   alt         String?           @db.VarChar(255)
@@ -214,17 +214,17 @@ model UniversityMediaTranslation {
   updatedAt   DateTime          @updatedAt @map("updated_at")
 
   // Relations
-  media       UniversityMedia   @relation(fields: [mediaId], references: [id], onDelete: Cascade)
+  media       UniversityMediaAsset   @relation(fields: [mediaId], references: [id], onDelete: Cascade)
 
   @@unique([mediaId, locale])
-  @@map("university_media_translations")
+  @@map("university_media_asset_translations")
 }
 
 // ==========================================
 // Academic Programs
 // ==========================================
 
-model AcademicProgram {
+model UniversityProgram {
   id              Int        @id @default(autoincrement())
   universityId    Int        @map("university_id")
   degreeType      DegreeType @map("degree_type")
@@ -236,19 +236,19 @@ model AcademicProgram {
 
   // Relations
   university      University @relation(fields: [universityId], references: [id], onDelete: Cascade)
-  translations    ProgramTranslation[]
-  featuredIn      FeaturedProgram[]
+  translations    UniversityProgramTranslation[]
+  featuredIn      UniversityFeaturedProgram[]
 
-  @@map("academic_programs")
+  @@map("university_programs")
   // Индексы для фильтров
   @@index([universityId, degreeType], map: "idx_program_university_degree")
   @@index([languageCode], map: "idx_program_language")
   @@index([tuitionPerYear], map: "idx_program_tuition")
 }
 
-model ProgramTranslation {
+model UniversityProgramTranslation {
   id          Int             @id @default(autoincrement())
-  programId   Int             @map("program_id")
+  programId   Int             @map("university_program_id")
   locale      String          @db.VarChar(5)
   name        String?         @db.VarChar(255)
   description String?         @db.Text
@@ -256,17 +256,17 @@ model ProgramTranslation {
   updatedAt   DateTime        @updatedAt @map("updated_at")
 
   // Relations
-  program     AcademicProgram @relation(fields: [programId], references: [id], onDelete: Cascade)
+  program     UniversityProgram @relation(fields: [programId], references: [id], onDelete: Cascade)
 
   @@unique([programId, locale])
-  @@map("program_translations")
+  @@map("university_program_translations")
 }
 
 // ==========================================
 // Reviews System
 // ==========================================
 
-model Review {
+model UniversityReview {
   id           Int          @id @default(autoincrement())
   universityId Int?         @map("university_id")
   type         ReviewType
@@ -278,18 +278,18 @@ model Review {
   updatedAt    DateTime     @updatedAt @map("updated_at")
 
   // Relations
-  university   University?  @relation(fields: [universityId], references: [id], onDelete: SetNull)
-  translations ReviewTranslation[]
+  university   University? @relation(fields: [universityId], references: [id], onDelete: SetNull)
+  translations UniversityReviewTranslation[]
 
-  @@map("reviews")
+  @@map("university_reviews")
   @@index([universityId, type], map: "idx_review_university_type")
   @@index([featured], map: "idx_review_featured")
   @@index([rating], map: "idx_review_rating")
 }
 
-model ReviewTranslation {
+model UniversityReviewTranslation {
   id             Int      @id @default(autoincrement())
-  reviewId       Int      @map("review_id")
+  reviewId       Int      @map("university_review_id")
   locale         String   @db.VarChar(5)
   name           String?  @db.VarChar(255)
   quote          String?  @db.Text
@@ -299,17 +299,17 @@ model ReviewTranslation {
   updatedAt      DateTime @updatedAt @map("updated_at")
 
   // Relations
-  review         Review   @relation(fields: [reviewId], references: [id], onDelete: Cascade)
+  review         UniversityReview   @relation(fields: [reviewId], references: [id], onDelete: Cascade)
 
   @@unique([reviewId, locale])
-  @@map("review_translations")
+  @@map("university_review_translations")
 }
 
 // ==========================================
 // FAQ System
 // ==========================================
 
-model FaqItem {
+model Faq {
   id           Int      @id @default(autoincrement())
   categoryId   Int?
   featured     Boolean  @default(false)
@@ -320,7 +320,7 @@ model FaqItem {
   translations FaqTranslation[]
   category     FaqCategory? @relation(fields: [categoryId], references: [id], onDelete: SetNull)
 
-  @@map("faq_items")
+  @@map("faqs")
 }
 
 model FaqTranslation {
@@ -333,7 +333,7 @@ model FaqTranslation {
   updatedAt    DateTime @updatedAt @map("updated_at")
 
   // Relations
-  faqItem      FaqItem  @relation(fields: [faqId], references: [id], onDelete: Cascade)
+  faq          Faq  @relation(fields: [faqId], references: [id], onDelete: Cascade)
 
   @@unique([faqId, locale])
   @@map("faq_translations")
@@ -350,7 +350,7 @@ model FaqCategory {
 
   // Relations
   translations FaqCategoryTranslation[]
-  items        FaqItem[]
+  items        Faq[]
 
   @@map("faq_categories")
 }
@@ -405,7 +405,7 @@ model Application {
 // Campus Facilities
 // ==========================================
 
-model CampusFacility {
+model UniversityCampusFacility {
   id           Int        @id @default(autoincrement())
   universityId Int        @map("university_id")
   image        String?    @db.VarChar(500)
@@ -418,15 +418,15 @@ model CampusFacility {
 
   // Relations
   university   University @relation(fields: [universityId], references: [id], onDelete: Cascade)
-  translations FacilityTranslation[]
+  translations UniversityCampusFacilityTranslation[]
 
-  @@map("campus_facilities")
+  @@map("university_campus_facilities")
   @@index([universityId, isActive], map: "idx_facility_filters")
 }
 
-model FacilityTranslation {
+model UniversityCampusFacilityTranslation {
   id           Int            @id @default(autoincrement())
-  facilityId   Int            @map("facility_id")
+  facilityId   Int            @map("university_campus_facility_id")
   locale       String         @db.VarChar(5)
   name         String?        @db.VarChar(255)
   description  String?        @db.Text
@@ -434,17 +434,17 @@ model FacilityTranslation {
   updatedAt    DateTime       @updatedAt @map("updated_at")
 
   // Relations
-  facility     CampusFacility @relation(fields: [facilityId], references: [id], onDelete: Cascade)
+  facility     UniversityCampusFacility @relation(fields: [facilityId], references: [id], onDelete: Cascade)
 
   @@unique([facilityId, locale])
-  @@map("facility_translations")
+  @@map("university_campus_facility_translations")
 }
 
 // ==========================================
 // Admission Requirements
 // ==========================================
 
-model AdmissionRequirement {
+model UniversityAdmissionRequirement {
   id           Int        @id @default(autoincrement())
   universityId Int        @map("university_id")
   createdAt    DateTime   @default(now()) @map("created_at")
@@ -452,15 +452,15 @@ model AdmissionRequirement {
 
   // Relations
   university   University @relation(fields: [universityId], references: [id], onDelete: Cascade)
-  translations RequirementTranslation[]
+  translations UniversityAdmissionRequirementTranslation[]
 
-  @@map("admission_requirements")
+  @@map("university_admission_requirements")
   @@index([universityId], map: "idx_requirement_university")
 }
 
-model RequirementTranslation {
+model UniversityAdmissionRequirementTranslation {
   id            Int                  @id @default(autoincrement())
-  requirementId Int                  @map("requirement_id")
+  requirementId Int                  @map("university_admission_requirement_id")
   locale        String               @db.VarChar(5)
   category      String?              @db.VarChar(100)
   requirement   String?              @db.VarChar(255)
@@ -469,17 +469,17 @@ model RequirementTranslation {
   updatedAt     DateTime             @updatedAt @map("updated_at")
 
   // Relations
-  admissionRequirement AdmissionRequirement @relation(fields: [requirementId], references: [id], onDelete: Cascade)
+  admissionRequirement UniversityAdmissionRequirement @relation(fields: [requirementId], references: [id], onDelete: Cascade)
 
   @@unique([requirementId, locale])
-  @@map("requirement_translations")
+  @@map("university_admission_requirement_translations")
 }
 
 // ==========================================
 // Required Documents
 // ==========================================
 
-model RequiredDocument {
+model UniversityRequiredDocument {
   id                 Int        @id @default(autoincrement())
   universityId       Int        @map("university_id")
   createdAt          DateTime   @default(now()) @map("created_at")
@@ -487,15 +487,15 @@ model RequiredDocument {
 
   // Relations
   university         University @relation(fields: [universityId], references: [id], onDelete: Cascade)
-  translations       DocumentTranslation[]
+  translations       UniversityRequiredDocumentTranslation[]
 
-  @@map("required_documents")
+  @@map("university_required_documents")
   @@index([universityId], map: "idx_document_university")
 }
 
-model DocumentTranslation {
+model UniversityRequiredDocumentTranslation {
   id                 Int              @id @default(autoincrement())
-  documentId         Int              @map("document_id")
+  documentId         Int              @map("university_required_document_id")
   locale             String           @db.VarChar(5)
   name               String?          @db.VarChar(255)
   description        String?          @db.Text
@@ -504,17 +504,17 @@ model DocumentTranslation {
   updatedAt          DateTime         @updatedAt @map("updated_at")
 
   // Relations
-  document           RequiredDocument @relation(fields: [documentId], references: [id], onDelete: Cascade)
+  document           UniversityRequiredDocument @relation(fields: [documentId], references: [id], onDelete: Cascade)
 
   @@unique([documentId, locale])
-  @@map("document_translations")
+  @@map("university_required_document_translations")
 }
 
 // ==========================================
 // Important Dates
 // ==========================================
 
-model ImportantDate {
+model UniversityImportantDate {
   id           Int        @id @default(autoincrement())
   universityId Int        @map("university_id")
   date         DateTime   @db.Date
@@ -524,32 +524,32 @@ model ImportantDate {
 
   // Relations
   university   University @relation(fields: [universityId], references: [id], onDelete: Cascade)
-  translations DateTranslation[]
+  translations UniversityImportantDateTranslation[]
 
-  @@map("important_dates")
+  @@map("university_important_dates")
   @@index([universityId, type, date], map: "idx_date_filters")
 }
 
-model DateTranslation {
+model UniversityImportantDateTranslation {
   id           Int           @id @default(autoincrement())
-  dateId       Int           @map("date_id")
+  dateId       Int           @map("university_important_date_id")
   locale       String        @db.VarChar(5)
   event        String?       @db.VarChar(255)
   createdAt    DateTime      @default(now()) @map("created_at")
   updatedAt    DateTime      @updatedAt @map("updated_at")
 
   // Relations
-  importantDate ImportantDate @relation(fields: [dateId], references: [id], onDelete: Cascade)
+  importantDate UniversityImportantDate @relation(fields: [dateId], references: [id], onDelete: Cascade)
 
   @@unique([dateId, locale])
-  @@map("date_translations")
+  @@map("university_important_date_translations")
 }
 
 // ==========================================
 // Scholarships
 // ==========================================
 
-model Scholarship {
+model UniversityScholarship {
   id                  Int        @id @default(autoincrement())
   universityId        Int        @map("university_id")
   type                ScholarshipType
@@ -560,17 +560,17 @@ model Scholarship {
 
   // Relations
   university          University @relation(fields: [universityId], references: [id], onDelete: Cascade)
-  translations        ScholarshipTranslation[]
+  translations        UniversityScholarshipTranslation[]
 
-  @@map("scholarships")
+  @@map("university_scholarships")
   @@index([universityId, type], map: "idx_scholarship_type")
   @@index([coveragePercentage], map: "idx_scholarship_coverage")
   @@index([applicationDeadline], map: "idx_scholarship_deadline")
 }
 
-model ScholarshipTranslation {
+model UniversityScholarshipTranslation {
   id                  Int         @id @default(autoincrement())
-  scholarshipId       Int         @map("scholarship_id")
+  scholarshipId       Int         @map("university_scholarship_id")
   locale              String      @db.VarChar(5)
   name                String?     @db.VarChar(255)
   eligibilityCriteria Json?       @map("eligibility_criteria")
@@ -578,10 +578,10 @@ model ScholarshipTranslation {
   updatedAt           DateTime    @updatedAt @map("updated_at")
 
   // Relations
-  scholarship         Scholarship @relation(fields: [scholarshipId], references: [id], onDelete: Cascade)
+  scholarship         UniversityScholarship @relation(fields: [scholarshipId], references: [id], onDelete: Cascade)
 
   @@unique([scholarshipId, locale])
-  @@map("scholarship_translations")
+  @@map("university_scholarship_translations")
 }
 
 // ==========================================
@@ -594,22 +594,17 @@ model StudyDirection {
   updatedAt          DateTime  @updatedAt @map("updated_at")
 
   // Relations
-  universityDirections UniversityDirection[]
-  translations        DirectionTranslation[]
+  universityDirections UniversityStudyDirection[]
+  translations        StudyDirectionTranslation[]
 
   @@map("study_directions")
 }
 
-model UniversityDirection {
+model UniversityStudyDirection {
   id              Int       @id @default(autoincrement())
   universityId    Int       @map("university_id")
-  directionId     Int       @map("direction_id")
-  
-  // Специфичная информация для университета
-  durationYears   Int?      @map("duration_years")
-  costPerYear     Decimal?  @map("cost_per_year") @db.Decimal(10, 2)
-  additionalInfo  Json?     @map("additional_info") // любая доп. информация
-  
+  directionId     Int       @map("study_direction_id")
+
   createdAt       DateTime  @default(now()) @map("created_at")
   updatedAt       DateTime  @updatedAt @map("updated_at")
 
@@ -618,14 +613,12 @@ model UniversityDirection {
   direction       StudyDirection @relation(fields: [directionId], references: [id], onDelete: Cascade)
 
   @@unique([universityId, directionId])
-  @@map("university_directions")
-  @@index([durationYears], map: "idx_university_direction_duration")
-  @@index([costPerYear], map: "idx_university_direction_cost")
+  @@map("university_pivot_study_directions")
 }
 
-model DirectionTranslation {
+model StudyDirectionTranslation {
   id          Int             @id @default(autoincrement())
-  directionId Int             @map("direction_id")
+  directionId Int             @map("study_direction_id")
   locale      String          @db.VarChar(5)
   name        String?         @db.VarChar(255)
   description String?         @db.Text
@@ -639,7 +632,7 @@ model DirectionTranslation {
 
   @@unique([directionId, locale])
   @@unique([locale, slug], name: "unique_direction_slug_per_locale")
-  @@map("direction_translations")
+  @@map("study_direction_translations")
 }
 
 // ==========================================
@@ -767,7 +760,7 @@ enum ImportantDateType {
   notification
 }
 
-// Типы медиа для UniversityMedia
+// Типы медиа для UniversityMediaAsset
 enum MediaKind {
   image
   video
@@ -778,37 +771,37 @@ enum BlogArticleStatus {
   published
   archived
 }
-model FeaturedProgram {
+model UniversityFeaturedProgram {
   id            Int        @id @default(autoincrement())
   universityId  Int        @map("university_id")
-  programId     Int        @map("program_id")
+  programId     Int        @map("university_program_id")
   displayOrder  Int        @default(0) @map("display_order")
   createdAt     DateTime   @default(now()) @map("created_at")
   updatedAt     DateTime   @updatedAt @map("updated_at")
 
   // Relations
   university     University @relation(fields: [universityId], references: [id], onDelete: Cascade)
-  program        AcademicProgram @relation(fields: [programId], references: [id], onDelete: Cascade)
-  translations   FeaturedProgramTranslation[]
+  program        UniversityProgram @relation(fields: [programId], references: [id], onDelete: Cascade)
+  translations   UniversityFeaturedProgramTranslation[]
 
-  @@map("featured_programs")
+  @@map("university_pivot_featured_programs")
   @@index([universityId], map: "idx_featured_program_university")
   @@index([programId], map: "idx_featured_program_program")
   @@unique([universityId, programId], map: "uniq_featured_program_per_university")
   @@index([displayOrder], map: "idx_featured_program_order")
 }
 
-model FeaturedProgramTranslation {
+model UniversityFeaturedProgramTranslation {
   id                 Int              @id @default(autoincrement())
-  featuredProgramId  Int              @map("featured_program_id")
+  featuredProgramId  Int              @map("university_pivot_featured_program_id")
   locale             String           @db.VarChar(5)
   label              String?          @db.VarChar(255)
   createdAt          DateTime         @default(now()) @map("created_at")
   updatedAt          DateTime         @updatedAt @map("updated_at")
 
   // Relations
-  featuredProgram    FeaturedProgram  @relation(fields: [featuredProgramId], references: [id], onDelete: Cascade)
+  featuredProgram    UniversityFeaturedProgram  @relation(fields: [featuredProgramId], references: [id], onDelete: Cascade)
 
-  @@map("featured_program_translations")
+  @@map("university_pivot_featured_program_translations")
   @@unique([featuredProgramId, locale], map: "uniq_featured_program_translation")
 }

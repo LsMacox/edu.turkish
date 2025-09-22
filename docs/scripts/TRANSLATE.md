@@ -22,15 +22,15 @@ export OPENROUTER_API_KEY=sk-or-...
 ## Поддерживаемые сущности (таблицы переводов)
 
 - **universities**: создаёт в `university_translations` поля `title`, `description`, `city_translated`, `ranking_text`, `key_info_texts` (JSON)
-- **reviews**: создаёт в `review_translations` поля `name`, `quote`, `university_name`
+- **reviews**: создаёт в `university_review_translations` поля `name`, `quote`, `university_name`
 - **programs**: создаёт в `program_translations` поля `name`, `description`
 - **faqs**: создаёт в `faq_translations` поля `question`, `answer`, `category_name`
-- **facilities**: создаёт в `facility_translations` поля `name`, `description`
+- **facilities**: создаёт в `university_campus_facility_translations` поля `name`, `description`
 - **dormitories**: создаёт в `dormitory_translations` поля `name`, `amenities` (JSON)
-- **requirements**: создаёт в `requirement_translations` поля `category`, `requirement`, `details`
-- **documents**: создаёт в `document_translations` поля `name`, `description`, `format_requirements` (JSON)
-- **dates**: создаёт в `date_translations` поле `event`
-- **directions**: создаёт в `direction_translations` поля `name`, `description`
+- **requirements**: создаёт в `university_admission_requirement_translations` поля `category`, `requirement`, `details`
+- **documents**: создаёт в `university_required_document_translations` поля `name`, `description`, `format_requirements` (JSON)
+- **dates**: создаёт в `university_important_date_translations` поле `event`
+- **directions**: создаёт в `study_direction_translations` поля `name`, `description`
 - **articles**: создаёт в `blog_article_translations` поля `slug` (уникальный), `title`, `excerpt`, `reading_time`, `hero_kicker`, `hero_subtitle`, `hero_location`, `image_alt`, `hero_image_alt`, `seo_description`, `content` (JSON-массив блоков)
 - **all**: запускает перевод последовательно для всех перечисленных выше сущностей
 
