@@ -857,7 +857,7 @@ export async function seedFAQs(prisma: PrismaClient, faqCategoryMap: Record<stri
     }
 
     // Find existing FAQ by RU question inside the same category
-    const existing = await (prisma as any).faqItem.findFirst({
+    const existing = await (prisma as any).faq.findFirst({
       where: {
         categoryId,
         translations: {
@@ -872,7 +872,7 @@ export async function seedFAQs(prisma: PrismaClient, faqCategoryMap: Record<stri
     if (existing) {
       faqId = existing.id
       // Update base properties
-      await (prisma as any).faqItem.update({
+      await (prisma as any).faq.update({
         where: { id: faqId },
         data: {
           featured: Boolean((baseData as any).featured),
@@ -881,7 +881,7 @@ export async function seedFAQs(prisma: PrismaClient, faqCategoryMap: Record<stri
       })
       console.log(`❓ Updated FAQ item with ID: ${faqId} in category '${categoryKey}'`)
     } else {
-      const created = await (prisma as any).faqItem.create({
+      const created = await (prisma as any).faq.create({
         data: {
           categoryId,
           featured: Boolean((baseData as any).featured),
