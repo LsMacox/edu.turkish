@@ -1,6 +1,3 @@
-// https://nuxt.com/docs/api/configuration/nuxt-config
-import { resolve } from 'node:path'
-
 const siteUrl = process.env.NUXT_SITE_URL || 'https://edu-turkish.com'
 
 const enablePrerender = process.env.NITRO_PRERENDER === 'true'
@@ -201,7 +198,7 @@ export default defineNuxtConfig({
   i18n: {
     // Used for generating absolute alternate/canonical links
     baseUrl: siteUrl,
-    // Don't change this path, it is ccrrect 
+    // Don't change this path, it is ccrrect
     langDir: 'locales',
     locales: [
       {
