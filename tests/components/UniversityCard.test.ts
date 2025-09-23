@@ -50,18 +50,6 @@ describe('UniversityCard', () => {
   it('renders all subcomponents correctly', () => {
     const wrapper = mount(UniversityCard, {
       props: defaultProps,
-      global: {
-        stubs: {
-          NuxtImg: {
-            template: '<img :src="src" :alt="alt" />',
-            props: ['src', 'alt', 'sizes', 'loading', 'format', 'quality', 'placeholder'],
-          },
-          Icon: {
-            template: '<span>{{ name }}</span>',
-            props: ['name'],
-          },
-        },
-      },
     })
 
     expect(wrapper.find('[data-testid="card-header"]').exists()).toBe(true)
@@ -72,14 +60,6 @@ describe('UniversityCard', () => {
   it('displays university image when provided', () => {
     const wrapper = mount(UniversityCard, {
       props: defaultProps,
-      global: {
-        stubs: {
-          NuxtImg: {
-            template: '<img :src="src" :alt="alt" />',
-            props: ['src', 'alt', 'sizes', 'loading', 'format', 'quality', 'placeholder'],
-          },
-        },
-      },
     })
 
     const img = wrapper.find('img')
@@ -93,17 +73,9 @@ describe('UniversityCard', () => {
         ...defaultProps,
         image: undefined,
       },
-      global: {
-        stubs: {
-          Icon: {
-            template: '<span data-testid="fallback-icon">{{ name }}</span>',
-            props: ['name'],
-          },
-        },
-      },
     })
 
-    expect(wrapper.find('[data-testid="fallback-icon"]').exists()).toBe(true)
+    expect(wrapper.find('[data-testid="icon"]').exists()).toBe(true)
   })
 
   it('generates correct detail href from slug', () => {

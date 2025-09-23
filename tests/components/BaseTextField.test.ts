@@ -2,15 +2,6 @@ import { describe, it, expect, vi } from 'vitest'
 import { mount } from '@vue/test-utils'
 import BaseTextField from '~/components/ui/forms/BaseTextField.vue'
 
-// Mock the Icon component
-vi.mock('@nuxt/icon', () => ({
-  Icon: {
-    name: 'Icon',
-    template: '<span data-testid="icon">{{ name }}</span>',
-    props: ['name'],
-  },
-}))
-
 describe('BaseTextField', () => {
   const defaultProps = {
     modelValue: '',
