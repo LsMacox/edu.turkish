@@ -26,6 +26,8 @@ export interface Review {
     english_level?: string
     helpful_aspects?: string[]
     recommendation?: string
+    faculty?: string
+    contact?: string
   }
 }
 

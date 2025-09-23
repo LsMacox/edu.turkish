@@ -319,8 +319,16 @@ export class ReviewRepository {
       }
     }
 
-    if (typeof raw.recommendation === 'string') {
-      achievements.recommendation = raw.recommendation
+    if (typeof raw.recommendation === 'string' && raw.recommendation.trim().length > 0) {
+      achievements.recommendation = raw.recommendation.trim()
+    }
+
+    if (typeof raw.faculty === 'string' && raw.faculty.trim().length > 0) {
+      achievements.faculty = raw.faculty.trim()
+    }
+
+    if (typeof raw.contact === 'string' && raw.contact.trim().length > 0) {
+      achievements.contact = raw.contact.trim()
     }
 
     return Object.keys(achievements).length > 0 ? achievements : undefined
