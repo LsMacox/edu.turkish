@@ -137,12 +137,14 @@ const toPositiveIntegerWithDefault = (value: unknown, defaultValue: number) => {
  */
 export function parseReviewFilters(query: Record<string, any>) {
   const type = typeof query.type === 'string' ? query.type.trim() : ''
+  const lang = typeof query.lang === 'string' ? query.lang.trim() : ''
 
   return {
     type: type !== '' ? type : 'all',
     featured: query.featured === 'true',
     page: toPositiveIntegerWithDefault(query.page, 1),
     limit: toPositiveIntegerWithDefault(query.limit, 50),
+    ...(lang ? { lang } : {}),
   }
 }
 
@@ -150,11 +152,14 @@ export function parseReviewFilters(query: Record<string, any>) {
  * Parse query parameters for FAQ endpoint
  */
 export function parseFAQFilters(query: Record<string, any>) {
+  const lang = typeof query.lang === 'string' ? query.lang.trim() : ''
+
   return {
     q: (query.q as string) || '',
     category: (query.category as string) || 'all',
     featured: query.featured === 'true',
     limit: toPositiveIntegerWithDefault(query.limit, 50),
+    ...(lang ? { lang } : {}),
   }
 }
 

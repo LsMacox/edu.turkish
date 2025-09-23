@@ -4,17 +4,23 @@ import { calculatePagination } from '../../../../utils/api-helpers'
 import type { BlogArticlesResponse } from '../../../../types/api'
 
 export default defineEventHandler(async (event): Promise<BlogArticlesResponse> => {
-  const locale = event.context.locale || 'ru'
   const query = getQuery(event)
 
   const page = query.page ? Number(query.page) : 1
   const limit = query.limit ? Number(query.limit) : 6
   const category = typeof query.category === 'string' ? query.category : undefined
   const search = typeof query.q === 'string' ? query.q : undefined
+  const queryLocale = typeof query.lang === 'string' ? query.lang.trim() : ''
+  const contextLocale =
+    typeof event.context?.locale === 'string' ? event.context.locale : undefined
+  const locale = queryLocale || contextLocale || 'ru'
 
   try {
     const repository = new BlogRepository(prisma)
-    const result = await repository.findArticles({ page, limit, category, q: search }, locale)
+    const result = await repository.findArticles(
+      { page, limit, category, q: search, lang: queryLocale || undefined },
+      locale,
+    )
 
     return {
       data: result.articles,

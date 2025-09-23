@@ -5,9 +5,11 @@ import type { ReviewResponse } from '../../../types/api'
 
 export default defineEventHandler(async (event): Promise<ReviewResponse> => {
   try {
-    const locale = event.context.locale || 'ru'
     const query = getQuery(event)
     const filters = parseReviewFilters(query)
+    const contextLocale =
+      typeof event.context?.locale === 'string' ? event.context.locale : undefined
+    const locale = filters.lang?.trim() || contextLocale || 'ru'
 
     // Currently using Prisma until Directus collections are mapped (Phase 2)
     const reviewRepository = new ReviewRepository(prisma)
