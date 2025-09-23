@@ -12,11 +12,7 @@
 
       <div class="max-w-4xl mx-auto">
         <div class="space-y-4">
-          <div
-            v-for="(faq, index) in items"
-            :key="index"
-            class="bg-white rounded-xl shadow-custom"
-          >
+          <div v-for="(faq, index) in items" :key="index" class="bg-white rounded-xl shadow-custom">
             <button
               class="w-full px-6 py-4 text-left font-semibold text-secondary hover:text-primary transition-colors flex items-center justify-between"
               @click="toggle(index)"
