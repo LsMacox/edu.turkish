@@ -117,7 +117,7 @@ services:
     volumes:
       - directus_uploads:/directus/uploads
       # Монтируем директорию схемы/конфига из репозитория внутрь контейнера
-      - ./directus:/directus
+      - ./directus:/project/directus
     depends_on:
       mysql:
         condition: service_healthy
