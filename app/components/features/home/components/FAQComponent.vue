@@ -9,39 +9,28 @@
     cta-title="Не нашли ответ на свой вопрос?"
     cta-subtitle="Наши консультанты готовы помочь вам с любыми вопросами о поступлении"
     cta-button-label="Получить консультацию"
-    whatsapp-href="https://wa.me/905438679950"
+    :whatsapp-href="channels?.whatsapp?.href"
     whatsapp-label="Написать в WhatsApp"
     @consult="handleConsult"
-    @whatsapp="handleWhatsapp"
-    @telegram="handleTelegram"
-    @instagram="handleInstagram"
+    :telegram-href="channels?.telegramBot?.href"
+    telegram-label="Связаться в Telegram"
   />
 </template>
 
 <script setup lang="ts">
+import { useContactChannels } from '~/composables/useContactChannels'
 import { useApplicationModalStore } from '~/stores/applicationModal'
 
 const { t } = useI18n()
 const applicationModalStore = useApplicationModalStore()
 const { openModal: openApplicationModal } = applicationModalStore
+const { channels } = useContactChannels()
 
 const handleConsult = () => {
   openApplicationModal({
     source: 'home_faq',
     description: 'Заявка из блока FAQ на главной странице',
   })
-}
-
-const handleWhatsapp = () => {
-  // reserved for analytics hook
-}
-
-const handleTelegram = () => {
-  // reserved for analytics hook
-}
-
-const handleInstagram = () => {
-  // reserved for analytics hook
 }
 
 const faqs = computed(() => [

@@ -156,7 +156,7 @@
             <h3 class="text-sm font-semibold text-gray-700 mb-4">{{ t('nav.social') }}</h3>
             <div class="flex gap-3">
               <a
-                href="https://wa.me/905438679950"
+                :href="channels?.whatsapp?.href"
                 target="_blank"
                 class="w-12 h-12 bg-green-500 rounded-xl flex items-center justify-center text-white hover:bg-green-600 transition-colors min-h-touch-44 min-w-touch-44"
                 aria-label="WhatsApp"
@@ -164,7 +164,7 @@
                 <Icon name="mdi:whatsapp" class="text-lg" />
               </a>
               <a
-                href="https://t.me/eduturkish"
+                :href="channels?.telegramBot?.href"
                 target="_blank"
                 class="w-12 h-12 bg-blue-500 rounded-xl flex items-center justify-center text-white hover:bg-blue-600 transition-colors min-h-touch-44 min-w-touch-44"
                 aria-label="Telegram"
@@ -172,7 +172,7 @@
                 <Icon name="mdi:telegram" class="text-lg" />
               </a>
               <a
-                href="https://www.instagram.com/edu.turkish"
+                :href="instagramChannel.href"
                 target="_blank"
                 class="w-12 h-12 bg-pink-500 rounded-xl flex items-center justify-center text-white hover:bg-pink-600 transition-colors min-h-touch-44 min-w-touch-44"
                 aria-label="Instagram"
@@ -199,6 +199,7 @@
 
 <script setup lang="ts">
 import { useApplicationModalStore } from '~/stores/applicationModal'
+import { useContactChannels } from '~/composables/useContactChannels'
 
 interface Props {
   isOpen: boolean
@@ -214,6 +215,8 @@ const emit = defineEmits<Emits>()
 const modal = useApplicationModalStore()
 const route = useRoute()
 const { t } = useI18n()
+const { channels, getChannel } = useContactChannels()
+const instagramChannel = getChannel('instagram')
 
 const i18n = useI18n<{ messages: Record<string, any> }, 'ru' | 'kz' | 'en' | 'tr'>()
 const localePath = useLocalePath()

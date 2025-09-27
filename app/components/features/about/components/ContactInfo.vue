@@ -23,7 +23,7 @@
               {{ $t('about.contact.channels.whatsapp.description') }}
             </p>
             <a
-              href="https://wa.me/905438679950"
+              :href="channels?.whatsapp?.href"
               target="_blank"
               class="bg-green-500 text-white px-6 py-3 rounded-xl font-semibold hover:bg-green-600 transition-colors"
             >
@@ -42,7 +42,7 @@
               {{ $t('about.contact.channels.telegram.description') }}
             </p>
             <a
-              href="https://t.me/eduturkish"
+              :href="channels?.telegramBot?.href"
               target="_blank"
               class="bg-blue-500 text-white px-6 py-3 rounded-xl font-semibold hover:bg-blue-600 transition-colors"
             >
@@ -134,7 +134,11 @@
   </section>
 </template>
 
-<script setup lang="ts"></script>
+<script setup lang="ts">
+import { useContactChannels } from '~/composables/useContactChannels'
+
+const { channels } = useContactChannels()
+</script>
 
 <style scoped>
 .shadow-custom {

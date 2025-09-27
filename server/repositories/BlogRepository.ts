@@ -386,8 +386,7 @@ export class BlogRepository {
     }
 
     if (searchQuery) {
-      baseWhere.AND = baseWhere.AND || []
-      baseWhere.AND.push({
+      const searchCondition: Prisma.BlogArticleWhereInput = {
         OR: [
           {
             translations: {
@@ -406,7 +405,11 @@ export class BlogRepository {
             },
           },
         ],
-      })
+      }
+
+      baseWhere.AND = Array.isArray(baseWhere.AND)
+        ? [...baseWhere.AND, searchCondition]
+        : [searchCondition]
     }
 
     let featured: ArticleWithRelations | null = null
@@ -482,7 +485,14 @@ export class BlogRepository {
     ])
 
     const mappedArticles = rows.map((row) => this.mapArticleToListItem(row, locale))
-    const mappedFeatured = featured ? this.mapArticleToListItem(featured, locale) : null
+    let mappedFeatured = featured ? this.mapArticleToListItem(featured, locale) : null
+    if (mappedFeatured && featured) {
+      const translation = this.pickTranslation(featured.translations, locale)
+      const heroImg = featured.heroImage ?? featured.coverImage ?? null
+      const heroAlt =
+        translation?.heroImageAlt ?? translation?.imageAlt ?? translation?.title ?? undefined
+      mappedFeatured = { ...mappedFeatured, image: heroImg, imageAlt: heroAlt }
+    }
     const mappedCategories = categories.map((category) => {
       const translation = this.pickTranslation(category.translations, locale)
       return {

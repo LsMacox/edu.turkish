@@ -2,10 +2,9 @@ import { computed } from 'vue'
 import { withQuery } from 'ufo'
 import {
   contactChannels,
-  personalTelegramChannelKey,
   type ContactChannelDefinition,
   type ContactChannelKey,
-} from '~/lib/contact/channels'
+} from '~~/lib/contact/channels'
 import { useReferral } from './useReferral'
 
 export interface ContactChannelInstance extends ContactChannelDefinition {
@@ -25,28 +24,11 @@ const sanitizeMessage = (template: string | undefined, referral: string): string
   return replaced.length > 0 ? replaced : undefined
 }
 
-const buildGoTelegramHref = (
-  referral: string,
-  sessionId: string | undefined,
-  utm: Record<string, string>,
-): string => {
-  const query: Record<string, string> = {}
-
-  if (referral) {
-    query.referral_code = referral
-  }
-
-  if (sessionId) {
-    query.session = sessionId
-  }
-
-  for (const [key, value] of Object.entries(utm)) {
-    if (value) {
-      query[key] = value
-    }
-  }
-
-  return Object.keys(query).length > 0 ? withQuery('/go/telegram', query) : '/go/telegram'
+// Map of channel keys to their redirect route paths
+const channelRoutePaths: Record<ContactChannelKey, string> = {
+  telegramBot: '/go/telegram',
+  whatsapp: '/go/whatsapp',
+  instagram: '/go/instagram',
 }
 
 const extractUtmParams = (query: Record<string, any>): Record<string, string> => {
@@ -64,9 +46,10 @@ export const useContactChannels = () => {
 
   const channels = computed<Record<ContactChannelKey, ContactChannelInstance>>(() => {
     const referral = referralCode.value || ''
-    const analyticsReferral = referralCode.value || 'direct'
     const sessionId = typeof route.query.session === 'string' ? route.query.session : undefined
     const utmParams = extractUtmParams(route.query as Record<string, any>)
+
+    const hasTrackingParams = referral || sessionId || Object.keys(utmParams).length > 0
 
     return Object.entries(contactChannels).reduce<
       Record<ContactChannelKey, ContactChannelInstance>
@@ -76,12 +59,24 @@ export const useContactChannels = () => {
         const message = sanitizeMessage(definition.defaultMessage, referral)
         let href = definition.baseUrl
 
-        if (typedKey === personalTelegramChannelKey) {
-          href = buildGoTelegramHref(analyticsReferral, sessionId, utmParams)
+        // Use redirect route if tracking params are present
+        if (hasTrackingParams) {
+          const routePath = channelRoutePaths[typedKey]
+          const query: Record<string, string> = { referral_code: referral }
+
+          // Add session, utm if needed
+          if (sessionId) {
+            query.session = sessionId
+          }
+          for (const [key, value] of Object.entries(utmParams)) {
+            if (value) {
+              query[key] = value
+            }
+          }
+          href = Object.keys(query).length > 0 ? withQuery(routePath, query) : routePath
         } else if (definition.queryParam && message) {
+          // Fallback to direct link with message if no tracking params
           href = withQuery(definition.baseUrl, { [definition.queryParam]: message })
-        } else if (typedKey === 'telegramBot' && referral) {
-          href = withQuery(definition.baseUrl, { start: referral })
         }
 
         acc[typedKey] = {

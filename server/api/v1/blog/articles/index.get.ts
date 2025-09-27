@@ -1,5 +1,5 @@
 import { prisma } from '../../../../../lib/prisma'
-import { BlogRepository } from '../../../../repositories'
+import { BlogRepository, FAQRepository } from '../../../../repositories'
 import { calculatePagination } from '../../../../utils/api-helpers'
 import type { BlogArticlesResponse } from '../../../../types/api'
 
@@ -11,8 +11,7 @@ export default defineEventHandler(async (event): Promise<BlogArticlesResponse> =
   const category = typeof query.category === 'string' ? query.category : undefined
   const search = typeof query.q === 'string' ? query.q : undefined
   const queryLocale = typeof query.lang === 'string' ? query.lang.trim() : ''
-  const contextLocale =
-    typeof event.context?.locale === 'string' ? event.context.locale : undefined
+  const contextLocale = typeof event.context?.locale === 'string' ? event.context.locale : undefined
   const locale = queryLocale || contextLocale || 'ru'
 
   try {
@@ -22,12 +21,18 @@ export default defineEventHandler(async (event): Promise<BlogArticlesResponse> =
       locale,
     )
 
+    const faqRepository = new FAQRepository(prisma)
+    const faqResult = await faqRepository.findAll({ limit: 1 }, locale)
+    const totalFAQs = faqResult.meta.total
+
     return {
       data: result.articles,
       meta: calculatePagination(result.total, page, limit),
       featured: result.featured,
       categories: result.categories,
       popular: result.popular,
+      totalArticles: result.total,
+      totalFAQs,
     }
   } catch (error) {
     console.error('Error fetching blog articles:', error)

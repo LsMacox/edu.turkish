@@ -59,6 +59,8 @@ export interface BlogArticlesResponse extends ApiResponse<BlogArticleListItem[]>
   featured: BlogArticleListItem | null
   categories: BlogCategory[]
   popular: BlogPopularArticle[]
+  totalArticles: number
+  totalFAQs: number
 }
 
 export interface BlogArticleQueryParams {

@@ -17,11 +17,11 @@
       "stats": [
         {
           "icon": "mdi:newspaper-variant",
-          "label": "150+ faydalı makale"
+          "label": "{count} faydalı makale"
         },
         {
           "icon": "mdi:help-circle-outline",
-          "label": "100+ cevaplanan soru"
+          "label": "{count} cevaplanan soru"
         },
         {
           "icon": "mdi:update",

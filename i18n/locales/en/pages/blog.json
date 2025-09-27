@@ -17,11 +17,11 @@
       "stats": [
         {
           "icon": "mdi:newspaper-variant",
-          "label": "150+ helpful articles"
+          "label": "{count} helpful articles"
         },
         {
           "icon": "mdi:help-circle-outline",
-          "label": "100+ answered questions"
+          "label": "{count} answered questions"
         },
         {
           "icon": "mdi:update",

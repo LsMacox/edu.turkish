@@ -974,22 +974,43 @@ const articles: SeedArticle[] = [
 export async function seedBlog(prisma: PrismaClient) {
   console.log('📝 Seeding blog categories and articles...')
 
+  // Clear existing blog data to ensure clean seeding
+  await prisma.$transaction([
+    prisma.blogArticleTranslation.deleteMany(),
+    prisma.blogArticle.deleteMany(),
+    prisma.blogCategoryTranslation.deleteMany(),
+    prisma.blogCategory.deleteMany(),
+  ])
+
   const categoryMap = new Map<string, number>()
 
   for (const category of categories) {
-    const created = await prisma.blogCategory.create({
-      data: {
-        code: category.code,
-        order: category.order,
-        translations: {
-          create: category.translations,
-        },
-      },
+    const cat = await prisma.blogCategory.upsert({
+      where: { code: category.code },
+      update: { order: category.order },
+      create: { code: category.code, order: category.order },
     })
 
-    categoryMap.set(category.code, created.id)
-  }
+    for (const trans of category.translations) {
+      await prisma.blogCategoryTranslation.upsert({
+        where: {
+          categoryId_locale: {
+            categoryId: cat.id,
+            locale: trans.locale,
+          },
+        },
+        update: { title: trans.title },
+        create: {
+          categoryId: cat.id,
+          locale: trans.locale,
+          title: trans.title,
+        },
+      })
+    }
 
+    categoryMap.set(category.code, cat.id)
+  }
+  await prisma.blogArticle.deleteMany({})
   for (const article of articles) {
     const categoryId = categoryMap.get(article.categoryCode)
     if (!categoryId) {

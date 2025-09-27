@@ -164,6 +164,83 @@ export class BitrixService {
     }
   }
 
+  /**
+   * Создание минимального лида из события мессенджера
+   */
+  async createMinimalLeadFromEvent(
+    payload: MessengerEventPayload,
+  ): Promise<{ id: number; success: boolean; error?: string }> {
+    try {
+      const validationResult = messengerEventPayloadSchema.safeParse(payload)
+
+      if (!validationResult.success) {
+        console.error(
+          'Invalid messenger event payload for minimal lead creation:',
+          validationResult.error.flatten(),
+        )
+        return {
+          id: 0,
+          success: false,
+          error: 'Invalid messenger event payload',
+        }
+      }
+
+      const sanitizedPayload: SanitizedMessengerEventPayload = validationResult.data
+      const metadata = hasMetadataValues(sanitizedPayload.metadata)
+        ? sanitizedPayload.metadata
+        : undefined
+      const utm = hasUtmValues(sanitizedPayload.utm) ? sanitizedPayload.utm : undefined
+      const session = sanitizedPayload.session ?? undefined
+
+      const lead: BitrixLead = {
+        TITLE: `Lead from ${sanitizedPayload.channel} click`,
+        SOURCE_ID: 'WEB',
+        SOURCE_DESCRIPTION: `Referral: ${sanitizedPayload.referralCode}`,
+        COMMENTS: JSON.stringify({ utm, session, metadata }),
+        UF_CRM_REFERRAL_CODE: sanitizedPayload.referralCode,
+      }
+
+      const url = getBitrixApiUrl('crm.lead.add')
+
+      const response = await this.fetchWithTimeout(url, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          fields: lead,
+        }),
+        timeoutMs: 15000,
+        retries: 1,
+      })
+
+      if (!response.ok) {
+        const text = await response.text().catch(() => '')
+        throw new Error(
+          `HTTP error! status: ${response.status}${text ? ` | body: ${text.slice(0, 200)}` : ''}`,
+        )
+      }
+
+      const result = await response.json()
+
+      if (result.error) {
+        throw new Error(result.error_description || result.error)
+      }
+
+      return {
+        id: result.result,
+        success: true,
+      }
+    } catch (error: any) {
+      console.error('Error creating minimal lead from event:', error)
+      return {
+        id: 0,
+        success: false,
+        error: error.message,
+      }
+    }
+  }
+
   async logMessengerEvent(
     payload: MessengerEventPayload,
   ): Promise<{ success: boolean; activityId?: number; error?: string }> {

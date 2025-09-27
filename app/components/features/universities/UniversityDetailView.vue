@@ -44,7 +44,7 @@
               {{ $t('universityDetail.applyButton') }}
             </button>
             <a
-              href="https://wa.me/905438679950"
+              :href="whatsappChannel.href"
               target="_blank"
               class="bg-green-500 text-white px-8 py-4 rounded-xl font-semibold text-lg hover:bg-green-600 transition-all shadow-lg flex items-center justify-center space-x-2"
             >
@@ -272,6 +272,7 @@
 <script setup lang="ts">
 import type { UniversityDetailFrontend } from '~/stores/universityDetail'
 import { useApplicationModalStore } from '~/stores/applicationModal'
+import { useContactChannels } from '~/composables/useContactChannels'
 
 interface Props {
   university: UniversityDetailFrontend
@@ -283,6 +284,9 @@ const { locale } = useI18n()
 
 const applicationModalStore = useApplicationModalStore()
 const { openModal: openApplicationModal } = applicationModalStore
+
+const { getChannel } = useContactChannels()
+const whatsappChannel = getChannel('whatsapp')
 </script>
 
 <style scoped>

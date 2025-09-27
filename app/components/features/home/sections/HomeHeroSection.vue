@@ -43,7 +43,7 @@
             </button>
             <div class="flex items-center gap-2 md:gap-3">
               <a
-                href="https://wa.me/905438679950"
+                :href="channels?.whatsapp?.href"
                 target="_blank"
                 class="w-10 h-10 md:w-12 md:h-12 bg-green-500 rounded-lg md:rounded-xl flex items-center justify-center text-white hover:bg-green-600 hover:scale-105 transition-all duration-200"
                 aria-label="WhatsApp"
@@ -51,7 +51,7 @@
                 <Icon name="mdi:whatsapp" class="text-base md:text-lg" />
               </a>
               <a
-                href="https://t.me/eduturkish"
+                :href="channels?.telegramBot?.href"
                 target="_blank"
                 class="w-10 h-10 md:w-12 md:h-12 bg-blue-500 rounded-lg md:rounded-xl flex items-center justify-center text-white hover:bg-blue-600 hover:scale-105 transition-all duration-200"
                 aria-label="Telegram"
@@ -59,7 +59,7 @@
                 <Icon name="mdi:telegram" class="text-base md:text-lg" />
               </a>
               <a
-                href="https://www.instagram.com/edu.turkish"
+                :href="instagramChannel.href"
                 target="_blank"
                 class="w-10 h-10 md:w-12 md:h-12 bg-pink-500 rounded-lg md:rounded-xl flex items-center justify-center text-white hover:bg-pink-600 hover:scale-105 transition-all duration-200"
                 aria-label="Instagram"
@@ -111,10 +111,13 @@
 </template>
 
 <script setup lang="ts">
+import { useContactChannels } from '~/composables/useContactChannels'
 import { useApplicationModalStore } from '~/stores/applicationModal'
 
 // Hero section
 const modal = useApplicationModalStore()
+const { channels, getChannel } = useContactChannels()
+const instagramChannel = getChannel('instagram')
 const { t } = useI18n()
 
 // no manual preload to avoid mismatch with Nuxt Image/IPX

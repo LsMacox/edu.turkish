@@ -121,7 +121,7 @@
 
       <div class="text-center mt-8">
         <a
-          href="https://www.instagram.com/edu.turkish"
+          :href="instagramChannel.href"
           target="_blank"
           class="inline-flex items-center space-x-2 bg-pink-500 text-white px-6 py-3 rounded-xl font-semibold hover:bg-pink-600 transition-colors"
         >
@@ -134,7 +134,10 @@
 </template>
 
 <script setup lang="ts">
-// Instagram gallery section
+import { useContactChannels } from '~/composables/useContactChannels'
+
+const { getChannel } = useContactChannels()
+const instagramChannel = getChannel('instagram')
 </script>
 
 <style scoped>

@@ -5,7 +5,9 @@ const envHosts = (process.env.ALLOWED_HOSTS || '')
   .map((h) => h.trim().toLowerCase())
   .filter(Boolean)
 const ALLOWED_HOSTS = new Set<string>([
+  'localhost',
   'localhost:3000',
+  'localhost:8055',
   '127.0.0.1:3000',
   '0.0.0.0:3000',
   'edu-turkish.com',

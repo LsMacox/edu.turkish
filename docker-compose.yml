@@ -11,13 +11,7 @@ services:
     env_file:
       - .env
     environment:
-      # БД приложения (отдельно от Directus)
-      DB_HOST: mysql
-      DB_PORT: 3306
-      APP_DB_NAME: ${DB_NAME:-edu_turkish_app}
-      DB_USER: ${DB_USER:-edu_turkish_user}
-      DB_PASSWORD: ${DB_PASSWORD:-secure_password_123}
-      DATABASE_URL: mysql://${DB_USER:-edu_turkish_user}:${DB_PASSWORD:-secure_password_123}@mysql:3306/${DB_NAME:-edu_turkish_app}
+      DATABASE_URL: mysql://${DB_USER}:${DB_PASSWORD}@mysql:3306/${DB_NAME}
       NODE_ENV: production
 
       # Интеграция с Directus
@@ -46,9 +40,8 @@ services:
       MYSQL_USER: ${DB_USER:-edu_turkish_user}
       MYSQL_PASSWORD: ${DB_PASSWORD:-secure_password_123}
 
-      # Какой БД создать по умолчанию при первом старте:
-      # создадим БД для Directus, а вторую (для app) создадим init-скриптом
-      MYSQL_DATABASE: ${DB_NAME:-edu_turkish}
+      # Какой БД создать по умолчанию при первом старте (используется и приложением, и Directus):
+      MYSQL_DATABASE: ${APP_DB_NAME:-edu_turkish}
     ports:
       - '${DB_PORT:-3306}:3306'
     volumes:
@@ -93,17 +86,19 @@ services:
     restart: unless-stopped
     ports:
       - '8055:8055'
+    env_file:
+      - .env
     environment:
       # Ключи (замени в проде)
       KEY: ${DIRECTUS_KEY:-insecure_local_key}
       SECRET: ${DIRECTUS_SECRET:-insecure_local_secret}
 
       DB_CLIENT: mysql
-      DB_HOST: mysql
-      DB_PORT: 3306
-      DB_DATABASE: ${DB_NAME:-edu_turkish}
-      DB_USER: ${DB_USER:-edu_turkish_user}
-      DB_PASSWORD: ${DB_PASSWORD:-secure_password_123}
+      DB_HOST: ${DB_HOST:-mysql}
+      DB_PORT: ${DB_PORT:-3306}
+      DB_DATABASE: ${DB_NAME}
+      DB_USER: root
+      DB_PASSWORD: root_password_123
 
       # Directus базовые настройки
       WEBSOCKETS_ENABLED: 'true'

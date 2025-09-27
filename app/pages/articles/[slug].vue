@@ -53,16 +53,17 @@
                 </div>
               </div>
             </div>
-            <div v-if="heroImage" class="relative">
+            <div v-if="resolvedHeroImage" class="relative">
               <div
                 class="absolute -top-8 -right-6 hidden h-40 w-40 rounded-full bg-primary/10 blur-3xl lg:block"
               />
-              <div class="relative overflow-hidden rounded-3xl shadow-custom">
+              <div class="relative overflow-hidden rounded-3xl shadow-custom h-80 lg:h-96">
                 <NuxtImg
-                  :src="heroImage"
+                  :src="resolvedHeroImage"
                   :alt="heroImageAlt"
                   class="h-full w-full object-cover"
                   format="webp"
+                  @error="onHeroImageError"
                 />
               </div>
             </div>
@@ -413,7 +414,14 @@ const tableOfContents = computed(() => {
   }))
 })
 
-const heroImage = computed(() => article.value?.heroImage ?? article.value?.image ?? null)
+const failedHero = ref(false)
+const heroImage = computed(() => article.value?.heroImage ?? null)
+const resolvedHeroImage = computed(() => {
+  if (failedHero.value) {
+    return article.value?.image ?? null
+  }
+  return heroImage.value ?? article.value?.image ?? null
+})
 const heroImageAlt = computed(
   () => article.value?.heroImageAlt ?? article.value?.imageAlt ?? article.value?.title ?? '',
 )
@@ -440,6 +448,10 @@ const heroMeta = computed(() => {
 
   return result
 })
+
+const onHeroImageError = () => {
+  failedHero.value = true
+}
 
 const quickFacts = computed<BlogArticleQuickFact[]>(() => {
   if (!article.value) {

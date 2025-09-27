@@ -42,7 +42,7 @@ export default defineEventHandler(async (event) => {
       await $fetch('/api/v1/messenger-events', {
         method: 'POST',
         body: {
-          channel: 'telegramBot',
+          channel: 'whatsapp',
           referral_code: referralCode,
           session: sessionId,
           utm: Object.keys(utm).length > 0 ? utm : undefined,
@@ -53,29 +53,29 @@ export default defineEventHandler(async (event) => {
       // Create minimal lead
       const bitrix = new BitrixService(getBitrixConfig())
       await bitrix.createMinimalLeadFromEvent({
-        channel: 'telegramBot',
+        channel: 'whatsapp',
         referralCode,
         session: sessionId,
         utm: Object.keys(utm).length > 0 ? (utm as any) : undefined,
       })
     } catch (error) {
-      console.error('[go/telegram] Failed to process messenger event and create lead', error)
+      console.error('[go/whatsapp] Failed to process messenger event and create lead', error)
     }
   }
 
-  const botUrl = contactChannels.telegramBot.baseUrl
+  const whatsappUrl = contactChannels.whatsapp.baseUrl
 
   const html = `<!DOCTYPE html>
   <html lang="ru">
     <head>
       <meta charset="utf-8" />
-      <title>Переходим в Telegram...</title>
+      <title>Переходим в WhatsApp...</title>
     </head>
     <body>
       <script>
-        window.location.replace(${JSON.stringify(botUrl)})
+        window.location.replace(${JSON.stringify(whatsappUrl)})
       </script>
-      <p>Перенаправляем вас в Telegram...</p>
+      <p>Перенаправляем вас в WhatsApp...</p>
     </body>
   </html>`
 

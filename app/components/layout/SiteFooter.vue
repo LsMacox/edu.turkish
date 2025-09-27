@@ -116,7 +116,7 @@
             <p class="text-sm text-gray-700 mb-3">{{ $t('footer.social_networks') }}</p>
             <div class="flex space-x-3">
               <a
-                href="https://wa.me/905438679950"
+                :href="channels?.whatsapp?.href"
                 target="_blank"
                 class="w-10 h-10 bg-green-500 rounded-xl flex items-center justify-center text-white hover:bg-green-600 transition-colors"
                 aria-label="WhatsApp"
@@ -124,7 +124,7 @@
                 <Icon name="mdi:whatsapp" />
               </a>
               <a
-                href="https://t.me/eduturkish"
+                :href="channels?.telegramBot?.href"
                 target="_blank"
                 class="w-10 h-10 bg-blue-500 rounded-xl flex items-center justify-center text-white hover:bg-blue-600 transition-colors"
                 aria-label="Telegram"
@@ -132,7 +132,7 @@
                 <Icon name="mdi:telegram" />
               </a>
               <a
-                href="https://www.instagram.com/edu.turkish"
+                :href="instagramChannel.href"
                 target="_blank"
                 class="w-10 h-10 bg-pink-500 rounded-xl flex items-center justify-center text-white hover:bg-pink-600 transition-colors"
                 aria-label="Instagram"
@@ -174,11 +174,14 @@
 </template>
 
 <script setup lang="ts">
+import { useContactChannels } from '~/composables/useContactChannels'
 import { useUniversitiesStore } from '~/stores/universities'
 
 const route = useRoute()
 const router = useRouter()
 const localePath = useLocalePath()
+const { channels, getChannel } = useContactChannels()
+const instagramChannel = getChannel('instagram')
 
 // Use universities store only if on universities page (locale-aware)
 const isUniversitiesPage = computed(() => route.path.startsWith(localePath('/universities')))

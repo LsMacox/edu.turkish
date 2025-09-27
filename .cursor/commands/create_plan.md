@@ -22,9 +22,6 @@ Please provide:
 3. Links to related research or previous implementations
 
 I'll analyze this information and work with you to create a comprehensive plan.
-
-Tip: You can also invoke this command with a ticket file directly: `/create_plan thoughts/allison/tickets/eng_1234.md`
-For deeper analysis, try: `/create_plan think deeply about thoughts/allison/tickets/eng_1234.md`
 ```
 
 Then wait for the user's input.
@@ -34,7 +31,6 @@ Then wait for the user's input.
 ### Step 1: Context Gathering & Initial Analysis
 
 1. **Read all mentioned files immediately and FULLY**:
-   - Ticket files (e.g., `thoughts/allison/tickets/eng_1234.md`)
    - Research documents
    - Related implementation plans
    - Any JSON/data files mentioned
@@ -268,7 +264,6 @@ After structure approval:
 
 ## References
 
-- Original ticket: `thoughts/allison/tickets/eng_XXXX.md`
 - Related research: `thoughts/shared/research/[relevant].md`
 - Similar implementation: `[file:line]`
 
@@ -436,13 +431,4 @@ tasks = [
 ```
 User: /implementation_plan
 Assistant: I'll help you create a detailed implementation plan...
-
-User: We need to add parent-child tracking for Claude sub-tasks. See thoughts/allison/tickets/eng_1478.md
-Assistant: Let me read that ticket file completely first...
-
-[Reads file fully]
-
-Based on the ticket, I understand we need to track parent-child relationships for Claude sub-task events in the daemon. Before I start planning, I have some questions...
-
-[Interactive process continues...]
 ```

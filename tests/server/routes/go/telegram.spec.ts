@@ -18,16 +18,14 @@ vi.mock(
   '~~/lib/contact/channels',
   () => ({
     contactChannels: {
-      telegramPersonal: {
-        key: 'telegramPersonal',
+      telegramBot: {
+        key: 'telegramBot',
         type: 'personal',
         baseUrl: 'https://t.me/example',
         defaultCta: 'Contact us',
-        defaultMessage: 'Hello {{referral}}',
-        copyOnNavigate: true,
       },
     },
-    personalTelegramChannelKey: 'telegramPersonal',
+    primaryTelegramKey: 'telegramBot',
   }),
   { virtual: true },
 )
@@ -64,21 +62,21 @@ describe('GET /go/telegram', () => {
       expect.objectContaining({
         method: 'POST',
         body: expect.objectContaining({
-          channel: 'telegramPersonal',
+          channel: 'telegramBot',
           referral_code: 'abc123',
           session: 'session-42',
         }),
       }),
     )
     expect(consoleErrorSpy).toHaveBeenCalledWith(
-      '[go/telegram] Failed to log messenger event',
+      '[go/telegram] Failed to process messenger event and create lead',
       loggingError,
     )
 
     expect(response).toBeInstanceOf(Response)
     expect(response.ok).toBe(true)
     const body = await response.text()
-    expect(body).toContain('const targetUrl = "https://t.me/example"')
+    expect(body).toContain('window.location.replace("https://t.me/example")')
 
     consoleErrorSpy.mockRestore()
   })
@@ -97,6 +95,6 @@ describe('GET /go/telegram', () => {
     expect(response.headers.get('content-type')).toContain('text/html')
 
     const body = await response.text()
-    expect(body).toContain('const targetUrl = "https://t.me/example"')
+    expect(body).toContain('window.location.replace("https://t.me/example")')
   })
 })

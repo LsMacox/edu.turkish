@@ -33,7 +33,6 @@ export default defineNuxtConfig({
           xl: 1280,
           '2xl': 1536,
         },
-        domains: ['storage.googleapis.com'],
         placeholder: true,
       },
     ],

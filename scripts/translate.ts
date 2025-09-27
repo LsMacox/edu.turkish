@@ -35,7 +35,7 @@ interface CliOptions {
 const DEFAULT_SOURCE = 'ru'
 const DEFAULT_TARGETS = ['kk', 'en', 'tr']
 const OPENROUTER_URL = 'https://openrouter.ai/api/v1/chat/completions'
-const OPENROUTER_MODEL = 'google/gemini-2.5-flash'
+const OPENROUTER_MODEL = 'z-ai/glm-4.5'
 
 function parseArgs(argv: string[]): CliOptions {
   const [entityRaw, ...rest] = argv

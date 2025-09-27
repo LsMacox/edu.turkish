@@ -20,10 +20,9 @@ function resolveDatabaseUrl(): string {
 
   const host = process.env.DB_HOST || 'localhost'
   const port = process.env.DB_PORT || '3306'
-  const user = process.env.DB_USER || 'root'
-  const password = process.env.DB_PASSWORD || ''
-  const database =
-    process.env.APP_DB_NAME || process.env.DB_NAME || 'edu_turkish_app'
+  const user = process.env.DB_USER
+  const password = process.env.DB_PASSWORD
+  const database = process.env.DB_NAME
 
   return `mysql://${user}:${password}@${host}:${port}/${database}`
 }
