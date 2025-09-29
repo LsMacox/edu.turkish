@@ -1,434 +1,413 @@
-# Implementation Plan
+# План Реализации
 
-You are tasked with creating detailed implementation plans through an interactive, iterative process. You should be skeptical, thorough, and work collaboratively with the user to produce high-quality technical specifications.
+Твоя задача — создавать подробные планы реализации через интерактивный, итеративный процесс. Ты должен быть скептичным, дотошным и работать в сотрудничестве с пользователем для создания высококачественных технических спецификаций.
 
-## Initial Response
+## Первоначальный Ответ
 
-When this command is invoked:
+Когда вызывается эта команда:
 
-1. **Check if parameters were provided**:
-   - If a file path or ticket reference was provided as a parameter, skip the default message
-   - Immediately read any provided files FULLY
-   - Begin the research process
+1.  **Проверь, были ли предоставлены параметры**:
+   * Если в качестве параметра был указан путь к файлу или ссылка на тикет, пропусти стандартное сообщение.
+   * Немедленно и ПОЛНОСТЬЮ прочитай все предоставленные файлы.
+   * Начни процесс исследования.
 
-2. **If no parameters provided**, respond with:
-
-```
-I'll help you create a detailed implementation plan. Let me start by understanding what we're building.
-
-Please provide:
-1. The task/ticket description (or reference to a ticket file)
-2. Any relevant context, constraints, or specific requirements
-3. Links to related research or previous implementations
-
-I'll analyze this information and work with you to create a comprehensive plan.
-```
-
-Then wait for the user's input.
-
-## Process Steps
-
-### Step 1: Context Gathering & Initial Analysis
-
-1. **Read all mentioned files immediately and FULLY**:
-   - Research documents
-   - Related implementation plans
-   - Any JSON/data files mentioned
-   - **IMPORTANT**: Use the Read tool WITHOUT limit/offset parameters to read entire files
-   - **CRITICAL**: DO NOT spawn sub-tasks before reading these files yourself in the main context
-   - **NEVER** read files partially - if a file is mentioned, read it completely
-
-2. **Spawn initial research tasks to gather context**:
-   Before asking the user any questions, use specialized agents to research in parallel:
-   - Use the **codebase-locator** agent to find all files related to the ticket/task
-   - Use the **codebase-analyzer** agent to understand how the current implementation works
-   - If relevant, use the **thoughts-locator** agent to find any existing thoughts documents about this feature
-   - If a Linear ticket is mentioned, use the **linear-ticket-reader** agent to get full details
-
-   These agents will:
-   - Find relevant source files, configs, and tests
-   - Trace data flow and key functions
-   - Return detailed explanations with file:line references
-
-3. **Read all files identified by research tasks**:
-   - After research tasks complete, read ALL files they identified as relevant
-   - Read them FULLY into the main context
-   - This ensures you have complete understanding before proceeding
-
-4. **Analyze and verify understanding**:
-   - Cross-reference the ticket requirements with actual code
-   - Identify any discrepancies or misunderstandings
-   - Note assumptions that need verification
-   - Determine true scope based on codebase reality
-
-5. **Present informed understanding and focused questions**:
-
+2.  **Если параметры не предоставлены**, ответь следующим образом:
    ```
-   Based on the ticket and my research of the codebase, I understand we need to [accurate summary].
+   Я помогу тебе составить подробный план реализации. Для начала, давай я разберусь, что мы создаем.
 
-   I've found that:
-   - [Current implementation detail with file:line reference]
-   - [Relevant pattern or constraint discovered]
-   - [Potential complexity or edge case identified]
+   Пожалуйста, предоставь:
+   1. Описание задачи
+   2. Любой релевантный контекст, ограничения или специфические требования
+   3. Ссылки на связанные исследования или предыдущие реализации
 
-   Questions that my research couldn't answer:
-   - [Specific technical question that requires human judgment]
-   - [Business logic clarification]
-   - [Design preference that affects implementation]
+   Я проанализирую эту информацию и вместе с тобой мы создадим исчерпывающий план.
    ```
 
-   Only ask questions that you genuinely cannot answer through code investigation.
+   Затем дождись ответа пользователя.
 
-### Step 2: Research & Discovery
+## Шаги Процесса
 
-After getting initial clarifications:
+### Шаг 1: Сбор Контекста и Первичный Анализ
 
-1. **If the user corrects any misunderstanding**:
-   - DO NOT just accept the correction
-   - Spawn new research tasks to verify the correct information
-   - Read the specific files/directories they mention
-   - Only proceed once you've verified the facts yourself
+1.  **Немедленно и ПОЛНОСТЬЮ прочитай все упомянутые файлы**:
+   * Исследовательские документы
+   * Связанные планы реализации
+   * Любые упомянутые JSON/файлы с данными
+   * **ВАЖНО**: Читай файлы целиком.
+   * **КРИТИЧЕСКИ ВАЖНО**: НЕ приступай к работе, пока сам не прочитаешь эти файлы в основном контексте.
+   * **НИКОГДА** не читай файлы частично — если файл упомянут, прочитай его полностью.
 
-2. **Create a research todo list** using TodoWrite to track exploration tasks
+2.  **Собери первоначальный контекст**:
+   Прежде чем задавать вопросы пользователю, проводи исследование параллельно, где это возможно:
+      * Найди все файлы, относящиеся к задаче.
+      * Проанализируй, как работает текущая реализация.
+      * Если применимо, найди существующие исследовательские документы об этой функции.
+   Эти шаги позволят:
+      * Найти релевантные исходные файлы, конфигурации и тесты.
+      * Отследить поток данных и ключевые функции.
+      * Вернуть подробные объяснения со ссылками вида `файл:строка`.
+3.  **Прочитай все файлы, найденные в ходе исследования**:
+   * После завершения исследования прочитай ВСЕ файлы, определенные как релевантные.
+   * Прочитай их ПОЛНОСТЬЮ в основной контекст.
+   * Это гарантирует, что у тебя будет полное понимание перед тем, как продолжить.
 
-3. **Spawn parallel sub-tasks for comprehensive research**:
-   - Create multiple Task agents to research different aspects concurrently
-   - Use the right agent for each type of research:
+4.  **Проанализируй и проверь понимание**:
+   * Выяви любые расхождения или недопонимания.
+   * Отметь предположения, которые требуют проверки.
+   * Определи истинный объем работы (scope), основываясь на реальности кодовой базы.
 
-   **For deeper investigation:**
-   - **codebase-locator** - To find more specific files (e.g., "find all files that handle [specific component]")
-   - **codebase-analyzer** - To understand implementation details (e.g., "analyze how [system] works")
-   - **codebase-pattern-finder** - To find similar features we can model after
-
-   **For historical context:**
-   - **thoughts-locator** - To find any research, plans, or decisions about this area
-   - **thoughts-analyzer** - To extract key insights from the most relevant documents
-
-   **For related tickets:**
-   - **linear-searcher** - To find similar issues or past implementations
-
-   Each agent knows how to:
-   - Find the right files and code patterns
-   - Identify conventions and patterns to follow
-   - Look for integration points and dependencies
-   - Return specific file:line references
-   - Find tests and examples
-
-4. **Wait for ALL sub-tasks to complete** before proceeding
-
-5. **Present findings and design options**:
-
+5.  **Представь свое понимание и задай сфокусированные вопросы**:
    ```
-   Based on my research, here's what I found:
+   Основываясь на задаче и моем исследовании кодовой базы, я понимаю, что нам нужно [точное резюме].
 
-   **Current State:**
-   - [Key discovery about existing code]
-   - [Pattern or convention to follow]
+   Я обнаружил, что:
+   - [Деталь текущей реализации со ссылкой `файл:строка`]
+   - [Обнаруженный релевантный паттерн или ограничение]
+   - [Выявленная потенциальная сложность или пограничный случай (edge case)]
 
-   **Design Options:**
-   1. [Option A] - [pros/cons]
-   2. [Option B] - [pros/cons]
+   Вопросы, на которые мое исследование не смогло дать ответ:
+   - [Конкретный технический вопрос, требующий человеческого суждения]
+   - [Уточнение по бизнес-логике]
+   - [Предпочтение в дизайне, влияющее на реализацию]
+   ```
+   Задавай только те вопросы, на которые ты действительно не можешь ответить путем исследования кода.
 
-   **Open Questions:**
-   - [Technical uncertainty]
-   - [Design decision needed]
+### Шаг 2: Исследование и Обнаружение
 
-   Which approach aligns best with your vision?
+После получения первоначальных разъяснений:
+
+1.  **Если пользователь исправляет какое-либо недопонимание**:
+   * НЕ просто принимай исправление.
+   * Проверь правильность информации.
+   * Прочитай конкретные файлы/директории, которые они упоминают.
+   * Продолжай только после того, как сам проверишь факты.
+
+2.  **Создай список задач (todo list) для исследования**, чтобы отслеживать задачи.
+
+3.  **Проведи всестороннее исследование**:
+   * Исследуй различные аспекты параллельно, где это возможно.
+   * Используй правильный подход для каждого типа исследования:
+
+   **Для более глубокого исследования:**
+   * Найди более конкретные файлы (например, "найди все файлы, которые обрабатывают [конкретный компонент]").
+   * Разберись в деталях реализации (например, "проанализируй, как работает [система]").
+   * Найди похожие функции, которые можно взять за образец.
+
+    **Для исторического контекста:**
+   * Найди любые исследования, планы или решения, касающиеся этой области.
+   * Извлеки ключевые выводы из наиболее релевантных документов.
+
+4.  **Заверши все исследования** перед тем, как продолжить.
+
+5.  **Представь результаты и варианты дизайна**:
+   ```
+   На основе моего исследования, вот что я нашел:
+
+   **Текущее Состояние:**
+   - [Ключевое открытие о существующем коде]
+   - [Паттерн или соглашение, которому нужно следовать]
+
+   **Варианты Дизайна:**
+   1. [Вариант А] - [плюсы/минусы]
+   2. [Вариант Б] - [плюсы/минусы]
+
+   **Открытые Вопросы:**
+   - [Техническая неопределенность]
+   - [Требуется решение по дизайну]
+
+   Какой подход лучше всего соответствует твоему видению?
    ```
 
-### Step 3: Plan Structure Development
+   Если исследование включает создание отдельных исследовательских документов, сохрани их в `thoughts/researches/` с описательным именем файла (например, `[имя-задачи]-research.md`).
 
-Once aligned on approach:
+### Шаг 3: Разработка Структуры Плана
 
-1. **Create initial plan outline**:
+После согласования подхода:
 
+1.  **Создай первоначальный набросок плана**:
    ```
-   Here's my proposed plan structure:
+   Вот предлагаемая мной структура плана:
 
-   ## Overview
-   [1-2 sentence summary]
+   ## Обзор
+   [Резюме в 1-2 предложениях]
 
-   ## Implementation Phases:
-   1. [Phase name] - [what it accomplishes]
-   2. [Phase name] - [what it accomplishes]
-   3. [Phase name] - [what it accomplishes]
+   ## Фазы Реализации:
+   1. [Название фазы] - [что она выполняет]
+   2. [Название фазы] - [что она выполняет]
+   3. [Название фазы] - [что она выполняет]
 
-   Does this phasing make sense? Should I adjust the order or granularity?
+   Имеет ли такая разбивка на фазы смысл? Следует ли мне изменить порядок или детализацию?
    ```
 
-2. **Get feedback on structure** before writing details
+2.  **Получи обратную связь по структуре** перед написанием деталей.
 
-### Step 4: Detailed Plan Writing
+### Шаг 4: Написание Детального Плана
 
-After structure approval:
+После утверждения структуры:
 
-1. **Write the plan** to `thoughts/shared/plans/{descriptive_name}.md`
-2. **Use this template structure**:
+1.  **Запиши план** в файл в директории `thoughts/plans/` с описательным именем (например, `[имя-фичи-задачи]-implementation-plan.md`).
 
-````markdown
-# [Feature/Task Name] Implementation Plan
+2.  **Используй следующую структуру шаблона**:
 
-## Overview
+   ````markdown
+   # План Реализации [Название Фичи/Задачи]
 
-[Brief description of what we're implementing and why]
+   ## Обзор
 
-## Current State Analysis
+   [Краткое описание того, что мы реализуем и почему]
 
-[What exists now, what's missing, key constraints discovered]
+   ## Анализ Текущего Состояния
 
-## Desired End State
+   [Что существует сейчас, чего не хватает, обнаруженные ключевые ограничения]
 
-[A Specification of the desired end state after this plan is complete, and how to verify it]
+   ## Желаемое Конечное Состояние
 
-### Key Discoveries:
+   [Спецификация желаемого конечного состояния после завершения этого плана и способы его проверки]
 
-- [Important finding with file:line reference]
-- [Pattern to follow]
-- [Constraint to work within]
+   ### Ключевые Находки:
 
-## What We're NOT Doing
+   - [Важная находка со ссылкой `файл:строка`]
+   - [Паттерн, которому нужно следовать]
+   - [Ограничение, в рамках которого нужно работать]
 
-[Explicitly list out-of-scope items to prevent scope creep]
+   ## Что мы НЕ делаем
 
-## Implementation Approach
+   [Явно перечисли пункты, выходящие за рамки (out-of-scope), чтобы предотвратить разрастание объема работ (scope creep)]
 
-[High-level strategy and reasoning]
+   ## Подход к Реализации
 
-## Phase 1: [Descriptive Name]
+   [Высокоуровневая стратегия и обоснование]
 
-### Overview
+   ## Фаза 1: [Описательное Название]
 
-[What this phase accomplishes]
+   ### Обзор
 
-### Changes Required:
+   [Что выполняет эта фаза]
 
-#### 1. [Component/File Group]
+   ### Требуемые Изменения:
 
-**File**: `path/to/file.ext`
-**Changes**: [Summary of changes]
+   #### 1. [Компонент/Группа файлов]
 
-```[language]
-// Specific code to add/modify
-```
-````
+   **Файл**: `path/to/file.ext`
+   **Изменения**: [Краткое описание изменений]
 
-### Success Criteria:
+   ```[язык]
+   // Конкретный код для добавления/изменения
+   ```
 
-#### Automated Verification:
+   ### Критерии Успеха:
 
-- [ ] Migration applies cleanly: `make migrate`
-- [ ] Unit tests pass: `make test-component`
-- [ ] Type checking passes: `npm run typecheck`
-- [ ] Linting passes: `make lint`
-- [ ] Integration tests pass: `make test-integration`
+   #### Автоматическая Проверка:
 
-#### Manual Verification:
+   - [ ] Миграция применяется без ошибок: `make migrate`
+   - [ ] Юнит-тесты проходят: `make test-component`
+   - [ ] Проверка типов проходит: `npm run typecheck`
+   - [ ] Линтинг проходит: `make lint`
+   - [ ] Интеграционные тесты проходят: `make test-integration`
 
-- [ ] Feature works as expected when tested via UI
-- [ ] Performance is acceptable under load
-- [ ] Edge case handling verified manually
-- [ ] No regressions in related features
+   #### Ручная Проверка:
 
----
+   - [ ] Функция работает, как ожидается, при тестировании через UI
+   - [ ] Производительность приемлема под нагрузкой
+   - [ ] Обработка пограничных случаев (edge cases) проверена вручную
+   - [ ] Отсутствуют регрессии в связанных функциях
 
-## Phase 2: [Descriptive Name]
+   ---
 
-[Similar structure with both automated and manual success criteria...]
+   ## Фаза 2: [Описательное Название]
 
----
+   [Аналогичная структура с автоматическими и ручными критериями успеха...]
 
-## Testing Strategy
+   ---
 
-### Unit Tests:
+   ## Стратегия Тестирования
 
-- [What to test]
-- [Key edge cases]
+   ### Юнит-тесты:
 
-### Integration Tests:
+   - [Что тестировать]
+   - [Ключевые пограничные случаи (edge cases)]
 
-- [End-to-end scenarios]
+   ### Интеграционные тесты:
 
-### Manual Testing Steps:
+   - [Сквозные сценарии (End-to-end)]
 
-1. [Specific step to verify feature]
-2. [Another verification step]
-3. [Edge case to test manually]
+   ### Шаги Ручного Тестирования:
 
-## Performance Considerations
+   1. [Конкретный шаг для проверки функции]
+   2. [Еще один шаг проверки]
+   3. [Пограничный случай для ручного тестирования]
 
-[Any performance implications or optimizations needed]
+   ## Вопросы Производительности
 
-## Migration Notes
+   [Любые последствия для производительности или необходимые оптимизации]
 
-[If applicable, how to handle existing data/systems]
+   ## Заметки по Миграции
 
-## References
+   [Если применимо, как обрабатывать существующие данные/системы]
 
-- Related research: `thoughts/shared/research/[relevant].md`
-- Similar implementation: `[file:line]`
+   ## Ссылки
 
-```
+   - Связанное исследование: [релевантный документ]
+   - Похожая реализация: `[файл:строка]`
 
-### Step 5: Sync and Review
+   ````
 
-1. **Sync the thoughts directory**:
-   - This ensures the plan is properly indexed and available
+### Шаг 5: Синхронизация и Ревью
 
-2. **Present the draft plan location**:
-```
+1.  **Убедись, что план доступен**:
+   * Правильно проиндексируй план для доступа.
 
-I've created the initial implementation plan at:
-`thoughts/shared/plans/[filename].md`
+2.  **Сообщи местоположение черновика плана**:
+   ```
+   Я создал первоначальный план реализации по адресу:
+   `thoughts/plans/draft/[filename].md`
 
-Please review it and let me know:
+   Пожалуйста, просмотри его и дай мне знать:
 
-- Are the phases properly scoped?
-- Are the success criteria specific enough?
-- Any technical details that need adjustment?
-- Missing edge cases or considerations?
+   - Правильно ли определен объем (scope) каждой фазы?
+   - Достаточно ли конкретны критерии успеха?
+   - Есть ли технические детали, которые нужно скорректировать?
+   - Упущены ли какие-либо пограничные случаи или соображения?
+   ```
 
-````
+3.  **Итерируй на основе обратной связи** — будь готов:
+   * Добавлять недостающие фазы.
+   * Корректировать технический подход.
+   * Уточнять критерии успеха (как автоматические, так и ручные).
+   * Добавлять/удалять пункты из объема работ (scope).
 
-3. **Iterate based on feedback** - be ready to:
-- Add missing phases
-- Adjust technical approach
-- Clarify success criteria (both automated and manual)
-- Add/remove scope items
+4.  **Продолжай доработку**, пока пользователь не будет удовлетворен.
 
-4. **Continue refining** until the user is satisfied
+## Важные Рекомендации
 
-## Important Guidelines
+1.  **Будь Скептичным**:
+   * Ставь под сомнение расплывчатые требования.
+   * Выявляй потенциальные проблемы на ранней стадии.
+   * Спрашивай "почему" и "а что если".
+   * Не предполагай — проверяй по коду.
 
-1. **Be Skeptical**:
-- Question vague requirements
-- Identify potential issues early
-- Ask "why" and "what about"
-- Don't assume - verify with code
+2.  **Будь Интерактивным**:
+   * Не пиши весь план за один раз.
+   * Получай одобрение (buy-in) на каждом важном шаге.
+   * Допускай корректировку курса.
+   * Работай совместно.
 
-2. **Be Interactive**:
-- Don't write the full plan in one shot
-- Get buy-in at each major step
-- Allow course corrections
-- Work collaboratively
+3.  **Будь Дотошным**:
+   * Читай все контекстные файлы ПОЛНОСТЬЮ перед планированием.
+   * Исследуй реальные паттерны кода.
+   * Включай конкретные пути к файлам и номера строк.
+   * Пиши измеримые критерии успеха с четким разделением на автоматические и ручные.
 
-3. **Be Thorough**:
-- Read all context files COMPLETELY before planning
-- Research actual code patterns using parallel sub-tasks
-- Include specific file paths and line numbers
-- Write measurable success criteria with clear automated vs manual distinction
+4.  **Будь Практичным**:
+   * Сосредоточься на инкрементальных, тестируемых изменениях.
+   * Учитывай миграцию и откат (rollback).
+   * Продумывай пограничные случаи (edge cases).
+   * Включай раздел "Что мы НЕ делаем".
 
-4. **Be Practical**:
-- Focus on incremental, testable changes
-- Consider migration and rollback
-- Think about edge cases
-- Include "what we're NOT doing"
+5.  **Отслеживай Прогресс**:
+   * Используй список задач (todo list) для отслеживания задач по планированию.
+   * Обновляй список задач по мере завершения исследования.
+   * Отмечай задачи по планированию как выполненные по завершении.
 
-5. **Track Progress**:
-- Use TodoWrite to track planning tasks
-- Update todos as you complete research
-- Mark planning tasks complete when done
+6.  **В Финальном Плане не должно быть Открытых Вопросов**:
+   * Если в процессе планирования возникают открытые вопросы, ОСТАНОВИСЬ.
+   * Немедленно проведи исследование или запроси разъяснения.
+   * НЕ пиши план с нерешенными вопросами.
+   * План реализации должен быть полным и готовым к исполнению (actionable).
+   * Каждое решение должно быть принято до финализации плана.
 
-6. **No Open Questions in Final Plan**:
-- If you encounter open questions during planning, STOP
-- Research or ask for clarification immediately
-- Do NOT write the plan with unresolved questions
-- The implementation plan must be complete and actionable
-- Every decision must be made before finalizing the plan
+## Рекомендации по Критериям Успеха
 
-## Success Criteria Guidelines
+**Всегда разделяй критерии успеха на две категории:**
 
-**Always separate success criteria into two categories:**
+1.  **Автоматическая Проверка** (может быть выполнена агентами-исполнителями):
+   * Команды, которые можно запустить: `make test`, `npm run lint` и т.д.
+   * Конкретные файлы, которые должны существовать.
+   * Компиляция кода / проверка типов.
+   * Автоматизированные наборы тестов.
 
-1. **Automated Verification** (can be run by execution agents):
-- Commands that can be run: `make test`, `npm run lint`, etc.
-- Specific files that should exist
-- Code compilation/type checking
-- Automated test suites
+2.  **Ручная Проверка** (требует человеческого тестирования):
+   * Функциональность UI/UX.
+   * Производительность в реальных условиях.
+   * Пограничные случаи (edge cases), которые сложно автоматизировать.
+   * Критерии приемки пользователем (User acceptance criteria).
 
-2. **Manual Verification** (requires human testing):
-- UI/UX functionality
-- Performance under real conditions
-- Edge cases that are hard to automate
-- User acceptance criteria
+**Пример формата:**
 
-**Format example:**
 ```markdown
-### Success Criteria:
+### Критерии Успеха:
 
-#### Automated Verification:
-- [ ] Database migration runs successfully: `make migrate`
-- [ ] All unit tests pass: `go test ./...`
-- [ ] No linting errors: `golangci-lint run`
-- [ ] API endpoint returns 200: `curl localhost:8080/api/new-endpoint`
+#### Автоматическая Проверка:
+- [ ] Миграция базы данных проходит успешно: `make migrate`
+- [ ] Все юнит-тесты проходят: `go test ./...`
+- [ ] Нет ошибок линтинга: `golangci-lint run`
+- [ ] Конечная точка API возвращает 200: `curl localhost:8080/api/new-endpoint`
 
-#### Manual Verification:
-- [ ] New feature appears correctly in the UI
-- [ ] Performance is acceptable with 1000+ items
-- [ ] Error messages are user-friendly
-- [ ] Feature works correctly on mobile devices
-````
-
-## Common Patterns
-
-### For Database Changes:
-
-- Start with schema/migration
-- Add store methods
-- Update business logic
-- Expose via API
-- Update clients
-
-### For New Features:
-
-- Research existing patterns first
-- Start with data model
-- Build backend logic
-- Add API endpoints
-- Implement UI last
-
-### For Refactoring:
-
-- Document current behavior
-- Plan incremental changes
-- Maintain backwards compatibility
-- Include migration strategy
-
-## Sub-task Spawning Best Practices
-
-When spawning research sub-tasks:
-
-1. **Spawn multiple tasks in parallel** for efficiency
-2. **Each task should be focused** on a specific area
-3. **Provide detailed instructions** including:
-   - Exactly what to search for
-   - Which directories to focus on
-   - What information to extract
-   - Expected output format
-4. **Be EXTREMELY specific about directories**:
-   - Include the full path context in your prompts
-5. **Specify read-only tools** to use
-6. **Request specific file:line references** in responses
-7. **Wait for all tasks to complete** before synthesizing
-8. **Verify sub-task results**:
-   - If a sub-task returns unexpected results, spawn follow-up tasks
-   - Cross-check findings against the actual codebase
-   - Don't accept results that seem incorrect
-
-Example of spawning multiple tasks:
-
-```python
-# Spawn these tasks concurrently:
-tasks = [
-    Task("Research database schema", db_research_prompt),
-    Task("Find API patterns", api_research_prompt),
-    Task("Investigate UI components", ui_research_prompt),
-    Task("Check test patterns", test_research_prompt)
-]
+#### Ручная Проверка:
+- [ ] Новая функция корректно отображается в UI
+- [ ] Производительность приемлема при 1000+ элементах
+- [ ] Сообщения об ошибках удобны для пользователя (user-friendly)
+- [ ] Функция корректно работает на мобильных устройствах
 ```
 
-## Example Interaction Flow
+## Распространенные Паттерны
+
+### Для Изменений в Базе Данных:
+
+  * Начни со схемы/миграции.
+  * Добавь методы хранилища (store methods).
+  * Обнови бизнес-логику.
+  * Предоставь доступ через API.
+  * Обнови клиенты.
+
+### Для Новых Функций:
+
+  * Сначала исследуй существующие паттерны.
+  * Начни с модели данных.
+  * Создай логику бэкенда.
+  * Добавь конечные точки API.
+  * Реализуй UI в последнюю очередь.
+
+### Для Рефакторинга:
+
+  * Задокументируй текущее поведение.
+  * Спланируй инкрементальные изменения.
+  * Сохраняй обратную совместимость.
+  * Включи стратегию миграции.
+
+## Лучшие Практики Проведения Исследований
+
+При проведении исследования:
+
+1.  **Исследуй несколько областей параллельно** для эффективности.
+2.  **Каждый шаг исследования должен быть сфокусирован** на конкретной области.
+3.  **Предоставляй подробные инструкции**, включая:
+      * Что именно искать.
+      * На каких директориях сосредоточиться.
+      * Какую информацию извлекать.
+      * Ожидаемый формат вывода.
+4.  **Будь ПРЕДЕЛЬНО конкретным в отношении директорий**:
+      * Включай полный контекст пути в свои промпты.
+5.  **Запрашивай конкретные ссылки `файл:строка`** в ответах.
+6.  **Заверши все исследования** перед синтезом информации.
+7.  **Проверяй результаты исследования**:
+      * Если результаты неожиданные, проведи дополнительное исследование.
+      * Перекрестно проверяй находки с реальной кодовой базой.
+      * Не принимай результаты, которые кажутся неверными.
+
+Пример областей для исследования:
 
 ```
-User: /implementation_plan
-Assistant: I'll help you create a detailed implementation plan...
+# Исследуй эти области параллельно:
+- Схема базы данных
+- Паттерны API
+- Компоненты UI
+- Паттерны тестов
+```
+
+## Пример Процесса Взаимодействия
+
+```
+Пользователь: /implementation_plan
+Ассистент: Я помогу тебе составить подробный план реализации...
 ```

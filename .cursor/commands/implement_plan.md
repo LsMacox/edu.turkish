@@ -1,72 +1,70 @@
 # Implement Plan
 
-You are tasked with implementing an approved technical plan from `thoughts/shared/plans/`. These plans contain phases with specific changes and success criteria.
+Ваша задача — реализовать утверждённый технический план из `thoughts/plans/`. Эти планы содержат фазы с конкретными изменениями и критериями успеха.
 
-## Getting Started
+## Начало работы
 
-When given a plan path:
+Когда вам дан путь к плану:
 
-- Read the plan completely and check for any existing checkmarks (- [x])
-- Read the original ticket and all files mentioned in the plan
-- **Read files fully** - never use limit/offset parameters, you need complete context
-- Think deeply about how the pieces fit together
-- Create a todo list to track your progress
-- Start implementing if you understand what needs to be done
+  - Полностью прочитайте план и проверьте наличие уже отмеченных пунктов (`- [x]`).
+  - Прочитайте исходный тикет и все файлы, упомянутые в плане.
+  - **Читайте файлы полностью** — никогда не используйте параметры `limit`/`offset`, вам нужен полный контекст.
+  - Глубоко продумайте, как все части связаны между собой.
+  - Создайте список задач (todo list), чтобы отслеживать свой прогресс.
+  - Начинайте реализацию, если вы понимаете, что нужно делать.
 
-If no plan path provided, ask for one.
+Если путь к плану не указан, запросите его.
 
-## Implementation Philosophy
+## Философия реализации
 
-Plans are carefully designed, but reality can be messy. Your job is to:
+Планы тщательно продуманы, но реальность может быть сложной. Ваша задача:
 
-- Follow the plan's intent while adapting to what you find
-- Implement each phase fully before moving to the next
-- Verify your work makes sense in the broader codebase context
-- Update checkboxes in the plan as you complete sections
+  - Следовать замыслу плана, адаптируясь к тому, что вы обнаружите.
+  - Полностью реализовать каждую фазу, прежде чем переходить к следующей.
+  - Убедиться, что ваша работа имеет смысл в более широком контексте кодовой базы.
+  - Обновлять отметки в плане по мере завершения разделов.
 
-When things don't match the plan exactly, think about why and communicate clearly. The plan is your guide, but your judgment matters too.
+Когда что-то не соответствует плану в точности, подумайте о причинах и чётко сообщите об этом. План — это ваше руководство, но ваше суждение также имеет значение.
 
-If you encounter a mismatch:
+Если вы столкнулись с несоответствием:
 
-- STOP and think deeply about why the plan can't be followed
-- Present the issue clearly:
+  - ОСТАНОВИТЕСЬ и глубоко задумайтесь, почему план не может быть выполнен.
 
-  ```
-  Issue in Phase [N]:
-  Expected: [what the plan says]
-  Found: [actual situation]
-  Why this matters: [explanation]
+  - Чётко изложите проблему:
 
-  How should I proceed?
-  ```
+    ```
+    Проблема в Фазе [N]:
+    Ожидалось: [что сказано в плане]
+    Обнаружено: [фактическая ситуация]
+    Почему это важно: [объяснение]
 
-## Verification Approach
+    Как мне следует поступить?
+    ```
 
-After implementing a phase:
+## Подход к проверке
 
-- Run the success criteria checks (usually `make check test` covers everything)
-- Fix any issues before proceeding
-- Update your progress in both the plan and your todos
-- Check off completed items in the plan file itself using Edit
+После реализации фазы:
+  - Выполните проверки по критериям успеха (обычно `make check test` охватывает всё необходимое).
+  - Исправьте все проблемы, прежде чем продолжать.
+  - Обновите свой прогресс как в плане, так и в вашем списке задач.
+  - Отмечайте выполненные пункты непосредственно в файле плана, используя режим редактирования (Edit).
 
-Don't let verification interrupt your flow - batch it at natural stopping points.
+Не позволяйте проверке прерывать ваш рабочий процесс — выполняйте её пакетами в естественных точках остановки.
 
-## If You Get Stuck
+## Если вы зашли в тупик
 
-When something isn't working as expected:
+Когда что-то работает не так, как ожидалось:
+  - Во-первых, убедитесь, что вы прочитали и поняли весь соответствующий код.
+  - Подумайте, не изменилась ли кодовая база с момента написания плана.
+  - Чётко опишите несоответствие и попросите указаний.
 
-- First, make sure you've read and understood all the relevant code
-- Consider if the codebase has evolved since the plan was written
-- Present the mismatch clearly and ask for guidance
+Используйте подзадачи экономно — в основном для целенаправленной отладки или исследования незнакомых областей.
 
-Use sub-tasks sparingly - mainly for targeted debugging or exploring unfamiliar territory.
+## Возобновление работы
 
-## Resuming Work
+Если в плане уже есть отмеченные пункты:
+  - Доверяйте тому, что завершённая работа выполнена.
+  - Начинайте с первого неотмеченного пункта.
+  - Проверяйте предыдущую работу, только если что-то кажется неправильным.
 
-If the plan has existing checkmarks:
-
-- Trust that completed work is done
-- Pick up from the first unchecked item
-- Verify previous work only if something seems off
-
-Remember: You're implementing a solution, not just checking boxes. Keep the end goal in mind and maintain forward momentum.
+Помните: вы реализуете решение, а не просто ставите галочки. Держите в уме конечную цель и поддерживайте движение вперёд.

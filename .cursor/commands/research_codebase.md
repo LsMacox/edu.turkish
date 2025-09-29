@@ -1,180 +1,139 @@
-# Research Codebase
+# Исследование кодовой базы
 
-You are tasked with conducting comprehensive research across the codebase to answer user questions by spawning parallel sub-agents and synthesizing their findings.
+Ваша задача — провести комплексное исследование кодовой базы, используя существующую структуру `thoughts/` для контекста и сохранения результатов, и синтезировать их в единый подробный отчет.
 
-## Initial Setup:
+## Начальная настройка:
 
-When this command is invoked, respond with:
+Когда эта команда вызывается, ответьте:
 
 ```
-I'm ready to research the codebase. Please provide your research question or area of interest, and I'll analyze it thoroughly by exploring relevant components and connections.
+Я готов к исследованию кодовой базы. Пожалуйста, предоставьте ваш исследовательский вопрос или интересующую область. Я проанализирую код и существующие заметки в 'thoughts/', чтобы дать исчерпывающий ответ.
 ```
 
-Then wait for the user's research query.
+Затем ожидайте исследовательский запрос от пользователя.
 
-## Steps to follow after receiving the research query:
+## Шаги для выполнения после получения запроса:
 
-1. **Read any directly mentioned files first:**
-   - If the user mentions specific files (tickets, docs, JSON), read them FULLY first
-   - **IMPORTANT**: Use the Read tool WITHOUT limit/offset parameters to read entire files
-   - **CRITICAL**: Read these files yourself in the main context before spawning any sub-tasks
-   - This ensures you have full context before decomposing the research
+1.  **Сначала проанализируйте напрямую упомянутые файлы:**
 
-2. **Analyze and decompose the research question:**
-   - Break down the user's query into composable research areas
-   - Take time to ultrathink about the underlying patterns, connections, and architectural implications the user might be seeking
-   - Identify specific components, patterns, or concepts to investigate
-   - Create a research plan using TodoWrite to track all subtasks
-   - Consider which directories, files, or architectural patterns are relevant
+    *   Если пользователь упоминает конкретные файлы, используйте команду `@file` для каждого из них, чтобы загрузить их полный контекст.
+    *   **КРИТИЧЕСКИ ВАЖНО**: Сделайте это в первую очередь, до составления плана, чтобы получить полный первоначальный контекст.
 
-3. **Spawn parallel sub-agent tasks for comprehensive research:**
-   - Create multiple Task agents to research different aspects concurrently
+2.  **Проанализируйте запрос и создайте план исследования:**
 
-   The key is to use these agents intelligently:
-   - Start with locator agents to find what exists
-   - Then use analyzer agents on the most promising findings
-   - Run multiple agents in parallel when they're searching for different things
-   - Each agent knows its job - just tell it what you're looking for
-   - Don't write detailed prompts about HOW to search - the agents already know
+    *   Разбейте запрос пользователя на логические шаги.
+    *   Подумайте, какие компоненты, функции или концепции нужно исследовать.
+    *   **Создайте план исследования в виде чек-листа.** Это сделает процесс прозрачным. Например:
+        *   `[ ]` Найти определения и использование `User` в коде.
+        *   `[ ]` Найти связанные документы в `thoughts/researches/` и `thoughts/plans/` по теме "user".
+        *   `[ ]` Проанализировать, как используется компонент `UserProfile`.
+        *   `[ ]` Изучить API-эндпоинты, возвращающие данные о пользователе.
 
-4. **Wait for all sub-agents to complete and synthesize findings:**
-   - IMPORTANT: Wait for ALL sub-agent tasks to complete before proceeding
-   - Compile all sub-agent results (both codebase and thoughts findings)
-   - Prioritize live codebase findings as primary source of truth
-   - Use thoughts/ findings as supplementary historical context
-   - Connect findings across different components
-   - Include specific file paths and line numbers for reference
-   - Verify all thoughts/ paths are correct (e.g., thoughts/allison/ not thoughts/shared/ for personal files)
-   - Highlight patterns, connections, and architectural decisions
-   - Answer the user's specific questions with concrete evidence
+3.  **Выполните план исследования:**
 
-5. **Gather metadata for the research document:**
-   - generate all relevant metadata
-   - Filename: `thoughts/shared/research/YYYY-MM-DD_HH-MM-SS_topic.md`
+    *   Последовательно выполняйте шаги из вашего плана.
+    *   **Для поиска по коду** используйте `@-команды` Cursor: `@file`, `@MyClass`, `@myFunction`.
+    *   **Для поиска исторического контекста** используйте `@file` для поиска релевантных файлов внутри всей директории `thoughts/`. Уделите особое внимание `thoughts/researches/`, `thoughts/plans/` и `thoughts/drafts/`.
+    *   Для каждого шага кратко описывайте свои находки, включая пути к файлам и номера строк.
 
-6. **Generate research document:**
-   - Use the metadata gathered in step 4
-   - Structure the document with YAML frontmatter followed by content:
+4.  **Синтезируйте итоговые результаты:**
 
-     ```markdown
-     ---
-     date: [Current date and time with timezone in ISO format]
-     researcher: [Researcher name]
-     git_commit: [Current commit hash]
-     branch: [Current branch name]
-     repository: [Repository name]
-     topic: "[User's Question/Topic]"
-     tags: [research, codebase, relevant-component-names]
-     status: complete
-     last_updated: [Current date in YYYY-MM-DD format]
-     last_updated_by: [Researcher name]
-     ---
+    *   После завершения всех шагов соберите все полученные результаты.
+    *   Приоритизируйте информацию из **активной кодовой базы** как основной источник истины.
+    *   Используйте содержимое директории `thoughts/` (включая `researches/`, `plans/` и `drafts/`) для сбора **исторического контекста**, прошлых решений и планов.
+    *   Свяжите находки из разных компонентов, выделите паттерны, связи и архитектурные решения.
 
-     # Research: [User's Question/Topic]
+5.  **Соберите метаданные для исследовательского отчета:**
 
-     **Date**: [Current date and time with timezone from step 4]
-     **Researcher**: [Researcher name]
-     **Git Commit**: [Current commit hash from step 4]
-     **Branch**: [Current branch name from step 4]
-     **Repository**: [Repository name]
+    *   Используйте встроенный терминал для сбора информации о репозитории:
+        *   **Хэш коммита:** `git rev-parse HEAD`
+        *   **Имя ветки:** `git branch --show-current`
+        *   **Имя репозитория:** `basename -s .git $(git config --get remote.origin.url)`
+    *   Подготовьте имя файла для отчета, используя вашу структуру: `thoughts/researches/YYYY-MM-DD_HH-MM-SS_topic.md`.
 
-     ## Research Question
+6.  **Сгенерируйте исследовательский отчет:**
 
-     [Original user query]
+    *   Создайте новый файл по пути, сгенерированному на шаге 5.
+    *   Структурируйте документ, используя `YAML frontmatter` и последующее содержание:
 
-     ## Summary
+    ```markdown
+    ---
+    date: [Текущая дата и время в формате ISO 8601]
+    researcher: Gemini 2.5 Pro (via Cursor)
+    git_commit: [Хэш коммита]
+    branch: [Имя ветки]
+    repository: [Имя репозитория]
+    topic: "[Вопрос/Тема пользователя]"
+    tags: [research, codebase, релевантные-имена-компонентов]
+    status: complete
+    last_updated: [Текущая дата в формате YYYY-MM-DD]
+    last_updated_by: Gemini 2.5 Pro (via Cursor)
+    ---
 
-     [High-level findings answering the user's question]
+    # Исследование: [Вопрос/Тема пользователя]
 
-     ## Detailed Findings
+    ## Исследовательский вопрос
 
-     ### [Component/Area 1]
+    > [Оригинальный запрос пользователя]
 
-     - Finding with reference ([file.ext:line](link))
-     - Connection to other components
-     - Implementation details
+    ## Краткое изложение
 
-     ### [Component/Area 2]
+    [1-2 абзаца с общими выводами, отвечающими на вопрос пользователя.]
 
-     ...
+    ## Подробные результаты из кодовой базы
 
-     ## Code References
+    ### [Компонент/Область 1]
 
-     - `path/to/file.py:123` - Description of what's there
-     - `another/file.ts:45-67` - Description of the code block
+    - Результат со ссылкой на файл и строку.
+    - Детали реализации и ключевые фрагменты кода.
 
-     ## Architecture Insights
+    ### [Компонент/Область 2]
+    ...
 
-     [Patterns, conventions, and design decisions discovered]
+    ## Исторический контекст (из `thoughts/`)
 
-     ## Historical Context (from thoughts/)
+    [Релевантные инсайты и ссылки на документы из `thoughts/researches/`, `thoughts/plans/` и `thoughts/drafts/`.]
 
-     [Relevant insights from thoughts/ directory with references]
+    - Ссылка на прошлое исследование: `thoughts/researches/2023-10-15_auth_system.md`
+    - Ссылка на связанный план: `thoughts/plans/Q4-2023_new_user_profile.md`
 
-     - `thoughts/shared/something.md` - Historical decision about X
-     - `thoughts/local/notes.md` - Past exploration of Y
-       Note: Paths exclude "searchable/" even if found there
+    ## Ключевые ссылки на код
 
-     ## Related Research
+    - `src/path/to/file.py:123` — Описание того, что находится в этой строке.
+    - `src/another/file.ts:45-67` — Описание этого блока кода.
 
-     [Links to other research documents in thoughts/shared/research/]
+    ## Архитектурные инсайты
 
-     ## Open Questions
+    [Обнаруженные паттерны, соглашения и общие проектные решения.]
 
-     [Any areas that need further investigation]
-     ```
+    ## Открытые вопросы
 
-7. **Add GitHub permalinks (if applicable):**
-   - Check if on main branch or if commit is pushed: `git branch --show-current` and `git status`
-   - If on main/master or pushed, generate GitHub permalinks:
-     - Get repo info: `gh repo view --json owner,name`
-     - Create permalinks: `https://github.com/{owner}/{repo}/blob/{commit}/{file}#L{line}`
-   - Replace local file references with permalinks in the document
+    [Любые области, требующие дальнейшего исследования, или неясности.]
+    ```
 
-8. **Sync and present findings:**
-   - Present a concise summary of findings to the user
-   - Include key file references for easy navigation
-   - Ask if they have follow-up questions or need clarification
+7.  **Сгенерируйте постоянные ссылки (permalinks) на GitHub (если применимо):**
 
-9. **Handle follow-up questions:**
-   - If the user has follow-up questions, append to the same research document
-   - Update the frontmatter fields `last_updated` and `last_updated_by` to reflect the update
-   - Add `last_updated_note: "Added follow-up research for [brief description]"` to frontmatter
-   - Add a new section: `## Follow-up Research [timestamp]`
-   - Spawn new sub-agents as needed for additional investigation
-   - Continue updating the document and syncing
+    *   Во встроенном терминале проверьте, что коммит запушен (`git status`).
+    *   Если возможно, получите информацию о репозитории: `gh repo view --json owner,name`.
+    *   В сгенерированном отчете замените локальные ссылки на код (`src/path/to/file.py:123`) на постоянные ссылки GitHub: `https://github.com/{owner}/{repo}/blob/{commit}/{file}#L{line}`.
 
-## Important notes:
+8.  **Представьте результаты пользователю:**
 
-- Always use parallel Task agents to maximize efficiency and minimize context usage
-- Always run fresh codebase research - never rely solely on existing research documents
-- The thoughts/ directory provides historical context to supplement live findings
-- Focus on finding concrete file paths and line numbers for developer reference
-- Research documents should be self-contained with all necessary context
-- Each sub-agent prompt should be specific and focused on read-only operations
-- Consider cross-component connections and architectural patterns
-- Include temporal context (when the research was conducted)
-- Link to GitHub when possible for permanent references
-- Keep the main agent focused on synthesis, not deep file reading
-- Encourage sub-agents to find examples and usage patterns, not just definitions
-- Explore all of thoughts/ directory, not just research subdirectory
-- **File reading**: Always read mentioned files FULLY (no limit/offset) before spawning sub-tasks
-- **Critical ordering**: Follow the numbered steps exactly
-  - ALWAYS read mentioned files first before spawning sub-tasks (step 1)
-  - ALWAYS wait for all sub-agents to complete before synthesizing (step 4)
-  - ALWAYS gather metadata before writing the document (step 5 before step 6)
-  - NEVER write the research document with placeholder values
-- **Path handling**: The thoughts/searchable/ directory contains hard links for searching
-  - Always document paths by removing ONLY "searchable/" - preserve all other subdirectories
-  - Examples of correct transformations:
-    - `thoughts/searchable/allison/old_stuff/notes.md` → `thoughts/allison/old_stuff/notes.md`
-    - `thoughts/searchable/shared/prs/123.md` → `thoughts/shared/prs/123.md`
-    - `thoughts/searchable/global/shared/templates.md` → `thoughts/global/shared/templates.md`
-  - NEVER change allison/ to shared/ or vice versa - preserve the exact directory structure
-  - This ensures paths are correct for editing and navigation
-- **Frontmatter consistency**:
-  - Always include frontmatter at the beginning of research documents
-  - Keep frontmatter fields consistent across all research documents
-  - Update frontmatter when adding follow-up research
-  - Use snake_case for multi-word field names (e.g., `last_updated`, `git_commit`)
-  - Tags should be relevant to the research topic and components studied
+    *   Выведите в чат краткое изложение из раздела "Краткое изложение" отчета.
+    *   Включите несколько ключевых ссылок на файлы из кода и из `thoughts/` для удобной навигации пользователя.
+    *   Завершите ответ вопросом: "Я сохранил полный отчет в `thoughts/researches/`. Это отвечает на ваш вопрос? Нужны ли какие-либо уточнения?"
+
+9.  **Обработайте дополнительные вопросы:**
+
+    *   Если у пользователя есть дополнительные вопросы, **найдите и обновите существующий исследовательский документ** в `thoughts/researches/`.
+    *   Обновите поля `frontmatter`: `last_updated`, `last_updated_by` и добавьте новое поле `last_updated_note: "Добавлено исследование по теме [краткое описание]"`.
+    *   Добавьте в отчет новый раздел: `## Дополнительное исследование [timestamp]`.
+    *   Представьте обновленную информацию пользователю.
+
+## Важные замечания:
+
+*   **Используйте `thoughts/`**: Эта директория — ваш главный источник исторического контекста. Новые отчеты всегда сохраняются в `thoughts/researches/`.
+*   **Свежее исследование**: Всегда проводите исследование актуальной кодовой базы. Документы в `thoughts/` служат дополнением, а не заменой.
+*   **Конкретика**: Фокусируйтесь на точных путях к файлам и номерах строк. Это наиболее ценно для разработчиков.
+*   **Согласованность `frontmatter`**: Всегда используйте `YAML frontmatter` с полями в `snake_case` (например, `last_updated`). Это делает документы машиночитаемыми.
+*   **Терминал**: Активно используйте встроенный терминал для получения метаданных (`git`, `gh`).

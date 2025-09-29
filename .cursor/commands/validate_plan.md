@@ -1,175 +1,182 @@
-# Validate Plan
+# Валидация Плана
 
-You are tasked with validating that an implementation plan was correctly executed, verifying all success criteria and identifying any deviations or issues.
+Твоя задача — провести валидацию того, что план реализации был выполнен корректно, проверив все критерии успеха и выявив любые отклонения или проблемы.
 
-## Initial Setup
+## Начальная Настройка
 
-When invoked:
+При вызове:
 
-1. **Determine context** - Are you in an existing conversation or starting fresh?
-   - If existing: Review what was implemented in this session
-   - If fresh: Need to discover what was done through git and codebase analysis
+1.  **Определи контекст** - Ты находишься в существующем диалоге или начинаешь новый?
 
-2. **Locate the plan**:
-   - If plan path provided, use it
-   - Otherwise, search recent commits for plan references or ask user
+      - Если в существующем: Проанализируй, что было реализовано в этой сессии.
+      - Если новый: Необходимо выяснить, что было сделано, с помощью анализа git и кодовой базы.
 
-3. **Gather implementation evidence**:
+2.  **Найди план**:
 
-   ```bash
-   # Check recent commits
-   git log --oneline -n 20
-   git diff HEAD~N..HEAD  # Where N covers implementation commits
+      - Если путь к плану предоставлен, используй его.
+      - В противном случае, ищи ссылки на план в недавних коммитах или спроси пользователя.
 
-   # Run comprehensive checks
-   cd $(git rev-parse --show-toplevel) && make check test
-   ```
+3.  **Собери доказательства реализации**:
 
-## Validation Process
+    ```bash
+    # Проверить недавние коммиты
+    git log --oneline -n 20
+    git diff HEAD~N..HEAD  # Где N покрывает коммиты реализации
 
-### Step 1: Context Discovery
+    # Запустить комплексные проверки
+    cd $(git rev-parse --show-toplevel) && make check test
+    ```
 
-If starting fresh or need more context:
+## Процесс Валидации
 
-1. **Read the implementation plan** completely
-2. **Identify what should have changed**:
-   - List all files that should be modified
-   - Note all success criteria (automated and manual)
-   - Identify key functionality to verify
+### Шаг 1: Определение Контекста
 
-3. **Spawn parallel research tasks** to discover implementation:
+Если начинаешь новый диалог или нужно больше контекста:
 
-   ```
-   Task 1 - Verify database changes:
-   Research if migration [N] was added and schema changes match plan.
-   Check: migration files, schema version, table structure
-   Return: What was implemented vs what plan specified
+1.  **Полностью прочитай план реализации**.
 
-   Task 2 - Verify code changes:
-   Find all modified files related to [feature].
-   Compare actual changes to plan specifications.
-   Return: File-by-file comparison of planned vs actual
+2.  **Определи, что должно было измениться**:
 
-   Task 3 - Verify test coverage:
-   Check if tests were added/modified as specified.
-   Run test commands and capture results.
-   Return: Test status and any missing coverage
-   ```
+      - Составь список всех файлов, которые должны быть изменены.
+      - Отметь все критерии успеха (автоматические и ручные).
+      - Определи ключевую функциональность для проверки.
 
-### Step 2: Systematic Validation
+3.  **Запусти параллельные задачи для исследования реализации**:
 
-For each phase in the plan:
+    ```
+    Задача 1 - Проверить изменения в базе данных:
+    Исследуй, была ли добавлена миграция [N] и соответствуют ли изменения схемы плану.
+    Проверь: файлы миграций, версию схемы, структуру таблиц.
+    Верни: Что было реализовано в сравнении с тем, что указано в плане.
 
-1. **Check completion status**:
-   - Look for checkmarks in the plan (- [x])
-   - Verify the actual code matches claimed completion
+    Задача 2 - Проверить изменения в коде:
+    Найди все измененные файлы, относящиеся к [feature].
+    Сравни фактические изменения со спецификациями плана.
+    Верни: Пофайловое сравнение запланированного с фактическим.
 
-2. **Run automated verification**:
-   - Execute each command from "Automated Verification"
-   - Document pass/fail status
-   - If failures, investigate root cause
+    Задача 3 - Проверить тестовое покрытие:
+    Проверь, были ли тесты добавлены/изменены, как указано.
+    Выполни команды для запуска тестов и зафиксируй результаты.
+    Верни: Статус тестов и любое отсутствующее покрытие.
+    ```
 
-3. **Assess manual criteria**:
-   - List what needs manual testing
-   - Provide clear steps for user verification
+### Шаг 2: Систематическая Валидация
 
-4. **Think deeply about edge cases**:
-   - Were error conditions handled?
-   - Are there missing validations?
-   - Could the implementation break existing functionality?
+Для каждого этапа в плане:
 
-### Step 3: Generate Validation Report
+1.  **Проверь статус завершения**:
 
-Create comprehensive validation summary:
+      - Ищи отметки о выполнении в плане (`- [x]`).
+      - Убедись, что реальный код соответствует заявленному выполнению.
+
+2.  **Выполни автоматическую проверку**:
+
+      - Выполни каждую команду из раздела "Автоматическая Проверка".
+      - Задокументируй статус прохождения/непрохождения.
+      - В случае сбоев, исследуй первопричину.
+
+3.  **Оцени ручные критерии**:
+
+      - Составь список того, что требует ручного тестирования.
+      - Предоставь четкие шаги для проверки пользователем.
+
+4.  **Глубоко продумай крайние случаи (edge cases)**:
+
+      - Обработаны ли условия ошибок?
+      - Есть ли недостающие валидации?
+      - Может ли реализация нарушить существующую функциональность?
+
+### Шаг 3: Сгенерируй Отчет о Валидации
+
+Создай исчерпывающий отчет о валидации:
 
 ```markdown
-## Validation Report: [Plan Name]
+## Отчет о Валидации: [Plan Name]
 
-### Implementation Status
+### Статус Реализации
 
-✓ Phase 1: [Name] - Fully implemented
-✓ Phase 2: [Name] - Fully implemented
-⚠️ Phase 3: [Name] - Partially implemented (see issues)
+✓ Этап 1: [Name] - Полностью реализовано
+✓ Этап 2: [Name] - Полностью реализовано
+⚠️ Этап 3: [Name] - Частично реализовано (см. проблемы)
 
-### Automated Verification Results
+### Результаты Автоматической Проверки
 
-✓ Build passes: `make build`
-✓ Tests pass: `make test`
-✗ Linting issues: `make lint` (3 warnings)
+✓ Сборка проходит: `make build`
+✓ Тесты проходят: `make test`
+✗ Проблемы с линтером: `make lint` (3 предупреждения)
 
-### Code Review Findings
+### Результаты Ревью Кода
 
-#### Matches Plan:
+#### Соответствует Плану:
 
-- Database migration correctly adds [table]
-- API endpoints implement specified methods
-- Error handling follows plan
+- Миграция базы данных корректно добавляет [table]
+- Эндпоинты API реализуют указанные методы
+- Обработка ошибок соответствует плану
 
-#### Deviations from Plan:
+#### Отклонения от Плана:
 
-- Used different variable names in [file:line]
-- Added extra validation in [file:line] (improvement)
+- Использованы другие имена переменных в [file:line]
+- Добавлена дополнительная валидация в [file:line] (улучшение)
 
-#### Potential Issues:
+#### Потенциальные Проблемы:
 
-- Missing index on foreign key could impact performance
-- No rollback handling in migration
+- Отсутствие индекса на внешнем ключе может повлиять на производительность
+- В миграции отсутствует обработка отката (rollback)
 
-### Manual Testing Required:
+### Требуется Ручное Тестирование:
 
-1. UI functionality:
-   - [ ] Verify [feature] appears correctly
-   - [ ] Test error states with invalid input
+1. Функциональность UI:
+   - [ ] Проверь, что [feature] отображается корректно
+   - [ ] Протестируй состояния ошибок с невалидными входными данными
 
-2. Integration:
-   - [ ] Confirm works with existing [component]
-   - [ ] Check performance with large datasets
+2. Интеграция:
+   - [ ] Подтверди, что работает с существующим [component]
+   - [ ] Проверь производительность на больших наборах данных
 
-### Recommendations:
+### Рекомендации:
 
-- Address linting warnings before merge
-- Consider adding integration test for [scenario]
-- Document new API endpoints
+- Исправь предупреждения линтера перед слиянием (merge)
+- Рассмотри возможность добавления интеграционного теста для [scenario]
+- Задокументируй новые эндпоинты API
 ```
 
-## Working with Existing Context
+## Работа с Существующим Контекстом
 
-If you were part of the implementation:
+Если ты был частью реализации:
 
-- Review the conversation history
-- Check your todo list for what was completed
-- Focus validation on work done in this session
-- Be honest about any shortcuts or incomplete items
+  - Проанализируй историю диалога.
+  - Проверь свой список задач (todo list), чтобы увидеть, что было завершено.
+  - Сконцентрируй валидацию на работе, проделанной в этой сессии.
+  - Будь честен в отношении любых упрощений или незавершенных элементов.
 
-## Important Guidelines
+## Важные Руководства
 
-1. **Be thorough but practical** - Focus on what matters
-2. **Run all automated checks** - Don't skip verification commands
-3. **Document everything** - Both successes and issues
-4. **Think critically** - Question if the implementation truly solves the problem
-5. **Consider maintenance** - Will this be maintainable long-term?
+1.  **Будь тщательным, но практичным** - Сосредоточься на важном.
+2.  **Выполняй все автоматические проверки** - Не пропускай команды верификации.
+3.  **Документируй всё** - как успехи, так и проблемы.
+4.  **Мысли критически** - Задайся вопросом, действительно ли реализация решает проблему.
+5.  **Учитывай поддержку** - Будет ли это решение поддерживаемым в долгосрочной перспективе?
 
-## Validation Checklist
+## Чек-лист Валидации
 
-Always verify:
+Всегда проверяй:
 
-- [ ] All phases marked complete are actually done
-- [ ] Automated tests pass
-- [ ] Code follows existing patterns
-- [ ] No regressions introduced
-- [ ] Error handling is robust
-- [ ] Documentation updated if needed
-- [ ] Manual test steps are clear
+  - [ ] Все этапы, отмеченные как завершенные, действительно выполнены.
+  - [ ] Автоматические тесты проходят.
+  - [ ] Код следует существующим паттернам.
+  - [ ] Не привнесены регрессии.
+  - [ ] Обработка ошибок надежна.
+  - [ ] Документация обновлена, если необходимо.
+  - [ ] Шаги для ручного тестирования понятны.
 
-## Relationship to Other Commands
+## Связь с Другими Командами
 
-Recommended workflow:
+Рекомендуемый рабочий процесс:
 
-1. `/implement_plan` - Execute the implementation
-2. `/commit` - Create atomic commits for changes
-3. `/validate_plan` - Verify implementation correctness
-4. `/describe_pr` - Generate PR description
+1.  `/implement_plan` - Выполнить реализацию.
+2.  `/commit` - Создать атомарные коммиты для изменений.
+3.  `/validate_plan` - Проверить корректность реализации.
 
-The validation works best after commits are made, as it can analyze the git history to understand what was implemented.
+Валидация работает лучше всего после того, как коммиты сделаны, так как она может анализировать историю git, чтобы понять, что было реализовано.
 
-Remember: Good validation catches issues before they reach production. Be constructive but thorough in identifying gaps or improvements.
+Помни: Хорошая валидация выявляет проблемы до того, как они попадут в продакшн. Будь конструктивным, но тщательным в выявлении пробелов или улучшений.

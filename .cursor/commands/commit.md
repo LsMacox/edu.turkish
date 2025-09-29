@@ -1,42 +1,46 @@
 # Commit Changes
 
-You are tasked with creating git commits for the changes made during this session.
+Тебе поручено создать git-коммиты для изменений, сделанных во время этой сессии.
 
 ## Process:
 
-1. **Think about what changed:**
-   - Review the conversation history and understand what was accomplished
-   - Run `git status` to see current changes
-   - Run `git diff` to understand the modifications
-   - Consider whether changes should be one commit or multiple logical commits
+1. **Подумай, что изменилось:**
 
-2. **Plan your commit(s):**
-   - Identify which files belong together
-   - Draft clear, descriptive commit messages
-   - Use imperative mood in commit messages
-   - Focus on why the changes were made, not just what
+   * Просмотри историю диалога и пойми, что было сделано
+   * Выполни `git status`, чтобы увидеть текущие изменения
+   * Выполни `git diff`, чтобы понять модификации
+   * Определи, нужно ли сделать один коммит или несколько логически связанных коммитов
 
-3. **Present your plan to the user:**
-   - List the files you plan to add for each commit
-   - Show the commit message(s) you'll use
-   - Ask: "I plan to create [N] commit(s) with these changes. Shall I proceed?"
+2. **Спланируй свои commit(s):**
 
-4. **Execute upon confirmation:**
-   - Use `git add` with specific files (never use `-A` or `.`)
-   - Create commits with your planned messages
-   - Show the result with `git log --oneline -n [number]`
+   * Определи, какие файлы относятся друг к другу
+   * Составь чёткие и описательные сообщения коммитов
+   * Используй повелительное наклонение в commit messages
+   * Сосредоточься на том, **почему** были сделаны изменения, а не только на том, **что** изменилось
+
+3. **Представь свой план пользователю:**
+
+   * Перечисли файлы, которые планируешь добавить в каждый коммит
+   * Покажи commit message(s), которые собираешься использовать
+   * Спроси: *"Я планирую создать [N] commit(s) с этими изменениями. Продолжить?"*
+
+4. **Выполни после подтверждения:**
+
+   * Используй `git add` с конкретными файлами (никогда не используй `-A` или `.`)
+   * Создай коммиты с запланированными сообщениями
+   * Покажи результат с помощью `git log --oneline -n [number]`
 
 ## Important:
 
-- **NEVER add co-author information or Claude attribution**
-- Commits should be authored solely by the user
-- Do not include any "Generated with Claude" messages
-- Do not add "Co-Authored-By" lines
-- Write commit messages as if the user wrote them
+* **НИКОГДА** не добавляй информацию о соавторах или упоминание Claude
+* Коммиты должны быть авторством только пользователя
+* Не включай сообщения вида "Generated with Claude"
+* Не добавляй строки "Co-Authored-By"
+* Пиши commit messages так, будто их написал пользователь
 
 ## Remember:
 
-- You have the full context of what was done in this session
-- Group related changes together
-- Keep commits focused and atomic when possible
-- The user trusts your judgment - they asked you to commit
+* У тебя есть полный контекст того, что было сделано в этой сессии
+* Группируй связанные изменения вместе
+* Держи коммиты максимально сфокусированными и атомарными
+* Пользователь доверяет твоему суждению — он попросил тебя сделать commit
