@@ -88,7 +88,7 @@
 
 <script setup lang="ts">
 const whoWeAre =
-  'https://storage.googleapis.com/uxpilot-auth.appspot.com/35f9c97132-5ca3689ed5ddf458915c.png'
+  '/images/who-we-are.jpg'
 const { t } = useI18n()
 </script>
 
