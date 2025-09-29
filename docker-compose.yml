@@ -125,7 +125,7 @@ services:
       DB_PORT: ${DB_PORT:-3306}
       DB_DATABASE: ${DB_NAME}
       DB_USER: root
-      DB_PASSWORD: root_password_123
+      DB_PASSWORD: ${DB_ROOT_PASSWORD:-root_password_123}
 
       # Directus базовые настройки
       WEBSOCKETS_ENABLED: 'true'
