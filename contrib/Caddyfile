@@ -1,0 +1,41 @@
+# Global options
+{
+    email {$CADDY_ACME_EMAIL}
+    # Optional: set default ACME CA (Let's Encrypt production by default)
+    # acme_ca https://acme-v02.api.letsencrypt.org/directory
+}
+
+# App (Nuxt) site
+{$APP_DOMAIN} {
+    encode zstd gzip
+    @static path_regexp static \.\w{2,5}$
+    header @static Cache-Control "public, max-age=31536000, immutable"
+
+    reverse_proxy app:3000 {
+        header_up X-Forwarded-Proto {scheme}
+        header_up X-Forwarded-Host {host}
+        header_up Host {host}
+    }
+}
+
+# Directus admin/API
+{$DIRECTUS_DOMAIN} {
+    encode zstd gzip
+    # Optional basic auth for admin surface; uncomment and set users if needed
+    # basicauth / {
+    #     admin JDJhJDE0JHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eA==
+    # }
+
+    reverse_proxy directus:8055 {
+        header_up X-Forwarded-Proto {scheme}
+        header_up X-Forwarded-Host {host}
+        header_up Host {host}
+    }
+}
+
+# Local HTTP fallback for convenience (optional)
+:80 {
+    redir https://{$APP_DOMAIN}{uri}
+}
+
+
