@@ -3,7 +3,7 @@ import { mount } from '@vue/test-utils'
 import { setActivePinia, createPinia } from 'pinia'
 import { nextTick } from 'vue'
 import FilterPanel from '~/components/features/universities/discovery/FilterPanel.vue'
-import BaseRangeSlider from '~/components/ui/forms/BaseRangeSlider.vue'
+import BaseRangeSlider from '~/components/shared/BaseRangeSlider.vue'
 import { useUniversitiesStore } from '~/stores/universities'
 
 const routerReplaceMock = vi.fn(() => Promise.resolve())
@@ -56,26 +56,26 @@ const mountFilterPanel = () =>
   mount(FilterPanel, {
     global: {
       components: {
-        UiFormsBaseRangeSlider: BaseRangeSlider,
+        BaseRangeSlider,
       },
       config: {
-        globalProperties: {
+        globalProperties: ({
           $t: (key: string) => key,
-        },
+        } as unknown) as Record<string, any>,
       },
       stubs: {
-        UiFormsBaseTextField: {
-          name: 'UiFormsBaseTextField',
+        BaseTextField: {
+          name: 'BaseTextField',
           template: '<input />',
           props: ['modelValue'],
         },
-        UiFormsBaseSelect: {
-          name: 'UiFormsBaseSelect',
+        BaseSelect: {
+          name: 'BaseSelect',
           template: '<select><slot /></select>',
           props: ['modelValue'],
         },
-        UiFormsBaseCheckbox: {
-          name: 'UiFormsBaseCheckbox',
+        BaseCheckbox: {
+          name: 'BaseCheckbox',
           template: '<input type="checkbox" />',
           props: ['checked'],
         },
