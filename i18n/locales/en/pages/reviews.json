@@ -19,6 +19,13 @@
         "text": "\"Got into Istanbul University thanks to Edu.turkish!\""
       }
     },
+    "mediaReviews": {
+      "title": "Video and photo reviews",
+      "titleAccent": "from our students",
+      "description": "Watch real success stories from our students. Video and photo reviews about admission and studying at Turkish universities.",
+      "error": "Failed to load reviews. Please try refreshing the page.",
+      "empty": "No media reviews yet"
+    },
     "achievements": {
       "title": "Our achievements",
       "titleAccent": "in numbers",

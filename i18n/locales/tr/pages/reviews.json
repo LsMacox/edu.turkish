@@ -19,6 +19,13 @@
         "text": "\"Edu.turkish sayesinde İstanbul Üniversitesi'ne girdim!\""
       }
     },
+    "mediaReviews": {
+      "title": "Video ve fotoğraf yorumlar",
+      "titleAccent": "öğrencilerimizden",
+      "description": "Öğrencilerimizin gerçek başarı hikayelerini izleyin. Türk üniversitelerine kabul ve eğitim hakkında video ve fotoğraf yorumlar.",
+      "error": "Yorumlar yüklenemedi. Lütfen sayfayı yenilemeyi deneyin.",
+      "empty": "Henüz medya yorumu yok"
+    },
     "achievements": {
       "title": "Başarılarımız",
       "titleAccent": "rakamlarla",
