@@ -1,15 +1,13 @@
 <template>
   <section id="who-we-are" class="pt-20">
-    <div class="container mx-auto px-4 lg:px-6">
+    <div class="container mx-auto container-padding-narrow">
       <div class="max-w-6xl mx-auto">
-        <div class="text-center mb-16">
-          <h2 class="text-3xl lg:text-4xl font-bold text-secondary mb-6">
-            {{ t('about.who_we_are.title') }}
-          </h2>
-          <p class="text-lg text-gray-600 max-w-3xl mx-auto">
-            {{ t('about.who_we_are.subtitle') }}
-          </p>
-        </div>
+        <BaseSectionHeader
+          :title="t('about.who_we_are.title')"
+          :subtitle="t('about.who_we_are.subtitle')"
+          align="center"
+          margin-bottom="lg"
+        />
 
         <div class="grid lg:grid-cols-2 gap-16 items-center mb-16">
           <div>
@@ -24,13 +22,9 @@
           <div class="space-y-8">
             <div class="space-y-6">
               <div class="flex items-start space-x-4">
-                <div
-                  class="w-12 h-12 bg-blue-100 rounded-xl flex items-center justify-center flex-shrink-0"
-                >
-                  <Icon name="mdi:trophy" class="text-blue-600 text-xl" />
-                </div>
+                <BaseIconBadge icon="mdi:trophy" color="blue" size="md" rounded="xl" class="flex-shrink-0" />
                 <div>
-                  <h3 class="text-xl font-semibold text-secondary mb-2">
+                  <h3 class="text-card-title mb-2">
                     {{ t('about.who_we_are.experienced_agency') }}
                   </h3>
                   <p class="text-gray-600">{{ t('about.who_we_are.experienced_agency_desc') }}</p>
@@ -38,13 +32,9 @@
               </div>
 
               <div class="flex items-start space-x-4">
-                <div
-                  class="w-12 h-12 bg-green-100 rounded-xl flex items-center justify-center flex-shrink-0"
-                >
-                  <Icon name="mdi:school" class="text-green-600 text-xl" />
-                </div>
+                <BaseIconBadge icon="mdi:school" color="green" size="md" rounded="xl" class="flex-shrink-0" />
                 <div>
-                  <h3 class="text-xl font-semibold text-secondary mb-2">
+                  <h3 class="text-card-title mb-2">
                     {{ t('about.who_we_are.students_enrolled') }}
                   </h3>
                   <p class="text-gray-600">{{ t('about.who_we_are.students_enrolled_desc') }}</p>
@@ -52,13 +42,9 @@
               </div>
 
               <div class="flex items-start space-x-4">
-                <div
-                  class="w-12 h-12 bg-purple-100 rounded-xl flex items-center justify-center flex-shrink-0"
-                >
-                  <Icon name="mdi:file-document" class="text-purple-600 text-xl" />
-                </div>
+                <BaseIconBadge icon="mdi:file-document" color="purple" size="md" rounded="xl" class="flex-shrink-0" />
                 <div>
-                  <h3 class="text-xl font-semibold text-secondary mb-2">
+                  <h3 class="text-card-title mb-2">
                     {{ t('about.who_we_are.official_work') }}
                   </h3>
                   <p class="text-gray-600">{{ t('about.who_we_are.official_work_desc') }}</p>
@@ -66,13 +52,9 @@
               </div>
 
               <div class="flex items-start space-x-4">
-                <div
-                  class="w-12 h-12 bg-orange-100 rounded-xl flex items-center justify-center flex-shrink-0"
-                >
-                  <Icon name="mdi:hand-heart" class="text-orange-600 text-xl" />
-                </div>
+                <BaseIconBadge icon="mdi:hand-heart" color="orange" size="md" rounded="xl" class="flex-shrink-0" />
                 <div>
-                  <h3 class="text-xl font-semibold text-secondary mb-2">
+                  <h3 class="text-card-title mb-2">
                     {{ t('about.who_we_are.comprehensive_help') }}
                   </h3>
                   <p class="text-gray-600">{{ t('about.who_we_are.comprehensive_help_desc') }}</p>
@@ -92,8 +74,3 @@ const whoWeAre =
 const { t } = useI18n()
 </script>
 
-<style scoped>
-.shadow-custom {
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
-}
-</style>

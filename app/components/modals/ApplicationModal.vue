@@ -1,33 +1,42 @@
 <template>
-  <div
-    v-if="isOpen"
-    class="fixed inset-0 z-50 flex items-center justify-center bg-black/50 backdrop-blur-sm px-4"
-    @click.self="closeModal"
-  >
+  <Teleport to="body">
     <div
-      class="bg-white rounded-2xl shadow-2xl w-full max-w-md mx-auto max-h-[90vh] overflow-y-auto"
+      v-if="isOpen"
+      class="application-modal-overlay fixed inset-0 z-[9999] flex items-end md:items-center justify-center bg-black/50 backdrop-blur-sm"
+      @click.self="closeModal"
     >
+      <div
+        class="modal-content bg-white rounded-t-3xl md:rounded-2xl shadow-2xl w-full md:max-w-md mx-auto max-h-[95vh] md:max-h-[90vh] overflow-y-auto overscroll-contain"
+        @touchstart="handleTouchStart"
+        @touchmove="handleTouchMove"
+        @touchend="handleTouchEnd"
+      >
+      <!-- Swipe indicator (mobile only) -->
+      <div class="md:hidden flex justify-center pt-3 pb-2">
+        <div class="w-10 h-1 bg-gray-300 rounded-full"></div>
+      </div>
+      
       <!-- Header -->
-      <div class="flex items-center justify-between p-4 md:p-6 border-b border-gray-100">
-        <h2 class="text-xl md:text-2xl font-bold text-secondary">
+      <div class="sticky top-0 bg-white z-10 flex items-center justify-between px-5 pt-3 pb-5 md:p-6 border-b border-gray-100">
+        <h2 class="text-lg md:text-2xl font-bold text-secondary pr-2">
           {{ $t('modal.consultation_title') }}
         </h2>
         <button
-          class="w-10 h-10 flex items-center justify-center rounded-full hover:bg-gray-100 transition-colors min-h-touch-44 min-w-touch-44"
+          class="w-11 h-11 flex items-center justify-center rounded-full hover:bg-gray-100 active:bg-gray-200 transition-colors flex-shrink-0"
           aria-label="Close modal"
           @click="closeModal"
         >
-          <Icon name="mdi:close" class="text-gray-500 text-xl" />
+          <Icon name="mdi:close" class="text-gray-500 text-2xl" />
         </button>
       </div>
 
       <!-- Form -->
-      <form class="p-4 md:p-6 space-y-4 md:space-y-4" @submit.prevent="submitForm">
+      <form class="p-5 md:p-6 space-y-5 md:space-y-4 pb-8" @submit.prevent="submitForm">
         <div>
-          <label class="block text-sm md:text-sm font-medium text-gray-700 mb-2"
+          <label class="block text-base md:text-sm font-medium text-gray-700 mb-2.5"
             >{{ $t('modal.your_name') }} {{ $t('modal.required') }}</label
           >
-          <UiFormsBaseTextField
+          <BaseTextField
             v-model="form.name"
             type="text"
             :placeholder="$t('modal.name_placeholder')"
@@ -35,7 +44,7 @@
         </div>
 
         <div>
-          <label class="block text-sm md:text-sm font-medium text-gray-700 mb-2"
+          <label class="block text-base md:text-sm font-medium text-gray-700 mb-2.5"
             >{{ $t('modal.phone') }} {{ $t('modal.required') }}</label
           >
           <input
@@ -46,17 +55,17 @@
             inputmode="tel"
             autocomplete="tel"
             maxlength="20"
-            class="w-full px-4 border border-gray-300 rounded-xl focus:ring-2 focus:ring-primary focus:border-transparent outline-none focus:outline-none transition-all py-4 md:py-3 text-base md:text-sm min-h-touch-48 md:min-h-auto"
+            class="w-full px-4 border border-gray-300 rounded-xl focus:ring-2 focus:ring-primary focus:border-transparent outline-none focus:outline-none transition-all py-4 md:py-3 text-base md:text-sm min-h-[52px] md:min-h-auto"
             @input="onPhoneInput"
             @keydown="onPhoneKeydown"
           />
         </div>
 
         <div>
-          <label class="block text-sm md:text-sm font-medium text-gray-700 mb-2">{{
+          <label class="block text-base md:text-sm font-medium text-gray-700 mb-2.5">{{
             $t('modal.email')
           }}</label>
-          <UiFormsBaseTextField
+          <BaseTextField
             v-model="form.email"
             type="email"
             :placeholder="$t('modal.email_placeholder')"
@@ -64,37 +73,37 @@
         </div>
 
         <div>
-          <label class="block text-sm md:text-sm font-medium text-gray-700 mb-2">{{
+          <label class="block text-base md:text-sm font-medium text-gray-700 mb-2.5">{{
             $t('modal.direction')
           }}</label>
-          <UiFormsBaseSelect v-model="form.direction">
+          <BaseSelect v-model="form.direction">
             <option value="">{{ $t('modal.direction_placeholder') }}</option>
             <option v-for="d in directions" :key="d.id" :value="d.name">{{ d.name }}</option>
             <option value="other">{{ $t('modal.directions.other') }}</option>
-          </UiFormsBaseSelect>
+          </BaseSelect>
         </div>
 
         <div>
-          <label class="block text-sm md:text-sm font-medium text-gray-700 mb-2">{{
+          <label class="block text-base md:text-sm font-medium text-gray-700 mb-2.5">{{
             $t('modal.additional_info')
           }}</label>
           <textarea
             v-model="form.message"
             :placeholder="$t('modal.message_placeholder')"
             rows="3"
-            class="w-full px-4 border border-gray-300 rounded-xl focus:ring-2 focus:ring-primary focus:border-transparent focus:outline-none transition-all resize-none py-4 md:py-3 text-base md:text-sm min-h-[80px]"
+            class="w-full px-4 border border-gray-300 rounded-xl focus:ring-2 focus:ring-primary focus:border-transparent focus:outline-none transition-all resize-none py-4 md:py-3 text-base md:text-sm min-h-[100px]"
           ></textarea>
         </div>
 
         <!-- Preferences display - только для анкеты с главной страницы -->
         <div
           v-if="userPreferences && isQuestionnaire(userPreferences)"
-          class="bg-blue-50 border border-blue-200 rounded-xl p-3 md:p-4"
+          class="bg-blue-50 border border-blue-200 rounded-xl p-4"
         >
-          <h4 class="text-sm font-semibold text-blue-800 mb-2">
+          <h4 class="text-base md:text-sm font-semibold text-blue-800 mb-2.5">
             {{ $t('modal.preferences_title') }}
           </h4>
-          <div class="text-xs md:text-xs text-blue-700 space-y-1">
+          <div class="text-sm md:text-xs text-blue-700 space-y-1.5">
             <p>
               • {{ $t('modal.preference_labels.user_type') }}
               {{ getUserTypeText(userPreferences.userType) }}
@@ -114,9 +123,9 @@
           </div>
         </div>
 
-        <UiFormsBaseCheckbox :checked="form.agreement" @update:checked="form.agreement = $event">
+        <BaseCheckbox :checked="form.agreement" @update:checked="form.agreement = $event">
           {{ $t('modal.agreement') }}
-        </UiFormsBaseCheckbox>
+        </BaseCheckbox>
 
         <!-- Hidden referral source field for debugging -->
         <input
@@ -128,13 +137,14 @@
         <button
           type="submit"
           :disabled="isSubmitting || !form.agreement"
-          class="w-full bg-primary text-white rounded-xl font-semibold hover:bg-red-600 transition-colors disabled:opacity-50 disabled:cursor-not-allowed py-4 text-base md:text-lg min-h-touch-48"
+          class="w-full bg-primary text-white rounded-xl font-semibold hover:bg-red-600 active:bg-red-700 transition-colors disabled:opacity-50 disabled:cursor-not-allowed py-4 text-lg md:text-lg min-h-[52px] shadow-lg active:shadow-md"
         >
           {{ isSubmitting ? $t('modal.submitting') : $t('modal.submit_button') }}
         </button>
       </form>
+      </div>
     </div>
-  </div>
+  </Teleport>
 </template>
 
 <script setup lang="ts">
@@ -166,6 +176,11 @@ const form = ref({
 })
 
 const isSubmitting = ref(false)
+
+// Touch gesture handling for mobile swipe-to-close
+const touchStartY = ref(0)
+const touchCurrentY = ref(0)
+const isDragging = ref(false)
 
 const phoneRef = computed({
   get: () => form.value.phone,
@@ -336,7 +351,58 @@ const getScholarshipText = (scholarship: string): string => {
     : ($t('modal.scholarship.no') as string)
 }
 
-// Закрытие по ESC
+// Touch gesture handlers
+const handleTouchStart = (e: TouchEvent) => {
+  const modalContent = e.currentTarget as HTMLElement
+  const scrollTop = modalContent.scrollTop
+  
+  // Only allow swipe-to-close when scrolled to top
+  if (scrollTop === 0 && e.touches[0]) {
+    touchStartY.value = e.touches[0].clientY
+    isDragging.value = true
+  }
+}
+
+const handleTouchMove = (e: TouchEvent) => {
+  if (!isDragging.value || !e.touches[0]) return
+  
+  touchCurrentY.value = e.touches[0].clientY
+  const diff = touchCurrentY.value - touchStartY.value
+  
+  // Only allow downward swipe
+  if (diff > 0) {
+    const modalContent = e.currentTarget as HTMLElement
+    modalContent.style.transform = `translateY(${diff}px)`
+    modalContent.style.transition = 'none'
+  }
+}
+
+const handleTouchEnd = () => {
+  if (!isDragging.value) return
+  
+  const diff = touchCurrentY.value - touchStartY.value
+  const modalContent = document.querySelector('.modal-content') as HTMLElement
+  
+  if (modalContent) {
+    modalContent.style.transition = 'transform 0.3s cubic-bezier(0.16, 1, 0.3, 1)'
+    
+    // Close if swiped down more than 100px
+    if (diff > 100) {
+      modalContent.style.transform = 'translateY(100%)'
+      setTimeout(() => {
+        closeModal()
+      }, 300)
+    } else {
+      modalContent.style.transform = 'translateY(0)'
+    }
+  }
+  
+  isDragging.value = false
+  touchStartY.value = 0
+  touchCurrentY.value = 0
+}
+
+// Закрытие по ESC и блокировка скролла body
 onMounted(() => {
   const handleEscape = (e: KeyboardEvent) => {
     if (e.key === 'Escape' && props.isOpen) {
@@ -350,12 +416,27 @@ onMounted(() => {
     document.removeEventListener('keydown', handleEscape)
   })
 })
+
+// Блокировка скролла body при открытии модала
+watch(
+  () => props.isOpen,
+  (isOpen) => {
+    if (process.client) {
+      if (isOpen) {
+        document.body.style.overflow = 'hidden'
+      } else {
+        document.body.style.overflow = ''
+      }
+    }
+  },
+  { immediate: true }
+)
 </script>
 
-<style scoped>
+<style>
 /* Анимация появления */
-.fixed {
-  animation: fadeIn 0.2s ease-out;
+.application-modal-overlay {
+  animation: fadeIn 0.25s ease-out;
 }
 
 @keyframes fadeIn {
@@ -367,18 +448,45 @@ onMounted(() => {
   }
 }
 
-.bg-white {
-  animation: slideIn 0.2s ease-out;
+.modal-content {
+  animation: slideIn 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  will-change: transform;
 }
 
 @keyframes slideIn {
   from {
-    transform: translateY(-20px);
+    transform: translateY(100%);
     opacity: 0;
   }
   to {
     transform: translateY(0);
     opacity: 1;
+  }
+}
+
+/* На десктопе используем другую анимацию */
+@media (min-width: 768px) {
+  @keyframes slideIn {
+    from {
+      transform: translateY(-20px) scale(0.95);
+      opacity: 0;
+    }
+    to {
+      transform: translateY(0) scale(1);
+      opacity: 1;
+    }
+  }
+}
+
+/* Улучшенный скролл на iOS */
+.overflow-y-auto {
+  -webkit-overflow-scrolling: touch;
+}
+
+/* Оптимизация для мобильных */
+@media (max-width: 767px) {
+  .modal-content {
+    touch-action: pan-y;
   }
 }
 </style>

@@ -1,6 +1,6 @@
 <template>
-  <footer class="bg-white py-16">
-    <div class="container mx-auto px-4 lg:px-6">
+  <footer class="bg-white section-py">
+    <div class="container mx-auto container-padding-narrow">
       <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8 mb-8">
         <!-- About Us -->
         <div>

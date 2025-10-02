@@ -2,8 +2,8 @@
   <section id="comparison" class="py-16">
     <div class="container mx-auto px-4 lg:px-6">
       <div class="text-center mb-12">
-        <h2 class="text-3xl lg:text-4xl font-bold text-secondary mb-4">Почему через нас лучше?</h2>
-        <p class="text-lg text-gray-600 max-w-2xl mx-auto">
+        <h2 class="text-section-title mb-4">Почему через нас лучше?</h2>
+        <p class="text-section-subtitle max-w-2xl mx-auto">
           Сравните подачу документов через агентство и самостоятельно
         </p>
       </div>
@@ -85,8 +85,3 @@
 // Comparison table section
 </script>
 
-<style scoped>
-.shadow-custom {
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
-}
-</style>

@@ -1,5 +1,5 @@
 <template>
-  <section id="final-cta" class="py-20 bg-gradient-to-r from-primary to-red-600">
+  <section id="final-cta" class="section-py-lg bg-gradient-to-r from-primary to-red-600">
     <div class="container text-center">
       <div class="max-w-4xl mx-auto text-white">
         <h2 class="text-4xl lg:text-5xl font-bold mb-6">
@@ -9,7 +9,7 @@
           {{ $t('universities_page.final_cta.subtitle') }}
         </p>
 
-        <div class="bg-white rounded-2xl p-8 max-w-2xl mx-auto mb-8">
+        <div class="bg-white rounded-2xl card-padding-lg max-w-2xl mx-auto mb-8">
           <h3 class="text-2xl font-bold text-secondary mb-6">
             {{ $t('universities_page.final_cta.benefits_title') }}
           </h3>

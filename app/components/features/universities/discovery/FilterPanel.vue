@@ -5,7 +5,7 @@
       <label class="block text-sm font-medium text-secondary mb-2">{{
         $t('universities_page.filters.search_label')
       }}</label>
-      <UiFormsBaseTextField
+      <BaseTextField
         v-model="state.q"
         type="text"
         :placeholder="$t('universities_page.filters.search_placeholder')"
@@ -18,12 +18,12 @@
       <label class="block text-sm font-medium text-secondary mb-2">{{
         $t('universities_page.filters.city_label')
       }}</label>
-      <UiFormsBaseSelect v-model="state.city">
+      <BaseSelect v-model="state.city">
         <option value="Все">{{ $t('universities_page.filters.all_cities') }}</option>
         <option v-for="city in availableFilters.cities" :key="city" :value="city">
           {{ city }}
         </option>
-      </UiFormsBaseSelect>
+      </BaseSelect>
     </div>
 
     <!-- Language -->
@@ -32,7 +32,7 @@
         $t('universities_page.filters.language_label')
       }}</label>
       <div v-if="availableLanguageCodes.length" class="space-y-2">
-        <UiFormsBaseCheckbox
+        <BaseCheckbox
           v-for="lang in availableLanguageCodes"
           :key="lang"
           :checked="state.langs.includes(lang)"
@@ -40,7 +40,7 @@
           @update:checked="toggleLang(lang, $event)"
         >
           {{ getLanguageLabel(lang) }}
-        </UiFormsBaseCheckbox>
+        </BaseCheckbox>
       </div>
     </div>
 
@@ -49,12 +49,12 @@
       <label class="block text-sm font-medium text-secondary mb-2">{{
         $t('universities_page.filters.type_label')
       }}</label>
-      <UiFormsBaseSelect v-model="state.type">
+      <BaseSelect v-model="state.type">
         <option value="Все">{{ $t('universities_page.filters.all_types') }}</option>
         <option v-for="t in availableFilters.types" :key="t" :value="t">
           {{ getTypeLabel(t) }}
         </option>
-      </UiFormsBaseSelect>
+      </BaseSelect>
     </div>
 
     <!-- Level -->
@@ -62,17 +62,17 @@
       <label class="block text-sm font-medium text-secondary mb-2">{{
         $t('universities_page.filters.level_label')
       }}</label>
-      <UiFormsBaseSelect v-model="state.level">
+      <BaseSelect v-model="state.level">
         <option :value="LEVEL_ALL_VALUE">{{ $t('universities_page.filters.all_levels') }}</option>
         <option v-for="level in levelOptions" :key="level.value" :value="level.value">
           {{ level.label }}
         </option>
-      </UiFormsBaseSelect>
+      </BaseSelect>
     </div>
 
     <!-- Price Range -->
     <div class="md:col-span-2 lg:col-span-6">
-      <UiFormsBaseRangeSlider
+      <BaseRangeSlider
         v-model="priceRange"
         :min="priceRangeBounds[0]"
         :max="priceRangeBounds[1]"

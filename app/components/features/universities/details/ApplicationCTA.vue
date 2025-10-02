@@ -18,7 +18,7 @@
                 <label class="block text-sm font-semibold text-secondary mb-2">{{
                   $t('applicationCTA.form.name_label')
                 }}</label>
-                <UiFormsBaseTextField
+                <BaseTextField
                   v-model="form.name"
                   type="text"
                   :placeholder="$t('applicationCTA.form.name_placeholder')"
@@ -49,7 +49,7 @@
               <label class="block text-sm font-semibold text-secondary mb-2">{{
                 $t('applicationCTA.form.email_label')
               }}</label>
-              <UiFormsBaseTextField
+              <BaseTextField
                 v-model="form.email"
                 type="email"
                 :placeholder="$t('applicationCTA.form.email_placeholder')"
@@ -61,22 +61,22 @@
                 <label class="block text-sm font-semibold text-secondary mb-2"
                   >{{ $t('applicationCTA.form.program_label') }} *</label
                 >
-                <UiFormsBaseSelect v-model="form.program" required>
+                <BaseSelect v-model="form.program" required>
                   <option value="">{{ $t('applicationCTA.form.program_placeholder') }}</option>
                   <option v-for="program in availablePrograms" :key="program" :value="program">
                     {{ program }}
                   </option>
                   <option value="other">{{ $t('applicationCTA.form.program_other') }}</option>
-                </UiFormsBaseSelect>
+                </BaseSelect>
               </div>
               <div>
                 <label class="block text-sm font-semibold text-secondary mb-2">{{
                   $t('applicationCTA.form.level_label')
                 }}</label>
-                <UiFormsBaseSelect v-model="form.level">
+                <BaseSelect v-model="form.level">
                   <option value="bachelor">{{ $t('applicationCTA.form.level_bachelor') }}</option>
                   <option value="master">{{ $t('applicationCTA.form.level_master') }}</option>
-                </UiFormsBaseSelect>
+                </BaseSelect>
               </div>
             </div>
 
@@ -92,12 +92,12 @@
               ></textarea>
             </div>
 
-            <UiFormsBaseCheckbox
+            <BaseCheckbox
               :checked="form.privacyAgreed"
               @update:checked="form.privacyAgreed = $event"
             >
               {{ $t('applicationCTA.form.privacy_agreement') }}
-            </UiFormsBaseCheckbox>
+            </BaseCheckbox>
 
             <div class="text-center">
               <button

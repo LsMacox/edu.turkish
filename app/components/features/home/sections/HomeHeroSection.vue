@@ -1,42 +1,40 @@
 <template>
   <section
     id="hero"
-    class="relative bg-gradient-to-br from-blue-50 to-purple-50 py-8 md:py-16 lg:py-20"
+    class="relative bg-gradient-to-br from-blue-50 to-purple-50 section-py-lg"
   >
-    <div class="container mx-auto max-w-7xl px-4 md:px-6 lg:px-8">
-      <div class="grid lg:grid-cols-2 gap-6 md:gap-12 items-center">
-        <div class="space-y-4 md:space-y-8 order-2 lg:order-1">
+    <div class="container mx-auto max-w-7xl container-padding">
+      <div class="grid lg:grid-cols-2 gap-section-lg items-center">
+        <div class="space-y-section-sm order-2 lg:order-1">
           <div class="space-y-3 md:space-y-4">
-            <h1
-              class="text-2xl xs:text-3xl md:text-4xl lg:text-5xl font-bold text-secondary leading-tight"
-            >
+            <h1 class="text-hero">
               <span class="block xs:inline">{{ t('home.hero.title') }}</span>
               <span class="text-primary ml-2 xs:ml-3">{{ t('home.hero.title_accent') }}</span>
             </h1>
-            <p class="text-base md:text-lg text-gray-600 leading-relaxed">
+            <p class="text-hero-subtitle">
               {{ t('home.hero.subtitle') }}
             </p>
           </div>
 
           <!-- Stats -->
-          <div class="flex flex-wrap gap-4 md:gap-6 text-sm">
-            <div class="flex items-center space-x-2">
-              <Icon name="mdi:check-circle" class="text-green-500 text-lg" />
-              <span class="text-secondary font-medium">{{ t('home.hero.stat_students') }}</span>
+          <div class="flex flex-wrap gap-3 md:gap-4 pt-2 md:pt-3">
+            <div class="flex items-center space-x-1.5">
+              <Icon name="mdi:check-circle" class="text-green-500 text-lg md:text-xl" />
+              <span class="text-secondary font-medium text-sm md:text-base">{{ t('home.hero.stat_students') }}</span>
             </div>
-            <div class="flex items-center space-x-2">
-              <Icon name="mdi:shield-check" class="text-blue-500 text-lg" />
-              <span class="text-secondary font-medium">{{ t('home.hero.stat_verified') }}</span>
+            <div class="flex items-center space-x-1.5">
+              <Icon name="mdi:shield-check" class="text-blue-500 text-lg md:text-xl" />
+              <span class="text-secondary font-medium text-sm md:text-base">{{ t('home.hero.stat_verified') }}</span>
             </div>
-            <div class="flex items-center space-x-2">
-              <Icon name="mdi:file-document" class="text-purple-500 text-lg" />
-              <span class="text-secondary font-medium">{{ t('home.hero.stat_documents') }}</span>
+            <div class="flex items-center space-x-1.5">
+              <Icon name="mdi:file-document" class="text-purple-500 text-lg md:text-xl" />
+              <span class="text-secondary font-medium text-sm md:text-base">{{ t('home.hero.stat_documents') }}</span>
             </div>
           </div>
 
-          <div class="flex flex-col sm:flex-row gap-3 md:gap-4">
+          <div class="flex flex-col sm:flex-row gap-3 md:gap-4 pt-2 md:pt-4">
             <button
-              class="bg-primary text-white px-4 md:px-8 py-3 md:py-4 rounded-xl font-semibold text-sm md:text-lg hover:bg-red-600 transition-all shadow-lg"
+              class="bg-primary text-white px-4 md:px-8 py-3 md:py-4 rounded-xl hover:bg-red-600 transition-all shadow-lg text-btn-lg"
               @click="modal.openModal()"
             >
               {{ t('cta.apply') }}
@@ -71,7 +69,7 @@
         </div>
 
         <div class="relative order-1 lg:order-2">
-          <div class="bg-white rounded-2xl md:rounded-3xl shadow-custom p-4 md:p-6">
+          <div class="bg-white rounded-2xl md:rounded-3xl shadow-custom card-padding">
             <NuxtImg
               src="/images/main-hero.png"
               alt="Group of happy international students"
@@ -97,10 +95,10 @@
                 <Icon name="mdi:star" class="text-green-600 text-base md:text-lg" />
               </div>
               <div>
-                <p class="text-xs md:text-sm font-semibold text-secondary">
+                <p class="text-body-sm font-semibold text-secondary">
                   {{ t('home.hero.success_rate') }}
                 </p>
-                <p class="text-xs text-gray-500">{{ t('home.hero.success_desc') }}</p>
+                <p class="text-body-sm text-gray-500">{{ t('home.hero.success_desc') }}</p>
               </div>
             </div>
           </div>

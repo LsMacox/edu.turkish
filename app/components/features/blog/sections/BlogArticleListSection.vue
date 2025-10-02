@@ -1,6 +1,6 @@
 <template>
   <div>
-    <h2 class="text-2xl font-bold text-secondary mb-8">{{ title }}</h2>
+    <h2 class="text-section-title mb-8">{{ title }}</h2>
 
     <div class="grid md:grid-cols-2 gap-8 mb-12">
       <article
@@ -79,7 +79,7 @@
             </span>
             <span>{{ article.publishedAtLabel }}</span>
           </div>
-          <h3 class="text-xl font-semibold text-secondary mb-3">{{ article.title }}</h3>
+          <h3 class="text-card-title mb-3">{{ article.title }}</h3>
           <p class="text-gray-600 text-sm mb-4">{{ article.excerpt }}</p>
           <div class="mt-auto pt-2 flex items-center justify-between text-sm text-gray-500">
             <span v-if="article.readingTimeLabel">{{ article.readingTimeLabel }}</span>

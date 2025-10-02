@@ -1,62 +1,48 @@
 <template>
-  <section class="py-20 bg-background">
-    <div class="container mx-auto px-4 lg:px-6">
+  <section class="section-py-lg bg-background">
+    <div class="container mx-auto container-padding-narrow">
       <div class="max-w-6xl mx-auto">
-        <div class="text-center mb-16">
-          <h2 class="text-3xl lg:text-4xl font-bold text-secondary mb-6">
-            {{ t('about.mission.title') }}
-          </h2>
-          <p class="text-lg text-gray-600 max-w-3xl mx-auto">
-            {{ t('about.mission.subtitle') }}
-          </p>
-        </div>
+        <BaseSectionHeader
+          :title="t('about.mission.title')"
+          :subtitle="t('about.mission.subtitle')"
+          align="center"
+          margin-bottom="lg"
+        />
 
         <div class="grid lg:grid-cols-3 gap-8 mb-16">
-          <div class="bg-white rounded-2xl shadow-custom p-8 text-center hover-lift">
-            <div
-              class="w-20 h-20 bg-blue-100 rounded-2xl flex items-center justify-center mx-auto mb-6"
-            >
-              <Icon name="mdi:heart" class="text-blue-600 text-2xl" />
-            </div>
-            <h3 class="text-xl font-semibold text-secondary mb-4">
-              {{ t('about.mission.no_pressure') }}
-            </h3>
-            <p class="text-gray-600 leading-relaxed">
-              {{ t('about.mission.no_pressure_desc') }}
-            </p>
-          </div>
+          <BaseFeatureCard
+            icon="mdi:heart"
+            icon-color="blue"
+            icon-size="lg"
+            :title="t('about.mission.no_pressure')"
+            :description="t('about.mission.no_pressure_desc')"
+            hover="lift"
+            centered
+          />
 
-          <div class="bg-white rounded-2xl shadow-custom p-8 text-center hover-lift">
-            <div
-              class="w-20 h-20 bg-green-100 rounded-2xl flex items-center justify-center mx-auto mb-6"
-            >
-              <Icon name="mdi:message-text" class="text-green-600 text-2xl" />
-            </div>
-            <h3 class="text-xl font-semibold text-secondary mb-4">
-              {{ t('about.mission.your_language') }}
-            </h3>
-            <p class="text-gray-600 leading-relaxed">
-              {{ t('about.mission.your_language_desc') }}
-            </p>
-          </div>
+          <BaseFeatureCard
+            icon="mdi:message-text"
+            icon-color="green"
+            icon-size="lg"
+            :title="t('about.mission.your_language')"
+            :description="t('about.mission.your_language_desc')"
+            hover="lift"
+            centered
+          />
 
-          <div class="bg-white rounded-2xl shadow-custom p-8 text-center hover-lift">
-            <div
-              class="w-20 h-20 bg-purple-100 rounded-2xl flex items-center justify-center mx-auto mb-6"
-            >
-              <Icon name="mdi:account-group" class="text-purple-600 text-2xl" />
-            </div>
-            <h3 class="text-xl font-semibold text-secondary mb-4">
-              {{ t('about.mission.after_admission') }}
-            </h3>
-            <p class="text-gray-600 leading-relaxed">
-              {{ t('about.mission.after_admission_desc') }}
-            </p>
-          </div>
+          <BaseFeatureCard
+            icon="mdi:account-group"
+            icon-color="purple"
+            icon-size="lg"
+            :title="t('about.mission.after_admission')"
+            :description="t('about.mission.after_admission_desc')"
+            hover="lift"
+            centered
+          />
         </div>
 
         <div
-          class="bg-gradient-to-r from-primary to-red-600 rounded-2xl p-8 lg:p-12 text-white text-center"
+          class="bg-gradient-to-r from-primary to-red-600 rounded-2xl card-padding-lg lg:p-12 text-white text-center"
         >
           <h3 class="text-2xl lg:text-3xl font-bold mb-4">
             {{ t('about.mission.philosophy_title') }}
@@ -84,20 +70,3 @@
 <script setup lang="ts">
 const { t } = useI18n()
 </script>
-
-<style scoped>
-.shadow-custom {
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
-}
-
-.hover-lift {
-  transition:
-    transform 0.3s ease,
-    box-shadow 0.3s ease;
-}
-
-.hover-lift:hover {
-  transform: translateY(-4px);
-  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.12);
-}
-</style>

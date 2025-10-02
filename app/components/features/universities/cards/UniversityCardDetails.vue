@@ -19,9 +19,9 @@
     </div>
 
     <div v-if="badgeComputed" class="flex items-center">
-      <UiDisplayBaseBadge :color="getBadgeColor(badgeComputed.color)" size="sm">
+      <BaseBadge :color="getBadgeColor(badgeComputed.color)" size="sm">
         {{ badgeLabel }}
-      </UiDisplayBaseBadge>
+      </BaseBadge>
     </div>
   </div>
 </template>

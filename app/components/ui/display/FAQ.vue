@@ -2,10 +2,10 @@
   <section class="py-16 bg-background">
     <div class="container">
       <div v-if="displayTitle || displaySubtitle" class="text-center mb-12">
-        <h2 v-if="displayTitle" class="text-3xl lg:text-4xl font-bold text-secondary mb-4">
+        <h2 v-if="displayTitle" class="text-section-title mb-4">
           {{ displayTitle }}
         </h2>
-        <p v-if="displaySubtitle" class="text-lg text-gray-600 max-w-2xl mx-auto">
+        <p v-if="displaySubtitle" class="text-section-subtitle max-w-2xl mx-auto">
           {{ displaySubtitle }}
         </p>
       </div>
@@ -106,8 +106,3 @@ const isOpen = (index: number) => openFaqs.value.includes(index)
 const isStringAnswer = (answer: FaqAnswer): answer is string => typeof answer === 'string'
 </script>
 
-<style scoped>
-.shadow-custom {
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
-}
-</style>

@@ -1,12 +1,12 @@
 <template>
-  <section id="student-stories" class="pt-10 pb-14 md:py-20 bg-background">
-    <div class="container mx-auto px-4 lg:px-6">
-      <div class="text-center mb-10 md:mb-16">
-        <h2 class="text-4xl lg:text-5xl font-bold text-secondary mb-6">
+  <section id="student-stories" class="section-py bg-background">
+    <div class="container mx-auto container-padding-narrow">
+      <div class="text-center mb-8 md:mb-12">
+        <h2 class="text-section-title mb-6">
           {{ $t('reviews.studentStories.title') }}
           <span class="text-primary">{{ $t('reviews.studentStories.titleAccent') }}</span>
         </h2>
-        <p class="text-xl text-gray-600 max-w-3xl mx-auto">
+        <p class="text-section-subtitle max-w-3xl mx-auto">
           {{ $t('reviews.studentStories.description') }}
         </p>
       </div>
@@ -16,7 +16,7 @@
       </div>
       <div v-else-if="pending" class="animate-pulse text-center">Loading reviews...</div>
       <div v-for="review in studentReviews" v-else :key="review.id" class="max-w-4xl mx-auto mb-8">
-        <div class="bg-white rounded-3xl shadow-custom hover-lift p-6 md:p-8">
+        <div class="bg-white rounded-3xl shadow-custom hover-lift card-padding">
           <div class="mb-6">
             <h3 class="text-xl font-bold text-secondary mb-2">{{ review.name }}</h3>
             <p class="text-primary font-semibold mb-1">{{ review.university }}</p>
@@ -92,8 +92,3 @@ if (reviewsError.value) {
 }
 </script>
 
-<style scoped>
-.shadow-custom {
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
-}
-</style>

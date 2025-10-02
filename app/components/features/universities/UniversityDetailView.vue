@@ -60,10 +60,10 @@
     <section class="py-16 bg-white">
       <div class="container mx-auto px-4 lg:px-6">
         <div class="text-center mb-12">
-          <h2 class="text-3xl lg:text-4xl font-bold text-secondary mb-4">
+          <h2 class="text-section-title mb-4">
             {{ $t('universityDetail.keyInformation.title') }}
           </h2>
-          <p class="text-lg text-gray-600">{{ $t('universityDetail.keyInformation.subtitle') }}</p>
+          <p class="text-section-subtitle">{{ $t('universityDetail.keyInformation.subtitle') }}</p>
         </div>
 
         <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
@@ -73,7 +73,7 @@
             >
               <Icon name="ph:map-pin" class="text-blue-600 text-2xl" />
             </div>
-            <h3 class="text-lg font-semibold text-secondary mb-2">
+            <h3 class="text-card-title mb-2">
               {{ $t('universityDetail.keyInformation.city') }}
             </h3>
             <p class="text-gray-600">{{ university.keyInfo.city }}</p>
@@ -85,7 +85,7 @@
             >
               <Icon name="ph:calendar" class="text-green-600 text-2xl" />
             </div>
-            <h3 class="text-lg font-semibold text-secondary mb-2">
+            <h3 class="text-card-title mb-2">
               {{ $t('universityDetail.keyInformation.foundedYear') }}
             </h3>
             <p class="text-gray-600">{{ university.keyInfo.foundedYear }}</p>
@@ -97,7 +97,7 @@
             >
               <Icon name="ph:currency-dollar" class="text-purple-600 text-2xl" />
             </div>
-            <h3 class="text-lg font-semibold text-secondary mb-2">
+            <h3 class="text-card-title mb-2">
               {{ $t('universityDetail.keyInformation.cost') }}
             </h3>
             <p class="text-gray-600">
@@ -119,7 +119,7 @@
             >
               <Icon name="ph:translate" class="text-orange-600 text-2xl" />
             </div>
-            <h3 class="text-lg font-semibold text-secondary mb-2">
+            <h3 class="text-card-title mb-2">
               {{ $t('universityDetail.keyInformation.languages') }}
             </h3>
             <p class="text-gray-600">{{ university.keyInfo.languages.join(', ') }}</p>
@@ -131,7 +131,7 @@
             >
               <Icon name="ph:users" class="text-red-600 text-2xl" />
             </div>
-            <h3 class="text-lg font-semibold text-secondary mb-2">
+            <h3 class="text-card-title mb-2">
               {{ $t('universityDetail.keyInformation.students') }}
             </h3>
             <p class="text-gray-600">
@@ -147,7 +147,7 @@
             >
               <Icon name="ph:house" class="text-yellow-600 text-2xl" />
             </div>
-            <h3 class="text-lg font-semibold text-secondary mb-2">
+            <h3 class="text-card-title mb-2">
               {{ $t('universityDetail.keyInformation.accommodation') }}
             </h3>
             <p class="text-gray-600">{{ university.keyInfo.accommodation }}</p>
@@ -159,7 +159,7 @@
             >
               <Icon name="ph:trophy" class="text-teal-600 text-2xl" />
             </div>
-            <h3 class="text-lg font-semibold text-secondary mb-2">
+            <h3 class="text-card-title mb-2">
               {{ $t('universityDetail.keyInformation.ranking') }}
             </h3>
             <p class="text-gray-600">{{ university.keyInfo.ranking }}</p>
@@ -171,7 +171,7 @@
             >
               <Icon name="ph:globe" class="text-indigo-600 text-2xl" />
             </div>
-            <h3 class="text-lg font-semibold text-secondary mb-2">
+            <h3 class="text-card-title mb-2">
               {{ $t('universityDetail.keyInformation.internationalStudents') }}
             </h3>
             <p class="text-gray-600">{{ university.keyInfo.internationalStudents }}</p>
@@ -184,7 +184,7 @@
     <section class="py-16 bg-background">
       <div class="container mx-auto px-4 lg:px-6">
         <div class="max-w-4xl mx-auto">
-          <h2 class="text-3xl lg:text-4xl font-bold text-secondary mb-8 text-center">
+          <h2 class="text-section-title mb-8 text-center">
             {{ $t('universityDetail.aboutUniversity.title') }}
           </h2>
 
@@ -193,7 +193,7 @@
               <h3 class="text-2xl font-semibold text-secondary mb-4">
                 {{ $t('universityDetail.aboutUniversity.history') }}
               </h3>
-              <p class="text-gray-600 leading-relaxed">
+              <p class="text-card-body">
                 {{ university.about.history }}
               </p>
             </div>
@@ -202,7 +202,7 @@
               <h3 class="text-2xl font-semibold text-secondary mb-4">
                 {{ $t('universityDetail.aboutUniversity.campus') }}
               </h3>
-              <p class="text-gray-600 leading-relaxed">
+              <p class="text-card-body">
                 {{ university.about.campus }}
               </p>
             </div>
@@ -213,7 +213,7 @@
               </h3>
               <div class="grid md:grid-cols-2 gap-6">
                 <div v-for="category in university.strongPrograms" :key="category.category">
-                  <h4 class="text-lg font-semibold text-secondary mb-3">{{ category.category }}</h4>
+                  <h4 class="text-card-title mb-3">{{ category.category }}</h4>
                   <ul class="text-gray-600 space-y-1">
                     <li v-for="program in category.programs" :key="program">• {{ program }}</li>
                   </ul>
@@ -289,19 +289,3 @@ const { getChannel } = useContactChannels()
 const whatsappChannel = getChannel('whatsapp')
 </script>
 
-<style scoped>
-.shadow-custom {
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
-}
-
-.hover-lift {
-  transition:
-    transform 0.3s ease,
-    box-shadow 0.3s ease;
-}
-
-.hover-lift:hover {
-  transform: translateY(-4px);
-  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.12);
-}
-</style>

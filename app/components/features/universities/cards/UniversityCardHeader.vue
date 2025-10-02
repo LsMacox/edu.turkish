@@ -24,14 +24,14 @@
     </h3>
 
     <div class="flex items-center gap-2 ml-2 flex-shrink-0">
-      <UiDisplayBaseBadge v-if="featured" color="warning" size="sm">
+      <BaseBadge v-if="featured" color="warning" size="sm">
         <Icon name="mdi:star" class="w-3 h-3 mr-1" />
         Featured
-      </UiDisplayBaseBadge>
+      </BaseBadge>
 
-      <UiDisplayBaseBadge v-if="typeLabel" :color="getBadgeColor(type)" size="sm">
+      <BaseBadge v-if="typeLabel" :color="getBadgeColor(type)" size="sm">
         {{ typeLabel }}
-      </UiDisplayBaseBadge>
+      </BaseBadge>
     </div>
   </div>
 </template>

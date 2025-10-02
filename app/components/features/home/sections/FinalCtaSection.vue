@@ -1,11 +1,11 @@
 <template>
-  <section id="final-cta" class="py-20 bg-gradient-to-r from-primary to-red-600">
-    <div class="container mx-auto px-4 lg:px-6 text-center">
+  <section id="final-cta" class="section-py-lg bg-gradient-to-r from-primary to-red-600">
+    <div class="container mx-auto container-padding-narrow text-center">
       <div class="max-w-4xl mx-auto text-white">
-        <h2 class="text-4xl lg:text-5xl font-bold mb-6">
+        <h2 class="text-section-title mb-6">
           {{ t('home.final_cta.title') }}
         </h2>
-        <p class="text-xl mb-8 opacity-90">
+        <p class="text-body-lg mb-8 opacity-90">
           {{ t('home.final_cta.subtitle', { days: timeLeft.days }) }}
         </p>
 

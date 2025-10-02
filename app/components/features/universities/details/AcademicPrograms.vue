@@ -2,10 +2,10 @@
   <section class="py-16 bg-white">
     <div class="container mx-auto px-4 lg:px-6">
       <div class="text-center mb-12">
-        <h2 class="text-3xl lg:text-4xl font-bold text-secondary mb-4">
+        <h2 class="text-section-title mb-4">
           {{ $t('academicPrograms.title') }}
         </h2>
-        <p class="text-lg text-gray-600">{{ $t('academicPrograms.subtitle') }}</p>
+        <p class="text-section-subtitle">{{ $t('academicPrograms.subtitle') }}</p>
       </div>
 
       <!-- Program Tabs -->
@@ -76,7 +76,7 @@
         >
           <Icon name="ph:graduation-cap" class="text-gray-400 text-2xl" />
         </div>
-        <h3 class="text-lg font-semibold text-secondary mb-2">
+        <h3 class="text-card-title mb-2">
           {{ $t('academicPrograms.emptyState.title') }}
         </h3>
         <p class="text-gray-600">{{ $t('academicPrograms.emptyState.description') }}</p>
@@ -121,8 +121,3 @@ const getLanguageBadgeClass = (language: string) => {
 }
 </script>
 
-<style scoped>
-.shadow-custom {
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
-}
-</style>

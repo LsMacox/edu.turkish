@@ -1,16 +1,16 @@
 <template>
-  <section id="who-are-you" class="py-16 bg-background">
+  <section id="who-are-you" class="section-py bg-background">
     <div class="container">
       <div class="max-w-4xl mx-auto">
-        <div class="text-center mb-12">
-          <h2 class="text-3xl lg:text-4xl font-bold text-secondary mb-4">
-            {{ t('home.who.title') }}
-          </h2>
-          <p class="text-lg text-gray-600">{{ t('home.who.subtitle') }}</p>
-        </div>
-        <div class="bg-white rounded-2xl shadow-custom p-8 space-y-8">
+        <BaseSectionHeader
+          :title="t('home.who.title')"
+          :subtitle="t('home.who.subtitle')"
+          align="center"
+          margin-bottom="lg"
+        />
+        <div class="bg-white rounded-2xl shadow-custom card-padding-lg space-y-8">
           <div class="space-y-4">
-            <h3 class="text-xl font-semibold text-secondary">{{ t('home.who.title') }}</h3>
+            <h3 class="text-card-title hidden md:block">{{ t('home.who.title') }}</h3>
             <div class="grid md:grid-cols-2 gap-4">
               <button
                 :class="[
@@ -22,9 +22,7 @@
                 @click="selectOption('userType', 'student')"
               >
                 <div class="flex items-center gap-3">
-                  <div class="w-12 h-12 bg-blue-100 rounded-xl grid place-items-center">
-                    <Icon name="mdi:school" class="text-blue-600 text-lg" />
-                  </div>
+                  <BaseIconBadge icon="mdi:school" color="blue" size="md" rounded="xl" />
                   <div>
                     <p class="font-semibold text-secondary">{{ t('home.who.student') }}</p>
                     <p class="text-sm text-gray-500">{{ t('home.who.student_desc') }}</p>
@@ -41,9 +39,7 @@
                 @click="selectOption('userType', 'parent')"
               >
                 <div class="flex items-center gap-3">
-                  <div class="w-12 h-12 bg-purple-100 rounded-xl grid place-items-center">
-                    <Icon name="mdi:heart" class="text-purple-600 text-lg" />
-                  </div>
+                  <BaseIconBadge icon="mdi:heart" color="purple" size="md" rounded="xl" />
                   <div>
                     <p class="font-semibold text-secondary">{{ t('home.who.parent') }}</p>
                     <p class="text-sm text-gray-500">{{ t('home.who.parent_desc') }}</p>
@@ -54,7 +50,7 @@
           </div>
 
           <div class="space-y-4">
-            <h3 class="text-xl font-semibold text-secondary">
+            <h3 class="text-card-title">
               {{ t('home.who.university_chosen') }}
             </h3>
             <div class="grid md:grid-cols-2 gap-4">
@@ -84,7 +80,7 @@
           </div>
 
           <div class="space-y-4">
-            <h3 class="text-xl font-semibold text-secondary">
+            <h3 class="text-card-title">
               {{ t('home.who.language_interest') }}
             </h3>
             <div class="grid md:grid-cols-2 gap-4">
@@ -114,7 +110,7 @@
           </div>
 
           <div class="space-y-4">
-            <h3 class="text-xl font-semibold text-secondary">
+            <h3 class="text-card-title">
               {{ t('home.who.scholarship_help') }}
             </h3>
             <div class="grid md:grid-cols-2 gap-4">
@@ -231,14 +227,9 @@ const openApplicationForm = () => {
     universityChosen: answers.value.universityChosen,
     language: answers.value.language,
     scholarship: answers.value.scholarship,
-  }
+  } as any
 
   modal.openModal(questionnairePreferences)
 }
 </script>
 
-<style scoped>
-.shadow-custom {
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
-}
-</style>

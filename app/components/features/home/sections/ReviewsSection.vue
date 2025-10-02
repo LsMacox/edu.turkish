@@ -1,12 +1,12 @@
 <template>
-  <section id="reviews" class="py-16 bg-background">
-    <div class="container mx-auto px-4 lg:px-6">
-      <div class="text-center mb-12">
-        <h2 class="text-3xl lg:text-4xl font-bold text-secondary mb-4">
-          {{ t('home.reviews.title') }}
-        </h2>
-        <p class="text-lg text-gray-600 max-w-2xl mx-auto">{{ t('home.reviews.subtitle') }}</p>
-      </div>
+  <section id="reviews" class="section-py bg-background">
+    <div class="container mx-auto container-padding-narrow">
+      <BaseSectionHeader
+        :title="t('home.reviews.title')"
+        :subtitle="t('home.reviews.subtitle')"
+        align="center"
+        margin-bottom="lg"
+      />
 
       <div v-if="reviewsError" class="text-center text-red-500 mb-12">
         {{ t('home.reviews.error') }}
@@ -21,7 +21,7 @@
         <div
           v-for="review in featuredReviews"
           :key="review.id"
-          class="bg-white rounded-2xl shadow-custom p-8 flex flex-col"
+          class="bg-white rounded-2xl shadow-custom card-padding-lg flex flex-col"
         >
           <div class="mb-6">
             <h3 class="font-semibold text-secondary">{{ review.name }}</h3>
@@ -37,7 +37,7 @@
             />
           </div>
 
-          <p class="text-gray-600 leading-relaxed">{{ review.quote }}</p>
+          <p class="text-body">{{ review.quote }}</p>
         </div>
       </div>
 
@@ -95,8 +95,3 @@ if (reviewsError.value) {
 }
 </script>
 
-<style scoped>
-.shadow-custom {
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
-}
-</style>

@@ -2,10 +2,10 @@
   <section class="py-16 bg-background">
     <div class="container mx-auto px-4 lg:px-6">
       <div class="text-center mb-12">
-        <h2 class="text-3xl lg:text-4xl font-bold text-secondary mb-4">
+        <h2 class="text-section-title mb-4">
           {{ $t('admissionRequirements.title') }}
         </h2>
-        <p class="text-lg text-gray-600">{{ $t('admissionRequirements.subtitle') }}</p>
+        <p class="text-section-subtitle">{{ $t('admissionRequirements.subtitle') }}</p>
       </div>
 
       <div class="grid lg:grid-cols-2 gap-12">
@@ -75,7 +75,7 @@
           </div>
 
           <div class="bg-white rounded-2xl shadow-custom p-8">
-            <h3 class="text-xl font-semibold text-secondary mb-4">
+            <h3 class="text-card-title mb-4">
               {{ $t('admissionRequirements.scholarships.title') }}
             </h3>
             <div class="space-y-3">
@@ -95,7 +95,7 @@
 
           <!-- Important Dates -->
           <div v-if="importantDates.length > 0" class="bg-white rounded-2xl shadow-custom p-8">
-            <h3 class="text-xl font-semibold text-secondary mb-4">
+            <h3 class="text-card-title mb-4">
               {{ $t('admissionRequirements.importantDates.title') }}
             </h3>
             <div class="space-y-3">
@@ -234,8 +234,3 @@ const importantDates = computed(() => {
 })
 </script>
 
-<style scoped>
-.shadow-custom {
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
-}
-</style>

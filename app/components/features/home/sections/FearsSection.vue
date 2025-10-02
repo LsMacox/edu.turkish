@@ -1,19 +1,17 @@
 <template>
-  <section id="breaking-fears" class="py-16 bg-gray-50">
-    <div class="container mx-auto px-4 lg:px-6">
-      <div class="text-center mb-12">
-        <h2 class="text-3xl lg:text-4xl font-bold text-secondary mb-4">
-          {{ t('home.fears.title') }}
-        </h2>
-        <p class="text-lg text-gray-600 max-w-2xl mx-auto">{{ t('home.fears.subtitle') }}</p>
-      </div>
+  <section id="breaking-fears" class="section-py bg-gray-50">
+    <div class="container mx-auto container-padding-narrow">
+      <BaseSectionHeader
+        :title="t('home.fears.title')"
+        :subtitle="t('home.fears.subtitle')"
+        align="center"
+        margin-bottom="lg"
+      />
 
       <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-        <div class="bg-white rounded-2xl shadow-custom p-8">
-          <div class="w-16 h-16 bg-red-100 rounded-2xl flex items-center justify-center mb-6">
-            <Icon name="mdi:alert-circle" class="text-red-600 text-2xl" />
-          </div>
-          <h3 class="text-xl font-semibold text-secondary mb-4">
+        <div class="bg-white rounded-2xl shadow-custom card-padding-lg">
+          <BaseIconBadge icon="mdi:alert-circle" color="red" size="md" class="mb-6" />
+          <h3 class="text-card-title mb-4">
             {{ t('home.fears.fear1_title') }}
           </h3>
           <div class="space-y-3">
@@ -27,11 +25,9 @@
           </div>
         </div>
 
-        <div class="bg-white rounded-2xl shadow-custom p-8">
-          <div class="w-16 h-16 bg-blue-100 rounded-2xl flex items-center justify-center mb-6">
-            <Icon name="mdi:translate" class="text-blue-600 text-2xl" />
-          </div>
-          <h3 class="text-xl font-semibold text-secondary mb-4">
+        <div class="bg-white rounded-2xl shadow-custom card-padding-lg">
+          <BaseIconBadge icon="mdi:translate" color="blue" size="md" class="mb-6" />
+          <h3 class="text-card-title mb-4">
             {{ t('home.fears.fear2_title') }}
           </h3>
           <div class="space-y-3">
@@ -45,11 +41,9 @@
           </div>
         </div>
 
-        <div class="bg-white rounded-2xl shadow-custom p-8">
-          <div class="w-16 h-16 bg-orange-100 rounded-2xl flex items-center justify-center mb-6">
-            <Icon name="mdi:clock-alert" class="text-orange-600 text-2xl" />
-          </div>
-          <h3 class="text-xl font-semibold text-secondary mb-4">
+        <div class="bg-white rounded-2xl shadow-custom card-padding-lg">
+          <BaseIconBadge icon="mdi:clock-alert" color="orange" size="md" class="mb-6" />
+          <h3 class="text-card-title mb-4">
             {{ t('home.fears.fear3_title') }}
           </h3>
           <div class="space-y-3">
@@ -63,11 +57,9 @@
           </div>
         </div>
 
-        <div class="bg-white rounded-2xl shadow-custom p-8">
-          <div class="w-16 h-16 bg-purple-100 rounded-2xl flex items-center justify-center mb-6">
-            <Icon name="mdi:currency-usd" class="text-purple-600 text-2xl" />
-          </div>
-          <h3 class="text-xl font-semibold text-secondary mb-4">
+        <div class="bg-white rounded-2xl shadow-custom card-padding-lg">
+          <BaseIconBadge icon="mdi:currency-usd" color="purple" size="md" class="mb-6" />
+          <h3 class="text-card-title mb-4">
             {{ t('home.fears.fear4_title') }}
           </h3>
           <div class="space-y-3">
@@ -81,11 +73,9 @@
           </div>
         </div>
 
-        <div class="bg-white rounded-2xl shadow-custom p-8">
-          <div class="w-16 h-16 bg-green-100 rounded-2xl flex items-center justify-center mb-6">
-            <Icon name="mdi:close-circle" class="text-green-600 text-2xl" />
-          </div>
-          <h3 class="text-xl font-semibold text-secondary mb-4">
+        <div class="bg-white rounded-2xl shadow-custom card-padding-lg">
+          <BaseIconBadge icon="mdi:close-circle" color="green" size="md" class="mb-6" />
+          <h3 class="text-card-title mb-4">
             {{ t('home.fears.fear5_title') }}
           </h3>
           <div class="space-y-3">
@@ -99,11 +89,9 @@
           </div>
         </div>
 
-        <div class="bg-white rounded-2xl shadow-custom p-8">
-          <div class="w-16 h-16 bg-yellow-100 rounded-2xl flex items-center justify-center mb-6">
-            <Icon name="mdi:home" class="text-yellow-600 text-2xl" />
-          </div>
-          <h3 class="text-xl font-semibold text-secondary mb-4">
+        <div class="bg-white rounded-2xl shadow-custom card-padding-lg">
+          <BaseIconBadge icon="mdi:home" color="yellow" size="md" class="mb-6" />
+          <h3 class="text-card-title mb-4">
             {{ t('home.fears.fear6_title') }}
           </h3>
           <div class="space-y-3">
@@ -126,8 +114,3 @@
 const { t } = useI18n()
 </script>
 
-<style scoped>
-.shadow-custom {
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
-}
-</style>

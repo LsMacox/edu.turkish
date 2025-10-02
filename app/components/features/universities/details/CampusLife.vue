@@ -2,10 +2,10 @@
   <section v-if="campusImages.length > 0" class="py-16 bg-white">
     <div class="container mx-auto px-4 lg:px-6">
       <div class="text-center mb-12">
-        <h2 class="text-3xl lg:text-4xl font-bold text-secondary mb-4">
+        <h2 class="text-section-title mb-4">
           {{ $t('universityDetail.campusLife.title') }}
         </h2>
-        <p class="text-lg text-gray-600">{{ $t('universityDetail.campusLife.subtitle') }}</p>
+        <p class="text-section-subtitle">{{ $t('universityDetail.campusLife.subtitle') }}</p>
       </div>
 
       <div
@@ -301,20 +301,3 @@ const openImageModal = (_image: CampusImage) => {
   // TODO: implement modal preview if needed
 }
 </script>
-
-<style scoped>
-.shadow-custom {
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
-}
-
-.hover-lift {
-  transition:
-    transform 0.3s ease,
-    box-shadow 0.3s ease;
-}
-
-.hover-lift:hover {
-  transform: translateY(-4px);
-  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.12);
-}
-</style>

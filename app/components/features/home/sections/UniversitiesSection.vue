@@ -1,12 +1,12 @@
 <template>
-  <section id="universities" class="py-16 bg-gray-50">
+  <section id="universities" class="section-py bg-gray-50">
     <div class="container">
-      <div class="text-center mb-12">
-        <h2 class="text-3xl lg:text-4xl font-bold text-secondary mb-4">
-          {{ t('home.universities.title') }}
-        </h2>
-        <p class="text-lg text-gray-600 max-w-2xl mx-auto">{{ t('home.universities.subtitle') }}</p>
-      </div>
+      <BaseSectionHeader
+        :title="t('home.universities.title')"
+        :subtitle="t('home.universities.subtitle')"
+        align="center"
+        margin-bottom="lg"
+      />
 
       <div class="flex flex-wrap justify-center gap-4 mb-12">
         <button

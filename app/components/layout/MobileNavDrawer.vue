@@ -10,10 +10,10 @@
 
       <!-- Drawer -->
       <div
-        class="fixed inset-y-0 right-0 w-80 max-w-[85vw] bg-white shadow-2xl overflow-y-auto z-[99999] animate-slide-in-right"
+        class="fixed inset-0 md:inset-y-0 md:right-0 md:left-auto w-full md:w-80 md:max-w-[85vw] bg-white shadow-2xl overflow-y-auto z-[99999] animate-slide-in-right"
       >
         <!-- Header -->
-        <div class="flex items-center justify-between p-6 border-b border-gray-100">
+        <div class="flex items-center justify-between p-5 md:p-6 border-b border-gray-100">
           <div class="flex items-center space-x-2">
             <NuxtImg
               src="/images/logo.png"
@@ -27,19 +27,19 @@
               :quality="78"
               class="h-[60px] w-[60px]"
             />
-            <span class="text-xl font-bold text-secondary">Edu.turkish</span>
+            <span class="text-lg md:text-xl font-bold text-secondary">Edu.turkish</span>
           </div>
           <button
-            class="w-10 h-10 flex items-center justify-center rounded-xl hover:bg-gray-100 transition-colors min-h-touch-44 min-w-touch-44"
+            class="w-11 h-11 flex items-center justify-center rounded-xl hover:bg-gray-100 active:bg-gray-200 transition-colors flex-shrink-0"
             aria-label="Close navigation"
             @click="closeDrawer"
           >
-            <Icon name="mdi:close" class="text-gray-500 text-xl" />
+            <Icon name="mdi:close" class="text-gray-500 text-2xl" />
           </button>
         </div>
 
         <!-- Navigation Links -->
-        <nav class="px-6 py-8">
+        <nav class="px-5 md:px-6 py-6 md:py-8">
           <div class="space-y-2">
             <NuxtLink
               to="#services"
@@ -128,7 +128,7 @@
         </nav>
 
         <!-- Language Switcher -->
-        <div class="px-6 pb-4">
+        <div class="px-5 md:px-6 pb-4">
           <div class="border-t border-gray-100 pt-6">
             <h3 class="text-sm font-semibold text-gray-700 mb-4">{{ t('nav.language') }}</h3>
             <div class="grid grid-cols-2 gap-2">
@@ -151,7 +151,7 @@
         </div>
 
         <!-- Social Links -->
-        <div class="px-6 pb-6">
+        <div class="px-5 md:px-6 pb-5 md:pb-6">
           <div class="border-t border-gray-100 pt-6">
             <h3 class="text-sm font-semibold text-gray-700 mb-4">{{ t('nav.social') }}</h3>
             <div class="flex gap-3">
@@ -184,9 +184,9 @@
         </div>
 
         <!-- CTA Button -->
-        <div class="px-6 pb-safe-bottom">
+        <div class="px-5 md:px-6 pb-8 md:pb-6">
           <button
-            class="w-full bg-primary text-white py-4 rounded-xl font-semibold text-lg hover:bg-red-600 transition-colors min-h-touch-48 shadow-lg"
+            class="w-full bg-primary text-white py-4 rounded-xl font-semibold text-lg hover:bg-red-600 active:bg-red-700 transition-colors min-h-[52px] shadow-lg active:shadow-md"
             @click="handleCTAClick"
           >
             {{ t('cta.apply') }}
@@ -277,4 +277,19 @@ onMounted(() => {
     document.removeEventListener('keydown', handleEscape)
   })
 })
+
+// Block body scroll when drawer is open
+watch(
+  () => props.isOpen,
+  (isOpen) => {
+    if (process.client) {
+      if (isOpen) {
+        document.body.style.overflow = 'hidden'
+      } else {
+        document.body.style.overflow = ''
+      }
+    }
+  },
+  { immediate: true }
+)
 </script>

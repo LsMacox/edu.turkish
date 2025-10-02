@@ -1,16 +1,16 @@
 <template>
   <section
     id="next-review-cta"
-    class="pt-12 pb-16 md:py-20 bg-gradient-to-r from-primary to-red-600"
+    class="section-py-lg bg-gradient-to-r from-primary to-red-600"
   >
-    <div class="container mx-auto px-4 lg:px-6">
+    <div class="container mx-auto container-padding-narrow">
       <div class="max-w-4xl mx-auto text-center text-white">
         <div class="mb-8">
-          <h2 class="text-4xl lg:text-5xl font-bold mb-6">
+          <h2 class="text-section-title mb-6">
             {{ $t('reviews.nextReviewCTA.title') }}
             <span class="text-red-100">{{ $t('reviews.nextReviewCTA.titleAccent') }}</span>
           </h2>
-          <p class="text-xl text-red-100 leading-relaxed max-w-3xl mx-auto">
+          <p class="text-section-subtitle max-w-3xl mx-auto text-white">
             {{ $t('reviews.nextReviewCTA.description') }}
           </p>
         </div>
@@ -65,21 +65,21 @@
         <div class="bg-white/10 backdrop-blur rounded-3xl p-8 mb-8">
           <div class="grid md:grid-cols-4 gap-6 text-center">
             <div>
-              <div class="text-3xl font-bold mb-1">500+</div>
+              <div class="text-2xl md:text-3xl font-bold mb-1">500+</div>
               <p class="text-red-100 text-sm">{{ $t('reviews.nextReviewCTA.stats.students') }}</p>
             </div>
             <div>
-              <div class="text-3xl font-bold mb-1">98%</div>
+              <div class="text-2xl md:text-3xl font-bold mb-1">98%</div>
               <p class="text-red-100 text-sm">{{ $t('reviews.nextReviewCTA.stats.admissions') }}</p>
             </div>
             <div>
-              <div class="text-3xl font-bold mb-1">20+</div>
+              <div class="text-2xl md:text-3xl font-bold mb-1">20+</div>
               <p class="text-red-100 text-sm">
                 {{ $t('reviews.nextReviewCTA.stats.universities') }}
               </p>
             </div>
             <div>
-              <div class="text-3xl font-bold mb-1">6</div>
+              <div class="text-2xl md:text-3xl font-bold mb-1">6</div>
               <p class="text-red-100 text-sm">{{ $t('reviews.nextReviewCTA.stats.experience') }}</p>
             </div>
           </div>

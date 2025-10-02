@@ -1,26 +1,20 @@
 <template>
-  <section class="py-20">
-    <div class="container mx-auto px-4 lg:px-6">
+  <section class="section-py-lg">
+    <div class="container mx-auto container-padding-narrow">
       <div class="max-w-6xl mx-auto">
-        <div class="text-center mb-16">
-          <h2 class="text-3xl lg:text-4xl font-bold text-secondary mb-6">
-            {{ $t('about.whyChooseUs.title') }}
-          </h2>
-          <p class="text-lg text-gray-600 max-w-3xl mx-auto">
-            {{ $t('about.whyChooseUs.subtitle') }}
-          </p>
-        </div>
+        <BaseSectionHeader
+          :title="$t('about.whyChooseUs.title')"
+          :subtitle="$t('about.whyChooseUs.subtitle')"
+          align="center"
+          margin-bottom="lg"
+        />
 
         <div class="grid lg:grid-cols-2 gap-16 items-center mb-16">
           <div class="space-y-8">
             <div class="flex items-start space-x-4">
-              <div
-                class="w-12 h-12 bg-blue-100 rounded-xl flex items-center justify-center flex-shrink-0"
-              >
-                <Icon name="mdi:school" class="text-blue-600 text-xl" />
-              </div>
+              <BaseIconBadge icon="mdi:school" color="blue" size="md" rounded="xl" class="flex-shrink-0" />
               <div>
-                <h3 class="text-xl font-semibold text-secondary mb-2">
+                <h3 class="text-card-title mb-2">
                   {{ $t('about.whyChooseUs.advantages.personal.title') }}
                 </h3>
                 <p class="text-gray-600">
@@ -30,13 +24,9 @@
             </div>
 
             <div class="flex items-start space-x-4">
-              <div
-                class="w-12 h-12 bg-green-100 rounded-xl flex items-center justify-center flex-shrink-0"
-              >
-                <Icon name="mdi:handshake" class="text-green-600 text-xl" />
-              </div>
+              <BaseIconBadge icon="mdi:handshake" color="green" size="md" rounded="xl" class="flex-shrink-0" />
               <div>
-                <h3 class="text-xl font-semibold text-secondary mb-2">
+                <h3 class="text-card-title mb-2">
                   {{ $t('about.whyChooseUs.advantages.direct.title') }}
                 </h3>
                 <p class="text-gray-600">
@@ -46,13 +36,9 @@
             </div>
 
             <div class="flex items-start space-x-4">
-              <div
-                class="w-12 h-12 bg-purple-100 rounded-xl flex items-center justify-center flex-shrink-0"
-              >
-                <Icon name="mdi:translate" class="text-purple-600 text-xl" />
-              </div>
+              <BaseIconBadge icon="mdi:translate" color="purple" size="md" rounded="xl" class="flex-shrink-0" />
               <div>
-                <h3 class="text-xl font-semibold text-secondary mb-2">
+                <h3 class="text-card-title mb-2">
                   {{ $t('about.whyChooseUs.advantages.multilingual.title') }}
                 </h3>
                 <p class="text-gray-600">
@@ -62,13 +48,9 @@
             </div>
 
             <div class="flex items-start space-x-4">
-              <div
-                class="w-12 h-12 bg-orange-100 rounded-xl flex items-center justify-center flex-shrink-0"
-              >
-                <Icon name="mdi:hand-heart" class="text-orange-600 text-xl" />
-              </div>
+              <BaseIconBadge icon="mdi:hand-heart" color="orange" size="md" rounded="xl" class="flex-shrink-0" />
               <div>
-                <h3 class="text-xl font-semibold text-secondary mb-2">
+                <h3 class="text-card-title mb-2">
                   {{ $t('about.whyChooseUs.advantages.support.title') }}
                 </h3>
                 <p class="text-gray-600">
@@ -87,7 +69,7 @@
         </div>
 
         <div
-          class="bg-gradient-to-r from-blue-600 to-purple-600 rounded-2xl p-8 lg:p-12 text-white"
+          class="bg-gradient-to-r from-blue-600 to-purple-600 rounded-2xl card-padding-lg lg:p-12 text-white"
         >
           <div class="grid lg:grid-cols-2 gap-8 items-center">
             <div>
@@ -129,8 +111,3 @@
 
 <script setup lang="ts"></script>
 
-<style scoped>
-.shadow-custom {
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
-}
-</style>

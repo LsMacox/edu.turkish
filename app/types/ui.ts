@@ -100,6 +100,47 @@ export interface BaseSectionHeaderProps {
   balanced?: boolean
 }
 
+// BaseIconBadge Component Interface
+export interface BaseIconBadgeProps {
+  icon: string
+  color?: 'blue' | 'green' | 'purple' | 'orange' | 'red' | 'yellow' | 'pink'
+  size?: Size | 'xl'
+  rounded?: 'md' | 'lg' | 'xl' | '2xl'
+}
+
+// BaseFeatureCard Component Interface
+export interface BaseFeatureCardProps {
+  icon?: string
+  iconColor?: BaseIconBadgeProps['color']
+  iconSize?: BaseIconBadgeProps['size']
+  title?: string
+  titleTag?: 'h2' | 'h3' | 'h4' | 'h5' | 'h6'
+  description?: string
+  hover?: boolean | 'lift' | 'scale' | 'shadow'
+  padding?: 'sm' | 'md' | 'lg' | 'xl'
+  rounded?: 'none' | 'sm' | 'md' | 'lg' | 'xl' | '2xl'
+  centered?: boolean
+}
+
+// BaseSocialLink Component Interface
+export interface BaseSocialLinkProps {
+  platform: 'whatsapp' | 'telegram' | 'instagram' | 'linkedin' | 'facebook' | 'youtube' | 'twitter'
+  href: string
+  size?: Size
+  variant?: 'filled' | 'outline'
+  ariaLabel?: string
+}
+
+// BaseStatBadge Component Interface
+export interface BaseStatBadgeProps {
+  icon?: string
+  label: string
+  value?: string
+  color?: 'primary' | 'success' | 'info' | 'warning'
+  size?: Size
+  layout?: 'horizontal' | 'vertical'
+}
+
 // Enhanced Event Interfaces
 export interface BaseButtonEvents {
   click: [event: Event]

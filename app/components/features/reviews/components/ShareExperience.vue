@@ -1,12 +1,12 @@
 <template>
-  <section id="share-experience" class="pt-10 pb-14 md:py-20 bg-white">
-    <div class="container mx-auto px-4 lg:px-6">
-      <div class="text-center mb-10 md:mb-16">
-        <h2 class="text-4xl lg:text-5xl font-bold text-secondary mb-6">
+  <section id="share-experience" class="section-py bg-white">
+    <div class="container mx-auto container-padding-narrow">
+      <div class="text-center mb-8 md:mb-12">
+        <h2 class="text-section-title mb-6">
           {{ $t('reviews.shareExperience.title') }}
           <span class="text-primary">{{ $t('reviews.shareExperience.titleAccent') }}</span>
         </h2>
-        <p class="text-xl text-gray-600 max-w-3xl mx-auto">
+        <p class="text-section-subtitle max-w-3xl mx-auto">
           {{ $t('reviews.shareExperience.description') }}
         </p>
       </div>
@@ -22,7 +22,7 @@
                 <label class="block text-sm font-semibold text-secondary mb-2">
                   {{ $t('reviews.shareExperience.form.name.label') }}
                 </label>
-                <UiFormsBaseTextField
+                <BaseTextField
                   v-model="form.name"
                   type="text"
                   :placeholder="$t('reviews.shareExperience.form.name.placeholder')"
@@ -36,7 +36,7 @@
                 <label class="block text-sm font-semibold text-secondary mb-2">
                   {{ $t('reviews.shareExperience.form.reviewerType.label') }}
                 </label>
-                <UiFormsBaseSelect v-model="form.reviewerType">
+                <BaseSelect v-model="form.reviewerType">
                   <option value="">
                     {{ $t('reviews.shareExperience.form.reviewerType.placeholder') }}
                   </option>
@@ -46,7 +46,7 @@
                   <option value="parent">
                     {{ $t('reviews.shareExperience.form.reviewerType.parent') }}
                   </option>
-                </UiFormsBaseSelect>
+                </BaseSelect>
               </div>
             </div>
 
@@ -56,7 +56,7 @@
                 <label class="block text-sm font-semibold text-secondary mb-2">
                   {{ $t('reviews.shareExperience.form.university.label') }}
                 </label>
-                <UiFormsBaseSelect v-model="form.university" :disabled="isLoadingUniversities">
+                <BaseSelect v-model="form.university" :disabled="isLoadingUniversities">
                   <option value="">
                     {{
                       isLoadingUniversities
@@ -74,7 +74,7 @@
                   <option value="other">
                     {{ $t('reviews.shareExperience.form.university.other') }}
                   </option>
-                </UiFormsBaseSelect>
+                </BaseSelect>
                 <p v-if="errors.university" class="mt-1 text-sm text-red-600">
                   {{ errors.university }}
                 </p>
@@ -87,7 +87,7 @@
                 <label class="block text-sm font-semibold text-secondary mb-2">
                   {{ $t('reviews.shareExperience.form.faculty.label') }}
                 </label>
-                <UiFormsBaseTextField
+                <BaseTextField
                   v-model="form.faculty"
                   type="text"
                   :placeholder="$t('reviews.shareExperience.form.faculty.placeholder')"
@@ -100,7 +100,7 @@
                 <label class="block text-sm font-semibold text-secondary mb-2">
                   {{ $t('reviews.shareExperience.form.year.label') }}
                 </label>
-                <UiFormsBaseSelect v-model="form.year">
+                <BaseSelect v-model="form.year">
                   <option value="">
                     {{ $t('reviews.shareExperience.form.year.placeholder') }}
                   </option>
@@ -112,7 +112,7 @@
                   <option value="other">
                     {{ $t('reviews.shareExperience.form.year.earlier') }}
                   </option>
-                </UiFormsBaseSelect>
+                </BaseSelect>
               </div>
             </div>
 
@@ -122,7 +122,7 @@
                 <label class="block text-sm font-semibold text-secondary mb-2">
                   {{ $t('reviews.shareExperience.form.rating.label') }}
                 </label>
-                <UiFormsBaseSelect v-model="form.rating">
+                <BaseSelect v-model="form.rating">
                   <option value="">
                     {{ $t('reviews.shareExperience.form.rating.placeholder') }}
                   </option>
@@ -137,7 +137,7 @@
                   <option value="1">
                     {{ $t('reviews.shareExperience.form.rating.veryPoor') }}
                   </option>
-                </UiFormsBaseSelect>
+                </BaseSelect>
                 <p v-if="errors.rating" class="mt-1 text-sm text-red-600">
                   {{ errors.rating }}
                 </p>
@@ -148,7 +148,7 @@
                 <label class="block text-sm font-semibold text-secondary mb-2">
                   {{ $t('reviews.shareExperience.form.contact.label') }}
                 </label>
-                <UiFormsBaseTextField
+                <BaseTextField
                   v-model="form.contact"
                   type="text"
                   :placeholder="$t('reviews.shareExperience.form.contact.placeholder')"
@@ -184,14 +184,14 @@
                 {{ $t('reviews.shareExperience.form.helpful.label') }}
               </label>
               <div class="grid grid-cols-1 md:grid-cols-2 gap-2 md:gap-3">
-                <UiFormsBaseCheckbox
+                <BaseCheckbox
                   v-for="aspect in helpfulAspects"
                   :key="aspect.value"
                   :checked="form.helpful.includes(aspect.value)"
                   @update:checked="toggleHelpful(aspect.value)"
                 >
                   {{ $t(`reviews.shareExperience.form.helpful.aspects.${aspect.value}`) }}
-                </UiFormsBaseCheckbox>
+                </BaseCheckbox>
               </div>
             </div>
 
@@ -486,8 +486,3 @@ async function submitReview() {
 }
 </script>
 
-<style scoped>
-.shadow-custom {
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
-}
-</style>

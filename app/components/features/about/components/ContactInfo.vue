@@ -3,10 +3,10 @@
     <div class="container mx-auto px-4 lg:px-6">
       <div class="max-w-6xl mx-auto">
         <div class="text-center mb-16">
-          <h2 class="text-3xl lg:text-4xl font-bold text-secondary mb-6">
+          <h2 class="text-section-title mb-6">
             {{ $t('about.contact.title') }}
           </h2>
-          <p class="text-lg text-gray-600 max-w-3xl mx-auto">
+          <p class="text-section-subtitle max-w-3xl mx-auto">
             {{ $t('about.contact.subtitle') }}
           </p>
         </div>
@@ -18,7 +18,7 @@
             >
               <Icon name="mdi:whatsapp" class="text-green-600 text-2xl" />
             </div>
-            <h3 class="text-xl font-semibold text-secondary mb-4">WhatsApp</h3>
+            <h3 class="text-card-title mb-4">WhatsApp</h3>
             <p class="text-gray-600 mb-4">
               {{ $t('about.contact.channels.whatsapp.description') }}
             </p>
@@ -37,7 +37,7 @@
             >
               <Icon name="mdi:telegram" class="text-blue-600 text-2xl" />
             </div>
-            <h3 class="text-xl font-semibold text-secondary mb-4">Telegram</h3>
+            <h3 class="text-card-title mb-4">Telegram</h3>
             <p class="text-gray-600 mb-4">
               {{ $t('about.contact.channels.telegram.description') }}
             </p>
@@ -56,7 +56,7 @@
             >
               <Icon name="mdi:email" class="text-red-600 text-2xl" />
             </div>
-            <h3 class="text-xl font-semibold text-secondary mb-4">Email</h3>
+            <h3 class="text-card-title mb-4">Email</h3>
             <p class="text-gray-600 mb-4">edu.turkish2018@gmail.com</p>
             <a
               href="mailto:edu.turkish2018@gmail.com"
@@ -69,7 +69,7 @@
 
         <div class="grid lg:grid-cols-2 gap-8">
           <div class="bg-white rounded-2xl shadow-custom p-8">
-            <h3 class="text-xl font-semibold text-secondary mb-6">
+            <h3 class="text-card-title mb-6">
               {{ $t('about.contact.offices.title') }}
             </h3>
             <div class="space-y-6">
@@ -98,7 +98,7 @@
           </div>
 
           <div class="bg-white rounded-2xl shadow-custom p-8">
-            <h3 class="text-xl font-semibold text-secondary mb-6">
+            <h3 class="text-card-title mb-6">
               {{ $t('about.contact.schedule.title') }}
             </h3>
             <div class="space-y-4">
@@ -140,19 +140,3 @@ import { useContactChannels } from '~/composables/useContactChannels'
 const { channels } = useContactChannels()
 </script>
 
-<style scoped>
-.shadow-custom {
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
-}
-
-.hover-lift {
-  transition:
-    transform 0.3s ease,
-    box-shadow 0.3s ease;
-}
-
-.hover-lift:hover {
-  transform: translateY(-4px);
-  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.12);
-}
-</style>

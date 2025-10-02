@@ -1,12 +1,12 @@
 <template>
-  <section id="parent-reviews" class="pt-10 pb-14 md:py-20 bg-white">
-    <div class="container mx-auto px-4 lg:px-6">
-      <div class="text-center mb-10 md:mb-16">
-        <h2 class="text-4xl lg:text-5xl font-bold text-secondary mb-6">
+  <section id="parent-reviews" class="section-py bg-white">
+    <div class="container mx-auto container-padding-narrow">
+      <div class="text-center mb-8 md:mb-12">
+        <h2 class="text-section-title mb-6">
           {{ $t('reviews.parentReviews.title') }}
           <span class="text-primary">{{ $t('reviews.parentReviews.titleAccent') }}</span>
         </h2>
-        <p class="text-xl text-gray-600 max-w-3xl mx-auto">
+        <p class="text-section-subtitle max-w-3xl mx-auto">
           {{ $t('reviews.parentReviews.description') }}
         </p>
       </div>
@@ -15,12 +15,12 @@
         Failed to load reviews. Please try again later.
       </div>
       <div v-else-if="pending" class="animate-pulse text-center">Loading reviews...</div>
-      <div v-else class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8">
+      <div v-else class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-section">
         <div
           v-for="(review, index) in parentReviews"
           :key="review.id"
           :class="getGradientClass(index)"
-          class="rounded-3xl p-6 md:p-8 shadow-custom hover-lift h-full flex flex-col"
+          class="rounded-3xl card-padding shadow-custom hover-lift h-full flex flex-col"
         >
           <div class="flex items-center space-x-4 mb-6">
             <div>
@@ -102,8 +102,3 @@ const getGradientClass = (index: number) => {
 }
 </script>
 
-<style scoped>
-.shadow-custom {
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
-}
-</style>

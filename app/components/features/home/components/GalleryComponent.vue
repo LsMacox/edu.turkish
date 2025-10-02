@@ -2,8 +2,8 @@
   <section id="instagram-gallery" class="py-16">
     <div class="container mx-auto px-4 lg:px-6">
       <div class="text-center mb-12">
-        <h2 class="text-3xl lg:text-4xl font-bold text-secondary mb-4">Наши студенты</h2>
-        <p class="text-lg text-gray-600 max-w-2xl mx-auto">
+        <h2 class="text-section-title mb-4">Наши студенты</h2>
+        <p class="text-section-subtitle max-w-2xl mx-auto">
           Следите за историями успеха в Instagram
         </p>
       </div>
@@ -140,15 +140,3 @@ const { getChannel } = useContactChannels()
 const instagramChannel = getChannel('instagram')
 </script>
 
-<style scoped>
-.hover-lift {
-  transition:
-    transform 0.3s ease,
-    box-shadow 0.3s ease;
-}
-
-.hover-lift:hover {
-  transform: translateY(-4px);
-  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.12);
-}
-</style>

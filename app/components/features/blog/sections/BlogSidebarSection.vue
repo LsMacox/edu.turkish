@@ -3,7 +3,7 @@
     <div class="bg-white rounded-2xl shadow-custom p-8">
       <div class="flex items-center mb-6">
         <Icon name="mdi:fire" class="text-orange-500 text-xl mr-3" />
-        <h3 class="text-xl font-bold text-secondary">{{ popular.title }}</h3>
+        <h3 class="text-card-title">{{ popular.title }}</h3>
       </div>
       <div class="space-y-6">
         <article
@@ -34,7 +34,7 @@
     </div>
 
     <div class="bg-white rounded-2xl shadow-custom p-8">
-      <h3 class="text-xl font-bold text-secondary mb-6">{{ quickLinks.title }}</h3>
+      <h3 class="text-card-title mb-6">{{ quickLinks.title }}</h3>
       <ClientOnly>
         <div class="space-y-4">
           <button
@@ -94,8 +94,3 @@ const quickLinkIcons: Record<string, string> = {
 const quickLinkIcon = (id: string) => quickLinkIcons[id] ?? 'mdi:arrow-right'
 </script>
 
-<style scoped>
-.shadow-custom {
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
-}
-</style>

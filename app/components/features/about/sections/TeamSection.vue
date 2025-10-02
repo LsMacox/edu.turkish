@@ -1,15 +1,13 @@
 <template>
-  <section id="team" class="py-20">
-    <div class="container mx-auto px-4 lg:px-6">
+  <section id="team" class="section-py-lg">
+    <div class="container mx-auto container-padding-narrow">
       <div class="max-w-6xl mx-auto">
-        <div class="text-center mb-16">
-          <h2 class="text-3xl lg:text-4xl font-bold text-secondary mb-6">
-            {{ t('about.team.title') }}
-          </h2>
-          <p class="text-lg text-gray-600 max-w-3xl mx-auto">
-            {{ t('about.team.subtitle') }}
-          </p>
-        </div>
+        <BaseSectionHeader
+          :title="t('about.team.title')"
+          :subtitle="t('about.team.subtitle')"
+          align="center"
+          margin-bottom="lg"
+        />
 
         <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
           <div
@@ -23,9 +21,9 @@
                 <span class="text-sm font-medium text-primary">{{ member.role }}</span>
               </div>
             </div>
-            <div class="p-6">
-              <h3 class="text-xl font-semibold text-secondary mb-2">{{ member.name }}</h3>
-              <p class="text-gray-600 mb-4">{{ member.position }}</p>
+            <div class="card-padding">
+              <h3 class="text-card-title mb-2">{{ member.name }}</h3>
+              <p class="text-card-subtitle mb-4">{{ member.position }}</p>
               <p class="text-sm text-gray-500 leading-relaxed mb-4">
                 {{ member.description }}
               </p>
@@ -112,19 +110,3 @@ const teamMembers: TeamMember[] = [
 ]
 </script>
 
-<style scoped>
-.shadow-custom {
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
-}
-
-.hover-lift {
-  transition:
-    transform 0.3s ease,
-    box-shadow 0.3s ease;
-}
-
-.hover-lift:hover {
-  transform: translateY(-4px);
-  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.12);
-}
-</style>

@@ -1,14 +1,14 @@
 <template>
-  <section class="relative bg-gradient-to-br from-blue-50 via-purple-50 to-pink-50 py-20">
-    <div class="container mx-auto px-4 lg:px-6">
-      <div class="grid lg:grid-cols-2 gap-12 items-center">
+  <section class="relative bg-gradient-to-br from-blue-50 via-purple-50 to-pink-50 section-py-lg">
+    <div class="container mx-auto container-padding-narrow">
+      <div class="grid lg:grid-cols-2 gap-section-lg items-center">
         <div class="space-y-8">
           <div class="space-y-4">
-            <h1 class="text-4xl lg:text-5xl font-bold text-secondary leading-tight">
+            <h1 class="text-hero">
               {{ hero.title }}
               <span class="text-primary">{{ hero.titleAccent }}</span>
             </h1>
-            <p class="text-lg text-gray-600 leading-relaxed">
+            <p class="text-section-subtitle">
               {{ hero.description }}
             </p>
           </div>
@@ -101,8 +101,3 @@ defineEmits<{
 const { t } = useI18n()
 </script>
 
-<style scoped>
-.shadow-custom {
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
-}
-</style>

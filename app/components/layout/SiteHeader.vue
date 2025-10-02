@@ -1,6 +1,6 @@
 <template>
   <header class="sticky top-0 z-40 bg-white/90 backdrop-blur border-b border-gray-100">
-    <div class="container mx-auto px-4 lg:px-6">
+    <div class="container mx-auto container-padding-narrow">
       <div class="flex items-center justify-between h-16 md:h-18">
         <!-- Logo -->
         <div class="flex items-center">
@@ -127,7 +127,7 @@
 
           <!-- CTA Button -->
           <button
-            class="bg-primary text-white px-3 md:px-6 py-2 md:py-2 rounded-lg md:rounded-xl font-semibold hover:bg-red-600 transition-colors shadow-lg text-xs md:text-base"
+            class="bg-primary text-white px-3 md:px-6 py-2 md:py-2 rounded-lg md:rounded-xl hover:bg-red-600 transition-colors shadow-lg text-btn"
             @click="modal.openModal()"
           >
             {{ t('cta.apply') }}

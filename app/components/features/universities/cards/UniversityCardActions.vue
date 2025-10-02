@@ -26,9 +26,9 @@
       {{ detailLabel || 'View Details' }}
     </NuxtLink>
 
-    <UiFormsBaseButton variant="outline" size="md" full-width @click="$emit('apply')">
+    <BaseButton variant="outline" size="md" full-width @click="$emit('apply')">
       {{ applyLabel || 'Apply Now' }}
-    </UiFormsBaseButton>
+    </BaseButton>
   </div>
 </template>
 

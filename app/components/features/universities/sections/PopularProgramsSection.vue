@@ -1,14 +1,12 @@
 <template>
-  <section id="featured-programs" class="py-16">
+  <section id="featured-programs" class="section-py">
     <div class="container">
-      <div class="text-center mb-12">
-        <h2 class="text-3xl lg:text-4xl font-bold text-secondary mb-4">
-          {{ $t('universities_page.popular_programs.title') }}
-        </h2>
-        <p class="text-lg text-gray-600 max-w-2xl mx-auto">
-          {{ $t('universities_page.popular_programs.subtitle') }}
-        </p>
-      </div>
+      <BaseSectionHeader
+        :title="$t('universities_page.popular_programs.title')"
+        :subtitle="$t('universities_page.popular_programs.subtitle')"
+        align="center"
+        margin-bottom="lg"
+      />
 
       <div v-if="loading" class="text-center py-8">
         <div
@@ -19,12 +17,12 @@
 
       <div v-else class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
         <div
-          class="bg-white rounded-2xl shadow-lg p-8 hover:shadow-xl transition-shadow flex flex-col h-full"
+          class="bg-white rounded-2xl shadow-lg card-padding-lg hover:shadow-xl transition-shadow flex flex-col h-full"
         >
           <div class="w-16 h-16 bg-blue-100 rounded-2xl flex items-center justify-center mb-6">
             <Icon name="mdi:laptop" class="text-blue-600 text-2xl" />
           </div>
-          <h3 class="text-xl font-semibold text-secondary mb-4">
+          <h3 class="text-card-title mb-4">
             {{ $t('universities_page.popular_programs.programs.it.title') }}
           </h3>
           <p class="text-gray-600 mb-4">
@@ -45,12 +43,12 @@
         </div>
 
         <div
-          class="bg-white rounded-2xl shadow-lg p-8 hover:shadow-xl transition-shadow flex flex-col h-full"
+          class="bg-white rounded-2xl shadow-lg card-padding-lg hover:shadow-xl transition-shadow flex flex-col h-full"
         >
           <div class="w-16 h-16 bg-green-100 rounded-2xl flex items-center justify-center mb-6">
             <Icon name="mdi:medical-bag" class="text-green-600 text-2xl" />
           </div>
-          <h3 class="text-xl font-semibold text-secondary mb-4">
+          <h3 class="text-card-title mb-4">
             {{ $t('universities_page.popular_programs.programs.medicine.title') }}
           </h3>
           <p class="text-gray-600 mb-4">
@@ -71,12 +69,12 @@
         </div>
 
         <div
-          class="bg-white rounded-2xl shadow-lg p-8 hover:shadow-xl transition-shadow flex flex-col h-full"
+          class="bg-white rounded-2xl shadow-lg card-padding-lg hover:shadow-xl transition-shadow flex flex-col h-full"
         >
           <div class="w-16 h-16 bg-purple-100 rounded-2xl flex items-center justify-center mb-6">
             <Icon name="mdi:cog" class="text-purple-600 text-2xl" />
           </div>
-          <h3 class="text-xl font-semibold text-secondary mb-4">
+          <h3 class="text-card-title mb-4">
             {{ $t('universities_page.popular_programs.programs.engineering.title') }}
           </h3>
           <p class="text-gray-600 mb-4">
@@ -97,12 +95,12 @@
         </div>
 
         <div
-          class="bg-white rounded-2xl shadow-lg p-8 hover:shadow-xl transition-shadow flex flex-col h-full"
+          class="bg-white rounded-2xl shadow-lg card-padding-lg hover:shadow-xl transition-shadow flex flex-col h-full"
         >
           <div class="w-16 h-16 bg-orange-100 rounded-2xl flex items-center justify-center mb-6">
             <Icon name="mdi:chart-line" class="text-orange-600 text-2xl" />
           </div>
-          <h3 class="text-xl font-semibold text-secondary mb-4">
+          <h3 class="text-card-title mb-4">
             {{ $t('universities_page.popular_programs.programs.business.title') }}
           </h3>
           <p class="text-gray-600 mb-4">
@@ -123,12 +121,12 @@
         </div>
 
         <div
-          class="bg-white rounded-2xl shadow-lg p-8 hover:shadow-xl transition-shadow flex flex-col h-full"
+          class="bg-white rounded-2xl shadow-lg card-padding-lg hover:shadow-xl transition-shadow flex flex-col h-full"
         >
           <div class="w-16 h-16 bg-teal-100 rounded-2xl flex items-center justify-center mb-6">
             <Icon name="mdi:palette" class="text-teal-600 text-2xl" />
           </div>
-          <h3 class="text-xl font-semibold text-secondary mb-4">
+          <h3 class="text-card-title mb-4">
             {{ $t('universities_page.popular_programs.programs.design.title') }}
           </h3>
           <p class="text-gray-600 mb-4">
@@ -149,12 +147,12 @@
         </div>
 
         <div
-          class="bg-white rounded-2xl shadow-lg p-8 hover:shadow-xl transition-shadow flex flex-col h-full"
+          class="bg-white rounded-2xl shadow-lg card-padding-lg hover:shadow-xl transition-shadow flex flex-col h-full"
         >
           <div class="w-16 h-16 bg-pink-100 rounded-2xl flex items-center justify-center mb-6">
             <Icon name="mdi:earth" class="text-pink-600 text-2xl" />
           </div>
-          <h3 class="text-xl font-semibold text-secondary mb-4">
+          <h3 class="text-card-title mb-4">
             {{ $t('universities_page.popular_programs.programs.international.title') }}
           </h3>
           <p class="text-gray-600 mb-4">

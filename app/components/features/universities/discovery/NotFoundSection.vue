@@ -11,7 +11,7 @@
         <h2 class="text-3xl font-bold text-secondary mb-6">
           {{ $t('universities_page.not_found.title') }}
         </h2>
-        <p class="text-lg text-gray-600 mb-8 max-w-2xl mx-auto">
+        <p class="text-section-subtitle mb-8 max-w-2xl mx-auto">
           {{ $t('universities_page.not_found.subtitle') }}
         </p>
 
