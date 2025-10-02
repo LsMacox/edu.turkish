@@ -270,10 +270,18 @@ model UniversityReview {
   id           Int          @id @default(autoincrement())
   universityId Int?         @map("university_id")
   type         ReviewType
+  mediaType    MediaReviewType @default(text) @map("media_type")
   year         Int?
   rating       Int?         @db.TinyInt
   avatar       String?      @db.VarChar(500)
   featured     Boolean      @default(false)
+  
+  // Media fields
+  videoUrl     String?      @map("video_url") @db.VarChar(500)
+  videoThumb   String?      @map("video_thumb") @db.VarChar(500)
+  videoDuration String?     @map("video_duration") @db.VarChar(10)
+  imageUrl     String?      @map("image_url") @db.VarChar(500)
+  
   createdAt    DateTime     @default(now()) @map("created_at")
   updatedAt    DateTime     @updatedAt @map("updated_at")
 
@@ -285,6 +293,7 @@ model UniversityReview {
   @@index([universityId, type], map: "idx_review_university_type")
   @@index([featured], map: "idx_review_featured")
   @@index([rating], map: "idx_review_rating")
+  @@index([mediaType], map: "idx_review_media_type")
 }
 
 model UniversityReviewTranslation {
@@ -738,6 +747,12 @@ enum DegreeType {
 enum ReviewType {
   student
   parent
+}
+
+enum MediaReviewType {
+  text
+  video
+  image
 }
 
 enum ApplicationStatus {
