@@ -3,19 +3,13 @@ services:
     build:
       context: .
       dockerfile: Dockerfile
-      args:
-        # ⬇️ отключим prerender во время docker build
-        NITRO_PRERENDER: 'false'
     container_name: edu_turkish_app
     restart: unless-stopped
     env_file:
       - .env
     environment:
-      DATABASE_URL: mysql://${DB_USER}:${DB_PASSWORD}@mysql:3306/${DB_NAME}
-      NODE_ENV: production
-
       # Интеграция с Directus
-      NUXT_PUBLIC_DIRECTUS_URL: ${DIRECTUS_PUBLIC_URL:-http://localhost:8055}
+      NUXT_PUBLIC_DIRECTUS_URL: ${DIRECTUS_PUBLIC_URL}
 
       ALLOWED_HOSTS: ${ALLOWED_HOSTS:-}
 
@@ -24,6 +18,8 @@ services:
       NITRO_PORT: 3000
     ports:
       - '3000:3000'
+    volumes:
+      - ./prisma:/app/prisma
     depends_on:
       mysql:
         condition: service_healthy
@@ -62,36 +58,35 @@ services:
     container_name: edu_turkish_mysql
     restart: unless-stopped
     environment:
-      # Общие учётные данные (можешь развести на разные при желании)
-      MYSQL_ROOT_PASSWORD: ${DB_ROOT_PASSWORD:-root_password_123}
-      MYSQL_USER: ${DB_USER:-edu_turkish_user}
-      MYSQL_PASSWORD: ${DB_PASSWORD:-secure_password_123}
-
-      # Какой БД создать по умолчанию при первом старте (используется и приложением, и Directus):
-      MYSQL_DATABASE: ${APP_DB_NAME:-edu_turkish}
+      MYSQL_ROOT_PASSWORD: ${DB_ROOT_PASSWORD}
+      # наши переменные для шаблона
+      APP_DB: edu_turkish
+      CMS_DB: cms_edu_turkish
+      # Вариант с двумя пользователями (рекомендую)
+      APP_USER: app_user
+      APP_PASS: ${DB_APP_PASS}
+      DIRECTUS_USER: directus_user
+      DIRECTUS_PASS: ${DB_DIRECTUS_PASS}
+      TZ: "UTC"
     ports:
       - '${DB_PORT:-3306}:3306'
+    command:
+      # строгая конфигурация сразу на старте
+      - --character-set-server=utf8mb4
+      - --collation-server=utf8mb4_unicode_ci
+      - --default-time-zone=+00:00
+      - --sql-mode=STRICT_TRANS_TABLES,ERROR_FOR_DIVISION_BY_ZERO,NO_ENGINE_SUBSTITUTION
     volumes:
       - mysql_data:/var/lib/mysql
       - ./contrib/sql/init:/docker-entrypoint-initdb.d
     networks:
       - edu_turkish_network
     healthcheck:
-      test:
-        [
-          'CMD',
-          'mysqladmin',
-          'ping',
-          '-h',
-          '127.0.0.1',
-          '-u',
-          'edu_turkish_user',
-          '-psecure_password_123',
-        ]
+      test: ["CMD", "mysqladmin", "ping", "-h", "127.0.0.1", "-uroot", "-p${DB_ROOT_PASSWORD}"]
       interval: 10s
       timeout: 5s
       retries: 10
-      start_period: 20s
+      start_period: 25s
 
   adminer:
     image: adminer
@@ -123,9 +118,9 @@ services:
       DB_CLIENT: mysql
       DB_HOST: ${DB_HOST:-mysql}
       DB_PORT: ${DB_PORT:-3306}
-      DB_DATABASE: ${DB_NAME}
-      DB_USER: root
-      DB_PASSWORD: ${DB_ROOT_PASSWORD:-root_password_123}
+      DB_DATABASE: cms_edu_turkish
+      DB_USER: directus_user
+      DB_PASSWORD: ${DB_DIRECTUS_PASS}
 
       # Directus базовые настройки
       WEBSOCKETS_ENABLED: 'true'
@@ -137,9 +132,9 @@ services:
       PUBLIC_URL: ${DIRECTUS_PUBLIC_URL:-http://localhost:8055}
       STORAGE_LOCATIONS: local
     volumes:
-      - directus_uploads:/directus/uploads
+      - directus_uploads:/project/directus/uploads
       # Монтируем директорию схемы/конфига из репозитория внутрь контейнера
-      - ./directus:/project/directus
+      - ./contrib/directus:/project/directus
     depends_on:
       mysql:
         condition: service_healthy

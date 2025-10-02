@@ -6,7 +6,6 @@ export default defineNuxtConfig({
   ssr: true,
   compatibilityDate: '2025-07-15',
   devtools: { enabled: true },
-
   vite: {
     build: {
       cssCodeSplit: false,
@@ -38,7 +37,13 @@ export default defineNuxtConfig({
     ],
     '@nuxtjs/robots',
     '@nuxtjs/sitemap',
+    'nuxt-swiper',
   ],
+  swiper: {
+    bundled: true,
+    enableComposables: true,
+  },
+  css: ['./app/assets/css/tailwind.css'],
   // Enhanced component auto-import configuration
   components: [
     {
@@ -68,7 +73,6 @@ export default defineNuxtConfig({
   fonts: {
     provider: 'google',
   },
-
   app: {
     head: {
       // Let @nuxtjs/i18n manage the <html lang> attribute for correct SEO per-locale
@@ -104,10 +108,7 @@ export default defineNuxtConfig({
     directusStaticToken: process.env.DIRECTUS_STATIC_TOKEN || '',
     public: {
       siteUrl,
-      directusUrl:
-        process.env.NUXT_PUBLIC_DIRECTUS_URL ||
-        process.env.DIRECTUS_PUBLIC_URL ||
-        'http://localhost:8055',
+      directusUrl:process.env.NUXT_PUBLIC_DIRECTUS_URL || 'http://localhost:8055',
       yandexMetrikaId: process.env.NUXT_PUBLIC_YANDEX_METRIKA_ID || '',
     },
   },
@@ -189,10 +190,6 @@ export default defineNuxtConfig({
         'x-robots-tag': 'index, follow',
       },
     },
-  },
-  scripts: {
-    // Оптимизированная загрузка внешних скриптов
-    // Yandex Metrika загружается через плагин для лучшего контроля
   },
   i18n: {
     // Used for generating absolute alternate/canonical links

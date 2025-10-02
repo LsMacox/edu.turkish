@@ -9,6 +9,28 @@ export default {
     './layouts/**/*.{vue,js,ts}',
     './plugins/**/*.{js,ts}',
   ],
+  safelist: [
+    // Typography classes
+    'text-hero',
+    'text-hero-subtitle',
+    'text-section-title',
+    'text-section-subtitle',
+    'text-card-title',
+    'text-card-subtitle',
+    'text-card-body',
+    'text-body-lg',
+    'text-body',
+    'text-body-sm',
+    'text-btn-lg',
+    'text-btn',
+    'text-btn-sm',
+    'text-input',
+    'text-label',
+    'text-helper',
+    'text-error',
+    'text-nav',
+    'text-nav-sm',
+  ],
   theme: {
     screens: {
       xs: '375px',
@@ -73,22 +95,11 @@ export default {
         success: '0 0 0 3px rgba(16, 185, 129, 0.1)',
       },
       spacing: {
+        // Safe areas for mobile
         'safe-top': 'env(safe-area-inset-top)',
         'safe-bottom': 'env(safe-area-inset-bottom)',
         'safe-left': 'env(safe-area-inset-left)',
         'safe-right': 'env(safe-area-inset-right)',
-        section: '4rem', // 64px - standard section spacing
-        'section-sm': '3rem', // 48px - compact sections
-        'section-lg': '5rem', // 80px - hero sections
-      },
-      fontSize: {
-        'xs-mobile': ['12px', '16px'],
-        'sm-mobile': ['14px', '20px'],
-        'base-mobile': ['16px', '24px'],
-        'lg-mobile': ['18px', '28px'],
-        'xl-mobile': ['20px', '28px'],
-        '2xl-mobile': ['24px', '32px'],
-        '3xl-mobile': ['30px', '36px'],
       },
       borderRadius: {
         card: '1rem', // 16px - standard card radius
@@ -124,20 +135,6 @@ export default {
       transitionTimingFunction: {
         'bounce-in': 'cubic-bezier(0.68, -0.55, 0.265, 1.55)',
         smooth: 'cubic-bezier(0.4, 0, 0.2, 1)',
-      },
-      keyframes: {
-        'slide-in-right': {
-          '0%': { transform: 'translateX(100%)' },
-          '100%': { transform: 'translateX(0)' },
-        },
-        'fade-in': {
-          '0%': { opacity: '0' },
-          '100%': { opacity: '1' },
-        },
-      },
-      animation: {
-        'slide-in-right': 'slide-in-right 0.2s ease-out forwards',
-        'fade-in': 'fade-in 0.2s ease-out forwards',
       },
     },
   },
@@ -239,6 +236,61 @@ export default {
         '.focus-ring-success': {
           '@apply focus:outline-none focus:ring-2 focus:ring-success focus:ring-offset-2 focus-visible:ring-2 focus-visible:ring-success':
             {},
+        },
+
+        // Spacing patterns - Container
+        '.container-padding': {
+          '@apply px-4 sm:px-5 md:px-6 lg:px-6': {},
+        },
+        '.container-padding-narrow': {
+          '@apply px-4 md:px-6': {},
+        },
+
+        // Spacing patterns - Section vertical
+        '.section-py': {
+          '@apply py-8 md:py-16': {},
+        },
+        '.section-py-sm': {
+          '@apply py-6 md:py-12': {},
+        },
+        '.section-py-lg': {
+          '@apply py-10 md:py-20': {},
+        },
+
+        // Spacing patterns - Card padding
+        '.card-padding': {
+          '@apply p-4 md:p-6': {},
+        },
+        '.card-padding-sm': {
+          '@apply p-3 md:p-4': {},
+        },
+        '.card-padding-lg': {
+          '@apply p-5 md:p-8': {},
+        },
+
+        // Spacing patterns - Gap
+        '.gap-section': {
+          '@apply gap-4 md:gap-6 lg:gap-8': {},
+        },
+        '.gap-section-sm': {
+          '@apply gap-3 md:gap-4 lg:gap-6': {},
+        },
+        '.gap-section-lg': {
+          '@apply gap-6 md:gap-8 lg:gap-12': {},
+        },
+
+        // Spacing patterns - Button padding
+        '.btn-padding-sm': {
+          '@apply px-3 py-2 md:px-4 md:py-2': {},
+        },
+        '.btn-padding-md': {
+          '@apply px-4 py-3 md:px-6 md:py-3': {},
+        },
+        '.btn-padding-lg': {
+          '@apply px-6 py-3 md:px-8 md:py-4': {},
+        },
+        '.btn-padding-xl': {
+          '@apply px-8 py-4 md:px-10 md:py-5': {},
         },
       })
     },
