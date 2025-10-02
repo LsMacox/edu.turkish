@@ -175,6 +175,68 @@ export class ReviewRepository {
   }
 
   /**
+   * Get media reviews (video and image reviews)
+   */
+  async getMediaReviews(options: {
+    featured?: boolean
+    limit?: number
+    mediaType?: 'video' | 'image'
+    locale: string
+  }) {
+    const { featured, limit = 12, mediaType, locale } = options
+    const localeInfo = normalizeLocale(locale)
+
+    const where: Prisma.UniversityReviewWhereInput = {
+      featured: featured ?? true,
+      mediaType: mediaType ? mediaType : { in: ['video', 'image'] },
+    }
+
+    const reviews = await this.prisma.universityReview.findMany({
+      where,
+      take: limit,
+      include: {
+        translations: {
+          where: { locale },
+        },
+        university: {
+          include: {
+            translations: {
+              where: { locale },
+            },
+          },
+        },
+      },
+      orderBy: {
+        createdAt: 'desc',
+      },
+    })
+
+    return reviews.map((review) => {
+      const translation = review.translations[0]
+      const universityTranslation = review.university?.translations[0]
+
+      return {
+        id: review.id,
+        type: review.type,
+        mediaType: review.mediaType,
+        name: translation?.name || '',
+        quote: translation?.quote || '',
+        university:
+          review.university?.translations[0]?.title ||
+          translation?.universityName ||
+          '',
+        rating: review.rating,
+        year: review.year,
+        avatar: review.avatar,
+        videoUrl: review.videoUrl,
+        videoThumb: review.videoThumb,
+        videoDuration: review.videoDuration,
+        imageUrl: review.imageUrl,
+      }
+    })
+  }
+
+  /**
    * Create a new review
    */
   async create(data: {
