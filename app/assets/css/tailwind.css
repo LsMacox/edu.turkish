@@ -1,9 +1,9 @@
+@import './typography.css';
+@import './components.css';
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
-
-/* Import enhanced component styles */
-@import './components.css';
 
 /* Mobile-first base adjustments */
 @layer base {
@@ -34,66 +34,16 @@
 }
 
 @layer components {
-  /* Card System */
-  .card-base {
-    @apply bg-white rounded-card shadow-sm;
-  }
-
-  .card-hover {
-    @apply hover:shadow-lg hover:-translate-y-1 transition-all duration-300;
-  }
-
-  /* Button System */
-  .btn-base {
-    @apply px-6 py-3 rounded-button font-semibold transition-colors min-h-touch-44;
-  }
-
-  .btn-primary {
-    @apply btn-base bg-primary text-white hover:bg-red-700;
-  }
-
-  .btn-secondary {
-    @apply btn-base bg-white text-secondary border border-gray-300 hover:bg-gray-50;
-  }
-
-  .btn-outline {
-    @apply btn-base bg-transparent text-primary border border-primary hover:bg-primary hover:text-white;
-  }
-
-  /* Section System */
-  .section-spacing {
-    @apply py-section;
-  }
-
-  .section-spacing-sm {
-    @apply py-section-sm;
-  }
-
-  .section-spacing-lg {
-    @apply py-section-lg;
-  }
-
-  /* Existing hover effects */
+  /* Hover effects */
   .hover-lift {
     @apply transition-all duration-300 ease-out;
   }
   .hover-lift:hover {
     @apply -translate-y-1 shadow-lg;
   }
-
-  .fade-in-up {
-    animation: fadeInUp 0.6s ease-out;
-  }
-
-  .pulse-soft {
-    animation: pulseSoft 2s infinite;
-  }
 }
 
 @layer utilities {
-  .animate-float {
-    animation: float 3s ease-in-out infinite;
-  }
   /* Accessibility: increase contrast for green status text */
   .text-green-600 {
     color: #047857 !important;
@@ -121,148 +71,3 @@
   }
 }
 
-@keyframes fadeInUp {
-  from {
-    opacity: 0;
-    transform: translate3d(0, 30px, 0);
-  }
-  to {
-    opacity: 1;
-    transform: translate3d(0, 0, 0);
-  }
-}
-
-@keyframes pulseSoft {
-  0%,
-  100% {
-    opacity: 1;
-  }
-  50% {
-    opacity: 0.8;
-  }
-}
-
-@keyframes float {
-  0%,
-  100% {
-    transform: translateY(0px);
-  }
-  50% {
-    transform: translateY(-10px);
-  }
-}
-
-/* Mobile spacing tightening: reduce oversized vertical paddings/margins/gaps on small screens */
-@layer utilities {
-  @media (max-width: 767px) {
-    /* Section paddings */
-    .section-spacing {
-      padding-top: 1.75rem;
-      padding-bottom: 1.75rem;
-    }
-    .section-spacing-sm {
-      padding-top: 1.25rem;
-      padding-bottom: 1.25rem;
-    }
-    .section-spacing-lg {
-      padding-top: 2rem;
-      padding-bottom: 2rem;
-    }
-
-    /* Common utility paddings (global downscale) */
-    .py-20 {
-      padding-top: 1.5rem;
-      padding-bottom: 1.5rem;
-    }
-    .py-16 {
-      padding-top: 1.25rem;
-      padding-bottom: 1.25rem;
-    }
-    .pt-20 {
-      padding-top: 1.75rem;
-    }
-    .pb-20 {
-      padding-bottom: 1.75rem;
-    }
-    .pt-16 {
-      padding-top: 1.25rem;
-    }
-    .pb-16 {
-      padding-bottom: 1.25rem;
-    }
-
-    /* Margins */
-    .my-20 {
-      margin-top: 1.5rem;
-      margin-bottom: 1.5rem;
-    }
-    .my-16 {
-      margin-top: 1.25rem;
-      margin-bottom: 1.25rem;
-    }
-    .mt-20 {
-      margin-top: 1.75rem;
-    }
-    .mb-20 {
-      margin-bottom: 1.75rem;
-    }
-    .mt-16 {
-      margin-top: 1.25rem;
-    }
-    .mb-16 {
-      margin-bottom: 1.25rem;
-    }
-    .mt-12 {
-      margin-top: 0.875rem;
-    }
-    .mb-12 {
-      margin-bottom: 0.875rem;
-    }
-
-    /* Gaps */
-    .gap-16 {
-      gap: 1rem;
-    }
-    .gap-12 {
-      gap: 0.875rem;
-    }
-
-    /* Space-between-y (child combinators) */
-    .space-y-16 > :not([hidden]) ~ :not([hidden]) {
-      --tw-space-y-reverse: 0;
-      margin-top: calc(1rem * calc(1 - var(--tw-space-y-reverse)));
-      margin-bottom: calc(1rem * var(--tw-space-y-reverse));
-    }
-    .space-y-12 > :not([hidden]) ~ :not([hidden]) {
-      --tw-space-y-reverse: 0;
-      margin-top: calc(0.875rem * calc(1 - var(--tw-space-y-reverse)));
-      margin-bottom: calc(0.875rem * var(--tw-space-y-reverse));
-    }
-
-    /* Tighten typography (.prose) spacing */
-    .prose :where(p):not(:where([class~='not-prose'] *)) {
-      margin-top: 0.75rem;
-      margin-bottom: 0.75rem;
-    }
-    .prose :where(h1):not(:where([class~='not-prose'] *)) {
-      margin-top: 1.25rem;
-      margin-bottom: 0.75rem;
-    }
-    .prose :where(h2):not(:where([class~='not-prose'] *)) {
-      margin-top: 1.25rem;
-      margin-bottom: 0.75rem;
-    }
-    .prose :where(h3):not(:where([class~='not-prose'] *)) {
-      margin-top: 1rem;
-      margin-bottom: 0.5rem;
-    }
-    .prose :where(ul, ol):not(:where([class~='not-prose'] *)) {
-      margin-top: 0.75rem;
-      margin-bottom: 0.75rem;
-    }
-    .prose :where(li > p):not(:where([class~='not-prose'] *)) {
-      margin-top: 0.5rem;
-      margin-bottom: 0.5rem;
-    }
-  }
-}

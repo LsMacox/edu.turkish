@@ -17,13 +17,15 @@ COPY package.json package-lock.json ./
 # Install dependencies in layers for better caching
 RUN npm ci --prefer-offline --no-audit --include=dev && npm cache clean --force
 
+
+
 # =========================
 # 1) Builder
 # =========================
 FROM deps AS builder
 WORKDIR /app
 ENV NUXT_TELEMETRY_DISABLED=1 \
-    NODE_ENV=development
+  NODE_ENV=development
 
 # Accept build-time prerender toggle if provided
 ARG NITRO_PRERENDER=false
@@ -38,36 +40,26 @@ RUN npx prisma generate
 # Build Nuxt into .output (Nitro node-server preset by default)
 RUN npm run build
 
-# =========================
-# 2) Production dependencies (no dev deps)
-# =========================
-FROM node:22-slim AS prod-deps
-WORKDIR /app
-ENV NODE_ENV=production
+# Prune dev dependencies to prepare production node_modules
+RUN npm prune --omit=dev && npm cache clean --force
 
-RUN apt-get update \
-  && apt-get install -y --no-install-recommends openssl ca-certificates \
-  && rm -rf /var/lib/apt/lists/*
 
-COPY package.json package-lock.json ./
-# Install only production dependencies
-RUN npm ci --omit=dev --prefer-offline --no-audit && npm cache clean --force
 
 # =========================
-# 3) Production runner
+# 2) Production runner
 # =========================
 FROM node:22-slim AS runner
 WORKDIR /app
 ENV NODE_ENV=production \ 
-    NUXT_TELEMETRY_DISABLED=1 \
-    PATH=/app/node_modules/.bin:$PATH
+  NUXT_TELEMETRY_DISABLED=1 \
+  PATH=/app/node_modules/.bin:$PATH
 
 RUN apt-get update \
   && apt-get install -y --no-install-recommends netcat-openbsd openssl ca-certificates \
   && rm -rf /var/lib/apt/lists/*
 
-# Copy production node_modules
-COPY --from=prod-deps /app/node_modules ./node_modules
+# Copy production node_modules from builder (already pruned)
+COPY --from=builder /app/node_modules ./node_modules
 
 # Copy build artefacts and runtime files
 COPY --from=builder /app/.output ./.output

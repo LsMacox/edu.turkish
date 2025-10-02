@@ -1,15 +1,13 @@
 <template>
   <main>
     <!-- Page Title Section -->
-    <section id="page-title" class="py-12 md:py-16 bg-gradient-to-br from-blue-50 to-purple-50">
-      <div class="container mx-auto px-4 lg:px-6">
+    <section id="page-title" class="section-py bg-gradient-to-br from-blue-50 to-purple-50">
+      <div class="container mx-auto container-padding-narrow">
         <div class="text-center max-w-4xl mx-auto">
-          <h1
-            class="text-2xl xs:text-3xl md:text-4xl lg:text-5xl font-bold text-secondary mb-4 md:mb-6"
-          >
+          <h1 class="text-hero mb-4 md:mb-6">
             {{ $t('universities_page.hero.title') }}
           </h1>
-          <p class="text-base md:text-xl text-gray-600 leading-relaxed">
+          <p class="text-hero-subtitle">
             {{ $t('universities_page.hero.subtitle') }}
           </p>
 
@@ -40,9 +38,9 @@
     </section>
 
     <!-- Universities Grid -->
-    <section id="universities-grid" class="py-8 md:py-12">
-      <div class="container mx-auto px-4 lg:px-6">
-        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+    <section id="universities-grid" class="section-py-sm">
+      <div class="container mx-auto container-padding-narrow">
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-section">
           <UniversityCard
             v-for="u in paged"
             :key="u.id"

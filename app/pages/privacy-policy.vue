@@ -1,18 +1,16 @@
 <template>
   <div class="min-h-screen bg-background">
-    <div class="container mx-auto px-4 sm:px-6 lg:px-6 py-8 sm:py-12 lg:py-16">
+    <div class="container mx-auto container-padding section-py">
       <div class="max-w-4xl mx-auto">
         <!-- Page Header -->
         <div class="text-center mb-8 sm:mb-10 lg:mb-12">
-          <h1
-            class="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold text-secondary mb-4 px-2 sm:px-0"
-          >
+          <h1 class="text-hero mb-4 px-2 sm:px-0">
             {{ $t('privacy.title') }}
           </h1>
         </div>
 
         <!-- Content -->
-        <div class="bg-white rounded-xl sm:rounded-2xl shadow-lg p-4 sm:p-6 md:p-8 lg:p-12">
+        <div class="bg-white rounded-xl sm:rounded-2xl shadow-lg card-padding-lg">
           <div class="prose max-w-none space-y-6 sm:space-y-8">
             <section class="mb-6 sm:mb-8">
               <h2

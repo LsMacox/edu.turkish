@@ -4,17 +4,17 @@
     <!-- Hero Section -->
     <section
       id="hero"
-      class="relative bg-gradient-to-br from-blue-50 via-purple-50 to-pink-50 py-16 md:py-20"
+      class="relative bg-gradient-to-br from-blue-50 via-purple-50 to-pink-50 section-py-lg"
     >
-      <div class="container mx-auto px-4 lg:px-6">
+      <div class="container mx-auto container-padding-narrow">
         <div class="grid lg:grid-cols-2 gap-12 items-center">
           <div class="space-y-8">
             <div class="space-y-6">
-              <h1 class="text-4xl lg:text-5xl font-bold text-secondary leading-tight">
+              <h1 class="text-hero">
                 {{ $t('reviews.hero.title') }}
                 <span class="text-primary">{{ $t('reviews.hero.titleAccent') }}</span>
               </h1>
-              <p class="text-xl text-gray-600 leading-relaxed">
+              <p class="text-hero-subtitle">
                 {{ $t('reviews.hero.description') }}
               </p>
             </div>
@@ -22,15 +22,15 @@
             <!-- Stats -->
             <div class="grid grid-cols-3 gap-4 md:gap-6">
               <div class="text-center">
-                <div class="text-3xl font-bold text-primary mb-2">500+</div>
+                <div class="text-2xl md:text-3xl font-bold text-primary mb-2">500+</div>
                 <p class="text-sm text-gray-600">{{ $t('reviews.hero.stats.students') }}</p>
               </div>
               <div class="text-center">
-                <div class="text-3xl font-bold text-primary mb-2">4.9/5</div>
+                <div class="text-2xl md:text-3xl font-bold text-primary mb-2">4.9/5</div>
                 <p class="text-sm text-gray-600">{{ $t('reviews.hero.stats.rating') }}</p>
               </div>
               <div class="text-center">
-                <div class="text-3xl font-bold text-primary mb-2">98%</div>
+                <div class="text-2xl md:text-3xl font-bold text-primary mb-2">98%</div>
                 <p class="text-sm text-gray-600">{{ $t('reviews.hero.stats.success') }}</p>
               </div>
             </div>
@@ -69,19 +69,19 @@
     </section>
 
     <!-- Review Stats Section - Наши достижения в цифрах -->
-    <section id="achievements" class="py-16 md:py-20 bg-background">
-      <div class="container mx-auto px-4 lg:px-6">
+    <section id="achievements" class="section-py-lg bg-background">
+      <div class="container mx-auto container-padding-narrow">
         <div class="text-center mb-16">
-          <h2 class="text-4xl lg:text-5xl font-bold text-secondary mb-6">
+          <h2 class="text-section-title mb-6">
             {{ $t('reviews.achievements.title') }}
             <span class="text-primary">{{ $t('reviews.achievements.titleAccent') }}</span>
           </h2>
-          <p class="text-xl text-gray-600 max-w-3xl mx-auto">
+          <p class="text-section-subtitle max-w-3xl mx-auto">
             {{ $t('reviews.achievements.description') }}
           </p>
         </div>
 
-        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 md:gap-8 mb-16">
+        <div class="grid grid-cols-2 md:grid-cols-2 lg:grid-cols-4 gap-4 md:gap-6 lg:gap-8 mb-4 md:mb-6 lg:mb-8">
           <!-- Students count -->
           <div class="bg-white rounded-2xl shadow-custom p-4 md:p-6 text-center">
             <div
@@ -89,11 +89,11 @@
             >
               <Icon name="mdi:account-group" class="text-2xl text-white" />
             </div>
-            <div class="text-3xl font-bold text-primary mb-2">500+</div>
-            <h3 class="font-bold text-secondary mb-1">
+            <div class="text-2xl md:text-3xl font-bold text-primary mb-2">500+</div>
+            <h3 class="text-card-title mb-1">
               {{ $t('reviews.achievements.stats.students.title') }}
             </h3>
-            <p class="text-sm text-gray-600">
+            <p class="text-card-body">
               {{ $t('reviews.achievements.stats.students.description') }}
             </p>
           </div>
@@ -106,10 +106,10 @@
               <Icon name="mdi:check-circle" class="text-2xl text-white" />
             </div>
             <div class="text-3xl font-bold text-green-500 mb-2">98%</div>
-            <h3 class="font-bold text-secondary mb-1">
+            <h3 class="text-card-title mb-1">
               {{ $t('reviews.achievements.stats.success.title') }}
             </h3>
-            <p class="text-sm text-gray-600">
+            <p class="text-card-body">
               {{ $t('reviews.achievements.stats.success.description') }}
             </p>
           </div>
@@ -122,10 +122,10 @@
               <Icon name="mdi:school" class="text-2xl text-white" />
             </div>
             <div class="text-3xl font-bold text-blue-500 mb-2">20+</div>
-            <h3 class="font-bold text-secondary mb-1">
+            <h3 class="text-card-title mb-1">
               {{ $t('reviews.achievements.stats.universities.title') }}
             </h3>
-            <p class="text-sm text-gray-600">
+            <p class="text-card-body">
               {{ $t('reviews.achievements.stats.universities.description') }}
             </p>
           </div>
@@ -138,16 +138,16 @@
               <Icon name="mdi:trophy" class="text-2xl text-white" />
             </div>
             <div class="text-3xl font-bold text-purple-500 mb-2">6</div>
-            <h3 class="font-bold text-secondary mb-1">
+            <h3 class="text-card-title mb-1">
               {{ $t('reviews.achievements.stats.experience.title') }}
             </h3>
-            <p class="text-sm text-gray-600">
+            <p class="text-card-body">
               {{ $t('reviews.achievements.stats.experience.description') }}
             </p>
           </div>
         </div>
 
-        <div class="grid grid-cols-1 md:grid-cols-3 gap-6 md:gap-8 mb-16">
+        <div class="grid grid-cols-2 md:grid-cols-3 gap-4 md:gap-6 lg:gap-8 mb-16">
           <!-- Overall Rating -->
           <div class="bg-white rounded-2xl shadow-custom p-6 md:p-8 text-center">
             <div
@@ -155,7 +155,7 @@
             >
               <span class="text-3xl font-bold text-white">4.9</span>
             </div>
-            <h3 class="text-2xl font-bold text-secondary mb-2">
+            <h3 class="text-card-title mb-2">
               {{ $t('reviews.achievements.overallRating.title') }}
             </h3>
             <div class="flex justify-center mb-4">
@@ -165,7 +165,7 @@
               <Icon name="mdi:star" class="text-yellow-400 text-xl" />
               <Icon name="mdi:star" class="text-yellow-400 text-xl" />
             </div>
-            <p class="text-gray-600">{{ $t('reviews.achievements.overallRating.description') }}</p>
+            <p class="text-card-body">{{ $t('reviews.achievements.overallRating.description') }}</p>
           </div>
 
           <!-- Support -->
@@ -175,11 +175,11 @@
             >
               <Icon name="mdi:headset" class="text-3xl text-white" />
             </div>
-            <h3 class="text-2xl font-bold text-secondary mb-2">
+            <h3 class="text-card-title mb-2">
               {{ $t('reviews.achievements.support.title') }}
             </h3>
             <div class="text-4xl font-bold text-orange-500 mb-2">100%</div>
-            <p class="text-gray-600">{{ $t('reviews.achievements.support.description') }}</p>
+            <p class="text-card-body">{{ $t('reviews.achievements.support.description') }}</p>
           </div>
 
           <!-- Recommendation Rate -->
@@ -189,15 +189,18 @@
             >
               <Icon name="mdi:thumb-up" class="text-3xl text-white" />
             </div>
-            <h3 class="text-2xl font-bold text-secondary mb-2">
+            <h3 class="text-card-title mb-2">
               {{ $t('reviews.achievements.recommendation.title') }}
             </h3>
             <div class="text-4xl font-bold text-blue-500 mb-2">100%</div>
-            <p class="text-gray-600">{{ $t('reviews.achievements.recommendation.description') }}</p>
+            <p class="text-card-body">{{ $t('reviews.achievements.recommendation.description') }}</p>
           </div>
         </div>
       </div>
     </section>
+
+    <!-- Media Reviews Section (Video & Image Reviews) -->
+    <MediaReviewsSection />
 
     <!-- Student Stories -->
     <StudentStoriesSection />

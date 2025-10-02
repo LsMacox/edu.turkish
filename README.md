@@ -62,9 +62,16 @@ npm run dev
 
 ## 📚 Документация
 
+### Общая документация
 - [Настройка сервера](./docs/SERVER_SETUP.md)
 - [Bitrix: быстрая настройка](./docs/BITRIX_SETUP.md)
 - [Миграции БД (Prisma)](./docs/MIGRATIONS_SETUP.md)
+
+### Design System
+- [Spacing Patterns](./docs/SPACING_PATTERNS.md) — стандартизированная система отступов
+- [Spacing Migration Checklist](./docs/SPACING_MIGRATION_CHECKLIST.md) — история унификации
+
+### Скрипты
 - [Автоматический перевод](./docs/scripts/TRANSLATE.md)
 - [Импорт университета](./docs/scripts/IMPORT_UNIVERSITY.md)
 - [Удаление университета](./docs/scripts/DELETE_UNIVERSITY.md)

@@ -4,10 +4,10 @@
     <section class="bg-gradient-to-b from-gray-50 to-white pt-16">
       <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
         <div class="text-center">
-          <h1 class="text-4xl md:text-5xl font-bold text-secondary mb-6">
+          <h1 class="text-hero mb-6">
             {{ t('faq.title') }}
           </h1>
-          <p class="text-xl text-gray-600 mb-8 max-w-3xl mx-auto leading-relaxed">
+          <p class="text-hero-subtitle mb-8 max-w-3xl mx-auto">
             {{ t('faq.subtitle') }}
           </p>
           <div class="flex justify-center">
@@ -28,7 +28,7 @@
     </section>
 
     <!-- Search Section -->
-    <section class="py-12 bg-white">
+    <section class="section-py-sm bg-white">
       <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
         <div class="relative">
           <input
@@ -96,7 +96,7 @@
     </section>
 
     <!-- FAQ Categories -->
-    <section class="py-8 bg-gray-50">
+    <section class="section-py-sm bg-gray-50">
       <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
         <div class="flex flex-wrap justify-center gap-4">
           <button
@@ -119,7 +119,7 @@
     </section>
 
     <!-- Main FAQ Section -->
-    <section class="py-16 bg-white">
+    <section class="section-py bg-white">
       <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
         <!-- No results state -->
         <div v-if="isActiveSearch && !hasResults && !isSearching" class="text-center py-12">

@@ -2,8 +2,8 @@
   <div class="bg-white">
     <BlogHeroSection :hero="hero" :hero-image="heroImage" v-model="searchInput" />
 
-    <section class="py-8 bg-white border-b border-gray-100">
-      <div class="container mx-auto px-4 lg:px-6">
+    <section class="section-py-sm bg-white border-b border-gray-100">
+      <div class="container mx-auto container-padding-narrow">
         <div class="flex flex-wrap justify-center gap-3">
           <button
             v-for="category in filterCategories"
@@ -24,9 +24,9 @@
       </div>
     </section>
 
-    <section class="py-16 bg-background">
-      <div class="container mx-auto px-4 lg:px-6">
-        <div class="grid lg:grid-cols-3 gap-8">
+    <section class="section-py bg-background">
+      <div class="container mx-auto container-padding-narrow">
+        <div class="grid lg:grid-cols-3 gap-section">
           <div class="lg:col-span-2">
             <BlogArticleListSection
               :title="t('blog.articles.title')"

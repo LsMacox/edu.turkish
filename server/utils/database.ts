@@ -1,7 +1,8 @@
 import { prisma } from '../../lib/prisma'
 import type { Prisma } from '@prisma/client'
 
-export { prisma }
+// Do not re-export prisma here to avoid duplicated auto-imports with
+// `~/server/utils/prisma`. Import and use locally only.
 
 /**
  * Database connection health check
