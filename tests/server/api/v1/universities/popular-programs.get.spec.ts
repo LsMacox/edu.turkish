@@ -138,7 +138,7 @@ describe('getDirectionStats', () => {
       where: {
         translations: {
           some: {
-            locale: { in: ['kz', 'kk'] },
+            locale: { in: ['kk', 'kk'] },
             slug: { in: ['computer-science'] },
           },
         },
@@ -168,7 +168,7 @@ describe('popular programs handler', () => {
       },
     })
 
-    getQueryMock.mockReturnValue({ lang: 'kz' })
+    getQueryMock.mockReturnValue({ lang: 'kk' })
 
     const result = await popularProgramsHandler({} as never)
 
@@ -177,7 +177,7 @@ describe('popular programs handler', () => {
       where: {
         translations: {
           some: {
-            locale: { in: ['kz', 'kk'] },
+            locale: { in: ['kk', 'kk'] },
           },
         },
       },

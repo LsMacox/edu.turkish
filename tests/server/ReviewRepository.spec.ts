@@ -176,7 +176,7 @@ describe('ReviewRepository.findAll', () => {
     })
   })
 
-  it('selects kz translations when locale is requested as kk', async () => {
+  it('selects kk translations when locale is requested as kk', async () => {
     const { repository, mocks } = createRepositoryWithMocks()
 
     const review: ReviewRecord = {
@@ -193,7 +193,7 @@ describe('ReviewRepository.findAll', () => {
         {
           id: 30,
           reviewId: 3,
-          locale: 'kz',
+          locale: 'kk',
           name: 'Әружан',
           quote: 'Тамаша тәжірибе',
           universityName: 'Қазақ ұлттық университеті',
@@ -281,7 +281,7 @@ describe('ReviewRepository.findAll', () => {
     mocks.reviewFindMany.mockResolvedValue([review])
     mocks.reviewCount.mockResolvedValue(1)
 
-    const result = await repository.findAll({ type: 'all', page: 1, limit: 1 }, 'kz')
+    const result = await repository.findAll({ type: 'all', page: 1, limit: 1 }, 'kk')
 
     expect(result.data).toHaveLength(1)
     expect(result.data[0]).toMatchObject({

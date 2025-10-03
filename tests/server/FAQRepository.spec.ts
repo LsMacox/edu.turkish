@@ -123,7 +123,7 @@ describe('FAQRepository', () => {
       } as unknown as PrismaClient
 
       const repository = new FAQRepository(prisma)
-      const result = await repository.findAll({ q: 'Visa', limit: 10 }, 'kz')
+      const result = await repository.findAll({ q: 'Visa', limit: 10 }, 'kk')
 
       expect(transaction).toHaveBeenCalledTimes(1)
       expect(findMany).toHaveBeenCalledTimes(1)
@@ -137,7 +137,7 @@ describe('FAQRepository', () => {
       const translationFilter = where?.translations?.some as Prisma.FaqTranslationWhereInput
 
       expect(findManyArgs.take).toBe(10)
-      expect(translationInclude?.where?.locale?.in).toEqual(['kk', 'kz', 'ru'])
+      expect(translationInclude?.where?.locale?.in).toEqual(['kk', 'kk', 'ru'])
       expect(translationFilter?.OR).toEqual([
         { question: { contains: 'Visa' } },
         { answer: { contains: 'Visa' } },
@@ -175,7 +175,7 @@ describe('FAQRepository', () => {
       const searchFilter = findManyArgs.where?.translations?.some as Prisma.FaqTranslationWhereInput
 
       expect(findManyArgs.take).toBe(2)
-      expect(translationInclude?.where?.locale?.in).toEqual(['kk', 'kz', 'ru'])
+      expect(translationInclude?.where?.locale?.in).toEqual(['kk', 'kk', 'ru'])
       expect(searchFilter?.OR).toEqual([
         { question: { contains: 'Visa' } },
         { answer: { contains: 'Visa' } },

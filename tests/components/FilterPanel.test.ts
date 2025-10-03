@@ -59,9 +59,9 @@ const mountFilterPanel = () =>
         BaseRangeSlider,
       },
       config: {
-        globalProperties: ({
+        globalProperties: {
           $t: (key: string) => key,
-        } as unknown) as Record<string, any>,
+        } as unknown as Record<string, any>,
       },
       stubs: {
         BaseTextField: {
