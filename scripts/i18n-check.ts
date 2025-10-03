@@ -215,11 +215,47 @@ export function scanSourceFileForKeys(filePath: string): Set<string> {
 
     // Regex to match t(), $t(), te(), tm() calls with string arguments
     // Matches: t('key'), $t("key"), t(`key`), te('key'), tm('key')
-    const regex = /\b(?:t|te|tm|\$t)\s*\(\s*['"`]([^'"`]+)['"`]/g
+    const callRegex = /\b(?:t|te|tm|\$t)\s*\(\s*['"`]([^'"`]+)['"`]/g
 
     let match
-    while ((match = regex.exec(content)) !== null) {
+    while ((match = callRegex.exec(content)) !== null) {
       keys.add(match[1])
+    }
+
+    // Heuristic: capture i18n keys assigned to common props (title, text, label, placeholder, ariaLabel)
+    // This covers patterns like: { title: 'home.services.card1_title' } used later as $t(card.title)
+    const propRegex = /\b(title|text|label|placeholder|ariaLabel|aria_label)\s*:\s*['"`]([^'"`]+)['"`]/g
+    while ((match = propRegex.exec(content)) !== null) {
+      const key = match[2]
+      if (key.includes('.')) {
+        keys.add(key)
+      }
+    }
+
+    // Template literal handling for cities buttons on home page universities section
+    // Pattern: t(`universities_page.filters.cities.${code}`)
+    const tmplCallRegex = /\b(?:t|te|tm|\$t)\s*\(\s*`([^`]+)`/g
+    while ((match = tmplCallRegex.exec(content)) !== null) {
+      const tmpl = match[1]
+      const prefix = 'universities_page.filters.cities.'
+      if (tmpl.startsWith(prefix) && tmpl.includes('${')) {
+        // Collect candidate city codes from current file
+        const codes = new Set<string>()
+        const codePropRegex = /\bcode\s*:\s*['"]([a-zA-Z0-9_-]+)['"]/g
+        let cm
+        while ((cm = codePropRegex.exec(content)) !== null) {
+          codes.add(cm[1])
+        }
+
+        // Also fallback to common city names if not found explicitly
+        if (codes.size === 0) {
+          ;['istanbul', 'ankara', 'izmir'].forEach((c) => codes.add(c))
+        }
+
+        for (const c of codes) {
+          keys.add(prefix + c)
+        }
+      }
     }
   } catch (error) {
     // Silently skip files that can't be read
