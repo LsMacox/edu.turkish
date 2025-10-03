@@ -88,18 +88,30 @@ export async function seedStudyDirections(prisma: PrismaClient) {
   let createdCount = 0
   let updatedCount = 0
 
+  let createdDirections = 0
+
   for (const directionData of directionsMap.values()) {
-    const direction = await prisma.studyDirection.upsert({
+    const existingTranslation = await prisma.studyDirectionTranslation.findFirst({
       where: {
         slug: directionData.slug,
-      } as any,
-      update: {},
-      create: {
-        slug: directionData.slug,
-      } as any,
+      },
+      select: {
+        directionId: true,
+      },
     })
 
-    const directionId = (direction as any).id ?? direction.id
+    let directionId: number
+
+    if (existingTranslation?.directionId) {
+      directionId = existingTranslation.directionId
+    } else {
+      const createdDirection = await prisma.studyDirection.create({
+        data: {},
+      })
+
+      directionId = createdDirection.id
+      createdDirections += 1
+    }
 
     for (const locale of LOCALES) {
       const name = directionData.translations[locale]
@@ -131,7 +143,8 @@ export async function seedStudyDirections(prisma: PrismaClient) {
     }
   }
 
-  console.log(`  ✅ Upserted ${total} directions with ${total * LOCALES.length} translations`)
+  console.log(`  ✅ Processed ${total} directions with ${total * LOCALES.length} translations`)
+  console.log(`  🆕 Created directions: ${createdDirections}`)
   console.log(`  ➕ Created translations: ${createdCount}`)
   console.log(`  ♻️ Updated translations: ${updatedCount}`)
   console.log('✅ Study directions seeding finished')
