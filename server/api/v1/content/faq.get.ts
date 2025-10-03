@@ -5,7 +5,7 @@ import { parseFAQFilters } from '../../../utils/api-helpers'
 
 export default defineEventHandler(async (event): Promise<FAQResponse> => {
   try {
-    // Locale is normalized in i18n middleware (maps 'kz' -> 'kk') and stored on context
+    // Locale is normalized in i18n middleware (maps 'kk' -> 'kk') and stored on context
     const query = getQuery(event)
     const params = parseFAQFilters(query)
     const contextLocale =

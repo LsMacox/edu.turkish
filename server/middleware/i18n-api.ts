@@ -1,5 +1,4 @@
-const SUPPORTED_LOCALES = ['en', 'ru', 'kk', 'kz', 'tr']
-const DEFAULT_LOCALE = 'ru'
+import { SUPPORTED_LOCALES, DEFAULT_LOCALE, type SupportedLocale } from '../utils/locale'
 
 export default defineEventHandler(async (event) => {
   if (!event.node.req.url?.startsWith('/api/')) {
@@ -14,10 +13,10 @@ export default defineEventHandler(async (event) => {
   setHeader(event, 'Vary', 'Accept-Language')
 })
 
-function detectLanguage(event: any): string {
+function detectLanguage(event: any): SupportedLocale {
   const queryLang = getQuery(event).lang as string
-  if (queryLang && SUPPORTED_LOCALES.includes(queryLang)) {
-    return queryLang === 'kz' ? 'kk' : queryLang
+  if (queryLang && SUPPORTED_LOCALES.includes(queryLang as SupportedLocale)) {
+    return queryLang as SupportedLocale
   }
 
   const acceptLang = getHeader(event, 'Accept-Language')
@@ -25,11 +24,11 @@ function detectLanguage(event: any): string {
     const preferred = parseAcceptLanguageSimple(acceptLang)
     for (const lang of preferred) {
       const baseCode = lang.split('-')[0]
-      if (SUPPORTED_LOCALES.includes(lang)) {
-        return lang === 'kz' ? 'kk' : lang
+      if (SUPPORTED_LOCALES.includes(lang as SupportedLocale)) {
+        return lang as SupportedLocale
       }
-      if (SUPPORTED_LOCALES.includes(baseCode)) {
-        return baseCode === 'kz' ? 'kk' : baseCode
+      if (SUPPORTED_LOCALES.includes(baseCode as SupportedLocale)) {
+        return baseCode as SupportedLocale
       }
     }
   }

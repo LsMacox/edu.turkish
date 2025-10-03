@@ -4,11 +4,11 @@ import type { H3Event } from 'h3'
 const DEFAULT_LOCALE = 'ru'
 
 const CANONICAL_LOCALE_MAP: Record<string, string> = {
-  kk: 'kz',
+  kk: 'kk',
 }
 
 const LOCALE_VARIANTS: Record<string, string[]> = {
-  kz: ['kz', 'kk'],
+  kk: ['kk', 'kk'],
 }
 
 export interface NormalizedLanguage {

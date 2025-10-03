@@ -51,7 +51,7 @@ export class BlogRepository {
       case 'en':
         return 'en-GB'
       case 'kk':
-      case 'kz':
+      case 'kk':
         return 'kk-KZ'
       case 'tr':
         return 'tr-TR'
@@ -96,7 +96,7 @@ export class BlogRepository {
       case 'en':
         return `${safeMinutes} min read`
       case 'kk':
-      case 'kz':
+      case 'kk':
         return `${safeMinutes} мин оқу`
       case 'tr':
         return `${safeMinutes} dk okuma`
@@ -228,7 +228,7 @@ export class BlogRepository {
       case 'en':
         return `${formattedCount} views`
       case 'kk':
-      case 'kz':
+      case 'kk':
         return `${formattedCount} қаралым`
       case 'tr':
         return `${formattedCount} görüntülenme`

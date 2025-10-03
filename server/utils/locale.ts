@@ -1,3 +1,7 @@
+import { SUPPORTED_LOCALES, DEFAULT_LOCALE, type SupportedLocale } from '../../lib/locales'
+
+export { SUPPORTED_LOCALES, DEFAULT_LOCALE, type SupportedLocale }
+
 export interface NormalizedLocale {
   normalized: string
   fallbacks: string[]
@@ -5,15 +9,12 @@ export interface NormalizedLocale {
 
 /**
  * Normalize locale codes and provide fallback variants.
- * Ensures kk/kz aliases are treated uniformly while always
- * including Russian as the ultimate fallback.
+ * Provides fallbacks to Russian as the ultimate fallback.
  */
 export function normalizeLocale(input?: string | null): NormalizedLocale {
   const base = (input ?? 'ru').toLowerCase()
-  const raw = base.split(/[-_]/)[0]
-  const normalized = raw === 'kz' ? 'kk' : raw
-  const variants = normalized === 'kk' ? ['kk', 'kz'] : [normalized]
-  const fallbacks = Array.from(new Set([...variants, 'ru']))
+  const normalized = base.split(/[-_]/)[0]
+  const fallbacks = [normalized, 'ru'].filter((v, i, a) => a.indexOf(v) === i)
 
   return {
     normalized,

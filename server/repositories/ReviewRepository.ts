@@ -221,10 +221,7 @@ export class ReviewRepository {
         mediaType: review.mediaType,
         name: translation?.name || '',
         quote: translation?.quote || '',
-        university:
-          review.university?.translations[0]?.title ||
-          translation?.universityName ||
-          '',
+        university: review.university?.translations[0]?.title || translation?.universityName || '',
         rating: review.rating,
         year: review.year,
         avatar: review.avatar,
