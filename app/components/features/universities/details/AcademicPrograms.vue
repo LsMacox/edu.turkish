@@ -120,4 +120,3 @@ const getLanguageBadgeClass = (language: string) => {
   }
 }
 </script>
-

@@ -127,4 +127,3 @@ const selectCity = (cityId: string) => {
   selectedCity.value = cityId
 }
 </script>
-

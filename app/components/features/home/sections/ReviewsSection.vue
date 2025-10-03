@@ -94,4 +94,3 @@ if (reviewsError.value) {
   console.error('Failed to load featured reviews:', reviewsError.value)
 }
 </script>
-

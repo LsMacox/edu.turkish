@@ -232,4 +232,3 @@ const openApplicationForm = () => {
   modal.openModal(questionnairePreferences)
 }
 </script>
-

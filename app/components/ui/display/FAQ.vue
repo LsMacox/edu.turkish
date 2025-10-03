@@ -105,4 +105,3 @@ const isOpen = (index: number) => openFaqs.value.includes(index)
 
 const isStringAnswer = (answer: FaqAnswer): answer is string => typeof answer === 'string'
 </script>
-

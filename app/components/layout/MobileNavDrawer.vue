@@ -200,6 +200,7 @@
 <script setup lang="ts">
 import { useApplicationModalStore } from '~/stores/applicationModal'
 import { useContactChannels } from '~/composables/useContactChannels'
+import { SUPPORTED_LOCALES, type SupportedLocale } from '@@/lib/locales'
 
 interface Props {
   isOpen: boolean
@@ -218,14 +219,14 @@ const { t } = useI18n()
 const { channels, getChannel } = useContactChannels()
 const instagramChannel = getChannel('instagram')
 
-const i18n = useI18n<{ messages: Record<string, any> }, 'ru' | 'kz' | 'en' | 'tr'>()
+const i18n = useI18n<{ messages: Record<string, any> }, SupportedLocale>()
 const localePath = useLocalePath()
 const switchLocalePath = useSwitchLocalePath()
 
-type Opt = { code: 'ru' | 'kz' | 'en' | 'tr'; label: string }
+type Opt = { code: SupportedLocale; label: string }
 const options: Opt[] = [
   { code: 'ru', label: 'Русский' },
-  { code: 'kz', label: 'Қазақ' },
+  { code: 'kk', label: 'Қазақ' },
   { code: 'en', label: 'English' },
   { code: 'tr', label: 'Türkçe' },
 ]
@@ -290,6 +291,6 @@ watch(
       }
     }
   },
-  { immediate: true }
+  { immediate: true },
 )
 </script>

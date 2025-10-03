@@ -44,7 +44,6 @@
 </template>
 
 <script setup lang="ts">
-
 interface MediaReview {
   id: number
   type: string
@@ -75,18 +74,18 @@ const isOpen = computed(() => props.video !== null)
 
 const videoSource = computed(() => {
   if (!props.video?.videoUrl) return null
-  
+
   // Handle different video sources
   if (props.video.videoUrl.startsWith('youtube:')) {
     const youtubeId = props.video.videoUrl.replace('youtube:', '')
     return `https://www.youtube.com/watch?v=${youtubeId}`
   }
-  
+
   if (props.video.videoUrl.startsWith('vimeo:')) {
     const vimeoId = props.video.videoUrl.replace('vimeo:', '')
     return `https://vimeo.com/${vimeoId}`
   }
-  
+
   // Local video file
   return props.video.videoUrl
 })
@@ -98,14 +97,14 @@ function closeModal() {
 // Close on ESC key
 onMounted(() => {
   if (typeof window === 'undefined') return
-  
+
   const handleEscape = (e: KeyboardEvent) => {
     if (e.key === 'Escape' && isOpen.value) {
       closeModal()
     }
   }
   window.addEventListener('keydown', handleEscape)
-  
+
   onUnmounted(() => {
     window.removeEventListener('keydown', handleEscape)
   })
@@ -114,7 +113,7 @@ onMounted(() => {
 // Lock body scroll when modal is open
 watch(isOpen, (open) => {
   if (typeof document === 'undefined') return
-  
+
   if (open) {
     document.body.style.overflow = 'hidden'
   } else {

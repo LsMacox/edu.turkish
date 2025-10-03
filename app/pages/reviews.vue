@@ -81,7 +81,9 @@
           </p>
         </div>
 
-        <div class="grid grid-cols-2 md:grid-cols-2 lg:grid-cols-4 gap-4 md:gap-6 lg:gap-8 mb-4 md:mb-6 lg:mb-8">
+        <div
+          class="grid grid-cols-2 md:grid-cols-2 lg:grid-cols-4 gap-4 md:gap-6 lg:gap-8 mb-4 md:mb-6 lg:mb-8"
+        >
           <!-- Students count -->
           <div class="bg-white rounded-2xl shadow-custom p-4 md:p-6 text-center">
             <div
@@ -193,7 +195,9 @@
               {{ $t('reviews.achievements.recommendation.title') }}
             </h3>
             <div class="text-4xl font-bold text-blue-500 mb-2">100%</div>
-            <p class="text-card-body">{{ $t('reviews.achievements.recommendation.description') }}</p>
+            <p class="text-card-body">
+              {{ $t('reviews.achievements.recommendation.description') }}
+            </p>
           </div>
         </div>
       </div>

@@ -284,4 +284,3 @@ function closeVideo() {
   activeVideo.value = null
 }
 </script>
-

@@ -12,7 +12,13 @@
         <div class="grid lg:grid-cols-2 gap-16 items-center mb-16">
           <div class="space-y-8">
             <div class="flex items-start space-x-4">
-              <BaseIconBadge icon="mdi:school" color="blue" size="md" rounded="xl" class="flex-shrink-0" />
+              <BaseIconBadge
+                icon="mdi:school"
+                color="blue"
+                size="md"
+                rounded="xl"
+                class="flex-shrink-0"
+              />
               <div>
                 <h3 class="text-card-title mb-2">
                   {{ $t('about.whyChooseUs.advantages.personal.title') }}
@@ -24,7 +30,13 @@
             </div>
 
             <div class="flex items-start space-x-4">
-              <BaseIconBadge icon="mdi:handshake" color="green" size="md" rounded="xl" class="flex-shrink-0" />
+              <BaseIconBadge
+                icon="mdi:handshake"
+                color="green"
+                size="md"
+                rounded="xl"
+                class="flex-shrink-0"
+              />
               <div>
                 <h3 class="text-card-title mb-2">
                   {{ $t('about.whyChooseUs.advantages.direct.title') }}
@@ -36,7 +48,13 @@
             </div>
 
             <div class="flex items-start space-x-4">
-              <BaseIconBadge icon="mdi:translate" color="purple" size="md" rounded="xl" class="flex-shrink-0" />
+              <BaseIconBadge
+                icon="mdi:translate"
+                color="purple"
+                size="md"
+                rounded="xl"
+                class="flex-shrink-0"
+              />
               <div>
                 <h3 class="text-card-title mb-2">
                   {{ $t('about.whyChooseUs.advantages.multilingual.title') }}
@@ -48,7 +66,13 @@
             </div>
 
             <div class="flex items-start space-x-4">
-              <BaseIconBadge icon="mdi:hand-heart" color="orange" size="md" rounded="xl" class="flex-shrink-0" />
+              <BaseIconBadge
+                icon="mdi:hand-heart"
+                color="orange"
+                size="md"
+                rounded="xl"
+                class="flex-shrink-0"
+              />
               <div>
                 <h3 class="text-card-title mb-2">
                   {{ $t('about.whyChooseUs.advantages.support.title') }}
@@ -110,4 +134,3 @@
 </template>
 
 <script setup lang="ts"></script>
-

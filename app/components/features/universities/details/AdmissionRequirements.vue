@@ -202,10 +202,10 @@ const scholarships = computed(() => {
 
   const { locale } = useI18n()
   const upTo = computed(() => {
-    switch (locale.value as 'ru' | 'kz' | 'en' | 'tr') {
+    switch (locale.value as 'ru' | 'kk' | 'en' | 'tr') {
       case 'en':
         return 'up to'
-      case 'kz':
+      case 'kk':
         return 'дейін'
       case 'tr':
         return 'kadar'
@@ -233,4 +233,3 @@ const importantDates = computed(() => {
   }))
 })
 </script>
-

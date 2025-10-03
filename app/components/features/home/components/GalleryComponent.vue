@@ -139,4 +139,3 @@ import { useContactChannels } from '~/composables/useContactChannels'
 const { getChannel } = useContactChannels()
 const instagramChannel = getChannel('instagram')
 </script>
-

@@ -93,4 +93,3 @@ const quickLinkIcons: Record<string, string> = {
 
 const quickLinkIcon = (id: string) => quickLinkIcons[id] ?? 'mdi:arrow-right'
 </script>
-

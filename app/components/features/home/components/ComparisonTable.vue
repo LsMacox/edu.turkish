@@ -84,4 +84,3 @@
 <script setup lang="ts">
 // Comparison table section
 </script>
-

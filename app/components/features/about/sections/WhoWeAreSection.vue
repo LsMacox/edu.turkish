@@ -22,7 +22,13 @@
           <div class="space-y-8">
             <div class="space-y-6">
               <div class="flex items-start space-x-4">
-                <BaseIconBadge icon="mdi:trophy" color="blue" size="md" rounded="xl" class="flex-shrink-0" />
+                <BaseIconBadge
+                  icon="mdi:trophy"
+                  color="blue"
+                  size="md"
+                  rounded="xl"
+                  class="flex-shrink-0"
+                />
                 <div>
                   <h3 class="text-card-title mb-2">
                     {{ t('about.who_we_are.experienced_agency') }}
@@ -32,7 +38,13 @@
               </div>
 
               <div class="flex items-start space-x-4">
-                <BaseIconBadge icon="mdi:school" color="green" size="md" rounded="xl" class="flex-shrink-0" />
+                <BaseIconBadge
+                  icon="mdi:school"
+                  color="green"
+                  size="md"
+                  rounded="xl"
+                  class="flex-shrink-0"
+                />
                 <div>
                   <h3 class="text-card-title mb-2">
                     {{ t('about.who_we_are.students_enrolled') }}
@@ -42,7 +54,13 @@
               </div>
 
               <div class="flex items-start space-x-4">
-                <BaseIconBadge icon="mdi:file-document" color="purple" size="md" rounded="xl" class="flex-shrink-0" />
+                <BaseIconBadge
+                  icon="mdi:file-document"
+                  color="purple"
+                  size="md"
+                  rounded="xl"
+                  class="flex-shrink-0"
+                />
                 <div>
                   <h3 class="text-card-title mb-2">
                     {{ t('about.who_we_are.official_work') }}
@@ -52,7 +70,13 @@
               </div>
 
               <div class="flex items-start space-x-4">
-                <BaseIconBadge icon="mdi:hand-heart" color="orange" size="md" rounded="xl" class="flex-shrink-0" />
+                <BaseIconBadge
+                  icon="mdi:hand-heart"
+                  color="orange"
+                  size="md"
+                  rounded="xl"
+                  class="flex-shrink-0"
+                />
                 <div>
                   <h3 class="text-card-title mb-2">
                     {{ t('about.who_we_are.comprehensive_help') }}
@@ -69,8 +93,6 @@
 </template>
 
 <script setup lang="ts">
-const whoWeAre =
-  '/images/who-we-are.jpg'
+const whoWeAre = '/images/who-we-are.jpg'
 const { t } = useI18n()
 </script>
-

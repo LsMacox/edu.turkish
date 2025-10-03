@@ -3,7 +3,11 @@
     class="bg-white rounded-3xl shadow-custom overflow-hidden hover:shadow-lg transition-shadow duration-300 h-full flex flex-col"
   >
     <!-- Video Review -->
-    <div v-if="review.mediaType === 'video'" class="relative group cursor-pointer" @click="handlePlayVideo">
+    <div
+      v-if="review.mediaType === 'video'"
+      class="relative group cursor-pointer"
+      @click="handlePlayVideo"
+    >
       <div class="relative aspect-video bg-gray-200">
         <img
           v-if="review.videoThumb"
@@ -12,19 +16,29 @@
           class="w-full h-full object-cover"
           loading="lazy"
         />
-        <div v-else class="w-full h-full flex items-center justify-center bg-gradient-to-br from-blue-100 to-purple-100">
+        <div
+          v-else
+          class="w-full h-full flex items-center justify-center bg-gradient-to-br from-blue-100 to-purple-100"
+        >
           <Icon name="mdi:video" class="text-6xl text-gray-400" />
         </div>
-        
+
         <!-- Play Button Overlay -->
-        <div class="absolute inset-0 flex items-center justify-center bg-black bg-opacity-30 group-hover:bg-opacity-40 transition-all">
-          <div class="w-16 h-16 bg-primary rounded-full flex items-center justify-center group-hover:scale-110 transition-transform">
+        <div
+          class="absolute inset-0 flex items-center justify-center bg-black bg-opacity-30 group-hover:bg-opacity-40 transition-all"
+        >
+          <div
+            class="w-16 h-16 bg-primary rounded-full flex items-center justify-center group-hover:scale-110 transition-transform"
+          >
             <Icon name="mdi:play" class="text-3xl text-white ml-1" />
           </div>
         </div>
-        
+
         <!-- Duration Badge -->
-        <div v-if="review.videoDuration" class="absolute bottom-2 right-2 bg-black bg-opacity-75 text-white text-xs px-2 py-1 rounded">
+        <div
+          v-if="review.videoDuration"
+          class="absolute bottom-2 right-2 bg-black bg-opacity-75 text-white text-xs px-2 py-1 rounded"
+        >
           {{ review.videoDuration }}
         </div>
       </div>
@@ -40,7 +54,10 @@
           class="w-full h-full object-cover"
           loading="lazy"
         />
-        <div v-else class="w-full h-full flex items-center justify-center bg-gradient-to-br from-pink-100 to-orange-100">
+        <div
+          v-else
+          class="w-full h-full flex items-center justify-center bg-gradient-to-br from-pink-100 to-orange-100"
+        >
           <Icon name="mdi:image" class="text-6xl text-gray-400" />
         </div>
       </div>
@@ -70,10 +87,13 @@
           <div v-if="review.avatar" class="w-10 h-10 rounded-full overflow-hidden flex-shrink-0">
             <img :src="review.avatar" :alt="review.name" class="w-full h-full object-cover" />
           </div>
-          <div v-else class="w-10 h-10 rounded-full bg-gradient-to-br from-primary to-orange-500 flex items-center justify-center flex-shrink-0">
+          <div
+            v-else
+            class="w-10 h-10 rounded-full bg-gradient-to-br from-primary to-orange-500 flex items-center justify-center flex-shrink-0"
+          >
             <span class="text-white font-semibold text-sm">{{ getInitials(review.name) }}</span>
           </div>
-          
+
           <div class="flex-1 min-w-0">
             <p class="font-semibold text-secondary text-sm truncate">{{ review.name }}</p>
             <p v-if="review.university" class="text-xs text-gray-600 truncate">
