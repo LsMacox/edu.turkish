@@ -202,7 +202,7 @@ const { t, locale } = useI18n()
 
 const DEFAULT_LOCALE = 'ru'
 const CANONICAL_LOCALE_MAP: Record<string, string> = {
-  kk: 'kz',
+  kk: 'kk',
 }
 
 const normalizeLanguageCode = (value?: string | null) => {

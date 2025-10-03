@@ -1,5 +1,4 @@
 {
-  "clear": "Temizle",
   "common": {
     "clear": "Temizle"
   },
@@ -9,11 +8,6 @@
   "academicPrograms": {
     "title": "Akademik Programlar",
     "subtitle": "Uygun eğitim seviyesini seçin",
-    "tabs": {
-      "bachelor": "Lisans",
-      "master": "Yüksek Lisans",
-      "phd": "Doktora"
-    },
     "table": {
       "programName": "Program Adı",
       "language": "Dil",

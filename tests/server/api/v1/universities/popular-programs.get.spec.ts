@@ -40,11 +40,13 @@ type GetDirectionStatsFn = (
 }>
 
 let getDirectionStats: GetDirectionStatsFn
+let popularProgramsHandler: any
 
 describe('getDirectionStats', () => {
   beforeAll(async () => {
     const module = await import('../../../../../server/api/v1/universities/popular-programs.get')
     getDirectionStats = module.getDirectionStats as GetDirectionStatsFn
+    popularProgramsHandler = module.popularProgramsHandler
   })
 
   beforeEach(() => {
@@ -132,13 +134,13 @@ describe('getDirectionStats', () => {
     mocks.studyDirectionFindMany.mockResolvedValueOnce([{ id: 5 }])
     mocks.universityCount.mockResolvedValueOnce(0)
 
-    await getDirectionStats(['computer-science'], 'kZ')
+    await getDirectionStats(['computer-science'], 'kk')
 
     expect(mocks.studyDirectionFindMany).toHaveBeenCalledWith({
       where: {
         translations: {
           some: {
-            locale: { in: ['kz', 'kk'] },
+            locale: 'kk',
             slug: { in: ['computer-science'] },
           },
         },
@@ -168,7 +170,7 @@ describe('popular programs handler', () => {
       },
     })
 
-    getQueryMock.mockReturnValue({ lang: 'kz' })
+    getQueryMock.mockReturnValue({ lang: 'kk' })
 
     const result = await popularProgramsHandler({} as never)
 
@@ -177,7 +179,7 @@ describe('popular programs handler', () => {
       where: {
         translations: {
           some: {
-            locale: { in: ['kz', 'kk'] },
+            locale: 'kk',
           },
         },
       },

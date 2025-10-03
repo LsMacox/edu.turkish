@@ -109,4 +109,3 @@ const teamMembers: TeamMember[] = [
   },
 ]
 </script>
-

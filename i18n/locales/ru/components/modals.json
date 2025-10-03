@@ -13,13 +13,6 @@
     "direction_placeholder": "Выберите направление",
     "message_placeholder": "Расскажите о ваших целях, предпочтениях по городу, бюджету...",
     "directions": {
-      "medicine": "Медицина",
-      "engineering": "Инженерия",
-      "business": "Бизнес",
-      "it": "IT",
-      "architecture": "Архитектура",
-      "psychology": "Психология",
-      "arts": "Искусство",
       "other": "Другое"
     },
     "preferences_title": "Ваши предпочтения:",

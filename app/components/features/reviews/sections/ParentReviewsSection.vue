@@ -101,4 +101,3 @@ const getGradientClass = (index: number) => {
   return gradients[index % gradients.length]
 }
 </script>
-

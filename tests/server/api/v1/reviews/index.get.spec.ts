@@ -75,11 +75,11 @@ describe('GET /api/v1/reviews', () => {
     })
   })
 
-  it('passes lang=kz locale to repository and returns localized reviews', async () => {
-    getQueryMock.mockReturnValue({ lang: 'kz' })
+  it('passes lang=kk locale to repository and returns localized reviews', async () => {
+    getQueryMock.mockReturnValue({ lang: 'kk' })
 
     repositoryInstance.findAll.mockImplementation(async (_filters, locale) => {
-      expect(locale).toBe('kz')
+      expect(locale).toBe('kk')
       return {
         data: [{ id: 7, name: 'Әружан', quote: 'Kazakh review' }],
         total: 1,
@@ -89,10 +89,10 @@ describe('GET /api/v1/reviews', () => {
     const handlerModule = await import('../../../../../server/api/v1/reviews/index.get')
     const handler = handlerModule.default
 
-    const event = { context: { locale: 'kz' } }
+    const event = { context: { locale: 'kk' } }
     const result = await handler(event as any)
 
-    expect(repositoryInstance.findAll).toHaveBeenCalledWith(expect.any(Object), 'kz')
+    expect(repositoryInstance.findAll).toHaveBeenCalledWith(expect.any(Object), 'kk')
     expect(result.data).toEqual([{ id: 7, name: 'Әружан', quote: 'Kazakh review' }])
   })
 })

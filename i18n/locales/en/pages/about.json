@@ -25,23 +25,7 @@
     },
     "team": {
       "title": "Our team",
-      "subtitle": "Professionals who know everything about admission to Turkish universities",
-      "ceo_founder": "Founder and head of the agency",
-      "bachelor_consultant": "Bachelor's consultant",
-      "master_consultant": "Master's consultant",
-      "university_manager": "University relations manager",
-      "document_specialist": "Document specialist",
-      "support_manager": "Customer support manager",
-      "consultant": "Consultant",
-      "manager": "Manager",
-      "specialist": "Specialist",
-      "support": "Support",
-      "aliya_description": "Graduate of Bogazici University. 8+ years of experience in educational consulting. Helped 500+ students to enroll.",
-      "dmitry_description": "Bachelor's programs specialist. Graduate of METU Ankara. Speaks Turkish, English and Russian.",
-      "aigul_description": "Expert in master's and doctoral programs. Graduate of Istanbul University. Specializes in medical fields.",
-      "mehmet_description": "Coordinates work with admission committees of Turkish universities. Lives in Istanbul, has direct connections with universities.",
-      "anna_description": "Responsible for document preparation and translation. Legal education, 6 years of experience with educational documents.",
-      "artem_description": "Responsible for 24/7 student support. Always ready to answer questions in WhatsApp, Telegram and other messengers."
+      "subtitle": "Professionals who know everything about admission to Turkish universities"
     },
     "guarantees": {
       "title": "Our guarantees",

@@ -288,4 +288,3 @@ const { openModal: openApplicationModal } = applicationModalStore
 const { getChannel } = useContactChannels()
 const whatsappChannel = getChannel('whatsapp')
 </script>
-

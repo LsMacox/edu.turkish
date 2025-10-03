@@ -8,6 +8,7 @@ import type {
   BlogPopularArticle,
   BlogArticleQuickFact,
 } from '../types/api'
+import { pickTranslation, resolveLocaleTag } from '../utils/locale'
 
 type ArticleWithRelations = Prisma.BlogArticleGetPayload<{
   include: {
@@ -25,45 +26,9 @@ type ArticleTranslation = ArticleWithRelations['translations'][number]
 export class BlogRepository {
   constructor(private prisma: PrismaClient) {}
 
-  private pickTranslation<T extends { locale: string }>(
-    translations: T[],
-    locale: string,
-  ): T | null {
-    if (!translations || translations.length === 0) {
-      return null
-    }
-
-    const exact = translations.find((translation) => translation.locale === locale)
-    if (exact) {
-      return exact
-    }
-
-    const russian = translations.find((translation) => translation.locale === 'ru')
-    if (russian) {
-      return russian
-    }
-
-    return translations[0]
-  }
-
-  private resolveLocaleTag(locale: string): string {
-    switch (locale) {
-      case 'en':
-        return 'en-GB'
-      case 'kk':
-      case 'kz':
-        return 'kk-KZ'
-      case 'tr':
-        return 'tr-TR'
-      case 'ru':
-      default:
-        return 'ru-RU'
-    }
-  }
-
   private formatDate(date: Date, locale: string): string {
     try {
-      const formatter = new Intl.DateTimeFormat(this.resolveLocaleTag(locale), {
+      const formatter = new Intl.DateTimeFormat(resolveLocaleTag(locale), {
         day: '2-digit',
         month: 'short',
         year: 'numeric',
@@ -96,7 +61,6 @@ export class BlogRepository {
       case 'en':
         return `${safeMinutes} min read`
       case 'kk':
-      case 'kz':
         return `${safeMinutes} мин оқу`
       case 'tr':
         return `${safeMinutes} dk okuma`
@@ -172,8 +136,8 @@ export class BlogRepository {
   }
 
   private mapArticleToListItem(article: ArticleWithRelations, locale: string): BlogArticleListItem {
-    const translation = this.pickTranslation(article.translations, locale)
-    const categoryTranslation = this.pickTranslation(article.category.translations, locale)
+    const translation = pickTranslation(article.translations, locale)
+    const categoryTranslation = pickTranslation(article.category.translations, locale)
 
     return {
       id: article.id,
@@ -221,14 +185,13 @@ export class BlogRepository {
 
   private formatViewCount(count: number, locale: string): string {
     const normalizedCount = Math.max(0, Math.round(count))
-    const formatter = new Intl.NumberFormat(this.resolveLocaleTag(locale))
+    const formatter = new Intl.NumberFormat(resolveLocaleTag(locale))
     const formattedCount = formatter.format(normalizedCount)
 
     switch (locale) {
       case 'en':
         return `${formattedCount} views`
       case 'kk':
-      case 'kz':
         return `${formattedCount} қаралым`
       case 'tr':
         return `${formattedCount} görüntülenme`
@@ -258,7 +221,7 @@ export class BlogRepository {
 
   private mapArticleToDetail(article: ArticleWithRelations, locale: string): BlogArticleDetail {
     const base = this.mapArticleToListItem(article, locale)
-    const translation = this.pickTranslation(article.translations, locale)
+    const translation = pickTranslation(article.translations, locale)
     const meta = this.parseArticleMeta(article.meta, translation)
 
     return {
@@ -348,7 +311,7 @@ export class BlogRepository {
     })
 
     return rows.map((row) => {
-      const translation = this.pickTranslation(row.translations, locale)
+      const translation = pickTranslation(row.translations, locale)
       return {
         key: row.code,
         label: translation?.title ?? row.code,
@@ -487,14 +450,14 @@ export class BlogRepository {
     const mappedArticles = rows.map((row) => this.mapArticleToListItem(row, locale))
     let mappedFeatured = featured ? this.mapArticleToListItem(featured, locale) : null
     if (mappedFeatured && featured) {
-      const translation = this.pickTranslation(featured.translations, locale)
+      const translation = pickTranslation(featured.translations, locale)
       const heroImg = featured.heroImage ?? featured.coverImage ?? null
       const heroAlt =
         translation?.heroImageAlt ?? translation?.imageAlt ?? translation?.title ?? undefined
       mappedFeatured = { ...mappedFeatured, image: heroImg, imageAlt: heroAlt }
     }
     const mappedCategories = categories.map((category) => {
-      const translation = this.pickTranslation(category.translations, locale)
+      const translation = pickTranslation(category.translations, locale)
       return {
         key: category.code,
         label: translation?.title ?? category.code,

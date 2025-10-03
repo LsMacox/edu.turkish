@@ -1,8 +1,5 @@
 <template>
-  <section
-    id="hero"
-    class="relative bg-gradient-to-br from-blue-50 to-purple-50 section-py-lg"
-  >
+  <section id="hero" class="relative bg-gradient-to-br from-blue-50 to-purple-50 section-py-lg">
     <div class="container mx-auto max-w-7xl container-padding">
       <div class="grid lg:grid-cols-2 gap-section-lg items-center">
         <div class="space-y-section-sm order-2 lg:order-1">
@@ -20,15 +17,21 @@
           <div class="flex flex-wrap gap-3 md:gap-4 pt-2 md:pt-3">
             <div class="flex items-center space-x-1.5">
               <Icon name="mdi:check-circle" class="text-green-500 text-lg md:text-xl" />
-              <span class="text-secondary font-medium text-sm md:text-base">{{ t('home.hero.stat_students') }}</span>
+              <span class="text-secondary font-medium text-sm md:text-base">{{
+                t('home.hero.stat_students')
+              }}</span>
             </div>
             <div class="flex items-center space-x-1.5">
               <Icon name="mdi:shield-check" class="text-blue-500 text-lg md:text-xl" />
-              <span class="text-secondary font-medium text-sm md:text-base">{{ t('home.hero.stat_verified') }}</span>
+              <span class="text-secondary font-medium text-sm md:text-base">{{
+                t('home.hero.stat_verified')
+              }}</span>
             </div>
             <div class="flex items-center space-x-1.5">
               <Icon name="mdi:file-document" class="text-purple-500 text-lg md:text-xl" />
-              <span class="text-secondary font-medium text-sm md:text-base">{{ t('home.hero.stat_documents') }}</span>
+              <span class="text-secondary font-medium text-sm md:text-base">{{
+                t('home.hero.stat_documents')
+              }}</span>
             </div>
           </div>
 

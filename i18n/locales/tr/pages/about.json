@@ -25,23 +25,7 @@
     },
     "team": {
       "title": "Ekibimiz",
-      "subtitle": "Türk üniversitelerine kabul hakkında her şeyi bilen profesyoneller",
-      "ceo_founder": "Ajansın kurucusu ve müdürü",
-      "bachelor_consultant": "Lisans danışmanı",
-      "master_consultant": "Yüksek lisans danışmanı",
-      "university_manager": "Üniversitelerle çalışma müdürü",
-      "document_specialist": "Belge uzmanı",
-      "support_manager": "Müşteri destek müdürü",
-      "consultant": "Danışman",
-      "manager": "Müdür",
-      "specialist": "Uzman",
-      "support": "Destek",
-      "aliya_description": "Boğaziçi Üniversitesi mezunu. Eğitim danışmanlığında 8+ yıl deneyim. 500+ öğrencinin kabul edilmesine yardımcı oldu.",
-      "dmitry_description": "Lisans programları uzmanı. ODTÜ Ankara mezunu. Türkçe, İngilizce ve Rusça biliyor.",
-      "aigul_description": "Yüksek lisans ve doktora programları uzmanı. İstanbul Üniversitesi mezunu. Tıp bölümlerinde uzmanlaşmış.",
-      "mehmet_description": "Türk üniversitelerinin kabul komisyonlarıyla çalışmayı koordine ediyor. İstanbul'da yaşıyor, üniversitelerle doğrudan bağlantıları var.",
-      "anna_description": "Belgelerin hazırlanması ve çevirisinden sorumlu. Hukuk eğitimi, eğitim belgeleriyle çalışma deneyimi 6 yıl.",
-      "artem_description": "Öğrencilerin 7/24 desteğinden sorumlu. WhatsApp, Telegram ve diğer mesajlaşma uygulamalarında sorulara yanıt vermeye her zaman hazır."
+      "subtitle": "Türk üniversitelerine kabul hakkında her şeyi bilen profesyoneller"
     },
     "guarantees": {
       "title": "Garantilerimiz",
@@ -107,10 +91,6 @@
         "support": {
           "title": "Tüm aşamalarda destek",
           "description": "Tam yerleşimden sonra da, ilk 6 ay boyunca öğrencilerimizin uyum sağlamasına yardımcı oluyoruz."
-        },
-        "scholarships": {
-          "title": "Burs Yardımı",
-          "description": "Maksimum indirim ve bursları nasıl alacağınızı biliyoruz. Öğrencilerimizin ortalama bursu %60'tır."
         }
       },
       "database": {

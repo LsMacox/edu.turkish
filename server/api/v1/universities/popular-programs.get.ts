@@ -1,56 +1,12 @@
 import { prisma } from '../../../../lib/prisma'
 import type { H3Event } from 'h3'
-
-const DEFAULT_LOCALE = 'ru'
-
-const CANONICAL_LOCALE_MAP: Record<string, string> = {
-  kk: 'kz',
-}
-
-const LOCALE_VARIANTS: Record<string, string[]> = {
-  kz: ['kz', 'kk'],
-}
-
-export interface NormalizedLanguage {
-  locale: string
-  variants: string[]
-}
-
-export function resolveLanguage(input?: string | null): NormalizedLanguage {
-  const raw = typeof input === 'string' ? input.trim().toLowerCase() : ''
-
-  if (!raw) {
-    return { locale: DEFAULT_LOCALE, variants: [DEFAULT_LOCALE] }
-  }
-
-  const base = raw.split(/[-_]/)[0]
-  const locale = CANONICAL_LOCALE_MAP[base] ?? base
-  const variants = LOCALE_VARIANTS[locale] ?? [locale]
-
-  return { locale, variants }
-}
-
-export function normalizeLanguageCode(input?: string | null): string {
-  return resolveLanguage(input).locale
-}
-
-function extractLanguage(query: Record<string, unknown>): string {
-  const candidate = query.lang ?? query.locale
-
-  if (Array.isArray(candidate)) {
-    return candidate[0] as string
-  }
-
-  if (typeof candidate === 'string') {
-    return candidate
-  }
-
-  return 'ru'
-}
+import { normalizeLocale } from '../../../utils/locale'
 
 export async function popularProgramsHandler(event: H3Event) {
-  const rawLanguage = extractLanguage(getQuery(event))
-  const { locale } = resolveLanguage(rawLanguage)
+  const query = getQuery(event)
+  const rawLang = query.lang ?? query.locale
+  const langInput = Array.isArray(rawLang) ? rawLang[0] : rawLang
+  const { normalized: locale } = normalizeLocale(langInput as string | undefined)
 
   try {
     // Получаем статистику по каждому направлению
@@ -133,13 +89,13 @@ export async function getDirectionStats(
     }
   }
 
-  const { variants } = resolveLanguage(locale)
+  const { normalized: resolvedLocale } = normalizeLocale(locale)
 
   const directions = await prisma.studyDirection.findMany({
     where: {
       translations: {
         some: {
-          locale: variants.length === 1 ? locale : { in: variants },
+          locale: resolvedLocale,
           slug: { in: directionSlugs },
         },
       },

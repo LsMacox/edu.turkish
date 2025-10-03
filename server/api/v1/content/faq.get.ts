@@ -5,14 +5,12 @@ import { parseFAQFilters } from '../../../utils/api-helpers'
 
 export default defineEventHandler(async (event): Promise<FAQResponse> => {
   try {
-    // Locale is normalized in i18n middleware (maps 'kz' -> 'kk') and stored on context
     const query = getQuery(event)
     const params = parseFAQFilters(query)
     const contextLocale =
       typeof event.context?.locale === 'string' ? event.context.locale : undefined
     const locale = params.lang?.trim() || contextLocale || 'ru'
 
-    // Currently using Prisma until Directus collections are mapped (Phase 2)
     const faqRepository = new FAQRepository(prisma)
     const result: FAQResponse = await faqRepository.findAll(params, locale)
 

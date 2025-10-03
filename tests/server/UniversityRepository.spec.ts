@@ -571,7 +571,7 @@ describe('UniversityRepository.findAll', () => {
     ])
   })
 
-  it('returns Kazakh translations when requested locale is kz', async () => {
+  it('returns Kazakh translations when requested locale is kk', async () => {
     const baseDate = new Date('2024-01-01T00:00:00.000Z')
     const { repository, findMany, count } = createRepositoryWithMocks()
 
@@ -598,7 +598,7 @@ describe('UniversityRepository.findAll', () => {
           {
             id: 51,
             universityId: 5,
-            locale: 'kz',
+            locale: 'kk',
             title: 'Қазақ Университеті',
             description: 'Қазақ тіліндегі сипаттама',
             slug: 'qazaq-universiteti',
@@ -641,7 +641,7 @@ describe('UniversityRepository.findAll', () => {
             {
               id: 201,
               cityId: 20,
-              locale: 'kz',
+              locale: 'kk',
               name: 'Алматы',
               createdAt: baseDate,
               updatedAt: baseDate,
@@ -662,7 +662,7 @@ describe('UniversityRepository.findAll', () => {
     findMany.mockResolvedValue(universities)
     count.mockResolvedValue(universities.length)
 
-    const result = await repository.findAll(createParams(), 'kz')
+    const result = await repository.findAll(createParams(), 'kk')
 
     expect(findMany).toHaveBeenCalledWith(
       expect.objectContaining({
@@ -740,7 +740,7 @@ describe('UniversityRepository.findAll', () => {
     findMany.mockResolvedValue(universities)
     count.mockResolvedValue(universities.length)
 
-    const result = await repository.findAll(createParams(), 'kz')
+    const result = await repository.findAll(createParams(), 'kk')
 
     expect(result.data).toHaveLength(1)
     expect(result.data[0]).toMatchObject({

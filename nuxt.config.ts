@@ -1,6 +1,31 @@
+import fs from 'node:fs'
+import path from 'node:path'
+import { SUPPORTED_LOCALES, DEFAULT_LOCALE } from './lib/locales'
+
 const siteUrl = process.env.NUXT_SITE_URL || 'https://edu-turkish.com'
 
 const enablePrerender = process.env.NITRO_PRERENDER === 'true'
+
+function getLocaleFiles(localeCode: string): string[] {
+  const localeDir = path.join('i18n/locales', localeCode)
+  const files: string[] = []
+  
+  function readDir(dir: string, prefix = '') {
+    const items = fs.readdirSync(dir, { withFileTypes: true })
+    for (const item of items) {
+      const fullPath = path.join(dir, item.name)
+      const relPath = prefix ? path.join(prefix, item.name) : item.name
+      if (item.isDirectory()) {
+        readDir(fullPath, relPath)
+      } else if (item.name.endsWith('.json')) {
+        files.push(relPath)
+      }
+    }
+  }
+  
+  readDir(localeDir, localeCode)
+  return files
+}
 
 export default defineNuxtConfig({
   ssr: true,
@@ -108,7 +133,7 @@ export default defineNuxtConfig({
     directusStaticToken: process.env.DIRECTUS_STATIC_TOKEN || '',
     public: {
       siteUrl,
-      directusUrl:process.env.NUXT_PUBLIC_DIRECTUS_URL || 'http://localhost:8055',
+      directusUrl: process.env.NUXT_PUBLIC_DIRECTUS_URL || 'http://localhost:8055',
       yandexMetrikaId: process.env.NUXT_PUBLIC_YANDEX_METRIKA_ID || '',
     },
   },
@@ -134,7 +159,7 @@ export default defineNuxtConfig({
     '/': { prerender: enablePrerender },
     '/ru': { prerender: enablePrerender },
     '/en': { prerender: enablePrerender },
-    '/kz': { prerender: enablePrerender },
+    '/kk': { prerender: enablePrerender },
     '/tr': { prerender: enablePrerender },
     '/ru/about': { prerender: enablePrerender },
     '/ru/faq': { prerender: enablePrerender },
@@ -154,15 +179,15 @@ export default defineNuxtConfig({
     '/en/privacy-policy': { prerender: enablePrerender },
     '/en/university/**': { prerender: enablePrerender },
     '/en/articles/**': { prerender: enablePrerender },
-    '/kz/about': { prerender: enablePrerender },
-    '/kz/faq': { prerender: enablePrerender },
-    '/kz/blog': { prerender: enablePrerender },
-    '/kz/contract': { prerender: enablePrerender },
-    '/kz/universities': { prerender: enablePrerender },
-    '/kz/reviews': { prerender: enablePrerender },
-    '/kz/privacy-policy': { prerender: enablePrerender },
-    '/kz/university/**': { prerender: enablePrerender },
-    '/kz/articles/**': { prerender: enablePrerender },
+    '/kk/about': { prerender: enablePrerender },
+    '/kk/faq': { prerender: enablePrerender },
+    '/kk/blog': { prerender: enablePrerender },
+    '/kk/contract': { prerender: enablePrerender },
+    '/kk/universities': { prerender: enablePrerender },
+    '/kk/reviews': { prerender: enablePrerender },
+    '/kk/privacy-policy': { prerender: enablePrerender },
+    '/kk/university/**': { prerender: enablePrerender },
+    '/kk/articles/**': { prerender: enablePrerender },
     '/tr/about': { prerender: enablePrerender },
     '/tr/faq': { prerender: enablePrerender },
     '/tr/blog': { prerender: enablePrerender },
@@ -194,100 +219,14 @@ export default defineNuxtConfig({
   i18n: {
     // Used for generating absolute alternate/canonical links
     baseUrl: siteUrl,
-    // Don't change this path, it is ccrrect
+    // Don't change this path, it is correct
     langDir: 'locales',
-    locales: [
-      {
-        code: 'ru',
-        language: 'ru-RU',
-        files: [
-          'ru/nav.json',
-          'ru/common.json',
-          'ru/pages/home.json',
-          'ru/pages/about.json',
-          'ru/pages/faq.json',
-          'ru/pages/blog.json',
-          'ru/pages/article.json',
-          'ru/pages/reviews.json',
-          'ru/pages/universities.json',
-          'ru/pages/university.json',
-          'ru/privacy-policy.json',
-          'ru/contract.json',
-          'ru/components/forms.json',
-          'ru/components/modals.json',
-          'ru/components/ui.json',
-          'ru/errors.json',
-        ],
-      },
-      {
-        // Use 'kz' as URL prefix while keeping correct language tag
-        code: 'kz',
-        language: 'kk-KZ',
-        files: [
-          'kk/nav.json',
-          'kk/common.json',
-          'kk/pages/home.json',
-          'kk/pages/about.json',
-          'kk/pages/faq.json',
-          'kk/pages/blog.json',
-          'kk/pages/article.json',
-          'kk/pages/reviews.json',
-          'kk/pages/universities.json',
-          'kk/pages/university.json',
-          'kk/privacy-policy.json',
-          'kk/contract.json',
-          'kk/components/forms.json',
-          'kk/components/modals.json',
-          'kk/components/ui.json',
-          'kk/errors.json',
-        ],
-      },
-      {
-        code: 'en',
-        language: 'en-US',
-        files: [
-          'en/nav.json',
-          'en/common.json',
-          'en/pages/home.json',
-          'en/pages/about.json',
-          'en/pages/faq.json',
-          'en/pages/blog.json',
-          'en/pages/article.json',
-          'en/pages/reviews.json',
-          'en/pages/universities.json',
-          'en/pages/university.json',
-          'en/privacy-policy.json',
-          'en/contract.json',
-          'en/components/forms.json',
-          'en/components/modals.json',
-          'en/components/ui.json',
-          'en/errors.json',
-        ],
-      },
-      {
-        code: 'tr',
-        language: 'tr-TR',
-        files: [
-          'tr/nav.json',
-          'tr/common.json',
-          'tr/pages/home.json',
-          'tr/pages/about.json',
-          'tr/pages/faq.json',
-          'tr/pages/blog.json',
-          'tr/pages/article.json',
-          'tr/pages/reviews.json',
-          'tr/pages/universities.json',
-          'tr/pages/university.json',
-          'tr/privacy-policy.json',
-          'tr/contract.json',
-          'tr/components/forms.json',
-          'tr/components/modals.json',
-          'tr/components/ui.json',
-          'tr/errors.json',
-        ],
-      },
-    ],
-    defaultLocale: 'ru',
+    locales: SUPPORTED_LOCALES.map(code => ({
+      code,
+      language: code === 'kk' ? 'kk-KZ' : code === 'ru' ? 'ru-RU' : code === 'en' ? 'en-US' : 'tr-TR',
+      files: getLocaleFiles(code),
+    })),
+    defaultLocale: DEFAULT_LOCALE,
     detectBrowserLanguage: { useCookie: true, cookieKey: 'i18n_locale', redirectOn: 'root' },
     // Missing-key config removed for compatibility
     // Always prefix routes with locale (including default) for consistent SEO-friendly URLs

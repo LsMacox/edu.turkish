@@ -2,9 +2,7 @@
   <section id="appreciated-services" class="py-16">
     <div class="container mx-auto px-4 lg:px-6">
       <div class="text-center mb-12">
-        <h2 class="text-section-title mb-4">
-          За что нас больше всего ценят
-        </h2>
+        <h2 class="text-section-title mb-4">За что нас больше всего ценят</h2>
         <p class="text-section-subtitle max-w-2xl mx-auto">
           Наиболее часто упоминаемые достоинства в отзывах студентов
         </p>
@@ -109,4 +107,3 @@ const services: Service[] = [
   },
 ]
 </script>
-

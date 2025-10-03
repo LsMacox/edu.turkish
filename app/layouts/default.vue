@@ -1,9 +1,9 @@
 <template>
   <div class="min-h-dvh flex flex-col bg-white text-secondary font-sans">
     <SiteHeader />
-      <main class="flex-1">
-        <slot />
-      </main>
+    <main class="flex-1">
+      <slot />
+    </main>
     <SiteFooter />
 
     <ApplicationModal

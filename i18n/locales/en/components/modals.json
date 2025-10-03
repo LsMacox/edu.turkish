@@ -13,13 +13,6 @@
     "direction_placeholder": "Select field of study",
     "message_placeholder": "Tell us about your goals, city preferences, budget...",
     "directions": {
-      "medicine": "Medicine",
-      "engineering": "Engineering",
-      "business": "Business",
-      "it": "IT",
-      "architecture": "Architecture",
-      "psychology": "Psychology",
-      "arts": "Arts",
       "other": "Other"
     },
     "preferences_title": "Your preferences:",

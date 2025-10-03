@@ -1,8 +1,5 @@
 <template>
-  <section
-    id="next-review-cta"
-    class="section-py-lg bg-gradient-to-r from-primary to-red-600"
-  >
+  <section id="next-review-cta" class="section-py-lg bg-gradient-to-r from-primary to-red-600">
     <div class="container mx-auto container-padding-narrow">
       <div class="max-w-4xl mx-auto text-center text-white">
         <div class="mb-8">

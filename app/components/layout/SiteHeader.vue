@@ -161,7 +161,7 @@ import { useApplicationModalStore } from '~/stores/applicationModal'
 const modal = useApplicationModalStore()
 const route = useRoute()
 
-const i18n = useI18n<{ messages: Record<string, any> }, 'ru' | 'kz' | 'en' | 'tr'>()
+const i18n = useI18n<{ messages: Record<string, any> }, SupportedLocale>()
 const { t } = i18n
 const localePath = useLocalePath()
 const switchLocalePath = useSwitchLocalePath()
@@ -169,10 +169,10 @@ const switchLocalePath = useSwitchLocalePath()
 // Mobile navigation state
 const isMobileNavOpen = ref(false)
 
-type Opt = { code: 'ru' | 'kz' | 'en' | 'tr'; label: string }
+type Opt = { code: SupportedLocale; label: string }
 const options: Opt[] = [
   { code: 'ru', label: 'RU' },
-  { code: 'kz', label: 'KZ' },
+  { code: 'kk', label: 'KZ' },
   { code: 'en', label: 'EN' },
   { code: 'tr', label: 'TR' },
 ]

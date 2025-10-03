@@ -26,7 +26,8 @@
     "test": "vitest",
     "test:watch": "vitest --watch",
     "translate": "tsx scripts/translate.ts",
-    "import:university": "tsx scripts/import-university.ts"
+    "import:university": "tsx scripts/import-university.ts",
+    "i18n:check": "tsx scripts/i18n-check.ts"
   },
   "dependencies": {
     "@cloudgeek/vue3-video-player": "^0.3.10",

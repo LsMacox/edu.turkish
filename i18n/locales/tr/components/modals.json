@@ -13,13 +13,6 @@
     "direction_placeholder": "Eğitim alanını seçin",
     "message_placeholder": "Hedefleriniz, şehir tercihleriniz, bütçeniz hakkında bize anlatın...",
     "directions": {
-      "medicine": "Tıp",
-      "engineering": "Mühendislik",
-      "business": "İşletme",
-      "it": "Bilişim Teknolojileri",
-      "architecture": "Mimarlık",
-      "psychology": "Psikoloji",
-      "arts": "Sanat",
       "other": "Diğer"
     },
     "preferences_title": "Tercihleriniz:",

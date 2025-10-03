@@ -22,43 +22,7 @@
       "language": "регистрация телефонов"
     },
     "categories": {
-      "all": "Все вопросы",
-      "documents": {
-        "title": "Документы и подача заявки"
-      },
-      "exams": {
-        "title": "Экзамены и тестирование"
-      },
-      "admission": {
-        "title": "Процесс поступления"
-      },
-      "scholarships": {
-        "title": "Стипендии и финансирование"
-      },
-      "languages": {
-        "title": "Языковые требования"
-      },
-      "education": {
-        "title": "Образование"
-      },
-      "technology": {
-        "title": "Технологии"
-      },
-      "residence": {
-        "title": "ВНЖ"
-      },
-      "relocation": {
-        "title": "Переезд"
-      },
-      "insurance": {
-        "title": "Страхование"
-      },
-      "transport": {
-        "title": "Транспорт"
-      },
-      "housing": {
-        "title": "Жилье"
-      }
+      "all": "Все вопросы"
     }
   }
 }

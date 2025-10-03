@@ -31,105 +31,25 @@
       "strongPrograms": "Güçlü Programlar",
       "advantages": "Uluslararası Öğrenciler için Avantajlar"
     },
-    "universityType": {
-      "state": "Devlet Üniversitesi",
-      "private": "Vakıf Üniversitesi",
-      "tech": "Teknik Üniversite",
-      "elite": "Elit Üniversite"
-    },
     "campusLife": {
       "title": "Kampüs Yaşamı",
       "subtitle": "Çalışma ve dinlenme için modern imkanlar",
       "infrastructure": "Kampüs Altyapısı",
-      "facilities": {
-        "library": {
-          "name": "Kütüphane",
-          "description": "24/7 erişim, 500.000'den fazla kitap ve dergi"
-        },
-        "laboratories": {
-          "name": "Laboratuvarlar",
-          "description": "Modern bilimsel ekipman"
-        },
-        "sportsCenter": {
-          "name": "Spor Merkezi",
-          "description": "Fitness salonu, yüzme havuzu, spor sahaları"
-        },
-        "dormitories": {
-          "name": "Yurtlar",
-          "description": "Öğrenciler için konforlu odalar"
-        },
-        "cafeteria": {
-          "name": "Kafeterya",
-          "description": "Çeşitli menü, helal mutfak"
-        },
-        "wifi": {
-          "name": "Kampüs genelinde Wi-Fi",
-          "description": "Yüksek hızlı internet"
-        },
-        "medicalCenter": {
-          "name": "Tıp Merkezi",
-          "description": "Tıbbi yardım ve danışmanlık"
-        },
-        "transport": {
-          "name": "Ulaşım",
-          "description": "Şehir merkezine otobüsler"
-        },
-        "studentClubs": {
-          "name": "Öğrenci Kulüpleri",
-          "description": "İlgi alanlarına göre 50'den fazla kulüp"
-        }
-      }
+      "capacity": "Kapasite",
+      "area": "Alan"
     },
     "faq": {
       "title": "📌 Türkiye üniversitelerine başvuru hakkındaki sık sorulan sorular",
       "subtitle": "Türkiye üniversitelerine başvuru hakkındaki en popüler sorulara yanıtlar",
       "q1": "Başvuru için Türkçe veya İngilizce bilmek gerekiyor mu?",
-      "a1": "✨ Hayır! Dili bilmiyorsanız bile üniversite Türkçe, İngilizce veya Arapça hazırlık yılı sunar. Rahat tempoda uyum sağlayıp okuyabilirsiniz.",
       "q2": "TR-YÖS veya SAT zorunlu mu?",
-      "a2": "🚀 Hayır, başvuru için lise diploması yeterli.",
       "q3": "Öğrenim ücreti ne kadar?",
-      "a3": "🎓 Lisans eğitimi yıllık $2000'dan başlar. Kesin tutar üniversiteye ve bölüme bağlıdır.",
       "q4": "Başvuru için hangi belgeler gerekli?",
-      "a4": {
-        "title": "📂 Minimum paket:",
-        "items": ["Türkçeye çevrilmiş lise diploması", "Pasaport", "Biyometrik fotoğraf"],
-        "ordered": false
-      },
       "q5": "Burs veya indirimler var mı?",
-      "a5": {
-        "title": "✅ Elbette! Birkaç seçeneğiniz var:",
-        "items": [
-          "Türkiye Bursları — aylık burslu devlet programı.",
-          "Akademik indirimler — yüksek GPA için.",
-          "Spor indirimleri — üniversiteyi yarışmalarda temsil ederseniz."
-        ],
-        "ordered": false
-      },
       "q6": "Belgeler ne kadar hızlı incelenir?",
-      "a6": "⏳ Resmi olarak en fazla 2 hafta sürer. Bizimle sadece birkaç gün içinde davet mektubu alabilirsiniz.",
       "q7": "Vize gerekiyor mu?",
-      "a7": {
-        "title": "🌍",
-        "items": [
-          "Kazakistan, Rusya, Özbekistan ve Kırgızistan vatandaşlarının vizesiz günleri varsa vize gerekmiyor.",
-          "Türkiye Bursları öğrencileri için öğrenci vizesi zorunludur."
-        ],
-        "ordered": false
-      },
       "q8": "Başvuru süreci nasıl ilerliyor?",
-      "a8": {
-        "title": "🔹 Yalnızca birkaç basit adım:",
-        "items": [
-          "Belgelerinizi bize gönderin",
-          "Ön kabul mektubu alın",
-          "Üniversitenin hesap bilgilerine depozitoyu yatırın",
-          "Nihai kabul mektubunu alın",
-          "Türkiye'ye gelip üniversitede kesin kaydı tamamlayın"
-        ],
-        "ordered": true
-      },
-      "q9": "Yalnızca başvuru ve üniversitedeki kesin kayıtta mı eşlik ediyorsunuz?",
-      "a9": "✨ Evet, belgeleri göndermekten Türkiye'ye gelişinize kadar her aşamada yanınızdayız."
+      "q9": "Yalnızca başvuru ve üniversitedeki kesin kayıtta mı eşlik ediyorsunuz?"
     }
   }
 }

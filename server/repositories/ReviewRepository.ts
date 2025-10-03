@@ -1,7 +1,7 @@
 import { type Prisma, type PrismaClient, ApplicationStatus } from '@prisma/client'
 import type { Review, ReviewQueryParams } from '../types/api'
 import type { UserType } from '../../app/types/domain'
-import { normalizeLocale, type NormalizedLocale } from '../utils/locale'
+import { normalizeLocale, findTranslation, type NormalizedLocale } from '../utils/locale'
 
 const REVIEW_INCLUDE = {
   translations: true,
@@ -221,10 +221,7 @@ export class ReviewRepository {
         mediaType: review.mediaType,
         name: translation?.name || '',
         quote: translation?.quote || '',
-        university:
-          review.university?.translations[0]?.title ||
-          translation?.universityName ||
-          '',
+        university: review.university?.translations[0]?.title || translation?.universityName || '',
         rating: review.rating,
         year: review.year,
         avatar: review.avatar,
@@ -288,16 +285,16 @@ export class ReviewRepository {
 
   private mapReview(review: ReviewWithRelations, locale: NormalizedLocale): Review {
     const translations = review.translations ?? []
-    const localizedTranslation = this.findTranslation(translations, locale)
+    const localizedTranslation = findTranslation(translations, locale)
     const fallbackLocale = normalizeLocale(ReviewRepository.DEFAULT_LOCALE)
     const fallbackTranslation =
-      this.findTranslation(translations, fallbackLocale) ?? translations[0]
+      findTranslation(translations, fallbackLocale) ?? translations[0]
     const translation = localizedTranslation ?? fallbackTranslation
 
     const universityTranslations = review.university?.translations ?? []
-    const localizedUniversityTranslation = this.findTranslation(universityTranslations, locale)
+    const localizedUniversityTranslation = findTranslation(universityTranslations, locale)
     const fallbackUniversityTranslation =
-      this.findTranslation(universityTranslations, fallbackLocale) ?? universityTranslations[0]
+      findTranslation(universityTranslations, fallbackLocale) ?? universityTranslations[0]
 
     const achievements = this.parseAchievements(
       localizedTranslation?.achievements ?? fallbackTranslation?.achievements,
@@ -324,25 +321,6 @@ export class ReviewRepository {
     }
   }
 
-  private findTranslation<T extends { locale: string | null | undefined }>(
-    translations: readonly T[] | null | undefined,
-    locale: NormalizedLocale,
-  ): T | undefined {
-    if (!translations?.length) {
-      return undefined
-    }
-
-    const localesToCheck = Array.from(new Set([...locale.fallbacks, 'ru']))
-
-    for (const candidate of localesToCheck) {
-      const match = translations.find((translation) => translation.locale === candidate)
-      if (match) {
-        return match
-      }
-    }
-
-    return undefined
-  }
 
   private parseAchievements(value: Prisma.JsonValue | null | undefined): Review['achievements'] {
     if (!value || typeof value !== 'object' || Array.isArray(value)) {

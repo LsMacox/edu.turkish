@@ -11,137 +11,139 @@
         @touchmove="handleTouchMove"
         @touchend="handleTouchEnd"
       >
-      <!-- Swipe indicator (mobile only) -->
-      <div class="md:hidden flex justify-center pt-3 pb-2">
-        <div class="w-10 h-1 bg-gray-300 rounded-full"></div>
-      </div>
-      
-      <!-- Header -->
-      <div class="sticky top-0 bg-white z-10 flex items-center justify-between px-5 pt-3 pb-5 md:p-6 border-b border-gray-100">
-        <h2 class="text-lg md:text-2xl font-bold text-secondary pr-2">
-          {{ $t('modal.consultation_title') }}
-        </h2>
-        <button
-          class="w-11 h-11 flex items-center justify-center rounded-full hover:bg-gray-100 active:bg-gray-200 transition-colors flex-shrink-0"
-          aria-label="Close modal"
-          @click="closeModal"
-        >
-          <Icon name="mdi:close" class="text-gray-500 text-2xl" />
-        </button>
-      </div>
-
-      <!-- Form -->
-      <form class="p-5 md:p-6 space-y-5 md:space-y-4 pb-8" @submit.prevent="submitForm">
-        <div>
-          <label class="block text-base md:text-sm font-medium text-gray-700 mb-2.5"
-            >{{ $t('modal.your_name') }} {{ $t('modal.required') }}</label
-          >
-          <BaseTextField
-            v-model="form.name"
-            type="text"
-            :placeholder="$t('modal.name_placeholder')"
-          />
+        <!-- Swipe indicator (mobile only) -->
+        <div class="md:hidden flex justify-center pt-3 pb-2">
+          <div class="w-10 h-1 bg-gray-300 rounded-full"></div>
         </div>
 
-        <div>
-          <label class="block text-base md:text-sm font-medium text-gray-700 mb-2.5"
-            >{{ $t('modal.phone') }} {{ $t('modal.required') }}</label
-          >
-          <input
-            v-model="form.phone"
-            type="tel"
-            required
-            :placeholder="$t('modal.phone_placeholder')"
-            inputmode="tel"
-            autocomplete="tel"
-            maxlength="20"
-            class="w-full px-4 border border-gray-300 rounded-xl focus:ring-2 focus:ring-primary focus:border-transparent outline-none focus:outline-none transition-all py-4 md:py-3 text-base md:text-sm min-h-[52px] md:min-h-auto"
-            @input="onPhoneInput"
-            @keydown="onPhoneKeydown"
-          />
-        </div>
-
-        <div>
-          <label class="block text-base md:text-sm font-medium text-gray-700 mb-2.5">{{
-            $t('modal.email')
-          }}</label>
-          <BaseTextField
-            v-model="form.email"
-            type="email"
-            :placeholder="$t('modal.email_placeholder')"
-          />
-        </div>
-
-        <div>
-          <label class="block text-base md:text-sm font-medium text-gray-700 mb-2.5">{{
-            $t('modal.direction')
-          }}</label>
-          <BaseSelect v-model="form.direction">
-            <option value="">{{ $t('modal.direction_placeholder') }}</option>
-            <option v-for="d in directions" :key="d.id" :value="d.name">{{ d.name }}</option>
-            <option value="other">{{ $t('modal.directions.other') }}</option>
-          </BaseSelect>
-        </div>
-
-        <div>
-          <label class="block text-base md:text-sm font-medium text-gray-700 mb-2.5">{{
-            $t('modal.additional_info')
-          }}</label>
-          <textarea
-            v-model="form.message"
-            :placeholder="$t('modal.message_placeholder')"
-            rows="3"
-            class="w-full px-4 border border-gray-300 rounded-xl focus:ring-2 focus:ring-primary focus:border-transparent focus:outline-none transition-all resize-none py-4 md:py-3 text-base md:text-sm min-h-[100px]"
-          ></textarea>
-        </div>
-
-        <!-- Preferences display - только для анкеты с главной страницы -->
+        <!-- Header -->
         <div
-          v-if="userPreferences && isQuestionnaire(userPreferences)"
-          class="bg-blue-50 border border-blue-200 rounded-xl p-4"
+          class="sticky top-0 bg-white z-10 flex items-center justify-between px-5 pt-3 pb-5 md:p-6 border-b border-gray-100"
         >
-          <h4 class="text-base md:text-sm font-semibold text-blue-800 mb-2.5">
-            {{ $t('modal.preferences_title') }}
-          </h4>
-          <div class="text-sm md:text-xs text-blue-700 space-y-1.5">
-            <p>
-              • {{ $t('modal.preference_labels.user_type') }}
-              {{ getUserTypeText(userPreferences.userType) }}
-            </p>
-            <p>
-              • {{ $t('modal.preference_labels.university') }}
-              {{ getUniversityText(userPreferences.universityChosen) }}
-            </p>
-            <p>
-              • {{ $t('modal.preference_labels.language') }}
-              {{ getLanguageText(userPreferences.language) }}
-            </p>
-            <p>
-              • {{ $t('modal.preference_labels.scholarship') }}
-              {{ getScholarshipText(userPreferences.scholarship) }}
-            </p>
-          </div>
+          <h2 class="text-lg md:text-2xl font-bold text-secondary pr-2">
+            {{ $t('modal.consultation_title') }}
+          </h2>
+          <button
+            class="w-11 h-11 flex items-center justify-center rounded-full hover:bg-gray-100 active:bg-gray-200 transition-colors flex-shrink-0"
+            aria-label="Close modal"
+            @click="closeModal"
+          >
+            <Icon name="mdi:close" class="text-gray-500 text-2xl" />
+          </button>
         </div>
 
-        <BaseCheckbox :checked="form.agreement" @update:checked="form.agreement = $event">
-          {{ $t('modal.agreement') }}
-        </BaseCheckbox>
+        <!-- Form -->
+        <form class="p-5 md:p-6 space-y-5 md:space-y-4 pb-8" @submit.prevent="submitForm">
+          <div>
+            <label class="block text-base md:text-sm font-medium text-gray-700 mb-2.5"
+              >{{ $t('modal.your_name') }} {{ $t('modal.required') }}</label
+            >
+            <BaseTextField
+              v-model="form.name"
+              type="text"
+              :placeholder="$t('modal.name_placeholder')"
+            />
+          </div>
 
-        <!-- Hidden referral source field for debugging -->
-        <input
-          type="hidden"
-          name="source"
-          :value="referralCode || props.userPreferences?.source || 'website'"
-        />
+          <div>
+            <label class="block text-base md:text-sm font-medium text-gray-700 mb-2.5"
+              >{{ $t('modal.phone') }} {{ $t('modal.required') }}</label
+            >
+            <input
+              v-model="form.phone"
+              type="tel"
+              required
+              :placeholder="$t('modal.phone_placeholder')"
+              inputmode="tel"
+              autocomplete="tel"
+              maxlength="20"
+              class="w-full px-4 border border-gray-300 rounded-xl focus:ring-2 focus:ring-primary focus:border-transparent outline-none focus:outline-none transition-all py-4 md:py-3 text-base md:text-sm min-h-[52px] md:min-h-auto"
+              @input="onPhoneInput"
+              @keydown="onPhoneKeydown"
+            />
+          </div>
 
-        <button
-          type="submit"
-          :disabled="isSubmitting || !form.agreement"
-          class="w-full bg-primary text-white rounded-xl font-semibold hover:bg-red-600 active:bg-red-700 transition-colors disabled:opacity-50 disabled:cursor-not-allowed py-4 text-lg md:text-lg min-h-[52px] shadow-lg active:shadow-md"
-        >
-          {{ isSubmitting ? $t('modal.submitting') : $t('modal.submit_button') }}
-        </button>
-      </form>
+          <div>
+            <label class="block text-base md:text-sm font-medium text-gray-700 mb-2.5">{{
+              $t('modal.email')
+            }}</label>
+            <BaseTextField
+              v-model="form.email"
+              type="email"
+              :placeholder="$t('modal.email_placeholder')"
+            />
+          </div>
+
+          <div>
+            <label class="block text-base md:text-sm font-medium text-gray-700 mb-2.5">{{
+              $t('modal.direction')
+            }}</label>
+            <BaseSelect v-model="form.direction">
+              <option value="">{{ $t('modal.direction_placeholder') }}</option>
+              <option v-for="d in directions" :key="d.id" :value="d.name">{{ d.name }}</option>
+              <option value="other">{{ $t('modal.directions.other') }}</option>
+            </BaseSelect>
+          </div>
+
+          <div>
+            <label class="block text-base md:text-sm font-medium text-gray-700 mb-2.5">{{
+              $t('modal.additional_info')
+            }}</label>
+            <textarea
+              v-model="form.message"
+              :placeholder="$t('modal.message_placeholder')"
+              rows="3"
+              class="w-full px-4 border border-gray-300 rounded-xl focus:ring-2 focus:ring-primary focus:border-transparent focus:outline-none transition-all resize-none py-4 md:py-3 text-base md:text-sm min-h-[100px]"
+            ></textarea>
+          </div>
+
+          <!-- Preferences display - только для анкеты с главной страницы -->
+          <div
+            v-if="userPreferences && isQuestionnaire(userPreferences)"
+            class="bg-blue-50 border border-blue-200 rounded-xl p-4"
+          >
+            <h4 class="text-base md:text-sm font-semibold text-blue-800 mb-2.5">
+              {{ $t('modal.preferences_title') }}
+            </h4>
+            <div class="text-sm md:text-xs text-blue-700 space-y-1.5">
+              <p>
+                • {{ $t('modal.preference_labels.user_type') }}
+                {{ getUserTypeText(userPreferences.userType) }}
+              </p>
+              <p>
+                • {{ $t('modal.preference_labels.university') }}
+                {{ getUniversityText(userPreferences.universityChosen) }}
+              </p>
+              <p>
+                • {{ $t('modal.preference_labels.language') }}
+                {{ getLanguageText(userPreferences.language) }}
+              </p>
+              <p>
+                • {{ $t('modal.preference_labels.scholarship') }}
+                {{ getScholarshipText(userPreferences.scholarship) }}
+              </p>
+            </div>
+          </div>
+
+          <BaseCheckbox :checked="form.agreement" @update:checked="form.agreement = $event">
+            {{ $t('modal.agreement') }}
+          </BaseCheckbox>
+
+          <!-- Hidden referral source field for debugging -->
+          <input
+            type="hidden"
+            name="source"
+            :value="referralCode || props.userPreferences?.source || 'website'"
+          />
+
+          <button
+            type="submit"
+            :disabled="isSubmitting || !form.agreement"
+            class="w-full bg-primary text-white rounded-xl font-semibold hover:bg-red-600 active:bg-red-700 transition-colors disabled:opacity-50 disabled:cursor-not-allowed py-4 text-lg md:text-lg min-h-[52px] shadow-lg active:shadow-md"
+          >
+            {{ isSubmitting ? $t('modal.submitting') : $t('modal.submit_button') }}
+          </button>
+        </form>
       </div>
     </div>
   </Teleport>
@@ -355,7 +357,7 @@ const getScholarshipText = (scholarship: string): string => {
 const handleTouchStart = (e: TouchEvent) => {
   const modalContent = e.currentTarget as HTMLElement
   const scrollTop = modalContent.scrollTop
-  
+
   // Only allow swipe-to-close when scrolled to top
   if (scrollTop === 0 && e.touches[0]) {
     touchStartY.value = e.touches[0].clientY
@@ -365,10 +367,10 @@ const handleTouchStart = (e: TouchEvent) => {
 
 const handleTouchMove = (e: TouchEvent) => {
   if (!isDragging.value || !e.touches[0]) return
-  
+
   touchCurrentY.value = e.touches[0].clientY
   const diff = touchCurrentY.value - touchStartY.value
-  
+
   // Only allow downward swipe
   if (diff > 0) {
     const modalContent = e.currentTarget as HTMLElement
@@ -379,13 +381,13 @@ const handleTouchMove = (e: TouchEvent) => {
 
 const handleTouchEnd = () => {
   if (!isDragging.value) return
-  
+
   const diff = touchCurrentY.value - touchStartY.value
   const modalContent = document.querySelector('.modal-content') as HTMLElement
-  
+
   if (modalContent) {
     modalContent.style.transition = 'transform 0.3s cubic-bezier(0.16, 1, 0.3, 1)'
-    
+
     // Close if swiped down more than 100px
     if (diff > 100) {
       modalContent.style.transform = 'translateY(100%)'
@@ -396,7 +398,7 @@ const handleTouchEnd = () => {
       modalContent.style.transform = 'translateY(0)'
     }
   }
-  
+
   isDragging.value = false
   touchStartY.value = 0
   touchCurrentY.value = 0
@@ -429,7 +431,7 @@ watch(
       }
     }
   },
-  { immediate: true }
+  { immediate: true },
 )
 </script>
 

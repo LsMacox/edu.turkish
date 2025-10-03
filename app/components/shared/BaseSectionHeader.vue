@@ -65,10 +65,10 @@ const containerClasses = computed(() => {
 const marginClasses = computed(() => {
   const marginMap = {
     none: '',
-    sm: 'mb-4 md:mb-6',      // Mobile: 16px, Desktop: 24px
-    md: 'mb-6 md:mb-8',      // Mobile: 24px, Desktop: 32px
-    lg: 'mb-8 md:mb-12',     // Mobile: 32px, Desktop: 48px
-    xl: 'mb-10 md:mb-16',    // Mobile: 40px, Desktop: 64px
+    sm: 'mb-4 md:mb-6', // Mobile: 16px, Desktop: 24px
+    md: 'mb-6 md:mb-8', // Mobile: 24px, Desktop: 32px
+    lg: 'mb-8 md:mb-12', // Mobile: 32px, Desktop: 48px
+    xl: 'mb-10 md:mb-16', // Mobile: 40px, Desktop: 64px
   }
 
   return marginMap[props.marginBottom] || marginMap.lg

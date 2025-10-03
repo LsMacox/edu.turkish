@@ -22,22 +22,7 @@
       "language": "Türkçe dil"
     },
     "categories": {
-      "all": "Tüm Sorular",
-      "documents": {
-        "title": "Belgeler ve Başvuru"
-      },
-      "exams": {
-        "title": "Sınavlar ve Test"
-      },
-      "admission": {
-        "title": "Kabul Süreci"
-      },
-      "scholarships": {
-        "title": "Burslar ve Mali Yardım"
-      },
-      "languages": {
-        "title": "Dil Gereksinimleri"
-      }
+      "all": "Tüm Sorular"
     }
   }
 }
