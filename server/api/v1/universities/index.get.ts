@@ -1,7 +1,7 @@
-import { prisma } from '../../../../lib/prisma'
-import { UniversityRepository } from '../../../repositories'
-import { parseUniversityFilters, calculatePagination } from '../../../utils/api-helpers'
-import type { UniversityResponse } from '../../../types/api'
+import { prisma } from '~~/lib/prisma'
+import { UniversityRepository } from '~~/server/repositories'
+import { parseUniversityFilters, calculatePagination } from '~~/server/utils/api-helpers'
+import type { UniversityResponse } from '~~/server/types/api'
 
 export default defineEventHandler(async (event): Promise<UniversityResponse> => {
   try {

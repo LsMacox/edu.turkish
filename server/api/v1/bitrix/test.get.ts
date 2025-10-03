@@ -1,5 +1,5 @@
-import { BitrixService } from '../../../services/BitrixService'
-import { getBitrixConfig, validateBitrixConfig } from '../../../utils/bitrix-config'
+import { BitrixService } from '~~/server/services/BitrixService'
+import { getBitrixConfig, validateBitrixConfig } from '~~/server/utils/bitrix-config'
 
 export default defineEventHandler(async (_event) => {
   try {

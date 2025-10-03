@@ -1,12 +1,12 @@
-import { prisma } from '../../../../lib/prisma'
-import { ReviewRepository } from '../../../repositories'
-import { parseReviewFilters, calculatePagination } from '../../../utils/api-helpers'
-import type { ReviewResponse } from '../../../types/api'
+import { prisma } from '~~/lib/prisma'
+import { ReviewRepository } from '~~/server/repositories'
+import { parseReviewFilters, calculatePagination } from '~~/server/utils/api-helpers'
+import type { ReviewResponse, ReviewQueryParams } from '~~/server/types/api'
 
 export default defineEventHandler(async (event): Promise<ReviewResponse> => {
   try {
     const query = getQuery(event)
-    const filters = parseReviewFilters(query)
+    const filters = parseReviewFilters(query) as ReviewQueryParams
     const contextLocale =
       typeof event.context?.locale === 'string' ? event.context.locale : undefined
     const locale = filters.lang?.trim() || contextLocale || 'ru'
@@ -17,7 +17,7 @@ export default defineEventHandler(async (event): Promise<ReviewResponse> => {
 
     return {
       data: result.data,
-      meta: calculatePagination(result.total, filters.page, filters.limit),
+      meta: calculatePagination(result.total, filters.page ?? 1, filters.limit ?? 3),
     }
   } catch (error) {
     console.error('Error fetching reviews:', error)

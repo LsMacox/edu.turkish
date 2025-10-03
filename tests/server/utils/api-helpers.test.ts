@@ -4,7 +4,7 @@ import {
   calculatePagination,
   parseFAQFilters,
   parseReviewFilters,
-} from '../../../server/utils/api-helpers'
+} from '~~/server/utils/api-helpers'
 
 describe('parseReviewFilters', () => {
   it('returns defaults for invalid pagination values', () => {

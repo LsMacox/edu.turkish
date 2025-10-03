@@ -1,6 +1,6 @@
 import { type Prisma, type PrismaClient, ApplicationStatus } from '@prisma/client'
 import type { Review, ReviewQueryParams } from '../types/api'
-import type { UserType } from '../../app/types/domain'
+import type { UserType } from '~/types/domain'
 import { normalizeLocale, findTranslation, type NormalizedLocale } from '../utils/locale'
 
 const REVIEW_INCLUDE = {

@@ -1,6 +1,6 @@
-import { prisma } from '../../../../lib/prisma'
+import { prisma } from '~~/lib/prisma'
 import type { H3Event } from 'h3'
-import { normalizeLocale } from '../../../utils/locale'
+import { normalizeLocale } from '~~/server/utils/locale'
 
 export async function popularProgramsHandler(event: H3Event) {
   const query = getQuery(event)

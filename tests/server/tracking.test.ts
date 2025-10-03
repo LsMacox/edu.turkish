@@ -1,10 +1,10 @@
 import { describe, it, expect, vi } from 'vitest'
 import type { PrismaClient } from '@prisma/client'
 
-import { ApplicationRepository } from '../../server/repositories/ApplicationRepository'
-import { generateTrackingCode as helperGenerateTrackingCode } from '../../server/utils/tracking'
-import * as trackingUtils from '../../server/utils/tracking'
-import type { ApplicationRequest } from '../../server/types/api'
+import { ApplicationRepository } from '~~/server/repositories/ApplicationRepository'
+import { generateTrackingCode as helperGenerateTrackingCode } from '~~/server/utils/tracking'
+import * as trackingUtils from '~~/server/utils/tracking'
+import type { ApplicationRequest } from '~~/server/types/api'
 
 describe('tracking code generation', () => {
   it('creates tracking code with EDU prefix via request helper', () => {

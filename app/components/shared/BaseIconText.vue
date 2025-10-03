@@ -12,7 +12,7 @@
 
 <script setup lang="ts">
 import { computed } from 'vue'
-import type { BaseIconTextProps } from '../../types/ui'
+import type { BaseIconTextProps } from '~/types/ui'
 
 const props = withDefaults(defineProps<BaseIconTextProps>(), {
   size: 'md',

@@ -13,7 +13,7 @@ import {
   isEmptyStructure,
   findEmptyStructures,
   type Locale,
-} from '../../scripts/i18n-check.js'
+} from '~~/scripts/i18n-check.js'
 
 const __filename = fileURLToPath(import.meta.url)
 const __dirname = dirname(__filename)

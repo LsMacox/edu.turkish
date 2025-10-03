@@ -1,7 +1,7 @@
 import { getRequestURL } from 'h3'
 import { contactChannels } from '~~/lib/contact/channels'
-import { BitrixService } from '../../services/BitrixService'
-import { getBitrixConfig } from '../../utils/bitrix-config'
+import { BitrixService } from '~~/server/services/BitrixService'
+import { getBitrixConfig } from '~~/server/utils/bitrix-config'
 
 const extractUtmParams = (query: Record<string, any>): Record<string, string> => {
   return Object.entries(query).reduce<Record<string, string>>((acc, [key, value]) => {

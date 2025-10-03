@@ -1,7 +1,7 @@
-import { prisma } from '../../../../../lib/prisma'
-import { BlogRepository, FAQRepository } from '../../../../repositories'
-import { calculatePagination } from '../../../../utils/api-helpers'
-import type { BlogArticlesResponse } from '../../../../types/api'
+import { prisma } from '~~/lib/prisma'
+import { BlogRepository, FAQRepository } from '~~/server/repositories'
+import { calculatePagination } from '~~/server/utils/api-helpers'
+import type { BlogArticlesResponse } from '~~/server/types/api'
 
 export default defineEventHandler(async (event): Promise<BlogArticlesResponse> => {
   const query = getQuery(event)

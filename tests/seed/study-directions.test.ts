@@ -1,6 +1,6 @@
 import { describe, it, expect, beforeAll, afterAll } from 'vitest'
 import { PrismaClient } from '@prisma/client'
-import { seedStudyDirections } from '../../prisma/seed/study-directions'
+import { seedStudyDirections } from '~~/prisma/seed/study-directions'
 
 const prisma = new PrismaClient()
 

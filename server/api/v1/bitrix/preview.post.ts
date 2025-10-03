@@ -1,5 +1,5 @@
-import { BitrixService } from '../../../services/BitrixService'
-import type { ApplicationRequest } from '../../../types/api'
+import { BitrixService } from '~~/server/services/BitrixService'
+import type { ApplicationRequest } from '~~/server/types/api'
 
 export default defineEventHandler(async (event) => {
   try {

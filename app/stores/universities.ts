@@ -6,7 +6,7 @@ import type {
   UniversityQueryParams,
   UniversityResponse,
   UniversityFilters as ApiUniversityFilters,
-} from '../../server/types/api'
+} from '~~/server/types/api'
 
 const LEVEL_ALL_VALUE = 'all'
 

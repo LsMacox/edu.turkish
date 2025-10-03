@@ -1,6 +1,6 @@
-import { prisma } from '../../../../lib/prisma'
-import { UniversityRepository } from '../../../repositories'
-import type { UniversityDetail } from '../../../types/api'
+import { prisma } from '~~/lib/prisma'
+import { UniversityRepository } from '~~/server/repositories'
+import type { UniversityDetail } from '~~/server/types/api'
 
 export default defineEventHandler(async (event): Promise<UniversityDetail | null> => {
   try {

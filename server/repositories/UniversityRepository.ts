@@ -1,5 +1,5 @@
 import type { PrismaClient, Prisma } from '@prisma/client'
-import type { DegreeType, UniversityType } from '../../app/types/domain'
+import type { DegreeType, UniversityType } from '~/types/domain'
 import type {
   UniversityProgram as UniversityProgramDto,
   UniversityAdmissionRequirement,

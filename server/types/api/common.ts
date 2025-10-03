@@ -1,4 +1,4 @@
-import type { UniversityType, DegreeType, UserType } from '../../../app/types/domain'
+import type { UniversityType, DegreeType, UserType } from '~/types/domain'
 
 export interface PaginationMeta {
   total: number

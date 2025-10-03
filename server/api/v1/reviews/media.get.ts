@@ -1,5 +1,5 @@
-import { prisma } from '../../../../lib/prisma'
-import { ReviewRepository } from '../../../repositories/ReviewRepository'
+import { prisma } from '~~/lib/prisma'
+import { ReviewRepository } from '~~/server/repositories/ReviewRepository'
 
 export default defineEventHandler(async (event) => {
   const query = getQuery(event)

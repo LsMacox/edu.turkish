@@ -309,7 +309,7 @@ import type {
   BlogArticlesResponse,
   BlogArticleQuickFact,
   BlogArticleQueryParams,
-} from '../../../server/types/api'
+} from '~~/server/types/api'
 
 definePageMeta({
   layout: 'default',

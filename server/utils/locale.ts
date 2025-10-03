@@ -1,4 +1,4 @@
-import { SUPPORTED_LOCALES, DEFAULT_LOCALE, type SupportedLocale } from '../../lib/locales'
+import { SUPPORTED_LOCALES, DEFAULT_LOCALE, type SupportedLocale } from '~~/lib/locales'
 
 export { SUPPORTED_LOCALES, DEFAULT_LOCALE, type SupportedLocale }
 
