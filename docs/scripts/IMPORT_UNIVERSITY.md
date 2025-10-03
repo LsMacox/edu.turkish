@@ -242,7 +242,7 @@ printf 'Found %d JSON file(s) in %s; upsert-by=%s\n' "${#files[@]}" "$DIR" "$UPS
 failures=()
 for f in "${files[@]}"; do
   printf '\n— Importing: %s\n' "$f"
-  if ! npm run -s import:university -- "$f" --upsert-by="$UPSERT_BY"; then
+  if ! docker compose exec app npm run -s import:university -- "$f" --upsert-by="$UPSERT_BY"; then
     printf 'Failed: %s\n' "$f" >&2
     failures+=("$f")
   fi

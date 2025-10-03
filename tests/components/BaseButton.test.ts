@@ -1,6 +1,6 @@
 import { describe, it, expect, vi } from 'vitest'
 import { mount } from '@vue/test-utils'
-import BaseButton from '~/components/ui/forms/BaseButton.vue'
+import BaseButton from '~/components/shared/BaseButton.vue'
 
 const IconStub = {
   name: 'Icon',

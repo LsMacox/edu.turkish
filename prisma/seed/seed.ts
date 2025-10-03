@@ -4,6 +4,7 @@ import { seedFaqCategories } from './faq-categories'
 import { seedLocations } from './locations'
 import { seedReviews } from './reviews'
 import { seedBlog } from './blog'
+import { seedStudyDirections } from './study-directions'
 
 const prisma = new PrismaClient()
 
@@ -60,6 +61,9 @@ async function main() {
 
   console.log('⭐ Seeding reviews...')
   await seedReviews(prisma)
+
+  console.log('📚 Seeding study directions...')
+  await seedStudyDirections(prisma)
 
   console.log('🗺️ Seeding locations...')
   await seedLocations(prisma)

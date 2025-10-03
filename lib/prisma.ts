@@ -1,1 +1,1 @@
-export { prisma } from '~~/server/utils/prisma'
+export { prisma } from '../server/utils/prisma'
