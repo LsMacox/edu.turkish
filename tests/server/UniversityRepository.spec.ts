@@ -4,8 +4,8 @@ import { Prisma, type PrismaClient } from '@prisma/client'
 import {
   UniversityRepository,
   type UniversityListItem,
-} from '../../server/repositories/UniversityRepository'
-import type { UniversityQueryParams } from '../../server/types/api'
+} from '~~/server/repositories/UniversityRepository'
+import type { UniversityQueryParams } from '~~/server/types/api'
 
 describe('UniversityRepository.findAll', () => {
   const createParams = (overrides: Partial<UniversityQueryParams> = {}): UniversityQueryParams => ({

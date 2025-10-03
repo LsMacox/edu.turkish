@@ -1,6 +1,6 @@
-import { prisma } from '../../../../lib/prisma'
-import { ReviewRepository } from '../../../repositories'
-import type { CreateReviewResponse } from '../../../types/api'
+import { prisma } from '~~/lib/prisma'
+import { ReviewRepository } from '~~/server/repositories'
+import type { CreateReviewResponse } from '~~/server/types/api'
 import { z } from 'zod'
 
 // Validation schema

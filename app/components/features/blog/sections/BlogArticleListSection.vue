@@ -125,7 +125,7 @@
 </template>
 
 <script setup lang="ts">
-import type { BlogArticleListItem } from '../../../../../server/types/api'
+import type { BlogArticleListItem } from '~~/server/types/api'
 
 defineProps<{
   title: string

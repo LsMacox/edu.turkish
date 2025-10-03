@@ -1,7 +1,7 @@
 import { defineStore } from 'pinia'
 import { ref, computed } from 'vue'
-import type { UniversityDetail, StudyDirection } from '../../server/types/api'
-import type { DegreeType } from '../types/domain'
+import type { UniversityDetail, StudyDirection } from '~~/server/types/api'
+import type { DegreeType } from '~/types/domain'
 
 // Новые интерфейсы для фронтенда (совместимые со старыми компонентами)
 export interface UniversityProgram {

@@ -1,7 +1,7 @@
-import { prisma } from '../../../../lib/prisma'
-import { UniversityRepository } from '../../../repositories'
-import { calculatePagination } from '../../../utils/api-helpers'
-import type { DirectionResponse, DirectionQueryParams } from '../../../types/api'
+import { prisma } from '~~/lib/prisma'
+import { UniversityRepository } from '~~/server/repositories'
+import { calculatePagination } from '~~/server/utils/api-helpers'
+import type { DirectionResponse, DirectionQueryParams } from '~~/server/types/api'
 
 export default defineEventHandler(async (event): Promise<DirectionResponse> => {
   try {

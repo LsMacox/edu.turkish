@@ -1,6 +1,6 @@
-import { prisma } from '../../../../../lib/prisma'
-import { BlogRepository } from '../../../../repositories'
-import type { BlogArticleDetail } from '../../../../types/api'
+import { prisma } from '~~/lib/prisma'
+import { BlogRepository } from '~~/server/repositories'
+import type { BlogArticleDetail } from '~~/server/types/api'
 
 export default defineEventHandler(async (event): Promise<{ data: BlogArticleDetail }> => {
   const locale = event.context.locale || 'ru'

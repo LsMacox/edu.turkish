@@ -150,9 +150,9 @@
 </template>
 
 <script setup lang="ts">
-import type { ApplicationPreferences, QuestionnairePreferences } from '../../types/preferences'
-import type { DirectionInfo, DirectionResponse } from '../../../server/types/api'
-import { useReferral } from '../../composables/useReferral'
+import type { ApplicationPreferences, QuestionnairePreferences } from '~/types/preferences'
+import type { DirectionInfo, DirectionResponse } from '~~/server/types/api'
+import { useReferral } from '~/composables/useReferral'
 
 interface Props {
   isOpen: boolean

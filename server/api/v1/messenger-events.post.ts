@@ -1,6 +1,6 @@
-import { BitrixService } from '../../services/BitrixService'
-import { getBitrixConfig, validateBitrixConfig } from '../../utils/bitrix-config'
-import type { MessengerEventUtm } from '../../services/bitrix.dto'
+import { BitrixService } from '~~/server/services/BitrixService'
+import { getBitrixConfig, validateBitrixConfig } from '~~/server/utils/bitrix-config'
+import type { MessengerEventUtm } from '~~/server/services/bitrix.dto'
 
 interface MessengerEventRequestBody {
   channel?: string

@@ -1,7 +1,7 @@
 import { describe, expect, it } from 'vitest'
 
-import type { ApplicationRequest } from '../../../server/types/api'
-import { BitrixService } from '../../../server/services/BitrixService'
+import type { ApplicationRequest } from '~~/server/types/api'
+import { BitrixService } from '~~/server/services/BitrixService'
 
 const createService = () => new BitrixService({ domain: 'example.com', accessToken: 'token' })
 

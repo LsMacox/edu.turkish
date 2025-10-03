@@ -1,9 +1,9 @@
-import { prisma } from '../../../../lib/prisma'
-import { ApplicationRepository } from '../../../repositories'
-import { validateApplicationData } from '../../../utils/api-helpers'
-import { BitrixService } from '../../../services/BitrixService'
-import { getBitrixConfig, validateBitrixConfig } from '../../../utils/bitrix-config'
-import type { ApplicationRequest, ApplicationResponse } from '../../../types/api'
+import { prisma } from '~~/lib/prisma'
+import { ApplicationRepository } from '~~/server/repositories'
+import { validateApplicationData } from '~~/server/utils/api-helpers'
+import { BitrixService } from '~~/server/services/BitrixService'
+import { getBitrixConfig, validateBitrixConfig } from '~~/server/utils/bitrix-config'
+import type { ApplicationRequest, ApplicationResponse } from '~~/server/types/api'
 
 export default defineEventHandler(async (event): Promise<ApplicationResponse> => {
   const _locale = event.context.locale || 'ru'

@@ -1,6 +1,6 @@
 import { describe, expect, it, vi } from 'vitest'
 
-import { getBitrixActivityConfig } from '../../../server/utils/bitrix-config'
+import { getBitrixActivityConfig } from '~~/server/utils/bitrix-config'
 
 describe('getBitrixActivityConfig', () => {
   it('parses valid numeric environment variables', () => {

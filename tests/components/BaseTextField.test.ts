@@ -1,6 +1,6 @@
 import { describe, it, expect, vi } from 'vitest'
 import { mount } from '@vue/test-utils'
-import BaseTextField from '~/components/ui/forms/BaseTextField.vue'
+import BaseTextField from '~/components/shared/BaseTextField.vue'
 
 describe('BaseTextField', () => {
   const defaultProps = {

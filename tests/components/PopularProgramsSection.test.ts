@@ -3,8 +3,8 @@ import { mount, flushPromises } from '@vue/test-utils'
 import { nextTick, ref } from 'vue'
 
 import PopularProgramsSection from '~/components/features/universities/sections/PopularProgramsSection.vue'
-import enUniversities from '../../i18n/locales/en/pages/universities.json'
-import ruUniversities from '../../i18n/locales/ru/pages/universities.json'
+import enUniversities from '~~/i18n/locales/en/pages/universities.json'
+import ruUniversities from '~~/i18n/locales/ru/pages/universities.json'
 
 type TestLocale = 'en' | 'ru'
 

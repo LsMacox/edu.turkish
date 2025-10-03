@@ -1,6 +1,6 @@
-import { prisma } from '../../../lib/prisma'
-import { ReviewRepository } from '../../repositories'
-import type { ReviewStatistics } from '../../types/api'
+import { prisma } from '~~/lib/prisma'
+import { ReviewRepository } from '~~/server/repositories'
+import type { ReviewStatistics } from '~~/server/types/api'
 
 export default defineEventHandler(async (_event): Promise<ReviewStatistics> => {
   try {

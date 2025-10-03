@@ -1,6 +1,6 @@
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest'
 
-import { BitrixService } from '../../../server/services/BitrixService'
+import { BitrixService } from '~~/server/services/BitrixService'
 
 describe('BitrixService.logMessengerEvent', () => {
   const originalEnv = { ...process.env }

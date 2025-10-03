@@ -115,7 +115,7 @@
 
 <script setup lang="ts">
 import { computed, ref, useSlots, type ComponentPublicInstance } from 'vue'
-import type { BaseButtonProps, BaseButtonEvents } from '../../types/ui'
+import type { BaseButtonProps, BaseButtonEvents } from '~/types/ui'
 
 const props = withDefaults(defineProps<BaseButtonProps>(), {
   variant: 'primary',

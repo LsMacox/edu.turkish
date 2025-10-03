@@ -6,7 +6,7 @@ import type {
   BlogCategory,
   BlogPopularArticle,
   PaginationMeta,
-} from '../../server/types/api'
+} from '~~/server/types/api'
 
 interface FetchOptions {
   page?: number

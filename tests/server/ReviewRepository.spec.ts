@@ -1,7 +1,7 @@
 import { describe, expect, it, vi } from 'vitest'
 import type { PrismaClient, Prisma } from '@prisma/client'
 
-import { ReviewRepository } from '../../server/repositories/ReviewRepository'
+import { ReviewRepository } from '~~/server/repositories/ReviewRepository'
 
 type ReviewRecord = Prisma.UniversityReviewGetPayload<{
   include: {

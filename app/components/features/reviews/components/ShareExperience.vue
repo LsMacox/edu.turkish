@@ -303,7 +303,7 @@
 </template>
 
 <script setup lang="ts">
-import type { UserType } from '../../../../types/domain'
+import type { UserType } from '~/types/domain'
 interface ReviewForm {
   name: string
   university: string
