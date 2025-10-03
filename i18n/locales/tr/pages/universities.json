@@ -21,7 +21,12 @@
       "all_levels": "Tüm seviyeler",
       "price_label": "Yıllık ücret (USD)",
       "reset_button": "Sıfırla",
-      "apply_button": "Uygula"
+      "apply_button": "Uygula",
+      "cities": {
+        "istanbul": "İstanbul",
+        "ankara": "Ankara",
+        "izmir": "İzmir"
+      }
     },
     "sort": {
       "showing_text": "Gösterilen",

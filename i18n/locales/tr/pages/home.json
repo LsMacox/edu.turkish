@@ -60,7 +60,17 @@
     },
     "services": {
       "title": "Hizmetlerimiz",
-      "subtitle": "Üniversite seçiminden kayıta kadar tam destek"
+      "subtitle": "Üniversite seçiminden kayıta kadar tam destek",
+      "card1_title": "Danışmanlık ve seçim",
+      "card1_text": "Üniversite ve bölüm seçimine yardımcı oluruz",
+      "card2_title": "Belge başvurusu",
+      "card2_text": "Başvuru dosyanızı hazırlar ve iletiriz",
+      "card3_title": "Tercüme ve apostil",
+      "card3_text": "Resmi tercümeler ve noter onayı",
+      "card4_title": "Türkiye'de yerel destek",
+      "card4_text": "Uyum ve günlük hayata yardımcı oluruz",
+      "card5_title": "Güvenlik ve sözleşme",
+      "card5_text": "Resmi sözleşme ile çalışıyoruz"
     },
     "reviews": {
       "title": "Öğrenci Yorumları",

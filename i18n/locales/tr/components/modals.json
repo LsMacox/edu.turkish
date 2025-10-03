@@ -5,16 +5,11 @@
     "required": "*",
     "phone": "WhatsApp numarası",
     "email": "E-posta",
-    "direction": "Eğitim alanı",
     "additional_info": "Ek bilgi",
     "name_placeholder": "Adınızı girin",
     "phone_placeholder": "+1234567890",
     "email_placeholder": "Email adresinizi girin",
-    "direction_placeholder": "Eğitim alanını seçin",
     "message_placeholder": "Hedefleriniz, şehir tercihleriniz, bütçeniz hakkında bize anlatın...",
-    "directions": {
-      "other": "Diğer"
-    },
     "preferences_title": "Tercihleriniz:",
     "preference_labels": {
       "user_type": "Kullanıcı türü:",

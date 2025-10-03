@@ -5,16 +5,11 @@
     "required": "*",
     "phone": "WhatsApp number",
     "email": "Email",
-    "direction": "Field of study",
     "additional_info": "Additional information",
     "name_placeholder": "Enter your name",
     "phone_placeholder": "+1234567890",
     "email_placeholder": "Enter your email",
-    "direction_placeholder": "Select field of study",
     "message_placeholder": "Tell us about your goals, city preferences, budget...",
-    "directions": {
-      "other": "Other"
-    },
     "preferences_title": "Your preferences:",
     "preference_labels": {
       "user_type": "User type:",

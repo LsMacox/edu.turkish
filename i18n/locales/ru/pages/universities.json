@@ -21,7 +21,12 @@
       "all_levels": "Все уровни",
       "price_label": "Стоимость в год (USD)",
       "reset_button": "Сбросить",
-      "apply_button": "Применить"
+      "apply_button": "Применить",
+      "cities": {
+        "istanbul": "Стамбул",
+        "ankara": "Анкара",
+        "izmir": "Измир"
+      }
     },
     "sort": {
       "showing_text": "Показано",

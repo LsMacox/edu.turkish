@@ -21,7 +21,12 @@
       "all_levels": "Барлық деңгейлер",
       "price_label": "Жылдық құны (USD)",
       "reset_button": "Тастау",
-      "apply_button": "Қолдану"
+      "apply_button": "Қолдану",
+      "cities": {
+        "istanbul": "Стамбул",
+        "ankara": "Анкара",
+        "izmir": "Измир"
+      }
     },
     "sort": {
       "showing_text": "Көрсетілген",

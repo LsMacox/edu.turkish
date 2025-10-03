@@ -5,16 +5,11 @@
     "required": "*",
     "phone": "WhatsApp нөмірі",
     "email": "Email",
-    "direction": "Оқыту бағыты",
     "additional_info": "Қосымша ақпарат",
     "name_placeholder": "Атыңызды енгізіңіз",
     "phone_placeholder": "+1234567890",
     "email_placeholder": "Email мекенжайыңызды енгізіңіз",
-    "direction_placeholder": "Бағытты таңдаңыз",
     "message_placeholder": "Мақсаттарыңыз, қала бойынша қалауларыңыз, бюджетіңіз туралы айтыңыз...",
-    "directions": {
-      "other": "Басқа"
-    },
     "preferences_title": "Сіздің қалауларыңыз:",
     "preference_labels": {
       "user_type": "Пайдаланушы түрі:",

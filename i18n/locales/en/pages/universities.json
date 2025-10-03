@@ -21,7 +21,12 @@
       "all_levels": "All levels",
       "price_label": "Cost per year (USD)",
       "reset_button": "Reset",
-      "apply_button": "Apply"
+      "apply_button": "Apply",
+      "cities": {
+        "istanbul": "Istanbul",
+        "ankara": "Ankara",
+        "izmir": "Izmir"
+      }
     },
     "sort": {
       "showing_text": "Showing",

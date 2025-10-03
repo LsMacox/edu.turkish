@@ -74,16 +74,7 @@
             />
           </div>
 
-          <div>
-            <label class="block text-base md:text-sm font-medium text-gray-700 mb-2.5">{{
-              $t('modal.direction')
-            }}</label>
-            <BaseSelect v-model="form.direction">
-              <option value="">{{ $t('modal.direction_placeholder') }}</option>
-              <option v-for="d in directions" :key="d.id" :value="d.name">{{ d.name }}</option>
-              <option value="other">{{ $t('modal.directions.other') }}</option>
-            </BaseSelect>
-          </div>
+          
 
           <div>
             <label class="block text-base md:text-sm font-medium text-gray-700 mb-2.5">{{
@@ -151,7 +142,6 @@
 
 <script setup lang="ts">
 import type { ApplicationPreferences, QuestionnairePreferences } from '~/types/preferences'
-import type { DirectionInfo, DirectionResponse } from '~~/server/types/api'
 import { useReferral } from '~/composables/useReferral'
 
 interface Props {
@@ -172,7 +162,6 @@ const form = ref({
   name: '',
   phone: '',
   email: '',
-  direction: '',
   message: '',
   agreement: false,
 })
@@ -193,42 +182,12 @@ const phoneRef = computed({
 
 const { sanitizePhone, onPhoneInput, onPhoneKeydown } = useInternationalPhone(phoneRef)
 
-const directions = ref<DirectionInfo[]>([])
-const directionsLoading = ref(false)
-const directionsError = ref<string | null>(null)
-
 const { show } = useToast()
 
 const closeModal = () => {
   emit('close')
 }
 
-const fetchDirections = async () => {
-  if (directionsLoading.value) return
-  directionsLoading.value = true
-  directionsError.value = null
-  try {
-    const { locale } = useI18n()
-    const res = await $fetch<DirectionResponse>('/api/v1/directions', {
-      query: { limit: 1000, lang: locale.value },
-    })
-    directions.value = res.data || []
-  } catch (e: any) {
-    directionsError.value = e?.message || 'Failed to load directions'
-    directions.value = []
-  } finally {
-    directionsLoading.value = false
-  }
-}
-
-watch(
-  () => props.isOpen,
-  (open) => {
-    if (open && directions.value.length === 0) {
-      fetchDirections()
-    }
-  },
-)
 
 const submitForm = async () => {
   if (isSubmitting.value) return
@@ -250,13 +209,13 @@ const submitForm = async () => {
       },
       education: {
         level: 'bachelor', // По умолчанию, можно добавить поле выбора
-        field: form.value.direction || 'Не указано',
+        field: 'Не указано',
       },
       preferences: {
         universities: props.userPreferences?.universityName
           ? [props.userPreferences.universityName]
           : [],
-        programs: form.value.direction ? [form.value.direction] : [],
+        programs: [],
         budget: 'Не указан',
         start_date: new Date().getFullYear().toString(),
       },
@@ -294,7 +253,6 @@ const submitForm = async () => {
       name: '',
       phone: '',
       email: '',
-      direction: '',
       message: '',
       agreement: false,
     }

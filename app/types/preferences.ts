@@ -84,7 +84,6 @@ export interface FormSubmissionData {
   name: string
   phone: string
   email: string
-  academicDirection?: string
   message?: string
   privacyAgreement: boolean
   preferences?: ApplicationPreferences

@@ -60,7 +60,17 @@
     },
     "services": {
       "title": "Our Services",
-      "subtitle": "Full support from university selection to enrollment"
+      "subtitle": "Full support from university selection to enrollment",
+      "card1_title": "Consultation & selection",
+      "card1_text": "We help choose a university and program",
+      "card2_title": "Document submission",
+      "card2_text": "We prepare and submit your application",
+      "card3_title": "Translations & apostille",
+      "card3_text": "Official translations and notarization",
+      "card4_title": "Local curator in Turkey",
+      "card4_text": "Assistance with adaptation and daily life",
+      "card5_title": "Safety & contract",
+      "card5_text": "We work officially under contract"
     },
     "reviews": {
       "title": "Student Reviews",

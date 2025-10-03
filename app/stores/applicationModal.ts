@@ -48,7 +48,6 @@ export const useApplicationModalStore = defineStore('applicationModal', () => {
     if (process.client && (window as any).ym) {
       const config = useRuntimeConfig()
       ;(window as any).ym(config.public.yandexMetrikaId, 'reachGoal', 'application_submitted', {
-        academicDirection: formData.academicDirection,
         hasPreferences: !!formData.preferences,
       })
     }
