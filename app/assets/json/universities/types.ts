@@ -7,11 +7,9 @@
  */
 
 // Базовые перечисления (синхронизированы со schema.prisma)
-import { type DirectionSlug, ALL_DIRECTIONS as ALLOWED_DIRECTIONS } from '../../../types/directions'
 export type UniversityType = 'state' | 'private' | 'tech' | 'elite'
 export type DegreeType = 'bachelor' | 'master' | 'phd'
 export type ProgramLanguage = 'tr' | 'en'
-// DirectionSlug импортируется из централизованного файла
 // Типы важной даты (ImportantDate.type)
 export type ImportantDateType = 'deadline' | 'event' | 'exam' | 'notification'
 
@@ -222,7 +220,7 @@ export interface ProgramItem {
    * Необязательная привязка программы к направлению (используется импортёром
    * для автоматического линка университета с направлением)
    */
-  direction_slug?: DirectionSlug
+  direction_slug?: string
 }
 
 /** Раздел о студенческой жизни и инфраструктуре */
@@ -317,7 +315,7 @@ export interface UniversityJson {
    * Необязательный список направлений, к которым относится университет.
    * Если не указано, импортёр попытается собрать направления из programs[].direction_slug
    */
-  directions?: DirectionSlug[]
+  directions?: string[]
 }
 
 /** Полезные константы для валидации/подсказок редакторам */
@@ -330,4 +328,3 @@ export const ALLOWED_IMPORTANT_DATE_TYPES: ImportantDateType[] = [
   'exam',
   'notification',
 ]
-export { ALLOWED_DIRECTIONS }

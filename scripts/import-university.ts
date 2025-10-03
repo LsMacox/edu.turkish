@@ -19,12 +19,8 @@ import { resolve, resolve as pathResolve } from 'node:path'
 import { z } from 'zod'
 import { prisma } from '../lib/prisma'
 import { Prisma, type UniversityType, type DegreeType } from '@prisma/client'
-import { type DirectionSlug, ALL_DIRECTIONS } from '../app/types/directions'
 
 const Locale = z.string().min(2).max(5)
-
-// Допустимые направления (канонические слаги) — из общего списка
-const DirectionSlugZ = z.enum(ALL_DIRECTIONS as [string, ...string[]])
 
 // removed unused TranslationString schema
 
@@ -39,7 +35,7 @@ const ProgramInput = z.object({
   duration_years: z.number().int().positive(),
   tuition_per_year: z.number().nonnegative(),
   // Необязательная привязка программы к направлению (канонический slug)
-  direction_slug: DirectionSlugZ.optional(),
+  direction_slug: z.string().optional(),
   translation: z
     .object({
       locale: Locale,
@@ -207,7 +203,7 @@ const UniversityInput = z.object({
   admission: AdmissionSection,
   programs: z.array(ProgramInput),
   // Необязательный явный список направлений, к которым относится университет
-  directions: z.array(DirectionSlugZ).optional(),
+  directions: z.array(z.string()).optional(),
   translation: z
     .object({
       locale: Locale,
@@ -536,9 +532,9 @@ async function replaceFeaturedPrograms(
   }
 }
 
-// Локализованные названия по умолчанию для направлений
-async function ensureDirectionAndTranslation(slug: DirectionSlug, locale: string): Promise<number> {
-  // Ищем направление по любому переводу с этим slug
+// Ensure direction exists and has translation for given locale
+async function ensureDirectionAndTranslation(slug: string, locale: string): Promise<number> {
+  // Find direction by any translation with this slug
   const existingDirection = await (prisma as any).StudyDirection.findFirst({
     where: { translations: { some: { slug } } },
     include: { translations: true },
@@ -546,11 +542,10 @@ async function ensureDirectionAndTranslation(slug: DirectionSlug, locale: string
 
   let directionId: number
   if (!existingDirection) {
-    // Создаем пустое направление и переводы для ключевых локалей
+    // Create empty direction and translations for all locales
     const created = await (prisma as any).StudyDirection.create({ data: {} })
     directionId = created.id
-    const names = getDirectionNames()[slug]
-    // Сразу создаем RU/EN/TR/KK переводы для удобства
+    // Create translations for all supported locales
     const locales = ['ru', 'en', 'tr', 'kk'] as const
     for (const loc of locales) {
       await (prisma as any).StudyDirectionTranslation.create({
@@ -558,20 +553,20 @@ async function ensureDirectionAndTranslation(slug: DirectionSlug, locale: string
           directionId,
           locale: loc,
           slug,
-          name: (names as any)?.[loc] ?? slug,
+          name: slug, // Use slug as fallback name
         },
       })
     }
   } else {
     directionId = existingDirection.id
-    // Убедимся, что есть перевод для текущей локали
+    // Ensure translation exists for current locale
     const hasLocale = (existingDirection.translations as any[]).some(
       (t: any) => t.locale === locale,
     )
     if (!hasLocale) {
-      const names = getDirectionNames()[slug]
+      // Create translation with slug as name (should exist from seed)
       await (prisma as any).StudyDirectionTranslation.create({
-        data: { directionId, locale, slug, name: (names as any)?.[locale] ?? slug },
+        data: { directionId, locale, slug, name: slug },
       })
     }
   }
@@ -579,33 +574,19 @@ async function ensureDirectionAndTranslation(slug: DirectionSlug, locale: string
   return directionId
 }
 
-// Lazy-load and cache i18n/directions.json
-type DirectionNames = Record<DirectionSlug, { ru?: string; en?: string; tr?: string }>
-let directionNamesCache: DirectionNames | undefined
-function getDirectionNames(): DirectionNames {
-  if (directionNamesCache) return directionNamesCache as DirectionNames
-  const jsonPath = pathResolve(process.cwd(), 'i18n', 'directions.json')
-  try {
-    const raw = fsReadFileSync(jsonPath, 'utf-8')
-    directionNamesCache = JSON.parse(raw) as DirectionNames
-  } catch {
-    directionNamesCache = {} as DirectionNames
-  }
-  return directionNamesCache as DirectionNames
-}
 
 async function linkDirectionsForUniversity(
   universityId: number,
   locale: string,
   data: z.infer<typeof UniversityInput>,
 ): Promise<void> {
-  const isDirectionSlug = (val: unknown): val is DirectionSlug =>
-    typeof val === 'string' && (ALL_DIRECTIONS as readonly string[]).includes(val)
+  const isDirectionSlug = (val: unknown): val is string =>
+    typeof val === 'string' && val.length > 0
 
   // Соберем список слагов: явные directions + из программ
   const fromPrograms = (data.programs || []).map((p) => p.direction_slug).filter(isDirectionSlug)
   const explicit = (data.directions || []).filter(isDirectionSlug)
-  const slugs: DirectionSlug[] = Array.from(new Set<DirectionSlug>([...explicit, ...fromPrograms]))
+  const slugs: string[] = Array.from(new Set<string>([...explicit, ...fromPrograms]))
   if (slugs.length === 0) return
 
   for (const slug of slugs) {
