@@ -59,12 +59,6 @@
       "recommendation": {
         "title": "Bizi tavsiye ediyor",
         "description": "Öğrenci ve veliler"
-      },
-      "additional": {
-        "scholarships": "Alınan burslar",
-        "cities": "Türkiye şehirleri",
-        "languages": "Eğitim dilleri",
-        "specialties": "Uzmanlık alanları"
       }
     },
     "studentStories": {
@@ -126,17 +120,7 @@
           "placeholder": "Başvuru ve eğitim deneyiminizi paylaşın. Size en çok ne yardımcı oldu? Gelecekteki öğrencilere ne tavsiye edersiniz?"
         },
         "helpful": {
-          "label": "En yararlı olan neydi? (birden fazla seçebilirsiniz)",
-          "aspects": {
-            "documents": "Belge hazırlama",
-            "language": "Dil hazırlığı",
-            "exam-prep": "Sınav hazırlığı",
-            "university-choice": "Üniversite seçimi",
-            "visa": "Vize işlemleri",
-            "accommodation": "Konaklama arayışı",
-            "support": "Sürekli destek",
-            "consultation": "Danışmanlık"
-          }
+          "label": "En yararlı olan neydi? (birden fazla seçebilirsiniz)"
         },
         "recommend": {
           "label": "Edu.turkish'i tavsiye eder misiniz?",
@@ -197,23 +181,6 @@
         "consultation": "Ücretsiz danışmanlık",
         "noHiddenFees": "Gizli ücret yok",
         "guarantee": "Sonuç garantisi"
-      },
-      "successStories": {
-        "azamat": {
-          "alt": "Başarılı öğrenci Azamat",
-          "quote": "\"Edu.turkish sayesinde Istanbul Üniversitesi'ne girdim!\"",
-          "name": "Azamat K."
-        },
-        "aliya": {
-          "alt": "Başarılı öğrenci Aliya",
-          "quote": "\"Doktor olma hayalim gerçekleşti!\"",
-          "name": "Aliya N."
-        },
-        "daniyar": {
-          "alt": "Başarılı öğrenci Daniyar",
-          "quote": "\"Onların desteği sayesinde Boğaziçi'nde okuyorum!\"",
-          "name": "Daniyar M."
-        }
       }
     }
   }

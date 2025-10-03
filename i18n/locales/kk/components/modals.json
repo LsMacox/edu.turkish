@@ -13,13 +13,6 @@
     "direction_placeholder": "Бағытты таңдаңыз",
     "message_placeholder": "Мақсаттарыңыз, қала бойынша қалауларыңыз, бюджетіңіз туралы айтыңыз...",
     "directions": {
-      "medicine": "Медицина",
-      "engineering": "Инженерия",
-      "business": "Бизнес",
-      "it": "IT",
-      "architecture": "Архитектура",
-      "psychology": "Психология",
-      "arts": "Өнер",
       "other": "Басқа"
     },
     "preferences_title": "Сіздің қалауларыңыз:",

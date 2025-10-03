@@ -6,8 +6,7 @@
       "stats": {
         "universities": "Universities",
         "cities": "Cities",
-        "programs": "Programs",
-        "cost_from": "From cost"
+        "programs": "Programs"
       }
     },
     "filters": {
@@ -15,45 +14,16 @@
       "search_placeholder": "Enter university name...",
       "city_label": "City",
       "all_cities": "All cities",
-      "cities": {
-        "istanbul": "Istanbul",
-        "ankara": "Ankara",
-        "izmir": "Izmir",
-        "antalya": "Antalya",
-        "bursa": "Bursa",
-        "kocaeli": "Kocaeli"
-      },
       "language_label": "Language of instruction",
-      "languages": {
-        "TR": "Turkish",
-        "EN": "English",
-        "RU": "Russian",
-        "AR": "Arabic",
-        "tr": "Turkish",
-        "en": "English",
-        "ru": "Russian"
-      },
       "type_label": "Type",
       "all_types": "All types",
-      "types": {
-        "state": "State",
-        "private": "Private",
-        "tech": "Technical",
-        "elite": "Elite"
-      },
       "level_label": "Level",
       "all_levels": "All levels",
-      "levels": {
-        "bachelor": "Bachelor",
-        "master": "Master",
-        "doctorate": "Doctorate"
-      },
       "price_label": "Cost per year (USD)",
       "reset_button": "Reset",
       "apply_button": "Apply"
     },
     "sort": {
-      "found_text": "Found",
       "showing_text": "Showing",
       "of_text": "of",
       "universities_text": "universities",
@@ -74,13 +44,6 @@
         "tech": "Technical",
         "elite": "Elite"
       },
-      "badges": {
-        "scholarships": "Scholarships Available",
-        "top_ranking": "Top Ranking",
-        "technical": "Technical Excellence"
-      },
-      "from_price": "from $",
-      "per_year": "/year",
       "details_button": "Details",
       "apply_button": "Apply",
       "application_description": "Application from university card:"
@@ -113,12 +76,6 @@
       "subtitle": "Most in-demand specializations in Turkish universities",
       "loading": "Loading data...",
       "dynamic": {
-        "universities_count": {
-          "one": "{count} university",
-          "few": "{count} universities",
-          "many": "{count} universities",
-          "other": "{count} universities"
-        },
         "price_from": "from {price}/year"
       },
       "programs": {

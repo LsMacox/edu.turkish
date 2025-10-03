@@ -3,57 +3,15 @@
     "title": "Başvuru için ne gerekli?",
     "subtitle": "Uluslararası öğrenciler için gereksinimler ve belgeler",
     "requiredDocuments": {
-      "title": "Gerekli Belgeler",
-      "certificate": {
-        "title": "Tercümeli diploma",
-        "description": "Türkçe veya İngilizce noter onaylı tercüme"
-      },
-      "passport": {
-        "title": "Pasaport",
-        "description": "En az 6 ay geçerli"
-      },
-      "photos": {
-        "title": "Fotoğraflar",
-        "description": "4 biyometrik fotoğraf 5x6 cm"
-      },
-      "motivationLetter": {
-        "title": "Motivasyon mektubu",
-        "description": "İngilizce veya Türkçe"
-      },
-      "medicalCertificate": {
-        "title": "Sağlık raporu",
-        "description": "Sağlık durumu hakkında"
-      },
-      "incomeStatement": {
-        "title": "Gelir belgesi",
-        "description": "Mali yeterlilik kanıtı"
-      }
+      "title": "Gerekli Belgeler"
     },
     "examsAndLanguage": {
       "title": "Sınavlar ve dil gereksinimleri",
       "goodNews": "İyi haber!",
-      "goodNewsText": "Çoğu program için YÖS ve SAT zorunlu değil",
-      "ielts": {
-        "title": "IELTS/TOEFL",
-        "description": "İngilizce programlar için önerilir",
-        "details": "IELTS 6.0+ veya TOEFL 80+"
-      },
-      "preparatoryYear": {
-        "title": "Hazırlık yılı",
-        "description": "Türkçe veya İngilizce öğrenmek için mevcut",
-        "details": "Maliyet: Yılda $4,000"
-      },
-      "internalExam": {
-        "title": "Dahili sınav",
-        "description": "Üniversite kendi giriş sınavlarını yapar",
-        "details": "Online veya kampüste"
-      }
+      "goodNewsText": "Çoğu program için YÖS ve SAT zorunlu değil"
     },
     "scholarships": {
-      "title": "Öğrenim indirimleri",
-      "academic": "Akademik burs",
-      "sports": "Spor bursu",
-      "earlyApplication": "Erken başvuru"
+      "title": "Öğrenim indirimleri"
     },
     "importantDates": {
       "title": "Önemli Tarihler"

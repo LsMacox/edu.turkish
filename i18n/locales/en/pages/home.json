@@ -60,19 +60,7 @@
     },
     "services": {
       "title": "Our Services",
-      "subtitle": "Full support from university selection to enrollment",
-      "card1_title": "Personal Manager",
-      "card1_text": "A personal curator will accompany you through all stages of admission",
-      "card2_title": "Automatic Submission",
-      "card2_text": "We submit documents to selected universities and track status ourselves",
-      "card3_title": "Exam Assistance",
-      "card3_text": "Preparation for language tests and document translation",
-      "card4_title": "WhatsApp Support",
-      "card4_text": "Support in messenger in English language",
-      "card5_title": "Contract Guarantees",
-      "card5_text": "Official contract with admission guarantee or money back",
-      "card6_title": "Scholarship Search",
-      "card6_text": "We help find and apply for scholarships and grants"
+      "subtitle": "Full support from university selection to enrollment"
     },
     "reviews": {
       "title": "Student Reviews",
@@ -120,170 +108,6 @@
     "faq": {
       "title": "Frequently Asked Questions",
       "subtitle": "Answers to the most popular questions about admission",
-      "reviews_title": "Frequently Asked Questions",
-      "reviews_subtitle": "Answers to popular questions about reviews and our work",
-
-      "categories": {
-        "all": "All",
-        "documents": {
-          "title": "Documents and Application"
-        },
-        "exams": {
-          "title": "Exams and Testing"
-        },
-        "admission": {
-          "title": "Admission Process"
-        },
-        "scholarships": {
-          "title": "Scholarships and Funding"
-        },
-        "languages": {
-          "title": "Language Requirements"
-        }
-      },
-      "documents": {
-        "q1": {
-          "question": "What documents are required for applying to Turkish universities?",
-          "answer": {
-            "intro": "To apply to Turkish universities, you need to prepare the following documents:",
-            "list": [
-              "High school certificate with translation and apostille",
-              "Passport (valid for at least 6 months)",
-              "4 biometric photos 5x6 cm",
-              "Motivation letter in English or Turkish",
-              "Medical certificate",
-              "Financial guarantee or income statement",
-              "Language test results (if available)"
-            ],
-            "note": "All documents must be translated into Turkish or English and notarized."
-          }
-        },
-        "q2": {
-          "question": "How to apply via WhatsApp?",
-          "answer": {
-            "intro": "Applying via WhatsApp is very simple. Follow these steps:",
-            "steps": [
-              "Send a message to our WhatsApp: +90 555 123 45 67",
-              "Tell us about your educational background and preferences",
-              "Our consultant will send you a list of required documents",
-              "Send photos or scans of your documents",
-              "We will prepare and submit your application to universities",
-              "Track your application status through WhatsApp"
-            ],
-            "benefit": "WhatsApp application allows you to get quick responses and constant support throughout the process."
-          }
-        }
-      },
-      "exams": {
-        "q1": {
-          "question": "What is YÖS exam and is it mandatory?",
-          "answer": {
-            "sections": [
-              {
-                "title": "What is YÖS?",
-                "content": "YÖS (Yabancı Uyruklu Öğrenci Sınavı) is an exam for foreign students who want to study at Turkish universities. It tests mathematics, geometry, and logical reasoning."
-              },
-              {
-                "title": "Is it mandatory?",
-                "content": "No, YÖS is not mandatory for all universities. Many universities accept students without YÖS based on their high school grades and internal exams."
-              },
-              {
-                "title": "Advantages of taking YÖS",
-                "content": "High YÖS scores can significantly increase your chances of getting scholarships and admission to top universities."
-              }
-            ]
-          }
-        },
-        "q2": {
-          "question": "Is it mandatory to take SAT or IELTS?",
-          "answer": "SAT and IELTS are not mandatory for most Turkish universities. However, they can be advantageous for English-taught programs and scholarship applications. Many universities conduct their own English proficiency tests or offer preparatory language courses."
-        }
-      },
-      "admission": {
-        "q1": {
-          "question": "How long does the admission process take?",
-          "answer": {
-            "timeline": [
-              {
-                "period": "Document preparation",
-                "duration": "1-2 weeks"
-              },
-              {
-                "period": "Application submission",
-                "duration": "1 week"
-              },
-              {
-                "period": "University review",
-                "duration": "2-6 weeks"
-              },
-              {
-                "period": "Interview (if required)",
-                "duration": "1 week"
-              },
-              {
-                "period": "Final decision",
-                "duration": "1-2 weeks"
-              }
-            ],
-            "total": "The entire process typically takes 2-4 months, depending on the university and application period."
-          }
-        },
-        "q2": {
-          "question": "When do universities respond?",
-          "answer": "Universities usually respond within 2-6 weeks after receiving complete application documents. During peak periods (May-July), the process may take longer. We recommend applying early to avoid delays."
-        }
-      },
-      "scholarships": {
-        "q1": {
-          "question": "What scholarships are available for international students?",
-          "answer": {
-            "types": [
-              {
-                "name": "Academic Scholarship",
-                "description": "Based on academic performance, up to 75% tuition discount",
-                "requirements": "High GPA, strong academic record"
-              },
-              {
-                "name": "Sports Scholarship",
-                "description": "For student-athletes, up to 50% tuition discount",
-                "requirements": "Proven sports achievements and abilities"
-              },
-              {
-                "name": "Early Application Discount",
-                "description": "For early applicants, up to 25% tuition discount",
-                "requirements": "Apply before the early deadline"
-              },
-              {
-                "name": "Türkiye Scholarships",
-                "description": "Government scholarships covering full tuition, accommodation, and stipend",
-                "requirements": "High academic achievement, separate application required"
-              }
-            ]
-          }
-        }
-      },
-      "languages": {
-        "q1": {
-          "question": "Do I need to know Turkish for admission?",
-          "answer": {
-            "options": [
-              {
-                "language": "Turkish Programs",
-                "requirement": "Turkish language proficiency required or preparatory year available"
-              },
-              {
-                "language": "English Programs",
-                "requirement": "English proficiency required (IELTS 6.0+ or TOEFL 80+)"
-              },
-              {
-                "language": "Preparatory Year",
-                "requirement": "Available for both Turkish and English language learning"
-              }
-            ],
-            "conclusion": "Many universities offer preparatory language programs, so you can start even with basic language skills."
-          }
-        }
-      },
       "home": {
         "q1": "Is it mandatory to know Turkish for admission?",
         "a1": "No, knowledge of Turkish is not mandatory. Many programs are conducted in English. If your language level is insufficient, you can take a preparatory year to learn Turkish or English.",
@@ -296,25 +120,6 @@
         "q5": "Can I get a scholarship?",
         "a5": "Yes! Various types of scholarships are available: academic (up to 75%), sports (up to 50%), early application (up to 25%). There are also government scholarships Türkiye Bursları for international students."
       },
-
-      "reviews": {
-        "q1": "How long does the admission process usually take?",
-        "a1": "The admission process takes 6 to 12 months depending on the chosen university and program. We recommend starting preparation a year before the planned admission.",
-        "q2": "What documents are needed for admission to Turkish universities?",
-        "a2": "Main documents: high school certificate or diploma with translation and apostille, language test results (YÖS, SAT or TÖMER), medical certificate, photos, passport. Full list depends on the specific university.",
-        "q3": "Is it mandatory to know Turkish for admission?",
-        "a3": "Not always. Many universities offer programs in English. However, knowledge of Turkish significantly expands program choices and simplifies adaptation in the country.",
-        "q4": "How much do your services cost?",
-        "a4": "Cost depends on the selected service package. We have basic packages from $500 to premium packages with full support. Exact cost can be learned during a free consultation.",
-        "q5": "Do you guarantee admission?",
-        "a5": "We cannot give a 100% admission guarantee as it depends on many factors. However, our success rate is 98%, and we do everything possible to achieve results.",
-        "q6": "Do you help with scholarships?",
-        "a6": "Yes, we help find and apply for various scholarships and grants. Many of our students receive partial or full scholarships from universities or the Turkish government.",
-        "q7": "What happens after admission?",
-        "a7": "We continue to support students: help with visa processing, finding housing, adaptation during the first months of study. Our support doesn't end after enrollment.",
-        "q8": "Can I apply without knowing English?",
-        "a8": "Yes, you can apply for programs taught in Turkish. Many universities also offer preparatory language courses for students with insufficient language levels."
-      },
       "question1": "How much do your services cost?",
       "answer1": "The cost depends on the selected service package. Basic package from $500, full support from $1200. We provide installments.",
       "question2": "What documents are needed for admission?",
@@ -326,10 +131,7 @@
       "question5": "Is there an admission guarantee?",
       "answer5": "We guarantee admission to one of the selected universities if all requirements are met, or we return the money.",
       "question6": "Do you help with housing in Turkey?",
-      "answer6": "Yes, we help with finding and booking accommodation: dormitories, apartment rentals, host families.",
-      "search_placeholder": "Search questions...",
-      "page_title": "Frequently Asked Questions",
-      "page_subtitle": "Answers to questions most frequently asked by our students and parents"
+      "answer6": "Yes, we help with finding and booking accommodation: dormitories, apartment rentals, host families."
     },
     "final_cta": {
       "title": "Apply before the deadline!",

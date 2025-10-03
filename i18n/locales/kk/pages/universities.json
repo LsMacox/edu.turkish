@@ -6,8 +6,7 @@
       "stats": {
         "universities": "Университеттер",
         "cities": "Қалалар",
-        "programs": "Бағдарламалар",
-        "cost_from": "Құны"
+        "programs": "Бағдарламалар"
       }
     },
     "filters": {
@@ -15,45 +14,16 @@
       "search_placeholder": "Университет атауын енгізіңіз...",
       "city_label": "Қала",
       "all_cities": "Барлық қалалар",
-      "cities": {
-        "istanbul": "Стамбул",
-        "ankara": "Анкара",
-        "izmir": "Измир",
-        "antalya": "Анталья",
-        "bursa": "Бурса",
-        "kocaeli": "Коджаэли"
-      },
       "language_label": "Оқыту тілі",
-      "languages": {
-        "TR": "Түрік тілі",
-        "EN": "Ағылшын тілі",
-        "RU": "Орыс тілі",
-        "AR": "Араб тілі",
-        "tr": "Түрік тілі",
-        "en": "Ағылшын тілі",
-        "ru": "Орыс тілі"
-      },
       "type_label": "Түрі",
       "all_types": "Барлық түрлер",
-      "types": {
-        "state": "Мемлекеттік",
-        "private": "Жеке",
-        "tech": "Техникалық",
-        "elite": "Элиталық"
-      },
       "level_label": "Деңгейі",
       "all_levels": "Барлық деңгейлер",
-      "levels": {
-        "bachelor": "Бакалавриат",
-        "master": "Магистратура",
-        "doctorate": "Докторантура"
-      },
       "price_label": "Жылдық құны (USD)",
       "reset_button": "Тастау",
       "apply_button": "Қолдану"
     },
     "sort": {
-      "found_text": "Табылды",
       "showing_text": "Көрсетілген",
       "of_text": "жалпы",
       "universities_text": "университет",
@@ -74,13 +44,6 @@
         "tech": "Техникалық",
         "elite": "Элиталық"
       },
-      "badges": {
-        "scholarships": "Стипендиялар қолжетімді",
-        "top_ranking": "Жоғары рейтинг",
-        "technical": "Техникалық үздіктік"
-      },
-      "from_price": "$",
-      "per_year": "/жыл бастап",
       "details_button": "Толығырақ",
       "apply_button": "Өтініш беру",
       "application_description": "Университет картасынан өтініш:"
@@ -113,12 +76,6 @@
       "subtitle": "Түрік университеттеріндегі ең сұранысты мамандықтар",
       "loading": "Деректер жүктелуде...",
       "dynamic": {
-        "universities_count": {
-          "one": "{count} университет",
-          "few": "{count} университет",
-          "many": "{count} университет",
-          "other": "{count} университет"
-        },
         "price_from": "{price}/жыл бастап"
       },
       "programs": {

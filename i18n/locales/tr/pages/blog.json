@@ -4,56 +4,9 @@
       "title": "Blog ve Sık Sorulan Sorular - Edu.turkish",
       "description": "Türkiye'de eğitim, vizeler, burslar ve öğrenci yaşamı hakkında güncel yazılar. Edu.turkish uzmanlarından popüler sorulara yanıtlar."
     },
-    "hero": {
-      "title": "Blog ve",
-      "titleAccent": "sık sorulan sorular",
-      "description": "Türkiye'de başvuru, sınavlar, burslar ve eğitim hakkında önemli soruların cevapları",
-      "searchPlaceholder": "Makale veya cevap ara...",
-      "imageAlt": "Dizüstü bilgisayar ve defterlerle çalışan öğrenciler, modern eğitim blogu",
-      "highlight": {
-        "title": "Uzman tavsiyeleri",
-        "subtitle": "Danışmanlarımızdan"
-      },
-      "stats": [
-        {
-          "icon": "mdi:newspaper-variant",
-          "label": "{count} faydalı makale"
-        },
-        {
-          "icon": "mdi:help-circle-outline",
-          "label": "{count} cevaplanan soru"
-        },
-        {
-          "icon": "mdi:update",
-          "label": "Haftalık güncellenir"
-        }
-      ]
-    },
     "categories": {
       "all": {
         "label": "Tümü"
-      },
-      "exams": {
-        "label": "Sınavlar"
-      },
-      "scholarships": {
-        "label": "Burslar"
-      },
-      "cost": {
-        "label": "Maliyetler"
-      },
-      "life": {
-        "label": "Türkiye'de yaşam"
-      },
-      "applications": {
-        "label": "Başvurular"
-      },
-      "visas": {
-        "label": "Vizeler"
-      },
-      "rankings": {
-        "label": "Sıralamalar",
-        "showInFilters": false
       }
     },
     "articles": {
@@ -61,112 +14,7 @@
       "readMore": "Devamını oku →",
       "loadMore": "Daha fazla makale yükle",
       "loading": "Yükleniyor...",
-      "empty": "Filtrelerinize uygun makale bulunamadı",
-      "items": {
-        "visaGuide": {
-          "title": "Türkiye'de öğrenci vizesi nasıl alınır: 2025 adım adım rehber",
-          "excerpt": "Türkiye öğrenci vizesi için eksiksiz rehber. Gerekli belgeler, başvuru süreleri, maliyetler ve uzmanlarımızdan pratik tavsiyeler.",
-          "date": "15 Oca 2025",
-          "readingTime": "8 dk okuma",
-          "imageAlt": "Türkiye öğrenci vizesi belgeleri ve üniversite kabul mektubu"
-        },
-        "learnTurkish": {
-          "title": "Başvuru için Türkçe bilmek şart mı?",
-          "excerpt": "Türkçenin zorunlu olduğu ve İngilizce eğitim alabileceğiniz durumları açıklıyoruz.",
-          "date": "12 Oca 2025",
-          "imageAlt": "Masa üzerindeki Türkçe ders kitapları ve öğrenme materyalleri"
-        },
-        "topUniversities": {
-          "title": "Türkiye'nin 2025 en iyi 10 üniversitesi",
-          "excerpt": "Eğitim kalitesi ve işe yerleşme oranına göre güncellenmiş üniversite sıralaması.",
-          "date": "10 Oca 2025",
-          "imageAlt": "Bilgisayar ekranında üniversite sıralamaları ve grafikler"
-        },
-        "fullScholarship": {
-          "title": "Türkiye'de %100 burs nasıl kazanılır",
-          "excerpt": "Türk üniversitelerinde tam burs başvurusunu başarılı kılmanın sırları.",
-          "date": "8 Oca 2025",
-          "imageAlt": "Türk üniversitesinde burs töreni"
-        },
-        "studyCost": {
-          "title": "2025'te Türkiye'de okumak ne kadara mal olur",
-          "excerpt": "Tüm giderlerin ayrıntılı analizi: öğrenim ücreti, konaklama, yemek ve yaşam tarzı.",
-          "date": "5 Oca 2025",
-          "imageAlt": "Türkiye'de eğitimin maliyet tablosu"
-        },
-        "housingIstanbul": {
-          "title": "İstanbul'da öğrenci nerede kalmalı",
-          "excerpt": "Yurtlar, daireler, semtler ve fiyatlar hakkında konaklama rehberi.",
-          "date": "3 Oca 2025",
-          "imageAlt": "Türkiye'de yurtta kalan uluslararası öğrenciler"
-        },
-        "applicationGuide": {
-          "title": "Üniversite başvurusunu doğru şekilde nasıl doldurursunuz",
-          "excerpt": "Hatasız online başvuru yapmak için adım adım rehber.",
-          "date": "1 Oca 2025",
-          "imageAlt": "Dizüstü bilgisayarda üniversite başvuru formu"
-        },
-        "examChoice": {
-          "title": "TOEFL mı IELTS mi: Türkiye için hangisi uygun",
-          "excerpt": "Dil sınavlarının karşılaştırması ve Türk üniversitelerinin gereksinimleri.",
-          "date": "28 Ara 2024",
-          "imageAlt": "TOEFL ve IELTS hazırlık kitapları ve materyalleri"
-        },
-        "adaptation": {
-          "title": "Türkiye'deki yaşama nasıl uyum sağlanır",
-          "excerpt": "Türk toplumuna uyum sağlama ve kültüre entegre olma ipuçları.",
-          "date": "25 Ara 2024",
-          "imageAlt": "İstanbul'u keşfeden ve Türk kültürünü tanıyan öğrenciler"
-        }
-      }
-    },
-    "sidebar": {
-      "popular": {
-        "title": "En çok okunanlar",
-        "items": [
-          {
-            "title": "Türkiye üniversitesine başvuru için gerekli belgeler",
-            "date": "15 Oca 2025",
-            "views": "2.450 görüntülenme"
-          },
-          {
-            "title": "Türkiye'de tıp okumak için en iyi üniversiteler",
-            "date": "12 Oca 2025",
-            "views": "1.890 görüntülenme"
-          },
-          {
-            "title": "Türkiye'de öğrenci indirimi nasıl alınır",
-            "date": "8 Oca 2025",
-            "views": "1.654 görüntülenme"
-          },
-          {
-            "title": "Türkiye'de öğrenciler için iş: haklar ve fırsatlar",
-            "date": "5 Oca 2025",
-            "views": "1.432 görüntülenme"
-          }
-        ]
-      },
-      "quickLinks": {
-        "title": "Faydalı bağlantılar",
-        "items": [
-          {
-            "id": "universities",
-            "label": "Üniversite kataloğu"
-          },
-          {
-            "id": "checklist",
-            "label": "Belge kontrol listesi"
-          },
-          {
-            "id": "reviews",
-            "label": "Öğrenci yorumları"
-          },
-          {
-            "id": "consultation",
-            "label": "Uzman danışmanlık"
-          }
-        ]
-      }
+      "empty": "Filtrelerinize uygun makale bulunamadı"
     }
   }
 }

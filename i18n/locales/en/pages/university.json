@@ -31,107 +31,25 @@
       "strongPrograms": "Strong Programs",
       "advantages": "Advantages for International Students"
     },
-    "universityType": {
-      "state": "State University",
-      "private": "Private University",
-      "tech": "Technical University",
-      "elite": "Elite University"
-    },
     "campusLife": {
       "title": "Campus Life",
       "subtitle": "Modern facilities for study and recreation",
       "infrastructure": "Campus Infrastructure",
       "capacity": "Capacity",
-      "area": "Area",
-      "facilities": {
-        "library": {
-          "name": "Library",
-          "description": "24/7 access, over 500,000 books and journals"
-        },
-        "laboratories": {
-          "name": "Laboratories",
-          "description": "Modern scientific equipment"
-        },
-        "sportsCenter": {
-          "name": "Sports Center",
-          "description": "Fitness gym, swimming pool, sports courts"
-        },
-        "dormitories": {
-          "name": "Dormitories",
-          "description": "Comfortable rooms for students"
-        },
-        "cafeteria": {
-          "name": "Cafeteria",
-          "description": "Diverse menu, halal cuisine"
-        },
-        "wifi": {
-          "name": "Wi-Fi throughout campus",
-          "description": "High-speed internet"
-        },
-        "medicalCenter": {
-          "name": "Medical Center",
-          "description": "Medical assistance and consultations"
-        },
-        "transport": {
-          "name": "Transportation",
-          "description": "Buses to city center"
-        },
-        "studentClubs": {
-          "name": "Student Clubs",
-          "description": "Over 50 clubs by interests"
-        }
-      }
+      "area": "Area"
     },
     "faq": {
       "title": "📌 Frequently Asked Questions about Admission to Turkish Universities",
       "subtitle": "Answers to the most popular questions about applying to Turkish universities",
       "q1": "Do I need to know Turkish or English to enroll?",
-      "a1": "✨ No! Even if you don't speak the language, the university lets you take a preparatory year in Turkish, English, or Arabic. You'll have time to adapt and study at a comfortable pace.",
       "q2": "Is it mandatory to take TR-YÖS or SAT?",
-      "a2": "🚀 No, your high school diploma is enough to apply.",
       "q3": "How much does tuition cost?",
-      "a3": "🎓 Tuition for bachelor's programs starts at $2,000 per year. The exact fee depends on the university and major.",
       "q4": "What documents are required for admission?",
-      "a4": {
-        "title": "📂 Minimum set:",
-        "items": ["High school diploma translated into Turkish", "Passport", "Biometric photo"],
-        "ordered": false
-      },
       "q5": "Are there scholarships or discounts?",
-      "a5": {
-        "title": "✅ Absolutely! You have several options:",
-        "items": [
-          "Türkiye Bursları — a government program with a monthly stipend.",
-          "Academic discounts — for a high GPA.",
-          "Sports discounts — if you represent the university in competitions."
-        ],
-        "ordered": false
-      },
       "q6": "How fast are the documents reviewed?",
-      "a6": "⏳ Officially it takes up to 2 weeks. Through us you can receive an invitation letter in just a few days.",
       "q7": "Do I need a visa?",
-      "a7": {
-        "title": "🌍",
-        "items": [
-          "Citizens of Kazakhstan, Russia, Uzbekistan, and Kyrgyzstan do not need a visa if visa-free days are available.",
-          "Students on Türkiye Bursları must obtain a student visa."
-        ],
-        "ordered": false
-      },
       "q8": "What does the admission process look like?",
-      "a8": {
-        "title": "🔹 Just a few simple steps:",
-        "items": [
-          "Send us your documents",
-          "Receive a preliminary acceptance letter",
-          "Pay the deposit to the university's bank details",
-          "Get the final admission letter",
-          "Arrive in Turkey and complete on-campus registration"
-        ],
-        "ordered": true
-      },
-      "q9": "Do you support only the admission and final registration at the university?",
-      "a9": "✨ Yes, we accompany you at every stage — from submitting documents to arriving in Turkey."
+      "q9": "Do you support only the admission and final registration at the university?"
     }
   }
 }

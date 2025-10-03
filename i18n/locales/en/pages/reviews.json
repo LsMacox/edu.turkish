@@ -59,12 +59,6 @@
       "recommendation": {
         "title": "Recommend us",
         "description": "Students and parents"
-      },
-      "additional": {
-        "scholarships": "Scholarships received",
-        "cities": "Cities in Turkey",
-        "languages": "Languages of instruction",
-        "specialties": "Specialties"
       }
     },
     "studentStories": {
@@ -126,17 +120,7 @@
           "placeholder": "Share your admission and study experience. What helped you the most? What advice would you give to future students?"
         },
         "helpful": {
-          "label": "What was most helpful? (you can choose multiple)",
-          "aspects": {
-            "documents": "Document preparation",
-            "language": "Language preparation",
-            "exam-prep": "Exam preparation",
-            "university-choice": "University selection",
-            "visa": "Visa process",
-            "accommodation": "Housing search",
-            "support": "Ongoing support",
-            "consultation": "Consultations"
-          }
+          "label": "What was most helpful? (you can choose multiple)"
         },
         "recommend": {
           "label": "Would you recommend Edu.turkish?",
@@ -197,23 +181,6 @@
         "consultation": "Free consultation",
         "noHiddenFees": "No hidden fees",
         "guarantee": "Result guarantee"
-      },
-      "successStories": {
-        "azamat": {
-          "alt": "Successful student Azamat",
-          "quote": "\"Thanks to Edu.turkish I got into Istanbul University!\"",
-          "name": "Azamat K."
-        },
-        "aliya": {
-          "alt": "Successful student Aliya",
-          "quote": "\"My dream of becoming a doctor came true!\"",
-          "name": "Aliya N."
-        },
-        "daniyar": {
-          "alt": "Successful student Daniyar",
-          "quote": "\"I'm studying at Boğaziçi thanks to their support!\"",
-          "name": "Daniyar M."
-        }
       }
     }
   }

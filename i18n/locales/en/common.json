@@ -1,5 +1,4 @@
 {
-  "clear": "Clear",
   "common": {
     "clear": "Clear"
   },
@@ -9,11 +8,6 @@
   "academicPrograms": {
     "title": "Academic Programs",
     "subtitle": "Choose the appropriate education level",
-    "tabs": {
-      "bachelor": "Bachelor's",
-      "master": "Master's",
-      "phd": "PhD"
-    },
     "table": {
       "programName": "Program Name",
       "language": "Language",

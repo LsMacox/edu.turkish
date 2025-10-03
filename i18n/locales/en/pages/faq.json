@@ -22,22 +22,7 @@
       "language": "Turkish language"
     },
     "categories": {
-      "all": "All Questions",
-      "documents": {
-        "title": "Documents and Application"
-      },
-      "exams": {
-        "title": "Exams and Testing"
-      },
-      "admission": {
-        "title": "Admission Process"
-      },
-      "scholarships": {
-        "title": "Scholarships and Financial Aid"
-      },
-      "languages": {
-        "title": "Language Requirements"
-      }
+      "all": "All Questions"
     }
   }
 }

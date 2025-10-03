@@ -6,8 +6,7 @@
       "stats": {
         "universities": "Университетов",
         "cities": "Городов",
-        "programs": "Программ",
-        "cost_from": "От стоимости"
+        "programs": "Программ"
       }
     },
     "filters": {
@@ -15,45 +14,16 @@
       "search_placeholder": "Введите название университета...",
       "city_label": "Город",
       "all_cities": "Все города",
-      "cities": {
-        "istanbul": "Стамбул",
-        "ankara": "Анкара",
-        "izmir": "Измир",
-        "antalya": "Анталия",
-        "bursa": "Бурса",
-        "kocaeli": "Коджаэли"
-      },
       "language_label": "Язык обучения",
-      "languages": {
-        "TR": "Турецкий",
-        "EN": "Английский",
-        "RU": "Русский",
-        "AR": "Арабский",
-        "tr": "Турецкий",
-        "en": "Английский",
-        "ru": "Русский"
-      },
       "type_label": "Тип",
       "all_types": "Все типы",
-      "types": {
-        "state": "Государственный",
-        "private": "Частный",
-        "tech": "Технический",
-        "elite": "Элитный"
-      },
       "level_label": "Уровень",
       "all_levels": "Все уровни",
-      "levels": {
-        "bachelor": "Бакалавриат",
-        "master": "Магистратура",
-        "doctorate": "Докторантура"
-      },
       "price_label": "Стоимость в год (USD)",
       "reset_button": "Сбросить",
       "apply_button": "Применить"
     },
     "sort": {
-      "found_text": "Найдено",
       "showing_text": "Показано",
       "of_text": "из",
       "universities_text": "университетов",
@@ -74,13 +44,6 @@
         "tech": "Технический",
         "elite": "Элитный"
       },
-      "badges": {
-        "scholarships": "Стипендии доступны",
-        "top_ranking": "Топ-рейтинг",
-        "technical": "Техническое превосходство"
-      },
-      "from_price": "от $",
-      "per_year": "/год",
       "details_button": "Подробнее",
       "apply_button": "Подать заявку",
       "application_description": "Заявка с карточки университета:"
@@ -113,12 +76,6 @@
       "subtitle": "Самые востребованные специальности в турецких университетах",
       "loading": "Загрузка данных...",
       "dynamic": {
-        "universities_count": {
-          "one": "{count} университет",
-          "few": "{count} университета",
-          "many": "{count} университетов",
-          "other": "{count} университетов"
-        },
         "price_from": "от {price}/год"
       },
       "programs": {

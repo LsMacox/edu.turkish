@@ -6,8 +6,7 @@
       "stats": {
         "universities": "Üniversite",
         "cities": "Şehir",
-        "programs": "Program",
-        "cost_from": "Başlangıç ücreti"
+        "programs": "Program"
       }
     },
     "filters": {
@@ -15,45 +14,16 @@
       "search_placeholder": "Üniversite adını girin...",
       "city_label": "Şehir",
       "all_cities": "Tüm şehirler",
-      "cities": {
-        "istanbul": "İstanbul",
-        "ankara": "Ankara",
-        "izmir": "İzmir",
-        "antalya": "Antalya",
-        "bursa": "Bursa",
-        "kocaeli": "Kocaeli"
-      },
       "language_label": "Eğitim dili",
-      "languages": {
-        "TR": "Türkçe",
-        "EN": "İngilizce",
-        "RU": "Rusça",
-        "AR": "Arapça",
-        "tr": "Türkçe",
-        "en": "İngilizce",
-        "ru": "Rusça"
-      },
       "type_label": "Tür",
       "all_types": "Tüm türler",
-      "types": {
-        "state": "Devlet",
-        "private": "Özel",
-        "tech": "Teknik",
-        "elite": "Elit"
-      },
       "level_label": "Seviye",
       "all_levels": "Tüm seviyeler",
-      "levels": {
-        "bachelor": "Lisans",
-        "master": "Yüksek Lisans",
-        "doctorate": "Doktora"
-      },
       "price_label": "Yıllık ücret (USD)",
       "reset_button": "Sıfırla",
       "apply_button": "Uygula"
     },
     "sort": {
-      "found_text": "Bulundu",
       "showing_text": "Gösterilen",
       "of_text": "toplam",
       "universities_text": "üniversite",
@@ -74,13 +44,6 @@
         "tech": "Teknik",
         "elite": "Elit"
       },
-      "badges": {
-        "scholarships": "Burslar Mevcut",
-        "top_ranking": "En İyi Sıralama",
-        "technical": "Teknik Mükemmellik"
-      },
-      "from_price": "$",
-      "per_year": "/yıl'dan başlayarak",
       "details_button": "Detaylar",
       "apply_button": "Başvuru yap",
       "application_description": "Üniversite kartından başvuru:"
@@ -113,12 +76,6 @@
       "subtitle": "Türk üniversitelerinde en çok tercih edilen uzmanlık alanları",
       "loading": "Veriler yükleniyor...",
       "dynamic": {
-        "universities_count": {
-          "one": "{count} üniversite",
-          "few": "{count} üniversite",
-          "many": "{count} üniversite",
-          "other": "{count} üniversite"
-        },
         "price_from": "{price}/yıl'dan başlayarak"
       },
       "programs": {

@@ -3,57 +3,15 @@
     "title": "What do you need for admission?",
     "subtitle": "Requirements and documents for international students",
     "requiredDocuments": {
-      "title": "Required Documents",
-      "certificate": {
-        "title": "Certificate with translation",
-        "description": "Notarized translation to Turkish or English"
-      },
-      "passport": {
-        "title": "Passport",
-        "description": "Valid for at least 6 months"
-      },
-      "photos": {
-        "title": "Photos",
-        "description": "4 biometric photos 5x6 cm"
-      },
-      "motivationLetter": {
-        "title": "Motivation letter",
-        "description": "In English or Turkish"
-      },
-      "medicalCertificate": {
-        "title": "Medical certificate",
-        "description": "Health status report"
-      },
-      "incomeStatement": {
-        "title": "Income statement",
-        "description": "Proof of financial capability"
-      }
+      "title": "Required Documents"
     },
     "examsAndLanguage": {
       "title": "Exams and language requirements",
       "goodNews": "Good news!",
-      "goodNewsText": "For most programs YÖS and SAT are not mandatory",
-      "ielts": {
-        "title": "IELTS/TOEFL",
-        "description": "Recommended for programs in English",
-        "details": "IELTS 6.0+ or TOEFL 80+"
-      },
-      "preparatoryYear": {
-        "title": "Preparatory year",
-        "description": "Available for learning Turkish or English",
-        "details": "Cost: $4,000 per year"
-      },
-      "internalExam": {
-        "title": "Internal exam",
-        "description": "University conducts its own entrance exams",
-        "details": "Online or on-campus"
-      }
+      "goodNewsText": "For most programs YÖS and SAT are not mandatory"
     },
     "scholarships": {
-      "title": "Tuition discounts",
-      "academic": "Academic scholarship",
-      "sports": "Sports scholarship",
-      "earlyApplication": "Early application"
+      "title": "Tuition discounts"
     },
     "importantDates": {
       "title": "Important Dates"
