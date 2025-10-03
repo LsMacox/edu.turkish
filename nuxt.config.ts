@@ -159,7 +159,7 @@ export default defineNuxtConfig({
     '/': { prerender: enablePrerender },
     '/ru': { prerender: enablePrerender },
     '/en': { prerender: enablePrerender },
-    '/kz': { prerender: enablePrerender },
+    '/kk': { prerender: enablePrerender },
     '/tr': { prerender: enablePrerender },
     '/ru/about': { prerender: enablePrerender },
     '/ru/faq': { prerender: enablePrerender },
