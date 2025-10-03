@@ -44,8 +44,8 @@ services:
       directus:
         condition: service_started
     ports:
-      - "80:80"
-      - "443:443"
+      - '80:80'
+      - '443:443'
     volumes:
       - ./contrib/Caddyfile:/etc/caddy/Caddyfile:ro
       - caddy_data:/data
@@ -61,13 +61,10 @@ services:
       MYSQL_ROOT_PASSWORD: ${DB_ROOT_PASSWORD}
       # наши переменные для шаблона
       APP_DB: edu_turkish
-      CMS_DB: cms_edu_turkish
       # Вариант с двумя пользователями (рекомендую)
       APP_USER: app_user
       APP_PASS: ${DB_APP_PASS}
-      DIRECTUS_USER: directus_user
-      DIRECTUS_PASS: ${DB_DIRECTUS_PASS}
-      TZ: "UTC"
+      TZ: 'UTC'
     ports:
       - '${DB_PORT:-3306}:3306'
     command:
@@ -82,7 +79,7 @@ services:
     networks:
       - edu_turkish_network
     healthcheck:
-      test: ["CMD", "mysqladmin", "ping", "-h", "127.0.0.1", "-uroot", "-p${DB_ROOT_PASSWORD}"]
+      test: ['CMD', 'mysqladmin', 'ping', '-h', '127.0.0.1', '-uroot', '-p${DB_ROOT_PASSWORD}']
       interval: 10s
       timeout: 5s
       retries: 10
@@ -118,9 +115,9 @@ services:
       DB_CLIENT: mysql
       DB_HOST: ${DB_HOST:-mysql}
       DB_PORT: ${DB_PORT:-3306}
-      DB_DATABASE: cms_edu_turkish
-      DB_USER: directus_user
-      DB_PASSWORD: ${DB_DIRECTUS_PASS}
+      DB_DATABASE: edu_turkish
+      DB_USER: app_user
+      DB_PASSWORD: ${DB_APP_PASS}
 
       # Directus базовые настройки
       WEBSOCKETS_ENABLED: 'true'

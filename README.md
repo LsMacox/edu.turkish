@@ -63,15 +63,18 @@ npm run dev
 ## 📚 Документация
 
 ### Общая документация
+
 - [Настройка сервера](./docs/SERVER_SETUP.md)
 - [Bitrix: быстрая настройка](./docs/BITRIX_SETUP.md)
 - [Миграции БД (Prisma)](./docs/MIGRATIONS_SETUP.md)
 
 ### Design System
+
 - [Spacing Patterns](./docs/SPACING_PATTERNS.md) — стандартизированная система отступов
 - [Spacing Migration Checklist](./docs/SPACING_MIGRATION_CHECKLIST.md) — история унификации
 
 ### Скрипты
+
 - [Автоматический перевод](./docs/scripts/TRANSLATE.md)
 - [Импорт университета](./docs/scripts/IMPORT_UNIVERSITY.md)
 - [Удаление университета](./docs/scripts/DELETE_UNIVERSITY.md)
@@ -168,7 +171,7 @@ npm run db:deploy   # применить миграции на проде
 
 В репозитории добавлены `contrib/Caddyfile` и сервис `caddy` в `docker-compose.yml`.
 
-1) Укажите домены и email (для Let's Encrypt) в `.env`:
+1. Укажите домены и email (для Let's Encrypt) в `.env`:
 
 ```bash
 APP_DOMAIN=edu-turkish.com
@@ -176,7 +179,7 @@ DIRECTUS_DOMAIN=cms.edu-turkish.com
 CADDY_ACME_EMAIL=admin@edu-turkish.com
 ```
 
-2) Поднимите стек с прокси:
+2. Поднимите стек с прокси:
 
 ```bash
 docker compose up -d mysql directus
@@ -184,7 +187,7 @@ docker compose up -d --build app
 docker compose up -d caddy
 ```
 
-3) Проверка:
+3. Проверка:
 
 - Приложение: `https://$APP_DOMAIN`
 - Directus: `https://$DIRECTUS_DOMAIN`
