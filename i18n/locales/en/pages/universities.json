@@ -26,6 +26,22 @@
         "istanbul": "Istanbul",
         "ankara": "Ankara",
         "izmir": "Izmir"
+      },
+      "languages": {
+        "en": "English",
+        "tr": "Turkish",
+        "ru": "Russian"
+      },
+      "types": {
+        "state": "State",
+        "private": "Private",
+        "tech": "Technical",
+        "elite": "Elite"
+      },
+      "levels": {
+        "bachelor": "Bachelor",
+        "master": "Master",
+        "doctorate": "Doctorate"
       }
     },
     "sort": {

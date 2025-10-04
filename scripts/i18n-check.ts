@@ -220,9 +220,9 @@ export function scanSourceFileForKeys(filePath: string): Set<string> {
   try {
     const content = readFileSync(filePath, 'utf-8')
 
-    // Regex to match t(), $t(), te(), tm() calls with string arguments
-    // Matches: t('key'), $t("key"), t(`key`), te('key'), tm('key')
-    const callRegex = /\b(?:t|te|tm|\$t)\s*\(\s*['"`]([^'"`]+)['"`]/g
+    // Regex to match t(), $t(), te(), tm(), translate() calls with string arguments
+    // Matches: t('key'), $t("key"), t(`key`), te('key'), tm('key'), translate('key')
+    const callRegex = /\b(?:t|te|tm|\$t|translate)\s*\(\s*['"`]([^'"`]+)['"`]/g
 
     let match
     while ((match = callRegex.exec(content)) !== null) {
@@ -247,10 +247,22 @@ export function scanSourceFileForKeys(filePath: string): Set<string> {
       }
     }
 
+    // Heuristic: capture i18n keys in object/map values
+    // Pattern: { key: 'some.translation.key' } or MAP = { key: 'some.translation.key' }
+    // This covers patterns like: LEVEL_LABEL_MAP = { bachelor: 'universities_page.filters.levels.bachelor' }
+    const mapValueRegex = /[{,]\s*\w+\s*:\s*['"`]([a-zA-Z0-9_.]+)['"`]/g
+    while ((match = mapValueRegex.exec(content)) !== null) {
+      const key = match[1]
+      // Only consider it if it looks like a translation key (has at least 2 dots)
+      if (key.split('.').length >= 3) {
+        keys.add(key)
+      }
+    }
+
     // Template literal handling - UNIVERSAL pattern for dynamic keys
     // Pattern: t(`some.key.prefix.${variable}`)
     // Automatically extracts prefix and searches for possible values in the same file
-    const tmplCallRegex = /\b(?:t|te|tm|\$t)\s*\(\s*`([^`]+)`/g
+    const tmplCallRegex = /\b(?:t|te|tm|\$t|translate)\s*\(\s*`([^`]+)`/g
     while ((match = tmplCallRegex.exec(content)) !== null) {
       const tmpl = match[1]
       
