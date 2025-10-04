@@ -29,7 +29,7 @@
       <!-- Carousel -->
       <ClientOnly v-else-if="mediaReviews && mediaReviews.length > 0">
         <Swiper
-          :modules="[SwiperAutoplay, SwiperNavigation, SwiperPagination]"
+          :modules="[Autoplay, Navigation, Pagination]"
           :slides-per-view="1"
           :space-between="16"
           :loop="true"
@@ -51,8 +51,12 @@
           :navigation="true"
           class="media-reviews-swiper"
         >
-          <SwiperSlide v-for="review in mediaReviews" :key="review.id">
-            <MediaReviewCard :review="review" @play-video="openVideoModal" />
+          <SwiperSlide v-for="(review, idx) in mediaReviews" :key="review.id">
+            <MediaReviewCard
+              :review="review"
+              @play-video="() => openLightboxAt(idx)"
+              @open-image="() => openLightboxAt(idx)"
+            />
           </SwiperSlide>
         </Swiper>
 
@@ -70,12 +74,19 @@
       </div>
     </div>
 
-    <!-- Video Player Modal -->
-    <VideoPlayerModal :video="activeVideo" @close="closeVideoModal" />
+    <!-- Unified Media Lightbox (images + videos with navigation) -->
+    <MediaLightboxModal :items="mediaReviews || []" :index="activeIndex" @close="closeLightbox" />
   </section>
 </template>
 
 <script setup lang="ts">
+import { useI18n } from 'vue-i18n'
+import { useFetch } from '#app'
+import { Autoplay, Navigation, Pagination } from 'swiper/modules'
+import { Swiper, SwiperSlide } from 'swiper/vue'
+import 'swiper/css'
+import 'swiper/css/navigation'
+import 'swiper/css/pagination'
 interface MediaReview {
   id: number
   type: string
@@ -93,7 +104,7 @@ interface MediaReview {
 }
 
 const { locale } = useI18n()
-const activeVideo = ref<MediaReview | null>(null)
+const activeIndex = ref<number | null>(null)
 
 // Fetch media reviews from API
 const {
@@ -120,14 +131,13 @@ watch(
   },
 )
 
-// Open video modal
-function openVideoModal(video: MediaReview) {
-  activeVideo.value = video
+// Open/Close unified lightbox by index
+function openLightboxAt(idx: number) {
+  activeIndex.value = idx
 }
 
-// Close video modal
-function closeVideoModal() {
-  activeVideo.value = null
+function closeLightbox() {
+  activeIndex.value = null
 }
 </script>
 

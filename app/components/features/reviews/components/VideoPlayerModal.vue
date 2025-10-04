@@ -23,7 +23,7 @@
                 <video
                   v-if="videoSource"
                   :src="videoSource"
-                  :poster="video?.videoThumb || undefined"
+                  :poster="displayPoster"
                   controls
                   autoplay
                   class="w-full h-full"
@@ -44,6 +44,7 @@
 </template>
 
 <script setup lang="ts">
+import { computed, onMounted, onUnmounted, ref, watch } from 'vue'
 interface MediaReview {
   id: number
   type: string
@@ -90,6 +91,61 @@ const videoSource = computed(() => {
   return props.video.videoUrl
 })
 
+// Poster fallback logic
+const localPoster = ref<string | null>(null)
+const displayPoster = computed(() => props.video?.videoThumb || localPoster.value || undefined)
+
+async function generateVideoThumbnail(url: string): Promise<string | null> {
+  try {
+    // Only for relative/same-origin sources
+    const isAbsolute = /^(https?:)?\/\//i.test(url)
+    if (isAbsolute) return null
+
+    const video = document.createElement('video')
+    video.src = url
+    video.muted = true
+    video.crossOrigin = 'anonymous'
+    video.playsInline = true
+
+    await new Promise<void>((resolve, reject) => {
+      const onError = () => reject(new Error('video error'))
+      video.addEventListener('error', onError, { once: true })
+      video.addEventListener(
+        'loadeddata',
+        () => {
+          try {
+            video.currentTime = 0
+          } catch {
+            // ignore
+          }
+        },
+        { once: true },
+      )
+      video.addEventListener('seeked', () => resolve(), { once: true })
+    })
+
+    const canvas = document.createElement('canvas')
+    canvas.width = video.videoWidth
+    canvas.height = video.videoHeight
+    const ctx = canvas.getContext('2d')
+    if (!ctx) return null
+    ctx.drawImage(video, 0, 0, canvas.width, canvas.height)
+    return canvas.toDataURL('image/jpeg', 0.8)
+  } catch {
+    return null
+  }
+}
+
+async function ensurePoster() {
+  const v = props.video
+  if (!v) return
+  if (!v.videoThumb && v.videoUrl && !v.videoUrl.startsWith('youtube:') && !v.videoUrl.startsWith('vimeo:')) {
+    localPoster.value = await generateVideoThumbnail(v.videoUrl)
+  } else {
+    localPoster.value = null
+  }
+}
+
 function closeModal() {
   emit('close')
 }
@@ -97,6 +153,7 @@ function closeModal() {
 // Close on ESC key
 onMounted(() => {
   if (typeof window === 'undefined') return
+  ensurePoster()
 
   const handleEscape = (e: KeyboardEvent) => {
     if (e.key === 'Escape' && isOpen.value) {
@@ -120,6 +177,15 @@ watch(isOpen, (open) => {
     document.body.style.overflow = ''
   }
 })
+
+// Recompute poster when video changes
+watch(
+  () => props.video,
+  () => {
+    if (typeof window === 'undefined') return
+    ensurePoster()
+  },
+)
 </script>
 
 <style scoped>

@@ -75,7 +75,7 @@ const {
   error: reviewsError,
   refresh,
 } = await useFetch<StudentReviewItem[]>('/api/v1/reviews', {
-  query: computed(() => ({ type: 'student', featured: true, limit: 3, lang: locale.value })),
+  query: computed(() => ({ type: 'student', mediaType: 'text', limit: 3, lang: locale.value })),
   headers: computed(() => ({ 'Accept-Language': locale.value })),
   transform: (res: ReviewListResponse<StudentReviewItem>) => res?.data ?? [],
 })
