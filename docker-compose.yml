@@ -20,6 +20,7 @@ services:
       - '3000:3000'
     volumes:
       - ./:/app
+      - /var/lib/edu-turkish/videos:/app/public/videos
     depends_on:
       mysql:
         condition: service_healthy
