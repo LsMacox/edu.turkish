@@ -58,11 +58,14 @@ RUN apt-get update \
   && apt-get install -y --no-install-recommends netcat-openbsd openssl ca-certificates \
   && rm -rf /var/lib/apt/lists/*
 
-# Copy production node_modules from builder (already pruned)
-COPY --from=builder /app/node_modules ./node_modules
+# Copy runtime dependencies and build artefacts to a persistent location
+RUN mkdir -p /opt/nuxt
+COPY --from=builder /app/node_modules /opt/nuxt/node_modules
+COPY --from=builder /app/.output /opt/nuxt/.output
 
-# Copy build artefacts and runtime files
-COPY --from=builder /app/.output ./.output
+# Expose them inside the working directory (keeps compatibility for plain images)
+RUN ln -s /opt/nuxt/node_modules /app/node_modules \
+  && ln -s /opt/nuxt/.output /app/.output
 COPY prisma ./prisma
 COPY package.json ./
 
