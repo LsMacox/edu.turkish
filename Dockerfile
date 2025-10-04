@@ -65,7 +65,6 @@ COPY --from=builder /app/node_modules ./node_modules
 COPY --from=builder /app/.output ./.output
 COPY prisma ./prisma
 COPY package.json ./
-COPY scripts ./scripts
 
 # Entrypoint handles migrations then boots the server
 COPY contrib/entrypoint.sh /entrypoint.sh

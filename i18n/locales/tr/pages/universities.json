@@ -26,6 +26,22 @@
         "istanbul": "İstanbul",
         "ankara": "Ankara",
         "izmir": "İzmir"
+      },
+      "languages": {
+        "en": "İngilizce",
+        "tr": "Türkçe",
+        "ru": "Rusça"
+      },
+      "types": {
+        "state": "Devlet",
+        "private": "Özel",
+        "tech": "Teknik",
+        "elite": "Elit"
+      },
+      "levels": {
+        "bachelor": "Lisans",
+        "master": "Yüksek Lisans",
+        "doctorate": "Doktora"
       }
     },
     "sort": {
@@ -81,7 +97,11 @@
       "subtitle": "Türk üniversitelerinde en çok tercih edilen uzmanlık alanları",
       "loading": "Veriler yükleniyor...",
       "dynamic": {
-        "price_from": "{price}/yıl'dan başlayarak"
+        "price_from": "{price}/yıl'dan başlayarak",
+        "universities_count": {
+          "one": "{count} üniversite",
+          "other": "{count} üniversite"
+        }
       },
       "programs": {
         "it": {

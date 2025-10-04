@@ -1,6 +1,7 @@
 {
   "common": {
-    "clear": "Clear"
+    "clear": "Clear",
+    "loading": "Loading..."
   },
   "cta": {
     "apply": "Apply"

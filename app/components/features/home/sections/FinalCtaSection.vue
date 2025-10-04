@@ -5,7 +5,7 @@
         <h2 class="text-section-title mb-6">
           {{ t('home.final_cta.title') }}
         </h2>
-        <p class="text-body-lg mb-8 opacity-90">
+        <p class="text-body-lg mb-8 opacity-90 text-white">
           {{ t('home.final_cta.subtitle', { days: timeLeft.days }) }}
         </p>
 

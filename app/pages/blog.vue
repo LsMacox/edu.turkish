@@ -61,16 +61,11 @@
 </template>
 
 <script setup lang="ts">
-import { ref, computed, watch, watchEffect, onMounted, onBeforeUnmount, nextTick } from 'vue'
 import { storeToRefs } from 'pinia'
 import blogHeroImage from '/images/blog-hero.png'
 import { useApplicationModalStore } from '~/stores/applicationModal'
 import { useBlogStore } from '~/stores/blog'
-import {
-  BlogHeroSection,
-  BlogArticleListSection,
-  BlogSidebarSection,
-} from '~/components/features/blog'
+
 
 definePageMeta({
   layout: 'default',

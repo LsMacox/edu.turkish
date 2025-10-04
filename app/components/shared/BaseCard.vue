@@ -52,7 +52,6 @@
 </template>
 
 <script setup lang="ts">
-import { computed, ref } from 'vue'
 import type { BaseCardProps, BaseCardEvents } from '~/types/ui'
 
 const props = withDefaults(defineProps<BaseCardProps>(), {

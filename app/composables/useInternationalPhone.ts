@@ -1,5 +1,3 @@
-import type { Ref } from 'vue'
-
 export const useInternationalPhone = (phone: Ref<string>) => {
   const sanitizePhone = (value: string) => value.replace(/[^+\d]/g, '')
 

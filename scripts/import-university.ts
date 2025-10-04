@@ -478,6 +478,18 @@ async function replaceFeaturedPrograms(
         }
       }
 
+      // Fuzzy search: find by partial match (program name starts with the search term)
+      if (!programId) {
+        const fuzzyMatch = programTranslations.find(
+          (pt) => 
+            pt.locale === baseLocale && 
+            (pt.name || '').trim().toLowerCase().startsWith(nameTrimmed.toLowerCase())
+        )
+        if (fuzzyMatch) {
+          programId = fuzzyMatch.programId
+        }
+      }
+
       if (!programId) {
         console.warn(`⚠️ Program not found for featured list: ${programNameRaw}`)
         continue

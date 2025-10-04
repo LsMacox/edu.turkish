@@ -177,7 +177,6 @@
 </template>
 
 <script setup lang="ts">
-import { computed, onMounted, ref } from 'vue'
 interface ProgramStats {
   universities_count: number
   price_from: number

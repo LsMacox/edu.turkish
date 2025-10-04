@@ -19,7 +19,6 @@
 </template>
 
 <script setup lang="ts">
-import { useApplicationModalStore } from '~/stores/applicationModal'
 
 // Default layout wrapper
 const modal = useApplicationModalStore()

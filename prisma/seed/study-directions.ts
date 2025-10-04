@@ -118,10 +118,10 @@ export async function seedStudyDirections(prisma: PrismaClient) {
 
       const result = await prisma.studyDirectionTranslation.upsert({
         where: {
-          locale_slug: {
+          unique_direction_slug_per_locale: {
             locale,
             slug: directionData.slug,
-          } as any,
+          },
         },
         update: {
           name,

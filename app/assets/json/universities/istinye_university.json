@@ -27,12 +27,7 @@
       "Карьерные возможности"
     ]
   },
-  "strong_programs": [
-    {
-      "category": "Основные направления",
-      "programs": ["Программа 1", "Программа 2"]
-    }
-  ],
+  "strong_programs": [],
   "key_info_texts": {
     "city_label": "Город",
     "founded_year_label": "Год основания",

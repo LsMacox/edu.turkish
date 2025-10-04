@@ -1,5 +1,5 @@
-import type { ApplicationRequest, UserPreferencesDTO } from '../types/api'
-import { getBitrixApiUrl, getBitrixActivityConfig } from '../utils/bitrix-config'
+import type { ApplicationRequest, UserPreferencesDTO } from '~~/server/types/api'
+import { getBitrixApiUrl, getBitrixActivityConfig } from '~~/server/utils/bitrix-config'
 import {
   messengerEventPayloadSchema,
   type MessengerEventMetadata,

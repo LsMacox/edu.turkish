@@ -36,13 +36,15 @@
       "programs": [
         "Бизнес-администрирование",
         "Международная торговля и бизнес",
-        "Экономика",
-        "Экономика и финансы"
+        "Экономика"
       ]
     },
     {
       "category": "Международные отношения и экономика",
-      "programs": ["Политология и международные отношения", "Международные отношения", "Экономика"]
+      "programs": [
+        "Политология и международные отношения",
+        "Экономика"
+      ]
     },
     {
       "category": "Инженерия и компьютерные науки",
@@ -98,21 +100,51 @@
   },
   "campus_life": {
     "facilities": [
-      { "name": "Общежития и помощь с проживанием", "icon": "ph:bed" },
+      {
+        "name": "Общежития и помощь с проживанием",
+        "icon": "ph:bed"
+      },
       {
         "name": "Библиотека",
         "description": "Электронные ресурсы и читальные залы",
         "icon": "ph:books"
       },
-      { "name": "Современные лаборатории", "icon": "ph:flask" },
-      { "name": "Коворкинги и проектные пространства", "icon": "ph:chalkboard-simple" },
-      { "name": "Спортивные площадки и зал", "icon": "ph:barbell" },
-      { "name": "Wi‑Fi по всей территории", "icon": "ph:wifi-high" },
-      { "name": "Медицинский пункт", "icon": "ph:first-aid" },
-      { "name": "Транспортная доступность", "icon": "ph:bus" },
-      { "name": "Карьерный центр", "icon": "ph:suitcase-simple" },
-      { "name": "Erasmus+ и международный офис", "icon": "ph:globe-hemisphere-west" },
-      { "name": "Студенческие клубы и мероприятия", "icon": "ph:users-three" }
+      {
+        "name": "Современные лаборатории",
+        "icon": "ph:flask"
+      },
+      {
+        "name": "Коворкинги и проектные пространства",
+        "icon": "ph:chalkboard-simple"
+      },
+      {
+        "name": "Спортивные площадки и зал",
+        "icon": "ph:barbell"
+      },
+      {
+        "name": "Wi‑Fi по всей территории",
+        "icon": "ph:wifi-high"
+      },
+      {
+        "name": "Медицинский пункт",
+        "icon": "ph:first-aid"
+      },
+      {
+        "name": "Транспортная доступность",
+        "icon": "ph:bus"
+      },
+      {
+        "name": "Карьерный центр",
+        "icon": "ph:suitcase-simple"
+      },
+      {
+        "name": "Erasmus+ и международный офис",
+        "icon": "ph:globe-hemisphere-west"
+      },
+      {
+        "name": "Студенческие клубы и мероприятия",
+        "icon": "ph:users-three"
+      }
     ]
   },
   "admission": {
@@ -137,23 +169,34 @@
       {
         "name": "Аттестат о среднем образовании",
         "description": "Апостиль и нотариальный перевод",
-        "format_requirements": ["PDF"]
+        "format_requirements": [
+          "PDF"
+        ]
       },
       {
         "name": "Загранпаспорт",
         "description": "Срок действия не менее 2 лет",
-        "format_requirements": ["PDF"]
+        "format_requirements": [
+          "PDF"
+        ]
       },
-      { "name": "Фотографии", "description": "4 шт, 4.5×6 см, белый фон" },
+      {
+        "name": "Фотографии",
+        "description": "4 шт, 4.5×6 см, белый фон"
+      },
       {
         "name": "Языковой сертификат (при наличии)",
         "description": "Напр. TOEFL iBT",
-        "format_requirements": ["PDF"]
+        "format_requirements": [
+          "PDF"
+        ]
       },
       {
         "name": "Denklik belgesi (при необходимости)",
         "description": "Эквивалентность аттестата",
-        "format_requirements": ["PDF"]
+        "format_requirements": [
+          "PDF"
+        ]
       }
     ],
     "scholarships": [
@@ -161,7 +204,9 @@
         "name": "Скидка на обучение",
         "type": "university",
         "coverage_percentage": 50,
-        "eligibility_criteria": ["Скидка действует на все направления обучения"]
+        "eligibility_criteria": [
+          "Скидка действует на все направления обучения"
+        ]
       }
     ]
   },

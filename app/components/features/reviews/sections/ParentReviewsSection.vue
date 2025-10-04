@@ -72,7 +72,7 @@ const {
   error: reviewsError,
   refresh,
 } = await useFetch<ParentReviewItem[]>('/api/v1/reviews', {
-  query: computed(() => ({ type: 'parent', featured: true, limit: 3, lang: locale.value })),
+  query: computed(() => ({ type: 'parent', mediaType: 'text', limit: 3, lang: locale.value })),
   headers: computed(() => ({ 'Accept-Language': locale.value })),
   transform: (res: ReviewListResponse<ParentReviewItem>) => res?.data ?? [],
 })

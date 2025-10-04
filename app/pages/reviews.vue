@@ -47,22 +47,6 @@
                 decoding="async"
               />
             </div>
-            <!-- Floating Review Card (avatar removed) -->
-            <div class="absolute -bottom-6 -left-6 bg-white rounded-xl shadow-lg p-4 max-w-xs">
-              <div class="mb-2">
-                <p class="text-sm font-semibold text-secondary">
-                  {{ $t('reviews.hero.testimonial.name') }}
-                </p>
-                <div class="flex text-yellow-400">
-                  <Icon name="mdi:star" class="text-xs" />
-                  <Icon name="mdi:star" class="text-xs" />
-                  <Icon name="mdi:star" class="text-xs" />
-                  <Icon name="mdi:star" class="text-xs" />
-                  <Icon name="mdi:star" class="text-xs" />
-                </div>
-              </div>
-              <p class="text-xs text-gray-600">{{ $t('reviews.hero.testimonial.text') }}</p>
-            </div>
           </div>
         </div>
       </div>

@@ -5,7 +5,6 @@
 </template>
 
 <script setup lang="ts">
-import { computed } from 'vue'
 
 export interface BaseIconBadgeProps {
   icon: string

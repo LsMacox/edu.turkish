@@ -204,8 +204,15 @@ export function findDuplicateKeys(
 
 /**
  * Scans a source file for i18n key usage
+ * 
+ * This function uses several heuristics to detect i18n key usage:
+ * 1. Direct calls: t('key'), $t('key'), te('key'), tm('key')
+ * 2. Props with i18n keys: { title: 'some.key' }
+ * 3. Dynamic keys: t(`prefix.${variable}`) - extracts prefix and finds possible values
+ * 4. Object loading: tm('base.key') - marks base key and all nested keys as used
+ * 
  * @param filePath - Path to source file
- * @returns Set of found translation keys
+ * @returns Set of found translation keys (may include special markers like __tm_object__:key)
  */
 export function scanSourceFileForKeys(filePath: string): Set<string> {
   const keys = new Set<string>()
@@ -213,13 +220,21 @@ export function scanSourceFileForKeys(filePath: string): Set<string> {
   try {
     const content = readFileSync(filePath, 'utf-8')
 
-    // Regex to match t(), $t(), te(), tm() calls with string arguments
-    // Matches: t('key'), $t("key"), t(`key`), te('key'), tm('key')
-    const callRegex = /\b(?:t|te|tm|\$t)\s*\(\s*['"`]([^'"`]+)['"`]/g
+    // Regex to match t(), $t(), te(), tm(), translate() calls with string arguments
+    // Matches: t('key'), $t("key"), t(`key`), te('key'), tm('key'), translate('key')
+    const callRegex = /\b(?:t|te|tm|\$t|translate)\s*\(\s*['"`]([^'"`]+)['"`]/g
 
     let match
     while ((match = callRegex.exec(content)) !== null) {
-      keys.add(match[1])
+      const key = match[1]
+      keys.add(key)
+      
+      // If this looks like a pluralization base key, mark it for plural expansion
+      // Pattern: some.key (without .one, .few, .many, .other suffix)
+      // This will be expanded later to include all plural forms
+      if (!key.endsWith('.one') && !key.endsWith('.few') && !key.endsWith('.many') && !key.endsWith('.other')) {
+        keys.add(`__plural_base__:${key}`)
+      }
     }
 
     // Heuristic: capture i18n keys assigned to common props (title, text, label, placeholder, ariaLabel)
@@ -232,30 +247,78 @@ export function scanSourceFileForKeys(filePath: string): Set<string> {
       }
     }
 
-    // Template literal handling for cities buttons on home page universities section
-    // Pattern: t(`universities_page.filters.cities.${code}`)
-    const tmplCallRegex = /\b(?:t|te|tm|\$t)\s*\(\s*`([^`]+)`/g
+    // Heuristic: capture i18n keys in object/map values
+    // Pattern: { key: 'some.translation.key' } or MAP = { key: 'some.translation.key' }
+    // This covers patterns like: LEVEL_LABEL_MAP = { bachelor: 'universities_page.filters.levels.bachelor' }
+    const mapValueRegex = /[{,]\s*\w+\s*:\s*['"`]([a-zA-Z0-9_.]+)['"`]/g
+    while ((match = mapValueRegex.exec(content)) !== null) {
+      const key = match[1]
+      // Only consider it if it looks like a translation key (has at least 2 dots)
+      if (key.split('.').length >= 3) {
+        keys.add(key)
+      }
+    }
+
+    // Template literal handling - UNIVERSAL pattern for dynamic keys
+    // Pattern: t(`some.key.prefix.${variable}`)
+    // Automatically extracts prefix and searches for possible values in the same file
+    const tmplCallRegex = /\b(?:t|te|tm|\$t|translate)\s*\(\s*`([^`]+)`/g
     while ((match = tmplCallRegex.exec(content)) !== null) {
       const tmpl = match[1]
-      const prefix = 'universities_page.filters.cities.'
-      if (tmpl.startsWith(prefix) && tmpl.includes('${')) {
-        // Collect candidate city codes from current file
-        const codes = new Set<string>()
-        const codePropRegex = /\bcode\s*:\s*['"]([a-zA-Z0-9_-]+)['"]/g
-        let cm
-        while ((cm = codePropRegex.exec(content)) !== null) {
-          codes.add(cm[1])
-        }
-
-        // Also fallback to common city names if not found explicitly
-        if (codes.size === 0) {
-          ;['istanbul', 'ankara', 'izmir'].forEach((c) => codes.add(c))
-        }
-
-        for (const c of codes) {
-          keys.add(prefix + c)
+      
+      // If template contains ${...}, extract the prefix and try to find possible values
+      if (tmpl.includes('${')) {
+        const prefixMatch = tmpl.match(/^([a-zA-Z0-9_.]+)\.\$\{/)
+        if (prefixMatch) {
+          const prefix = prefixMatch[1] + '.'
+          
+          // Try to find array of objects with 'value', 'id', 'code', or 'key' properties
+          const valuePatterns = [
+            /\{\s*value\s*:\s*['"]([a-zA-Z0-9_-]+)['"]/g,
+            /\{\s*id\s*:\s*['"]([a-zA-Z0-9_-]+)['"]/g,
+            /\bcode\s*:\s*['"]([a-zA-Z0-9_-]+)['"]/g,
+            /\bkey\s*:\s*['"]([a-zA-Z0-9_-]+)['"]/g,
+          ]
+          
+          const values = new Set<string>()
+          for (const pattern of valuePatterns) {
+            let valueMatch
+            while ((valueMatch = pattern.exec(content)) !== null) {
+              values.add(valueMatch[1])
+            }
+          }
+          
+          // Add all found combinations
+          for (const value of values) {
+            keys.add(prefix + value)
+          }
         }
       }
+    }
+
+    // Pattern: const baseKey = 'some.key'; t(`${baseKey}.${variable}`)
+    // This handles pluralization patterns where base key is in a variable
+    const baseKeyPattern = /\bbaseKey\s*=\s*['"]([a-zA-Z0-9_.]+)['"]/g
+    while ((match = baseKeyPattern.exec(content)) !== null) {
+      const baseKey = match[1]
+      // Mark this as a pluralization base key
+      keys.add(baseKey)
+      keys.add(`__plural_base__:${baseKey}`)
+    }
+
+    // Handle tm() calls that load entire objects
+    // These implicitly use all nested keys within that object
+    // We mark the base key and let the system discover nested keys from locale files
+    const tmObjectRegex = /\btm\s*\(\s*['"`]([^'"`]+)['"`]\s*\)/g
+    while ((match = tmObjectRegex.exec(content)) !== null) {
+      const baseKey = match[1]
+      
+      // Add the base key - this will be expanded to include nested keys
+      // by checking what actually exists in the locale files
+      keys.add(baseKey)
+      
+      // Mark this as a tm() call that should include all nested keys
+      keys.add(`__tm_object__:${baseKey}`)
     }
   } catch (error) {
     // Silently skip files that can't be read
@@ -296,8 +359,19 @@ export function scanAllSourceFiles(): Set<string> {
 
 /**
  * Finds translation keys that are defined but never used
+ * 
+ * This function handles special markers from scanSourceFileForKeys:
+ * - __tm_object__:base.key - indicates that tm('base.key') was called,
+ *   which means ALL nested keys under 'base.key.*' are implicitly used
+ * - __plural_base__:some.key - indicates that t('some.key') was called,
+ *   which means ALL plural forms (some.key.one, some.key.few, etc.) are implicitly used
+ * 
+ * This makes the check universal - no need to hardcode specific keys.
+ * Any tm() call automatically marks all its nested keys as used.
+ * Any t() call automatically marks all its plural forms as used.
+ * 
  * @param localeKeySets - Map of locale to key sets
- * @param usedKeys - Set of keys found in source code
+ * @param usedKeys - Set of keys found in source code (may include special markers)
  * @returns Array of unused key issues
  */
 export function findUnusedKeys(
@@ -306,9 +380,56 @@ export function findUnusedKeys(
 ): UnusedKeyIssue[] {
   const unused: UnusedKeyIssue[] = []
 
+  // Extract tm() object markers and expand them to include all nested keys
+  // Example: __tm_object__:blog.hero means all blog.hero.* keys are used
+  const tmObjectPrefixes: string[] = []
+  const pluralBaseKeys: string[] = []
+  
+  for (const key of usedKeys) {
+    if (key.startsWith('__tm_object__:')) {
+      const prefix = key.replace('__tm_object__:', '')
+      tmObjectPrefixes.push(prefix)
+    } else if (key.startsWith('__plural_base__:')) {
+      const baseKey = key.replace('__plural_base__:', '')
+      pluralBaseKeys.push(baseKey)
+    }
+  }
+
+  // Create expanded set of used keys including all nested keys under tm() objects
+  const expandedUsedKeys = new Set(usedKeys)
+  
+  // For each tm() object prefix, mark all keys that start with that prefix as used
+  // This is the UNIVERSAL expansion - works for any tm() call automatically
+  for (const [_locale, keySet] of localeKeySets.entries()) {
+    for (const key of keySet.keys) {
+      // Expand tm() objects
+      for (const prefix of tmObjectPrefixes) {
+        if (key === prefix || key.startsWith(prefix + '.')) {
+          expandedUsedKeys.add(key)
+        }
+      }
+      
+      // Expand pluralization keys
+      // If we have base key 'some.key', mark 'some.key.one', 'some.key.few', etc. as used
+      for (const baseKey of pluralBaseKeys) {
+        const pluralSuffixes = ['.one', '.few', '.many', '.other', '.zero', '.two']
+        for (const suffix of pluralSuffixes) {
+          if (key === baseKey + suffix) {
+            expandedUsedKeys.add(key)
+          }
+        }
+      }
+    }
+  }
+
   for (const [locale, keySet] of localeKeySets.entries()) {
     for (const key of keySet.keys) {
-      if (!usedKeys.has(key)) {
+      // Skip internal markers
+      if (key.startsWith('__tm_object__:') || key.startsWith('__plural_base__:')) {
+        continue
+      }
+      
+      if (!expandedUsedKeys.has(key)) {
         unused.push({
           type: 'unused',
           severity: 'warning',
@@ -325,6 +446,13 @@ export function findUnusedKeys(
 
 /**
  * Finds keys that exist in some locales but not others
+ * 
+ * Special handling for pluralization keys:
+ * - Different languages have different plural forms
+ * - Russian: one, few, many, other
+ * - English/Turkish/Kazakh: one, other
+ * - We only report missing keys if they're not pluralization-specific forms
+ * 
  * @param localeKeySets - Map of locale to key sets
  * @returns Array of missing key issues
  */
@@ -337,6 +465,9 @@ export function findMissingKeys(localeKeySets: Map<string, LocaleKeySet>): Missi
   }
 
   const missing: MissingKeyIssue[] = []
+
+  // Plural forms that are language-specific
+  const russianOnlyPlurals = ['.few', '.many']
 
   // For each key, check which locales have it
   for (const key of allKeys) {
@@ -353,6 +484,13 @@ export function findMissingKeys(localeKeySets: Map<string, LocaleKeySet>): Missi
 
     // Only report if key is missing in at least one locale
     if (missingIn.length > 0) {
+      // Skip Russian-specific plural forms if only missing in non-Russian locales
+      const isRussianPluralForm = russianOnlyPlurals.some((suffix) => key.endsWith(suffix))
+      if (isRussianPluralForm && presentIn.includes('ru') && !missingIn.includes('ru')) {
+        // This is a Russian-specific plural form (few/many), skip it
+        continue
+      }
+
       missing.push({
         type: 'missing',
         severity: 'error',

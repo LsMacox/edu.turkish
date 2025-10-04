@@ -30,7 +30,6 @@
 </template>
 
 <script setup lang="ts">
-import { computed } from 'vue'
 import type { BaseBadgeProps } from '~/types/ui'
 
 const props = withDefaults(defineProps<BaseBadgeProps>(), {

@@ -5,6 +5,7 @@ import { SUPPORTED_LOCALES, DEFAULT_LOCALE } from './lib/locales'
 const siteUrl = process.env.NUXT_SITE_URL || 'https://edu-turkish.com'
 
 const enablePrerender = process.env.NITRO_PRERENDER === 'true'
+const isProduction = process.env.NODE_ENV === 'production'
 
 function getLocaleFiles(localeCode: string): string[] {
   const localeDir = path.join('i18n/locales', localeCode)
@@ -96,7 +97,12 @@ export default defineNuxtConfig({
     collections: ['mdi', 'ph'],
   },
   fonts: {
-    provider: 'google',
+    provider: isProduction ? 'google' : 'local',
+    defaults: {
+      fallbacks: {
+        'sans-serif': ['system-ui', 'Arial'],
+      },
+    },
   },
   app: {
     head: {

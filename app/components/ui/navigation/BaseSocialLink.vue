@@ -11,8 +11,6 @@
 </template>
 
 <script setup lang="ts">
-import { computed } from 'vue'
-
 export interface BaseSocialLinkProps {
   platform: 'whatsapp' | 'telegram' | 'instagram' | 'linkedin' | 'facebook' | 'youtube' | 'twitter'
   href: string

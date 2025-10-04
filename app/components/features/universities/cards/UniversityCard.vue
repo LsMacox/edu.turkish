@@ -48,12 +48,9 @@
 </template>
 
 <script setup lang="ts">
-import { computed } from 'vue'
 import UniversityCardHeader from './UniversityCardHeader.vue'
 import UniversityCardDetails from './UniversityCardDetails.vue'
 import UniversityCardActions from './UniversityCardActions.vue'
-
-import { useApplicationModalStore } from '~/stores/applicationModal'
 
 interface Props {
   title: string

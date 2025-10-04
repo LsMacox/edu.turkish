@@ -1,5 +1,4 @@
 import { defineStore } from 'pinia'
-import { ref, computed, nextTick } from 'vue'
 import type { DegreeType } from '../types/domain'
 import type {
   University,

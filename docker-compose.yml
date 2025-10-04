@@ -19,8 +19,7 @@ services:
     ports:
       - '3000:3000'
     volumes:
-      - ./prisma:/app/prisma
-      - ./app/assets/json/universities:/app/app/assets/json/universities
+      - ./:/app
     depends_on:
       mysql:
         condition: service_healthy

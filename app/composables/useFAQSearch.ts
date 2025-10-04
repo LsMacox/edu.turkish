@@ -1,5 +1,4 @@
 import type { SearchOptions } from '~/types/preferences'
-import { nextTick } from 'vue'
 
 /**
  * FAQ Search Composable - Simplified version

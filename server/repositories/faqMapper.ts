@@ -1,5 +1,5 @@
 import type { Prisma } from '@prisma/client'
-import type { FAQCategory, FAQItem } from '../types/api'
+import type { FAQCategory, FAQItem } from '~~/server/types/api'
 
 export type FaqItemWithLocalizedRelations = Prisma.FaqGetPayload<{
   include: {

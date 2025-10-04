@@ -102,7 +102,6 @@
 </template>
 
 <script setup lang="ts">
-import { reactive, computed, watch, onMounted, ref } from 'vue'
 import { storeToRefs } from 'pinia'
 import { useUniversitiesStore } from '~/stores/universities'
 

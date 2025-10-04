@@ -162,7 +162,6 @@
  * @since 1.0.0
  */
 
-import { computed, useId, ref } from 'vue'
 import type { BaseTextFieldProps } from '~/types/ui'
 
 // Generate unique ID for the input
