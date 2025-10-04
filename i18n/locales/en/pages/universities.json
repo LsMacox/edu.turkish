@@ -81,7 +81,11 @@
       "subtitle": "Most in-demand specializations in Turkish universities",
       "loading": "Loading data...",
       "dynamic": {
-        "price_from": "from {price}/year"
+        "price_from": "from {price}/year",
+        "universities_count": {
+          "one": "{count} university",
+          "other": "{count} universities"
+        }
       },
       "programs": {
         "it": {

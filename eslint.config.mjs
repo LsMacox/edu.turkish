@@ -46,6 +46,13 @@ export default withNuxt(
       '@typescript-eslint/no-dynamic-delete': 'off',
     },
   },
+  // Pages (allow single-word component names)
+  {
+    files: ['app/pages/**/*.vue', 'pages/**/*.vue'],
+    rules: {
+      'vue/multi-word-component-names': 'off',
+    },
+  },
   // Tests
   {
     files: ['tests/**/*'],

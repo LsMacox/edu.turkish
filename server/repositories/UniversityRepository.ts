@@ -14,8 +14,8 @@ import type {
   UniversityDetail,
   UniversityFilters,
   UniversityQueryParams,
-} from '../types/api'
-import { normalizeLocale, type NormalizedLocale } from '../utils/locale'
+} from '~~/server/types/api'
+import { normalizeLocale, type NormalizedLocale } from '~~/server/utils/locale'
 
 export type UniversityListItem = Prisma.UniversityGetPayload<{
   include: {

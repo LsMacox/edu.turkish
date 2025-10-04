@@ -1,4 +1,4 @@
-import type { FAQItem, FAQCategory, UniversityQueryParams } from '../types/api'
+import type { FAQItem, FAQCategory, UniversityQueryParams } from '~~/server/types/api'
 
 /**
  * Parse query parameters for universities endpoint
@@ -138,6 +138,14 @@ const toPositiveIntegerWithDefault = (value: unknown, defaultValue: number) => {
 export function parseReviewFilters(query: Record<string, any>) {
   const type = typeof query.type === 'string' ? query.type.trim() : ''
   const lang = typeof query.lang === 'string' ? query.lang.trim() : ''
+  const mediaTypeCandidate =
+    typeof query.mediaType === 'string' ? query.mediaType.trim() : ''
+  const allowedMediaTypes = ['text', 'video', 'image'] as const
+  const mediaType = allowedMediaTypes.includes(
+    mediaTypeCandidate as (typeof allowedMediaTypes)[number],
+  )
+    ? (mediaTypeCandidate as (typeof allowedMediaTypes)[number])
+    : undefined
 
   return {
     type: type !== '' ? type : 'all',
@@ -145,6 +153,7 @@ export function parseReviewFilters(query: Record<string, any>) {
     page: toPositiveIntegerWithDefault(query.page, 1),
     limit: toPositiveIntegerWithDefault(query.limit, 50),
     ...(lang ? { lang } : {}),
+    ...(mediaType ? { mediaType } : {}),
   }
 }
 

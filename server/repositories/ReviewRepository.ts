@@ -1,7 +1,7 @@
-import { type Prisma, type PrismaClient, ApplicationStatus } from '@prisma/client'
-import type { Review, ReviewQueryParams } from '../types/api'
+import type { Prisma, PrismaClient } from '@prisma/client'
+import type { Review, ReviewQueryParams } from '~~/server/types/api'
 import type { UserType } from '~/types/domain'
-import { normalizeLocale, findTranslation, type NormalizedLocale } from '../utils/locale'
+import { normalizeLocale, findTranslation, type NormalizedLocale } from '~~/server/utils/locale'
 
 const REVIEW_INCLUDE = {
   translations: true,
@@ -34,7 +34,7 @@ export class ReviewRepository {
     total: number
   }> {
     const localeInfo = normalizeLocale(locale)
-    const { type, featured, page = 1, limit = 10 } = params
+    const { type, featured, mediaType, page = 1, limit = 10 } = params
 
     const where: Prisma.UniversityReviewWhereInput = {}
 
@@ -44,6 +44,10 @@ export class ReviewRepository {
 
     if (featured) {
       where.featured = true
+    }
+
+    if (mediaType) {
+      where.mediaType = mediaType
     }
 
     const safePage = Math.max(page, 1)
@@ -106,7 +110,7 @@ export class ReviewRepository {
       this.prisma.universityScholarship.count(),
       this.prisma.application.count(),
       this.prisma.application.count({
-        where: { status: ApplicationStatus.approved },
+        where: { status: 'approved' },
       }),
       this.prisma.universityTranslation.findMany({
         distinct: ['locale'],
@@ -195,14 +199,11 @@ export class ReviewRepository {
       where,
       take: limit,
       include: {
-        translations: {
-          where: { locale },
-        },
+        // include all translations to allow proper locale fallback
+        translations: true,
         university: {
           include: {
-            translations: {
-              where: { locale },
-            },
+            translations: true,
           },
         },
       },
@@ -212,16 +213,25 @@ export class ReviewRepository {
     })
 
     return reviews.map((review) => {
-      const translation = review.translations[0]
-      const universityTranslation = review.university?.translations[0]
+      const translations = review.translations ?? []
+      const uniTranslations = review.university?.translations ?? []
+
+      const fallbackLocale = normalizeLocale(ReviewRepository.DEFAULT_LOCALE)
+      const tLoc = findTranslation(translations, localeInfo) || findTranslation(translations, fallbackLocale) || translations[0]
+      const uLoc = findTranslation(uniTranslations, localeInfo) || findTranslation(uniTranslations, fallbackLocale) || uniTranslations[0]
+
+      const universityName =
+        uLoc?.title ??
+        tLoc?.universityName ??
+        undefined
 
       return {
         id: review.id,
         type: review.type,
         mediaType: review.mediaType,
-        name: translation?.name || '',
-        quote: translation?.quote || '',
-        university: review.university?.translations[0]?.title || translation?.universityName || '',
+        name: tLoc?.name || '',
+        quote: tLoc?.quote || '',
+        university: universityName || '',
         rating: review.rating,
         year: review.year,
         avatar: review.avatar,

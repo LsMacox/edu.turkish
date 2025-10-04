@@ -1,4 +1,4 @@
-import type { BitrixConfig } from '../services/BitrixService'
+import type { BitrixConfig } from '~~/server/services/BitrixService'
 
 export interface BitrixActivityConfig {
   ownerId?: number

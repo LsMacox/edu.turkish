@@ -1,5 +1,4 @@
 import { defineStore } from 'pinia'
-import { ref } from 'vue'
 import type { ApplicationPreferences, FormSubmissionData } from '~/types/preferences'
 
 export const useApplicationModalStore = defineStore('applicationModal', () => {

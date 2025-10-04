@@ -198,8 +198,6 @@
 </template>
 
 <script setup lang="ts">
-import { useApplicationModalStore } from '~/stores/applicationModal'
-import { useContactChannels } from '~/composables/useContactChannels'
 import { SUPPORTED_LOCALES, type SupportedLocale } from '@@/lib/locales'
 
 interface Props {

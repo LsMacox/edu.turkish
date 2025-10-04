@@ -3,6 +3,7 @@ import type { PaginationMeta, UserType } from './common'
 export interface ReviewQueryParams {
   type?: UserType | 'all'
   featured?: boolean
+  mediaType?: 'text' | 'video' | 'image'
   page?: number
   limit?: number
   lang?: string

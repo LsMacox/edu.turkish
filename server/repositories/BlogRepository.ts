@@ -7,8 +7,8 @@ import type {
   BlogArticleContentBlock,
   BlogPopularArticle,
   BlogArticleQuickFact,
-} from '../types/api'
-import { pickTranslation, resolveLocaleTag } from '../utils/locale'
+} from '~~/server/types/api'
+import { pickTranslation, resolveLocaleTag } from '~~/server/utils/locale'
 
 type ArticleWithRelations = Prisma.BlogArticleGetPayload<{
   include: {

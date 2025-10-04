@@ -1,6 +1,6 @@
 import type { PrismaClient } from '@prisma/client'
-import type { ApplicationRequest, ApplicationResponse, ApplicationStatus } from '../types/api'
-import { generateTrackingCode } from '../utils/tracking'
+import type { ApplicationRequest, ApplicationResponse, ApplicationStatus } from '~~/server/types/api'
+import { generateTrackingCode } from '~~/server/utils/tracking'
 
 export class ApplicationRepository {
   constructor(private prisma: PrismaClient) {}

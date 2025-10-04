@@ -85,9 +85,7 @@
 </template>
 
 <script setup lang="ts">
-import { computed, ref, onMounted, watch } from 'vue'
 import { storeToRefs } from 'pinia'
-import { useUniversitiesStore } from '~/stores/universities'
 
 // Application modal is mounted globally in layout; no local store used here
 

@@ -81,7 +81,11 @@
       "subtitle": "Түрік университеттеріндегі ең сұранысты мамандықтар",
       "loading": "Деректер жүктелуде...",
       "dynamic": {
-        "price_from": "{price}/жыл бастап"
+        "price_from": "{price}/жыл бастап",
+        "universities_count": {
+          "one": "{count} университет",
+          "other": "{count} университет"
+        }
       },
       "programs": {
         "it": {

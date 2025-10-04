@@ -155,7 +155,6 @@
 </template>
 
 <script setup lang="ts">
-import { useApplicationModalStore } from '~/stores/applicationModal'
 
 // Site header with navigation and language switcher
 const modal = useApplicationModalStore()

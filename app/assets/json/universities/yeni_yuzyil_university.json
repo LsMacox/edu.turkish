@@ -33,7 +33,11 @@
   "strong_programs": [
     {
       "category": "Медицина и стоматология",
-      "programs": ["Медицина", "Стоматология", "Фармация", "Сестринское дело"]
+      "programs": [
+        "Медицина",
+        "Стоматология",
+        "Фармация"
+      ]
     },
     {
       "category": "Биология и науки о жизни",
@@ -54,7 +58,11 @@
     },
     {
       "category": "Право и общественные науки",
-      "programs": ["Право", "Политология и международные отношения", "Психология"]
+      "programs": [
+        "Право",
+        "Политология и международные отношения",
+        "Психология"
+      ]
     },
     {
       "category": "Коммуникации и медиа",
@@ -89,7 +97,10 @@
         "description": "Учебные корпуса, лаборатории и исследовательские центры",
         "icon": "ph:university"
       },
-      { "name": "Sütlüce / Halıcıoğlu — стоматологический кампус и госпиталь", "icon": "ph:tooth" },
+      {
+        "name": "Sütlüce / Halıcıoğlu — стоматологический кампус и госпиталь",
+        "icon": "ph:tooth"
+      },
       {
         "name": "Gaziosmanpaşa Hospital Campus",
         "description": "Клиническая база для факультета медицины",
@@ -100,12 +111,30 @@
         "description": "Гуманитарные и правовые факультеты",
         "icon": "ph:building"
       },
-      { "name": "Библиотека и e‑ресурсы", "icon": "ph:books" },
-      { "name": "Лаборатории естественных наук", "icon": "ph:flask" },
-      { "name": "Общежития и партнёрские резиденции", "icon": "ph:bed" },
-      { "name": "Студенческие клубы и культурные пространства", "icon": "ph:users-three" },
-      { "name": "Спортивные площадки и фитнес", "icon": "ph:barbell" },
-      { "name": "Кафе и столовые", "icon": "ph:fork-knife" }
+      {
+        "name": "Библиотека и e‑ресурсы",
+        "icon": "ph:books"
+      },
+      {
+        "name": "Лаборатории естественных наук",
+        "icon": "ph:flask"
+      },
+      {
+        "name": "Общежития и партнёрские резиденции",
+        "icon": "ph:bed"
+      },
+      {
+        "name": "Студенческие клубы и культурные пространства",
+        "icon": "ph:users-three"
+      },
+      {
+        "name": "Спортивные площадки и фитнес",
+        "icon": "ph:barbell"
+      },
+      {
+        "name": "Кафе и столовые",
+        "icon": "ph:fork-knife"
+      }
     ]
   },
   "admission": {
@@ -125,14 +154,21 @@
       {
         "name": "Аттестат/диплом",
         "description": "Апостиль и нотариальный перевод",
-        "format_requirements": ["PDF"]
+        "format_requirements": [
+          "PDF"
+        ]
       },
       {
         "name": "Загранпаспорт",
         "description": "Действителен на срок обучения",
-        "format_requirements": ["PDF"]
+        "format_requirements": [
+          "PDF"
+        ]
       },
-      { "name": "Фото", "description": "Белый фон" }
+      {
+        "name": "Фото",
+        "description": "Белый фон"
+      }
     ]
   },
   "programs": [
@@ -160,7 +196,6 @@
       "duration_years": 5,
       "direction_slug": "pharmacy"
     },
-
     {
       "degree_type": "bachelor",
       "name": "Биомедицинская инженерия",
@@ -217,7 +252,6 @@
       "duration_years": 4,
       "direction_slug": "nursing"
     },
-
     {
       "degree_type": "bachelor",
       "name": "Охрана труда и техника безопасности",
@@ -359,7 +393,6 @@
       "tuition_per_year": 2300,
       "duration_years": 4
     },
-
     {
       "degree_type": "master",
       "name": "Биомедицинская инженерия — с тезисом",
@@ -420,7 +453,6 @@
       "tuition_per_year": 4000,
       "duration_years": 2
     },
-
     {
       "degree_type": "master",
       "name": "Экономика и финансы — с тезисом",

@@ -38,14 +38,17 @@
   "strong_programs": [
     {
       "category": "Поведенческие науки и психология",
-      "programs": ["Психология", "Логопедия и речевая терапия", "Аудиология"]
+      "programs": [
+        "Психология",
+        "Логопедия и речевая терапия",
+        "Аудиология"
+      ]
     },
     {
       "category": "Медицина и здравоохранение",
       "programs": [
         "Медицина",
         "Стоматология",
-        "Сестринское дело",
         "Физиотерапия и реабилитация",
         "Питание и диетология",
         "Акушерство",
@@ -103,21 +106,54 @@
   },
   "campus_life": {
     "facilities": [
-      { "name": "Главный кампус Altunizade", "icon": "ph:university" },
-      { "name": "NP Brain Hospital (клиническая база)", "icon": "ph:stethoscope" },
-      { "name": "NP Health Campus и медицинские центры", "icon": "ph:first-aid" },
-      { "name": "Dental Hospital (стоматологическая клиника)", "icon": "ph:tooth" },
+      {
+        "name": "Главный кампус Altunizade",
+        "icon": "ph:university"
+      },
+      {
+        "name": "NP Brain Hospital (клиническая база)",
+        "icon": "ph:stethoscope"
+      },
+      {
+        "name": "NP Health Campus и медицинские центры",
+        "icon": "ph:first-aid"
+      },
+      {
+        "name": "Dental Hospital (стоматологическая клиника)",
+        "icon": "ph:tooth"
+      },
       {
         "name": "Исследовательские лаборатории VR, токсикологии, нейрогенетики",
         "icon": "ph:flask"
       },
-      { "name": "BrainPark — инкубатор и технопарк", "icon": "ph:lightbulb" },
-      { "name": "Библиотеки и мультимедийные студии", "icon": "ph:books" },
-      { "name": "Зоны для групповой работы и коворкинги", "icon": "ph:users-three" },
-      { "name": "Спортивные зоны и мероприятия", "icon": "ph:barbell" },
-      { "name": "Столовые и кафе", "icon": "ph:fork-knife" },
-      { "name": "Общежития и помощь в подборе жилья", "icon": "ph:bed" },
-      { "name": "Удобная транспортная доступность", "icon": "ph:bus" }
+      {
+        "name": "BrainPark — инкубатор и технопарк",
+        "icon": "ph:lightbulb"
+      },
+      {
+        "name": "Библиотеки и мультимедийные студии",
+        "icon": "ph:books"
+      },
+      {
+        "name": "Зоны для групповой работы и коворкинги",
+        "icon": "ph:users-three"
+      },
+      {
+        "name": "Спортивные зоны и мероприятия",
+        "icon": "ph:barbell"
+      },
+      {
+        "name": "Столовые и кафе",
+        "icon": "ph:fork-knife"
+      },
+      {
+        "name": "Общежития и помощь в подборе жилья",
+        "icon": "ph:bed"
+      },
+      {
+        "name": "Удобная транспортная доступность",
+        "icon": "ph:bus"
+      }
     ]
   },
   "admission": {
@@ -137,21 +173,34 @@
       {
         "name": "Аттестат/диплом",
         "description": "Апостиль и нотариальный перевод",
-        "format_requirements": ["PDF"]
+        "format_requirements": [
+          "PDF"
+        ]
       },
       {
         "name": "Загранпаспорт",
         "description": "Срок действия не менее 2 лет",
-        "format_requirements": ["PDF"]
+        "format_requirements": [
+          "PDF"
+        ]
       },
-      { "name": "Фото", "description": "Фон белый", "format_requirements": ["JPG", "PNG"] }
+      {
+        "name": "Фото",
+        "description": "Фон белый",
+        "format_requirements": [
+          "JPG",
+          "PNG"
+        ]
+      }
     ],
     "scholarships": [
       {
         "name": "Скидка на обучение",
         "type": "university",
         "coverage_percentage": 5,
-        "eligibility_criteria": ["Скидка действует на все направления обучения"]
+        "eligibility_criteria": [
+          "Скидка действует на все направления обучения"
+        ]
       }
     ]
   },
@@ -187,7 +236,6 @@
       "duration_years": 4,
       "direction_slug": "biotechnology"
     },
-
     {
       "degree_type": "bachelor",
       "name": "Стоматология",

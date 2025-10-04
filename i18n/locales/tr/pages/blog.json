@@ -4,6 +4,31 @@
       "title": "Blog ve Sık Sorulan Sorular - Edu.turkish",
       "description": "Türkiye'de eğitim, vizeler, burslar ve öğrenci yaşamı hakkında güncel yazılar. Edu.turkish uzmanlarından popüler sorulara yanıtlar."
     },
+    "hero": {
+      "title": "Blog ve",
+      "titleAccent": "sık sorulan sorular",
+      "description": "Türkiye'de başvuru, sınavlar, burslar ve eğitim hakkında önemli sorulara yanıtlar",
+      "searchPlaceholder": "Makale veya yanıt ara...",
+      "imageAlt": "Blog ve SSS",
+      "highlight": {
+        "title": "Uzman tavsiyeleri",
+        "subtitle": "Danışmanlarımızdan"
+      },
+      "stats": [
+        {
+          "icon": "mdi:file-document-outline",
+          "label": "{count} faydalı makale"
+        },
+        {
+          "icon": "mdi:comment-question-outline",
+          "label": "{count} soruya yanıt"
+        },
+        {
+          "icon": "mdi:update",
+          "label": "Haftalık güncellenir"
+        }
+      ]
+    },
     "categories": {
       "all": {
         "label": "Tümü"
@@ -15,6 +40,32 @@
       "loadMore": "Daha fazla makale yükle",
       "loading": "Yükleniyor...",
       "empty": "Filtrelerinize uygun makale bulunamadı"
+    },
+    "sidebar": {
+      "popular": {
+        "title": "Popüler makaleler"
+      },
+      "quickLinks": {
+        "title": "Yararlı bağlantılar",
+        "items": [
+          {
+            "id": "universities",
+            "label": "Üniversite kataloğu"
+          },
+          {
+            "id": "checklist",
+            "label": "Belge kontrol listesi"
+          },
+          {
+            "id": "reviews",
+            "label": "Öğrenci yorumları"
+          },
+          {
+            "id": "consultation",
+            "label": "Uzman danışmanlığı"
+          }
+        ]
+      }
     }
   }
 }

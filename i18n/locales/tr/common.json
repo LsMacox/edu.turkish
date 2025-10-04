@@ -1,6 +1,7 @@
 {
   "common": {
-    "clear": "Temizle"
+    "clear": "Temizle",
+    "loading": "Yükleniyor..."
   },
   "cta": {
     "apply": "Başvuru yap"

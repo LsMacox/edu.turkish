@@ -81,7 +81,13 @@
       "subtitle": "Самые востребованные специальности в турецких университетах",
       "loading": "Загрузка данных...",
       "dynamic": {
-        "price_from": "от {price}/год"
+        "price_from": "от {price}/год",
+        "universities_count": {
+          "one": "{count} университет",
+          "few": "{count} университета",
+          "many": "{count} университетов",
+          "other": "{count} университета"
+        }
       },
       "programs": {
         "it": {
