@@ -291,6 +291,11 @@ export function validateApplicationData(data: any): { isValid: boolean; errors: 
 
   if (!data.personal_info?.phone?.trim()) {
     errors.push('Phone number is required')
+  } else {
+    const digits = String(data.personal_info.phone).replace(/\D/g, '')
+    if (digits.length < 10) {
+      errors.push('Phone number must contain at least 10 digits')
+    }
   }
 
   if (!data.education?.level?.trim()) {

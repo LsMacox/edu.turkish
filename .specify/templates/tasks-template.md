@@ -30,7 +30,7 @@
    → All contracts have tests?
    → All entities have models?
    → All endpoints implemented?
-   → Constitution gates satisfied? (i18n keys, migrations, Directus usage, partner flows)
+   → Constitution gates satisfied? (auto-import policy & alias mappings, runtime config declarations, i18n keys, migrations, Directus usage, partner flows)
 9. Return: SUCCESS (tasks ready for execution)
 ```
 
@@ -148,7 +148,10 @@ _GATE: Checked by main() before returning_
 - [ ] Prisma: Schema changes include a migration and seeds updated
 - [ ] Directus: Dynamic content integrated via API; `_translations` used where applicable
 - [ ] Partner: `/routes/go/*` implemented or updated; Bitrix event forwarding included
+- [ ] Components: No manual imports in SFCs; usage follows `nuxt.config.ts -> components` (global components, `Ui` prefix for `app/components/ui/*`, no prefix for `app/components/features/*`)
+- [ ] Aliases: `~/*` → `./app/*`, `~~/*` → `./*` (must match `tsconfig.json` and alias tests in `tests/config`)
+- [ ] Runtime Config: All `useRuntimeConfig()` variables declared in `nuxt.config.ts -> runtimeConfig`; public vs server-only distinction respected
 
 ---
 
-_Aligned with Constitution v1.0.0 - See `/memory/constitution.md`_
+_Aligned with Constitution v1.2.0 - See `/memory/constitution.md`_

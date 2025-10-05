@@ -9,6 +9,8 @@ Auto-generated from all feature plans. Last updated: 2025-10-03
 - MySQL (via Prisma ORM) (003-)
 - TypeScript 5.9, Vue 3.5.20, Nuxt 4.1.0 + Nuxt 4 (with auto-import), Vitest 3.2.4, vite-tsconfig-paths 5.1.4 (004-standardize-imports-to)
 - N/A (refactoring task) (004-standardize-imports-to)
+- TypeScript 5.x, Node.js 22 + Nuxt 3, Prisma ORM, Redis (ioredis), EspoCRM (latest stable), Docker, Caddy (005-espocrm-crm-bitrix)
+- MySQL 8.0 (existing + new dedicated EspoCRM database), Redis for queue persistence (005-espocrm-crm-bitrix)
 
 - TypeScript 5.9+ (Node.js runtime via tsx) + Node.js fs/path modules, glob pattern matching for file discovery (001-i18n)
 
@@ -29,9 +31,9 @@ npm test [ONLY COMMANDS FOR ACTIVE TECHNOLOGIES][ONLY COMMANDS FOR ACTIVE TECHNO
 TypeScript 5.9+ (Node.js runtime via tsx): Follow standard conventions
 
 ## Recent Changes
+- 005-espocrm-crm-bitrix: Added TypeScript 5.x, Node.js 22 + Nuxt 3, Prisma ORM, Redis (ioredis), EspoCRM (latest stable), Docker, Caddy
 - 004-standardize-imports-to: Added TypeScript 5.9, Vue 3.5.20, Nuxt 4.1.0 + Nuxt 4 (with auto-import), Vitest 3.2.4, vite-tsconfig-paths 5.1.4
 - 003-: Added TypeScript 5.9.2, Vue 3.5.20 + Nuxt 4.1.0, Vitest 3.2.4, Prisma 6.15.0, Pinia 3.0.3
-- 002-remove-hardcoded-directions: Added TypeScript (Nuxt 3 / Node.js) + Prisma ORM, Nuxt 3, Zod (validation)
 
 
 <!-- MANUAL ADDITIONS START -->

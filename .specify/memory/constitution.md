@@ -1,8 +1,8 @@
 <!--
 Sync Impact Report
-Version change: N/A → 1.0.0 (initial adoption)
-Modified principles: (initial set)
-Added sections: Core Principles; Additional Constraints & Infrastructure; Development Workflow & Quality Gates; Governance
+Version change: 1.1.0 → 1.2.0 (minor)
+Modified principles: none
+Added sections: VII. Runtime Configuration & Environment Variables
 Removed sections: none
 Templates requiring updates:
   - .specify/templates/plan-template.md ✅ updated
@@ -23,7 +23,7 @@ Follow-up TODOs: none
   - Prisma schema and migrations in `prisma/`
   - Locales in `i18n/locales/`
   - Shared types in `server/types/` and `server/types/api/`
-  - Feature-specific components in `app/components/features/`; global/UI components in `components/` (globally available per `nuxt.config.ts`)
+  - Feature-specific components in `app/components/features/`; global/UI components under `app/components/**` as configured in `nuxt.config.ts`
 - Data flow MUST be: frontend → Pinia store → fetch API (server endpoints). Components MUST NOT call repositories directly.
 - Imports MUST use aliases defined in `tsconfig.json`.
 - Ad-hoc folders and bypassing the structure above are NOT allowed.
@@ -55,8 +55,42 @@ Follow-up TODOs: none
 
 - Styling MUST be unified via `app/assets/css` and `tailwind.config.ts`. Design tokens/utilities belong in these locations; no duplicate, page-local Tailwind config.
 - ESLint and Prettier MUST pass on every PR. TypeScript type checks MUST pass. CI MUST run tests (Vitest) for changed areas at minimum.
-- Components MUST be split into page-specific feature components under `app/components/features/` and global/UI components under `components/`.
+ - Components MUST be split into page-specific feature components under `app/components/features/` and global/UI components under `app/components/**`.
   Rationale: Consistent look & feel, maintainable components, and stable builds.
+
+### VI. Imports & Aliases (Nuxt Auto-Import)
+
+- Vue components MUST NOT be imported manually in SFCs. Nuxt auto-imports components from directories configured in `nuxt.config.ts -> components`.
+- Directory conventions (enforced by configuration):
+  - `app/components/layout`, `app/components/modals`, `app/components/shared` → global components (`global: true`)
+  - `app/components/ui/*` → auto-imported with `Ui` prefix (e.g., `<UiButton />`)
+  - `app/components/features/*` → no prefix (`pathPrefix: false`)
+- Aliases (must match `tsconfig.json` and tests in `tests/config/*alias*.test.ts`):
+  - `~/*` → `./app/*`
+  - `~~/*` → `./*`
+- Auto-import scope includes:
+  - Composables from `~/composables/*`
+  - Components from configured directories above
+  - Nuxt internals like `NuxtPage`, `NuxtLayout`
+- Explicit imports are REQUIRED only for:
+  - External libraries and Pinia stores (e.g., `storeToRefs` from `pinia`, `useBlogStore`)
+  - Type-only imports (TypeScript)
+  - Server modules and utilities under `~~/server/*`
+  - Dynamic/async components via `defineAsyncComponent` or `() => import('~/components/...')`
+  Rationale: Auto-import reduces boilerplate and enforces consistent naming; explicit imports remain for external deps, types, server code, and lazy components.
+
+### VII. Runtime Configuration & Environment Variables
+
+- Variables accessed through `useRuntimeConfig()` MUST be explicitly declared in the `runtimeConfig` object in `nuxt.config.ts`.
+- Setting environment variables with the `NUXT_*` prefix (e.g., `NUXT_VARIABLE_NAME`) does NOT automatically make them available in the application unless they are declared in `runtimeConfig`.
+- Configuration structure:
+  - Server-only variables: declared at the root level of `runtimeConfig` (accessible only in server-side code)
+  - Public variables: declared under `runtimeConfig.public` (accessible in both client and server)
+- Environment variable mapping:
+  - Variables declared in `runtimeConfig` can be overridden by corresponding `NUXT_*` environment variables
+  - Naming convention: `NUXT_VARIABLE_NAME` maps to `runtimeConfig.variableName`, `NUXT_PUBLIC_API_URL` maps to `runtimeConfig.public.apiUrl`
+- All runtime configuration MUST have sensible defaults or empty strings in `nuxt.config.ts` to document what variables are expected.
+  Rationale: Explicit configuration declaration prevents runtime errors from missing variables, provides self-documentation of required environment variables, and enforces a clear distinction between public and server-only configuration.
 
 ## Additional Constraints & Infrastructure
 
@@ -89,4 +123,4 @@ Follow-up TODOs: none
   - Upon merge, update dependent templates in `.specify/templates/*` for consistency.
 - Compliance reviews are expected at planning (/plan), tasks (/tasks), and PR stages.
 
-**Version**: 1.0.0 | **Ratified**: 2025-10-02 | **Last Amended**: 2025-10-02
+**Version**: 1.2.0 | **Ratified**: 2025-10-02 | **Last Amended**: 2025-10-05

@@ -33,6 +33,17 @@
     }
 }
 
+# EspoCRM admin/API
+{$CRM_DOMAIN} {
+    encode zstd gzip
+    
+    reverse_proxy espocrm:80 {
+        header_up X-Forwarded-Proto {scheme}
+        header_up X-Forwarded-Host {host}
+        header_up Host {host}
+    }
+}
+
 # Local HTTP fallback for convenience (optional)
 :80 {
     redir https://{$APP_DOMAIN}{uri}
