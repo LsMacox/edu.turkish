@@ -53,8 +53,15 @@ _GATE: Must pass before Phase 0 research. Re-check after Phase 1 design._
 
 The following MUST be validated against `/memory/constitution.md`:
 
-- Architecture: repository paths (`app/`, `server/`, `prisma/`, `i18n/locales/`, component split between `app/components/features/` and `components/`) and data flow (frontend → Pinia store → server API). No direct repository calls from components.
+- Architecture: repository paths (`app/`, `server/`, `prisma/`, `i18n/locales/`, component split between `app/components/features/` and `app/components/**` per auto-import) and data flow (frontend → Pinia store → server API). No direct repository calls from components.
 - Imports use `tsconfig.json` aliases; no ad-hoc paths.
+- Components (Nuxt auto-import):
+  - No manual imports in SFCs for local components
+  - `app/components/layout`, `app/components/modals`, `app/components/shared` are global
+  - `app/components/ui/*` uses `Ui` prefix (e.g., `<UiButton/>`)
+  - `app/components/features/*` has no prefix (`pathPrefix: false`)
+  - Aliases: `~/*` → `./app/*`, `~~/*` → `./*` (must match `tsconfig.json` and tests)
+- Runtime Config: All variables accessed via `useRuntimeConfig()` MUST be declared in `runtimeConfig` in `nuxt.config.ts`. `NUXT_*` env vars require explicit declaration.
 - i18n: All new/changed UI and validation strings have keys for `en`, `ru`, `kk`, `tr`. No hard-coded literals.
 - Data layer: Prisma-only via repositories in `server/repositories/`; any schema change includes a Prisma migration (dev: `npm run db:migrate`, prod: `npm run db:deploy`).
 - CMS: Dynamic content through Directus; multilingual via `*_translations` tables.
@@ -244,4 +251,4 @@ _This checklist is updated during execution flow_
 
 ---
 
-_Based on Constitution v1.0.0 - See `/memory/constitution.md`_
+_Based on Constitution v1.2.0 - See `/memory/constitution.md`_

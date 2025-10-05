@@ -1,9 +1,10 @@
 import { prisma } from '~~/lib/prisma'
 import { ApplicationRepository } from '~~/server/repositories'
 import { validateApplicationData } from '~~/server/utils/api-helpers'
-import { BitrixService } from '~~/server/services/BitrixService'
-import { getBitrixConfig, validateBitrixConfig } from '~~/server/utils/bitrix-config'
+import { CRMFactory } from '~~/server/services/crm/CRMFactory'
+import { RedisQueue } from '~~/server/services/queue/RedisQueue'
 import type { ApplicationRequest, ApplicationResponse } from '~~/server/types/api'
+import type { LeadData } from '~~/server/types/crm'
 
 export default defineEventHandler(async (event): Promise<ApplicationResponse> => {
   const _locale = event.context.locale || 'ru'
@@ -33,43 +34,98 @@ export default defineEventHandler(async (event): Promise<ApplicationResponse> =>
     // Create application in database
     const application = await applicationRepository.create(body)
 
-    // Send to Bitrix CRM if configured
-    let bitrixLeadId: number | null = null
-    let bitrixError: string | null = null
+    // Send to CRM via abstraction layer
+    let crmLeadId: string | number | null = null
+    let crmError: string | null = null
+    let crmProvider: string | null = null
 
-    if (validateBitrixConfig()) {
-      try {
-        const bitrixConfig = getBitrixConfig()
-        const bitrixService = new BitrixService(bitrixConfig)
-
-        const bitrixResult = await bitrixService.createLead(body)
-
-        if (bitrixResult.success) {
-          bitrixLeadId = bitrixResult.id
-          // Bitrix lead created successfully
-
-          // Optionally update the application record with Bitrix lead ID
-        } else {
-          bitrixError = bitrixResult.error || 'Unknown Bitrix error'
-          console.error('Failed to create Bitrix lead:', bitrixError)
-        }
-      } catch (error: any) {
-        bitrixError = error.message
-        console.error('Error sending to Bitrix:', error)
+    try {
+      // Transform application data to LeadData format
+      const leadData: LeadData = {
+        firstName: body.personal_info.first_name,
+        lastName: body.personal_info.last_name?.trim() ? body.personal_info.last_name.trim() : undefined,
+        phone: body.personal_info.phone,
+        email: body.personal_info.email,
+        referralCode: body.referral_code || 'DIRECT',
+        source: body.source || 'website',
+        sourceDescription: body.source,
+        userType: body.user_preferences?.userType,
+        language: body.user_preferences?.language,
+        fieldOfStudy: body.education?.field,
+        universities: body.preferences?.universities,
+        programs: body.preferences?.programs,
+        scholarship: body.user_preferences?.scholarship,
+        additionalInfo: body.additional_info,
       }
-    } else {
-      console.warn('Bitrix is not configured. Skipping CRM integration.')
+
+      // Get CRM provider and attempt to create lead
+      const crmService = CRMFactory.createFromEnv()
+      crmProvider = crmService.providerName
+
+      const crmResult = await crmService.createLead(leadData)
+
+      if (crmResult.success) {
+        crmLeadId = crmResult.id || null
+        console.log(`✓ CRM lead created: ${crmLeadId} (${crmProvider})`)
+      } else if (crmResult.validationErrors && crmResult.validationErrors.length) {
+        // Validation failure from CRM input schema — return 400 to frontend
+        throw createError({
+          statusCode: 400,
+          statusMessage: 'Validation failed',
+          data: { errors: crmResult.validationErrors },
+        })
+      } else {
+        // Non-validation CRM failure, queue for retry
+        crmError = crmResult.error || 'Unknown CRM error'
+        console.error(`✗ CRM lead creation failed (${crmProvider}):`, crmError)
+
+        const queue = new RedisQueue()
+        await queue.addJob('createLead', crmProvider as 'bitrix' | 'espocrm', leadData)
+        console.log('→ CRM operation queued for retry')
+      }
+    } catch (error: any) {
+      crmError = error.message
+      console.error('Error in CRM integration:', error)
+
+      // If it's a validation error from our createLead (with errors array), surface to client
+      const errors = Array.isArray(error?.data?.errors) ? error.data.errors : null
+      if (error?.statusCode === 400 && errors && errors.length) {
+        throw createError({
+          statusCode: 400,
+          statusMessage: 'Validation failed',
+          data: { errors },
+        })
+      }
+
+      // Otherwise, queue for retry on exception
+      try {
+        const leadData: LeadData = {
+          firstName: body.personal_info.first_name,
+          lastName: body.personal_info.last_name?.trim() ? body.personal_info.last_name.trim() : undefined,
+          phone: body.personal_info.phone,
+          email: body.personal_info.email,
+          referralCode: body.referral_code || 'DIRECT',
+          source: body.source || 'website',
+        }
+        const queue = new RedisQueue()
+        const provider = CRMFactory.getCurrentProvider()
+        await queue.addJob('createLead', provider, leadData)
+        console.log('→ CRM operation queued for retry after exception')
+      } catch (queueError: any) {
+        console.error('Failed to queue CRM operation:', queueError)
+      }
     }
 
     // Set success status
     setResponseStatus(event, 201)
 
-    // Return application with optional Bitrix info
+    // Return application with CRM info
     return {
       ...application,
-      bitrix: {
-        leadId: bitrixLeadId,
-        error: bitrixError,
+      crm: {
+        provider: crmProvider,
+        leadId: crmLeadId,
+        error: crmError,
       },
     }
   } catch (error: any) {
