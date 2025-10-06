@@ -12,7 +12,6 @@ interface EspoCRMLead {
   source?: string
   userTypeC?: 'student' | 'parent'
   languageC?: 'turkish' | 'english' | 'both'
-  fieldOfStudyC?: string
   universityC?: string
   description?: string
 }
@@ -288,26 +287,6 @@ export class EspoCRMProvider implements ICRMProvider {
     }
   }
 
-  async testConnection(): Promise<boolean> {
-    try {
-      // Test by fetching lead fields metadata
-      const url = this.getApiUrl('Lead')
-
-      const response = await this.fetchWithTimeout(url, {
-        method: 'GET',
-      })
-
-      if (!response.ok) {
-        throw new Error(`HTTP error! status: ${response.status}`)
-      }
-
-      return true
-    } catch (error: any) {
-      console.error('EspoCRM testConnection error:', error)
-      throw error
-    }
-  }
-
   private transformLeadData(data: Partial<LeadData>, isUpdate = false): Partial<EspoCRMLead> {
     const lead: Partial<EspoCRMLead> = {}
 
@@ -344,10 +323,6 @@ export class EspoCRMProvider implements ICRMProvider {
 
     if (data.language) {
       lead.languageC = data.language
-    }
-
-    if (data.fieldOfStudy) {
-      lead.fieldOfStudyC = data.fieldOfStudy
     }
 
     if (data.universities && data.universities.length > 0) {

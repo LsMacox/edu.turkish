@@ -18,7 +18,9 @@ import { readFileSync, readFileSync as fsReadFileSync } from 'node:fs'
 import { resolve, resolve as pathResolve } from 'node:path'
 import { z } from 'zod'
 import { prisma } from '../lib/prisma'
-import { Prisma, type UniversityType, type DegreeType } from '@prisma/client'
+import prismaPkg from '@prisma/client'
+import type { UniversityType, DegreeType } from '@prisma/client'
+const { Prisma } = prismaPkg as any
 
 const Locale = z.string().min(2).max(5)
 

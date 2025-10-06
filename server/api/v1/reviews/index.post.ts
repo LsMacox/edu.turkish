@@ -2,6 +2,7 @@ import { prisma } from '~~/lib/prisma'
 import { ReviewRepository } from '~~/server/repositories'
 import type { CreateReviewResponse } from '~~/server/types/api'
 import { z } from 'zod'
+import { parsePositiveInt } from '~~/lib/number'
 
 // Validation schema
 const createReviewSchema = z.object({
@@ -116,7 +117,7 @@ export default defineEventHandler(async (event): Promise<CreateReviewResponse> =
     // Normalize year to a valid 4-digit number if provided, otherwise omit
     const parsedYear =
       typeof data.year === 'string' && /^\d{4}$/.test(data.year)
-        ? parseInt(data.year, 10)
+        ? parsePositiveInt(data.year)
         : undefined
 
     // Create review

@@ -17,7 +17,6 @@ export interface FieldMappingConfig {
   referralCode: string
   userType: string
   language: string
-  fieldOfStudy: string
   university: string
   source: string
 }

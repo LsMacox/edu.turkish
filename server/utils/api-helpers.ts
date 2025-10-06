@@ -1,4 +1,5 @@
 import type { FAQItem, FAQCategory, UniversityQueryParams } from '~~/server/types/api'
+import { parsePositiveInt } from '~~/lib/number'
 
 /**
  * Parse query parameters for universities endpoint
@@ -28,13 +29,7 @@ export function parseUniversityFilters(query: Record<string, any>): UniversityQu
   }
 
   const toPositiveInteger = (value: unknown): number | undefined => {
-    const parsed = toNonNegativeNumber(value)
-    if (parsed === undefined) {
-      return undefined
-    }
-
-    const rounded = Math.floor(parsed)
-    return rounded > 0 ? rounded : undefined
+    return parsePositiveInt(Array.isArray(value) ? value[0] : value)
   }
 
   const priceMin = toNonNegativeNumber(query.price_min)
@@ -118,18 +113,8 @@ export function parseUniversityFilters(query: Record<string, any>): UniversityQu
 
 const toPositiveIntegerWithDefault = (value: unknown, defaultValue: number) => {
   const candidate = Array.isArray(value) ? value[0] : value
-
-  if (candidate === undefined || candidate === null || candidate === '') {
-    return defaultValue
-  }
-
-  const parsed = Number(candidate)
-
-  if (!Number.isFinite(parsed) || parsed <= 0) {
-    return defaultValue
-  }
-
-  return Math.floor(parsed)
+  const parsed = parsePositiveInt(candidate)
+  return parsed ?? defaultValue
 }
 
 /**
@@ -296,10 +281,6 @@ export function validateApplicationData(data: any): { isValid: boolean; errors: 
     if (digits.length < 10) {
       errors.push('Phone number must contain at least 10 digits')
     }
-  }
-
-  if (!data.education?.level?.trim()) {
-    errors.push('Education level is required')
   }
 
   return {

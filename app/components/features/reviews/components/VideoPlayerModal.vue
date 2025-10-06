@@ -44,7 +44,6 @@
 </template>
 
 <script setup lang="ts">
-import { computed, onMounted, onUnmounted, ref, watch } from 'vue'
 interface MediaReview {
   id: number
   type: string

@@ -17,22 +17,14 @@ export class ApplicationRepository {
     const normalizedPhone = data.personal_info.phone?.trim() || ''
     const normalizedCountry = data.personal_info.country?.trim() || null
     const normalizedCity = data.personal_info.city?.trim() || null
-    const normalizedEducationLevel = data.education.level?.trim() || null
-    const normalizedEducationField = (() => {
-      const field = data.education.field?.trim()
-      if (!field || field === 'Не указано') {
-        return null
-      }
-      return field
-    })()
     const normalizedProgram = (() => {
       const programs = (
         Array.isArray(data.preferences?.programs) ? (data.preferences.programs ?? []) : []
       ).filter((program): program is string => typeof program === 'string' && program.trim() !== '')
       if (programs.length > 0) {
-        return programs[0]!.trim()
+        return programs[0]?.trim() ?? null
       }
-      return normalizedEducationField
+      return null
     })()
     const normalizedUniversity = (() => {
       const universities = (
@@ -42,7 +34,7 @@ export class ApplicationRepository {
           typeof university === 'string' && university.trim() !== '',
       )
       if (universities.length > 0) {
-        return universities[0]!.trim()
+        return universities[0]?.trim() ?? null
       }
       return null
     })()
@@ -59,14 +51,13 @@ export class ApplicationRepository {
         phone: normalizedPhone,
         country: normalizedCountry,
         city: normalizedCity,
-        educationLevel: normalizedEducationLevel,
-        educationField: normalizedEducationField,
+        educationLevel: null,
+        educationField: null,
         targetUniversity: normalizedUniversity,
         targetProgram: normalizedProgram,
         source: normalizedSource,
         referralCode: normalizedReferralCode,
         personalInfo: data.personal_info,
-        education: data.education,
         preferences: data.preferences,
         additionalInfo: data.additional_info || {},
       },
@@ -125,7 +116,6 @@ export class ApplicationRepository {
       source: application.source,
       referralCode: application.referralCode,
       personalInfo: application.personalInfo,
-      education: application.education,
       preferences: application.preferences,
       additionalInfo: application.additionalInfo,
       submittedAt: application.submittedAt,
@@ -200,7 +190,6 @@ export class ApplicationRepository {
         source: app.source,
         referralCode: app.referralCode,
         personalInfo: app.personalInfo,
-        education: app.education,
         preferences: app.preferences,
         additionalInfo: app.additionalInfo,
         submittedAt: app.submittedAt,
@@ -226,7 +215,8 @@ export class ApplicationRepository {
       this.prisma.application.groupBy({
         by: ['status'],
         _count: { id: true },
-      }) as any,
+        orderBy: { status: 'asc' },
+      }),
       this.prisma.application.count({
         where: {
           submittedAt: {
@@ -243,8 +233,10 @@ export class ApplicationRepository {
       rejected: 0,
     }
 
-    statusCounts.forEach((stat: any) => {
-      byStatus[stat.status as ApplicationStatus] = stat._count?.id ?? 0
+    statusCounts.forEach((stat) => {
+      if (stat._count && typeof stat._count === 'object' && 'id' in stat._count) {
+        byStatus[stat.status as ApplicationStatus] = stat._count.id as number
+      }
     })
 
     const successRate = totalCount > 0 ? (byStatus.approved / totalCount) * 100 : 0

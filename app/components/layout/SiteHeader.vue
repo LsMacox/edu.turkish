@@ -155,12 +155,13 @@
 </template>
 
 <script setup lang="ts">
+import { type SupportedLocale } from '@@/lib/locales'
 
 // Site header with navigation and language switcher
 const modal = useApplicationModalStore()
 const route = useRoute()
 
-const i18n = useI18n<{ messages: Record<string, any> }, SupportedLocale>()
+const i18n = useI18n()
 const { t } = i18n
 const localePath = useLocalePath()
 const switchLocalePath = useSwitchLocalePath()

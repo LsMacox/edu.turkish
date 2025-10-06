@@ -62,7 +62,7 @@
 
 <script setup lang="ts">
 import { storeToRefs } from 'pinia'
-import blogHeroImage from '/images/blog-hero.png'
+import heroImage from '/images/blog-hero.png'
 import { useApplicationModalStore } from '~/stores/applicationModal'
 import { useBlogStore } from '~/stores/blog'
 
@@ -332,8 +332,6 @@ type QuickLinksContent = {
   title: string
   items: { id: string; label: string }[]
 }
-
-const heroImage = blogHeroImage
 
 const hero = computed<HeroContent>(() => {
   const value = tm('blog.hero') as Partial<HeroContent> | undefined

@@ -1,20 +1,20 @@
 import Redis from 'ioredis'
+import { parsePositiveInt } from '~~/lib/number'
 
 let redisClient: Redis | null = null
 
 export function getRedisClient(): Redis {
   if (!redisClient) {
-    // Always use environment variables directly to avoid runtime config issues
     const config = {
       redisHost: process.env.REDIS_HOST || 'localhost',
       redisPort: process.env.REDIS_PORT || '6379',
       redisPassword: process.env.REDIS_PASSWORD || ''
     }
     
-    
+    const port = parsePositiveInt(config.redisPort) ?? 6379
     redisClient = new Redis({
       host: config.redisHost,
-      port: parseInt(config.redisPort),
+      port,
       password: config.redisPassword || undefined,
       maxRetriesPerRequest: 3,
       retryStrategy(times) {

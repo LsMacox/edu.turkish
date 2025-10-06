@@ -51,7 +51,6 @@ export default defineEventHandler(async (event): Promise<ApplicationResponse> =>
         sourceDescription: body.source,
         userType: body.user_preferences?.userType,
         language: body.user_preferences?.language,
-        fieldOfStudy: body.education?.field,
         universities: body.preferences?.universities,
         programs: body.preferences?.programs,
         scholarship: body.user_preferences?.scholarship,

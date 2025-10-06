@@ -5,6 +5,7 @@ import {
   type ContactChannelKey,
 } from '~~/lib/contact/channels'
 import { useReferral } from './useReferral'
+import { extractUtmFromQuery } from '~~/lib/utm'
 
 export interface ContactChannelInstance extends ContactChannelDefinition {
   href: string
@@ -30,15 +31,6 @@ const channelRoutePaths: Record<ContactChannelKey, string> = {
   instagram: '/go/instagram',
 }
 
-const extractUtmParams = (query: Record<string, any>): Record<string, string> => {
-  return Object.entries(query).reduce<Record<string, string>>((acc, [key, value]) => {
-    if (key.startsWith('utm_') && typeof value === 'string' && value.length > 0) {
-      acc[key] = value
-    }
-    return acc
-  }, {})
-}
-
 export const useContactChannels = () => {
   const { referralCode } = useReferral()
   const route = useRoute()
@@ -46,9 +38,9 @@ export const useContactChannels = () => {
   const channels = computed<Record<ContactChannelKey, ContactChannelInstance>>(() => {
     const referral = referralCode.value || ''
     const sessionId = typeof route.query.session === 'string' ? route.query.session : undefined
-    const utmParams = extractUtmParams(route.query as Record<string, any>)
+    const utm = extractUtmFromQuery(route.query as Record<string, any>)
 
-    const hasTrackingParams = referral || sessionId || Object.keys(utmParams).length > 0
+    const hasTrackingParams = Boolean(referral || sessionId || utm)
 
     return Object.entries(contactChannels).reduce<
       Record<ContactChannelKey, ContactChannelInstance>
@@ -67,9 +59,11 @@ export const useContactChannels = () => {
           if (sessionId) {
             query.session = sessionId
           }
-          for (const [key, value] of Object.entries(utmParams)) {
-            if (value) {
-              query[key] = value
+          if (utm) {
+            for (const [key, value] of Object.entries(utm)) {
+              if (value) {
+                query[key] = value
+              }
             }
           }
           href = Object.keys(query).length > 0 ? withQuery(routePath, query) : routePath

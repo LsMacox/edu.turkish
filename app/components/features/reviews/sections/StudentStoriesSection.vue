@@ -52,6 +52,7 @@
 
 <script setup lang="ts">
 import { useApplicationModalStore } from '~/stores/applicationModal'
+const { locale } = useI18n()
 
 interface ReviewListResponse<T> {
   data?: T[]
@@ -68,7 +69,6 @@ interface StudentReviewItem {
 const modal = useApplicationModalStore()
 
 // Fetch student reviews from API and refetch on locale change
-const { locale } = useI18n()
 const {
   data: studentReviews,
   pending,

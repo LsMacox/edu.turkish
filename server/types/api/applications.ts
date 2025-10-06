@@ -16,14 +16,6 @@ export interface ApplicationRequest {
     city?: string
     birth_date?: string
   }
-  education: {
-    level: string
-    field: string
-    institution?: string
-    school_name?: string
-    graduation_year?: number
-    gpa?: number
-  }
   preferences: {
     universities?: string[]
     programs?: string[]

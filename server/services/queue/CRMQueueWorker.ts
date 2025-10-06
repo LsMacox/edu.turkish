@@ -1,4 +1,5 @@
-import { Worker, Job } from 'bullmq'
+import type { Job } from 'bullmq';
+import { Worker } from 'bullmq'
 import type { LeadData, ActivityData } from '~~/server/types/crm'
 import { CRMFactory } from '~~/server/services/crm/CRMFactory'
 import { getRedisClient } from '~~/server/utils/redis'

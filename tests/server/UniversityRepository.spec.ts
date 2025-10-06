@@ -1,74 +1,29 @@
 import { describe, expect, it, vi } from 'vitest'
-import { Prisma, type PrismaClient } from '@prisma/client'
+import { Prisma as PrismaRuntime, PrismaClient } from '@prisma/client'
+import type { Prisma as PrismaTypes } from '@prisma/client'
 
 import {
   UniversityRepository,
   type UniversityListItem,
 } from '~~/server/repositories/UniversityRepository'
 import type { UniversityQueryParams } from '~~/server/types/api'
-
-describe('UniversityRepository.findAll', () => {
-  const createParams = (overrides: Partial<UniversityQueryParams> = {}): UniversityQueryParams => ({
-    q: '',
-    city: '',
-    langs: [],
-    type: '',
-    level: '',
-    price_min: 0,
-    price_max: 20000,
-    sort: 'pop',
-    page: 1,
-    limit: 12,
-    ...overrides,
-  })
-
-  const createRepositoryWithMocks = () => {
-    const findMany = vi.fn().mockResolvedValue([])
-    const count = vi.fn().mockResolvedValue(0)
-    const universityGroupBy = vi.fn().mockResolvedValue([])
-    const aggregate = vi.fn().mockResolvedValue({
-      _min: { tuitionMin: new Prisma.Decimal(0), tuitionMax: new Prisma.Decimal(0) },
-      _max: { tuitionMin: new Prisma.Decimal(0), tuitionMax: new Prisma.Decimal(0) },
-    })
-    const academicProgramGroupBy = vi.fn().mockResolvedValue([])
-    const cityTranslationFindMany = vi.fn().mockResolvedValue([])
-    const transaction = vi.fn(async (queries: Promise<unknown>[]) => Promise.all(queries))
-
-    const prisma = {
-      university: {
-        findMany,
-        count,
-        groupBy: universityGroupBy,
-        aggregate,
-      },
-      universityProgram: {
-        groupBy: academicProgramGroupBy,
-      },
-      cityTranslation: {
-        findMany: cityTranslationFindMany,
-      },
-      $transaction: transaction,
-    } as unknown as PrismaClient
-
-    const repository = new UniversityRepository(prisma)
-
     return { repository, findMany, count }
   }
 
-  type TuitionRange = { tuitionMin: Prisma.Decimal | null; tuitionMax: Prisma.Decimal | null }
-
+  type TuitionRange = { tuitionMin: PrismaTypes.Decimal | null; tuitionMax: PrismaTypes.Decimal | null }
   const matchesTuitionWhere = (
-    where: Prisma.UniversityWhereInput | undefined,
+    where: PrismaTypes.UniversityWhereInput | undefined,
     range: TuitionRange,
   ): boolean => {
     if (!where) return true
 
-    const evaluate = (clause: Prisma.UniversityWhereInput): boolean => {
+    const evaluate = (clause: PrismaTypes.UniversityWhereInput): boolean => {
       const { AND, OR, ...direct } = clause
 
       if (AND && Array.isArray(AND) && !AND.every((inner: any) => evaluate(inner))) {
         return false
       }
+{{ ... }}
 
       if (OR && Array.isArray(OR) && !OR.some((inner: any) => evaluate(inner))) {
         return false
@@ -201,7 +156,7 @@ describe('UniversityRepository.findAll', () => {
 
     const findMany = vi.fn().mockResolvedValue(universities)
     const count = vi.fn().mockResolvedValue(universities.length)
-    const universityGroupBy = vi.fn().mockImplementation((args: Prisma.UniversityGroupByArgs) => {
+    const universityGroupBy = vi.fn().mockImplementation((args: PrismaTypes.UniversityGroupByArgs) => {
       if ('by' in args && Array.isArray(args.by) && args.by.includes('cityId')) {
         return Promise.resolve([{ cityId: 10 }])
       }
@@ -216,7 +171,7 @@ describe('UniversityRepository.findAll', () => {
     })
     const academicProgramGroupBy = vi
       .fn()
-      .mockImplementation((args: Prisma.UniversityProgramGroupByArgs) => {
+      .mockImplementation((args: PrismaTypes.UniversityProgramGroupByArgs) => {
         if ('by' in args && Array.isArray(args.by) && args.by.includes('degreeType')) {
           return Promise.resolve([{ degreeType: 'bachelor' }, { degreeType: 'master' }])
         }
@@ -292,7 +247,7 @@ describe('UniversityRepository.findAll', () => {
     await repository.findAll(createParams({ price_min: 2000, price_max: 6000 }), 'ru')
 
     expect(findMany).toHaveBeenCalledTimes(1)
-    const where = findMany.mock.calls[0]![0]?.where as Prisma.UniversityWhereInput
+    const where = findMany.mock.calls[0][0]?.where as PrismaTypes.UniversityWhereInput
 
     expect(where?.AND).toHaveLength(2)
 
@@ -319,7 +274,7 @@ describe('UniversityRepository.findAll', () => {
 
     await repository.findAll(createParams({ price_min: 3000, price_max: 8000 }), 'ru')
 
-    const where = findMany.mock.calls[0]![0]?.where as Prisma.UniversityWhereInput
+    const where = findMany.mock.calls[0][0]?.where as PrismaTypes.UniversityWhereInput
 
     const openLower: TuitionRange = {
       tuitionMin: null,

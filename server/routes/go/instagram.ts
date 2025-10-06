@@ -1,16 +1,7 @@
 import { getRequestURL } from 'h3'
 import { contactChannels } from '~~/lib/contact/channels'
-import { BitrixService } from '~~/server/services/BitrixService'
-import { getBitrixConfig } from '~~/server/utils/bitrix-config'
-
-const extractUtmParams = (query: Record<string, any>): Record<string, string> => {
-  return Object.entries(query).reduce<Record<string, string>>((acc, [key, value]) => {
-    if (key.startsWith('utm_') && typeof value === 'string' && value.length > 0) {
-      acc[key] = value
-    }
-    return acc
-  }, {})
-}
+import { CrmProviderFactory } from '~~/server/services/CrmProviderFactory'
+import { extractUtmFromQuery } from '~~/server/utils/utm'
 
 export default defineEventHandler(async (event) => {
   const query = getQuery(event)
@@ -19,21 +10,7 @@ export default defineEventHandler(async (event) => {
 
   const sessionId =
     typeof query.session === 'string' && query.session.length > 0 ? query.session : undefined
-  const utmParams = extractUtmParams(query as Record<string, any>)
-
-  // Convert utmParams to proper MessengerEventUtm format
-  const utm: {
-    utm_source?: string
-    utm_medium?: string
-    utm_campaign?: string
-    utm_content?: string
-    utm_term?: string
-  } = {}
-  if (utmParams.utm_source) utm.utm_source = utmParams.utm_source
-  if (utmParams.utm_medium) utm.utm_medium = utmParams.utm_medium
-  if (utmParams.utm_campaign) utm.utm_campaign = utmParams.utm_campaign
-  if (utmParams.utm_content) utm.utm_content = utmParams.utm_content
-  if (utmParams.utm_term) utm.utm_term = utmParams.utm_term
+  const utm = extractUtmFromQuery(query as Record<string, any>)
 
   if (hasReferralCode) {
     const requestUrl = getRequestURL(event)
@@ -45,19 +22,22 @@ export default defineEventHandler(async (event) => {
           channel: 'instagram',
           referral_code: referralCode,
           session: sessionId,
-          utm: Object.keys(utm).length > 0 ? utm : undefined,
+          utm,
         },
         baseURL: requestUrl.origin,
       })
 
-      // Create minimal lead
-      const bitrix = new BitrixService(getBitrixConfig())
-      await bitrix.createMinimalLeadFromEvent({
+      // Create minimal lead (if provider supports it)
+      const crm = CrmProviderFactory.create()
+      const minimalLeadPayload = {
         channel: 'instagram',
         referralCode,
         session: sessionId,
-        utm: Object.keys(utm).length > 0 ? (utm as any) : undefined,
-      })
+        utm: utm as any,
+      }
+      if (typeof (crm as any).createMinimalLeadFromEvent === 'function') {
+        await (crm as any).createMinimalLeadFromEvent(minimalLeadPayload)
+      }
     } catch (error) {
       console.error('[go/instagram] Failed to process messenger event and create lead', error)
     }

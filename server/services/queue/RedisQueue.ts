@@ -1,4 +1,5 @@
-import { Queue, Job } from 'bullmq'
+import type { Job } from 'bullmq';
+import { Queue } from 'bullmq'
 import type { CRMQueueJob, LeadData, ActivityData } from '~~/server/types/crm'
 import { getRedisClient } from '~~/server/utils/redis'
 

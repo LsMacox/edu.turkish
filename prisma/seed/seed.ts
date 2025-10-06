@@ -1,4 +1,5 @@
-import { PrismaClient } from '@prisma/client'
+import prismaPkg from '@prisma/client'
+const { PrismaClient } = prismaPkg as any
 import { seedFAQs } from './faqs'
 import { seedFaqCategories } from './faq-categories'
 import { seedLocations } from './locations'

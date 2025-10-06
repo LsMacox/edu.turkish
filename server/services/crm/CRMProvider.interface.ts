@@ -45,14 +45,6 @@ export interface ICRMProvider {
   createMinimalLeadFromActivity(data: ActivityData): Promise<CRMResult>
 
   /**
-   * Test connection to the CRM system
-   * 
-   * @returns Promise resolving to true if connection successful
-   * @throws Error if CRM is unreachable or credentials invalid
-   */
-  testConnection(): Promise<boolean>
-
-  /**
    * Get the provider name
    */
   readonly providerName: 'bitrix' | 'espocrm'

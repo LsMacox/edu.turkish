@@ -1,7 +1,9 @@
 import { prisma } from '~~/lib/prisma'
 import { ReviewRepository } from '~~/server/repositories/ReviewRepository'
+import type { LocaleKey } from '~~/server/utils/locale'
+import { parsePositiveInt } from '~~/lib/number'
 
-export default defineEventHandler(async (event) => {
+export default defineEventHandler(async (event: any) => {
   const query = getQuery(event)
   const lang = getHeader(event, 'Accept-Language') || 'ru'
 
@@ -15,10 +17,10 @@ export default defineEventHandler(async (event) => {
     const repository = new ReviewRepository(prisma)
     const reviews = await repository.getMediaReviews({
       featured: featured === 'true',
-      limit: parseInt(limit as string),
+      limit: parsePositiveInt(limit as string) ?? 12,
       mediaType: type as 'video' | 'image' | undefined,
-      locale: lang as string,
-    })
+      locale: lang as LocaleKey,
+    })  
 
     return {
       data: reviews,

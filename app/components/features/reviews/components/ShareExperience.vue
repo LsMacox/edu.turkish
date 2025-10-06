@@ -303,7 +303,10 @@
 </template>
 
 <script setup lang="ts">
+import { parsePositiveInt } from '~~/lib/number'
 import type { UserType } from '~/types/domain'
+const { t } = useI18n()
+
 interface ReviewForm {
   name: string
   university: string
@@ -367,8 +370,6 @@ function toggleHelpful(value: string) {
     form.helpful.push(value)
   }
 }
-
-const { t } = useI18n()
 
 // Load universities on component mount
 onMounted(async () => {
@@ -435,7 +436,7 @@ async function submitReview() {
       university: form.university,
       faculty: form.faculty.trim() || undefined,
       year: numericYear,
-      rating: parseInt(form.rating),
+      rating: parsePositiveInt(form.rating) ?? 0,
       contact: form.contact.trim() || undefined,
       review: form.review.trim(),
       helpful: form.helpful.length > 0 ? form.helpful : undefined,

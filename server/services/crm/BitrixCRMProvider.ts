@@ -15,7 +15,6 @@ interface BitrixLead {
   UF_CRM_REFERRAL_CODE?: string
   UF_CRM_1234567893?: string // userType
   UF_CRM_1234567894?: string // language
-  UF_CRM_1234567896?: string // fieldOfStudy
   UF_CRM_1234567897?: string // university
 }
 
@@ -278,32 +277,6 @@ export class BitrixCRMProvider implements ICRMProvider {
     }
   }
 
-  async testConnection(): Promise<boolean> {
-    try {
-      const url = this.getBitrixApiUrl('crm.lead.fields')
-
-      const response = await this.fetchWithTimeout(url, {
-        method: 'GET',
-        headers: { 'Content-Type': 'application/json' },
-      })
-
-      if (!response.ok) {
-        throw new Error(`HTTP error! status: ${response.status}`)
-      }
-
-      const result = await response.json()
-
-      if (result.error) {
-        throw new Error(result.error_description || result.error)
-      }
-
-      return true
-    } catch (error: any) {
-      console.error('Bitrix testConnection error:', error)
-      throw error
-    }
-  }
-
   private transformLeadData(data: Partial<LeadData>, isUpdate = false): Partial<BitrixLead> {
     const lead: Partial<BitrixLead> = {}
 
@@ -344,9 +317,6 @@ export class BitrixCRMProvider implements ICRMProvider {
       lead.UF_CRM_1234567894 = data.language
     }
 
-    if (data.fieldOfStudy) {
-      lead.UF_CRM_1234567896 = data.fieldOfStudy
-    }
 
     if (data.universities && data.universities.length > 0) {
       lead.UF_CRM_1234567897 = data.universities[0]

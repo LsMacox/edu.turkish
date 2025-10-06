@@ -27,6 +27,7 @@
 </template>
 
 <script setup lang="ts">
+import { parsePositiveInt } from '~~/lib/number'
 interface Props {
   city?: string
   languages?: string[]
@@ -48,7 +49,7 @@ const formattedTuition = computed(() => {
   if (props.tuition === undefined || props.tuition === null) {
     tuitionValue = 0
   } else if (typeof props.tuition === 'string') {
-    tuitionValue = parseInt(props.tuition) || 0
+    tuitionValue = parsePositiveInt(props.tuition) ?? 0
   } else if (typeof props.tuition === 'number') {
     tuitionValue = props.tuition
   }
