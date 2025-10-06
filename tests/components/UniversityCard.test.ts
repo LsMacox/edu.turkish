@@ -83,8 +83,9 @@ describe('UniversityCard', () => {
       props: defaultProps,
     })
 
-    // Access the component's detailHref computed property
-    expect(wrapper.vm.detailHref).toBe('/university/istanbul-tech')
+    // Verify the detailHref is passed to the actions component
+    const actions = wrapper.findComponent({ name: 'UniversityCardActions' })
+    expect(actions.props('detailHref')).toBe('/university/istanbul-tech')
   })
 
   it('generates fallback href when no slug provided', () => {
@@ -95,7 +96,9 @@ describe('UniversityCard', () => {
       },
     })
 
-    expect(wrapper.vm.detailHref).toBe('/university/istanbul-technical-university')
+    // Verify the fallback detailHref is passed to the actions component
+    const actions = wrapper.findComponent({ name: 'UniversityCardActions' })
+    expect(actions.props('detailHref')).toBe('/university/istanbul-technical-university')
   })
 
   it('computes type label correctly', () => {
@@ -106,8 +109,9 @@ describe('UniversityCard', () => {
       },
     })
 
-    // Should use i18n key for type
-    expect(wrapper.vm.typeLabel).toBe('universities_page.card.types.private')
+    // Verify the typeLabel is passed to the header component
+    const header = wrapper.findComponent({ name: 'UniversityCardHeader' })
+    expect(header.props('typeLabel')).toBe('universities_page.card.types.private')
   })
 
   it('handles missing type gracefully', () => {
@@ -118,6 +122,8 @@ describe('UniversityCard', () => {
       },
     })
 
-    expect(wrapper.vm.typeLabel).toBe('')
+    // Verify empty typeLabel is passed to the header component
+    const header = wrapper.findComponent({ name: 'UniversityCardHeader' })
+    expect(header.props('typeLabel')).toBe('')
   })
 })

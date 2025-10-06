@@ -137,7 +137,7 @@ describe('FAQRepository', () => {
       const translationFilter = where?.translations?.some as Prisma.FaqTranslationWhereInput
 
       expect(findManyArgs.take).toBe(10)
-      expect(translationInclude?.where?.locale?.in).toEqual(['kk', 'kk', 'ru'])
+      expect((translationInclude?.where?.locale as any)?.in).toEqual(['kk', 'kk', 'ru'])
       expect(translationFilter?.OR).toEqual([
         { question: { contains: 'Visa' } },
         { answer: { contains: 'Visa' } },
@@ -145,7 +145,7 @@ describe('FAQRepository', () => {
 
       expect(result.data.map((item) => item.id)).toEqual([1, 2])
       expect(result.data.map((item) => item.relevance_score)).toEqual([1, 0.5])
-      expect(result.data[0].category).toBe('KK Category')
+      expect(result.data[0]!.category).toBe('KK Category')
       expect(result.categories).toEqual([{ key: '10', name: 'KK Category', count: 2 }])
       expect(result.meta).toEqual({ total: 5, filtered: 2, query: 'Visa' })
     })
@@ -175,7 +175,7 @@ describe('FAQRepository', () => {
       const searchFilter = findManyArgs.where?.translations?.some as Prisma.FaqTranslationWhereInput
 
       expect(findManyArgs.take).toBe(2)
-      expect(translationInclude?.where?.locale?.in).toEqual(['kk', 'kk', 'ru'])
+      expect((translationInclude?.where?.locale as any)?.in).toEqual(['kk', 'kk', 'ru'])
       expect(searchFilter?.OR).toEqual([
         { question: { contains: 'Visa' } },
         { answer: { contains: 'Visa' } },

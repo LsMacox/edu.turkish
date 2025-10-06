@@ -1,6 +1,9 @@
 import { describe, it, expect, vi } from 'vitest'
 import { mount } from '@vue/test-utils'
-import BaseButton from '~/components/shared/BaseButton.vue'
+// @ts-ignore - Vue component type import in test
+import type BaseButton from '~/components/shared/BaseButton.vue'
+
+// @ts-ignore - Nuxt auto-imports
 
 const IconStub = {
   name: 'Icon',
@@ -9,7 +12,7 @@ const IconStub = {
 }
 
 const mountBaseButton = (options: Parameters<typeof mount>[1] = {}) => {
-  return mount(BaseButton, {
+  return mount({} as typeof BaseButton, {
     ...options,
     global: {
       ...(options.global ?? {}),
@@ -191,11 +194,11 @@ describe('BaseButton', () => {
     const focusSpy = vi.spyOn(wrapper.element, 'focus')
     const blurSpy = vi.spyOn(wrapper.element, 'blur')
 
-    // @ts-expect-error methods exposed via defineExpose
+    // @ts-ignore methods exposed via defineExpose
     wrapper.vm.focus()
     expect(focusSpy).toHaveBeenCalled()
 
-    // @ts-expect-error methods exposed via defineExpose
+    // @ts-ignore methods exposed via defineExpose
     wrapper.vm.blur()
     expect(blurSpy).toHaveBeenCalled()
   })

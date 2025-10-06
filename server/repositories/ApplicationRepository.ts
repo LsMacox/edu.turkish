@@ -19,7 +19,7 @@ export class ApplicationRepository {
     const normalizedCity = data.personal_info.city?.trim() || null
     const normalizedProgram = (() => {
       const programs = (
-        Array.isArray(data.preferences?.programs) ? (data.preferences?.programs ?? []) : []
+        Array.isArray(data.preferences?.programs) ? (data.preferences.programs ?? []) : []
       ).filter((program): program is string => typeof program === 'string' && program.trim() !== '')
       if (programs.length > 0) {
         return programs[0]?.trim() ?? null
@@ -28,7 +28,7 @@ export class ApplicationRepository {
     })()
     const normalizedUniversity = (() => {
       const universities = (
-        Array.isArray(data.preferences?.universities) ? (data.preferences?.universities ?? []) : []
+        Array.isArray(data.preferences?.universities) ? (data.preferences.universities ?? []) : []
       ).filter(
         (university): university is string =>
           typeof university === 'string' && university.trim() !== '',

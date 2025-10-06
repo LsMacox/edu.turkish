@@ -88,7 +88,7 @@ export class FAQRepository {
       mapFaqCategoryToApi(cat, normalized),
     )
 
-    const transformedFAQs: FAQItem[] = faqs.map((faq) => mapFaqItemToApi(faq, normalized, q))
+    const transformedFAQs: FAQItem[] = faqs.map((faq: any) => mapFaqItemToApi(faq, normalized, q))
 
     if (q) {
       transformedFAQs.sort((a, b) => (b.relevance_score || 0) - (a.relevance_score || 0))
@@ -119,7 +119,7 @@ export class FAQRepository {
 
     if (!faq) return null
 
-    return mapFaqItemToApi(faq, normalized)
+    return mapFaqItemToApi(faq as any, normalized)
   }
 
   /**
@@ -134,7 +134,7 @@ export class FAQRepository {
       take: limit,
     })
 
-    return faqs.map((faq) => mapFaqItemToApi(faq, normalized))
+    return faqs.map((faq) => mapFaqItemToApi(faq as any, normalized))
   }
 
   /**
@@ -153,7 +153,7 @@ export class FAQRepository {
     })
 
     return faqs
-      .map((faq) => mapFaqItemToApi(faq, normalized, query))
+      .map((faq) => mapFaqItemToApi(faq as any, normalized, query))
       .sort((a, b) => (b.relevance_score || 0) - (a.relevance_score || 0))
   }
 
@@ -193,6 +193,6 @@ export class FAQRepository {
       include: this.buildIncludes(fallbacks),
     })
 
-    return mapFaqItemToApi(faq, normalized)
+    return mapFaqItemToApi(faq as any, normalized)
   }
 }

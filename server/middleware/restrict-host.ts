@@ -1,5 +1,3 @@
-import { defineEventHandler, getRequestHeader, createError } from 'h3'
-
 const envHosts = (process.env.ALLOWED_HOSTS || '')
   .split(',')
   .map((h) => h.trim().toLowerCase())

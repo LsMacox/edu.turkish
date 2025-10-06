@@ -2,9 +2,14 @@ import { describe, it, expect, beforeEach, afterEach, vi } from 'vitest'
 import { mount, flushPromises } from '@vue/test-utils'
 import { nextTick, ref } from 'vue'
 
-import PopularProgramsSection from '~/components/features/universities/sections/PopularProgramsSection.vue'
+// @ts-ignore - Vue component type import in test
+import type PopularProgramsSectionType from '~/components/features/universities/sections/PopularProgramsSection.vue'
+
+const PopularProgramsSection = {} as typeof PopularProgramsSectionType
 import enUniversities from '~~/i18n/locales/en/pages/universities.json'
 import ruUniversities from '~~/i18n/locales/ru/pages/universities.json'
+
+// @ts-ignore - Nuxt auto-imports
 
 type TestLocale = 'en' | 'ru'
 
@@ -49,7 +54,7 @@ const createUniversitiesText = (locale: TestLocale, count: number) => {
 
   const template = dynamicMessages[pluralCategory] ?? dynamicMessages.other
 
-  return template.replace('{count}', String(count))
+  return template?.replace('{count}', String(count)) ?? ''
 }
 
 const createI18nMock = (initialLocale: TestLocale) => {
@@ -111,28 +116,28 @@ describe('PopularProgramsSection', () => {
     },
   }
 
-  let originalUseI18n: typeof globalThis.useI18n
-  let originalFetch: typeof globalThis.$fetch
+  let originalUseI18n: any
+  let originalFetch: any
   let i18nMock: ReturnType<typeof createI18nMock>
   let fetchMock: ReturnType<typeof vi.fn>
 
   beforeEach(() => {
     i18nMock = createI18nMock('en')
-    originalUseI18n = globalThis.useI18n
-    originalFetch = globalThis.$fetch
+    originalUseI18n = (globalThis as any).useI18n
+    originalFetch = (globalThis as any).$fetch
     fetchMock = vi.fn().mockResolvedValue(mockResponse)
 
-    globalThis.useI18n = () => ({
+    ;(globalThis as any).useI18n = () => ({
       locale: i18nMock.locale,
       t: i18nMock.t,
     })
 
-    globalThis.$fetch = fetchMock as typeof globalThis.$fetch
+    ;(globalThis as any).$fetch = fetchMock
   })
 
   afterEach(() => {
-    globalThis.useI18n = originalUseI18n
-    globalThis.$fetch = originalFetch
+    ;(globalThis as any).useI18n = originalUseI18n
+    ;(globalThis as any).$fetch = originalFetch
     vi.clearAllMocks()
   })
 
@@ -144,8 +149,8 @@ describe('PopularProgramsSection', () => {
         },
         config: {
           globalProperties: {
-            $t: (key: string, params?: Record<string, unknown>) => i18nMock.t(key, params),
-          },
+            $t: (key: string, params?: Record<string, unknown>) => i18nMock.t(key, params ?? {}),
+          } as any,
         },
       },
     })

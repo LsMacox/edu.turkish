@@ -142,7 +142,7 @@ export default {
     typography,
     animate,
     // Custom plugin for component utility classes
-    function ({ addComponents }) {
+    function ({ addComponents }: { addComponents: any }) {
       addComponents({
         // Card hover utilities
         '.card-hover': {

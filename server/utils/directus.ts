@@ -7,12 +7,12 @@ export interface DirectusClients {
 
 export function getDirectusClients(): DirectusClients {
   const config = useRuntimeConfig()
-  const baseUrl = config.public.directusUrl
+  const baseUrl = config.public.directusUrl || ''
   const token = config.directusStaticToken
 
   const base = createDirectus(baseUrl).with(rest())
-  const server = token ? base.with(staticToken(token)) : base
-  const publicClient = base
+  const server = token ? base.with(staticToken(token as string)) : base
+  const publicClient = base as ReturnType<typeof createDirectus>
 
   return { server, public: publicClient }
 }

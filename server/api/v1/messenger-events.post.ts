@@ -50,7 +50,7 @@ export default defineEventHandler(async (event) => {
     session,
     utm,
     metadata,
-  })
+  } as any)
 
   if (!result.success) {
     throw createError({

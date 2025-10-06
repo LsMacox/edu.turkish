@@ -55,7 +55,7 @@ describe('UniversityRepository price filtering', () => {
 
     await repository.findAll(filters, 'ru')
 
-    const args = prismaMock.findMany.mock.calls[0][0]
+    const args = prismaMock.findMany.mock.calls[0]![0]
     expect(args.where?.AND).toBeUndefined()
   })
 
@@ -64,7 +64,7 @@ describe('UniversityRepository price filtering', () => {
 
     await repository.findAll(filters, 'ru')
 
-    const args = prismaMock.findMany.mock.calls[0][0]
+    const args = prismaMock.findMany.mock.calls[0]![0]
     expect(args.where?.AND?.[0]?.OR).toEqual([
       { tuitionMin: { lte: 3000 } },
       { tuitionMin: { equals: null } },
@@ -76,7 +76,7 @@ describe('UniversityRepository price filtering', () => {
 
     await repository.findAll(filters, 'ru')
 
-    const args = prismaMock.findMany.mock.calls[0][0]
+    const args = prismaMock.findMany.mock.calls[0]![0]
     expect(args.where?.AND?.[0]?.OR).toEqual([
       { tuitionMin: { lte: 2000 } },
       { tuitionMin: { equals: null } },
@@ -86,7 +86,7 @@ describe('UniversityRepository price filtering', () => {
   it('normalizes inverted ranges by swapping min and max', async () => {
     await repository.findAll({ price_min: 5000, price_max: 2000 }, 'ru')
 
-    const args = prismaMock.findMany.mock.calls[0][0]
+    const args = prismaMock.findMany.mock.calls[0]![0]
     expect(args.where?.AND?.[0]?.OR).toEqual([
       { tuitionMin: { lte: 5000 } },
       { tuitionMin: { equals: null } },

@@ -46,7 +46,8 @@ const pickByLocale = <T extends TranslationWithLocale>(
 }
 
 const resolveCategoryName = (category: CategoryWithTranslations, normalized: string): string => {
-  const translation = pickByLocale<FaqCategoryTranslation>(category?.translations, normalized)
+  if (!category) return ''
+  const translation = pickByLocale<FaqCategoryTranslation>(category.translations, normalized)
   return translation?.name || ''
 }
 

@@ -6,7 +6,7 @@ export const useReferral = () => {
     const cookies = document.cookie.split('; ').find((row) => row.startsWith('referral_code='))
 
     if (cookies) {
-      referralCode.value = cookies.split('=')[1]
+      referralCode.value = cookies.split('=')[1] || ''
     }
   })
 

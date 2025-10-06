@@ -768,7 +768,7 @@ async function runWithConcurrency(
         const i = index++
         if (i >= jobs.length) return
         try {
-          await jobs[i]()
+          await jobs[i]?.()
           await new Promise((r) => setTimeout(r, 250))
         } catch (e) {
           console.error('[JobError]', e)

@@ -1,5 +1,3 @@
-import { getCookie, sendRedirect } from 'h3'
-
 export default defineEventHandler((event) => {
   const query = getQuery(event)
   const refCode = typeof query.ref === 'string' ? query.ref : ''

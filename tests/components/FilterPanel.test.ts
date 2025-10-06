@@ -2,9 +2,16 @@ import { describe, it, expect, beforeEach, vi } from 'vitest'
 import { mount } from '@vue/test-utils'
 import { setActivePinia, createPinia } from 'pinia'
 import { nextTick } from 'vue'
-import FilterPanel from '~/components/features/universities/discovery/FilterPanel.vue'
-import BaseRangeSlider from '~/components/shared/BaseRangeSlider.vue'
+// @ts-ignore - Vue component type import in test
+import type FilterPanelType from '~/components/features/universities/discovery/FilterPanel.vue'
+// @ts-ignore - Vue component type import in test
+import type BaseRangeSliderType from '~/components/shared/BaseRangeSlider.vue'
 import { useUniversitiesStore } from '~/stores/universities'
+
+const FilterPanel = {} as typeof FilterPanelType
+const BaseRangeSlider = {} as typeof BaseRangeSliderType
+
+// @ts-ignore - Nuxt auto-imports
 
 const routerReplaceMock = vi.fn(() => Promise.resolve())
 const routerPushMock = vi.fn(() => Promise.resolve())
@@ -61,7 +68,7 @@ const mountFilterPanel = () =>
       config: {
         globalProperties: {
           $t: (key: string) => key,
-        } as unknown as Record<string, any>,
+        } as any,
       },
       stubs: {
         BaseTextField: {

@@ -2,6 +2,7 @@ import { defineNuxtConfig } from 'nuxt/config'
 import fs from 'node:fs'
 import path from 'node:path'
 import { SUPPORTED_LOCALES, DEFAULT_LOCALE } from './lib/locales'
+import { defineNuxtConfig } from 'nuxt/config'
 
 const siteUrl = process.env.NUXT_SITE_URL || 'https://edu-turkish.com'
 
@@ -39,12 +40,38 @@ export default defineNuxtConfig({
     },
   },
   modules: [
-    '@pinia/nuxt', 
-    '@nuxtjs/tailwindcss', 
-    '@nuxt/icon', 
-    '@nuxtjs/i18n', 
-    '@nuxt/fonts', 
-    '@nuxt/scripts', 
+    '@pinia/nuxt',
+    '@nuxt/eslint',
+    '@nuxtjs/tailwindcss',
+    ['@nuxt/icon', { collections: ['mdi', 'ph'] }],
+    [
+      '@nuxtjs/i18n',
+      {
+        // Used for generating absolute alternate/canonical links
+        baseUrl: siteUrl,
+        // Don't change this path, it is correct
+        langDir: 'locales',
+        locales: SUPPORTED_LOCALES.map(code => ({
+          code,
+          language: code === 'kk' ? 'kk-KZ' : code === 'ru' ? 'ru-RU' : code === 'en' ? 'en-US' : 'tr-TR',
+          files: getLocaleFiles(code),
+        })),
+        defaultLocale: DEFAULT_LOCALE,
+        detectBrowserLanguage: { useCookie: true, cookieKey: 'i18n_locale', redirectOn: 'root' },
+        // Missing-key config removed for compatibility
+        // Always prefix routes with locale (including default) for consistent SEO-friendly URLs
+        strategy: 'prefix',
+      },
+    ],
+    ['@nuxt/fonts', {
+      provider: isProduction ? 'google' : 'local',
+      defaults: {
+        fallbacks: {
+          'sans-serif': ['system-ui', 'Arial'],
+        },
+      },
+    }],
+    '@nuxt/scripts',
     [
       '@nuxt/image',
       {
@@ -60,16 +87,30 @@ export default defineNuxtConfig({
         },
         placeholder: true,
       },
-    ], 
-    '@nuxtjs/robots', 
-    '@nuxtjs/sitemap', 
-    'nuxt-swiper', 
-    '@nuxt/eslint'
+    ],
+    [
+      '@nuxtjs/robots',
+      {
+        enabled: true,
+        groups: [
+          {
+            userAgent: '*',
+            allow: '/',
+            disallow: '',
+          },
+        ],
+        sitemap: [`${siteUrl}/sitemap.xml`],
+      },
+    ],
+    [
+      '@nuxtjs/sitemap',
+      {
+        // Uses runtimeConfig.public.siteUrl implicitly
+        autoLastmod: true,
+      },
+    ],
+    ['nuxt-swiper', { bundled: true, enableComposables: true }],
   ],
-  swiper: {
-    bundled: true,
-    enableComposables: true,
-  },
   css: ['./app/assets/css/tailwind.css'],
   // Enhanced component auto-import configuration
   components: [
@@ -94,17 +135,6 @@ export default defineNuxtConfig({
       global: true,
     },
   ],
-  icon: {
-    collections: ['mdi', 'ph'],
-  },
-  fonts: {
-    provider: isProduction ? 'google' : 'local',
-    defaults: {
-      fallbacks: {
-        'sans-serif': ['system-ui', 'Arial'],
-      },
-    },
-  },
   app: {
     head: {
       // Let @nuxtjs/i18n manage the <html lang> attribute for correct SEO per-locale
@@ -142,21 +172,6 @@ export default defineNuxtConfig({
       directusUrl: process.env.NUXT_PUBLIC_DIRECTUS_URL || 'http://localhost:8055',
       yandexMetrikaId: process.env.NUXT_PUBLIC_YANDEX_METRIKA_ID || '',
     },
-  },
-  robots: {
-    enabled: true,
-    groups: [
-      {
-        userAgent: '*',
-        allow: '/',
-        disallow: '',
-      },
-    ],
-    sitemap: [`${siteUrl}/sitemap.xml`],
-  },
-  sitemap: {
-    // Uses runtimeConfig.public.siteUrl implicitly
-    autoLastmod: true,
   },
   nitro: {
     compressPublicAssets: true,
@@ -221,21 +236,5 @@ export default defineNuxtConfig({
         'x-robots-tag': 'index, follow',
       },
     },
-  },
-  i18n: {
-    // Used for generating absolute alternate/canonical links
-    baseUrl: siteUrl,
-    // Don't change this path, it is correct
-    langDir: 'locales',
-    locales: SUPPORTED_LOCALES.map(code => ({
-      code,
-      language: code === 'kk' ? 'kk-KZ' : code === 'ru' ? 'ru-RU' : code === 'en' ? 'en-US' : 'tr-TR',
-      files: getLocaleFiles(code),
-    })),
-    defaultLocale: DEFAULT_LOCALE,
-    detectBrowserLanguage: { useCookie: true, cookieKey: 'i18n_locale', redirectOn: 'root' },
-    // Missing-key config removed for compatibility
-    // Always prefix routes with locale (including default) for consistent SEO-friendly URLs
-    strategy: 'prefix',
   },
 })

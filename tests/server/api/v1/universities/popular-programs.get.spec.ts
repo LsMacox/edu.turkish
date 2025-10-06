@@ -175,7 +175,7 @@ describe('popular programs handler', () => {
     const result = await popularProgramsHandler({} as never)
 
     expect(mocks.studyDirectionFindMany).toHaveBeenCalled()
-    expect(mocks.studyDirectionFindMany.mock.calls[0][0]).toMatchObject({
+    expect(mocks.studyDirectionFindMany.mock.calls[0]![0]).toMatchObject({
       where: {
         translations: {
           some: {

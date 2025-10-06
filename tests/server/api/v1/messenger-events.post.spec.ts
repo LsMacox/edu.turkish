@@ -1,11 +1,5 @@
 import { beforeEach, describe, expect, it, vi } from 'vitest'
 
-declare global {
-  var defineEventHandler: <T>(handler: T) => T
-  var readBody: <T>(event: unknown) => Promise<T>
-  var createError: (input: unknown) => unknown
-}
-
 const readBodyMock = vi.fn()
 const logMessengerEventMock = vi.fn()
 const BitrixServiceMock = vi.fn(() => ({
@@ -32,9 +26,9 @@ beforeEach(() => {
   validateCrmConfigMock.mockReturnValue({ isValid: true, provider: 'bitrix', errors: [] as string[] })
 })
 
-globalThis.defineEventHandler = (<T>(handler: T) => handler) as any
-;(globalThis as any).readBody = readBodyMock
-;(globalThis as any).createError = (input: unknown) => input
+vi.stubGlobal('defineEventHandler', (<T>(handler: T) => handler) as any)
+vi.stubGlobal('readBody', readBodyMock)
+vi.stubGlobal('createError', (input: unknown) => input)
 
 describe('POST /api/v1/messenger-events', () => {
   it('requires referral code to be provided', async () => {

@@ -62,7 +62,11 @@ async function resolveUniversityBySlug(slug: string, locale?: string) {
     }
   }
 
-  const { universityId, locale: matchedLocale } = matches[0]
+  const match = matches[0]
+  if (!match) {
+    throw new Error('No match found')
+  }
+  const { universityId, locale: matchedLocale } = match
   return { id: universityId, matchedLocale, matchedSlug: slug }
 }
 

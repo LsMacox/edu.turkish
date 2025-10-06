@@ -1,11 +1,5 @@
 import { beforeEach, describe, expect, it, vi } from 'vitest'
 
-declare global {
-  var defineEventHandler: <T>(handler: T) => T
-  var getQuery: (event: unknown) => Record<string, unknown>
-  var createError: (input: unknown) => unknown
-}
-
 const getQueryMock = vi.fn()
 const repositoryInstance = {
   findAll: vi.fn(),
@@ -18,9 +12,9 @@ beforeEach(() => {
   UniversityRepositoryMock.mockClear()
 })
 
-globalThis.defineEventHandler = (<T>(handler: T) => handler) as any
-globalThis.getQuery = getQueryMock as any
-globalThis.createError = (input: unknown) => input
+vi.stubGlobal('defineEventHandler', (<T>(handler: T) => handler) as any)
+vi.stubGlobal('getQuery', getQueryMock)
+vi.stubGlobal('createError', (input: unknown) => input)
 
 vi.mock('../../../../../lib/prisma', () => ({
   prisma: {},

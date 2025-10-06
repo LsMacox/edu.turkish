@@ -41,7 +41,7 @@ function parseAcceptLanguageSimple(acceptLang: string): string[] {
     .split(',')
     .map((lang) => {
       const [code] = lang.trim().split(';')
-      return code.toLowerCase()
+      return code?.toLowerCase()
     })
-    .filter(Boolean)
+    .filter((code): code is string => Boolean(code))
 }

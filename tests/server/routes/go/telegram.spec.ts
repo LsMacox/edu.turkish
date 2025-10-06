@@ -1,44 +1,33 @@
 import { beforeEach, describe, expect, it, vi } from 'vitest'
 
-declare global {
-  var defineEventHandler: <T>(handler: T) => T
-  var getQuery: (event: unknown) => Record<string, unknown>
-  var createError: (input: unknown) => unknown
-  var $fetch: ReturnType<typeof vi.fn>
-}
-
 const getQueryMock = vi.fn()
 const fetchMock = vi.fn()
 
 vi.mock('h3', () => ({
   getRequestURL: vi.fn(() => new URL('https://example.com/go/telegram')),
+  getQuery: () => getQueryMock(),
+  defineEventHandler: <T>(handler: T) => handler,
+  createError: (input: unknown) => input,
 }))
 
-vi.mock(
-  '~~/lib/contact/channels',
-  () => ({
-    contactChannels: {
-      telegramBot: {
-        key: 'telegramBot',
-        type: 'personal',
-        baseUrl: 'https://t.me/example',
-        defaultCta: 'Contact us',
-      },
+vi.mock('~~/lib/contact/channels', () => ({
+  contactChannels: {
+    telegramBot: {
+      key: 'telegramBot',
+      type: 'personal',
+      baseUrl: 'https://t.me/example',
+      defaultCta: 'Contact us',
     },
-    primaryTelegramKey: 'telegramBot',
-  }),
-  { virtual: true },
-)
+  },
+  primaryTelegramKey: 'telegramBot',
+}))
+
+vi.stubGlobal('$fetch', fetchMock)
 
 beforeEach(() => {
   getQueryMock.mockReset()
   fetchMock.mockReset()
 })
-
-globalThis.defineEventHandler = (<T>(handler: T) => handler) as any
-globalThis.getQuery = getQueryMock as any
-globalThis.createError = (input: unknown) => input
-globalThis.$fetch = fetchMock as any
 
 describe('GET /go/telegram', () => {
   it('returns redirect HTML even when logging fails', async () => {
