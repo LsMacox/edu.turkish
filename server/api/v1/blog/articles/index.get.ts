@@ -1,6 +1,6 @@
 import { prisma } from '~~/lib/prisma'
 import { BlogRepository, FAQRepository } from '~~/server/repositories'
-import { calculatePagination } from '~~/server/utils/api-helpers'
+import { calculatePagination } from '~~/server/utils/api/pagination'
 import type { BlogArticlesResponse } from '~~/server/types/api'
 
 export default defineEventHandler(async (event): Promise<BlogArticlesResponse> => {

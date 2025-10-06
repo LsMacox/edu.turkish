@@ -1,6 +1,7 @@
 import { prisma } from '~~/lib/prisma'
 import { ReviewRepository } from '~~/server/repositories'
-import { parseReviewFilters, calculatePagination } from '~~/server/utils/api-helpers'
+import { calculatePagination } from '~~/server/utils/api/pagination'
+import { parseReviewFilters } from '~~/server/utils/api/reviews'
 import type { ReviewResponse, ReviewQueryParams } from '~~/server/types/api'
 
 export default defineEventHandler(async (event): Promise<ReviewResponse> => {
