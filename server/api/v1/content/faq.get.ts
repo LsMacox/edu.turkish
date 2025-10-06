@@ -1,7 +1,7 @@
 import { prisma } from '~~/lib/prisma'
 import { FAQRepository } from '~~/server/repositories'
 import type { FAQResponse } from '~~/server/types/api'
-import { parseFAQFilters } from '~~/server/utils/api-helpers'
+import { parseFAQFilters } from '~~/server/utils/faq-helpers'
 
 export default defineEventHandler(async (event): Promise<FAQResponse> => {
   try {

@@ -1,10 +1,7 @@
 import { describe, expect, it } from 'vitest'
 
-import {
-  calculatePagination,
-  parseFAQFilters,
-  parseReviewFilters,
-} from '~~/server/utils/api-helpers'
+import { calculatePagination, parseReviewFilters } from '~~/server/utils/api-helpers'
+import { parseFAQFilters } from '~~/server/utils/faq-helpers'
 
 describe('parseReviewFilters', () => {
   it('returns defaults for invalid pagination values', () => {
