@@ -2,7 +2,6 @@ import { defineNuxtConfig } from 'nuxt/config'
 import fs from 'node:fs'
 import path from 'node:path'
 import { SUPPORTED_LOCALES, DEFAULT_LOCALE } from './lib/locales'
-import { defineNuxtConfig } from 'nuxt/config'
 
 const siteUrl = process.env.NUXT_SITE_URL || 'https://edu-turkish.com'
 
