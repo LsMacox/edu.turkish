@@ -1,5 +1,5 @@
 import { defineStore } from 'pinia'
-import type { UniversityDetail, StudyDirection } from '~~/server/types/api'
+import type { UniversityDetail, UniversityStudyDirection } from '~~/server/types/api/universities'
 import type { DegreeType } from '~/types/domain'
 
 // Новые интерфейсы для фронтенда (совместимые со старыми компонентами)
@@ -49,7 +49,7 @@ export interface UniversityDetailFrontend {
     tr: string
   }
   // Новые поля
-  directions?: StudyDirection[]
+  directions?: UniversityStudyDirection[]
   campus_life?: {
     gallery: Array<{
       url: string

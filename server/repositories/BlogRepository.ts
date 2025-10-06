@@ -43,7 +43,7 @@ export class BlogRepository {
         .trim()
     } catch (error) {
       console.warn('[BlogRepository] Failed to format date', error)
-      return date.toISOString().split('T')[0]
+      return date.toISOString().split('T')[0]!
     }
   }
 

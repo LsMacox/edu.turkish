@@ -124,7 +124,7 @@ export class RedisQueue {
   async getQueueLength(): Promise<number> {
     this.ensureConnection()
     const counts = await this.queue!.getJobCounts('waiting', 'delayed', 'active')
-    return counts.waiting + counts.delayed + counts.active
+    return (counts.waiting ?? 0) + (counts.delayed ?? 0) + (counts.active ?? 0)
   }
 
   /**

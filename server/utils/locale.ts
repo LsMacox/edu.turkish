@@ -24,8 +24,8 @@ const LOCALE_TAGS: Record<string, string> = {
  */
 export function normalizeLocale(input?: string | null): NormalizedLocale {
   const base = (input ?? 'ru').toLowerCase()
-  const normalized = base.split(/[-_]/)[0]
-  const fallbacks = [normalized, 'ru'].filter((v, i, a) => a.indexOf(v) === i)
+  const normalized = base.split(/[-_]/)[0] ?? 'ru'
+  const fallbacks = [normalized, 'ru'].filter((v, i, a) => a.indexOf(v) === i) as string[]
 
   return {
     normalized,
@@ -38,7 +38,7 @@ export function normalizeLocale(input?: string | null): NormalizedLocale {
  * @example resolveLocaleTag('kk') // 'kk-KZ'
  */
 export function resolveLocaleTag(locale: string): string {
-  return LOCALE_TAGS[locale] ?? LOCALE_TAGS.ru
+  return LOCALE_TAGS[locale] ?? LOCALE_TAGS.ru ?? 'ru-RU'
 }
 
 /**

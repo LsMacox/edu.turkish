@@ -27,22 +27,22 @@ export class ApplicationRepository {
     })()
     const normalizedProgram = (() => {
       const programs = (
-        Array.isArray(data.preferences?.programs) ? (data.preferences?.programs ?? []) : []
+        Array.isArray(data.preferences?.programs) ? (data.preferences.programs ?? []) : []
       ).filter((program): program is string => typeof program === 'string' && program.trim() !== '')
       if (programs.length > 0) {
-        return programs[0].trim()
+        return programs[0]!.trim()
       }
       return normalizedEducationField
     })()
     const normalizedUniversity = (() => {
       const universities = (
-        Array.isArray(data.preferences?.universities) ? (data.preferences?.universities ?? []) : []
+        Array.isArray(data.preferences?.universities) ? (data.preferences.universities ?? []) : []
       ).filter(
         (university): university is string =>
           typeof university === 'string' && university.trim() !== '',
       )
       if (universities.length > 0) {
-        return universities[0].trim()
+        return universities[0]!.trim()
       }
       return null
     })()
@@ -226,7 +226,7 @@ export class ApplicationRepository {
       this.prisma.application.groupBy({
         by: ['status'],
         _count: { id: true },
-      }),
+      }) as any,
       this.prisma.application.count({
         where: {
           submittedAt: {
@@ -243,8 +243,8 @@ export class ApplicationRepository {
       rejected: 0,
     }
 
-    statusCounts.forEach((stat) => {
-      byStatus[stat.status as ApplicationStatus] = stat._count.id
+    statusCounts.forEach((stat: any) => {
+      byStatus[stat.status as ApplicationStatus] = stat._count?.id ?? 0
     })
 
     const successRate = totalCount > 0 ? (byStatus.approved / totalCount) * 100 : 0

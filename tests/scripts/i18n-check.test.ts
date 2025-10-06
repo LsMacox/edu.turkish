@@ -260,8 +260,8 @@ describe('findMissingKeys', () => {
     ])
     const result = findMissingKeys(localeKeySets)
     expect(result).toHaveLength(1)
-    expect(result[0].missingIn).toContain('ru')
-    expect(result[0].missingIn).toContain('kk')
+    expect(result[0]!.missingIn).toContain('ru')
+    expect(result[0]!.missingIn).toContain('kk')
   })
 
   it('should detect key only in one locale', () => {
@@ -271,8 +271,8 @@ describe('findMissingKeys', () => {
     ])
     const result = findMissingKeys(localeKeySets)
     expect(result).toHaveLength(1)
-    expect(result[0].presentIn).toEqual(['en'])
-    expect(result[0].missingIn).toContain('ru')
+    expect(result[0]!.presentIn).toEqual(['en'])
+    expect(result[0]!.missingIn).toContain('ru')
   })
 })
 

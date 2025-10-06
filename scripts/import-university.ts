@@ -471,7 +471,7 @@ async function replaceFeaturedPrograms(
       let programId = programIndex.get(normalizeKey(baseLocale, nameTrimmed))
       if (!programId) {
         const fallback = programTranslations.find(
-          (pt) => (pt.name || '').trim().toLowerCase() === nameTrimmed.toLowerCase(),
+          (pt: any) => (pt.name ?? '').trim().toLowerCase() === nameTrimmed.toLowerCase(),
         )
         if (fallback) {
           programId = fallback.programId
@@ -481,7 +481,7 @@ async function replaceFeaturedPrograms(
       // Fuzzy search: find by partial match (program name starts with the search term)
       if (!programId) {
         const fuzzyMatch = programTranslations.find(
-          (pt) => 
+          (pt: any) => 
             pt.locale === baseLocale && 
             (pt.name || '').trim().toLowerCase().startsWith(nameTrimmed.toLowerCase())
         )

@@ -80,7 +80,7 @@ const LEVEL_LABEL_MAP: Record<string, DegreeType> = {
 }
 
 const IMPORTANT_DATE_TYPE_MAP: Record<
-  Prisma.ImportantDateType,
+  string,
   UniversityImportantDate['deadline_type']
 > = {
   deadline: 'application',
@@ -150,7 +150,7 @@ export class UniversityRepository {
       tr: 'Öne Çıkan Programlar',
       kk: 'Таңдаулы бағдарламалар',
     }
-    const DEFAULT_CATEGORY = DEFAULT_CATEGORY_MAP[locale.normalized] || DEFAULT_CATEGORY_MAP.en
+    const DEFAULT_CATEGORY = DEFAULT_CATEGORY_MAP[locale.normalized] || DEFAULT_CATEGORY_MAP.en || 'Featured Program'
     const groups = new Map<
       string,
       {
@@ -169,7 +169,7 @@ export class UniversityRepository {
       const programName = (programTranslation?.name ?? '').trim()
       if (!programName) continue
 
-      const rawCategory = (translation?.label ?? '').trim()
+      const rawCategory = ((translation?.label as string | undefined) ?? '').trim()
       const category = rawCategory.length > 0 ? rawCategory : DEFAULT_CATEGORY
 
       const current = groups.get(category)
@@ -388,8 +388,8 @@ export class UniversityRepository {
       return undefined
     }
 
-    const entries = Object.entries(record).filter(([, v]): v is string => typeof v === 'string')
-    return entries.length > 0 ? Object.fromEntries(entries) : undefined
+    const entries = Object.entries(record).filter(([, v]) => typeof v === 'string')
+    return entries.length > 0 ? Object.fromEntries(entries) as Record<string, string> : undefined
   }
 
   private extractStringArray(value: Prisma.JsonValue | null | undefined): string[] {
@@ -496,8 +496,8 @@ export class UniversityRepository {
       return {
         id: date.id,
         event: translation?.event ?? '',
-        date: date.date.toISOString().split('T')[0],
-        deadline_type: IMPORTANT_DATE_TYPE_MAP[date.type],
+        date: date.date.toISOString().split('T')[0] ?? '',
+        deadline_type: IMPORTANT_DATE_TYPE_MAP[date.type] ?? 'application',
       }
     })
   }

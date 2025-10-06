@@ -66,11 +66,11 @@ describe('UniversityRepository.findAll', () => {
     const evaluate = (clause: Prisma.UniversityWhereInput): boolean => {
       const { AND, OR, ...direct } = clause
 
-      if (AND && !AND.every((inner) => evaluate(inner))) {
+      if (AND && Array.isArray(AND) && !AND.every((inner: any) => evaluate(inner))) {
         return false
       }
 
-      if (OR && !OR.some((inner) => evaluate(inner))) {
+      if (OR && Array.isArray(OR) && !OR.some((inner: any) => evaluate(inner))) {
         return false
       }
 
@@ -272,7 +272,7 @@ describe('UniversityRepository.findAll', () => {
     })
 
     expect(result.data).toHaveLength(1)
-    const university = result.data[0]
+    const university = result.data[0]!
     expect(university.title).toBe('Tech University')
     expect(university.city).toBe('Ankara')
     expect(university.tuitionRange).toEqual({ min: 1500, max: 5500, currency: 'USD' })
@@ -292,7 +292,7 @@ describe('UniversityRepository.findAll', () => {
     await repository.findAll(createParams({ price_min: 2000, price_max: 6000 }), 'ru')
 
     expect(findMany).toHaveBeenCalledTimes(1)
-    const where = findMany.mock.calls[0][0]?.where as Prisma.UniversityWhereInput
+    const where = findMany.mock.calls[0]![0]?.where as Prisma.UniversityWhereInput
 
     expect(where?.AND).toHaveLength(2)
 
@@ -319,7 +319,7 @@ describe('UniversityRepository.findAll', () => {
 
     await repository.findAll(createParams({ price_min: 3000, price_max: 8000 }), 'ru')
 
-    const where = findMany.mock.calls[0][0]?.where as Prisma.UniversityWhereInput
+    const where = findMany.mock.calls[0]![0]?.where as Prisma.UniversityWhereInput
 
     const openLower: TuitionRange = {
       tuitionMin: null,
@@ -360,12 +360,12 @@ describe('UniversityRepository.findAll', () => {
       'en',
     )
 
-    const where = findMany.mock.calls[0][0]?.where as Prisma.UniversityWhereInput
+    const where = findMany.mock.calls[0]![0]?.where as Prisma.UniversityWhereInput
 
     expect(where.type).toBe('state')
     expect(where.academicPrograms).toEqual({ some: { degreeType: 'master' } })
     expect(where.AND).toHaveLength(3)
-    expect(where.AND?.[2]).toEqual({
+    expect((where.AND as any)?.[2]).toEqual({
       academicPrograms: {
         some: {
           languageCode: {

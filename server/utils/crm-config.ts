@@ -26,11 +26,11 @@ export function getCRMConfig(): CRMProviderConfig {
   const crmConfig: CRMProviderConfig = {
     provider,
     baseUrl: provider === 'espocrm' 
-      ? config.espocrmUrl || 'http://espocrm:8080'
-      : config.bitrixWebhookUrl || '',
-    apiKey: provider === 'espocrm' ? config.espocrmApiKey : undefined,
-    webhookUrl: provider === 'bitrix' ? config.bitrixWebhookUrl : undefined,
-    accessToken: provider === 'bitrix' ? config.bitrixAccessToken : undefined,
+      ? (String(config.espocrmUrl) || 'http://espocrm:8080')
+      : (String(config.bitrixWebhookUrl) || ''),
+    apiKey: provider === 'espocrm' ? String(config.espocrmApiKey) : undefined,
+    webhookUrl: provider === 'bitrix' ? String(config.bitrixWebhookUrl) : undefined,
+    accessToken: provider === 'bitrix' ? String(config.bitrixAccessToken) : undefined,
     timeout: 30000,
     retries: 3,
     fieldMappings,

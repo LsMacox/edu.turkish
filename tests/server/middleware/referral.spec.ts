@@ -1,11 +1,5 @@
 import { afterAll, beforeEach, describe, expect, it, vi } from 'vitest'
 
-declare global {
-  var defineEventHandler: <T>(handler: T) => T
-  var getQuery: (event: unknown) => Record<string, unknown>
-  var setCookie: ReturnType<typeof vi.fn>
-}
-
 const getQueryMock = vi.fn()
 const setCookieMock = vi.fn()
 const sendRedirectMock = vi.fn()
@@ -30,12 +24,11 @@ beforeEach(() => {
   sendRedirectMock.mockReset()
   getCookieMock.mockReset()
   getCookieMock.mockReturnValue(undefined)
-
-  globalThis.defineEventHandler = (<T>(handler: T) => handler) as any
-  globalThis.getQuery = getQueryMock as any
-  globalThis.setCookie = setCookieMock as any
-  ;(globalThis as any).sendRedirect = sendRedirectMock
 })
+
+vi.stubGlobal('defineEventHandler', (<T>(handler: T) => handler) as any)
+vi.stubGlobal('getQuery', getQueryMock)
+vi.stubGlobal('setCookie', setCookieMock)
 
 afterAll(() => {
   process.env.NODE_ENV = originalNodeEnv

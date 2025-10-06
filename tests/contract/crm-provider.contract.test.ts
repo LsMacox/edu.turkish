@@ -10,14 +10,16 @@ import type { LeadData, ActivityData } from '~~/server/types/crm'
  */
 
 describe('CRM Provider Interface Contract', () => {
-  let bitrixProvider: ICRMProvider
-  let espocrmProvider: ICRMProvider
+  let bitrixProvider: ICRMProvider | undefined
+  let espocrmProvider: ICRMProvider | undefined
 
   beforeEach(() => {
     // These will be imported once implementations exist
     // For now, tests will fail as expected
     // bitrixProvider = new BitrixCRMProvider()
     // espocrmProvider = new EspoCRMProvider()
+    bitrixProvider = undefined
+    espocrmProvider = undefined
   })
 
   describe('createLead', () => {
@@ -34,7 +36,7 @@ describe('CRM Provider Interface Contract', () => {
 
     it('should create lead with all required fields - Bitrix', async () => {
       expect(bitrixProvider).toBeDefined()
-      const result = await bitrixProvider.createLead(validLeadData)
+      const result = await bitrixProvider!.createLead(validLeadData)
       expect(result.success).toBe(true)
       expect(result.id).toBeDefined()
       expect(result.provider).toBe('bitrix')
@@ -43,7 +45,7 @@ describe('CRM Provider Interface Contract', () => {
 
     it('should create lead with all required fields - EspoCRM', async () => {
       expect(espocrmProvider).toBeDefined()
-      const result = await espocrmProvider.createLead(validLeadData)
+      const result = await espocrmProvider!.createLead(validLeadData)
       expect(result.success).toBe(true)
       expect(result.id).toBeDefined()
       expect(result.provider).toBe('espocrm')
@@ -63,20 +65,20 @@ describe('CRM Provider Interface Contract', () => {
       }
 
       expect(bitrixProvider).toBeDefined()
-      const result = await bitrixProvider.createLead(leadWithOptionals)
+      const result = await bitrixProvider!.createLead(leadWithOptionals)
       expect(result.success).toBe(true)
     })
 
     it('should reject invalid email format', async () => {
       const invalidLead = { ...validLeadData, email: 'invalid-email' }
       expect(bitrixProvider).toBeDefined()
-      await expect(bitrixProvider.createLead(invalidLead)).rejects.toThrow()
+      await expect(bitrixProvider!.createLead(invalidLead)).rejects.toThrow()
     })
 
     it('should reject missing required fields', async () => {
       const incompleteLead = { firstName: 'Ivan' } as LeadData
       expect(bitrixProvider).toBeDefined()
-      await expect(bitrixProvider.createLead(incompleteLead)).rejects.toThrow()
+      await expect(bitrixProvider!.createLead(incompleteLead)).rejects.toThrow()
     })
 
     it('should handle CRM timeout gracefully', async () => {
@@ -89,7 +91,7 @@ describe('CRM Provider Interface Contract', () => {
   describe('updateLead', () => {
     it('should update existing lead - Bitrix', async () => {
       expect(bitrixProvider).toBeDefined()
-      const result = await bitrixProvider.updateLead('123', { 
+      const result = await bitrixProvider!.updateLead('123', { 
         firstName: 'Updated',
         phone: '+77009999999',
       })
@@ -99,7 +101,7 @@ describe('CRM Provider Interface Contract', () => {
 
     it('should update existing lead - EspoCRM', async () => {
       expect(espocrmProvider).toBeDefined()
-      const result = await espocrmProvider.updateLead('abc-123', { 
+      const result = await espocrmProvider!.updateLead('abc-123', { 
         firstName: 'Updated',
       })
       expect(result.success).toBe(true)
@@ -109,7 +111,7 @@ describe('CRM Provider Interface Contract', () => {
     it('should reject non-existent lead ID', async () => {
       expect(bitrixProvider).toBeDefined()
       await expect(
-        bitrixProvider.updateLead('non-existent-id', { firstName: 'Test' })
+        bitrixProvider!.updateLead('non-existent-id', { firstName: 'Test' })
       ).rejects.toThrow()
     })
 
@@ -131,28 +133,28 @@ describe('CRM Provider Interface Contract', () => {
 
     it('should log messenger click event - Bitrix', async () => {
       expect(bitrixProvider).toBeDefined()
-      const result = await bitrixProvider.logActivity(validActivityData)
+      const result = await bitrixProvider!.logActivity(validActivityData)
       expect(result.success).toBe(true)
       expect(result.operation).toBe('logActivity')
     })
 
     it('should log messenger click event - EspoCRM', async () => {
       expect(espocrmProvider).toBeDefined()
-      const result = await espocrmProvider.logActivity(validActivityData)
+      const result = await espocrmProvider!.logActivity(validActivityData)
       expect(result.success).toBe(true)
       expect(result.operation).toBe('logActivity')
     })
 
     it('should log event with UTM parameters', async () => {
       expect(bitrixProvider).toBeDefined()
-      const result = await bitrixProvider.logActivity(validActivityData)
+      const result = await bitrixProvider!.logActivity(validActivityData)
       expect(result.success).toBe(true)
     })
 
     it('should reject invalid channel', async () => {
-      const invalidActivity = { ...validActivityData, channel: 'invalid' } as ActivityData
+      const invalidActivity = { ...validActivityData, channel: 'invalid' as any }
       expect(bitrixProvider).toBeDefined()
-      await expect(bitrixProvider.logActivity(invalidActivity)).rejects.toThrow()
+      await expect(bitrixProvider!.logActivity(invalidActivity)).rejects.toThrow()
     })
 
     it('should handle CRM timeout gracefully', async () => {
@@ -170,22 +172,22 @@ describe('CRM Provider Interface Contract', () => {
 
     it('should create minimal lead from messenger click - Bitrix', async () => {
       expect(bitrixProvider).toBeDefined()
-      const result = await bitrixProvider.createMinimalLeadFromActivity(activityData)
+      const result = await bitrixProvider!.createMinimalLeadFromActivity(activityData)
       expect(result.success).toBe(true)
       expect(result.operation).toBe('createMinimalLeadFromActivity')
     })
 
     it('should create minimal lead from messenger click - EspoCRM', async () => {
       expect(espocrmProvider).toBeDefined()
-      const result = await espocrmProvider.createMinimalLeadFromActivity(activityData)
+      const result = await espocrmProvider!.createMinimalLeadFromActivity(activityData)
       expect(result.success).toBe(true)
     })
 
     it('should reject missing referral code', async () => {
-      const invalidActivity = { channel: 'telegram' } as ActivityData
+      const invalidActivity = { channel: 'telegramBot' } as ActivityData
       expect(bitrixProvider).toBeDefined()
       await expect(
-        bitrixProvider.createMinimalLeadFromActivity(invalidActivity)
+        bitrixProvider!.createMinimalLeadFromActivity(invalidActivity)
       ).rejects.toThrow()
     })
   })
@@ -193,13 +195,13 @@ describe('CRM Provider Interface Contract', () => {
   describe('testConnection', () => {
     it('should return true for valid credentials - Bitrix', async () => {
       expect(bitrixProvider).toBeDefined()
-      const result = await bitrixProvider.testConnection()
+      const result = await bitrixProvider!.testConnection()
       expect(result).toBe(true)
     })
 
     it('should return true for valid credentials - EspoCRM', async () => {
       expect(espocrmProvider).toBeDefined()
-      const result = await espocrmProvider.testConnection()
+      const result = await espocrmProvider!.testConnection()
       expect(result).toBe(true)
     })
 
@@ -217,12 +219,12 @@ describe('CRM Provider Interface Contract', () => {
   describe('providerName property', () => {
     it('should return correct provider name - Bitrix', () => {
       expect(bitrixProvider).toBeDefined()
-      expect(bitrixProvider.providerName).toBe('bitrix')
+      expect(bitrixProvider!.providerName).toBe('bitrix')
     })
 
     it('should return correct provider name - EspoCRM', () => {
       expect(espocrmProvider).toBeDefined()
-      expect(espocrmProvider.providerName).toBe('espocrm')
+      expect(espocrmProvider!.providerName).toBe('espocrm')
     })
   })
 })

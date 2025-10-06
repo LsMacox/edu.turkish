@@ -123,9 +123,9 @@ export default defineEventHandler(async (event): Promise<ApplicationResponse> =>
     return {
       ...application,
       crm: {
-        provider: crmProvider,
-        leadId: crmLeadId,
-        error: crmError,
+        provider: crmProvider ?? null,
+        leadId: crmLeadId ?? null,
+        error: crmError ?? null,
       },
     }
   } catch (error: any) {

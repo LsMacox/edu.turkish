@@ -36,7 +36,7 @@ export default defineEventHandler(async (event): Promise<UniversityDetail | null
     }
 
     return university
-  } catch (error) {
+  } catch (error: any) {
     if (error.statusCode) {
       throw error
     }

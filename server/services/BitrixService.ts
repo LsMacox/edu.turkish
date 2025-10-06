@@ -194,6 +194,7 @@ export class BitrixService {
 
       const lead: BitrixLead = {
         TITLE: `Lead from ${sanitizedPayload.channel} click`,
+        NAME: sanitizedPayload.channel,
         SOURCE_ID: 'WEB',
         SOURCE_DESCRIPTION: `Referral: ${sanitizedPayload.referralCode}`,
         COMMENTS: JSON.stringify({ utm, session, metadata }),

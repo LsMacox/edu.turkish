@@ -78,7 +78,7 @@ describe('BitrixService helper methods', () => {
     it('omits empty contact fields', () => {
       const service = createService()
       const application = createApplication({
-        personal_info: { phone: '', email: '' },
+        personal_info: { first_name: '', last_name: '', phone: '', email: '' },
       })
 
       const contact = (service as any).collectContactData(application)

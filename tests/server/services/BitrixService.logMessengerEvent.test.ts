@@ -46,20 +46,25 @@ describe('BitrixService.logMessengerEvent', () => {
       utm: {
         utm_source: ' Google ',
         utm_medium: '',
-        utm_term: 42,
-      } as unknown as Record<string, unknown>,
+        utm_campaign: '',
+        utm_content: '',
+        utm_term: '',
+      },
       metadata: {
         page: ' /contact ',
+        section: '',
+        component: '',
+        campaign: '',
+        referrer: '',
         notes: '  custom note  ',
-        other: 'value',
-      } as unknown as Record<string, unknown>,
+      },
     })
 
     expect(result).toEqual({ success: true, activityId: 321 })
     expect(fetchMock).toHaveBeenCalledTimes(1)
 
-    const [, requestInit] = fetchMock.mock.calls[0]
-    const body = JSON.parse((requestInit as RequestInit).body as string)
+    const [, requestInit] = fetchMock.mock.calls[0] as unknown as [string, RequestInit]
+    const body = JSON.parse(requestInit.body as string)
 
     expect(body.fields.SUBJECT).toBe('Messenger click: telegram')
     expect(body.fields.COMMUNICATIONS).toEqual([{ TYPE: 'IM', VALUE: 'telegram' }])
@@ -87,7 +92,8 @@ describe('BitrixService.logMessengerEvent', () => {
     const result = await service.logMessengerEvent({
       channel: '',
       referralCode: '',
-    } as unknown as Record<string, unknown>)
+      session: '',
+    })
 
     expect(result.success).toBe(false)
     expect(result.error).toBe('Invalid messenger event payload')

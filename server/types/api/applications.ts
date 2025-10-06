@@ -43,8 +43,9 @@ export interface ApplicationResponse {
   status: 'submitted' | 'processing' | 'approved' | 'rejected'
   submitted_at: string
   tracking_code: string
-  bitrix?: {
-    leadId: number | null
+  crm?: {
+    provider: string | null
+    leadId: string | number | null
     error: string | null
   }
 }

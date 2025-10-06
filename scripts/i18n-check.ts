@@ -227,6 +227,7 @@ export function scanSourceFileForKeys(filePath: string): Set<string> {
     let match
     while ((match = callRegex.exec(content)) !== null) {
       const key = match[1]
+      if (!key) continue
       keys.add(key)
       
       // If this looks like a pluralization base key, mark it for plural expansion
@@ -242,7 +243,7 @@ export function scanSourceFileForKeys(filePath: string): Set<string> {
     const propRegex = /\b(title|text|label|placeholder|ariaLabel|aria_label)\s*:\s*['"`]([^'"`]+)['"`]/g
     while ((match = propRegex.exec(content)) !== null) {
       const key = match[2]
-      if (key.includes('.')) {
+      if (key && key.includes('.')) {
         keys.add(key)
       }
     }
@@ -254,7 +255,7 @@ export function scanSourceFileForKeys(filePath: string): Set<string> {
     while ((match = mapValueRegex.exec(content)) !== null) {
       const key = match[1]
       // Only consider it if it looks like a translation key (has at least 2 dots)
-      if (key.split('.').length >= 3) {
+      if (key && key.split('.').length >= 3) {
         keys.add(key)
       }
     }
@@ -265,6 +266,7 @@ export function scanSourceFileForKeys(filePath: string): Set<string> {
     const tmplCallRegex = /\b(?:t|te|tm|\$t|translate)\s*\(\s*`([^`]+)`/g
     while ((match = tmplCallRegex.exec(content)) !== null) {
       const tmpl = match[1]
+      if (!tmpl) continue
       
       // If template contains ${...}, extract the prefix and try to find possible values
       if (tmpl.includes('${')) {
@@ -284,7 +286,8 @@ export function scanSourceFileForKeys(filePath: string): Set<string> {
           for (const pattern of valuePatterns) {
             let valueMatch
             while ((valueMatch = pattern.exec(content)) !== null) {
-              values.add(valueMatch[1])
+              const val = valueMatch[1]
+              if (val) values.add(val)
             }
           }
           
@@ -301,6 +304,7 @@ export function scanSourceFileForKeys(filePath: string): Set<string> {
     const baseKeyPattern = /\bbaseKey\s*=\s*['"]([a-zA-Z0-9_.]+)['"]/g
     while ((match = baseKeyPattern.exec(content)) !== null) {
       const baseKey = match[1]
+      if (!baseKey) continue
       // Mark this as a pluralization base key
       keys.add(baseKey)
       keys.add(`__plural_base__:${baseKey}`)
@@ -312,6 +316,7 @@ export function scanSourceFileForKeys(filePath: string): Set<string> {
     const tmObjectRegex = /\btm\s*\(\s*['"`]([^'"`]+)['"`]\s*\)/g
     while ((match = tmObjectRegex.exec(content)) !== null) {
       const baseKey = match[1]
+      if (!baseKey) continue
       
       // Add the base key - this will be expanded to include nested keys
       // by checking what actually exists in the locale files
@@ -757,13 +762,14 @@ export function removeKeyFromObject(obj: any, keyPath: string): boolean {
     current = current[part]
   }
   
-  if (lastKey in current) {
+  if (lastKey && lastKey in current) {
     delete current[lastKey]
     
     // Clean up empty parent objects
     let parent = obj
     for (let i = 0; i < parts.length - 1; i++) {
-      parent = parent[parts[i]]
+      const part = parts[i]
+      if (part) parent = parent[part]
     }
     
     if (parts.length > 0) {
