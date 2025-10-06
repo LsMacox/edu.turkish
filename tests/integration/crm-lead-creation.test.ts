@@ -25,7 +25,6 @@ describe('CRM Lead Creation Integration', () => {
       source: 'university_detail',
       userType: 'student',
       language: 'turkish',
-      fieldOfStudy: 'Computer Science',
       universities: ['Bogazici', 'METU'],
       scholarship: 'yes',
       utm: {

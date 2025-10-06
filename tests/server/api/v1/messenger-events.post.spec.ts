@@ -11,16 +11,16 @@ const logMessengerEventMock = vi.fn()
 const BitrixServiceMock = vi.fn(() => ({
   logMessengerEvent: logMessengerEventMock,
 }))
-const getBitrixConfigMock = vi.fn(() => ({ domain: 'example.com', accessToken: 'token' }))
-const validateBitrixConfigMock = vi.fn(() => true)
+const getBitrixConfigMock = vi.fn(() => ({ domain: 'example.com', accessToken: 'token', webhookUrl: 'https://example.bitrix24.com/rest/1/token' }))
+const validateCrmConfigMock = vi.fn(() => ({ isValid: true, provider: 'bitrix', errors: [] as string[] }))
 
 vi.mock('../../../../server/services/BitrixService', () => ({
   BitrixService: BitrixServiceMock,
 }))
 
-vi.mock('../../../../server/utils/bitrix-config', () => ({
+vi.mock('../../../../server/utils/crm-config', () => ({
   getBitrixConfig: getBitrixConfigMock,
-  validateBitrixConfig: validateBitrixConfigMock,
+  validateCrmConfig: validateCrmConfigMock,
 }))
 
 beforeEach(() => {
@@ -28,8 +28,8 @@ beforeEach(() => {
   logMessengerEventMock.mockReset()
   BitrixServiceMock.mockClear()
   getBitrixConfigMock.mockClear()
-  validateBitrixConfigMock.mockClear()
-  validateBitrixConfigMock.mockReturnValue(true)
+  validateCrmConfigMock.mockClear()
+  validateCrmConfigMock.mockReturnValue({ isValid: true, provider: 'bitrix', errors: [] as string[] })
 })
 
 globalThis.defineEventHandler = (<T>(handler: T) => handler) as any
@@ -114,14 +114,14 @@ describe('POST /api/v1/messenger-events', () => {
       referral_code: 'ref-123',
     })
 
-    validateBitrixConfigMock.mockReturnValue(false)
+    validateCrmConfigMock.mockReturnValue({ isValid: false, provider: 'bitrix', errors: ['Config missing'] })
 
     const handlerModule = await import('../../../../server/api/v1/messenger-events.post')
     const handler = handlerModule.default
 
     await expect(handler({} as any)).rejects.toMatchObject({
       statusCode: 503,
-      statusMessage: 'Bitrix integration is not configured',
+      statusMessage: 'CRM integration is not configured',
     })
 
     expect(BitrixServiceMock).not.toHaveBeenCalled()

@@ -1,3 +1,4 @@
+import { defineNuxtConfig } from 'nuxt/config'
 import fs from 'node:fs'
 import path from 'node:path'
 import { SUPPORTED_LOCALES, DEFAULT_LOCALE } from './lib/locales'
@@ -38,13 +39,12 @@ export default defineNuxtConfig({
     },
   },
   modules: [
-    '@pinia/nuxt',
-    '@nuxt/eslint',
-    '@nuxtjs/tailwindcss',
-    '@nuxt/icon',
-    '@nuxtjs/i18n',
-    '@nuxt/fonts',
-    '@nuxt/scripts',
+    '@pinia/nuxt', 
+    '@nuxtjs/tailwindcss', 
+    '@nuxt/icon', 
+    '@nuxtjs/i18n', 
+    '@nuxt/fonts', 
+    '@nuxt/scripts', 
     [
       '@nuxt/image',
       {
@@ -60,10 +60,11 @@ export default defineNuxtConfig({
         },
         placeholder: true,
       },
-    ],
-    '@nuxtjs/robots',
-    '@nuxtjs/sitemap',
-    'nuxt-swiper',
+    ], 
+    '@nuxtjs/robots', 
+    '@nuxtjs/sitemap', 
+    'nuxt-swiper', 
+    '@nuxt/eslint'
   ],
   swiper: {
     bundled: true,
@@ -136,19 +137,6 @@ export default defineNuxtConfig({
     },
   },
   runtimeConfig: {
-    directusStaticToken: process.env.DIRECTUS_STATIC_TOKEN || '',
-    // CRM Configuration
-    crmProvider: process.env.NUXT_CRM_PROVIDER || process.env.CRM_PROVIDER || 'espocrm',
-    // Bitrix
-    bitrixWebhookUrl: process.env.NUXT_BITRIX_WEBHOOK_URL || process.env.BITRIX_WEBHOOK_URL || '',
-    bitrixAccessToken: process.env.NUXT_BITRIX_ACCESS_TOKEN || process.env.BITRIX_ACCESS_TOKEN || '',
-    // EspoCRM
-    espocrmUrl: process.env.NUXT_ESPOCRM_URL || process.env.ESPOCRM_URL || 'http://espocrm',
-    espocrmApiKey: process.env.NUXT_ESPOCRM_API_KEY || process.env.ESPOCRM_API_KEY || '',
-    // Redis
-    redisHost: process.env.NUXT_REDIS_HOST || process.env.REDIS_HOST || 'localhost',
-    redisPort: process.env.NUXT_REDIS_PORT || process.env.REDIS_PORT || '6379',
-    redisPassword: process.env.NUXT_REDIS_PASSWORD || process.env.REDIS_PASSWORD || '',
     public: {
       siteUrl,
       directusUrl: process.env.NUXT_PUBLIC_DIRECTUS_URL || 'http://localhost:8055',

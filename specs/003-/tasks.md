@@ -151,8 +151,8 @@ This refactoring standardizes import aliases across ~150 TypeScript/Vue files to
   - Replace `../../../../app/types/` with `~/types/`
   - Verify endpoints work
 
-- [ ] **T022** [P] Migrate server API endpoints - statistics, messenger, bitrix
-  - Files: `server/api/v1/statistics.get.ts`, `server/api/v1/messenger-events.post.ts`, `server/api/v1/bitrix/preview.post.ts`, `server/api/v1/bitrix/test.get.ts`
+- [ ] **T022** [P] Migrate server API endpoints - statistics, messenger
+  - Files: `server/api/v1/statistics.get.ts`, `server/api/v1/messenger-events.post.ts`
   - Replace relative imports with appropriate aliases
   - Verify endpoints work
 

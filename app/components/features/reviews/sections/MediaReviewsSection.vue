@@ -80,13 +80,15 @@
 </template>
 
 <script setup lang="ts">
-import { useI18n } from 'vue-i18n'
 import { useFetch } from '#app'
 import { Autoplay, Navigation, Pagination } from 'swiper/modules'
 import { Swiper, SwiperSlide } from 'swiper/vue'
+const { locale } = useI18n()
+
 import 'swiper/css'
 import 'swiper/css/navigation'
 import 'swiper/css/pagination'
+
 interface MediaReview {
   id: number
   type: string
@@ -103,7 +105,6 @@ interface MediaReview {
   imageUrl: string | null
 }
 
-const { locale } = useI18n()
 const activeIndex = ref<number | null>(null)
 
 // Fetch media reviews from API

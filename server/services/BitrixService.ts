@@ -1,5 +1,5 @@
 import type { ApplicationRequest, UserPreferencesDTO } from '~~/server/types/api'
-import { getBitrixApiUrl, getBitrixActivityConfig } from '~~/server/utils/bitrix-config'
+import { parsePositiveInt } from '~~/lib/number'
 import {
   messengerEventPayloadSchema,
   type MessengerEventMetadata,
@@ -7,6 +7,7 @@ import {
   type MessengerEventUtm,
   type SanitizedMessengerEventPayload,
 } from './bitrix.dto'
+import { hasUtmValues } from '~~/server/utils/utm'
 
 export interface BitrixLead {
   TITLE: string
@@ -32,6 +33,12 @@ export interface BitrixConfig {
   domain: string
   accessToken: string
   webhookUrl?: string
+}
+
+export interface BitrixActivityConfig {
+  ownerId?: number
+  ownerTypeId?: number
+  responsibleId?: number
 }
 
 interface BitrixActivityCommunication {
@@ -69,21 +76,36 @@ const hasMetadataValues = (
   )
 }
 
-const hasUtmValues = (utm?: MessengerEventUtm): utm is MessengerEventUtm => {
-  if (!utm) {
-    return false
-  }
-
-  return Boolean(
-    utm.utm_source || utm.utm_medium || utm.utm_campaign || utm.utm_content || utm.utm_term,
-  )
-}
+// use parsePositiveInt from shared number utils
 
 export class BitrixService {
   private config: BitrixConfig
 
   constructor(config: BitrixConfig) {
     this.config = config
+  }
+
+  /**
+   * Build Bitrix API URL for a given method
+   */
+  private getBitrixApiUrl(method: string): string {
+    const { webhookUrl } = this.config
+    if (webhookUrl) {
+      const trimmed = webhookUrl.replace(/\/$/, '')
+      return `${trimmed}/${method}.json`
+    }
+    throw new Error('Bitrix webhookUrl is required')
+  }
+
+  /**
+   * Get Bitrix activity configuration from environment variables
+   */
+  private getBitrixActivityConfig(): BitrixActivityConfig {
+    return {
+      ownerId: parsePositiveInt(process.env.BITRIX_ACTIVITY_OWNER_ID),
+      ownerTypeId: parsePositiveInt(process.env.BITRIX_ACTIVITY_OWNER_TYPE_ID),
+      responsibleId: parsePositiveInt(process.env.BITRIX_ACTIVITY_RESPONSIBLE_ID),
+    }
   }
 
   private async fetchWithTimeout(
@@ -123,7 +145,7 @@ export class BitrixService {
     try {
       const lead = this.transformApplicationToLead(applicationData)
 
-      const url = getBitrixApiUrl('crm.lead.add')
+      const url = this.getBitrixApiUrl('crm.lead.add')
 
       const response = await this.fetchWithTimeout(url, {
         method: 'POST',
@@ -194,13 +216,14 @@ export class BitrixService {
 
       const lead: BitrixLead = {
         TITLE: `Lead from ${sanitizedPayload.channel} click`,
+        NAME: 'Lead',
         SOURCE_ID: 'WEB',
         SOURCE_DESCRIPTION: `Referral: ${sanitizedPayload.referralCode}`,
         COMMENTS: JSON.stringify({ utm, session, metadata }),
         UF_CRM_REFERRAL_CODE: sanitizedPayload.referralCode,
       }
 
-      const url = getBitrixApiUrl('crm.lead.add')
+      const url = this.getBitrixApiUrl('crm.lead.add')
 
       const response = await this.fetchWithTimeout(url, {
         method: 'POST',
@@ -265,7 +288,7 @@ export class BitrixService {
       const utm = hasUtmValues(sanitizedPayload.utm) ? sanitizedPayload.utm : undefined
       const session = sanitizedPayload.session ?? undefined
 
-      const url = getBitrixApiUrl('crm.activity.add')
+      const url = this.getBitrixApiUrl('crm.activity.add')
 
       const descriptionLines = [
         `Channel: ${sanitizedPayload.channel}`,
@@ -301,7 +324,7 @@ export class BitrixService {
         ],
       }
 
-      const activityConfig = getBitrixActivityConfig()
+      const activityConfig = this.getBitrixActivityConfig()
 
       if (activityConfig.ownerId) {
         fields.OWNER_ID = activityConfig.ownerId
@@ -356,7 +379,7 @@ export class BitrixService {
    */
   async getLead(leadId: number): Promise<any> {
     try {
-      const url = getBitrixApiUrl('crm.lead.get')
+      const url = this.getBitrixApiUrl('crm.lead.get')
 
       const response = await this.fetchWithTimeout(url, {
         method: 'POST',
@@ -395,7 +418,7 @@ export class BitrixService {
    */
   async updateLead(leadId: number, fields: Partial<BitrixLead>): Promise<boolean> {
     try {
-      const url = getBitrixApiUrl('crm.lead.update')
+      const url = this.getBitrixApiUrl('crm.lead.update')
 
       const response = await this.fetchWithTimeout(url, {
         method: 'POST',
@@ -538,14 +561,8 @@ export class BitrixService {
     const explicitPrograms: string[] = Array.isArray(applicationData.preferences?.programs)
       ? (applicationData.preferences?.programs || []).filter((p) => !!p && p.trim() !== '')
       : []
-    const directionField: string | undefined =
-      applicationData.education?.field && applicationData.education.field !== 'Не указано'
-        ? applicationData.education.field
-        : undefined
-    const unifiedPrograms: string[] =
-      explicitPrograms.length > 0 ? explicitPrograms : directionField ? [directionField] : []
-    if (unifiedPrograms.length > 0) {
-      comments.push(`Интересующие программы: ${unifiedPrograms.join(', ')}`)
+    if (explicitPrograms.length > 0) {
+      comments.push(`Интересующие программы: ${explicitPrograms.join(', ')}`)
     }
 
     if (applicationData.additional_info && applicationData.additional_info.trim()) {
@@ -615,13 +632,8 @@ export class BitrixService {
     const programsForLead: string[] = Array.isArray(applicationData.preferences?.programs)
       ? (applicationData.preferences?.programs || []).filter((p) => !!p && p.trim() !== '')
       : []
-    const directionForLead: string | undefined =
-      applicationData.education?.field && applicationData.education.field !== 'Не указано'
-        ? applicationData.education.field
-        : undefined
-    const chosenDirection = programsForLead.length > 0 ? programsForLead[0] : directionForLead
-    if (chosenDirection) {
-      customFields.UF_CRM_1234567896 = chosenDirection
+    if (programsForLead.length > 0) {
+      customFields.UF_CRM_1234567896 = programsForLead[0]
     }
 
     if (
@@ -632,51 +644,5 @@ export class BitrixService {
     }
 
     return customFields
-  }
-
-  /**
-   * Превью данных лида (для тестирования)
-   */
-  previewLead(applicationData: ApplicationRequest): BitrixLead {
-    return this.transformApplicationToLead(applicationData)
-  }
-
-  /**
-   * Проверка подключения к Bitrix
-   */
-  async testConnection(): Promise<{ success: boolean; error?: string }> {
-    try {
-      const url = getBitrixApiUrl('crm.lead.fields')
-
-      const response = await this.fetchWithTimeout(url, {
-        method: 'GET',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        timeoutMs: 12000,
-        retries: 1,
-      })
-
-      if (!response.ok) {
-        const text = await response.text().catch(() => '')
-        throw new Error(
-          `HTTP error! status: ${response.status}${text ? ` | body: ${text.slice(0, 200)}` : ''}`,
-        )
-      }
-
-      const result = await response.json()
-
-      if (result.error) {
-        throw new Error(result.error_description || result.error)
-      }
-
-      return { success: true }
-    } catch (error: any) {
-      console.error('Error testing Bitrix connection:', error)
-      return {
-        success: false,
-        error: error.message,
-      }
-    }
   }
 }

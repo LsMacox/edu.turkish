@@ -16,14 +16,6 @@ export interface ApplicationRequest {
     city?: string
     birth_date?: string
   }
-  education: {
-    level: string
-    field: string
-    institution?: string
-    school_name?: string
-    graduation_year?: number
-    gpa?: number
-  }
   preferences: {
     universities?: string[]
     programs?: string[]
@@ -43,8 +35,9 @@ export interface ApplicationResponse {
   status: 'submitted' | 'processing' | 'approved' | 'rejected'
   submitted_at: string
   tracking_code: string
-  bitrix?: {
-    leadId: number | null
+  crm?: {
+    provider: string | null
+    leadId: string | number | null
     error: string | null
   }
 }

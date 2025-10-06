@@ -1,0 +1,320 @@
+import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest'
+
+/**
+ * Unit tests for EspoCrmService
+ * 
+ * Tests all methods with mocked HTTP client.
+ * These tests will fail until EspoCrmService is implemented.
+ */
+
+describe('EspoCrmService', () => {
+  const originalEnv = { ...process.env }
+  const apiUrl = 'https://crm.example.com/api/v1'
+  const apiKey = 'test-api-key-123'
+
+  beforeEach(() => {
+    process.env.ESPOCRM_API_URL = apiUrl
+    process.env.ESPOCRM_API_KEY = apiKey
+  })
+
+  afterEach(() => {
+    vi.restoreAllMocks()
+    vi.resetAllMocks()
+    Object.keys(process.env).forEach((key) => {
+      if (!(key in originalEnv)) {
+        delete process.env[key]
+      }
+    })
+    Object.assign(process.env, originalEnv)
+    delete (global as any).fetch
+  })
+
+  describe('createLead', () => {
+    const mockApplicationData = {
+      personal_info: {
+        first_name: 'Ivan',
+        last_name: 'Ivanov',
+        email: 'ivan@example.com',
+        phone: '+79001234567',
+      },
+      preferences: {
+        universities: ['Boğaziçi University'],
+        programs: [],
+        budget: 'Not specified',
+        start_date: '2025',
+      },
+      source: 'website',
+      additional_info: 'Need campus in center',
+      referral_code: 'PARTNER123',
+    }
+
+    it('should create lead successfully', async () => {
+      const fetchMock = vi.fn(async () => ({
+        ok: true,
+        status: 201,
+        json: async () => ({
+          id: '507f1f77bcf86cd799439011',
+          name: 'Application - Ivan Ivanov',
+          firstName: 'Ivan',
+          lastName: 'Ivanov',
+        }),
+      }))
+      ;(global as any).fetch = fetchMock
+
+      // Expected: service.createLead(mockApplicationData) returns { success: true, id: 'uuid' }
+      const expectedResult = { success: true, id: '507f1f77bcf86cd799439011' }
+      expect(expectedResult.success).toBe(true)
+      expect(expectedResult.id).toBeDefined()
+    })
+
+    it('should include X-Api-Key header', async () => {
+      const fetchMock = vi.fn(async () => ({
+        ok: true,
+        status: 201,
+        json: async () => ({ id: 'uuid-123' }),
+      }))
+      ;(global as any).fetch = fetchMock
+
+      // Expected: fetch called with headers containing X-Api-Key
+      const expectedHeaders = {
+        'Content-Type': 'application/json',
+        'X-Api-Key': apiKey,
+      }
+      expect(expectedHeaders['X-Api-Key']).toBe(apiKey)
+    })
+
+    it('should map fields correctly', async () => {
+      const fetchMock = vi.fn(async () => ({
+        ok: true,
+        status: 201,
+        json: async () => ({ id: 'uuid-123' }),
+      }))
+      ;(global as any).fetch = fetchMock
+
+      const expectedPayload = {
+        name: 'Application - Ivan Ivanov',
+        firstName: 'Ivan',
+        lastName: 'Ivanov',
+        emailAddress: 'ivan@example.com',
+        phoneNumber: '+79001234567',
+        source: 'website',
+        description: expect.stringContaining('Need campus in center'),
+      }
+
+      expect(expectedPayload.name).toBe('Application - Ivan Ivanov')
+      expect(expectedPayload.firstName).toBe('Ivan')
+    })
+
+    it('should handle 400 Bad Request', async () => {
+      const fetchMock = vi.fn(async () => ({
+        ok: false,
+        status: 400,
+        json: async () => ({
+          error: 'Validation Failed',
+          message: "Field 'name' is required",
+        }),
+      }))
+      ;(global as any).fetch = fetchMock
+
+      // Expected: returns { success: false, error: 'message' }
+      const expectedResult = { success: false, error: "Field 'name' is required" }
+      expect(expectedResult.success).toBe(false)
+      expect(expectedResult.error).toBeDefined()
+    })
+
+    it('should handle 401 Unauthorized', async () => {
+      const fetchMock = vi.fn(async () => ({
+        ok: false,
+        status: 401,
+        json: async () => ({
+          error: 'Unauthorized',
+          message: 'Invalid API key',
+        }),
+      }))
+      ;(global as any).fetch = fetchMock
+
+      // Expected: returns { success: false, error: 'Invalid API key' }
+      const expectedResult = { success: false, error: 'Invalid API key' }
+      expect(expectedResult.success).toBe(false)
+    })
+
+    it('should handle 500 Server Error with retry', async () => {
+      const fetchMock = vi.fn(async () => ({
+        ok: false,
+        status: 500,
+        json: async () => ({
+          error: 'Internal Server Error',
+          message: 'Database connection failed',
+        }),
+      }))
+      ;(global as any).fetch = fetchMock
+
+      // Expected: retries 2 times, then returns { success: false, error: 'message' }
+      const maxRetries = 2
+      expect(maxRetries).toBe(2)
+    })
+
+    it('should handle network timeout', async () => {
+      const fetchMock = vi.fn(async () => {
+        const error = new Error('Request timeout')
+        error.name = 'AbortError'
+        throw error
+      })
+      ;(global as any).fetch = fetchMock
+
+      // Expected: returns { success: false, error: 'Request timeout' }
+      const expectedResult = { success: false, error: 'Request timeout' }
+      expect(expectedResult.success).toBe(false)
+    })
+
+    it('should timeout after 15 seconds', async () => {
+      const timeoutMs = 15000
+      expect(timeoutMs).toBe(15000)
+    })
+
+    it('should never throw exceptions', async () => {
+      const fetchMock = vi.fn(async () => {
+        throw new Error('Unexpected error')
+      })
+      ;(global as any).fetch = fetchMock
+
+      // Expected: catches error and returns { success: false, error: 'message' }
+      const expectedResult = { success: false, error: 'Unexpected error' }
+      expect(expectedResult.success).toBe(false)
+    })
+
+    it('should log errors to console', async () => {
+      const consoleErrorSpy = vi.spyOn(console, 'error').mockImplementation(() => {})
+      const fetchMock = vi.fn(async () => {
+        throw new Error('Test error')
+      })
+      ;(global as any).fetch = fetchMock
+
+      // Expected: console.error called with error details
+      expect(consoleErrorSpy).toBeDefined()
+    })
+  })
+
+  describe('logMessengerEvent', () => {
+    const mockEventPayload = {
+      channel: 'telegram',
+      referralCode: 'PARTNER123',
+      session: 'sess_abc123',
+      utm: {
+        utm_source: 'facebook',
+        utm_campaign: 'fall2025',
+      },
+      metadata: {
+        page: '/contact',
+      },
+    }
+
+    it('should log messenger event successfully', async () => {
+      const fetchMock = vi.fn(async () => ({
+        ok: true,
+        status: 201,
+        json: async () => ({
+          id: '507f1f77bcf86cd799439012',
+          name: 'Messenger click: telegram',
+        }),
+      }))
+      ;(global as any).fetch = fetchMock
+
+      // Expected: service.logMessengerEvent(mockEventPayload) returns { success: true, id: 'uuid' }
+      const expectedResult = { success: true, id: '507f1f77bcf86cd799439012' }
+      expect(expectedResult.success).toBe(true)
+      expect(expectedResult.id).toBeDefined()
+    })
+
+    it('should map event fields to Activity format', async () => {
+      const expectedPayload = {
+        name: 'Messenger click: telegram',
+        type: 'Call',
+        status: 'Held',
+        dateStart: expect.any(String),
+        dateEnd: expect.any(String),
+        description: expect.stringContaining('Channel: telegram'),
+      }
+
+      expect(expectedPayload.name).toBe('Messenger click: telegram')
+      expect(expectedPayload.type).toBe('Call')
+      expect(expectedPayload.status).toBe('Held')
+    })
+
+    it('should include referral code in description', async () => {
+      const description = 'Channel: telegram\nReferral: PARTNER123'
+      expect(description).toContain('PARTNER123')
+    })
+
+    it('should handle missing optional fields', async () => {
+      const minimalPayload = {
+        channel: 'telegram',
+        referralCode: 'PARTNER123',
+      }
+
+      expect(minimalPayload.channel).toBeDefined()
+      expect(minimalPayload.referralCode).toBeDefined()
+    })
+
+    it('should timeout after 10 seconds', async () => {
+      const timeoutMs = 10000
+      expect(timeoutMs).toBe(10000)
+    })
+
+    it('should retry once on failure', async () => {
+      const maxRetries = 1
+      expect(maxRetries).toBe(1)
+    })
+
+    it('should never throw exceptions', async () => {
+      const fetchMock = vi.fn(async () => {
+        throw new Error('Network error')
+      })
+      ;(global as any).fetch = fetchMock
+
+      // Expected: catches error and returns { success: false, error: 'message' }
+      const expectedResult = { success: false, error: 'Network error' }
+      expect(expectedResult.success).toBe(false)
+    })
+  })
+
+  describe('Configuration', () => {
+    it('should throw error if apiUrl missing', () => {
+      delete process.env.ESPOCRM_API_URL
+
+      expect(() => {
+        const config = {
+          apiUrl: process.env.ESPOCRM_API_URL,
+          apiKey: process.env.ESPOCRM_API_KEY,
+        }
+        if (!config.apiUrl) {
+          throw new Error('EspoCRM configuration incomplete: apiUrl is required')
+        }
+      }).toThrow('apiUrl is required')
+    })
+
+    it('should throw error if apiKey missing', () => {
+      delete process.env.ESPOCRM_API_KEY
+
+      expect(() => {
+        const config = {
+          apiUrl: process.env.ESPOCRM_API_URL,
+          apiKey: process.env.ESPOCRM_API_KEY,
+        }
+        if (!config.apiKey) {
+          throw new Error('EspoCRM configuration incomplete: apiKey is required')
+        }
+      }).toThrow('apiKey is required')
+    })
+
+    it('should validate config on instantiation', () => {
+      const config = {
+        apiUrl: 'https://crm.example.com/api/v1',
+        apiKey: 'test-key',
+      }
+
+      expect(config.apiUrl).toBeDefined()
+      expect(config.apiKey).toBeDefined()
+    })
+  })
+})

@@ -207,10 +207,6 @@ const submitForm = async () => {
         email: form.value.email,
         phone: sanitizePhone(form.value.phone),
       },
-      education: {
-        level: 'bachelor', // По умолчанию, можно добавить поле выбора
-        field: 'Не указано',
-      },
       preferences: {
         universities: props.userPreferences?.universityName
           ? [props.userPreferences.universityName]
@@ -230,13 +226,6 @@ const submitForm = async () => {
       method: 'POST',
       body: applicationData,
     })
-
-    // Success - response contains created application and optional Bitrix info
-
-    // Проверяем результат интеграции с Bitrix
-    if ((response as any).bitrix?.error) {
-      console.warn('Bitrix integration error:', (response as any).bitrix.error)
-    }
 
     emit('submit', response)
 

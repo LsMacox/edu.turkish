@@ -198,7 +198,7 @@
 </template>
 
 <script setup lang="ts">
-import { SUPPORTED_LOCALES, type SupportedLocale } from '@@/lib/locales'
+import { type SupportedLocale } from '@@/lib/locales'
 
 interface Props {
   isOpen: boolean

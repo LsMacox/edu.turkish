@@ -1,4 +1,5 @@
 import { z } from 'zod'
+import type { UtmParams } from '~~/server/types/utm'
 
 const createStringSanitizer = (maxLength: number) =>
   z.any().transform((value) => {
@@ -65,13 +66,7 @@ export const messengerEventMetadataSchema = messengerEventMetadataSchemaBase.tra
   return metadata
 })
 
-export interface MessengerEventUtm {
-  utm_source?: string
-  utm_medium?: string
-  utm_campaign?: string
-  utm_content?: string
-  utm_term?: string
-}
+export type MessengerEventUtm = UtmParams
 
 const messengerEventUtmSchemaBase = z
   .object({

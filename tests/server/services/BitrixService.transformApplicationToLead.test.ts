@@ -16,11 +16,6 @@ const createApplication = (overrides: Partial<ApplicationRequest> = {}): Applica
     birth_date: '2000-01-01',
     ...overrides.personal_info,
   },
-  education: {
-    level: 'bachelor',
-    field: 'Информатика',
-    ...overrides.education,
-  },
   preferences: {
     universities: ['Университет Анкары'],
     programs: ['Программирование'],
@@ -111,11 +106,10 @@ describe('BitrixService helper methods', () => {
       expect(comments).toContain('Дополнительная информация: Интересует стипендия')
     })
 
-    it('adds questionnaire preferences and falls back to education field for programs', () => {
+    it('adds questionnaire preferences', () => {
       const service = createService()
       const application = createApplication({
         preferences: { universities: [], programs: [] },
-        education: { level: 'master', field: 'Медицина' },
         source: 'home_questionnaire',
         user_preferences: {
           userType: 'parent',
@@ -130,7 +124,6 @@ describe('BitrixService helper methods', () => {
         'Главная страница — Кто вы?',
       )
 
-      expect(comments).toContain('Интересующие программы: Медицина')
       expect(comments).toContain('--- Предпочтения пользователя (анкета) ---')
       expect(comments).toContain('Тип пользователя: Родитель')
       expect(comments).toContain('Выбор университета: yes')
@@ -162,18 +155,17 @@ describe('BitrixService helper methods', () => {
       })
     })
 
-    it('uses education field when programs are empty and no referral code', () => {
+    it('handles empty programs and no referral code', () => {
       const service = createService()
       const application = createApplication({
         preferences: { universities: ['Istanbul University'], programs: [] },
-        education: { level: 'master', field: 'Медицина' },
         referral_code: undefined,
       })
 
       const customFields = (service as any).buildCustomFields(application)
 
       expect(customFields.UF_CRM_REFERRAL_CODE).toBeUndefined()
-      expect(customFields.UF_CRM_1234567896).toBe('Медицина')
+      expect(customFields.UF_CRM_1234567896).toBeUndefined()
       expect(customFields.UF_CRM_1234567897).toBe('Istanbul University')
     })
   })

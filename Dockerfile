@@ -7,16 +7,18 @@ FROM node:22-slim AS deps
 WORKDIR /app
 ENV NODE_ENV=development
 
+# Enable Corepack and PNPM
+RUN corepack enable && corepack prepare pnpm@9 --activate
+
 RUN apt-get update \
   && apt-get install -y --no-install-recommends openssl ca-certificates \
   && rm -rf /var/lib/apt/lists/*
 
 # Copy lockfiles separately to maximise cache reuse
-COPY package.json package-lock.json ./
+COPY package.json pnpm-lock.yaml ./
 
 # Install dependencies in layers for better caching
-RUN npm ci --prefer-offline --no-audit --include=dev && npm cache clean --force
-
+RUN pnpm fetch --prod=false
 
 
 # =========================
@@ -34,15 +36,17 @@ ENV NITRO_PRERENDER=${NITRO_PRERENDER}
 # Copy project sources
 COPY . .
 
+# Install deps from the prefetched store
+RUN pnpm install --frozen-lockfile --offline
+
 # Prisma client generation (no DB connection needed)
-RUN npx prisma generate
+RUN pnpm exec prisma generate
 
 # Build Nuxt into .output (Nitro node-server preset by default)
-RUN npm run build
+RUN pnpm run build
 
 # Prune dev dependencies to prepare production node_modules
-RUN npm prune --omit=dev && npm cache clean --force
-
+RUN pnpm install --prod --frozen-lockfile --offline
 
 
 # =========================
@@ -50,7 +54,8 @@ RUN npm prune --omit=dev && npm cache clean --force
 # =========================
 FROM node:22-slim AS runner
 WORKDIR /app
-ENV NODE_ENV=production \ 
+RUN corepack enable && corepack prepare pnpm@9 --activate
+ENV NODE_ENV=production \
   NUXT_TELEMETRY_DISABLED=1 \
   PATH=/app/node_modules/.bin:$PATH
 
@@ -66,8 +71,6 @@ COPY --from=builder /app/.output /opt/nuxt/.output
 # Expose them inside the working directory (keeps compatibility for plain images)
 RUN ln -s /opt/nuxt/node_modules /app/node_modules \
   && ln -s /opt/nuxt/.output /app/.output
-COPY prisma ./prisma
-COPY package.json ./
 
 # Entrypoint handles migrations then boots the server
 COPY contrib/entrypoint.sh /entrypoint.sh

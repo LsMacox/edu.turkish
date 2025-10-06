@@ -12,7 +12,6 @@ export interface LeadData {
   email: string
   
   // Education Preferences (optional)
-  fieldOfStudy?: string
   universities?: string[]
   programs?: string[]
   
@@ -67,7 +66,7 @@ export interface CRMResult {
   id?: string | number
   error?: string
   provider: 'bitrix' | 'espocrm'
-  operation: 'createLead' | 'updateLead' | 'logActivity' | 'createMinimalLeadFromActivity' | 'testConnection'
+  operation: 'createLead' | 'updateLead' | 'logActivity' | 'createMinimalLeadFromActivity'
   timestamp: Date
   validationErrors?: string[]
 }
@@ -92,7 +91,6 @@ export const leadDataSchema = z.object({
   lastName: z.string().min(1).max(100).optional(),
   phone: z.string().min(10).max(20),
   email: z.string().email(),
-  fieldOfStudy: z.string().optional(),
   universities: z.array(z.string()).optional(),
   programs: z.array(z.string()).optional(),
   userType: z.enum(['student', 'parent']).optional(),

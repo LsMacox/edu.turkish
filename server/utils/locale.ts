@@ -2,15 +2,21 @@ import { SUPPORTED_LOCALES, DEFAULT_LOCALE, type SupportedLocale } from '~~/lib/
 
 export { SUPPORTED_LOCALES, DEFAULT_LOCALE, type SupportedLocale }
 
+export type LocaleKey = "en" | "kk" | "tr" | "ru";
+
+type LocaleKeys = {
+  [key in LocaleKey]: string
+}
+
 export interface NormalizedLocale {
-  normalized: string
-  fallbacks: string[]
+  normalized: LocaleKey
+  fallbacks: LocaleKey[]
 }
 
 /**
  * Locale to IETF language tag mapping for Intl APIs
  */
-const LOCALE_TAGS: Record<string, string> = {
+const LOCALE_TAGS: LocaleKeys = {
   en: 'en-GB',
   kk: 'kk-KZ',
   tr: 'tr-TR',
@@ -24,8 +30,8 @@ const LOCALE_TAGS: Record<string, string> = {
  */
 export function normalizeLocale(input?: string | null): NormalizedLocale {
   const base = (input ?? 'ru').toLowerCase()
-  const normalized = base.split(/[-_]/)[0]
-  const fallbacks = [normalized, 'ru'].filter((v, i, a) => a.indexOf(v) === i)
+  const normalized = base.split(/[-_]/)[0] as LocaleKey
+  const fallbacks = [normalized, 'ru'].filter((v, i, a) => a.indexOf(v) === i) as LocaleKey[]
 
   return {
     normalized,
@@ -37,7 +43,7 @@ export function normalizeLocale(input?: string | null): NormalizedLocale {
  * Convert locale code to IETF language tag for Intl APIs
  * @example resolveLocaleTag('kk') // 'kk-KZ'
  */
-export function resolveLocaleTag(locale: string): string {
+export function resolveLocaleTag(locale: LocaleKey): string {
   return LOCALE_TAGS[locale] ?? LOCALE_TAGS.ru
 }
 
