@@ -164,7 +164,7 @@ import { useApplicationModalValidation } from '~/composables/validation/useAppli
 
 interface Props {
   isOpen: boolean
-  userPreferences?: ApplicationPreferences
+  userPreferences?: ApplicationPreferences | null
 }
 
 interface Emits {
