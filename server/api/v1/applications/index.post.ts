@@ -1,6 +1,6 @@
 import { prisma } from '~~/lib/prisma'
 import { ApplicationRepository } from '~~/server/repositories'
-import { validateApplicationData } from '~~/server/utils/api-helpers'
+import { validateApplicationData } from '~~/server/utils/api/applications'
 import { CRMFactory } from '~~/server/services/crm/CRMFactory'
 import { RedisQueue } from '~~/server/services/queue/RedisQueue'
 import type { ApplicationRequest, ApplicationResponse } from '~~/server/types/api'

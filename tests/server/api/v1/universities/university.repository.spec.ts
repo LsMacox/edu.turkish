@@ -2,7 +2,7 @@ import { beforeEach, describe, expect, it, vi } from 'vitest'
 import type { PrismaClient } from '@prisma/client'
 
 import { UniversityRepository } from '~~/server/repositories/UniversityRepository'
-import { parseUniversityFilters } from '~~/server/utils/api-helpers'
+import { parseUniversityFilters } from '~~/server/utils/api/universities'
 
 const createPrismaMock = () => {
   const findMany = vi.fn().mockResolvedValue([])
