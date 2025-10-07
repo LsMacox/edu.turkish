@@ -19,7 +19,7 @@
         $t('universities_page.filters.city_label')
       }}</label>
       <BaseSelect v-model="state.city">
-        <option value="Все">{{ $t('universities_page.filters.all_cities') }}</option>
+        <option :value="allCitiesOption">{{ $t('universities_page.filters.all_cities') }}</option>
         <option v-for="city in availableFilters.cities" :key="city" :value="city">
           {{ city }}
         </option>
@@ -50,7 +50,7 @@
         $t('universities_page.filters.type_label')
       }}</label>
       <BaseSelect v-model="state.type">
-        <option value="Все">{{ $t('universities_page.filters.all_types') }}</option>
+        <option :value="allTypesOption">{{ $t('universities_page.filters.all_types') }}</option>
         <option v-for="t in availableFilters.types" :key="t" :value="t">
           {{ getTypeLabel(t) }}
         </option>
@@ -125,12 +125,32 @@ const { filters, availableFilters } = storeToRefs(universitiesStore)
 const { applyFilters } = universitiesStore
 const { t: translate } = useI18n()
 
+const allCitiesOption = computed(
+  () => translate('universities_page.filters.all_cities') as string,
+)
+const allTypesOption = computed(
+  () => translate('universities_page.filters.all_types') as string,
+)
+
 const LEVEL_ALL_VALUE = 'all'
 
 const LEVEL_LABEL_MAP: Record<string, string> = {
   bachelor: 'universities_page.filters.levels.bachelor',
   master: 'universities_page.filters.levels.master',
   phd: 'universities_page.filters.levels.doctorate',
+}
+
+const TYPE_LABEL_KEYS: Record<string, string> = {
+  state: 'universities_page.filters.types.state',
+  private: 'universities_page.filters.types.private',
+  tech: 'universities_page.filters.types.tech',
+  elite: 'universities_page.filters.types.elite',
+}
+
+const LANGUAGE_LABEL_KEYS: Record<string, string> = {
+  EN: 'universities_page.filters.languages.en',
+  TR: 'universities_page.filters.languages.tr',
+  RU: 'universities_page.filters.languages.ru',
 }
 
 const levelOptions = computed(() => {
@@ -143,9 +163,9 @@ const levelOptions = computed(() => {
 
 const state = reactive({
   q: '',
-  city: 'Все',
+  city: allCitiesOption.value,
   langs: [] as string[],
-  type: 'Все',
+  type: allTypesOption.value,
   level: LEVEL_ALL_VALUE,
 })
 
@@ -166,18 +186,12 @@ const priceRangeBounds = computed<[number, number]>(() => {
 const priceRange = ref<[number, number]>([priceRangeBounds.value[0], priceRangeBounds.value[1]])
 
 function getTypeLabel(typeCode: string): string {
-  switch (typeCode) {
-    case 'state':
-      return translate('universities_page.filters.types.state') as string
-    case 'private':
-      return translate('universities_page.filters.types.private') as string
-    case 'tech':
-      return translate('universities_page.filters.types.tech') as string
-    case 'elite':
-      return translate('universities_page.filters.types.elite') as string
-    default:
-      return typeCode
+  const translationKey = TYPE_LABEL_KEYS[typeCode]
+  if (translationKey) {
+    return translate(translationKey) as string
   }
+
+  return typeCode
 }
 
 function getLevelLabel(level: string): string {
@@ -192,13 +206,13 @@ function getLevelLabel(level: string): string {
 // Initialize state from URL filters
 const initializeFromFilters = () => {
   state.q = filters.value.q
-  state.city = filters.value.city === 'Все города' ? 'Все' : filters.value.city
+  state.city = filters.value.city || allCitiesOption.value
   const availableSet = new Set(availableLanguageCodes.value)
   const normalizedLangs = filters.value.langs
     .map((lang) => lang.toUpperCase())
     .filter((lang) => (availableSet.size > 0 ? availableSet.has(lang) : true))
   state.langs = normalizedLangs
-  state.type = filters.value.type
+  state.type = filters.value.type || allTypesOption.value
   state.level = filters.value.level || LEVEL_ALL_VALUE
   const price = filters.value.price?.length === 2 ? filters.value.price : priceRangeBounds.value
   priceRange.value = [price[0], price[1]] as [number, number]
@@ -206,16 +220,12 @@ const initializeFromFilters = () => {
 
 function getLanguageLabel(langCode: string): string {
   const normalized = (langCode || '').toUpperCase()
-  switch (normalized) {
-    case 'EN':
-      return translate('universities_page.filters.languages.en') as string
-    case 'TR':
-      return translate('universities_page.filters.languages.tr') as string
-    case 'RU':
-      return translate('universities_page.filters.languages.ru') as string
-    default:
-      return normalized
+  const translationKey = LANGUAGE_LABEL_KEYS[normalized]
+  if (translationKey) {
+    return translate(translationKey) as string
   }
+
+  return normalized
 }
 
 // Initialize on mount
@@ -266,9 +276,9 @@ function toggleLang(lang: string, checked: boolean) {
 
 function reset() {
   state.q = ''
-  state.city = 'Все'
+  state.city = allCitiesOption.value
   state.langs = []
-  state.type = 'Все'
+  state.type = allTypesOption.value
   state.level = LEVEL_ALL_VALUE
   priceRange.value = [priceRangeBounds.value[0], priceRangeBounds.value[1]] as [number, number]
 
@@ -277,12 +287,10 @@ function reset() {
 }
 
 function apply() {
-  const cityValue = state.city === 'Все' ? 'Все города' : state.city
-
   // Apply filters through composable which updates URL
   applyFilters({
     q: state.q,
-    city: cityValue,
+    city: state.city,
     langs: [...state.langs],
     type: state.type,
     level: state.level,
