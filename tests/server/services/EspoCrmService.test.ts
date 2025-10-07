@@ -66,6 +66,7 @@ describe('EspoCrmService', () => {
         description: expect.stringContaining('Need campus in center'),
       }
 
+      expect(mockApplicationData.personal_info.first_name).toBe('Ivan')
       expect(expectedPayload.name).toBe('Application - Ivan Ivanov')
       expect(expectedPayload.firstName).toBe('Ivan')
     })
@@ -137,6 +138,7 @@ describe('EspoCrmService', () => {
         description: expect.stringContaining('Channel: telegram'),
       }
 
+      expect(mockEventPayload.channel).toBe('telegram')
       expect(expectedPayload.name).toBe('Messenger click: telegram')
       expect(expectedPayload.type).toBe('Call')
       expect(expectedPayload.status).toBe('Held')

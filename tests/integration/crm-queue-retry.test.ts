@@ -1,4 +1,4 @@
-import { describe, it, expect, beforeEach, vi } from 'vitest'
+import { describe, it, expect, beforeEach } from 'vitest'
 import { createMockQueue } from '~~/tests/test-utils'
 import type { LeadData } from '~~/server/types/crm'
 

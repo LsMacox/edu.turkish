@@ -1,5 +1,5 @@
 import { describe, it, expect, beforeEach } from 'vitest'
-import { createMockQueue, createApplication } from '~~/tests/test-utils'
+import { createMockQueue } from '~~/tests/test-utils'
 import type { LeadData } from '~~/server/types/crm'
 
 describe('CRM Lead Creation Integration', () => {

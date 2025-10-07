@@ -302,9 +302,6 @@ export class BitrixCRMProvider implements ICRMProvider {
       lead.SOURCE_DESCRIPTION = data.sourceDescription || data.source
     }
 
-    // Map custom fields using field mappings
-    const mappings = this.config.fieldMappings
-
     if (data.referralCode) {
       lead.UF_CRM_REFERRAL_CODE = data.referralCode
     }

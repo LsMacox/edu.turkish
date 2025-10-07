@@ -12,10 +12,6 @@ export class RedisQueue {
   private queue: Queue | null = null
   private connection: any = null
 
-  constructor() {
-    // Don't create connection immediately - wait until first use
-  }
-
   private ensureConnection(): void {
     if (!this.connection) {
       this.connection = getRedisClient()

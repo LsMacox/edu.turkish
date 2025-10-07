@@ -54,6 +54,8 @@ describe('EspoCRM API Contract', () => {
         referral_code: 'PARTNER123',
       }
 
+      expect(applicationData.personal_info.first_name).toBe('Ivan')
+
       const expectedEspoCrmPayload = {
         name: 'Application - Ivan Ivanov',
         firstName: 'Ivan',
@@ -104,6 +106,8 @@ describe('EspoCRM API Contract', () => {
           utm_campaign: 'fall2025',
         },
       }
+
+      expect(messengerEvent.channel).toBe('telegram')
 
       const expectedEspoCrmPayload = {
         name: 'Messenger click: telegram',

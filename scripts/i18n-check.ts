@@ -13,23 +13,10 @@ import { join, relative } from 'node:path'
 
 export type Locale = 'en' | 'ru' | 'kk' | 'tr'
 
-interface TranslationKey {
-  key: string
-  locale: Locale
-  filePath: string
-  value: string | object
-}
-
 interface LocaleKeySet {
   locale: Locale
   keys: Set<string>
   keyToFile: Map<string, string>
-}
-
-interface SourceFileUsage {
-  filePath: string
-  usedKeys: Set<string>
-  lineNumbers: Map<string, number[]>
 }
 
 type IssueType = 'duplicate' | 'unused' | 'missing' | 'empty'
@@ -325,7 +312,7 @@ export function scanSourceFileForKeys(filePath: string): Set<string> {
       // Mark this as a tm() call that should include all nested keys
       keys.add(`__tm_object__:${baseKey}`)
     }
-  } catch (error) {
+  } catch {
     // Silently skip files that can't be read
   }
 
@@ -354,7 +341,7 @@ export function scanAllSourceFiles(): Set<string> {
           keys.forEach((key) => allKeys.add(key))
         }
       }
-    } catch (error) {
+    } catch {
       // Directory doesn't exist or can't be read, skip it
     }
   }
@@ -712,7 +699,7 @@ export function removeEmptyStructures(emptyIssues: EmptyStructureIssue[], verbos
       try {
         const content = JSON.parse(readFileSync(issue.filePath, 'utf-8'))
         fileChanges.set(issue.filePath, { content, keysToRemove: [] })
-      } catch (error) {
+      } catch {
         log(`⚠️  Could not read ${issue.filePath}, skipping`, verbose)
         continue
       }
@@ -802,15 +789,13 @@ export function removeUnusedKeys(unusedIssues: UnusedKeyIssue[], verbose: boolea
       try {
         const content = JSON.parse(readFileSync(issue.filePath, 'utf-8'))
         fileChanges.set(issue.filePath, { content, keysToRemove: [] })
-      } catch (error) {
+      } catch {
         log(`⚠️  Could not read ${issue.filePath}, skipping`, verbose)
         continue
       }
     }
     
     const fileData = fileChanges.get(issue.filePath)!
-    // Extract the key relative to the file (remove file-specific prefix if any)
-    const keyParts = issue.key.split('.')
     fileData.keysToRemove.push(issue.key)
   }
   

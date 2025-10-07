@@ -2,14 +2,6 @@ import { describe, it, expect } from 'vitest'
 import { readFileSync } from 'fs'
 import { fileURLToPath } from 'url'
 import { resolve, dirname } from 'path'
-import type { AliasConfig, ConfigValidationResult } from '~~/specs/003-/contracts/alias-config.contract'
-
-// Helper to parse JSON with comments
-function parseJsonWithComments(content: string): any {
-  // Remove single-line comments
-  const withoutComments = content.replace(/\/\/.*$/gm, '')
-  return JSON.parse(withoutComments)
-}
 
 const __filename = fileURLToPath(import.meta.url)
 const __dirname = dirname(__filename)

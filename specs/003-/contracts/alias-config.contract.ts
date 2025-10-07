@@ -43,7 +43,7 @@ export function validateAliasConfiguration(): ConfigValidationResult {
  * THEN '~' must map to './app' or './app/*'
  * AND '~~' must map to '.' or './*'
  */
-export function validateStandardAliases(config: AliasConfig[]): boolean {
+export function validateStandardAliases(_config: AliasConfig[]): boolean {
   throw new Error('Not implemented - contract test')
 }
 
@@ -54,6 +54,6 @@ export function validateStandardAliases(config: AliasConfig[]): boolean {
  * WHEN checking for deprecated aliases
  * THEN '@', '@@', and '^' should not be present
  */
-export function validateNoDeprecatedAliases(config: AliasConfig[]): boolean {
+export function validateNoDeprecatedAliases(_config: AliasConfig[]): boolean {
   throw new Error('Not implemented - contract test')
 }

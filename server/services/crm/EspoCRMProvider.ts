@@ -106,7 +106,7 @@ export class EspoCRMProvider implements ICRMProvider {
               validationErrors,
             }
           }
-        } catch (_) {
+        } catch {
           // ignore JSON parse error
         }
         throw new Error(`HTTP error! status: ${response.status}, body: ${errorText}`)

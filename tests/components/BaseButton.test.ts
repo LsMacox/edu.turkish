@@ -194,11 +194,11 @@ describe('BaseButton', () => {
     const focusSpy = vi.spyOn(wrapper.element, 'focus')
     const blurSpy = vi.spyOn(wrapper.element, 'blur')
 
-    // @ts-ignore methods exposed via defineExpose
+    // @ts-expect-error methods exposed via defineExpose
     wrapper.vm.focus()
     expect(focusSpy).toHaveBeenCalled()
 
-    // @ts-ignore methods exposed via defineExpose
+    // @ts-expect-error methods exposed via defineExpose
     wrapper.vm.blur()
     expect(blurSpy).toHaveBeenCalled()
   })

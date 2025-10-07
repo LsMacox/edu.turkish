@@ -1,3 +1,4 @@
+import { getQuery } from 'h3'
 import type { H3Event } from 'h3'
 import type { UtmParams } from '~~/server/types/utm'
 export type { UtmParams } from '~~/server/types/utm'
@@ -46,9 +47,6 @@ export function extractUtmFromQuery(query: Record<string, any>): UtmParams | und
 
 // Convenience method when you already have an H3 event
 export function extractUtmFromEvent(event: H3Event): UtmParams | undefined {
-  // Lazy import to avoid hard-coupling
-   
-  const { getQuery } = require('h3') as typeof import('h3')
   const q = getQuery(event) as Record<string, any>
   return extractUtmFromQuery(q)
 }
