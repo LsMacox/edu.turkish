@@ -210,7 +210,7 @@
                     name="recommend"
                     value="yes"
                     class="text-primary focus:ring-primary"
-                  />
+                  >
                   <span class="text-secondary text-sm md:text-base">{{
                     $t('reviews.shareExperience.form.recommend.yes')
                   }}</span>
@@ -224,7 +224,7 @@
                     name="recommend"
                     value="maybe"
                     class="text-primary focus:ring-primary"
-                  />
+                  >
                   <span class="text-secondary text-sm md:text-base">{{
                     $t('reviews.shareExperience.form.recommend.maybe')
                   }}</span>
@@ -238,7 +238,7 @@
                     name="recommend"
                     value="no"
                     class="text-primary focus:ring-primary"
-                  />
+                  >
                   <span class="text-secondary text-sm md:text-base">{{
                     $t('reviews.shareExperience.form.recommend.no')
                   }}</span>

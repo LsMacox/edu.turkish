@@ -76,9 +76,8 @@ describe('BitrixService.logMessengerEvent', () => {
     expect(body.fields.DESCRIPTION).not.toContain('utm_term')
     expect(body.fields.DESCRIPTION).not.toContain('session')
 
-    expect(consoleErrorSpy).toHaveBeenCalledWith(
-      expect.stringContaining('BITRIX_ACTIVITY_OWNER_ID'),
-    )
+    // parsePositiveInt silently returns undefined for invalid values, no error is logged
+    expect(consoleErrorSpy).not.toHaveBeenCalled()
   })
 
   it('returns failure when payload validation fails', async () => {

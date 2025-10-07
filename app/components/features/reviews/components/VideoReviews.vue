@@ -30,7 +30,7 @@
               src="https://storage.googleapis.com/uxpilot-auth.appspot.com/video-thumb-1.jpg"
               :alt="$t('reviews.videoReviews.videos.aigerim.alt')"
               class="w-full h-full object-cover"
-            />
+            >
           </div>
           <div class="p-6">
             <div class="flex items-center space-x-4 mb-4">
@@ -38,7 +38,7 @@
                 src="https://storage.googleapis.com/uxpilot-auth.appspot.com/avatars/avatar-2.jpg"
                 :alt="$t('reviews.videoReviews.videos.aigerim.name')"
                 class="w-12 h-12 rounded-full"
-              />
+              >
               <div>
                 <h3 class="font-bold text-secondary">
                   {{ $t('reviews.videoReviews.videos.aigerim.name') }}
@@ -73,7 +73,7 @@
               src="https://storage.googleapis.com/uxpilot-auth.appspot.com/video-thumb-2.jpg"
               :alt="$t('reviews.videoReviews.videos.arman.alt')"
               class="w-full h-full object-cover"
-            />
+            >
           </div>
           <div class="p-6">
             <div class="flex items-center space-x-4 mb-4">
@@ -81,7 +81,7 @@
                 src="https://storage.googleapis.com/uxpilot-auth.appspot.com/avatars/avatar-3.jpg"
                 :alt="$t('reviews.videoReviews.videos.arman.name')"
                 class="w-12 h-12 rounded-full"
-              />
+              >
               <div>
                 <h3 class="font-bold text-secondary">
                   {{ $t('reviews.videoReviews.videos.arman.name') }}
@@ -118,7 +118,7 @@
               src="https://storage.googleapis.com/uxpilot-auth.appspot.com/video-thumb-3.jpg"
               :alt="$t('reviews.videoReviews.videos.dinara.alt')"
               class="w-full h-full object-cover"
-            />
+            >
           </div>
           <div class="p-5">
             <div class="flex items-center space-x-3 mb-3">
@@ -126,7 +126,7 @@
                 src="https://storage.googleapis.com/uxpilot-auth.appspot.com/avatars/avatar-4.jpg"
                 :alt="$t('reviews.videoReviews.videos.dinara.name')"
                 class="w-10 h-10 rounded-full"
-              />
+              >
               <div class="flex-1">
                 <h3 class="font-bold text-secondary text-sm">
                   {{ $t('reviews.videoReviews.videos.dinara.name') }}
@@ -161,7 +161,7 @@
               src="https://storage.googleapis.com/uxpilot-auth.appspot.com/video-thumb-4.jpg"
               :alt="$t('reviews.videoReviews.videos.alexander.alt')"
               class="w-full h-full object-cover"
-            />
+            >
           </div>
           <div class="p-5">
             <div class="flex items-center space-x-3 mb-3">
@@ -169,7 +169,7 @@
                 src="https://storage.googleapis.com/uxpilot-auth.appspot.com/avatars/avatar-5.jpg"
                 :alt="$t('reviews.videoReviews.videos.alexander.name')"
                 class="w-10 h-10 rounded-full"
-              />
+              >
               <div class="flex-1">
                 <h3 class="font-bold text-secondary text-sm">
                   {{ $t('reviews.videoReviews.videos.alexander.name') }}
@@ -204,7 +204,7 @@
               src="https://storage.googleapis.com/uxpilot-auth.appspot.com/video-thumb-5.jpg"
               :alt="$t('reviews.videoReviews.videos.asel.alt')"
               class="w-full h-full object-cover"
-            />
+            >
           </div>
           <div class="p-5">
             <div class="flex items-center space-x-3 mb-3">
@@ -212,7 +212,7 @@
                 src="https://storage.googleapis.com/uxpilot-auth.appspot.com/avatars/avatar-6.jpg"
                 :alt="$t('reviews.videoReviews.videos.asel.name')"
                 class="w-10 h-10 rounded-full"
-              />
+              >
               <div class="flex-1">
                 <h3 class="font-bold text-secondary text-sm">
                   {{ $t('reviews.videoReviews.videos.asel.name') }}

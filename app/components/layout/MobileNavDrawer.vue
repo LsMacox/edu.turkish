@@ -198,7 +198,7 @@
 </template>
 
 <script setup lang="ts">
-import { type SupportedLocale } from '@@/lib/locales'
+import type { SupportedLocale } from '~~/lib/locales'
 
 interface Props {
   isOpen: boolean
@@ -281,7 +281,7 @@ onMounted(() => {
 watch(
   () => props.isOpen,
   (isOpen) => {
-    if (process.client) {
+    if (import.meta.client) {
       if (isOpen) {
         document.body.style.overflow = 'hidden'
       } else {

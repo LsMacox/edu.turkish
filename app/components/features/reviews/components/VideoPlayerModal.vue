@@ -11,8 +11,8 @@
             <!-- Close Button -->
             <button
               class="absolute -top-12 right-0 text-white hover:text-gray-300 transition-colors"
-              @click="closeModal"
               aria-label="Close video"
+              @click="closeModal"
             >
               <Icon name="mdi:close" class="text-3xl" />
             </button>

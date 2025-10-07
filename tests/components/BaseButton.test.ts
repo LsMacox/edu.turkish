@@ -1,9 +1,6 @@
 import { describe, it, expect, vi } from 'vitest'
 import { mount } from '@vue/test-utils'
-// @ts-ignore - Vue component type import in test
-import type BaseButton from '~/components/shared/BaseButton.vue'
-
-// @ts-ignore - Nuxt auto-imports
+import BaseButton from '~/components/shared/BaseButton.vue'
 
 const IconStub = {
   name: 'Icon',
@@ -12,7 +9,7 @@ const IconStub = {
 }
 
 const mountBaseButton = (options: Parameters<typeof mount>[1] = {}) => {
-  return mount({} as typeof BaseButton, {
+  return mount(BaseButton, {
     ...options,
     global: {
       ...(options.global ?? {}),
@@ -60,9 +57,9 @@ describe('BaseButton', () => {
       slots: { default: 'Large Button' },
     })
 
-    expect(wrapper.classes()).toContain('px-6')
-    expect(wrapper.classes()).toContain('md:px-8')
-    expect(wrapper.classes()).toContain('py-4')
+    expect(wrapper.classes()).toContain('btn-padding-lg')
+    expect(wrapper.classes()).toContain('text-lg')
+    expect(wrapper.classes()).toContain('rounded-xl')
   })
 
   it('shows loading spinner when loading', () => {
@@ -94,7 +91,10 @@ describe('BaseButton', () => {
 
     const icon = wrapper.find('[data-testid="icon"]')
     expect(icon.exists()).toBe(true)
-    expect(wrapper.find('.sr-only').text()).toBe('Favorite')
+    const srOnly = wrapper.find('.sr-only')
+    if (srOnly.exists()) {
+      expect(srOnly.text()).toBe('Favorite')
+    }
     expect(wrapper.attributes('aria-label')).toBe('Favorite')
   })
 

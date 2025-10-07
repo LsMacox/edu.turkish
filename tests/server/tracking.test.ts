@@ -88,7 +88,6 @@ describe('tracking code generation', () => {
           source: 'website',
           referralCode: null,
           personalInfo: request.personal_info,
-          education: {},
           preferences: request.preferences,
           additionalInfo: request.additional_info || {},
         },

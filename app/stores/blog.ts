@@ -195,7 +195,7 @@ export const useBlogStore = defineStore('blog', () => {
     } catch (err: any) {
       const statusMessage = err?.data?.statusMessage || err?.message
       error.value = statusMessage || 'Failed to load articles'
-      if (process.client) {
+      if (import.meta.client) {
         console.error('[blog] Failed to fetch articles', err)
       }
       return null

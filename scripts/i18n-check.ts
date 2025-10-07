@@ -682,6 +682,8 @@ export function findEmptyStructures(
               locale: locale as Locale,
               filePath,
             })
+            // Also recurse to find nested empty structures
+            checkObject(value, fullKey)
           } else {
             checkObject(value, fullKey)
           }

@@ -13,17 +13,16 @@ export const useApplicationModalStore = defineStore('applicationModal', () => {
     isOpen.value = true
 
     // Отслеживание открытия модала
-    if (process.client && (window as any).ym) {
+    if (import.meta.client && (window as any).ym) {
       const config = useRuntimeConfig()
       ;(window as any).ym(config.public.yandexMetrikaId, 'reachGoal', 'modal_open', {
         type: 'application',
       })
     }
 
-    if (process.client && typeof document !== 'undefined') {
+    if (typeof document !== 'undefined') {
       // Предотвратить скролл страницы когда модал открыт
-      const currentOverflow = document.body.style.overflow
-      previousOverflow.value = currentOverflow || null
+      previousOverflow.value = document.body.style.overflow || null
       document.body.style.overflow = 'hidden'
     }
   }
@@ -31,9 +30,9 @@ export const useApplicationModalStore = defineStore('applicationModal', () => {
   const closeModal = () => {
     isOpen.value = false
     userPreferences.value = null
-    if (process.client && typeof document !== 'undefined') {
+    if (typeof document !== 'undefined') {
       // Восстановить скролл страницы
-      if (previousOverflow.value !== null) {
+      if (previousOverflow.value) {
         document.body.style.overflow = previousOverflow.value
       } else {
         document.body.style.removeProperty('overflow')
@@ -44,7 +43,7 @@ export const useApplicationModalStore = defineStore('applicationModal', () => {
 
   const submitApplication = (formData: FormSubmissionData) => {
     // Отслеживание отправки заявки
-    if (process.client && (window as any).ym) {
+    if (import.meta.client && (window as any).ym) {
       const config = useRuntimeConfig()
       ;(window as any).ym(config.public.yandexMetrikaId, 'reachGoal', 'application_submitted', {
         hasPreferences: !!formData.preferences,
@@ -57,8 +56,8 @@ export const useApplicationModalStore = defineStore('applicationModal', () => {
 
   // Cleanup function to ensure body overflow is reset
   const cleanup = () => {
-    if (process.client && typeof document !== 'undefined') {
-      if (previousOverflow.value !== null) {
+    if (typeof document !== 'undefined') {
+      if (previousOverflow.value) {
         document.body.style.overflow = previousOverflow.value
       } else {
         document.body.style.removeProperty('overflow')

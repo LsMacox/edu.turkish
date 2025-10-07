@@ -37,7 +37,7 @@
             :placeholder="t('faq.searchPlaceholder')"
             class="w-full px-6 py-4 pl-12 pr-12 border border-gray-200 rounded-2xl text-lg focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent shadow-sm transition-all min-h-touch-44"
             @input="handleSearchInput"
-          />
+          >
           <Icon
             name="mdi:magnify"
             class="absolute left-4 top-1/2 transform -translate-y-1/2 text-gray-400 w-5 h-5"
@@ -163,7 +163,7 @@
               <span
                 class="text-lg font-medium text-secondary pr-4"
                 v-html="highlightSearchTerms(item.question, searchQuery)"
-              ></span>
+              />
               <Icon
                 name="mdi:chevron-down"
                 :class="[
@@ -178,7 +178,7 @@
                 <div
                   class="faq-content prose prose-gray max-w-none"
                   v-html="highlightSearchTerms(item.answer, searchQuery)"
-                ></div>
+                />
 
                 <!-- Category badge -->
                 <div class="mt-4 pt-4 border-t border-gray-200">

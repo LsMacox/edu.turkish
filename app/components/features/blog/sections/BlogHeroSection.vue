@@ -35,7 +35,7 @@
               :placeholder="hero.searchPlaceholder"
               class="w-full px-4 py-3 pl-12 pr-12 border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-primary focus:border-primary"
               @input="$emit('update:modelValue', ($event.target as HTMLInputElement).value)"
-            />
+            >
             <button
               v-if="modelValue"
               class="absolute right-4 top-1/2 transform -translate-y-1/2 text-gray-400 hover:text-gray-600 transition-colors p-1 min-w-touch-44 min-h-touch-44 flex items-center justify-center"

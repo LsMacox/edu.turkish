@@ -53,6 +53,7 @@
       >
         <template v-if="article.image">
           <NuxtImg
+            v-if="!failedCards[article.id]"
             :src="article.image"
             :alt="article.imageAlt || article.title"
             class="w-full h-48 object-cover"
@@ -60,7 +61,6 @@
             decoding="async"
             format="webp"
             @error="failedCards[article.id] = true"
-            v-if="!failedCards[article.id]"
           />
         </template>
         <div

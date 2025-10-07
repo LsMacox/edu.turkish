@@ -1,13 +1,5 @@
 import { describe, expect, it } from 'vitest'
 
-/**
- * Integration test for application submission with CRM provider routing
- * 
- * Tests that applications route to the configured CRM provider and
- * are saved to database even if CRM fails.
- * These tests will fail until CRM provider routing is implemented.
- */
-
 describe('POST /api/v1/applications - CRM Provider Routing', () => {
   describe('CRM Provider Selection', () => {
     it('should route to Bitrix when CRM_PROVIDER=bitrix', () => {

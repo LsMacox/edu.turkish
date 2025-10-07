@@ -164,7 +164,7 @@ export interface UniversityFilters {
 
 export interface UniversityResponse {
   data: University[]
-  // eslint-disable-next-line @typescript-eslint/consistent-type-imports
+   
   meta: import('./common').PaginationMeta
   filters: UniversityFilters
 }

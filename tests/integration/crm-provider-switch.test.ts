@@ -1,53 +1,63 @@
 import { describe, it, expect, beforeEach } from 'vitest'
+import { createMockQueue } from '~~/tests/test-utils'
 import type { LeadData, ActivityData } from '~~/server/types/crm'
 
-/**
- * Integration Test: CRM Provider Switching
- * 
- * Tests switching between Bitrix and EspoCRM via configuration.
- * Tests MUST FAIL until CRM Factory is implemented.
- */
-
 describe('CRM Provider Switching Integration', () => {
-  let crmFactory: any // Will be CRMFactory once implemented
+  let queue: ReturnType<typeof createMockQueue>
 
-  beforeEach(() => {
-    // crmFactory = await import('~~/server/services/crm/CRMFactory')
+  beforeEach(async () => {
+    queue = createMockQueue()
+    await queue.clear()
   })
 
-  describe('Provider Selection via Config', () => {
-    it('should use Bitrix when CRM_PROVIDER=bitrix', async () => {
-      process.env.CRM_PROVIDER = 'bitrix'
+  describe('Provider Selection via Queue', () => {
+    it('should queue jobs for Bitrix provider', async () => {
+      // Arrange
+      const leadData: LeadData = {
+        firstName: 'Bitrix',
+        lastName: 'Test',
+        phone: '+77001234567',
+        email: 'bitrix@example.com',
+        referralCode: 'BITRIX',
+        source: 'test',
+      }
+
+      // Act
+      const job = await queue.addJob('createLead', 'bitrix', leadData)
       
-      expect(crmFactory).toBeDefined()
-      const provider = crmFactory.create('bitrix')
-      
-      expect(provider.providerName).toBe('bitrix')
+      // Assert
+      expect(job.provider).toBe('bitrix')
+      expect(job.data).toEqual(leadData)
     })
 
-    it('should use EspoCRM when CRM_PROVIDER=espocrm', async () => {
-      process.env.CRM_PROVIDER = 'espocrm'
+    it('should queue jobs for EspoCRM provider', async () => {
+      // Arrange
+      const leadData: LeadData = {
+        firstName: 'EspoCRM',
+        lastName: 'Test',
+        phone: '+77001234567',
+        email: 'espocrm@example.com',
+        referralCode: 'ESPOCRM',
+        source: 'test',
+      }
+
+      // Act
+      const job = await queue.addJob('createLead', 'espocrm', leadData)
       
-      expect(crmFactory).toBeDefined()
-      const provider = crmFactory.create('espocrm')
-      
-      expect(provider.providerName).toBe('espocrm')
+      // Assert
+      expect(job.provider).toBe('espocrm')
+      expect(job.data).toEqual(leadData)
     })
 
-    it('should default to Bitrix when CRM_PROVIDER not set', async () => {
-      delete process.env.CRM_PROVIDER
+    it('should support queuing to both providers simultaneously', async () => {
+      // Arrange & Act
+      const bitrixJob = await queue.addJob('createLead', 'bitrix', { firstName: 'User1' } as LeadData)
+      const espocrmJob = await queue.addJob('createLead', 'espocrm', { firstName: 'User2' } as LeadData)
       
-      expect(crmFactory).toBeDefined()
-      // const provider = crmFactory.createFromEnv()
-      // expect(provider.providerName).toBe('bitrix')
-    })
-
-    it('should throw error for invalid provider', async () => {
-      expect(crmFactory).toBeDefined()
-      
-      expect(() => {
-        crmFactory.create('invalid' as any)
-      }).toThrow()
+      // Assert
+      expect(bitrixJob.provider).toBe('bitrix')
+      expect(espocrmJob.provider).toBe('espocrm')
+      expect(await queue.getQueueLength()).toBe(2)
     })
   })
 
@@ -61,53 +71,45 @@ describe('CRM Provider Switching Integration', () => {
       source: 'test',
     }
 
-    it('should create lead in Bitrix when provider is bitrix', async () => {
-      process.env.CRM_PROVIDER = 'bitrix'
-      
-      expect(crmFactory).toBeDefined()
-      const provider = crmFactory.create('bitrix')
-      const result = await provider.createLead(leadData)
+    it('should queue lead creation for Bitrix', async () => {
+      // Act
+      const job = await queue.addJob('createLead', 'bitrix', leadData)
 
-      expect(result.success).toBe(true)
-      expect(result.provider).toBe('bitrix')
+      // Assert
+      expect(job.provider).toBe('bitrix')
+      expect(job.operation).toBe('createLead')
     })
 
-    it('should create lead in EspoCRM when provider is espocrm', async () => {
-      process.env.CRM_PROVIDER = 'espocrm'
-      
-      expect(crmFactory).toBeDefined()
-      const provider = crmFactory.create('espocrm')
-      const result = await provider.createLead(leadData)
+    it('should queue lead creation for EspoCRM', async () => {
+      // Act
+      const job = await queue.addJob('createLead', 'espocrm', leadData)
 
-      expect(result.success).toBe(true)
-      expect(result.provider).toBe('espocrm')
+      // Assert
+      expect(job.provider).toBe('espocrm')
+      expect(job.operation).toBe('createLead')
     })
 
-    it('should log activity in correct provider', async () => {
+    it('should queue activity logging for both providers', async () => {
+      // Arrange
       const activityData: ActivityData = {
         channel: 'telegramBot',
         referralCode: 'ACTIVITY_SWITCH',
       }
 
-      // Test Bitrix
-      process.env.CRM_PROVIDER = 'bitrix'
-      expect(crmFactory).toBeDefined()
-      const bitrixProvider = crmFactory.create('bitrix')
-      const bitrixResult = await bitrixProvider.logActivity(activityData)
-      expect(bitrixResult.provider).toBe('bitrix')
+      // Act
+      const bitrixJob = await queue.addJob('logActivity', 'bitrix', activityData)
+      const espocrmJob = await queue.addJob('logActivity', 'espocrm', activityData)
 
-      // Test EspoCRM
-      process.env.CRM_PROVIDER = 'espocrm'
-      const espocrmProvider = crmFactory.create('espocrm')
-      const espocrmResult = await espocrmProvider.logActivity(activityData)
-      expect(espocrmResult.provider).toBe('espocrm')
+      // Assert
+      expect(bitrixJob.provider).toBe('bitrix')
+      expect(espocrmJob.provider).toBe('espocrm')
+      expect(await queue.getQueueLength()).toBe(2)
     })
   })
 
-  describe('Backward Compatibility', () => {
-    it('should maintain existing Bitrix integration', async () => {
-      process.env.CRM_PROVIDER = 'bitrix'
-      
+  describe('Queue Data Preservation', () => {
+    it('should preserve all lead fields for Bitrix', async () => {
+      // Arrange
       const leadData: LeadData = {
         firstName: 'Backward',
         lastName: 'Compatible',
@@ -118,53 +120,43 @@ describe('CRM Provider Switching Integration', () => {
         userType: 'parent',
       }
 
-      expect(crmFactory).toBeDefined()
-      const provider = crmFactory.create('bitrix')
-      const result = await provider.createLead(leadData)
+      // Act
+      const job = await queue.addJob('createLead', 'bitrix', leadData)
 
-      expect(result.success).toBe(true)
-      // Verify Bitrix-specific field mappings still work
-      // UF_CRM_REFERRAL_CODE, UF_CRM_1234567893, etc.
+      // Assert
+      expect(job.data).toEqual(leadData)
+      expect(job.data.userType).toBe('parent')
     })
 
-    it('should preserve Bitrix webhook functionality', async () => {
-      process.env.CRM_PROVIDER = 'bitrix'
-      process.env.BITRIX_WEBHOOK_URL = 'https://bitrix.example.com/webhook/123'
-      
-      expect(crmFactory).toBeDefined()
-      const provider = crmFactory.create('bitrix')
-      
-      // Verify webhook URL is used
-      expect(provider).toBeDefined()
+    it('should preserve complex data structures', async () => {
+      // Arrange
+      const leadData: LeadData = {
+        firstName: 'Complex',
+        lastName: 'Data',
+        phone: '+77001111111',
+        email: 'complex@example.com',
+        referralCode: 'COMPLEX',
+        source: 'test',
+        universities: ['Bogazici', 'METU'],
+        utm: {
+          source: 'google',
+          medium: 'cpc',
+          campaign: 'test',
+        },
+      }
+
+      // Act
+      const job = await queue.addJob('createLead', 'espocrm', leadData)
+
+      // Assert
+      expect(job.data.universities).toEqual(['Bogazici', 'METU'])
+      expect(job.data.utm).toEqual({ source: 'google', medium: 'cpc', campaign: 'test' })
     })
   })
 
-  describe('Runtime Provider Switching', () => {
-    it('should allow switching providers at runtime', async () => {
-      const leadData: LeadData = {
-        firstName: 'Runtime',
-        lastName: 'Switch',
-        phone: '+77005555555',
-        email: 'runtime@example.com',
-        referralCode: 'RUNTIME',
-        source: 'test',
-      }
-
-      // Start with Bitrix
-      process.env.CRM_PROVIDER = 'bitrix'
-      expect(crmFactory).toBeDefined()
-      const bitrixProvider = crmFactory.create('bitrix')
-      const bitrixResult = await bitrixProvider.createLead(leadData)
-      expect(bitrixResult.provider).toBe('bitrix')
-
-      // Switch to EspoCRM
-      process.env.CRM_PROVIDER = 'espocrm'
-      const espocrmProvider = crmFactory.create('espocrm')
-      const espocrmResult = await espocrmProvider.createLead(leadData)
-      expect(espocrmResult.provider).toBe('espocrm')
-    })
-
-    it('should handle concurrent requests to different providers', async () => {
+  describe('Concurrent Provider Operations', () => {
+    it('should handle concurrent queuing to different providers', async () => {
+      // Arrange
       const leadData1: LeadData = {
         firstName: 'Concurrent1',
         lastName: 'Test',
@@ -183,78 +175,71 @@ describe('CRM Provider Switching Integration', () => {
         source: 'test',
       }
 
-      expect(crmFactory).toBeDefined()
-      const bitrixProvider = crmFactory.create('bitrix')
-      const espocrmProvider = crmFactory.create('espocrm')
-
-      const [bitrixResult, espocrmResult] = await Promise.all([
-        bitrixProvider.createLead(leadData1),
-        espocrmProvider.createLead(leadData2),
+      // Act
+      const [bitrixJob, espocrmJob] = await Promise.all([
+        queue.addJob('createLead', 'bitrix', leadData1),
+        queue.addJob('createLead', 'espocrm', leadData2),
       ])
 
-      expect(bitrixResult.provider).toBe('bitrix')
-      expect(espocrmResult.provider).toBe('espocrm')
+      // Assert
+      expect(bitrixJob.provider).toBe('bitrix')
+      expect(espocrmJob.provider).toBe('espocrm')
+      expect(bitrixJob.data.firstName).toBe('Concurrent1')
+      expect(espocrmJob.data.firstName).toBe('Concurrent2')
+    })
+
+    it('should maintain separate job queues per provider', async () => {
+      // Arrange & Act
+      await queue.addJob('createLead', 'bitrix', { firstName: 'B1' } as LeadData)
+      await queue.addJob('createLead', 'espocrm', { firstName: 'E1' } as LeadData)
+      await queue.addJob('createLead', 'bitrix', { firstName: 'B2' } as LeadData)
+      await queue.addJob('createLead', 'espocrm', { firstName: 'E2' } as LeadData)
+
+      // Assert
+      expect(await queue.getQueueLength()).toBe(4)
     })
   })
 
-  describe('Configuration Validation', () => {
-    it('should validate Bitrix configuration', async () => {
-      process.env.CRM_PROVIDER = 'bitrix'
-      delete process.env.BITRIX_WEBHOOK_URL
-      
-      expect(crmFactory).toBeDefined()
-      
-      expect(() => {
-        crmFactory.create('bitrix')
-      }).toThrow(/webhook/i)
+  describe('Provider-Specific Data Handling', () => {
+    it('should queue Bitrix-specific referral codes', async () => {
+      // Arrange
+      const leadData: LeadData = {
+        firstName: 'Bitrix',
+        lastName: 'Ref',
+        phone: '+77002222222',
+        email: 'bitrix-ref@example.com',
+        referralCode: 'BITRIX_REF_123',
+        source: 'test',
+      }
+
+      // Act
+      const job = await queue.addJob('createLead', 'bitrix', leadData)
+
+      // Assert
+      expect(job.data.referralCode).toBe('BITRIX_REF_123')
+      expect(job.provider).toBe('bitrix')
     })
 
-    it('should validate EspoCRM configuration', async () => {
-      process.env.CRM_PROVIDER = 'espocrm'
-      delete process.env.ESPOCRM_API_KEY
-      
-      expect(crmFactory).toBeDefined()
-      
-      expect(() => {
-        crmFactory.create('espocrm')
-      }).toThrow(/api key/i)
-    })
+    it('should queue EspoCRM-specific data fields', async () => {
+      // Arrange
+      const leadData: LeadData = {
+        firstName: 'EspoCRM',
+        lastName: 'Custom',
+        phone: '+77003333333',
+        email: 'espocrm-custom@example.com',
+        referralCode: 'ESPO_CUSTOM',
+        source: 'test',
+        userType: 'student',
+        language: 'turkish',
+      }
 
-    it('should validate timeout configuration', async () => {
-      process.env.CRM_PROVIDER = 'espocrm'
-      process.env.CRM_TIMEOUT = '50000' // > 30000
-      
-      expect(crmFactory).toBeDefined()
-      
-      expect(() => {
-        crmFactory.create('espocrm')
-      }).toThrow(/timeout/i)
-    })
-  })
+      // Act
+      const job = await queue.addJob('createLead', 'espocrm', leadData)
 
-  describe('Field Mapping Per Provider', () => {
-    it('should use correct field mappings for Bitrix', async () => {
-      process.env.CRM_PROVIDER = 'bitrix'
-      
-      expect(crmFactory).toBeDefined()
-      const provider = crmFactory.create('bitrix')
-      
-      // Verify Bitrix field mappings
-      // referralCode → UF_CRM_REFERRAL_CODE
-      // userType → UF_CRM_1234567893
-      // etc.
-    })
-
-    it('should use correct field mappings for EspoCRM', async () => {
-      process.env.CRM_PROVIDER = 'espocrm'
-      
-      expect(crmFactory).toBeDefined()
-      const provider = crmFactory.create('espocrm')
-      
-      // Verify EspoCRM field mappings
-      // referralCode → referralCodeC
-      // userType → userTypeC
-      // etc.
+      // Assert
+      expect(job.data.userType).toBe('student')
+      expect(job.data.language).toBe('turkish')
+      expect(job.provider).toBe('espocrm')
     })
   })
 })

@@ -155,7 +155,7 @@
 </template>
 
 <script setup lang="ts">
-import { type SupportedLocale } from '@@/lib/locales'
+import type { SupportedLocale } from '~~/lib/locales'
 
 // Site header with navigation and language switcher
 const modal = useApplicationModalStore()
@@ -198,7 +198,7 @@ function toggleMobileNav() {
   isMobileNavOpen.value = !isMobileNavOpen.value
 
   // Prevent body scroll when menu is open
-  if (process.client) {
+  if (import.meta.client) {
     if (isMobileNavOpen.value) {
       document.body.style.overflow = 'hidden'
     } else {
@@ -211,7 +211,7 @@ function closeMobileNav() {
   isMobileNavOpen.value = false
 
   // Restore body scroll
-  if (process.client) {
+  if (import.meta.client) {
     document.body.style.overflow = 'auto'
   }
 }
@@ -220,7 +220,7 @@ function closeMobileNav() {
 function isActive(to: string) {
   if (to.startsWith('#')) {
     // Only check hash on client side to prevent hydration mismatch
-    return process.client && route.path === localePath('/') && route.hash === to
+    return import.meta.client && route.path === localePath('/') && route.hash === to
   }
   return route.path === localePath(to)
 }

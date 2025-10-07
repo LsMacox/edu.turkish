@@ -7,7 +7,7 @@
           class="w-full h-full object-cover opacity-20"
           :src="university.heroImage"
           :alt="`${university.name} campus`"
-        />
+        >
       </div>
       <div class="relative z-10 container mx-auto px-4 lg:px-6 h-full flex items-center">
         <div class="max-w-4xl">

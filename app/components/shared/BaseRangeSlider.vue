@@ -9,7 +9,7 @@
 
     <div class="relative h-6 isolate" style="z-index: 0; contain: layout">
       <!-- Track -->
-      <div class="absolute w-full h-2 bg-gray-200 rounded-lg top-1/2 -translate-y-1/2"></div>
+      <div class="absolute w-full h-2 bg-gray-200 rounded-lg top-1/2 -translate-y-1/2"/>
 
       <!-- Progress -->
       <div
@@ -18,7 +18,7 @@
           left: `${((modelValue[0] - min) / (max - min)) * 100}%`,
           width: `${((modelValue[1] - modelValue[0]) / (max - min)) * 100}%`,
         }"
-      ></div>
+      />
 
       <!-- Single input that controls both handles -->
       <input
@@ -32,7 +32,7 @@
         style="z-index: 1"
         @input="handleInput"
         @mousedown="handleMouseDown"
-      />
+      >
     </div>
 
     <!-- Input fields -->
@@ -45,7 +45,7 @@
         :step="step"
         class="w-24 px-3 py-2 border border-gray-300 rounded-xl text-sm focus:ring-2 focus:ring-primary focus:border-transparent"
         @input="updateMinInput"
-      />
+      >
       <div class="flex-1 text-center text-gray-400 text-sm">{{ t('range.to') }}</div>
       <input
         :value="modelValue[1]"
@@ -55,7 +55,7 @@
         :step="step"
         class="w-24 px-3 py-2 border border-gray-300 rounded-xl text-sm focus:ring-2 focus:ring-primary focus:border-transparent"
         @input="updateMaxInput"
-      />
+      >
     </div>
   </div>
 </template>

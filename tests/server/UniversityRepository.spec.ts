@@ -1,12 +1,49 @@
 import { describe, expect, it, vi } from 'vitest'
-import { Prisma as PrismaRuntime, PrismaClient } from '@prisma/client'
-import type { Prisma as PrismaTypes } from '@prisma/client'
-
+import { Prisma as PrismaRuntime } from '@prisma/client'
+import type { Prisma as PrismaTypes , PrismaClient } from '@prisma/client'
+import { createMockPrisma } from '~~/tests/test-utils'
 import {
   UniversityRepository,
   type UniversityListItem,
 } from '~~/server/repositories/UniversityRepository'
 import type { UniversityQueryParams } from '~~/server/types/api'
+
+describe('UniversityRepository', () => {
+  const createParams = (overrides?: Partial<UniversityQueryParams>): UniversityQueryParams => ({
+    page: 1,
+    limit: 12,
+    ...overrides,
+  })
+
+  const createRepositoryWithMocks = () => {
+    const findMany = vi.fn().mockResolvedValue([])
+    const count = vi.fn().mockResolvedValue(0)
+    const universityGroupBy = vi.fn().mockResolvedValue([])
+    const aggregate = vi.fn().mockResolvedValue({
+      _min: { tuitionMin: null, tuitionMax: null },
+      _max: { tuitionMin: null, tuitionMax: null },
+    })
+    const academicProgramGroupBy = vi.fn().mockResolvedValue([])
+    const cityTranslationFindMany = vi.fn().mockResolvedValue([])
+    const transaction = vi.fn(async (queries: Promise<unknown>[]) => Promise.all(queries))
+
+    const prisma = createMockPrisma({
+      university: {
+        findMany,
+        count,
+        groupBy: universityGroupBy,
+        aggregate,
+      } as any,
+      universityProgram: {
+        groupBy: academicProgramGroupBy,
+      } as any,
+      cityTranslation: {
+        findMany: cityTranslationFindMany,
+      } as any,
+      $transaction: transaction,
+    })
+
+    const repository = new UniversityRepository(prisma as any)
     return { repository, findMany, count }
   }
 
@@ -23,7 +60,6 @@ import type { UniversityQueryParams } from '~~/server/types/api'
       if (AND && Array.isArray(AND) && !AND.every((inner: any) => evaluate(inner))) {
         return false
       }
-{{ ... }}
 
       if (OR && Array.isArray(OR) && !OR.some((inner: any) => evaluate(inner))) {
         return false
@@ -67,8 +103,8 @@ import type { UniversityQueryParams } from '~~/server/types/api'
         cityId: 10,
         foundedYear: 1950,
         type: 'tech',
-        tuitionMin: new Prisma.Decimal(1500),
-        tuitionMax: new Prisma.Decimal(5500),
+        tuitionMin: new PrismaRuntime.Decimal(1500),
+        tuitionMax: new PrismaRuntime.Decimal(5500),
         currency: 'USD',
         totalStudents: 12000,
         internationalStudents: 1500,
@@ -112,7 +148,7 @@ import type { UniversityQueryParams } from '~~/server/types/api'
             degreeType: 'bachelor',
             languageCode: 'EN',
             durationYears: 4,
-            tuitionPerYear: new Prisma.Decimal(5000),
+            tuitionPerYear: new PrismaRuntime.Decimal(5000),
             createdAt: baseDate,
             updatedAt: baseDate,
           },
@@ -122,7 +158,7 @@ import type { UniversityQueryParams } from '~~/server/types/api'
             degreeType: 'master',
             languageCode: 'TR',
             durationYears: 2,
-            tuitionPerYear: new Prisma.Decimal(6000),
+            tuitionPerYear: new PrismaRuntime.Decimal(6000),
             createdAt: baseDate,
             updatedAt: baseDate,
           },
@@ -166,8 +202,8 @@ import type { UniversityQueryParams } from '~~/server/types/api'
       return Promise.resolve([])
     })
     const aggregate = vi.fn().mockResolvedValue({
-      _min: { tuitionMin: new Prisma.Decimal(1000), tuitionMax: new Prisma.Decimal(1200) },
-      _max: { tuitionMin: new Prisma.Decimal(7000), tuitionMax: new Prisma.Decimal(8200) },
+      _min: { tuitionMin: new PrismaRuntime.Decimal(1000), tuitionMax: new PrismaRuntime.Decimal(1200) },
+      _max: { tuitionMin: new PrismaRuntime.Decimal(7000), tuitionMax: new PrismaRuntime.Decimal(8200) },
     })
     const academicProgramGroupBy = vi
       .fn()
@@ -247,21 +283,21 @@ import type { UniversityQueryParams } from '~~/server/types/api'
     await repository.findAll(createParams({ price_min: 2000, price_max: 6000 }), 'ru')
 
     expect(findMany).toHaveBeenCalledTimes(1)
-    const where = findMany.mock.calls[0][0]?.where as PrismaTypes.UniversityWhereInput
+    const where = findMany.mock.calls[0]![0]?.where as PrismaTypes.UniversityWhereInput
 
     expect(where?.AND).toHaveLength(2)
 
     const overlapping: TuitionRange = {
-      tuitionMin: new Prisma.Decimal(2500),
-      tuitionMax: new Prisma.Decimal(6500),
+      tuitionMin: new PrismaRuntime.Decimal(2500),
+      tuitionMax: new PrismaRuntime.Decimal(6500),
     }
     const nestedInsideQuery: TuitionRange = {
-      tuitionMin: new Prisma.Decimal(3200),
-      tuitionMax: new Prisma.Decimal(3400),
+      tuitionMin: new PrismaRuntime.Decimal(3200),
+      tuitionMax: new PrismaRuntime.Decimal(3400),
     }
     const queryInsideRange: TuitionRange = {
-      tuitionMin: new Prisma.Decimal(1500),
-      tuitionMax: new Prisma.Decimal(7000),
+      tuitionMin: new PrismaRuntime.Decimal(1500),
+      tuitionMax: new PrismaRuntime.Decimal(7000),
     }
 
     expect(matchesTuitionWhere(where, overlapping)).toBe(true)
@@ -274,14 +310,14 @@ import type { UniversityQueryParams } from '~~/server/types/api'
 
     await repository.findAll(createParams({ price_min: 3000, price_max: 8000 }), 'ru')
 
-    const where = findMany.mock.calls[0][0]?.where as PrismaTypes.UniversityWhereInput
+    const where = findMany.mock.calls[0]![0]?.where as PrismaTypes.UniversityWhereInput
 
     const openLower: TuitionRange = {
       tuitionMin: null,
-      tuitionMax: new Prisma.Decimal(3500),
+      tuitionMax: new PrismaRuntime.Decimal(3500),
     }
     const openUpper: TuitionRange = {
-      tuitionMin: new Prisma.Decimal(5000),
+      tuitionMin: new PrismaRuntime.Decimal(5000),
       tuitionMax: null,
     }
     const unbounded: TuitionRange = {
@@ -289,8 +325,8 @@ import type { UniversityQueryParams } from '~~/server/types/api'
       tuitionMax: null,
     }
     const nonOverlapping: TuitionRange = {
-      tuitionMin: new Prisma.Decimal(9000),
-      tuitionMax: new Prisma.Decimal(12000),
+      tuitionMin: new PrismaRuntime.Decimal(9000),
+      tuitionMax: new PrismaRuntime.Decimal(12000),
     }
 
     expect(matchesTuitionWhere(where, openLower)).toBe(true)
@@ -315,7 +351,7 @@ import type { UniversityQueryParams } from '~~/server/types/api'
       'en',
     )
 
-    const where = findMany.mock.calls[0]![0]?.where as Prisma.UniversityWhereInput
+    const where = findMany.mock.calls[0]![0]?.where as PrismaTypes.UniversityWhereInput
 
     expect(where.type).toBe('state')
     expect(where.academicPrograms).toEqual({ some: { degreeType: 'master' } })
@@ -342,8 +378,8 @@ import type { UniversityQueryParams } from '~~/server/types/api'
         cityId: null,
         foundedYear: 1950,
         type: 'state',
-        tuitionMin: new Prisma.Decimal(1000),
-        tuitionMax: new Prisma.Decimal(2000),
+        tuitionMin: new PrismaRuntime.Decimal(1000),
+        tuitionMax: new PrismaRuntime.Decimal(2000),
         currency: 'USD',
         totalStudents: 1000,
         internationalStudents: 200,
@@ -377,8 +413,8 @@ import type { UniversityQueryParams } from '~~/server/types/api'
         cityId: null,
         foundedYear: 1960,
         type: 'state',
-        tuitionMin: new Prisma.Decimal(1000),
-        tuitionMax: new Prisma.Decimal(2000),
+        tuitionMin: new PrismaRuntime.Decimal(1000),
+        tuitionMax: new PrismaRuntime.Decimal(2000),
         currency: 'USD',
         totalStudents: 1000,
         internationalStudents: 200,
@@ -427,8 +463,8 @@ import type { UniversityQueryParams } from '~~/server/types/api'
         cityId: null,
         foundedYear: 1950,
         type: 'state',
-        tuitionMin: new Prisma.Decimal(1000),
-        tuitionMax: new Prisma.Decimal(2000),
+        tuitionMin: new PrismaRuntime.Decimal(1000),
+        tuitionMax: new PrismaRuntime.Decimal(2000),
         currency: 'USD',
         totalStudents: 1000,
         internationalStudents: 200,
@@ -460,7 +496,7 @@ import type { UniversityQueryParams } from '~~/server/types/api'
             degreeType: 'bachelor',
             languageCode: 'TR',
             durationYears: 4,
-            tuitionPerYear: new Prisma.Decimal(3000),
+            tuitionPerYear: new PrismaRuntime.Decimal(3000),
             createdAt: baseDate,
             updatedAt: baseDate,
           },
@@ -473,8 +509,8 @@ import type { UniversityQueryParams } from '~~/server/types/api'
         cityId: null,
         foundedYear: 1950,
         type: 'state',
-        tuitionMin: new Prisma.Decimal(1000),
-        tuitionMax: new Prisma.Decimal(2000),
+        tuitionMin: new PrismaRuntime.Decimal(1000),
+        tuitionMax: new PrismaRuntime.Decimal(2000),
         currency: 'USD',
         totalStudents: 1000,
         internationalStudents: 200,
@@ -506,7 +542,7 @@ import type { UniversityQueryParams } from '~~/server/types/api'
             degreeType: 'bachelor',
             languageCode: 'EN',
             durationYears: 4,
-            tuitionPerYear: new Prisma.Decimal(3000),
+            tuitionPerYear: new PrismaRuntime.Decimal(3000),
             createdAt: baseDate,
             updatedAt: baseDate,
           },
@@ -537,8 +573,8 @@ import type { UniversityQueryParams } from '~~/server/types/api'
         cityId: 20,
         foundedYear: 1995,
         type: 'state',
-        tuitionMin: new Prisma.Decimal(1800),
-        tuitionMax: new Prisma.Decimal(3200),
+        tuitionMin: new PrismaRuntime.Decimal(1800),
+        tuitionMax: new PrismaRuntime.Decimal(3200),
         currency: 'USD',
         totalStudents: 8000,
         internationalStudents: 600,
@@ -582,7 +618,7 @@ import type { UniversityQueryParams } from '~~/server/types/api'
             degreeType: 'bachelor',
             languageCode: 'KK',
             durationYears: 4,
-            tuitionPerYear: new Prisma.Decimal(2200),
+            tuitionPerYear: new PrismaRuntime.Decimal(2200),
             createdAt: baseDate,
             updatedAt: baseDate,
           },
@@ -646,8 +682,8 @@ import type { UniversityQueryParams } from '~~/server/types/api'
         cityId: 21,
         foundedYear: 2001,
         type: 'state',
-        tuitionMin: new Prisma.Decimal(2000),
-        tuitionMax: new Prisma.Decimal(3400),
+        tuitionMin: new PrismaRuntime.Decimal(2000),
+        tuitionMax: new PrismaRuntime.Decimal(3400),
         currency: 'USD',
         totalStudents: 7000,
         internationalStudents: 400,

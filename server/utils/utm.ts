@@ -47,7 +47,7 @@ export function extractUtmFromQuery(query: Record<string, any>): UtmParams | und
 // Convenience method when you already have an H3 event
 export function extractUtmFromEvent(event: H3Event): UtmParams | undefined {
   // Lazy import to avoid hard-coupling
-  // eslint-disable-next-line @typescript-eslint/no-var-requires
+   
   const { getQuery } = require('h3') as typeof import('h3')
   const q = getQuery(event) as Record<string, any>
   return extractUtmFromQuery(q)

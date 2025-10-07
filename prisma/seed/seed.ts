@@ -1,11 +1,11 @@
 import prismaPkg from '@prisma/client'
-const { PrismaClient } = prismaPkg as any
 import { seedFAQs } from './faqs'
 import { seedFaqCategories } from './faq-categories'
 import { seedLocations } from './locations'
 import { seedReviews } from './reviews'
 import { seedBlog } from './blog'
 import { seedStudyDirections } from './study-directions'
+const { PrismaClient } = prismaPkg as any
 
 const prisma = new PrismaClient()
 

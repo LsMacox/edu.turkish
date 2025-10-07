@@ -1,9 +1,25 @@
-// vitest.config.ts
-import { defineVitestConfig } from '@nuxt/test-utils/config'
+import { defineConfig } from 'vitest/config'
 import vue from '@vitejs/plugin-vue'
+import { resolve } from 'path'
 
-export default defineVitestConfig({
-  plugins: [vue()],
+export default defineConfig({
+  plugins: [
+    vue({
+      template: {
+        compilerOptions: {
+          isCustomElement: (tag) => tag.startsWith('nuxt-') || tag === 'NuxtImg',
+        },
+      },
+    }),
+  ],
+  resolve: {
+    alias: {
+      '~': resolve(__dirname, './app'),
+      '~~': resolve(__dirname, '.'),
+    },
+    extensions: ['.mjs', '.js', '.ts', '.jsx', '.tsx', '.json', '.vue'],
+    conditions: ['node', 'import', 'module', 'browser', 'default'],
+  },
   test: {
     environment: 'jsdom',
     globals: true,

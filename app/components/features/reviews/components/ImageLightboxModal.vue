@@ -9,8 +9,8 @@
         >
           <button
             class="absolute top-4 right-4 text-white hover:text-gray-300 transition-colors"
-            @click="close"
             aria-label="Close image"
+            @click="close"
           >
             <Icon name="mdi:close" class="text-3xl" />
           </button>
@@ -24,7 +24,7 @@
                 class="max-h-[80vh] w-auto h-auto object-contain select-none"
                 loading="eager"
                 decoding="async"
-              />
+              >
             </div>
 
             <div v-if="image" class="mt-4 text-white">

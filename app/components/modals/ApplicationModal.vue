@@ -13,7 +13,7 @@
       >
         <!-- Swipe indicator (mobile only) -->
         <div class="md:hidden flex justify-center pt-3 pb-2">
-          <div class="w-10 h-1 bg-gray-300 rounded-full"></div>
+          <div class="w-10 h-1 bg-gray-300 rounded-full"/>
         </div>
 
         <!-- Header -->
@@ -142,7 +142,7 @@
             type="hidden"
             name="source"
             :value="referralCode || props.userPreferences?.source || 'website'"
-          />
+          >
 
           <button
             type="submit"
@@ -460,7 +460,7 @@ onMounted(() => {
 watch(
   () => props.isOpen,
   (isOpen) => {
-    if (process.client) {
+    if (import.meta.client) {
       if (isOpen) {
         document.body.style.overflow = 'hidden'
       } else {

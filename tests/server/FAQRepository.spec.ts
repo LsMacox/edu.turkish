@@ -1,6 +1,6 @@
 import { describe, expect, it, vi } from 'vitest'
-import type { PrismaClient, Prisma } from '@prisma/client'
-
+import type { Prisma } from '@prisma/client'
+import { createMockPrisma } from '~~/tests/test-utils'
 import { FAQRepository } from '~~/server/repositories/FAQRepository'
 import type {
   FaqCategoryWithLocalizedRelations,
@@ -107,25 +107,21 @@ describe('FAQRepository', () => {
       const findMany = vi.fn().mockResolvedValue([faqAnswerMatch, faqQuestionMatch])
       const count = vi.fn().mockResolvedValueOnce(2).mockResolvedValueOnce(5)
       const categoryFindMany = vi.fn().mockResolvedValue([categoryWithCount])
-      const transaction = vi.fn(async (operations: Array<Promise<unknown>>) =>
-        Promise.all(operations),
-      )
 
-      const prisma = {
+      const prisma = createMockPrisma({
         faq: {
           findMany,
           count,
-        },
+        } as any,
         faqCategory: {
           findMany: categoryFindMany,
-        },
-        $transaction: transaction,
-      } as unknown as PrismaClient
+        } as any,
+      })
 
-      const repository = new FAQRepository(prisma)
+      const repository = new FAQRepository(prisma as any)
       const result = await repository.findAll({ q: 'Visa', limit: 10 }, 'kk')
 
-      expect(transaction).toHaveBeenCalledTimes(1)
+      expect(prisma.$transaction).toHaveBeenCalledTimes(1)
       expect(findMany).toHaveBeenCalledTimes(1)
       expect(count).toHaveBeenCalledTimes(2)
       expect(categoryFindMany).toHaveBeenCalledTimes(1)
@@ -137,7 +133,7 @@ describe('FAQRepository', () => {
       const translationFilter = where?.translations?.some as Prisma.FaqTranslationWhereInput
 
       expect(findManyArgs.take).toBe(10)
-      expect((translationInclude?.where?.locale as any)?.in).toEqual(['kk', 'kk', 'ru'])
+      expect((translationInclude?.where?.locale as any)?.in).toEqual(['kk', 'ru'])
       expect(translationFilter?.OR).toEqual([
         { question: { contains: 'Visa' } },
         { answer: { contains: 'Visa' } },
@@ -156,17 +152,13 @@ describe('FAQRepository', () => {
       const { faqQuestionMatch, faqAnswerMatch } = createFaqFixtures()
 
       const findMany = vi.fn().mockResolvedValue([faqAnswerMatch, faqQuestionMatch])
-      const prisma = {
+      const prisma = createMockPrisma({
         faq: {
           findMany,
-        },
-        faqCategory: {
-          findMany: vi.fn(),
-        },
-        $transaction: vi.fn(),
-      } as unknown as PrismaClient
+        } as any,
+      })
 
-      const repository = new FAQRepository(prisma)
+      const repository = new FAQRepository(prisma as any)
       const result = await repository.search('Visa', 'kk', 2)
 
       const [findManyArgs] = findMany.mock.calls[0] as [Prisma.FaqFindManyArgs]
@@ -175,7 +167,7 @@ describe('FAQRepository', () => {
       const searchFilter = findManyArgs.where?.translations?.some as Prisma.FaqTranslationWhereInput
 
       expect(findManyArgs.take).toBe(2)
-      expect((translationInclude?.where?.locale as any)?.in).toEqual(['kk', 'kk', 'ru'])
+      expect((translationInclude?.where?.locale as any)?.in).toEqual(['kk', 'ru'])
       expect(searchFilter?.OR).toEqual([
         { question: { contains: 'Visa' } },
         { answer: { contains: 'Visa' } },

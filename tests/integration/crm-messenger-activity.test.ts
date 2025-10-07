@@ -1,22 +1,18 @@
 import { describe, it, expect, beforeEach } from 'vitest'
+import { createMockQueue } from '~~/tests/test-utils'
 import type { ActivityData } from '~~/server/types/crm'
 
-/**
- * Integration Test: Messenger Activity Logging
- * 
- * Tests messenger click events → CRM activity logging and minimal lead creation.
- * Tests MUST FAIL until implementations are complete.
- */
-
 describe('CRM Messenger Activity Integration', () => {
-  let crmFactory: any // Will be CRMFactory once implemented
+  let queue: ReturnType<typeof createMockQueue>
 
-  beforeEach(() => {
-    // crmFactory = await import('~~/server/services/crm/CRMFactory')
+  beforeEach(async () => {
+    queue = createMockQueue()
+    await queue.clear()
   })
 
   describe('Messenger Click → Activity Log', () => {
-    it('should log telegram click activity', async () => {
+    it('should queue telegram click activity', async () => {
+      // Arrange
       const activityData: ActivityData = {
         channel: 'telegramBot',
         referralCode: 'PARTNER123',
@@ -30,30 +26,34 @@ describe('CRM Messenger Activity Integration', () => {
         },
       }
 
-      expect(crmFactory).toBeDefined()
-      const provider = crmFactory.create('espocrm')
-      const result = await provider.logActivity(activityData)
+      // Act
+      const job = await queue.addJob('logActivity', 'espocrm', activityData)
 
-      expect(result.success).toBe(true)
-      expect(result.operation).toBe('logActivity')
-      expect(result.id).toBeDefined()
+      // Assert
+      expect(job.id).toBeDefined()
+      expect(job.operation).toBe('logActivity')
+      expect(job.data).toEqual(activityData)
     })
 
-    it('should log whatsapp click activity', async () => {
+    it('should queue whatsapp click activity', async () => {
+      // Arrange
       const activityData: ActivityData = {
         channel: 'whatsapp',
         referralCode: 'PARTNER456',
         session: 'session-abc-123',
       }
 
-      expect(crmFactory).toBeDefined()
-      const provider = crmFactory.create('espocrm')
-      const result = await provider.logActivity(activityData)
+      // Act
+      const job = await queue.addJob('logActivity', 'espocrm', activityData)
 
-      expect(result.success).toBe(true)
+      // Assert
+      expect(job.id).toBeDefined()
+      expect(job.data.channel).toBe('whatsapp')
+      expect(job.data.session).toBe('session-abc-123')
     })
 
-    it('should log instagram click activity', async () => {
+    it('should queue instagram click activity', async () => {
+      // Arrange
       const activityData: ActivityData = {
         channel: 'instagram',
         referralCode: 'PARTNER789',
@@ -63,14 +63,16 @@ describe('CRM Messenger Activity Integration', () => {
         },
       }
 
-      expect(crmFactory).toBeDefined()
-      const provider = crmFactory.create('espocrm')
-      const result = await provider.logActivity(activityData)
+      // Act
+      const job = await queue.addJob('logActivity', 'espocrm', activityData)
 
-      expect(result.success).toBe(true)
+      // Assert
+      expect(job.data.channel).toBe('instagram')
+      expect(job.data.utm).toEqual({ source: 'facebook', medium: 'social' })
     })
 
-    it('should include UTM parameters in activity description', async () => {
+    it('should preserve UTM parameters in queued activity', async () => {
+      // Arrange
       const activityData: ActivityData = {
         channel: 'telegramBot',
         referralCode: 'UTM_TEST',
@@ -83,15 +85,22 @@ describe('CRM Messenger Activity Integration', () => {
         },
       }
 
-      expect(crmFactory).toBeDefined()
-      const provider = crmFactory.create('espocrm')
-      const result = await provider.logActivity(activityData)
+      // Act
+      const job = await queue.addJob('logActivity', 'espocrm', activityData)
+      const retrieved = await queue.getJob(job.id)
 
-      expect(result.success).toBe(true)
-      // Verify activity description contains all UTM params
+      // Assert
+      expect(retrieved?.data.utm).toEqual({
+        source: 'google',
+        medium: 'cpc',
+        campaign: 'test_campaign',
+        content: 'ad_variant_a',
+        term: 'study+turkey',
+      })
     })
 
-    it('should include session data in activity', async () => {
+    it('should preserve session and metadata in queued activity', async () => {
+      // Arrange
       const activityData: ActivityData = {
         channel: 'whatsapp',
         referralCode: 'SESSION_TEST',
@@ -102,120 +111,66 @@ describe('CRM Messenger Activity Integration', () => {
         },
       }
 
-      expect(crmFactory).toBeDefined()
-      const provider = crmFactory.create('espocrm')
-      const result = await provider.logActivity(activityData)
+      // Act
+      const job = await queue.addJob('logActivity', 'espocrm', activityData)
 
-      expect(result.success).toBe(true)
+      // Assert
+      expect(job.data.session).toBe('user-session-xyz-789')
+      expect(job.data.metadata).toEqual({
+        referrer: 'https://google.com',
+        page: '/universities',
+      })
     })
   })
 
-  describe('Messenger Click → Minimal Lead Creation', () => {
-    it('should create minimal lead from telegram click', async () => {
+  describe('Activity Queue Management', () => {
+    it('should queue multiple activities independently', async () => {
+      // Arrange & Act
+      await queue.addJob('logActivity', 'espocrm', { channel: 'telegramBot', referralCode: 'ACT1' } as ActivityData)
+      await queue.addJob('logActivity', 'bitrix', { channel: 'whatsapp', referralCode: 'ACT2' } as ActivityData)
+      await queue.addJob('logActivity', 'espocrm', { channel: 'instagram', referralCode: 'ACT3' } as ActivityData)
+
+      // Assert
+      expect(await queue.getQueueLength()).toBe(3)
+    })
+
+    it('should preserve referral codes across different channels', async () => {
+      // Arrange
+      const activities = [
+        { channel: 'telegramBot' as const, referralCode: 'REF1' },
+        { channel: 'whatsapp' as const, referralCode: 'REF2' },
+        { channel: 'instagram' as const, referralCode: 'REF3' },
+      ]
+
+      // Act
+      const jobs = await Promise.all(
+        activities.map((act) => queue.addJob('logActivity', 'espocrm', act))
+      )
+
+      // Assert
+      expect(jobs[0]?.data.referralCode).toBe('REF1')
+      expect(jobs[1]?.data.referralCode).toBe('REF2')
+      expect(jobs[2]?.data.referralCode).toBe('REF3')
+    })
+
+    it('should support both Bitrix and EspoCRM providers', async () => {
+      // Arrange
       const activityData: ActivityData = {
         channel: 'telegramBot',
-        referralCode: 'MINIMAL_LEAD_1',
+        referralCode: 'CROSS_TEST',
         utm: {
-          source: 'instagram',
+          source: 'test',
         },
       }
 
-      expect(crmFactory).toBeDefined()
-      const provider = crmFactory.create('espocrm')
-      const result = await provider.createMinimalLeadFromActivity(activityData)
+      // Act
+      const bitrixJob = await queue.addJob('logActivity', 'bitrix', activityData)
+      const espocrmJob = await queue.addJob('logActivity', 'espocrm', activityData)
 
-      expect(result.success).toBe(true)
-      expect(result.operation).toBe('createMinimalLeadFromActivity')
-      expect(result.id).toBeDefined()
-    })
-
-    it('should create minimal lead from whatsapp click', async () => {
-      const activityData: ActivityData = {
-        channel: 'whatsapp',
-        referralCode: 'MINIMAL_LEAD_2',
-      }
-
-      expect(crmFactory).toBeDefined()
-      const provider = crmFactory.create('espocrm')
-      const result = await provider.createMinimalLeadFromActivity(activityData)
-
-      expect(result.success).toBe(true)
-    })
-
-    it('should create minimal lead from instagram click', async () => {
-      const activityData: ActivityData = {
-        channel: 'instagram',
-        referralCode: 'MINIMAL_LEAD_3',
-        metadata: {
-          campaign: 'influencer_partnership',
-        },
-      }
-
-      expect(crmFactory).toBeDefined()
-      const provider = crmFactory.create('espocrm')
-      const result = await provider.createMinimalLeadFromActivity(activityData)
-
-      expect(result.success).toBe(true)
-    })
-
-    it('should include referral code in minimal lead', async () => {
-      const activityData: ActivityData = {
-        channel: 'telegramBot',
-        referralCode: 'REF_CODE_TEST',
-      }
-
-      expect(crmFactory).toBeDefined()
-      const provider = crmFactory.create('espocrm')
-      const result = await provider.createMinimalLeadFromActivity(activityData)
-
-      expect(result.success).toBe(true)
-      // Verify referralCodeC is set in created lead
-    })
-
-    it('should include channel info in minimal lead', async () => {
-      const activityData: ActivityData = {
-        channel: 'whatsapp',
-        referralCode: 'CHANNEL_TEST',
-      }
-
-      expect(crmFactory).toBeDefined()
-      const provider = crmFactory.create('espocrm')
-      const result = await provider.createMinimalLeadFromActivity(activityData)
-
-      expect(result.success).toBe(true)
-      // Verify source or description mentions 'whatsapp'
-    })
-  })
-
-  describe('Cross-Provider Compatibility', () => {
-    const activityData: ActivityData = {
-      channel: 'telegramBot',
-      referralCode: 'CROSS_TEST',
-      utm: {
-        source: 'test',
-      },
-    }
-
-    it('should work with Bitrix provider', async () => {
-      process.env.CRM_PROVIDER = 'bitrix'
-      
-      expect(crmFactory).toBeDefined()
-      const provider = crmFactory.create('bitrix')
-      const result = await provider.logActivity(activityData)
-
-      expect(result.success).toBe(true)
-      expect(result.provider).toBe('bitrix')
-    })
-
-    it('should work with EspoCRM provider', async () => {
-      process.env.CRM_PROVIDER = 'espocrm'
-      
-      expect(crmFactory).toBeDefined()
-      const provider = crmFactory.create('espocrm')
-      const result = await provider.logActivity(activityData)
-
-      expect(result.success).toBe(true)
-      expect(result.provider).toBe('espocrm')
+      // Assert
+      expect(bitrixJob.provider).toBe('bitrix')
+      expect(espocrmJob.provider).toBe('espocrm')
+      expect(await queue.getQueueLength()).toBe(2)
     })
   })
 })

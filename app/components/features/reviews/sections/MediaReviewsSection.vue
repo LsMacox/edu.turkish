@@ -16,7 +16,7 @@
       <div v-if="loading" class="text-center py-12">
         <div
           class="inline-block animate-spin rounded-full h-12 w-12 border-b-2 border-primary"
-        ></div>
+        />
         <p class="text-gray-500 mt-4">{{ $t('common.loading') }}</p>
       </div>
 
@@ -83,11 +83,11 @@
 import { useFetch } from '#app'
 import { Autoplay, Navigation, Pagination } from 'swiper/modules'
 import { Swiper, SwiperSlide } from 'swiper/vue'
-const { locale } = useI18n()
 
 import 'swiper/css'
 import 'swiper/css/navigation'
 import 'swiper/css/pagination'
+const { locale } = useI18n()
 
 interface MediaReview {
   id: number

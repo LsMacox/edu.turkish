@@ -11,9 +11,9 @@
     cta-button-label="Получить консультацию"
     :whatsapp-href="channels?.whatsapp?.href"
     whatsapp-label="Написать в WhatsApp"
-    @consult="handleConsult"
     :telegram-href="channels?.telegramBot?.href"
     telegram-label="Связаться в Telegram"
+    @consult="handleConsult"
   />
 </template>
 

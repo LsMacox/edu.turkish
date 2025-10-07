@@ -18,23 +18,12 @@ const rootDir = resolve(__dirname, '../..')
 describe('Alias Configuration Contract', () => {
   describe('validateAliasConfiguration', () => {
     it('should have matching aliases between tsconfig.json and vitest.config.ts', () => {
-      // Load tsconfig.json
-      const tsconfigPath = resolve(rootDir, 'tsconfig.json')
-      const tsconfigContent = readFileSync(tsconfigPath, 'utf-8')
-      const tsconfig = parseJsonWithComments(tsconfigContent)
-      const tsconfigPaths = tsconfig.compilerOptions?.paths || {}
-
       // Load vitest.config.ts (parse as text since it's TS)
       const vitestConfigPath = resolve(rootDir, 'vitest.config.ts')
       const vitestConfigContent = readFileSync(vitestConfigPath, 'utf-8')
 
-      // Extract aliases from tsconfig
-      const tsconfigAliases = Object.keys(tsconfigPaths)
-        .filter(key => key.includes('*'))
-        .map(key => key.replace('/*', ''))
-
-      // Check that vitest has all required aliases
-      const requiredAliases = ['~', '~~', '@', '@@', '^']
+      // Check that vitest has standard aliases (~ and ~~)
+      const requiredAliases = ['~', '~~']
       
       requiredAliases.forEach(alias => {
         const aliasPattern = `'${alias}':`
@@ -46,53 +35,47 @@ describe('Alias Configuration Contract', () => {
     })
 
     it('should have ~ alias pointing to ./app', () => {
-      const tsconfigPath = resolve(rootDir, 'tsconfig.json')
-      const tsconfigContent = readFileSync(tsconfigPath, 'utf-8')
-      const tsconfig = parseJsonWithComments(tsconfigContent)
-      const paths = tsconfig.compilerOptions?.paths || {}
+      const vitestConfigPath = resolve(rootDir, 'vitest.config.ts')
+      const vitestConfigContent = readFileSync(vitestConfigPath, 'utf-8')
 
-      expect(paths['~/*']).toEqual(['./app/*'])
+      expect(vitestConfigContent).toContain("'~':")
+      expect(vitestConfigContent).toContain("'./app'")
     })
 
     it('should have ~~ alias pointing to root', () => {
-      const tsconfigPath = resolve(rootDir, 'tsconfig.json')
-      const tsconfigContent = readFileSync(tsconfigPath, 'utf-8')
-      const tsconfig = parseJsonWithComments(tsconfigContent)
-      const paths = tsconfig.compilerOptions?.paths || {}
+      const vitestConfigPath = resolve(rootDir, 'vitest.config.ts')
+      const vitestConfigContent = readFileSync(vitestConfigPath, 'utf-8')
 
-      expect(paths['~~/*']).toEqual(['./*'])
+      expect(vitestConfigContent).toContain("'~~':")
+      expect(vitestConfigContent).toContain("'.'")
     })
   })
 
   describe('validateStandardAliases', () => {
     it('should define standard aliases ~ and ~~', () => {
-      const tsconfigPath = resolve(rootDir, 'tsconfig.json')
-      const tsconfigContent = readFileSync(tsconfigPath, 'utf-8')
-      const tsconfig = parseJsonWithComments(tsconfigContent)
-      const paths = tsconfig.compilerOptions?.paths || {}
+      const vitestConfigPath = resolve(rootDir, 'vitest.config.ts')
+      const vitestConfigContent = readFileSync(vitestConfigPath, 'utf-8')
 
-      // Standard aliases must exist
-      expect(paths['~/*']).toBeDefined()
-      expect(paths['~~/*']).toBeDefined()
+      // Standard aliases must exist in vitest config
+      expect(vitestConfigContent).toContain("'~':")
+      expect(vitestConfigContent).toContain("'~~':")
 
       // Standard aliases must point to correct locations
-      expect(paths['~/*']).toEqual(['./app/*'])
-      expect(paths['~~/*']).toEqual(['./*'])
+      expect(vitestConfigContent).toContain("'./app'")
+      expect(vitestConfigContent).toContain("'.'")
     })
   })
 
   describe('validateNoDeprecatedAliases (post-migration)', () => {
-    it.skip('should not have deprecated aliases @, @@, ^ after migration', () => {
-      // This test will be enabled after migration is complete
-      const tsconfigPath = resolve(rootDir, 'tsconfig.json')
-      const tsconfigContent = readFileSync(tsconfigPath, 'utf-8')
-      const tsconfig = parseJsonWithComments(tsconfigContent)
-      const paths = tsconfig.compilerOptions?.paths || {}
+    it('should not have deprecated aliases @, @@, ^ after migration', () => {
+      // Check vitest.config.ts for deprecated aliases
+      const vitestConfigPath = resolve(rootDir, 'vitest.config.ts')
+      const vitestConfigContent = readFileSync(vitestConfigPath, 'utf-8')
 
-      // Deprecated aliases should not exist
-      expect(paths['@/*']).toBeUndefined()
-      expect(paths['@@/*']).toBeUndefined()
-      expect(paths['^/*']).toBeUndefined()
+      // Deprecated aliases should not exist in vitest config
+      expect(vitestConfigContent).not.toContain("'@':")
+      expect(vitestConfigContent).not.toContain("'@@':")
+      expect(vitestConfigContent).not.toContain("'^':")
     })
   })
 })

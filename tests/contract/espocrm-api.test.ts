@@ -1,12 +1,5 @@
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest'
 
-/**
- * Contract test for EspoCRM API integration
- * 
- * Tests HTTP request/response contracts with mocked responses.
- * Verifies field mapping, authentication, and error handling.
- */
-
 describe('EspoCRM API Contract', () => {
   const originalEnv = { ...process.env }
   const apiUrl = 'https://crm.example.com/api/v1'
@@ -31,28 +24,11 @@ describe('EspoCRM API Contract', () => {
 
   describe('Authentication', () => {
     it('should include X-Api-Key header in all requests', async () => {
-      const fetchMock = vi.fn(async () => ({
-        ok: true,
-        status: 201,
-        json: async () => ({ id: 'uuid-123', name: 'Test Lead' }),
-      }))
-      ;(global as any).fetch = fetchMock
-
-      // This will fail until EspoCrmService is implemented
-      // For now, we're testing the contract expectation
       expect(apiKey).toBeDefined()
       expect(apiKey).toBe('test-api-key-123')
     })
 
     it('should handle 401 Unauthorized responses', async () => {
-      const fetchMock = vi.fn(async () => ({
-        ok: false,
-        status: 401,
-        json: async () => ({ error: 'Unauthorized', message: 'Invalid API key' }),
-      }))
-      ;(global as any).fetch = fetchMock
-
-      // Contract: Should return { success: false, error: 'message' }
       const expectedResult = { success: false, error: 'Invalid API key' }
       expect(expectedResult.success).toBe(false)
       expect(expectedResult.error).toBeDefined()
@@ -94,60 +70,18 @@ describe('EspoCRM API Contract', () => {
     })
 
     it('should handle 201 Created response', async () => {
-      const mockResponse = {
-        ok: true,
-        status: 201,
-        json: async () => ({
-          id: '507f1f77bcf86cd799439011',
-          name: 'Application - Ivan Ivanov',
-          firstName: 'Ivan',
-          lastName: 'Ivanov',
-          createdAt: '2025-10-05T15:20:00Z',
-        }),
-      }
-
-      const fetchMock = vi.fn(async () => mockResponse)
-      ;(global as any).fetch = fetchMock
-
-      // Contract: Should return { success: true, id: 'uuid' }
       const expectedResult = { success: true, id: '507f1f77bcf86cd799439011' }
       expect(expectedResult.success).toBe(true)
       expect(expectedResult.id).toBeDefined()
     })
 
     it('should handle 400 Bad Request response', async () => {
-      const mockResponse = {
-        ok: false,
-        status: 400,
-        json: async () => ({
-          error: 'Validation Failed',
-          message: "Field 'name' is required",
-        }),
-      }
-
-      const fetchMock = vi.fn(async () => mockResponse)
-      ;(global as any).fetch = fetchMock
-
-      // Contract: Should return { success: false, error: 'message' }
       const expectedResult = { success: false, error: "Field 'name' is required" }
       expect(expectedResult.success).toBe(false)
       expect(expectedResult.error).toBeDefined()
     })
 
     it('should handle 500 Internal Server Error response', async () => {
-      const mockResponse = {
-        ok: false,
-        status: 500,
-        json: async () => ({
-          error: 'Internal Server Error',
-          message: 'Database connection failed',
-        }),
-      }
-
-      const fetchMock = vi.fn(async () => mockResponse)
-      ;(global as any).fetch = fetchMock
-
-      // Contract: Should retry and return { success: false, error: 'message' }
       const expectedResult = { success: false, error: 'Database connection failed' }
       expect(expectedResult.success).toBe(false)
       expect(expectedResult.error).toBeDefined()
@@ -186,22 +120,6 @@ describe('EspoCRM API Contract', () => {
     })
 
     it('should handle 201 Created response for activity', async () => {
-      const mockResponse = {
-        ok: true,
-        status: 201,
-        json: async () => ({
-          id: '507f1f77bcf86cd799439012',
-          name: 'Messenger click: telegram',
-          type: 'Call',
-          status: 'Held',
-          createdAt: '2025-10-05T15:20:00Z',
-        }),
-      }
-
-      const fetchMock = vi.fn(async () => mockResponse)
-      ;(global as any).fetch = fetchMock
-
-      // Contract: Should return { success: true, id: 'uuid' }
       const expectedResult = { success: true, id: '507f1f77bcf86cd799439012' }
       expect(expectedResult.success).toBe(true)
       expect(expectedResult.id).toBeDefined()
@@ -210,24 +128,12 @@ describe('EspoCRM API Contract', () => {
 
   describe('Error Handling Contract', () => {
     it('should handle network timeout', async () => {
-      const fetchMock = vi.fn(async () => {
-        throw new Error('AbortError')
-      })
-      ;(global as any).fetch = fetchMock
-
-      // Contract: Should return { success: false, error: 'Request timeout' }
       const expectedResult = { success: false, error: 'Request timeout' }
       expect(expectedResult.success).toBe(false)
       expect(expectedResult.error).toContain('timeout')
     })
 
     it('should handle network connection refused', async () => {
-      const fetchMock = vi.fn(async () => {
-        throw new Error('ECONNREFUSED')
-      })
-      ;(global as any).fetch = fetchMock
-
-      // Contract: Should return { success: false, error: 'message' }
       const expectedResult = { success: false, error: 'Connection refused' }
       expect(expectedResult.success).toBe(false)
       expect(expectedResult.error).toBeDefined()
@@ -280,20 +186,6 @@ describe('EspoCRM API Contract', () => {
 
   describe('Rate Limiting Contract', () => {
     it('should handle 429 Rate Limit response', async () => {
-      const mockResponse = {
-        ok: false,
-        status: 429,
-        headers: new Headers({ 'Retry-After': '60' }),
-        json: async () => ({
-          error: 'Too Many Requests',
-          message: 'Rate limit exceeded',
-        }),
-      }
-
-      const fetchMock = vi.fn(async () => mockResponse)
-      ;(global as any).fetch = fetchMock
-
-      // Contract: Should retry after delay
       const retryAfter = 60
       expect(retryAfter).toBe(60)
     })

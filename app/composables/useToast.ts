@@ -29,7 +29,7 @@ export const useToast = () => {
       duration: options.duration ?? 4000,
     }
     toasts.value.push(toast)
-    if (process.client) {
+    if (import.meta.client) {
       window.setTimeout(() => remove(id), toast.duration)
     }
     return id
