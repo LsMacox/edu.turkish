@@ -402,7 +402,6 @@ model Application {
   source         String            @db.VarChar(100) @default("unknown")
   referralCode   String?           @map("referral_code") @db.VarChar(100)
   personalInfo   Json              @map("personal_info")
-  education      Json
   preferences    Json
   additionalInfo Json?             @map("additional_info")
   submittedAt    DateTime          @default(now()) @map("submitted_at")
