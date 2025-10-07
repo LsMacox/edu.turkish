@@ -9,33 +9,11 @@ import type {
 
 const LEVEL_ALL_VALUE = 'all'
 
-const LEVEL_CANONICAL_MAP: Record<string, DegreeType | typeof LEVEL_ALL_VALUE> = {
-  Все: LEVEL_ALL_VALUE,
-  'Все уровни': LEVEL_ALL_VALUE,
-  All: LEVEL_ALL_VALUE,
-  'All levels': LEVEL_ALL_VALUE,
-  all: LEVEL_ALL_VALUE,
-  '': LEVEL_ALL_VALUE,
-  Бакалавриат: 'bachelor',
-  Bachelor: 'bachelor',
-  "Bachelor's": 'bachelor',
-  Lisans: 'bachelor',
-  Магистратура: 'master',
-  Master: 'master',
-  "Master's": 'master',
-  'Yüksek Lisans': 'master',
-  Докторантура: 'phd',
-  Doctorate: 'phd',
-  doctorate: 'phd',
-  PhD: 'phd',
-  Doktora: 'phd',
-}
-
-const normalizeLevel = (level: string): string => {
-  const normalized = level?.trim()
-  if (!normalized) return LEVEL_ALL_VALUE
-
-  return LEVEL_CANONICAL_MAP[normalized] || normalized
+const LEVEL_TRANSLATION_KEYS: Record<DegreeType | typeof LEVEL_ALL_VALUE, string> = {
+  [LEVEL_ALL_VALUE]: 'universities_page.filters.all_levels',
+  bachelor: 'universities_page.filters.levels.bachelor',
+  master: 'universities_page.filters.levels.master',
+  phd: 'universities_page.filters.levels.doctorate',
 }
 
 export const useUniversitiesStore = defineStore('universities', () => {
@@ -52,12 +30,58 @@ export const useUniversitiesStore = defineStore('universities', () => {
     priceRange: [0, 20000],
   })
 
+  const { locale, t } = useI18n({ useScope: 'global' })
+
+  const levelCanonicalMap = computed(() => {
+    const map = new Map<string, DegreeType | typeof LEVEL_ALL_VALUE>()
+
+    const addSynonym = (
+      value: string | undefined,
+      canonical: DegreeType | typeof LEVEL_ALL_VALUE,
+    ) => {
+      if (!value) return
+      const trimmed = value.trim()
+      if (!trimmed) return
+      map.set(trimmed, canonical)
+      map.set(trimmed.toLowerCase(), canonical)
+    }
+
+    ;(Object.keys(LEVEL_TRANSLATION_KEYS) as Array<keyof typeof LEVEL_TRANSLATION_KEYS>).forEach(
+      (canonical) => {
+        addSynonym(canonical, canonical)
+        const translation = t(LEVEL_TRANSLATION_KEYS[canonical])
+        if (typeof translation === 'string') {
+          addSynonym(translation, canonical)
+        }
+      },
+    )
+
+    addSynonym('doctorate', 'phd')
+    addSynonym('doctoral', 'phd')
+
+    return map
+  })
+
+  const defaultCityLabel = computed(() => t('universities_page.filters.all_cities') as string)
+  const defaultTypeLabel = computed(() => t('universities_page.filters.all_types') as string)
+
+  const normalizeLevel = (level: string | null | undefined): string => {
+    const normalized = level?.trim()
+    if (!normalized) return LEVEL_ALL_VALUE
+
+    const canonical =
+      levelCanonicalMap.value.get(normalized) ||
+      levelCanonicalMap.value.get(normalized.toLowerCase())
+
+    return canonical || LEVEL_ALL_VALUE
+  }
+
   // Default filter values
   const getDefaultFilters = (): UniversityFilters => ({
     q: '',
-    city: 'Все города',
+    city: defaultCityLabel.value,
     langs: [],
-    type: 'Все',
+    type: defaultTypeLabel.value,
     level: LEVEL_ALL_VALUE,
     price: [availableFilters.value.priceRange[0], availableFilters.value.priceRange[1]] as [
       number,
@@ -75,10 +99,9 @@ export const useUniversitiesStore = defineStore('universities', () => {
       return getDefaultFilters()
     }
 
-    // Normalize city value coming from URL (handle "Все"/"All" variants)
-    const rawCity = (query.city as string) || 'Все города'
-    const normalizedCity =
-      rawCity === 'Все' ? 'Все города' : rawCity === 'All' ? 'All cities' : rawCity
+    // Normalize city value coming from URL
+    const rawCity = (query.city as string) || defaultCityLabel.value
+    const normalizedCity = rawCity || defaultCityLabel.value
 
     return {
       q: (query.q as string) || '',
@@ -88,7 +111,7 @@ export const useUniversitiesStore = defineStore('universities', () => {
           ? (query.langs as string[])
           : [query.langs as string]
         : [],
-      type: (query.type as string) || 'Все',
+      type: (query.type as string) || defaultTypeLabel.value,
       level: normalizeLevel((query.level as string) || LEVEL_ALL_VALUE),
       price:
         query.price_min || query.price_max
@@ -107,9 +130,6 @@ export const useUniversitiesStore = defineStore('universities', () => {
   const filters = ref<UniversityFilters>(getDefaultFilters())
   type SortOption = 'pop' | 'price_asc' | 'price_desc' | 'alpha' | 'lang_en'
   const sort = ref<SortOption>('pop')
-
-  // i18n must be called at the top of setup
-  const { locale } = useI18n()
 
   // Flag to prevent infinite loops during URL sync
   const isUpdatingFromURL = ref(false)
@@ -149,17 +169,17 @@ export const useUniversitiesStore = defineStore('universities', () => {
       const queryParams: UniversityQueryParams = {
         q: effectiveFilters.q || undefined,
         city:
-          effectiveFilters.city !== 'Все города' &&
-          effectiveFilters.city !== 'All cities' &&
-          effectiveFilters.city !== 'Все' &&
-          effectiveFilters.city !== 'All'
+          effectiveFilters.city && effectiveFilters.city !== defaults.city
             ? effectiveFilters.city
             : undefined,
         langs:
           effectiveFilters.langs && effectiveFilters.langs.length > 0
             ? effectiveFilters.langs
             : undefined,
-        type: effectiveFilters.type !== 'Все' ? effectiveFilters.type : undefined,
+        type:
+          effectiveFilters.type && effectiveFilters.type !== defaults.type
+            ? effectiveFilters.type
+            : undefined,
         level: effectiveFilters.level !== LEVEL_ALL_VALUE ? effectiveFilters.level : undefined,
         price_min:
           effectiveFilters.price?.[0] !== undefined &&

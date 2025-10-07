@@ -26,6 +26,22 @@ vi.stubGlobal('useRoute', () => routeMock)
 vi.stubGlobal('useI18n', () => ({
   t: (key: string) => key,
   locale: { value: 'ru' },
+  messages: {
+    value: {
+      ru: {
+        universities_page: {
+          filters: {
+            all_levels: 'universities_page.filters.all_levels',
+            levels: {
+              bachelor: 'universities_page.filters.levels.bachelor',
+              master: 'universities_page.filters.levels.master',
+              doctorate: 'universities_page.filters.levels.doctorate',
+            },
+          },
+        },
+      },
+    },
+  },
 }))
 ;(
   globalThis as unknown as { requestAnimationFrame: (cb: (time: number) => void) => number }
@@ -49,9 +65,9 @@ const createStoreWithRange = (priceRange: [number, number], levelOptions: string
   }
   store.filters = {
     q: '',
-    city: 'Все города',
+    city: 'universities_page.filters.all_cities',
     langs: [],
-    type: 'Все',
+    type: 'universities_page.filters.all_types',
     level: 'all',
     price: priceRange,
   }

@@ -2,6 +2,20 @@ import { defineStore } from 'pinia'
 import type { UniversityDetail, UniversityStudyDirection } from '~~/server/types/api/universities'
 import type { DegreeType } from '~/types/domain'
 
+const DEGREE_TYPE_VALUES: readonly DegreeType[] = ['bachelor', 'master', 'phd']
+
+const DEGREE_TRANSLATION_KEYS: Record<DegreeType, string> = {
+  bachelor: 'universities_page.filters.levels.bachelor',
+  master: 'universities_page.filters.levels.master',
+  phd: 'universities_page.filters.levels.doctorate',
+}
+
+const DEGREE_FALLBACK_SYNONYMS: Record<DegreeType, string[]> = {
+  bachelor: ["bachelor's", 'bachelors', 'undergraduate', 'lisans'],
+  master: ["master's", 'masters', 'graduate', 'yüksek lisans'],
+  phd: ['doctorate', 'doctoral', 'doctor', "doctor's", 'phd', 'doktora'],
+}
+
 // Новые интерфейсы для фронтенда (совместимые со старыми компонентами)
 export interface UniversityProgram {
   name: string
@@ -110,6 +124,40 @@ export const useUniversityDetailStore = defineStore('universityDetail', () => {
 
   // Global i18n for formatting inside this store
   const { locale, t } = useI18n()
+
+  const degreeCanonicalMap = computed(() => {
+    const map = new Map<string, DegreeType>()
+
+    const addSynonym = (value: string | undefined, canonical: DegreeType) => {
+      if (!value) return
+      const trimmed = value.trim()
+      if (!trimmed) return
+      map.set(trimmed, canonical)
+      map.set(trimmed.toLowerCase(), canonical)
+    }
+
+    DEGREE_TYPE_VALUES.forEach((canonical) => {
+      addSynonym(canonical, canonical)
+      const translation = t(DEGREE_TRANSLATION_KEYS[canonical])
+      if (typeof translation === 'string') {
+        addSynonym(translation, canonical)
+      }
+      DEGREE_FALLBACK_SYNONYMS[canonical].forEach((synonym) => addSynonym(synonym, canonical))
+    })
+
+    return map
+  })
+
+  const normalizeDegreeType = (level: string | null | undefined): DegreeType => {
+    const normalized = level?.toString().trim()
+    if (!normalized) return 'bachelor'
+
+    return (
+      degreeCanonicalMap.value.get(normalized) ||
+      degreeCanonicalMap.value.get(normalized.toLowerCase()) ||
+      'bachelor'
+    )
+  }
 
   // Actions
 
@@ -253,7 +301,7 @@ export const useUniversityDetailStore = defineStore('universityDetail', () => {
         count: program.duration_years,
       }),
       price: program.tuition_per_year,
-      level: program.degree_type as DegreeType,
+      level: normalizeDegreeType(program.degree_type),
     }))
   }
 
