@@ -47,6 +47,10 @@ describe('useFormValidation', () => {
       // Test valid Turkish phone
       result = await validation.validateField('phone', '+905551234567', rules)
       expect(result.isValid).toBe(true)
+
+      // Test formatted valid phone
+      result = await validation.validateField('phone', '+90 (555) 123 45 67', rules)
+      expect(result.isValid).toBe(true)
     })
 
     it('should validate minimum length correctly', async () => {

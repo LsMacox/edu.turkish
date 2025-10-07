@@ -120,11 +120,19 @@ export const useFormValidation = () => {
         }
         break
 
-      case 'phone':
-        if (value && !patterns.phone.test(value)) {
-          return typeof message === 'function' ? message(value, type) : message
+      case 'phone': {
+        if (value) {
+          const normalizedValue =
+            typeof value === 'string'
+              ? value.replace(/[^\d+]/g, '')
+              : String(value)
+
+          if (!patterns.phone.test(normalizedValue)) {
+            return typeof message === 'function' ? message(value, type) : message
+          }
         }
         break
+      }
 
       case 'url':
         if (value && !patterns.url.test(value)) {
