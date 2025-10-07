@@ -120,11 +120,19 @@ export const useFormValidation = () => {
         }
         break
 
-      case 'phone':
-        if (value && !patterns.phone.test(value)) {
-          return typeof message === 'function' ? message(value, type) : message
+      case 'phone': {
+        if (value) {
+          const normalizedValue =
+            typeof value === 'string'
+              ? value.replace(/[^\d+]/g, '')
+              : String(value)
+
+          if (!patterns.phone.test(normalizedValue)) {
+            return typeof message === 'function' ? message(value, type) : message
+          }
         }
         break
+      }
 
       case 'url':
         if (value && !patterns.url.test(value)) {
@@ -461,30 +469,3 @@ export const useFormValidation = () => {
 /**
  * Helper composable for specific form validation scenarios
  */
-export const useContactFormValidation = () => {
-  const validation = useFormValidation()
-
-  // Pre-configured validation rules for contact form
-  const contactFormRules = {
-    name: [
-      validation.createRules.required('Name is required'),
-      validation.createRules.minLength(2, 'Name must be at least 2 characters'),
-      validation.createRules.maxLength(50, 'Name must not exceed 50 characters'),
-      validation.createRules.pattern(/^[a-zA-Z\s]+$/, 'Name can only contain letters and spaces'),
-    ],
-    phone: [
-      validation.createRules.required('Phone number is required'),
-      validation.createRules.phone('Please enter a valid Turkish phone number'),
-    ],
-    email: [
-      validation.createRules.required('Email is required'),
-      validation.createRules.email('Please enter a valid email address'),
-    ],
-    message: [validation.createRules.maxLength(500, 'Message must not exceed 500 characters')],
-  }
-
-  return {
-    ...validation,
-    contactFormRules,
-  }
-}

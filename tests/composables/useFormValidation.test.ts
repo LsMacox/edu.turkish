@@ -47,6 +47,10 @@ describe('useFormValidation', () => {
       // Test valid Turkish phone
       result = await validation.validateField('phone', '+905551234567', rules)
       expect(result.isValid).toBe(true)
+
+      // Test formatted valid phone
+      result = await validation.validateField('phone', '+90 (555) 123 45 67', rules)
+      expect(result.isValid).toBe(true)
     })
 
     it('should validate minimum length correctly', async () => {
@@ -143,11 +147,113 @@ describe('useFormValidation', () => {
 
 describe('useContactFormValidation', () => {
   it('should provide pre-configured rules for contact forms', async () => {
-    const mod = await import('~/composables/useFormValidation')
+    const mod = await import('~/composables/validation/useContactFormValidation')
     const contactValidation = mod.useContactFormValidation()
 
     expect(contactValidation.contactFormRules.name).toHaveLength(4) // required, minLength, maxLength, pattern
     expect(contactValidation.contactFormRules.phone).toHaveLength(2) // required, phone
     expect(contactValidation.contactFormRules.email).toHaveLength(2) // required, email
+  })
+
+  it('validates contact form data', async () => {
+    const mod = await import('~/composables/validation/useContactFormValidation')
+    const contactValidation = mod.useContactFormValidation()
+
+    const result = await contactValidation.validateContactForm({
+      name: '',
+      phone: '',
+      email: 'invalid',
+      message: ''.repeat(600),
+    })
+
+    expect(result.isValid).toBe(false)
+    expect(result.errors).toEqual(
+      expect.arrayContaining([
+        'Name is required',
+        'Phone number is required',
+        'Please enter a valid email address',
+        'Message must not exceed 500 characters',
+      ]),
+    )
+  })
+})
+
+describe('useApplicationModalValidation', () => {
+  it('requires agreement and valid contact info', async () => {
+    const mod = await import('~/composables/validation/useApplicationModalValidation')
+    const validation = mod.useApplicationModalValidation()
+
+    const result = await validation.validateApplicationModal({
+      name: 'A',
+      phone: '123',
+      email: 'invalid-email',
+      message: ''.padEnd(600, 'x'),
+      agreement: false,
+    })
+
+    expect(result.isValid).toBe(false)
+    expect(result.errors).toEqual(
+      expect.arrayContaining([
+        'Name must be at least 2 characters',
+        'Please enter a valid phone number',
+        'Please enter a valid email address',
+        'Message must not exceed 500 characters',
+        'You must agree to the privacy policy',
+      ]),
+    )
+  })
+})
+
+describe('useUniversityApplicationValidation', () => {
+  it('validates required university application fields', async () => {
+    const mod = await import('~/composables/validation/useUniversityApplicationValidation')
+    const validation = mod.useUniversityApplicationValidation()
+
+    const result = await validation.validateUniversityApplication({
+      name: '',
+      phone: '',
+      email: 'invalid-email',
+      program: '',
+      level: '',
+      comment: ''.padEnd(600, 'c'),
+      privacyAgreed: false,
+    })
+
+    expect(result.isValid).toBe(false)
+    expect(result.errors).toEqual(
+      expect.arrayContaining([
+        'Name is required',
+        'Phone number is required',
+        'Please enter a valid email address',
+        'Please select a program of interest',
+        'Please choose your study level',
+        'Comment must not exceed 500 characters',
+        'You must agree to personal data processing',
+      ]),
+    )
+  })
+})
+
+describe('useReviewFormValidation', () => {
+  it('validates review length and required fields', async () => {
+    const mod = await import('~/composables/validation/useReviewFormValidation')
+    const validation = mod.useReviewFormValidation()
+
+    const result = await validation.validateReviewForm({
+      name: '',
+      university: '',
+      rating: '',
+      review: 'Too short',
+    })
+
+    expect(result.isValid).toBe(false)
+    expect(result.errors).toEqual(
+      expect.arrayContaining([
+        'Please enter your name',
+        'Please select a university',
+        'Please choose a rating',
+        'Review must be at least 50 characters long',
+      ]),
+    )
   })
 })

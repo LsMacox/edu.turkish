@@ -18,50 +18,59 @@
                 <label class="block text-sm font-semibold text-secondary mb-2">{{
                   $t('applicationCTA.form.name_label')
                 }}</label>
-                <BaseTextField
-                  v-model="form.name"
-                  type="text"
-                  :placeholder="$t('applicationCTA.form.name_placeholder')"
-                />
-              </div>
-              <div>
-                <label class="block text-sm font-semibold text-secondary mb-2">{{
-                  $t('applicationCTA.form.phone_label')
-                }}</label>
-                <div class="relative">
-                  <input
-                    v-model="form.phone"
-                    type="tel"
-                    required
-                    :placeholder="$t('applicationCTA.form.phone_placeholder')"
-                    inputmode="tel"
-                    autocomplete="tel"
-                    maxlength="18"
-                    class="w-full px-4 py-3 bg-white border border-gray-300 rounded-xl focus:ring-2 focus:ring-primary focus:border-transparent focus:outline-none font-medium text-secondary placeholder-gray-400 transition-all duration-200"
-                    @input="onPhoneInput"
-                    @keydown="onPhoneKeydown"
-                  />
-                </div>
-              </div>
-            </div>
-
-            <div>
-              <label class="block text-sm font-semibold text-secondary mb-2">{{
-                $t('applicationCTA.form.email_label')
-              }}</label>
               <BaseTextField
-                v-model="form.email"
-                type="email"
-                :placeholder="$t('applicationCTA.form.email_placeholder')"
+                v-model="form.name"
+                type="text"
+                :placeholder="$t('applicationCTA.form.name_placeholder')"
+                :error="nameError"
               />
             </div>
+            <div>
+              <label class="block text-sm font-semibold text-secondary mb-2">{{
+                $t('applicationCTA.form.phone_label')
+              }}</label>
+              <div class="relative">
+                <input
+                  v-model="form.phone"
+                  type="tel"
+                  required
+                  :placeholder="$t('applicationCTA.form.phone_placeholder')"
+                  inputmode="tel"
+                  autocomplete="tel"
+                  maxlength="18"
+                  :class="[
+                    'w-full px-4 py-3 bg-white rounded-xl focus:outline-none font-medium text-secondary placeholder-gray-400 transition-all duration-200',
+                    phoneError
+                      ? 'border border-red-300 focus:ring-2 focus:ring-red-500 focus:border-red-500'
+                      : 'border border-gray-300 focus:ring-2 focus:ring-primary focus:border-transparent',
+                  ]"
+                  :aria-invalid="!!phoneError"
+                  @input="onPhoneInput"
+                  @keydown="onPhoneKeydown"
+                />
+              </div>
+              <p v-if="phoneError" class="mt-2 text-sm text-red-600">{{ phoneError }}</p>
+            </div>
+          </div>
 
-            <div class="grid md:grid-cols-2 gap-6">
-              <div>
+          <div>
+            <label class="block text-sm font-semibold text-secondary mb-2">{{
+              $t('applicationCTA.form.email_label')
+            }}</label>
+            <BaseTextField
+              v-model="form.email"
+              type="email"
+              :placeholder="$t('applicationCTA.form.email_placeholder')"
+              :error="emailError"
+            />
+          </div>
+
+          <div class="grid md:grid-cols-2 gap-6">
+            <div>
                 <label class="block text-sm font-semibold text-secondary mb-2"
                   >{{ $t('applicationCTA.form.program_label') }} *</label
                 >
-                <BaseSelect v-model="form.program" required>
+                <BaseSelect v-model="form.program" required :error="programError">
                   <option value="">{{ $t('applicationCTA.form.program_placeholder') }}</option>
                   <option v-for="program in availablePrograms" :key="program" :value="program">
                     {{ program }}
@@ -73,7 +82,7 @@
                 <label class="block text-sm font-semibold text-secondary mb-2">{{
                   $t('applicationCTA.form.level_label')
                 }}</label>
-                <BaseSelect v-model="form.level">
+                <BaseSelect v-model="form.level" :error="levelError">
                   <option value="bachelor">{{ $t('applicationCTA.form.level_bachelor') }}</option>
                   <option value="master">{{ $t('applicationCTA.form.level_master') }}</option>
                 </BaseSelect>
@@ -87,9 +96,16 @@
               <textarea
                 v-model="form.comment"
                 rows="4"
-                class="w-full px-4 py-3 bg-white border border-gray-300 rounded-xl focus:ring-2 focus:ring-primary focus:border-transparent focus:outline-none font-medium text-secondary placeholder-gray-400 transition-all duration-200 resize-none"
+                :class="[
+                  'w-full px-4 py-3 bg-white rounded-xl focus:outline-none font-medium text-secondary placeholder-gray-400 transition-all duration-200 resize-none',
+                  commentError
+                    ? 'border border-red-300 focus:ring-2 focus:ring-red-500 focus:border-red-500'
+                    : 'border border-gray-300 focus:ring-2 focus:ring-primary focus:border-transparent',
+                ]"
+                :aria-invalid="!!commentError"
                 :placeholder="$t('applicationCTA.form.comment_placeholder')"
               ></textarea>
+              <p v-if="commentError" class="mt-2 text-sm text-red-600">{{ commentError }}</p>
             </div>
 
             <BaseCheckbox
@@ -98,6 +114,7 @@
             >
               {{ $t('applicationCTA.form.privacy_agreement') }}
             </BaseCheckbox>
+            <p v-if="privacyError" class="text-sm text-red-600">{{ privacyError }}</p>
 
             <div class="text-center">
               <button
@@ -123,6 +140,8 @@
 </template>
 
 <script setup lang="ts">
+import { useUniversityApplicationValidation } from '~/composables/validation/useUniversityApplicationValidation'
+
 const { show } = useToast()
 
 interface Props {
@@ -152,6 +171,86 @@ const form = ref({
 
 const isSubmitting = ref(false)
 
+const {
+  universityApplicationRules,
+  validateUniversityApplication,
+  validateField,
+  getFieldError,
+  isFieldTouched,
+  resetForm: resetUniversityApplicationValidation,
+} = useUniversityApplicationValidation()
+
+const nameError = computed(() => getFieldError('name'))
+const phoneError = computed(() => getFieldError('phone'))
+const emailError = computed(() => getFieldError('email'))
+const programError = computed(() => getFieldError('program'))
+const levelError = computed(() => getFieldError('level'))
+const commentError = computed(() => getFieldError('comment'))
+const privacyError = computed(() => getFieldError('privacyAgreed'))
+
+watch(
+  () => form.value.name,
+  async (value) => {
+    if (isFieldTouched('name')) {
+      await validateField('name', value, universityApplicationRules.name)
+    }
+  },
+)
+
+watch(
+  () => form.value.phone,
+  async (value) => {
+    if (isFieldTouched('phone')) {
+      await validateField('phone', value, universityApplicationRules.phone)
+    }
+  },
+)
+
+watch(
+  () => form.value.email,
+  async (value) => {
+    if (isFieldTouched('email')) {
+      await validateField('email', value, universityApplicationRules.email)
+    }
+  },
+)
+
+watch(
+  () => form.value.program,
+  async (value) => {
+    if (isFieldTouched('program')) {
+      await validateField('program', value, universityApplicationRules.program)
+    }
+  },
+)
+
+watch(
+  () => form.value.level,
+  async (value) => {
+    if (isFieldTouched('level')) {
+      await validateField('level', value, universityApplicationRules.level)
+    }
+  },
+)
+
+watch(
+  () => form.value.comment,
+  async (value) => {
+    if (isFieldTouched('comment')) {
+      await validateField('comment', value, universityApplicationRules.comment)
+    }
+  },
+)
+
+watch(
+  () => form.value.privacyAgreed,
+  async (value) => {
+    if (isFieldTouched('privacyAgreed')) {
+      await validateField('privacyAgreed', value, universityApplicationRules.privacyAgreed)
+    }
+  },
+)
+
 const phoneRef = computed({
   get: () => form.value.phone,
   set: (value: string) => {
@@ -171,29 +270,17 @@ const availablePrograms = computed(() => {
 })
 
 const submitApplication = async () => {
-  if (!form.value.privacyAgreed) {
-    show('Необходимо согласиться на обработку персональных данных', {
-      title: 'Заполните все поля',
-      type: 'warning',
-      duration: 3000,
-    })
+  if (isSubmitting.value) {
     return
   }
 
-  if (!form.value.name.trim() || !form.value.phone.trim()) {
-    show('Пожалуйста, заполните все обязательные поля', {
-      title: 'Заполните все поля',
-      type: 'warning',
-      duration: 3000,
-    })
-    return
-  }
+  const validationResult = await validateUniversityApplication(form.value)
 
-  if (!form.value.program) {
-    show('Пожалуйста, выберите интересующую программу', {
-      title: 'Выберите программу',
+  if (!validationResult.isValid) {
+    show(validationResult.errors[0] || 'Пожалуйста, проверьте форму перед отправкой', {
+      title: 'Проверьте форму',
       type: 'warning',
-      duration: 3000,
+      duration: 4000,
     })
     return
   }
@@ -250,6 +337,7 @@ const submitApplication = async () => {
       comment: '',
       privacyAgreed: false,
     }
+    resetUniversityApplicationValidation()
 
     // Показать сообщение об успехе
     show('Ваша заявка успешно отправлена! Мы свяжемся с вами в ближайшее время.', {
