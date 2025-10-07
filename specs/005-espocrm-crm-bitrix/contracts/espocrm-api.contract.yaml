@@ -219,16 +219,19 @@ components:
       properties:
         name:
           type: string
-          description: Activity name (e.g., "Messenger click: telegram")
+          description: 'Activity name (e.g., "Messenger click: telegram")'
         type:
           type: string
-          description: Activity type (e.g., "Call", "Meeting", "Email")
+          description: 'Activity type (e.g., "Call", "Meeting", "Email")'
         status:
           type: string
-          enum: [Planned, Held, Not Held]
+          enum:
+            - Planned
+            - Held
+            - 'Not Held'
         description:
           type: string
-          description: Activity details (channel, referral code, UTM, etc.)
+          description: 'Activity details (channel, referral code, UTM, etc.)'
         dateStart:
           type: string
           format: date-time
