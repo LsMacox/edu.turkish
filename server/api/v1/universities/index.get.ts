@@ -1,6 +1,7 @@
 import { prisma } from '~~/lib/prisma'
 import { UniversityRepository } from '~~/server/repositories'
-import { parseUniversityFilters, calculatePagination } from '~~/server/utils/api-helpers'
+import { calculatePagination } from '~~/server/utils/api/pagination'
+import { parseUniversityFilters } from '~~/server/utils/api/universities'
 import type { UniversityResponse } from '~~/server/types/api'
 
 export default defineEventHandler(async (event): Promise<UniversityResponse> => {

@@ -26,7 +26,7 @@
                   v-model="form.name"
                   type="text"
                   :placeholder="$t('reviews.shareExperience.form.name.placeholder')"
-                  :error="errors.name"
+                  :error="nameError"
                   icon="mdi:account"
                 />
               </div>
@@ -75,8 +75,8 @@
                     {{ $t('reviews.shareExperience.form.university.other') }}
                   </option>
                 </BaseSelect>
-                <p v-if="errors.university" class="mt-1 text-sm text-red-600">
-                  {{ errors.university }}
+                <p v-if="universityError" class="mt-1 text-sm text-red-600">
+                  {{ universityError }}
                 </p>
               </div>
             </div>
@@ -138,8 +138,8 @@
                     {{ $t('reviews.shareExperience.form.rating.veryPoor') }}
                   </option>
                 </BaseSelect>
-                <p v-if="errors.rating" class="mt-1 text-sm text-red-600">
-                  {{ errors.rating }}
+                <p v-if="ratingError" class="mt-1 text-sm text-red-600">
+                  {{ ratingError }}
                 </p>
               </div>
 
@@ -170,11 +170,11 @@
                   'w-full px-4 py-3 bg-white border border-gray-300 rounded-xl',
                   'focus:ring-2 focus:ring-primary focus:border-transparent focus:outline-none',
                   'font-medium text-secondary placeholder-gray-400 transition-all duration-200 resize-none',
-                  errors.review ? 'border-red-300 focus:ring-red-500 focus:border-red-300' : '',
+                  reviewError ? 'border-red-300 focus:ring-red-500 focus:border-red-300' : '',
                 ]"
               />
-              <p v-if="errors.review" class="mt-1 text-sm text-red-600">
-                {{ errors.review }}
+              <p v-if="reviewError" class="mt-1 text-sm text-red-600">
+                {{ reviewError }}
               </p>
             </div>
 
@@ -305,6 +305,7 @@
 <script setup lang="ts">
 import { parsePositiveInt } from '~~/lib/number'
 import type { UserType } from '~/types/domain'
+import { useReviewFormValidation } from '~/composables/validation/useReviewFormValidation'
 const { t } = useI18n()
 
 interface ReviewForm {
@@ -338,12 +339,55 @@ const form = reactive<ReviewForm>({
   reviewerType: '',
 })
 
-const errors = reactive({
-  name: '',
-  university: '',
-  rating: '',
-  review: '',
-})
+const {
+  reviewFormRules,
+  validateReviewForm,
+  validateField,
+  getFieldError,
+  isFieldTouched,
+  resetForm: resetReviewValidation,
+} = useReviewFormValidation()
+
+const nameError = computed(() => getFieldError('name'))
+const universityError = computed(() => getFieldError('university'))
+const ratingError = computed(() => getFieldError('rating'))
+const reviewError = computed(() => getFieldError('review'))
+
+watch(
+  () => form.name,
+  async (value) => {
+    if (isFieldTouched('name')) {
+      await validateField('name', value, reviewFormRules.name)
+    }
+  },
+)
+
+watch(
+  () => form.university,
+  async (value) => {
+    if (isFieldTouched('university')) {
+      await validateField('university', value, reviewFormRules.university)
+    }
+  },
+)
+
+watch(
+  () => form.rating,
+  async (value) => {
+    if (isFieldTouched('rating')) {
+      await validateField('rating', value, reviewFormRules.rating)
+    }
+  },
+)
+
+watch(
+  () => form.review,
+  async (value) => {
+    if (isFieldTouched('review')) {
+      await validateField('review', value, reviewFormRules.review)
+    }
+  },
+)
 
 const isSubmitting = ref(false)
 const submitted = ref(false)
@@ -388,39 +432,19 @@ onMounted(async () => {
   }
 })
 
-function validateForm(): boolean {
-  // Reset errors
-  Object.keys(errors).forEach((key) => {
-    errors[key as keyof typeof errors] = ''
+async function submitReview() {
+  if (isSubmitting.value) {
+    return
+  }
+
+  const validationResult = await validateReviewForm({
+    name: form.name,
+    university: form.university,
+    rating: form.rating,
+    review: form.review,
   })
 
-  let isValid = true
-
-  if (!form.name.trim()) {
-    errors.name = t('reviews.shareExperience.validation.nameRequired')
-    isValid = false
-  }
-
-  if (!form.university) {
-    errors.university = t('reviews.shareExperience.validation.universityRequired')
-    isValid = false
-  }
-
-  if (!form.rating) {
-    errors.rating = t('reviews.shareExperience.validation.ratingRequired')
-    isValid = false
-  }
-
-  if (!form.review.trim() || form.review.trim().length < 50) {
-    errors.review = t('reviews.shareExperience.validation.reviewRequired')
-    isValid = false
-  }
-
-  return isValid
-}
-
-async function submitReview() {
-  if (!validateForm()) {
+  if (!validationResult.isValid) {
     submissionError.value = t('reviews.shareExperience.errors.validation')
     return
   }
@@ -467,6 +491,7 @@ async function submitReview() {
           recommend: '',
           reviewerType: '',
         })
+        resetReviewValidation()
         submitted.value = false
       }, 5000)
     } else {

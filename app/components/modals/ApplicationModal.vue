@@ -42,6 +42,7 @@
               v-model="form.name"
               type="text"
               :placeholder="$t('modal.name_placeholder')"
+              :error="nameError"
             />
           </div>
 
@@ -57,10 +58,17 @@
               inputmode="tel"
               autocomplete="tel"
               maxlength="20"
-              class="w-full px-4 border border-gray-300 rounded-xl focus:ring-2 focus:ring-primary focus:border-transparent outline-none focus:outline-none transition-all py-4 md:py-3 text-base md:text-sm min-h-[52px] md:min-h-auto"
+              :class="[
+                'w-full px-4 border rounded-xl outline-none focus:outline-none transition-all py-4 md:py-3 text-base md:text-sm min-h-[52px] md:min-h-auto',
+                phoneError
+                  ? 'border-red-300 focus:ring-2 focus:ring-red-500 focus:border-red-500'
+                  : 'border-gray-300 focus:ring-2 focus:ring-primary focus:border-transparent',
+              ]"
+              :aria-invalid="!!phoneError"
               @input="onPhoneInput"
               @keydown="onPhoneKeydown"
-            >
+            />
+            <p v-if="phoneError" class="mt-2 text-sm text-red-600">{{ phoneError }}</p>
           </div>
 
           <div>
@@ -71,6 +79,7 @@
               v-model="form.email"
               type="email"
               :placeholder="$t('modal.email_placeholder')"
+              :error="emailError"
             />
           </div>
 
@@ -84,8 +93,15 @@
               v-model="form.message"
               :placeholder="$t('modal.message_placeholder')"
               rows="3"
-              class="w-full px-4 border border-gray-300 rounded-xl focus:ring-2 focus:ring-primary focus:border-transparent focus:outline-none transition-all resize-none py-4 md:py-3 text-base md:text-sm min-h-[100px]"
-            />
+              :class="[
+                'w-full px-4 border rounded-xl focus:outline-none transition-all resize-none py-4 md:py-3 text-base md:text-sm min-h-[100px]',
+                messageError
+                  ? 'border-red-300 focus:ring-2 focus:ring-red-500 focus:border-red-500'
+                  : 'border-gray-300 focus:ring-2 focus:ring-primary focus:border-transparent',
+              ]"
+              :aria-invalid="!!messageError"
+            ></textarea>
+            <p v-if="messageError" class="mt-2 text-sm text-red-600">{{ messageError }}</p>
           </div>
 
           <!-- Preferences display - только для анкеты с главной страницы -->
@@ -119,6 +135,7 @@
           <BaseCheckbox :checked="form.agreement" @update:checked="form.agreement = $event">
             {{ $t('modal.agreement') }}
           </BaseCheckbox>
+          <p v-if="agreementError" class="mt-2 text-sm text-red-600">{{ agreementError }}</p>
 
           <!-- Hidden referral source field for debugging -->
           <input
@@ -143,6 +160,7 @@
 <script setup lang="ts">
 import type { ApplicationPreferences, QuestionnairePreferences } from '~/types/preferences'
 import { useReferral } from '~/composables/useReferral'
+import { useApplicationModalValidation } from '~/composables/validation/useApplicationModalValidation'
 
 interface Props {
   isOpen: boolean
@@ -184,6 +202,66 @@ const { sanitizePhone, onPhoneInput, onPhoneKeydown } = useInternationalPhone(ph
 
 const { show } = useToast()
 
+const {
+  applicationModalRules,
+  validateApplicationModal,
+  validateField,
+  getFieldError,
+  isFieldTouched,
+  resetForm: resetModalValidation,
+} = useApplicationModalValidation()
+
+const nameError = computed(() => getFieldError('name'))
+const phoneError = computed(() => getFieldError('phone'))
+const emailError = computed(() => getFieldError('email'))
+const messageError = computed(() => getFieldError('message'))
+const agreementError = computed(() => getFieldError('agreement'))
+
+watch(
+  () => form.value.name,
+  async (value) => {
+    if (isFieldTouched('name')) {
+      await validateField('name', value, applicationModalRules.name)
+    }
+  },
+)
+
+watch(
+  () => form.value.phone,
+  async (value) => {
+    if (isFieldTouched('phone')) {
+      await validateField('phone', value, applicationModalRules.phone)
+    }
+  },
+)
+
+watch(
+  () => form.value.email,
+  async (value) => {
+    if (isFieldTouched('email')) {
+      await validateField('email', value, applicationModalRules.email)
+    }
+  },
+)
+
+watch(
+  () => form.value.message,
+  async (value) => {
+    if (isFieldTouched('message')) {
+      await validateField('message', value, applicationModalRules.message)
+    }
+  },
+)
+
+watch(
+  () => form.value.agreement,
+  async (value) => {
+    if (isFieldTouched('agreement')) {
+      await validateField('agreement', value, applicationModalRules.agreement)
+    }
+  },
+)
+
 const closeModal = () => {
   emit('close')
 }
@@ -191,6 +269,17 @@ const closeModal = () => {
 
 const submitForm = async () => {
   if (isSubmitting.value) return
+
+  const validationResult = await validateApplicationModal(form.value)
+
+  if (!validationResult.isValid) {
+    show(validationResult.errors[0] || $t('modal.error_message'), {
+      title: $t('modal.error_title'),
+      type: 'error',
+      duration: 5000,
+    })
+    return
+  }
 
   isSubmitting.value = true
 
@@ -245,6 +334,7 @@ const submitForm = async () => {
       message: '',
       agreement: false,
     }
+    resetModalValidation()
   } catch (error: any) {
     console.error('Error submitting form:', error)
 
@@ -376,6 +466,10 @@ watch(
       } else {
         document.body.style.overflow = ''
       }
+    }
+
+    if (!isOpen) {
+      resetModalValidation()
     }
   },
   { immediate: true },
