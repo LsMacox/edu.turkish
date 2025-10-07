@@ -75,7 +75,7 @@ export class CRMQueueWorker {
         case 'createLead':
           result = await crmProvider.createLead(data as LeadData)
           break
-        case 'updateLead':
+        case 'updateLead': {
           // For update, we need the ID - it should be in the data
           const updateData = data as any
           if (!updateData.id) {
@@ -83,6 +83,7 @@ export class CRMQueueWorker {
           }
           result = await crmProvider.updateLead(updateData.id, updateData)
           break
+        }
         case 'logActivity':
           result = await crmProvider.logActivity(data as ActivityData)
           break

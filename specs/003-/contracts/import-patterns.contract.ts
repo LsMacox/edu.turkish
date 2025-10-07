@@ -40,7 +40,7 @@ export interface ImportViolation {
  * AND must not use @, @@, or ^ aliases
  * AND must not use deep relative imports (../../)
  */
-export function validateAppImports(filePath: string, imports: ImportStatement[]): ImportValidationResult {
+export function validateAppImports(_filePath: string, _imports: ImportStatement[]): ImportValidationResult {
   throw new Error('Not implemented - contract test')
 }
 
@@ -55,7 +55,7 @@ export function validateAppImports(filePath: string, imports: ImportStatement[])
  * WHEN importing from lib/ or prisma/ (root)
  * THEN must use ~~ alias
  */
-export function validateServerImports(filePath: string, imports: ImportStatement[]): ImportValidationResult {
+export function validateServerImports(_filePath: string, _imports: ImportStatement[]): ImportValidationResult {
   throw new Error('Not implemented - contract test')
 }
 
@@ -67,7 +67,7 @@ export function validateServerImports(filePath: string, imports: ImportStatement
  * THEN must use ~ or ~~ aliases
  * AND must not use relative imports (../../)
  */
-export function validateTestImports(filePath: string, imports: ImportStatement[]): ImportValidationResult {
+export function validateTestImports(_filePath: string, _imports: ImportStatement[]): ImportValidationResult {
   throw new Error('Not implemented - contract test')
 }
 
@@ -78,7 +78,7 @@ export function validateTestImports(filePath: string, imports: ImportStatement[]
  * WHEN scanning imports
  * THEN no imports should use @, @@, or ^ aliases
  */
-export function validateNoDeprecatedImports(imports: ImportStatement[]): ImportValidationResult {
+export function validateNoDeprecatedImports(_imports: ImportStatement[]): ImportValidationResult {
   throw new Error('Not implemented - contract test')
 }
 
@@ -90,20 +90,20 @@ export function validateNoDeprecatedImports(imports: ImportStatement[]): ImportV
  * THEN no imports should use ../../ or deeper
  * AND single ../ is allowed only within same directory context
  */
-export function validateNoDeepRelativeImports(imports: ImportStatement[]): ImportValidationResult {
+export function validateNoDeepRelativeImports(_imports: ImportStatement[]): ImportValidationResult {
   throw new Error('Not implemented - contract test')
 }
 
 /**
  * Helper: Extract imports from file
  */
-export function extractImports(filePath: string): ImportStatement[] {
+export function extractImports(_filePath: string): ImportStatement[] {
   throw new Error('Not implemented - contract test')
 }
 
 /**
  * Helper: Determine file context from path
  */
-export function getFileContext(filePath: string): FileContext {
+export function getFileContext(_filePath: string): FileContext {
   throw new Error('Not implemented - contract test')
 }

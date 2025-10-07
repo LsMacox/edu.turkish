@@ -14,8 +14,8 @@
   - Creates missing StudyDirections by slug/name when linking
 */
 
-import { readFileSync, readFileSync as fsReadFileSync } from 'node:fs'
-import { resolve, resolve as pathResolve } from 'node:path'
+import { readFileSync } from 'node:fs'
+import { resolve } from 'node:path'
 import { z } from 'zod'
 import { prisma } from '../lib/prisma'
 import prismaPkg from '@prisma/client'

@@ -1,5 +1,4 @@
 import { afterAll, beforeEach, describe, expect, it, vi } from 'vitest'
-import type { H3Event } from 'h3'
 
 const getQueryMock = vi.fn()
 const setCookieMock = vi.fn()

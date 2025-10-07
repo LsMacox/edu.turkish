@@ -11,6 +11,8 @@ describe('ApplicationModal', () => {
         },
       }
 
+      expect(error.data.errors).toHaveLength(2)
+
       // Expected: getErrorMessage(error) returns joined string
       const expectedMessage = 'Email is required\nPhone is invalid'
       expect(expectedMessage).toContain('Email is required')
@@ -24,6 +26,8 @@ describe('ApplicationModal', () => {
         },
       }
 
+      expect(error.data?.message).toBe('Server error occurred')
+
       // Expected: getErrorMessage(error) returns message string
       const expectedMessage = 'Server error occurred'
       expect(expectedMessage).toBe('Server error occurred')
@@ -34,6 +38,8 @@ describe('ApplicationModal', () => {
         message: 'Network timeout',
       }
 
+      expect(error.message).toBe('Network timeout')
+
       // Expected: getErrorMessage(error) returns message
       const expectedMessage = 'Network timeout'
       expect(expectedMessage).toBe('Network timeout')
@@ -41,6 +47,8 @@ describe('ApplicationModal', () => {
 
     it('should return fallback for undefined error', () => {
       const error = undefined
+
+      expect(error).toBeUndefined()
 
       // Expected: getErrorMessage(error) returns fallback
       const expectedMessage = 'An unexpected error occurred. Please try again.'
@@ -51,6 +59,8 @@ describe('ApplicationModal', () => {
     it('should return fallback for empty error', () => {
       const error = {}
 
+      expect(error).toMatchObject({})
+
       // Expected: getErrorMessage(error) returns fallback
       const expectedMessage = 'An unexpected error occurred. Please try again.'
       expect(expectedMessage).toBeDefined()
@@ -58,6 +68,8 @@ describe('ApplicationModal', () => {
 
     it('should NOT display boolean true as "true"', () => {
       const error = true
+
+      expect(error).toBe(true)
 
       // Expected: getErrorMessage(true) returns fallback, not "true"
       const expectedMessage = 'An unexpected error occurred. Please try again.'
@@ -72,6 +84,8 @@ describe('ApplicationModal', () => {
         },
       }
 
+      expect(error.data.errors).toEqual([])
+
       // Expected: returns fallback message
       const expectedMessage = 'An unexpected error occurred. Please try again.'
       expect(expectedMessage).toBeDefined()
@@ -79,6 +93,8 @@ describe('ApplicationModal', () => {
 
     it('should handle null error', () => {
       const error = null
+
+      expect(error).toBeNull()
 
       // Expected: returns fallback message
       const expectedMessage = 'An unexpected error occurred. Please try again.'

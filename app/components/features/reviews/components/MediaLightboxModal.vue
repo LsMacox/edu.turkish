@@ -181,7 +181,12 @@ async function generateVideoThumbnail(url: string): Promise<string | null> {
       const onError = () => reject(new Error('video error'))
       video.addEventListener('error', onError, { once: true })
       video.addEventListener('loadeddata', () => {
-        try { video.currentTime = 0 } catch {}
+        try { video.currentTime = 0 }
+        catch (error) {
+          if (import.meta.dev) {
+            console.debug('Failed to initialize video current time', error)
+          }
+        }
       }, { once: true })
       video.addEventListener('seeked', () => resolve(), { once: true })
     })

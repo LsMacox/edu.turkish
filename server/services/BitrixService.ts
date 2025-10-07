@@ -4,7 +4,6 @@ import {
   messengerEventPayloadSchema,
   type MessengerEventMetadata,
   type MessengerEventPayload,
-  type MessengerEventUtm,
   type SanitizedMessengerEventPayload,
 } from './bitrix.dto'
 import { hasUtmValues } from '~~/server/utils/utm'

@@ -1,6 +1,5 @@
 import { describe, it, expect, beforeEach, afterEach } from 'vitest'
 import { mount, flushPromises } from '@vue/test-utils'
-import { nextTick } from 'vue'
 import { mockUseI18n, mockFetch } from '~~/tests/test-utils'
 import PopularProgramsSection from '~/components/features/universities/sections/PopularProgramsSection.vue'
 import enUniversities from '~~/i18n/locales/en/pages/universities.json'
