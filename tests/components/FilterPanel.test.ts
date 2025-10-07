@@ -173,7 +173,7 @@ describe('FilterPanel', () => {
 
   it('triggers a single route update when apply is clicked', async () => {
     const store = createStoreWithRange([500, 15000], ['bachelor'])
-    
+
     // Spy on the store's applyFilters method
     const applyFiltersSpy = vi.spyOn(store, 'applyFilters')
 
@@ -193,10 +193,11 @@ describe('FilterPanel', () => {
     expect(applyFiltersSpy).toHaveBeenCalledWith(
       expect.objectContaining({
         q: '',
-        city: 'Все города',
-        type: 'Все',
+        city: 'universities_page.filters.all_cities',
+        type: 'universities_page.filters.all_types',
         level: 'all',
-      })
+        price: [500, 15000],
+      }),
     )
   })
   it('renders level options based on available filters', async () => {

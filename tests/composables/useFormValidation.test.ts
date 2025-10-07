@@ -163,7 +163,7 @@ describe('useContactFormValidation', () => {
       name: '',
       phone: '',
       email: 'invalid',
-      message: ''.repeat(600),
+      message: 'x'.repeat(600),
     })
 
     expect(result.isValid).toBe(false)
