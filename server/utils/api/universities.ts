@@ -1,5 +1,5 @@
 import type { UniversityQueryParams } from '~~/server/types/api'
-import { parsePositiveInt } from '~~/lib/number'
+import { toNonNegativeNumber, toPositiveInteger } from '~~/lib/number'
 
 const allowedSorts = ['pop', 'price_asc', 'price_desc', 'alpha', 'lang_en'] as const
 
@@ -11,23 +11,6 @@ const normalizeLanguages = (value: unknown): string[] | undefined => {
   const raw = Array.isArray(value) ? value : value !== undefined ? [value] : []
   const langs = raw.filter((item): item is string => typeof item === 'string' && item.trim().length > 0)
   return langs.length > 0 ? langs : undefined
-}
-
-const toNonNegativeNumber = (value: unknown): number | undefined => {
-  if (value === undefined || value === null || value === '') {
-    return undefined
-  }
-
-  const parsed = Number(value)
-  if (!Number.isFinite(parsed) || parsed < 0) {
-    return undefined
-  }
-
-  return parsed
-}
-
-const toPositiveInteger = (value: unknown): number | undefined => {
-  return parsePositiveInt(Array.isArray(value) ? value[0] : value)
 }
 
 const resolveSort = (candidate: unknown): AllowedSort | undefined => {

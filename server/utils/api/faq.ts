@@ -1,11 +1,5 @@
 import type { FAQCategory, FAQItem } from '~~/server/types/api'
-import { parsePositiveInt } from '~~/lib/number'
-
-const toPositiveIntegerWithDefault = (value: unknown, defaultValue: number) => {
-  const candidate = Array.isArray(value) ? value[0] : value
-  const parsed = parsePositiveInt(candidate)
-  return parsed ?? defaultValue
-}
+import { toPositiveIntegerWithDefault } from '~~/lib/number'
 
 /**
  * Parse query parameters for FAQ endpoint
