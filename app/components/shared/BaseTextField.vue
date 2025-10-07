@@ -85,7 +85,7 @@
         @focus="handleFocus"
         @blur="handleBlur"
         @keydown="handleKeydown"
-      >
+      />
 
       <!-- Left icon -->
       <div

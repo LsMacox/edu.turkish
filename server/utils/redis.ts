@@ -8,9 +8,9 @@ export function getRedisClient(): Redis {
     const config = {
       redisHost: process.env.REDIS_HOST || 'localhost',
       redisPort: process.env.REDIS_PORT || '6379',
-      redisPassword: process.env.REDIS_PASSWORD || ''
+      redisPassword: process.env.REDIS_PASSWORD || '',
     }
-    
+
     const port = parsePositiveInt(config.redisPort) ?? 6379
     redisClient = new Redis({
       host: config.redisHost,

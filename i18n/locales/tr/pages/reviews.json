@@ -1,194 +1,193 @@
 {
-    "reviews": {
-      "labels": {
-        "studentExperience": "Öğrenci deneyimi",
-        "parent": "Veli",
-        "yearSuffix": ""
-      },
-      "hero": {
-        "title": "Öğrencilerimizin yorumları",
-        "titleAccent": "ve velilerinin",
-        "description": "Edu.turkish aracılığıyla gerçek kabul hikayeleri. 500'den fazla öğrencinin Türkiye'de eğitim alma hayallerini nasıl gerçekleştirmelerine yardımcı olduğumuzu öğrenin.",
-        "stats": {
-          "students": "Memnun öğrenci",
-          "rating": "Ortalama puan",
-          "success": "Başarılı kabul"
-        }
-      },
-      "mediaReviews": {
-        "title": "Video ve fotoğraf yorumlar",
-        "titleAccent": "öğrencilerimizden",
-        "description": "Öğrencilerimizin gerçek başarı hikayelerini izleyin. Türk üniversitelerine kabul ve eğitim hakkında video ve fotoğraf yorumlar.",
-        "error": "Yorumlar yüklenemedi. Lütfen sayfayı yenilemeyi deneyin.",
-        "empty": "Henüz medya yorumu yok"
-      },
-      "achievements": {
-        "title": "Başarılarımız",
-        "titleAccent": "rakamlarla",
-        "description": "Kendiliğinden konuşan sonuçlar. Her rakam birinin gerçekleşen hayali.",
-        "stats": {
-          "students": {
-            "title": "Öğrenci",
-            "description": "Türk üniversitelerine girdi"
-          },
-          "success": {
-            "title": "Başarı",
-            "description": "Kabul yüzdesi"
-          },
-          "universities": {
-            "title": "Üniversite",
-            "description": "Ortak kurumlar"
-          },
-          "experience": {
-            "title": "Yıl",
-            "description": "Başarılı çalışma"
-          }
-        },
-        "overallRating": {
-          "title": "Genel puan",
-          "description": "70 yorum temelinde"
-        },
-        "support": {
-          "title": "7/24 Destek",
-          "description": "Danışman erişilebilirliği"
-        },
-        "recommendation": {
-          "title": "Bizi tavsiye ediyor",
-          "description": "Öğrenci ve veliler"
-        }
-      },
-      "studentStories": {
-        "title": "Öğrencilerimizin",
-        "titleAccent": "hikayeleri",
-        "description": "Her başarı benzersiz bir hikayedir. Türkiye'nin önde gelen üniversitelerinde okuyan mezunlarımızla tanışın.",
-        "ctaButton": "Bir sonraki başarı ol"
-      },
-      "parentReviews": {
-        "title": "Ebeveynler güveniyor",
-        "titleAccent": "deneyimimize",
-        "description": "Çocuklarının Türkiye'deki eğitimi için Edu.turkish'i seçen ebeveynlerin görüşleri"
-      },
-      "shareExperience": {
-        "title": "Deneyiminizi",
-        "titleAccent": "paylaşın",
-        "description": "Yorumunuz diğer öğrencilerin doğru karar vermesine yardımcı olacak. Başarılı başvurunuza giden yolunuzu anlatın.",
-        "form": {
-          "name": {
-            "label": "Adınız *",
-            "placeholder": "Adınızı girin"
-          },
-          "reviewerType": {
-            "label": "Kimsiniz? *",
-            "placeholder": "Yorumcu tipini seçin",
-            "student": "Öğrenci",
-            "parent": "Veli"
-          },
-          "university": {
-            "label": "Üniversite *",
-            "placeholder": "Üniversite seçin",
-            "loading": "Üniversiteler yükleniyor...",
-            "other": "Diğer"
-          },
-          "faculty": {
-            "label": "Fakülte",
-            "placeholder": "Örneğin: Tıp, Mühendislik"
-          },
-          "year": {
-            "label": "Giriş yılı",
-            "placeholder": "Yıl seçin",
-            "earlier": "Daha erken"
-          },
-          "rating": {
-            "label": "Hizmetlerimizi değerlendirin *",
-            "placeholder": "Değerlendirme seçin",
-            "excellent": "⭐⭐⭐⭐⭐ Mükemmel (5)",
-            "good": "⭐⭐⭐⭐ İyi (4)",
-            "satisfactory": "⭐⭐⭐ Yeterli (3)",
-            "poor": "⭐⭐ Kötü (2)",
-            "veryPoor": "⭐ Çok kötü (1)"
-          },
-          "contact": {
-            "label": "Email veya telefon",
-            "placeholder": "İletişim için (yayınlanmayacak)"
-          },
-          "review": {
-            "label": "Yorumunuz *",
-            "placeholder": "Başvuru ve eğitim deneyiminizi paylaşın. Size en çok ne yardımcı oldu? Gelecekteki öğrencilere ne tavsiye edersiniz?"
-          },
-          "helpful": {
-            "label": "En yararlı olan neydi? (birden fazla seçebilirsiniz)",
-            "aspects": {
-              "documents": "Belge yardımı",
-              "language": "Dil hazırlığı",
-              "exam-prep": "Sınav hazırlığı",
-              "university-choice": "Üniversite seçimi",
-              "visa": "Vize işlemleri",
-              "accommodation": "Konaklama arama",
-              "support": "Tüm aşamalarda destek",
-              "consultation": "Uzman danışmanlığı"
-            }
-          },
-          "recommend": {
-            "label": "Edu.turkish'i tavsiye eder misiniz?",
-            "yes": "Evet, kesinlikle",
-            "maybe": "Belki",
-            "no": "Hayır"
-          },
-          "submit": "Yorumu paylaş",
-          "submitting": "Gönderiliyor..."
-        },
-        "validation": {
-          "nameRequired": "Lütfen adınızı girin",
-          "universityRequired": "Lütfen üniversite seçin",
-          "ratingRequired": "Lütfen değerlendirme yapın",
-          "reviewRequired": "Lütfen yorum yazın (en az 50 karakter)"
+  "reviews": {
+    "labels": {
+      "studentExperience": "Öğrenci deneyimi",
+      "parent": "Veli",
+      "yearSuffix": ""
+    },
+    "hero": {
+      "title": "Öğrencilerimizin yorumları",
+      "titleAccent": "ve velilerinin",
+      "description": "Edu.turkish aracılığıyla gerçek kabul hikayeleri. 500'den fazla öğrencinin Türkiye'de eğitim alma hayallerini nasıl gerçekleştirmelerine yardımcı olduğumuzu öğrenin.",
+      "stats": {
+        "students": "Memnun öğrenci",
+        "rating": "Ortalama puan",
+        "success": "Başarılı kabul"
+      }
+    },
+    "mediaReviews": {
+      "title": "Video ve fotoğraf yorumlar",
+      "titleAccent": "öğrencilerimizden",
+      "description": "Öğrencilerimizin gerçek başarı hikayelerini izleyin. Türk üniversitelerine kabul ve eğitim hakkında video ve fotoğraf yorumlar.",
+      "error": "Yorumlar yüklenemedi. Lütfen sayfayı yenilemeyi deneyin.",
+      "empty": "Henüz medya yorumu yok"
+    },
+    "achievements": {
+      "title": "Başarılarımız",
+      "titleAccent": "rakamlarla",
+      "description": "Kendiliğinden konuşan sonuçlar. Her rakam birinin gerçekleşen hayali.",
+      "stats": {
+        "students": {
+          "title": "Öğrenci",
+          "description": "Türk üniversitelerine girdi"
         },
         "success": {
-          "title": "Yorumunuz için teşekkürler!",
-          "message": "Yorumunuzu aldık ve moderasyondan sonra kesinlikle yayınlayacağız. Deneyiminiz diğer öğrencilere yardımcı olacak!"
+          "title": "Başarı",
+          "description": "Kabul yüzdesi"
         },
-        "error": {
-          "title": "Gönderim Hatası",
-          "dismiss": "Kapat"
+        "universities": {
+          "title": "Üniversite",
+          "description": "Ortak kurumlar"
         },
-        "errors": {
-          "validation": "Lütfen form alanlarını kontrol edin",
-          "generic": "Yorumunuz gönderilirken bir hata oluştu. Lütfen tekrar deneyin."
+        "experience": {
+          "title": "Yıl",
+          "description": "Başarılı çalışma"
         }
       },
-      "nextReviewCTA": {
-        "title": "Yorumunuzun",
-        "titleAccent": "bir sonraki olmasını ister misiniz?",
-        "description": "Edu.turkish ile Türkiye'de eğitim hayallerini gerçekleştiren 500'den fazla öğrenciye katılın",
-        "steps": {
-          "consultation": {
-            "title": "Ücretsiz danışmanlık",
-            "description": "Hedeflerinizi tartışacak ve başvuru için en uygun yolu seçeceğiz"
-          },
-          "plan": {
-            "title": "Kişisel plan",
-            "description": "Bireysel hazırlık ve başvuru stratejisi oluşturacağız"
-          },
-          "admission": {
-            "title": "Başvuru",
-            "description": "Üniversiteye kaydoluncaya kadar her aşamada destek sağlıyoruz"
+      "overallRating": {
+        "title": "Genel puan",
+        "description": "70 yorum temelinde"
+      },
+      "support": {
+        "title": "7/24 Destek",
+        "description": "Danışman erişilebilirliği"
+      },
+      "recommendation": {
+        "title": "Bizi tavsiye ediyor",
+        "description": "Öğrenci ve veliler"
+      }
+    },
+    "studentStories": {
+      "title": "Öğrencilerimizin",
+      "titleAccent": "hikayeleri",
+      "description": "Her başarı benzersiz bir hikayedir. Türkiye'nin önde gelen üniversitelerinde okuyan mezunlarımızla tanışın.",
+      "ctaButton": "Bir sonraki başarı ol"
+    },
+    "parentReviews": {
+      "title": "Ebeveynler güveniyor",
+      "titleAccent": "deneyimimize",
+      "description": "Çocuklarının Türkiye'deki eğitimi için Edu.turkish'i seçen ebeveynlerin görüşleri"
+    },
+    "shareExperience": {
+      "title": "Deneyiminizi",
+      "titleAccent": "paylaşın",
+      "description": "Yorumunuz diğer öğrencilerin doğru karar vermesine yardımcı olacak. Başarılı başvurunuza giden yolunuzu anlatın.",
+      "form": {
+        "name": {
+          "label": "Adınız *",
+          "placeholder": "Adınızı girin"
+        },
+        "reviewerType": {
+          "label": "Kimsiniz? *",
+          "placeholder": "Yorumcu tipini seçin",
+          "student": "Öğrenci",
+          "parent": "Veli"
+        },
+        "university": {
+          "label": "Üniversite *",
+          "placeholder": "Üniversite seçin",
+          "loading": "Üniversiteler yükleniyor...",
+          "other": "Diğer"
+        },
+        "faculty": {
+          "label": "Fakülte",
+          "placeholder": "Örneğin: Tıp, Mühendislik"
+        },
+        "year": {
+          "label": "Giriş yılı",
+          "placeholder": "Yıl seçin",
+          "earlier": "Daha erken"
+        },
+        "rating": {
+          "label": "Hizmetlerimizi değerlendirin *",
+          "placeholder": "Değerlendirme seçin",
+          "excellent": "⭐⭐⭐⭐⭐ Mükemmel (5)",
+          "good": "⭐⭐⭐⭐ İyi (4)",
+          "satisfactory": "⭐⭐⭐ Yeterli (3)",
+          "poor": "⭐⭐ Kötü (2)",
+          "veryPoor": "⭐ Çok kötü (1)"
+        },
+        "contact": {
+          "label": "Email veya telefon",
+          "placeholder": "İletişim için (yayınlanmayacak)"
+        },
+        "review": {
+          "label": "Yorumunuz *",
+          "placeholder": "Başvuru ve eğitim deneyiminizi paylaşın. Size en çok ne yardımcı oldu? Gelecekteki öğrencilere ne tavsiye edersiniz?"
+        },
+        "helpful": {
+          "label": "En yararlı olan neydi? (birden fazla seçebilirsiniz)",
+          "aspects": {
+            "documents": "Belge yardımı",
+            "language": "Dil hazırlığı",
+            "exam-prep": "Sınav hazırlığı",
+            "university-choice": "Üniversite seçimi",
+            "visa": "Vize işlemleri",
+            "accommodation": "Konaklama arama",
+            "support": "Tüm aşamalarda destek",
+            "consultation": "Uzman danışmanlığı"
           }
         },
-        "stats": {
-          "students": "Başarılı öğrenci",
-          "admissions": "Kabul oranı",
-          "universities": "Partner üniversite",
-          "experience": "Yıl deneyim"
+        "recommend": {
+          "label": "Edu.turkish'i tavsiye eder misiniz?",
+          "yes": "Evet, kesinlikle",
+          "maybe": "Belki",
+          "no": "Hayır"
         },
-        "cta": {
-          "button": "Hayallerinize giden yolculuğa başlayın"
+        "submit": "Yorumu paylaş",
+        "submitting": "Gönderiliyor..."
+      },
+      "validation": {
+        "nameRequired": "Lütfen adınızı girin",
+        "universityRequired": "Lütfen üniversite seçin",
+        "ratingRequired": "Lütfen değerlendirme yapın",
+        "reviewRequired": "Lütfen yorum yazın (en az 50 karakter)"
+      },
+      "success": {
+        "title": "Yorumunuz için teşekkürler!",
+        "message": "Yorumunuzu aldık ve moderasyondan sonra kesinlikle yayınlayacağız. Deneyiminiz diğer öğrencilere yardımcı olacak!"
+      },
+      "error": {
+        "title": "Gönderim Hatası",
+        "dismiss": "Kapat"
+      },
+      "errors": {
+        "validation": "Lütfen form alanlarını kontrol edin",
+        "generic": "Yorumunuz gönderilirken bir hata oluştu. Lütfen tekrar deneyin."
+      }
+    },
+    "nextReviewCTA": {
+      "title": "Yorumunuzun",
+      "titleAccent": "bir sonraki olmasını ister misiniz?",
+      "description": "Edu.turkish ile Türkiye'de eğitim hayallerini gerçekleştiren 500'den fazla öğrenciye katılın",
+      "steps": {
+        "consultation": {
+          "title": "Ücretsiz danışmanlık",
+          "description": "Hedeflerinizi tartışacak ve başvuru için en uygun yolu seçeceğiz"
         },
-        "features": {
-          "consultation": "Ücretsiz danışmanlık",
-          "noHiddenFees": "Gizli ücret yok",
-          "guarantee": "Sonuç garantisi"
+        "plan": {
+          "title": "Kişisel plan",
+          "description": "Bireysel hazırlık ve başvuru stratejisi oluşturacağız"
+        },
+        "admission": {
+          "title": "Başvuru",
+          "description": "Üniversiteye kaydoluncaya kadar her aşamada destek sağlıyoruz"
         }
+      },
+      "stats": {
+        "students": "Başarılı öğrenci",
+        "admissions": "Kabul oranı",
+        "universities": "Partner üniversite",
+        "experience": "Yıl deneyim"
+      },
+      "cta": {
+        "button": "Hayallerinize giden yolculuğa başlayın"
+      },
+      "features": {
+        "consultation": "Ücretsiz danışmanlık",
+        "noHiddenFees": "Gizli ücret yok",
+        "guarantee": "Sonuç garantisi"
       }
     }
   }
-  
+}

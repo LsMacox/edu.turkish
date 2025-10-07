@@ -28,17 +28,23 @@ describe('Test Import Patterns Contract (T016)', () => {
       const rel = relative(process.cwd(), file)
 
       if (deprecatedAliasRe.test(content)) {
-        violations.push({ file: rel, reason: 'deprecated alias (@, @@, ^)', line: content.match(deprecatedAliasRe)![0] })
+        violations.push({
+          file: rel,
+          reason: 'deprecated alias (@, @@, ^)',
+          line: content.match(deprecatedAliasRe)![0],
+        })
       }
       if (deepRelativeRe.test(content)) {
-        violations.push({ file: rel, reason: 'deep relative import ../../', line: content.match(deepRelativeRe)![0] })
+        violations.push({
+          file: rel,
+          reason: 'deep relative import ../../',
+          line: content.match(deepRelativeRe)![0],
+        })
       }
     }
 
     if (violations.length) {
-      const msg = violations
-        .map(v => `- ${v.file}: ${v.reason} -> ${v.line}`)
-        .join('\n')
+      const msg = violations.map((v) => `- ${v.file}: ${v.reason} -> ${v.line}`).join('\n')
       throw new Error(`Import pattern violations found in tests:\n${msg}`)
     }
 

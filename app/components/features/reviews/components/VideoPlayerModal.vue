@@ -138,7 +138,12 @@ async function generateVideoThumbnail(url: string): Promise<string | null> {
 async function ensurePoster() {
   const v = props.video
   if (!v) return
-  if (!v.videoThumb && v.videoUrl && !v.videoUrl.startsWith('youtube:') && !v.videoUrl.startsWith('vimeo:')) {
+  if (
+    !v.videoThumb &&
+    v.videoUrl &&
+    !v.videoUrl.startsWith('youtube:') &&
+    !v.videoUrl.startsWith('vimeo:')
+  ) {
     localPoster.value = await generateVideoThumbnail(v.videoUrl)
   } else {
     localPoster.value = null

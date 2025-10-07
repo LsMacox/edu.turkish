@@ -2,7 +2,7 @@ import { describe, expect, it } from 'vitest'
 
 /**
  * Contract test for ICrmProvider interface
- * 
+ *
  * This test verifies that all CRM providers implement the ICrmProvider interface correctly.
  * It tests the contract without actual implementation - tests should fail until implementation exists.
  */
@@ -38,9 +38,11 @@ describe('ICrmProvider Contract', () => {
     it('should have optional id field (number or string)', () => {
       const resultWithNumber = { success: true, id: 123 }
       const resultWithString = { success: true, id: 'uuid-123' }
-      
+
       expect(resultWithNumber.id).toBeDefined()
-      expect(typeof resultWithNumber.id === 'number' || typeof resultWithNumber.id === 'string').toBe(true)
+      expect(
+        typeof resultWithNumber.id === 'number' || typeof resultWithNumber.id === 'string',
+      ).toBe(true)
       expect(resultWithString.id).toBeDefined()
       expect(typeof resultWithString.id === 'string').toBe(true)
     })

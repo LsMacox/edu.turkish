@@ -77,6 +77,7 @@ curl -X POST http://localhost:3000/api/v1/applications \
 ```
 
 **Expected Result**:
+
 - Status: 201 Created
 - Response contains application ID
 - No CRM errors in logs (or graceful error handling)
@@ -94,6 +95,7 @@ curl -X POST http://localhost:3000/api/v1/messenger-events \
 ```
 
 **Expected Result**:
+
 - Status: 200 OK (if CRM configured) or 503 (if not configured)
 - No 401 errors in logs
 - Event routed to correct CRM provider
@@ -106,6 +108,7 @@ curl -X POST http://localhost:3000/api/v1/messenger-events \
 4. Click submit
 
 **Expected Result**:
+
 - Error messages display as readable text (not 'true')
 - Field-specific errors show at bottom of modal
 - General errors show in tooltip above modal
@@ -137,6 +140,7 @@ done
 ```
 
 **Expected Result**:
+
 - All source values accepted
 - No "Invalid source" errors
 - Returns application ID for each request
@@ -148,11 +152,13 @@ done
 **Test**: Switch `CRM_PROVIDER` between 'bitrix' and 'espocrm'
 
 **Verify**:
+
 - Messenger events route to configured provider
 - No 401 errors when EspoCRM configured
 - Graceful handling when CRM not configured
 
 **Command**:
+
 ```bash
 # Check logs for CRM routing
 docker-compose logs -f app | grep -i "crm\|bitrix\|espocrm"
@@ -163,6 +169,7 @@ docker-compose logs -f app | grep -i "crm\|bitrix\|espocrm"
 **Test**: Submit applications with various source values
 
 **Verify**:
+
 - All valid source values accepted (referral codes, preset values)
 - Clear error messages for invalid data
 - No "Invalid source (valid)" errors
@@ -174,6 +181,7 @@ docker-compose logs -f app | grep -i "crm\|bitrix\|espocrm"
 **Test**: Trigger validation errors in UI
 
 **Verify**:
+
 - Error messages show as text (not 'true')
 - Field errors at bottom of modal
 - General errors in tooltip above modal
@@ -187,11 +195,13 @@ docker-compose logs -f app | grep -i "crm\|bitrix\|espocrm"
 **Test**: Simulate CRM failure
 
 **Verify**:
+
 - Application saved to database even if CRM fails
 - Appropriate HTTP status codes returned
 - Errors logged for admin review
 
 **Command**:
+
 ```bash
 # Set invalid CRM config to simulate failure
 export ESPOCRM_API_URL=http://invalid-url
@@ -214,12 +224,14 @@ docker-compose exec mysql mysql -u app_user -p edu_turkish \
 If issues occur:
 
 1. **Revert CRM provider to Bitrix**:
+
    ```bash
    # .env
    CRM_PROVIDER=bitrix
    ```
 
 2. **Restart application**:
+
    ```bash
    docker-compose restart app
    ```
@@ -235,6 +247,7 @@ If issues occur:
 ### Issue: "CRM integration failed"
 
 **Solution**:
+
 - Check environment variables are set correctly
 - Verify API URLs are accessible
 - Check API keys are valid
@@ -243,6 +256,7 @@ If issues occur:
 ### Issue: "Invalid source" error persists
 
 **Solution**:
+
 - Check `validateApplicationData` function in `server/utils/api-helpers.ts`
 - Verify no hidden validation in `ApplicationRepository`
 - Check Prisma schema for enum constraints
@@ -250,6 +264,7 @@ If issues occur:
 ### Issue: Error messages show 'true'
 
 **Solution**:
+
 - Verify `getErrorMessage` function in `ApplicationModal.vue`
 - Check error response structure from API
 - Add console.log to debug error object
@@ -257,6 +272,7 @@ If issues occur:
 ### Issue: Tooltip not visible
 
 **Solution**:
+
 - Check z-index in component styles
 - Verify Teleport target exists
 - Inspect element in browser DevTools
@@ -285,7 +301,8 @@ ab -n 100 -c 10 -p test-payload.json -T application/json \
 k6 run load-test.js
 ```
 
-**Expected**: 
+**Expected**:
+
 - No errors under normal load
 - CRM failures don't block application submission
 - Database writes succeed consistently

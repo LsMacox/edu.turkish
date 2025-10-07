@@ -125,12 +125,8 @@ const { filters, availableFilters } = storeToRefs(universitiesStore)
 const { applyFilters } = universitiesStore
 const { t: translate } = useI18n()
 
-const allCitiesOption = computed(
-  () => translate('universities_page.filters.all_cities') as string,
-)
-const allTypesOption = computed(
-  () => translate('universities_page.filters.all_types') as string,
-)
+const allCitiesOption = computed(() => translate('universities_page.filters.all_cities') as string)
+const allTypesOption = computed(() => translate('universities_page.filters.all_types') as string)
 
 const LEVEL_ALL_VALUE = 'all'
 

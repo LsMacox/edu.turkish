@@ -18,55 +18,55 @@
                 <label class="block text-sm font-semibold text-secondary mb-2">{{
                   $t('applicationCTA.form.name_label')
                 }}</label>
-              <BaseTextField
-                v-model="form.name"
-                type="text"
-                :placeholder="$t('applicationCTA.form.name_placeholder')"
-                :error="nameError"
-              />
-            </div>
-            <div>
-              <label class="block text-sm font-semibold text-secondary mb-2">{{
-                $t('applicationCTA.form.phone_label')
-              }}</label>
-              <div class="relative">
-                <input
-                  v-model="form.phone"
-                  type="tel"
-                  required
-                  :placeholder="$t('applicationCTA.form.phone_placeholder')"
-                  inputmode="tel"
-                  autocomplete="tel"
-                  maxlength="18"
-                  :class="[
-                    'w-full px-4 py-3 bg-white rounded-xl focus:outline-none font-medium text-secondary placeholder-gray-400 transition-all duration-200',
-                    phoneError
-                      ? 'border border-red-300 focus:ring-2 focus:ring-red-500 focus:border-red-500'
-                      : 'border border-gray-300 focus:ring-2 focus:ring-primary focus:border-transparent',
-                  ]"
-                  :aria-invalid="!!phoneError"
-                  @input="onPhoneInput"
-                  @keydown="onPhoneKeydown"
+                <BaseTextField
+                  v-model="form.name"
+                  type="text"
+                  :placeholder="$t('applicationCTA.form.name_placeholder')"
+                  :error="nameError"
                 />
               </div>
-              <p v-if="phoneError" class="mt-2 text-sm text-red-600">{{ phoneError }}</p>
+              <div>
+                <label class="block text-sm font-semibold text-secondary mb-2">{{
+                  $t('applicationCTA.form.phone_label')
+                }}</label>
+                <div class="relative">
+                  <input
+                    v-model="form.phone"
+                    type="tel"
+                    required
+                    :placeholder="$t('applicationCTA.form.phone_placeholder')"
+                    inputmode="tel"
+                    autocomplete="tel"
+                    maxlength="18"
+                    :class="[
+                      'w-full px-4 py-3 bg-white rounded-xl focus:outline-none font-medium text-secondary placeholder-gray-400 transition-all duration-200',
+                      phoneError
+                        ? 'border border-red-300 focus:ring-2 focus:ring-red-500 focus:border-red-500'
+                        : 'border border-gray-300 focus:ring-2 focus:ring-primary focus:border-transparent',
+                    ]"
+                    :aria-invalid="!!phoneError"
+                    @input="onPhoneInput"
+                    @keydown="onPhoneKeydown"
+                  />
+                </div>
+                <p v-if="phoneError" class="mt-2 text-sm text-red-600">{{ phoneError }}</p>
+              </div>
             </div>
-          </div>
 
-          <div>
-            <label class="block text-sm font-semibold text-secondary mb-2">{{
-              $t('applicationCTA.form.email_label')
-            }}</label>
-            <BaseTextField
-              v-model="form.email"
-              type="email"
-              :placeholder="$t('applicationCTA.form.email_placeholder')"
-              :error="emailError"
-            />
-          </div>
-
-          <div class="grid md:grid-cols-2 gap-6">
             <div>
+              <label class="block text-sm font-semibold text-secondary mb-2">{{
+                $t('applicationCTA.form.email_label')
+              }}</label>
+              <BaseTextField
+                v-model="form.email"
+                type="email"
+                :placeholder="$t('applicationCTA.form.email_placeholder')"
+                :error="emailError"
+              />
+            </div>
+
+            <div class="grid md:grid-cols-2 gap-6">
+              <div>
                 <label class="block text-sm font-semibold text-secondary mb-2"
                   >{{ $t('applicationCTA.form.program_label') }} *</label
                 >

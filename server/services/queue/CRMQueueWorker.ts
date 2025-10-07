@@ -1,4 +1,4 @@
-import type { Job } from 'bullmq';
+import type { Job } from 'bullmq'
 import { Worker } from 'bullmq'
 import type { LeadData, ActivityData } from '~~/server/types/crm'
 import { CRMFactory } from '~~/server/services/crm/CRMFactory'
@@ -12,7 +12,7 @@ interface QueueJobData {
 
 /**
  * CRM Queue Worker
- * 
+ *
  * Processes queued CRM operations with retry logic.
  */
 export class CRMQueueWorker {
@@ -33,7 +33,7 @@ export class CRMQueueWorker {
           max: 10, // Max 10 jobs
           duration: 1000, // per second
         },
-      }
+      },
     )
 
     this.worker.on('completed', (job) => {
@@ -42,7 +42,7 @@ export class CRMQueueWorker {
 
     this.worker.on('failed', (job, err) => {
       console.error(`✗ CRM job failed: ${job?.id} (${job?.data.operation})`, err.message)
-      
+
       // Check if max attempts reached
       if (job && job.attemptsMade >= (job.opts.attempts || 3)) {
         console.error(`→ Job ${job.id} moved to DLQ after ${job.attemptsMade} attempts`)
@@ -100,10 +100,10 @@ export class CRMQueueWorker {
       return result
     } catch (error: any) {
       console.error(`✗ CRM operation failed: ${operation}`, error.message)
-      
+
       // Log attempt number
       console.log(`Attempt ${job.attemptsMade + 1}/${job.opts.attempts || 3}`)
-      
+
       // Throw error to trigger retry
       throw error
     }

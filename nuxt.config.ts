@@ -11,7 +11,7 @@ const isProduction = process.env.NODE_ENV === 'production'
 function getLocaleFiles(localeCode: string): string[] {
   const localeDir = path.join('i18n/locales', localeCode)
   const files: string[] = []
-  
+
   function readDir(dir: string, prefix = '') {
     const items = fs.readdirSync(dir, { withFileTypes: true })
     for (const item of items) {
@@ -24,11 +24,10 @@ function getLocaleFiles(localeCode: string): string[] {
       }
     }
   }
-  
+
   readDir(localeDir, localeCode)
   return files
 }
-
 
 export default defineNuxtConfig({
   ssr: true,
@@ -49,9 +48,10 @@ export default defineNuxtConfig({
       {
         baseUrl: siteUrl,
         langDir: 'locales',
-        locales: SUPPORTED_LOCALES.map(code => ({
+        locales: SUPPORTED_LOCALES.map((code) => ({
           code,
-          language: code === 'kk' ? 'kk-KZ' : code === 'ru' ? 'ru-RU' : code === 'en' ? 'en-US' : 'tr-TR',
+          language:
+            code === 'kk' ? 'kk-KZ' : code === 'ru' ? 'ru-RU' : code === 'en' ? 'en-US' : 'tr-TR',
           files: getLocaleFiles(code),
         })),
         defaultLocale: DEFAULT_LOCALE,
@@ -59,14 +59,17 @@ export default defineNuxtConfig({
         strategy: 'prefix',
       },
     ],
-    ['@nuxt/fonts', {
-      provider: isProduction ? 'google' : 'local',
-      defaults: {
-        fallbacks: {
-          'sans-serif': ['system-ui', 'Arial'],
+    [
+      '@nuxt/fonts',
+      {
+        provider: isProduction ? 'google' : 'local',
+        defaults: {
+          fallbacks: {
+            'sans-serif': ['system-ui', 'Arial'],
+          },
         },
       },
-    }],
+    ],
     '@nuxt/scripts',
     [
       '@nuxt/image',

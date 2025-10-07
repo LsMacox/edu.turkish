@@ -123,9 +123,7 @@ export const useFormValidation = () => {
       case 'phone': {
         if (value) {
           const normalizedValue =
-            typeof value === 'string'
-              ? value.replace(/[^\d+]/g, '')
-              : String(value)
+            typeof value === 'string' ? value.replace(/[^\d+]/g, '') : String(value)
 
           if (!patterns.phone.test(normalizedValue)) {
             return typeof message === 'function' ? message(value, type) : message

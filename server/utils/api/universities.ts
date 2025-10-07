@@ -9,7 +9,9 @@ const toString = (value: unknown) => (typeof value === 'string' ? value : undefi
 
 const normalizeLanguages = (value: unknown): string[] | undefined => {
   const raw = Array.isArray(value) ? value : value !== undefined ? [value] : []
-  const langs = raw.filter((item): item is string => typeof item === 'string' && item.trim().length > 0)
+  const langs = raw.filter(
+    (item): item is string => typeof item === 'string' && item.trim().length > 0,
+  )
   return langs.length > 0 ? langs : undefined
 }
 

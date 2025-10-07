@@ -16,7 +16,7 @@
             alt="Happy student with acceptance letter from Turkish university, celebration moment"
             loading="lazy"
             decoding="async"
-          >
+          />
         </div>
         <div class="aspect-square rounded-xl overflow-hidden hover-lift">
           <img
@@ -25,7 +25,7 @@
             alt="Group of international students at Turkish university campus"
             loading="lazy"
             decoding="async"
-          >
+          />
         </div>
         <div class="aspect-square rounded-xl overflow-hidden hover-lift">
           <img
@@ -34,7 +34,7 @@
             alt="Student visa approval document and passport, success story"
             loading="lazy"
             decoding="async"
-          >
+          />
         </div>
         <div class="aspect-square rounded-xl overflow-hidden hover-lift">
           <img
@@ -43,7 +43,7 @@
             alt="Turkish university graduation ceremony, international students celebrating"
             loading="lazy"
             decoding="async"
-          >
+          />
         </div>
         <div class="aspect-square rounded-xl overflow-hidden hover-lift">
           <img
@@ -52,7 +52,7 @@
             alt="Student dorm room in Turkey, comfortable living space"
             loading="lazy"
             decoding="async"
-          >
+          />
         </div>
         <div class="aspect-square rounded-xl overflow-hidden hover-lift">
           <img
@@ -61,7 +61,7 @@
             alt="Beautiful Istanbul cityscape with university buildings"
             loading="lazy"
             decoding="async"
-          >
+          />
         </div>
         <div class="aspect-square rounded-xl overflow-hidden hover-lift">
           <img
@@ -70,7 +70,7 @@
             alt="Students studying in modern Turkish university library"
             loading="lazy"
             decoding="async"
-          >
+          />
         </div>
         <div class="aspect-square rounded-xl overflow-hidden hover-lift">
           <img
@@ -79,7 +79,7 @@
             alt="International student orientation day at Turkish university"
             loading="lazy"
             decoding="async"
-          >
+          />
         </div>
         <div class="aspect-square rounded-xl overflow-hidden hover-lift">
           <img
@@ -88,7 +88,7 @@
             alt="Student receiving scholarship award at Turkish university"
             loading="lazy"
             decoding="async"
-          >
+          />
         </div>
         <div class="aspect-square rounded-xl overflow-hidden hover-lift">
           <img
@@ -97,7 +97,7 @@
             alt="Turkish university campus during spring, beautiful architecture"
             loading="lazy"
             decoding="async"
-          >
+          />
         </div>
         <div class="aspect-square rounded-xl overflow-hidden hover-lift">
           <img
@@ -106,7 +106,7 @@
             alt="Group photo of Edu.turkish team with successful students"
             loading="lazy"
             decoding="async"
-          >
+          />
         </div>
         <div class="aspect-square rounded-xl overflow-hidden hover-lift">
           <img
@@ -115,7 +115,7 @@
             alt="Student testimonial screenshot from social media, positive review"
             loading="lazy"
             decoding="async"
-          >
+          />
         </div>
       </div>
 

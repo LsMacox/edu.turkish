@@ -11,7 +11,9 @@
 **Issue**: Environment variables not using Nuxt runtimeConfig properly
 
 **Resolution**:
+
 1. ✅ **nuxt.config.ts already configured correctly** (lines 140-147):
+
    ```typescript
    runtimeConfig: {
      crmProvider: process.env.NUXT_CRM_PROVIDER || process.env.CRM_PROVIDER || 'espocrm',
@@ -28,11 +30,12 @@
 
 3. ✅ **.env.example already has variables** (lines 18-30):
    - CRM_PROVIDER, ESPOCRM_URL, ESPOCRM_API_KEY documented
-   - Both NUXT_* and non-prefixed versions work via fallback
+   - Both NUXT\_\* and non-prefixed versions work via fallback
 
 **Constitution Compliance**: ✅ PASS
+
 - Principle VII satisfied: Variables declared in runtimeConfig
-- Environment variables properly mapped via NUXT_* prefix
+- Environment variables properly mapped via NUXT\_\* prefix
 - Backward compatibility maintained with old variable names
 
 ---
@@ -42,12 +45,14 @@
 **Issue**: Conflicting timeout specifications (15s vs 20s)
 
 **Resolution**:
+
 - ✅ Standardized on **15 seconds** for lead creation
 - ✅ Contract allows up to 20s (includes retries)
 - ✅ Implementation: 15s timeout + 2 retries = ~17s total (within contract)
 - ✅ Updated `server/utils/crm-config.ts` line 93: `const timeout = 15000`
 
 **Files Updated**:
+
 - `server/utils/crm-config.ts`: Hardcoded 15s timeout
 - Documentation clarified: 15s base + retries = within 20s contract limit
 
@@ -58,6 +63,7 @@
 **Current Status**: BitrixService already exists and has similar methods
 
 **Findings**:
+
 - ✅ `BitrixService.createLead()` exists (line 120-165)
 - ✅ `BitrixService.logMessengerEvent()` exists (line 244-352)
 - ✅ `BitrixService.testConnection()` exists (line 647-681)
@@ -74,6 +80,7 @@
 **Current Status**: Need to identify root cause of "Invalid source (valid)" error
 
 **Investigation Plan** (for T017):
+
 1. Check `server/utils/api-helpers.ts` validateApplicationData()
 2. Check `server/repositories/ApplicationRepository.ts` create()
 3. Check Prisma schema for source field constraints
@@ -86,6 +93,7 @@
 ## Updated Task Status
 
 ### Phase 3.1: Setup
+
 - [x] **T001** ✅ COMPLETED - Configuration already in place
   - nuxt.config.ts runtimeConfig configured
   - .env.example documented
@@ -94,6 +102,7 @@
 ### Remaining Critical Tasks
 
 **Before Implementation**:
+
 1. ✅ Verify T002-T009 tests are written and failing
 2. ⚠️ T014: Update BitrixService return types to match ICrmProvider
 3. ⚠️ T017: Investigate source validation before fixing
@@ -102,22 +111,22 @@
 
 ## Constitution Compliance Summary
 
-| Principle | Status | Notes |
-|-----------|--------|-------|
-| I. Structure & Architecture | ✅ PASS | Follows app/, server/, tests/ structure |
-| II. Content & Localization | ✅ PASS | T024 verifies i18n keys |
-| III. Data Access & Migrations | ✅ PASS | No schema changes required |
-| IV. Partner Attribution & CRM | ✅ PASS | Maintains ref forwarding |
-| V. UI, Styling, and Code Quality | ✅ PASS | Uses Tailwind, ESLint checks |
-| VI. Imports & Aliases | ✅ PASS | Uses ~/* and ~~/* aliases |
-| **VII. Runtime Configuration** | **✅ PASS** | **Fixed: Uses runtimeConfig properly** |
+| Principle                        | Status      | Notes                                   |
+| -------------------------------- | ----------- | --------------------------------------- |
+| I. Structure & Architecture      | ✅ PASS     | Follows app/, server/, tests/ structure |
+| II. Content & Localization       | ✅ PASS     | T024 verifies i18n keys                 |
+| III. Data Access & Migrations    | ✅ PASS     | No schema changes required              |
+| IV. Partner Attribution & CRM    | ✅ PASS     | Maintains ref forwarding                |
+| V. UI, Styling, and Code Quality | ✅ PASS     | Uses Tailwind, ESLint checks            |
+| VI. Imports & Aliases            | ✅ PASS     | Uses ~/_ and ~~/_ aliases               |
+| **VII. Runtime Configuration**   | **✅ PASS** | **Fixed: Uses runtimeConfig properly**  |
 
 ---
 
 ## Files Modified
 
 1. ✅ `server/utils/crm-config.ts`
-   - Updated all functions to use process.env.NUXT_* with fallbacks
+   - Updated all functions to use process.env.NUXT\_\* with fallbacks
    - Added documentation explaining runtimeConfig usage
    - Standardized timeout to 15000ms
 
@@ -156,6 +165,7 @@
 **Overall Risk**: ✅ LOW (after critical fix)
 
 **Remaining Risks**:
+
 - 🟡 MEDIUM: BitrixService interface alignment (T014)
 - 🟡 MEDIUM: Source validation root cause unknown (T017)
 - 🟢 LOW: All other tasks well-defined

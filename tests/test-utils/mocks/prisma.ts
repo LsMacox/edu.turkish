@@ -17,7 +17,19 @@ export interface MockPrismaModel {
 }
 
 export type MockPrismaClient = {
-  [K in keyof Omit<PrismaClient, '$connect' | '$disconnect' | '$executeRaw' | '$executeRawUnsafe' | '$queryRaw' | '$queryRawUnsafe' | '$transaction' | '$on' | '$use' | '$extends'>]: MockPrismaModel
+  [K in keyof Omit<
+    PrismaClient,
+    | '$connect'
+    | '$disconnect'
+    | '$executeRaw'
+    | '$executeRawUnsafe'
+    | '$queryRaw'
+    | '$queryRawUnsafe'
+    | '$transaction'
+    | '$on'
+    | '$use'
+    | '$extends'
+  >]: MockPrismaModel
 } & {
   $transaction: Mock
   $connect: Mock
@@ -85,7 +97,7 @@ export function createMockPrisma(overrides?: Partial<MockPrismaClient>): MockPri
     universityCampusFacilityTranslation: createMockModel(),
     universityImportantDate: createMockModel(),
     universityImportantDateTranslation: createMockModel(),
-    
+
     // Utility methods
     $transaction: vi.fn(async (operations: any) => {
       if (Array.isArray(operations)) {
@@ -101,13 +113,16 @@ export function createMockPrisma(overrides?: Partial<MockPrismaClient>): MockPri
     Object.keys(overrides).forEach((key) => {
       const typedKey = key as keyof typeof defaultMock
       if (overrides[typedKey as keyof MockPrismaClient]) {
-        if (typeof overrides[typedKey as keyof MockPrismaClient] === 'object' && !vi.isMockFunction(overrides[typedKey as keyof MockPrismaClient])) {
-          (defaultMock as any)[typedKey] = {
+        if (
+          typeof overrides[typedKey as keyof MockPrismaClient] === 'object' &&
+          !vi.isMockFunction(overrides[typedKey as keyof MockPrismaClient])
+        ) {
+          ;(defaultMock as any)[typedKey] = {
             ...(defaultMock as any)[typedKey],
             ...overrides[typedKey as keyof MockPrismaClient],
           }
         } else {
-          (defaultMock as any)[typedKey] = overrides[typedKey as keyof MockPrismaClient]
+          ;(defaultMock as any)[typedKey] = overrides[typedKey as keyof MockPrismaClient]
         }
       }
     })

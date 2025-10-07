@@ -15,7 +15,6 @@
 </template>
 
 <script setup lang="ts">
-
 export interface BaseStatBadgeProps {
   icon?: string
   label: string

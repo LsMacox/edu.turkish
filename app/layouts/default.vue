@@ -19,7 +19,6 @@
 </template>
 
 <script setup lang="ts">
-
 // Default layout wrapper
 const modal = useApplicationModalStore()
 

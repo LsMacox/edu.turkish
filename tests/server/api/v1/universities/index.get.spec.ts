@@ -34,7 +34,7 @@ describe('GET /api/v1/universities', () => {
       limit: '3',
     }
     getQueryMock.mockReturnValue(queryParams)
-    
+
     // Override global getQuery for this test
     ;(globalThis as any).getQuery = getQueryMock
 

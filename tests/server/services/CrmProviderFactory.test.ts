@@ -2,7 +2,7 @@ import { afterEach, beforeEach, describe, expect, it } from 'vitest'
 
 /**
  * Unit tests for CrmProviderFactory
- * 
+ *
  * Tests provider selection logic based on CRM_PROVIDER environment variable.
  * These tests will fail until CrmProviderFactory is implemented.
  */
@@ -30,7 +30,7 @@ describe('CrmProviderFactory', () => {
   describe('Provider Selection', () => {
     it('should default to Bitrix when CRM_PROVIDER not set', () => {
       process.env.BITRIX_WEBHOOK_URL = 'https://example.com/rest/1/token/'
-      
+
       // This will fail until CrmProviderFactory is implemented
       // Expected: factory.create() returns BitrixService instance
       const expectedProvider = 'bitrix'
@@ -40,7 +40,7 @@ describe('CrmProviderFactory', () => {
     it('should return BitrixService when CRM_PROVIDER=bitrix', () => {
       process.env.CRM_PROVIDER = 'bitrix'
       process.env.BITRIX_WEBHOOK_URL = 'https://example.com/rest/1/token/'
-      
+
       // Expected: factory.create() returns BitrixService instance
       const expectedProvider = 'bitrix'
       expect(expectedProvider).toBe('bitrix')
@@ -50,7 +50,7 @@ describe('CrmProviderFactory', () => {
       process.env.CRM_PROVIDER = 'espocrm'
       process.env.ESPOCRM_API_URL = 'https://crm.example.com/api/v1'
       process.env.ESPOCRM_API_KEY = 'test-key'
-      
+
       // Expected: factory.create() returns EspoCrmService instance
       const expectedProvider = 'espocrm'
       expect(expectedProvider).toBe('espocrm')
@@ -58,7 +58,7 @@ describe('CrmProviderFactory', () => {
 
     it('should be case-insensitive for CRM_PROVIDER value', () => {
       const providers = ['BITRIX', 'Bitrix', 'bitrix', 'ESPOCRM', 'EspoCRM', 'espocrm']
-      
+
       providers.forEach((provider) => {
         const normalized = provider.toLowerCase()
         expect(['bitrix', 'espocrm']).toContain(normalized)
@@ -68,7 +68,7 @@ describe('CrmProviderFactory', () => {
     it('should default to Bitrix for invalid CRM_PROVIDER values', () => {
       process.env.CRM_PROVIDER = 'invalid-provider'
       process.env.BITRIX_WEBHOOK_URL = 'https://example.com/rest/1/token/'
-      
+
       // Expected: factory.create() returns BitrixService instance (default)
       const expectedProvider = 'bitrix'
       expect(expectedProvider).toBe('bitrix')
@@ -79,7 +79,7 @@ describe('CrmProviderFactory', () => {
     it('should throw error when Bitrix config missing', () => {
       process.env.CRM_PROVIDER = 'bitrix'
       // BITRIX_WEBHOOK_URL not set
-      
+
       // Expected: factory.create() throws error
       expect(() => {
         const config = process.env.BITRIX_WEBHOOK_URL
@@ -93,7 +93,7 @@ describe('CrmProviderFactory', () => {
       process.env.CRM_PROVIDER = 'espocrm'
       process.env.ESPOCRM_API_KEY = 'test-key'
       // ESPOCRM_API_URL not set
-      
+
       // Expected: factory.create() throws error
       expect(() => {
         const config = {
@@ -110,7 +110,7 @@ describe('CrmProviderFactory', () => {
       process.env.CRM_PROVIDER = 'espocrm'
       process.env.ESPOCRM_API_URL = 'https://crm.example.com/api/v1'
       // ESPOCRM_API_KEY not set
-      
+
       // Expected: factory.create() throws error
       expect(() => {
         const config = {
@@ -126,7 +126,7 @@ describe('CrmProviderFactory', () => {
     it('should validate Bitrix config before creating instance', () => {
       process.env.CRM_PROVIDER = 'bitrix'
       process.env.BITRIX_WEBHOOK_URL = 'https://example.com/rest/1/token/'
-      
+
       const config = process.env.BITRIX_WEBHOOK_URL
       expect(config).toBeDefined()
       expect(config).toContain('https://')
@@ -136,12 +136,12 @@ describe('CrmProviderFactory', () => {
       process.env.CRM_PROVIDER = 'espocrm'
       process.env.ESPOCRM_API_URL = 'https://crm.example.com/api/v1'
       process.env.ESPOCRM_API_KEY = 'test-key'
-      
+
       const config = {
         apiUrl: process.env.ESPOCRM_API_URL,
         apiKey: process.env.ESPOCRM_API_KEY,
       }
-      
+
       expect(config.apiUrl).toBeDefined()
       expect(config.apiKey).toBeDefined()
       expect(config.apiUrl).toContain('https://')
@@ -201,7 +201,8 @@ describe('CrmProviderFactory', () => {
     })
 
     it('should provide clear error for missing EspoCRM config', () => {
-      const errorMessage = 'EspoCRM configuration incomplete: ESPOCRM_API_URL and ESPOCRM_API_KEY are required'
+      const errorMessage =
+        'EspoCRM configuration incomplete: ESPOCRM_API_URL and ESPOCRM_API_KEY are required'
       expect(errorMessage).toContain('ESPOCRM_API_URL')
       expect(errorMessage).toContain('ESPOCRM_API_KEY')
     })

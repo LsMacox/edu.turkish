@@ -142,26 +142,31 @@ tests/                   # Test files (to be modernized)
 ### Research Findings
 
 **1. Mock Strategy for Prisma**
+
 - **Decision**: Use Vitest vi.fn() to mock PrismaClient methods, return test data matching Prisma types
 - **Rationale**: Lightweight, no need for actual database or Prisma mocking libraries; existing tests already use this pattern
 - **Alternatives**: prisma-mock library (too heavy), @prisma/client/edge (not suitable for tests)
 
 **2. Mock Strategy for Redis/BullMQ**
+
 - **Decision**: Create in-memory mock implementations of Queue and Redis interfaces
 - **Rationale**: Tests don't need actual Redis; only need to verify queue interactions and job lifecycle
 - **Alternatives**: ioredis-mock (external dependency), testcontainers (defeats purpose of removing containers)
 
 **3. Mock Strategy for Nuxt Composables**
+
 - **Decision**: Mock on globalThis for auto-imported composables (useI18n, $fetch, useNuxtApp)
 - **Rationale**: Nuxt auto-imports inject these on global scope; existing tests already use this pattern (see PopularProgramsSection.test.ts)
 - **Alternatives**: @nuxt/test-utils mountSuspended (too slow for unit tests)
 
 **4. Test Structure Pattern**
+
 - **Decision**: AAA (Arrange-Act-Assert) with describe/it blocks, minimal comments, helper functions for setup
 - **Rationale**: Industry standard, self-documenting, existing tests partially follow this
 - **Alternatives**: BDD-style (more verbose), flat structure (harder to organize)
 
 **5. Test-Utils Module Structure**
+
 - **Decision**: Single entry point (tests/test-utils/index.ts) with sub-modules for each mock category
 - **Rationale**: Easy imports, organized by concern, scalable for future mocks
 - **Alternatives**: Flat structure (harder to navigate), per-test mocks (duplication)
@@ -276,10 +281,11 @@ _Fill ONLY if Constitution Check has violations that must be justified_
 | None      | N/A        | N/A                                  |
 
 **Justification**: This feature enhances test infrastructure and follows all constitutional principles:
+
 - Tests remain in tests/ directory (existing structure)
 - No changes to app/, server/, or prisma/ structure
 - test-utils module is test-only, doesn't affect application architecture
-- Imports use ~~/tests/* aliases (constitutional ~/* and ~~/* patterns)
+- Imports use ~~/tests/_ aliases (constitutional ~/_ and ~~/\* patterns)
 - No i18n, data layer, or CMS changes
 - Quality improvements: better test structure, faster execution
 

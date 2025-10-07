@@ -217,13 +217,16 @@ export class ReviewRepository {
       const uniTranslations = review.university?.translations ?? []
 
       const fallbackLocale = normalizeLocale(ReviewRepository.DEFAULT_LOCALE)
-      const tLoc = findTranslation(translations, localeInfo) || findTranslation(translations, fallbackLocale) || translations[0]
-      const uLoc = findTranslation(uniTranslations, localeInfo) || findTranslation(uniTranslations, fallbackLocale) || uniTranslations[0]
+      const tLoc =
+        findTranslation(translations, localeInfo) ||
+        findTranslation(translations, fallbackLocale) ||
+        translations[0]
+      const uLoc =
+        findTranslation(uniTranslations, localeInfo) ||
+        findTranslation(uniTranslations, fallbackLocale) ||
+        uniTranslations[0]
 
-      const universityName =
-        uLoc?.title ??
-        tLoc?.universityName ??
-        undefined
+      const universityName = uLoc?.title ?? tLoc?.universityName ?? undefined
 
       return {
         id: review.id,
@@ -297,8 +300,7 @@ export class ReviewRepository {
     const translations = review.translations ?? []
     const localizedTranslation = findTranslation(translations, locale)
     const fallbackLocale = normalizeLocale(ReviewRepository.DEFAULT_LOCALE)
-    const fallbackTranslation =
-      findTranslation(translations, fallbackLocale) ?? translations[0]
+    const fallbackTranslation = findTranslation(translations, fallbackLocale) ?? translations[0]
     const translation = localizedTranslation ?? fallbackTranslation
 
     const universityTranslations = review.university?.translations ?? []
@@ -330,7 +332,6 @@ export class ReviewRepository {
       achievements,
     }
   }
-
 
   private parseAchievements(value: Prisma.JsonValue | null | undefined): Review['achievements'] {
     if (!value || typeof value !== 'object' || Array.isArray(value)) {

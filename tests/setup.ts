@@ -1,10 +1,10 @@
 /**
  * Global Test Setup
- * 
+ *
  * This file provides common test utilities and polyfills.
- * 
+ *
  * Available Test Utilities (from ~~/tests/test-utils):
- * 
+ *
  * Mocks:
  * - createMockPrisma() - Mock Prisma client for repository tests
  * - createMockQueue() - Mock Redis queue for integration tests
@@ -12,24 +12,24 @@
  * - mockUseI18n(locale, messages) - Mock Nuxt i18n composable
  * - mockFetch(routes) - Mock $fetch with URL pattern matching
  * - mockNuxtApp(config) - Mock Nuxt app instance
- * 
+ *
  * Fixtures:
  * - createUniversity(overrides) - Generate test university data
  * - createFAQ(overrides) - Generate test FAQ data
  * - createApplication(overrides) - Generate test application data
  * - createReview(overrides) - Generate test review data
- * 
+ *
  * Usage Examples:
- * 
+ *
  * Repository tests:
  *   import { createMockPrisma } from '~~/tests/test-utils'
  *   const prisma = createMockPrisma({ university: { findMany: vi.fn().mockResolvedValue([...]) } })
- * 
+ *
  * Component tests:
  *   import { mockUseI18n } from '~~/tests/test-utils'
  *   const i18n = mockUseI18n('en', enMessages)
  *   globalThis.useI18n = () => i18n
- * 
+ *
  * Integration tests:
  *   import { createMockQueue } from '~~/tests/test-utils'
  *   const queue = createMockQueue()
@@ -38,7 +38,20 @@
 
 import { afterAll, beforeAll, vi } from 'vitest'
 import { config } from '@vue/test-utils'
-import { ref, computed, reactive, watch, watchEffect, onMounted, onUnmounted, nextTick, readonly, toRef, toRefs, useId } from 'vue'
+import {
+  ref,
+  computed,
+  reactive,
+  watch,
+  watchEffect,
+  onMounted,
+  onUnmounted,
+  nextTick,
+  readonly,
+  toRef,
+  toRefs,
+  useId,
+} from 'vue'
 
 beforeAll(() => {
   // Mock Nuxt server utilities globally
@@ -56,7 +69,7 @@ beforeAll(() => {
       directusUrl: 'http://localhost:8055',
     },
   }))
-  
+
   // Export Vue APIs globally for components
   g.ref = ref
   g.computed = computed
@@ -70,13 +83,13 @@ beforeAll(() => {
   g.onUnmounted = onUnmounted
   g.nextTick = nextTick
   g.useId = useId
-  
+
   // Mock Vue composables
   g.useSlots = vi.fn(() => ({
     default: () => [],
   }))
   g.useAttrs = vi.fn(() => ({}))
-  
+
   // Mock Nuxt composables
   g.useI18n = vi.fn(() => ({
     t: (key: string) => key,
@@ -92,14 +105,14 @@ beforeAll(() => {
     push: vi.fn(() => Promise.resolve()),
     replace: vi.fn(() => Promise.resolve()),
   }))
-  
+
   // Mock Pinia stores
   g.useApplicationModalStore = vi.fn(() => ({
     openModal: vi.fn(),
     closeModal: vi.fn(),
     isOpen: false,
   }))
-  
+
   // Configure Vue Test Utils global stubs
   config.global.stubs = {
     NuxtImg: {
@@ -111,7 +124,7 @@ beforeAll(() => {
       props: ['name'],
     },
   }
-  
+
   // Mock i18n globally
   config.global.mocks = {
     $t: (key: string) => key,

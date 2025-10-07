@@ -1,6 +1,6 @@
 /**
  * CRM Provider Interface Contract
- * 
+ *
  * This contract defines the unified interface that all CRM providers must implement.
  * It ensures consistent behavior regardless of the underlying CRM system.
  */
@@ -10,7 +10,7 @@ import type { LeadData, ActivityData, CRMResult } from '~~/server/types/crm'
 export interface ICRMProvider {
   /**
    * Create a new lead in the CRM system
-   * 
+   *
    * @param data - Standardized lead data
    * @returns Promise resolving to CRM operation result
    * @throws Error if validation fails or CRM is unreachable
@@ -19,7 +19,7 @@ export interface ICRMProvider {
 
   /**
    * Update an existing lead in the CRM system
-   * 
+   *
    * @param id - CRM-specific lead ID
    * @param data - Partial lead data to update
    * @returns Promise resolving to CRM operation result
@@ -29,7 +29,7 @@ export interface ICRMProvider {
 
   /**
    * Log an activity/event in the CRM system
-   * 
+   *
    * @param data - Activity data (messenger clicks, etc.)
    * @returns Promise resolving to CRM operation result
    * @throws Error if validation fails or CRM is unreachable
@@ -39,7 +39,7 @@ export interface ICRMProvider {
   /**
    * Create a minimal lead from activity data
    * Used when user clicks messenger link but hasn't submitted full application
-   * 
+   *
    * @param data - Activity data containing referral code
    * @returns Promise resolving to CRM operation result
    */
@@ -47,7 +47,7 @@ export interface ICRMProvider {
 
   /**
    * Test connection to the CRM system
-   * 
+   *
    * @returns Promise resolving to true if connection successful
    * @throws Error if CRM is unreachable or credentials invalid
    */
@@ -61,31 +61,31 @@ export interface ICRMProvider {
 
 /**
  * Contract Test Cases
- * 
+ *
  * All implementations must pass these test scenarios:
- * 
+ *
  * 1. createLead
  *    - ✓ Creates lead with all required fields
  *    - ✓ Creates lead with optional fields
  *    - ✗ Rejects invalid email format
  *    - ✗ Rejects missing required fields
  *    - ✗ Handles CRM timeout gracefully
- * 
+ *
  * 2. updateLead
  *    - ✓ Updates existing lead
  *    - ✗ Rejects non-existent lead ID
  *    - ✗ Handles CRM timeout gracefully
- * 
+ *
  * 3. logActivity
  *    - ✓ Logs messenger click event
  *    - ✓ Logs event with UTM parameters
  *    - ✗ Rejects invalid channel
  *    - ✗ Handles CRM timeout gracefully
- * 
+ *
  * 4. createMinimalLeadFromActivity
  *    - ✓ Creates minimal lead from messenger click
  *    - ✗ Rejects missing referral code
- * 
+ *
  * 5. testConnection
  *    - ✓ Returns true for valid credentials
  *    - ✗ Returns false/throws for invalid credentials

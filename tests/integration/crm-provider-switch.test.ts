@@ -24,7 +24,7 @@ describe('CRM Provider Switching Integration', () => {
 
       // Act
       const job = await queue.addJob('createLead', 'bitrix', leadData)
-      
+
       // Assert
       expect(job.provider).toBe('bitrix')
       expect(job.data).toEqual(leadData)
@@ -43,7 +43,7 @@ describe('CRM Provider Switching Integration', () => {
 
       // Act
       const job = await queue.addJob('createLead', 'espocrm', leadData)
-      
+
       // Assert
       expect(job.provider).toBe('espocrm')
       expect(job.data).toEqual(leadData)
@@ -51,9 +51,13 @@ describe('CRM Provider Switching Integration', () => {
 
     it('should support queuing to both providers simultaneously', async () => {
       // Arrange & Act
-      const bitrixJob = await queue.addJob('createLead', 'bitrix', { firstName: 'User1' } as LeadData)
-      const espocrmJob = await queue.addJob('createLead', 'espocrm', { firstName: 'User2' } as LeadData)
-      
+      const bitrixJob = await queue.addJob('createLead', 'bitrix', {
+        firstName: 'User1',
+      } as LeadData)
+      const espocrmJob = await queue.addJob('createLead', 'espocrm', {
+        firstName: 'User2',
+      } as LeadData)
+
       // Assert
       expect(bitrixJob.provider).toBe('bitrix')
       expect(espocrmJob.provider).toBe('espocrm')

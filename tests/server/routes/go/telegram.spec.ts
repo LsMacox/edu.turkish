@@ -19,7 +19,7 @@ describe('GET /go/telegram', () => {
 
   it('telegram bot channel configuration is valid', async () => {
     const { contactChannels, primaryTelegramKey } = await import('~~/lib/contact/channels')
-    
+
     expect(contactChannels.telegramBot).toBeDefined()
     expect(contactChannels.telegramBot.key).toBe('telegramBot')
     expect(contactChannels.telegramBot.type).toBe('personal')

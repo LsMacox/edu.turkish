@@ -126,9 +126,18 @@ describe('CRM Messenger Activity Integration', () => {
   describe('Activity Queue Management', () => {
     it('should queue multiple activities independently', async () => {
       // Arrange & Act
-      await queue.addJob('logActivity', 'espocrm', { channel: 'telegramBot', referralCode: 'ACT1' } as ActivityData)
-      await queue.addJob('logActivity', 'bitrix', { channel: 'whatsapp', referralCode: 'ACT2' } as ActivityData)
-      await queue.addJob('logActivity', 'espocrm', { channel: 'instagram', referralCode: 'ACT3' } as ActivityData)
+      await queue.addJob('logActivity', 'espocrm', {
+        channel: 'telegramBot',
+        referralCode: 'ACT1',
+      } as ActivityData)
+      await queue.addJob('logActivity', 'bitrix', {
+        channel: 'whatsapp',
+        referralCode: 'ACT2',
+      } as ActivityData)
+      await queue.addJob('logActivity', 'espocrm', {
+        channel: 'instagram',
+        referralCode: 'ACT3',
+      } as ActivityData)
 
       // Assert
       expect(await queue.getQueueLength()).toBe(3)
@@ -144,7 +153,7 @@ describe('CRM Messenger Activity Integration', () => {
 
       // Act
       const jobs = await Promise.all(
-        activities.map((act) => queue.addJob('logActivity', 'espocrm', act))
+        activities.map((act) => queue.addJob('logActivity', 'espocrm', act)),
       )
 
       // Assert

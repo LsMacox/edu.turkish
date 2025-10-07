@@ -1,6 +1,6 @@
 /**
  * Contract: ESLint Rule Configuration
- * 
+ *
  * Defines ESLint rules to enforce import alias standards
  */
 
@@ -18,7 +18,7 @@ export interface ESLintValidationResult {
 
 /**
  * Contract Test: ESLint must ban deprecated aliases
- * 
+ *
  * GIVEN eslint.config.mjs
  * WHEN checking no-restricted-imports rule
  * THEN @/*, @@/*, and ^/* patterns must be banned
@@ -30,7 +30,7 @@ export function validateDeprecatedAliasBan(): ESLintValidationResult {
 
 /**
  * Contract Test: ESLint must ban deep relative imports
- * 
+ *
  * GIVEN eslint.config.mjs
  * WHEN checking no-restricted-imports rule
  * THEN deep relative import patterns must be banned

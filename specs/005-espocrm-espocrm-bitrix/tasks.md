@@ -49,9 +49,9 @@
 ## Phase 3.1: Setup
 
 - [x] **T001** ✅ COMPLETED - Environment variables already configured in `nuxt.config.ts` runtimeConfig and `.env.example`
-  - ✅ `nuxt.config.ts` lines 140-147: CRM config with NUXT_* prefix support
+  - ✅ `nuxt.config.ts` lines 140-147: CRM config with NUXT\_\* prefix support
   - ✅ `.env.example` lines 18-30: CRM provider variables documented
-  - ✅ `server/utils/crm-config.ts`: Updated to use process.env with NUXT_* fallbacks
+  - ✅ `server/utils/crm-config.ts`: Updated to use process.env with NUXT\_\* fallbacks
 
 ## Phase 3.2: Tests First (TDD) ⚠️ MUST COMPLETE BEFORE 3.3
 

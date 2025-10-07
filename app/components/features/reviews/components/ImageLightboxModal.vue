@@ -24,7 +24,7 @@
                 class="max-h-[80vh] w-auto h-auto object-contain select-none"
                 loading="eager"
                 decoding="async"
-              >
+              />
             </div>
 
             <div v-if="image" class="mt-4 text-white">
@@ -87,7 +87,7 @@ watch(isOpen, (open) => {
 <style scoped>
 .fade-enter-active,
 .fade-leave-active {
-  transition: opacity .2s ease;
+  transition: opacity 0.2s ease;
 }
 .fade-enter-from,
 .fade-leave-to {

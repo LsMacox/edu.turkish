@@ -25,7 +25,9 @@ export const useApplicationModalValidation = () => {
     email: [validation.createRules.email('Please enter a valid email address')],
     message: [validation.createRules.maxLength(500, 'Message must not exceed 500 characters')],
     agreement: [
-      validation.createRules.custom((value: boolean) => value || 'You must agree to the privacy policy'),
+      validation.createRules.custom(
+        (value: boolean) => value || 'You must agree to the privacy policy',
+      ),
     ],
   }
 

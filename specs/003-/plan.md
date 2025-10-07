@@ -48,11 +48,13 @@ Standardize import aliases across the edu.turkish codebase to eliminate confusio
 **Scale/Scope**: ~150 TypeScript/Vue files across app/, server/, tests/, lib/, prisma/ directories
 
 **Current Alias Configuration**:
+
 - `tsconfig.json`: Defines `~/*`, `@/*`, `~~/*`, `@@/*`, `^/*` (5 overlapping aliases)
 - `vitest.config.ts`: Defines `~`, `@`, `~~` (3 aliases, missing `@@` and `^`)
 - `nuxt.config.ts`: Auto-configures Nuxt-specific aliases
 
 **Identified Issues**:
+
 1. Test files use relative imports (`../../`) instead of aliases
 2. Server files inconsistently use `../../app/types` vs aliases
 3. `vitest.config.ts` missing `@@` and `^` aliases causing test failures
@@ -216,13 +218,13 @@ _This section describes what the /tasks command will do - DO NOT execute during 
    - Create contract test files from contracts/
 
 2. **Migration Tasks** (Phase 2):
-   - **Priority 1**: Migrate test files (tests/**)
+   - **Priority 1**: Migrate test files (tests/\*\*)
      - Replace `../../` with `~` or `~~`
      - Replace deprecated aliases
-   - **Priority 2**: Migrate server files (server/**)
+   - **Priority 2**: Migrate server files (server/\*\*)
      - Standardize cross-boundary imports
      - Replace deprecated aliases
-   - **Priority 3**: Migrate app files (app/**)
+   - **Priority 3**: Migrate app files (app/\*\*)
      - Replace `@/` with `~/`
      - Replace `@@/`, `^/` with `~~/`
    - **Priority 4**: Migrate scripts and seeds
@@ -245,6 +247,7 @@ _This section describes what the /tasks command will do - DO NOT execute during 
 - **Validation gates**: Tests must pass before moving to next priority
 
 **Task Categories**:
+
 - Config alignment: 3-4 tasks
 - Test migration: 15-20 tasks (one per test file or group)
 - Server migration: 20-25 tasks (API endpoints, repositories, utils)
@@ -256,6 +259,7 @@ _This section describes what the /tasks command will do - DO NOT execute during 
 **Estimated Output**: 75-95 numbered, ordered tasks in tasks.md
 
 **Migration Batching**:
+
 - Group similar files together (e.g., all component tests, all API endpoints)
 - Each batch can be executed in parallel within its priority
 - Use automated tools where possible (find/replace with validation)

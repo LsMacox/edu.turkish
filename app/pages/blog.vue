@@ -66,7 +66,6 @@ import heroImage from '/images/blog-hero.png'
 import { useApplicationModalStore } from '~/stores/applicationModal'
 import { useBlogStore } from '~/stores/blog'
 
-
 definePageMeta({
   layout: 'default',
   name: 'BlogPage',

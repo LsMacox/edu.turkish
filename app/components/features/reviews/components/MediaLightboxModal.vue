@@ -46,7 +46,7 @@
                 class="max-h-[80vh] w-auto h-auto object-contain"
                 loading="eager"
                 decoding="async"
-              >
+              />
 
               <!-- Video -->
               <video
@@ -68,7 +68,9 @@
             <!-- Info -->
             <div v-if="current" class="mt-4 text-white">
               <h3 class="text-lg font-semibold">{{ current.name }}</h3>
-              <p v-if="current.university" class="text-sm text-gray-300">{{ current.university }}</p>
+              <p v-if="current.university" class="text-sm text-gray-300">
+                {{ current.university }}
+              </p>
             </div>
           </div>
         </div>
@@ -180,14 +182,19 @@ async function generateVideoThumbnail(url: string): Promise<string | null> {
     await new Promise<void>((resolve, reject) => {
       const onError = () => reject(new Error('video error'))
       video.addEventListener('error', onError, { once: true })
-      video.addEventListener('loadeddata', () => {
-        try { video.currentTime = 0 }
-        catch (error) {
-          if (import.meta.dev) {
-            console.debug('Failed to initialize video current time', error)
+      video.addEventListener(
+        'loadeddata',
+        () => {
+          try {
+            video.currentTime = 0
+          } catch (error) {
+            if (import.meta.dev) {
+              console.debug('Failed to initialize video current time', error)
+            }
           }
-        }
-      }, { once: true })
+        },
+        { once: true },
+      )
       video.addEventListener('seeked', () => resolve(), { once: true })
     })
     const canvas = document.createElement('canvas')
@@ -202,17 +209,31 @@ async function generateVideoThumbnail(url: string): Promise<string | null> {
   }
 }
 
-watch(current, async (val) => {
-  localPoster.value = null
-  if (val?.mediaType === 'video' && !val.videoThumb && val.videoUrl && !val.videoUrl.startsWith('youtube:') && !val.videoUrl.startsWith('vimeo:')) {
-    localPoster.value = await generateVideoThumbnail(val.videoUrl)
-  }
-}, { immediate: true })
+watch(
+  current,
+  async (val) => {
+    localPoster.value = null
+    if (
+      val?.mediaType === 'video' &&
+      !val.videoThumb &&
+      val.videoUrl &&
+      !val.videoUrl.startsWith('youtube:') &&
+      !val.videoUrl.startsWith('vimeo:')
+    ) {
+      localPoster.value = await generateVideoThumbnail(val.videoUrl)
+    }
+  },
+  { immediate: true },
+)
 </script>
 
 <style scoped>
 .fade-enter-active,
-.fade-leave-active { transition: opacity .2s ease; }
+.fade-leave-active {
+  transition: opacity 0.2s ease;
+}
 .fade-enter-from,
-.fade-leave-to { opacity: 0; }
+.fade-leave-to {
+  opacity: 0;
+}
 </style>

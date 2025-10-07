@@ -143,12 +143,14 @@ As a business administrator, I need the system to send lead and contact informat
 ## Clarifications Resolved
 
 ### Initial Clarifications
+
 1. **EspoCRM Authentication** (FR-009): ✅ Username/password for web UI, API keys for programmatic access
 2. **Database Strategy** (FR-014): ✅ Dedicated separate database for EspoCRM
 3. **Testing Strategy** (FR-019): ✅ Test/sandbox mode required for CRM operations
 4. **Monitoring Requirements** (FR-022): ✅ Logging only, no additional monitoring infrastructure needed
 
 ### Detailed Clarifications (from /clarify workflow)
+
 5. **EspoCRM Subdomain** (FR-012): ✅ `crm.{domain}` subdomain
 6. **Retry Queue Strategy** (FR-005, FR-011): ✅ Redis-backed persistent queue with exponential backoff
 7. **Minimum Lead Data** (FR-006): ✅ Name + phone + email + referral code (all required)

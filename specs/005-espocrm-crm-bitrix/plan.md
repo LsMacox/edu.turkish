@@ -54,36 +54,44 @@ _GATE: Must pass before Phase 0 research. Re-check after Phase 1 design._
 The following MUST be validated against `/memory/constitution.md`:
 
 ### ✅ Architecture Compliance
+
 - **Repository paths**: All CRM services in `server/services/crm/`, queue in `server/services/queue/`, types in `server/types/crm/` - COMPLIANT
 - **Data flow**: No frontend changes needed. Existing API endpoints updated to use abstraction layer - COMPLIANT
 - **No direct repository calls**: CRM abstraction is service-layer only, no component changes - COMPLIANT
 
 ### ✅ Imports & Aliases
+
 - **tsconfig aliases**: All imports use `~/server/` and `~~/` aliases - COMPLIANT
 - **No ad-hoc paths**: Following established import patterns - COMPLIANT
 
 ### ✅ i18n Compliance
+
 - **No UI changes**: This is backend/infrastructure only, no user-facing strings - N/A
 - **Error messages**: CRM errors logged server-side only, not exposed to users - COMPLIANT
 
 ### ✅ Data Layer
+
 - **Prisma-only**: No database schema changes required. CRM data lives in external systems - COMPLIANT
 - **No migrations needed**: Infrastructure-only feature - COMPLIANT
 
 ### ✅ CMS
+
 - **Directus**: Not applicable to this feature - N/A
 
 ### ✅ Partner Flows & CRM
+
 - **Existing flows preserved**: `/routes/go/*` updated to use CRM abstraction instead of direct Bitrix calls - COMPLIANT
 - **Backward compatible**: Bitrix integration maintained via abstraction layer - COMPLIANT
 - **Cookie handling**: No changes to `?ref` cookie logic - COMPLIANT
 
 ### ✅ Quality Gates
+
 - **ESLint/Prettier/TS**: All new code follows existing standards - COMPLIANT
 - **Tests**: Vitest tests for all CRM providers and queue worker - COMPLIANT
 - **No styling changes**: Backend-only feature - N/A
 
 ### 🔍 Post-Design Re-validation
+
 All constitutional requirements remain satisfied after Phase 1 design. No violations or deviations required.
 
 ## Project Structure

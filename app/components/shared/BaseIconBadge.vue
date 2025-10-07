@@ -5,7 +5,6 @@
 </template>
 
 <script setup lang="ts">
-
 export interface BaseIconBadgeProps {
   icon: string
   color?: 'blue' | 'green' | 'purple' | 'orange' | 'red' | 'yellow' | 'pink'

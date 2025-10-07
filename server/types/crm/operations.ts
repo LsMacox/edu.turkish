@@ -10,22 +10,22 @@ export interface LeadData {
   lastName?: string
   phone: string
   email: string
-  
+
   // Education Preferences (optional)
   universities?: string[]
   programs?: string[]
-  
+
   // User Preferences (optional)
   userType?: 'student' | 'parent'
   language?: 'turkish' | 'english' | 'both'
   scholarship?: 'yes' | 'no'
   universityChosen?: string
-  
+
   // Attribution (required)
   referralCode: string
   source: string
   sourceDescription?: string
-  
+
   // UTM Parameters (optional)
   utm?: {
     source?: string
@@ -34,7 +34,7 @@ export interface LeadData {
     content?: string
     term?: string
   }
-  
+
   // Additional
   additionalInfo?: string
   session?: string
@@ -100,13 +100,15 @@ export const leadDataSchema = z.object({
   referralCode: z.string().min(1),
   source: z.string().min(1),
   sourceDescription: z.string().optional(),
-  utm: z.object({
-    source: z.string().optional(),
-    medium: z.string().optional(),
-    campaign: z.string().optional(),
-    content: z.string().optional(),
-    term: z.string().optional(),
-  }).optional(),
+  utm: z
+    .object({
+      source: z.string().optional(),
+      medium: z.string().optional(),
+      campaign: z.string().optional(),
+      content: z.string().optional(),
+      term: z.string().optional(),
+    })
+    .optional(),
   additionalInfo: z.string().optional(),
   session: z.string().optional(),
 })
@@ -115,19 +117,23 @@ export const activityDataSchema = z.object({
   channel: z.enum(['telegramBot', 'whatsapp', 'instagram']),
   referralCode: z.string().min(1),
   session: z.string().optional(),
-  utm: z.object({
-    source: z.string().optional(),
-    medium: z.string().optional(),
-    campaign: z.string().optional(),
-    content: z.string().optional(),
-    term: z.string().optional(),
-  }).optional(),
-  metadata: z.object({
-    page: z.string().optional(),
-    section: z.string().optional(),
-    component: z.string().optional(),
-    campaign: z.string().optional(),
-    referrer: z.string().optional(),
-    notes: z.string().optional(),
-  }).optional(),
+  utm: z
+    .object({
+      source: z.string().optional(),
+      medium: z.string().optional(),
+      campaign: z.string().optional(),
+      content: z.string().optional(),
+      term: z.string().optional(),
+    })
+    .optional(),
+  metadata: z
+    .object({
+      page: z.string().optional(),
+      section: z.string().optional(),
+      component: z.string().optional(),
+      campaign: z.string().optional(),
+      referrer: z.string().optional(),
+      notes: z.string().optional(),
+    })
+    .optional(),
 })

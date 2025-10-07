@@ -34,6 +34,7 @@
 ## Summary
 
 Fix three critical EspoCRM integration issues:
+
 1. **CRM Provider Routing**: Messenger events incorrectly attempt to send to Bitrix when EspoCRM is configured, causing 401 errors
 2. **Validation Error Display**: Application modal shows 'true' instead of error messages; field-specific errors need proper positioning
 3. **Source Validation**: "Invalid source (valid)" error occurs even with correctly filled fields
@@ -135,6 +136,7 @@ tests/
 ✅ **COMPLETE**
 
 **Research Topics Covered**:
+
 1. CRM Provider Abstraction Pattern → Factory Pattern selected
 2. EspoCRM API Integration → REST API v1 with API key auth
 3. Source Field Validation Issue → Remove restrictive validation
@@ -142,6 +144,7 @@ tests/
 5. Testing Strategy → Contract + Integration + Component tests
 
 **Key Decisions**:
+
 - Factory Pattern for CRM provider selection
 - Interface-based abstraction (ICrmProvider)
 - Environment variable configuration (CRM_PROVIDER)
@@ -156,7 +159,7 @@ tests/
 
 **Artifacts Created**:
 
-1. ✅ **data-model.md**: 
+1. ✅ **data-model.md**:
    - ICrmProvider interface definition
    - CrmResult and ConnectionResult types
    - Configuration types (BitrixConfig, EspoCrmConfig)
@@ -228,6 +231,7 @@ _This section describes what the /tasks command will do - DO NOT execute during 
    - Task: Test application submission with various sources
 
 **Ordering Strategy**:
+
 - TDD order: Contract tests → Types → Implementation → Integration tests
 - Parallel execution: Contract tests, type definitions (independent)
 - Sequential: Services depend on types, UI depends on API fixes
@@ -249,6 +253,7 @@ _These phases are beyond the scope of the /plan command_
 _Fill ONLY if Constitution Check has violations that must be justified_
 
 **✅ All violations resolved (2025-10-06)**:
+
 - ✅ Architecture: Follows `app/`, `server/`, test structure
 - ✅ Data flow: Frontend → API → Service layer
 - ✅ Imports: Uses tsconfig aliases
@@ -256,9 +261,10 @@ _Fill ONLY if Constitution Check has violations that must be justified_
 - ✅ No new external dependencies
 - ✅ Maintains backward compatibility
 - ✅ **Principle VII**: Runtime config properly configured in `nuxt.config.ts` (lines 140-147)
-- ✅ **Environment variables**: Use NUXT_* prefix with fallbacks to old names
+- ✅ **Environment variables**: Use NUXT\_\* prefix with fallbacks to old names
 
 **Configuration Fix Applied**:
+
 - `server/utils/crm-config.ts` updated to use `process.env.NUXT_*` variables
 - All values sourced from `nuxt.config.ts` runtimeConfig
 - Backward compatible with existing CRM_PROVIDER, ESPOCRM_URL, etc.
@@ -284,6 +290,7 @@ _This checklist is updated during execution flow_
 - [x] Complexity deviations documented (none) ✅
 
 **Artifacts Generated**:
+
 - [x] research.md
 - [x] data-model.md
 - [x] contracts/crm-provider.contract.md

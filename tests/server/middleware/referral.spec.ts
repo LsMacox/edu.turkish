@@ -22,7 +22,7 @@ beforeEach(() => {
   sendRedirectMock.mockReset()
   getCookieMock.mockReset()
   getCookieMock.mockReturnValue(undefined)
-  
+
   // Override global mocks for this test
   ;(globalThis as any).getQuery = getQueryMock
   ;(globalThis as any).setCookie = setCookieMock

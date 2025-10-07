@@ -84,12 +84,10 @@ describe('PopularProgramsSection', () => {
 
     i18nMock = mockUseI18n('en', enUniversities)
     fetchMock = mockFetch({ '/api/v1/universities/popular-programs': mockResponse })
-
     ;(globalThis as any).useI18n = () => ({
       locale: i18nMock.locale,
       t: i18nMock.t,
     })
-
     ;(globalThis as any).$fetch = fetchMock
   })
 
@@ -145,13 +143,13 @@ describe('PopularProgramsSection', () => {
         for (const k of keys) {
           value = value?.[k]
         }
-        
+
         if (typeof value === 'string' && params) {
           return Object.entries(params).reduce((str, [k, v]) => {
             return str.replace(`{${k}}`, String(v))
           }, value)
         }
-        
+
         return value || key
       },
     })

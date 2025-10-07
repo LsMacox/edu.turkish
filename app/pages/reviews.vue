@@ -45,7 +45,7 @@
                 alt="happy diverse students celebrating university acceptance letters, group photo with Turkish university campus background, bright natural lighting"
                 loading="lazy"
                 decoding="async"
-              >
+              />
             </div>
           </div>
         </div>

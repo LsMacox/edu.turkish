@@ -69,7 +69,8 @@ export class BitrixCRMProvider implements ICRMProvider {
       // Sanitize and validate input (handle blank lastName from legacy queued jobs)
       const sanitizedData: LeadData = {
         ...data,
-        lastName: data.lastName && data.lastName.trim().length > 0 ? data.lastName.trim() : undefined,
+        lastName:
+          data.lastName && data.lastName.trim().length > 0 ? data.lastName.trim() : undefined,
       }
       // Validate input
       leadDataSchema.parse(sanitizedData)
@@ -107,7 +108,7 @@ export class BitrixCRMProvider implements ICRMProvider {
         : undefined
       return {
         success: false,
-        error: validationErrors ? 'Validation failed' : (error?.message || 'Unknown error'),
+        error: validationErrors ? 'Validation failed' : error?.message || 'Unknown error',
         provider: 'bitrix',
         operation: 'createLead',
         timestamp: new Date(),
@@ -162,10 +163,7 @@ export class BitrixCRMProvider implements ICRMProvider {
       activityDataSchema.parse(data)
 
       const now = new Date().toISOString()
-      const descriptionLines = [
-        `Channel: ${data.channel}`,
-        `Referral: ${data.referralCode}`,
-      ]
+      const descriptionLines = [`Channel: ${data.channel}`, `Referral: ${data.referralCode}`]
 
       if (data.session) {
         descriptionLines.push(`Session: ${data.session}`)
@@ -313,7 +311,6 @@ export class BitrixCRMProvider implements ICRMProvider {
     if (data.language) {
       lead.UF_CRM_1234567894 = data.language
     }
-
 
     if (data.universities && data.universities.length > 0) {
       lead.UF_CRM_1234567897 = data.universities[0]

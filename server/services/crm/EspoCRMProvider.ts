@@ -46,10 +46,10 @@ export class EspoCRMProvider implements ICRMProvider {
         'Content-Type': 'application/json',
       }
 
-      const response = await fetch(input, { 
-        ...init, 
+      const response = await fetch(input, {
+        ...init,
         headers,
-        signal: controller.signal 
+        signal: controller.signal,
       })
       clearTimeout(timeout)
       return response
@@ -76,7 +76,8 @@ export class EspoCRMProvider implements ICRMProvider {
       // Sanitize and validate input (handle blank lastName from legacy queued jobs)
       const sanitizedData: LeadData = {
         ...data,
-        lastName: data.lastName && data.lastName.trim().length > 0 ? data.lastName.trim() : undefined,
+        lastName:
+          data.lastName && data.lastName.trim().length > 0 ? data.lastName.trim() : undefined,
       }
       leadDataSchema.parse(sanitizedData)
 
@@ -128,7 +129,7 @@ export class EspoCRMProvider implements ICRMProvider {
         : undefined
       return {
         success: false,
-        error: validationErrors ? 'Validation failed' : (error?.message || 'Unknown error'),
+        error: validationErrors ? 'Validation failed' : error?.message || 'Unknown error',
         provider: 'espocrm',
         operation: 'createLead',
         timestamp: new Date(),
@@ -178,10 +179,7 @@ export class EspoCRMProvider implements ICRMProvider {
       // Validate input
       activityDataSchema.parse(data)
 
-      const descriptionLines = [
-        `Channel: ${data.channel}`,
-        `Referral: ${data.referralCode}`,
-      ]
+      const descriptionLines = [`Channel: ${data.channel}`, `Referral: ${data.referralCode}`]
 
       if (data.session) {
         descriptionLines.push(`Session: ${data.session}`)
@@ -246,11 +244,11 @@ export class EspoCRMProvider implements ICRMProvider {
         lastName: 'Lead',
         referralCodeC: data.referralCode,
         // Omit source to avoid enum validation issues; include channel in description
-        description: JSON.stringify({ 
+        description: JSON.stringify({
           channel: data.channel,
-          utm: data.utm, 
-          session: data.session, 
-          metadata: data.metadata 
+          utm: data.utm,
+          session: data.session,
+          metadata: data.metadata,
         }),
       }
 

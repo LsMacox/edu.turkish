@@ -10,17 +10,20 @@
 **Decision**: Use EspoCRM REST API with API key authentication
 
 **Rationale**:
+
 - EspoCRM provides a well-documented REST API for CRUD operations on leads, contacts, and activities
 - API key authentication is simpler than OAuth for server-to-server communication
 - Supports all required operations: create lead, update lead, create activity
 - JSON-based request/response format aligns with existing Bitrix integration
 
 **Alternatives Considered**:
+
 - OAuth 2.0: More complex, unnecessary for server-to-server
 - Direct database access: Violates encapsulation, breaks on EspoCRM updates
 - Webhooks: Not needed for our push-only use case
 
 **Implementation Notes**:
+
 - Base URL: `http://espocrm:8080/api/v1/` (internal Docker network)
 - Authentication: `X-Api-Key` header
 - Endpoints: `/Lead`, `/Activity`, `/Contact`
@@ -31,6 +34,7 @@
 **Decision**: Use BullMQ (Redis-based queue) for retry logic with exponential backoff
 
 **Rationale**:
+
 - BullMQ is production-ready, well-maintained, and TypeScript-native
 - Built-in retry logic with exponential backoff
 - Persistent queue survives application restarts
@@ -38,11 +42,13 @@
 - Good observability (job status, failed jobs, etc.)
 
 **Alternatives Considered**:
+
 - Custom Redis implementation: Reinventing the wheel, error-prone
 - Database-backed queue: Slower, adds DB load
 - In-memory queue: Lost on restart (rejected per requirements)
 
 **Implementation Notes**:
+
 - Install: `npm install bullmq ioredis`
 - Queue name: `crm-operations`
 - Retry strategy: 3 attempts with exponential backoff (1s, 5s, 25s)
@@ -53,17 +59,20 @@
 **Decision**: Strategy pattern with factory for provider selection
 
 **Rationale**:
+
 - Strategy pattern allows runtime provider switching via configuration
 - Factory pattern centralizes provider instantiation logic
 - Interface-based design ensures both providers implement same contract
 - Minimal code changes when adding new providers
 
 **Alternatives Considered**:
+
 - Adapter pattern: More complex, unnecessary for our use case
 - Direct conditional logic: Not scalable, violates Open/Closed principle
 - Plugin system: Over-engineered for 2 providers
 
 **Implementation Notes**:
+
 ```typescript
 interface ICRMProvider {
   createLead(data: LeadData): Promise<CRMResult>
@@ -84,17 +93,20 @@ class CRMFactory {
 **Decision**: Use official EspoCRM Docker image with MySQL database
 
 **Rationale**:
+
 - Official image maintained by EspoCRM team
 - Supports MySQL (already in our stack)
 - Environment-based configuration
 - Volume persistence for uploads and custom configs
 
 **Alternatives Considered**:
+
 - Build custom image: Maintenance overhead
 - PostgreSQL: Adds another database type
 - Shared MySQL database: Violates isolation requirement
 
 **Implementation Notes**:
+
 - Image: `espocrm/espocrm:latest`
 - Database: Dedicated MySQL database `espocrm_db`
 - Volumes: `/var/www/html` for persistence
@@ -105,17 +117,20 @@ class CRMFactory {
 **Decision**: Add subdomain block to existing Caddyfile
 
 **Rationale**:
+
 - Caddy already handles TLS/HTTPS for main app and Directus
 - Simple configuration for additional subdomain
 - Automatic HTTPS with Let's Encrypt
 - Header forwarding for proper request context
 
 **Alternatives Considered**:
+
 - Separate reverse proxy: Unnecessary complexity
 - Direct port exposure: No TLS, security risk
 - Nginx: Already using Caddy, no reason to switch
 
 **Implementation Notes**:
+
 ```caddyfile
 {$CRM_DOMAIN} {
     encode zstd gzip
@@ -132,17 +147,20 @@ class CRMFactory {
 **Decision**: Configuration-based field mapping per CRM provider
 
 **Rationale**:
+
 - Different CRMs have different custom field IDs
 - Configuration allows changes without code deployment
 - Type-safe mapping with TypeScript
 - Centralized in one place for maintainability
 
 **Alternatives Considered**:
+
 - Hard-coded mapping: Not flexible, requires deployment for changes
 - Database-stored mapping: Over-engineered, adds query overhead
 - Dynamic discovery: Complex, unreliable
 
 **Implementation Notes**:
+
 ```typescript
 const FIELD_MAPPINGS = {
   bitrix: {
@@ -154,21 +172,21 @@ const FIELD_MAPPINGS = {
     referralCode: 'referralCodeC',
     userType: 'userTypeC',
     // ...
-  }
+  },
 }
 ```
 
 ## Technology Stack Summary
 
-| Component | Technology | Version | Purpose |
-|-----------|-----------|---------|---------|
-| CRM System | EspoCRM | latest | Primary CRM |
-| Queue | BullMQ | ^5.0.0 | Retry logic |
-| Queue Storage | Redis | 7-alpine | Queue persistence |
-| Database | MySQL | 8.0 | EspoCRM data |
-| Reverse Proxy | Caddy | 2.8-alpine | HTTPS/subdomain |
-| Runtime | Node.js | 22 | Application |
-| Language | TypeScript | 5.x | Type safety |
+| Component     | Technology | Version    | Purpose           |
+| ------------- | ---------- | ---------- | ----------------- |
+| CRM System    | EspoCRM    | latest     | Primary CRM       |
+| Queue         | BullMQ     | ^5.0.0     | Retry logic       |
+| Queue Storage | Redis      | 7-alpine   | Queue persistence |
+| Database      | MySQL      | 8.0        | EspoCRM data      |
+| Reverse Proxy | Caddy      | 2.8-alpine | HTTPS/subdomain   |
+| Runtime       | Node.js    | 22         | Application       |
+| Language      | TypeScript | 5.x        | Type safety       |
 
 ## Dependencies to Add
 
@@ -212,13 +230,13 @@ CRM_DOMAIN=crm.edu-turkish.com
 
 ## Risks & Mitigations
 
-| Risk | Impact | Mitigation |
-|------|--------|-----------|
-| EspoCRM API changes | High | Version pin, contract tests |
-| Redis unavailable | Medium | Graceful degradation, logging |
-| Queue overflow | Low | Job expiration, monitoring |
-| Field mapping mismatch | Medium | Validation, test coverage |
-| Migration data loss | High | Backup strategy, dry-run mode |
+| Risk                   | Impact | Mitigation                    |
+| ---------------------- | ------ | ----------------------------- |
+| EspoCRM API changes    | High   | Version pin, contract tests   |
+| Redis unavailable      | Medium | Graceful degradation, logging |
+| Queue overflow         | Low    | Job expiration, monitoring    |
+| Field mapping mismatch | Medium | Validation, test coverage     |
+| Migration data loss    | High   | Backup strategy, dry-run mode |
 
 ## Next Steps (Phase 1)
 

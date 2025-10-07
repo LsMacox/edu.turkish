@@ -15,7 +15,7 @@
           :alt="review.name"
           class="w-full h-full object-cover"
           loading="lazy"
-        >
+        />
         <div
           v-else
           class="w-full h-full flex items-center justify-center bg-gradient-to-br from-blue-100 to-purple-100"
@@ -53,7 +53,7 @@
           :alt="review.name"
           class="w-full h-full object-cover"
           loading="lazy"
-        >
+        />
         <div
           v-else
           class="w-full h-full flex items-center justify-center bg-gradient-to-br from-pink-100 to-orange-100"
@@ -96,7 +96,7 @@
       <div class="mt-auto">
         <div class="flex items-center gap-3">
           <div v-if="review.avatar" class="w-10 h-10 rounded-full overflow-hidden flex-shrink-0">
-            <img :src="review.avatar" :alt="review.name" class="w-full h-full object-cover" >
+            <img :src="review.avatar" :alt="review.name" class="w-full h-full object-cover" />
           </div>
           <div
             v-else

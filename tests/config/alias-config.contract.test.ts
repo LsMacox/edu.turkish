@@ -16,12 +16,12 @@ describe('Alias Configuration Contract', () => {
 
       // Check that vitest has standard aliases (~ and ~~)
       const requiredAliases = ['~', '~~']
-      
-      requiredAliases.forEach(alias => {
+
+      requiredAliases.forEach((alias) => {
         const aliasPattern = `'${alias}':`
         expect(
           vitestConfigContent.includes(aliasPattern),
-          `vitest.config.ts should define alias '${alias}'`
+          `vitest.config.ts should define alias '${alias}'`,
         ).toBe(true)
       })
     })

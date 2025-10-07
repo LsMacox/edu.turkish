@@ -17,12 +17,14 @@ This refactor does not introduce new API endpoints. It modifies the data source 
 If there are existing endpoints that return study directions or university data with directions, they will continue to work with the same contracts but different data sources:
 
 **Example (if exists)**:
+
 ```
 GET /api/v1/universities?direction={slug}
 GET /api/v1/directions
 ```
 
 These endpoints (if they exist) would:
+
 - Previously: Read from `app/types/directions.ts` or i18n JSON files
 - Now: Query `study_directions` and `study_direction_translations` tables via repository
 
@@ -33,9 +35,9 @@ These endpoints (if they exist) would:
 ```typescript
 interface StudyDirectionResponse {
   id: number
-  slug: string  // locale-specific slug
-  name: string  // locale-specific name
-  description?: string  // locale-specific description
+  slug: string // locale-specific slug
+  name: string // locale-specific name
+  description?: string // locale-specific description
 }
 ```
 

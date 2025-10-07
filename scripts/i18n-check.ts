@@ -191,13 +191,13 @@ export function findDuplicateKeys(
 
 /**
  * Scans a source file for i18n key usage
- * 
+ *
  * This function uses several heuristics to detect i18n key usage:
  * 1. Direct calls: t('key'), $t('key'), te('key'), tm('key')
  * 2. Props with i18n keys: { title: 'some.key' }
  * 3. Dynamic keys: t(`prefix.${variable}`) - extracts prefix and finds possible values
  * 4. Object loading: tm('base.key') - marks base key and all nested keys as used
- * 
+ *
  * @param filePath - Path to source file
  * @returns Set of found translation keys (may include special markers like __tm_object__:key)
  */
@@ -216,18 +216,24 @@ export function scanSourceFileForKeys(filePath: string): Set<string> {
       const key = match[1]
       if (!key) continue
       keys.add(key)
-      
+
       // If this looks like a pluralization base key, mark it for plural expansion
       // Pattern: some.key (without .one, .few, .many, .other suffix)
       // This will be expanded later to include all plural forms
-      if (!key.endsWith('.one') && !key.endsWith('.few') && !key.endsWith('.many') && !key.endsWith('.other')) {
+      if (
+        !key.endsWith('.one') &&
+        !key.endsWith('.few') &&
+        !key.endsWith('.many') &&
+        !key.endsWith('.other')
+      ) {
         keys.add(`__plural_base__:${key}`)
       }
     }
 
     // Heuristic: capture i18n keys assigned to common props (title, text, label, placeholder, ariaLabel)
     // This covers patterns like: { title: 'home.services.card1_title' } used later as $t(card.title)
-    const propRegex = /\b(title|text|label|placeholder|ariaLabel|aria_label)\s*:\s*['"`]([^'"`]+)['"`]/g
+    const propRegex =
+      /\b(title|text|label|placeholder|ariaLabel|aria_label)\s*:\s*['"`]([^'"`]+)['"`]/g
     while ((match = propRegex.exec(content)) !== null) {
       const key = match[2]
       if (key && key.includes('.')) {
@@ -254,13 +260,13 @@ export function scanSourceFileForKeys(filePath: string): Set<string> {
     while ((match = tmplCallRegex.exec(content)) !== null) {
       const tmpl = match[1]
       if (!tmpl) continue
-      
+
       // If template contains ${...}, extract the prefix and try to find possible values
       if (tmpl.includes('${')) {
         const prefixMatch = tmpl.match(/^([a-zA-Z0-9_.]+)\.\$\{/)
         if (prefixMatch) {
           const prefix = prefixMatch[1] + '.'
-          
+
           // Try to find array of objects with 'value', 'id', 'code', or 'key' properties
           const valuePatterns = [
             /\{\s*value\s*:\s*['"]([a-zA-Z0-9_-]+)['"]/g,
@@ -268,7 +274,7 @@ export function scanSourceFileForKeys(filePath: string): Set<string> {
             /\bcode\s*:\s*['"]([a-zA-Z0-9_-]+)['"]/g,
             /\bkey\s*:\s*['"]([a-zA-Z0-9_-]+)['"]/g,
           ]
-          
+
           const values = new Set<string>()
           for (const pattern of valuePatterns) {
             let valueMatch
@@ -277,7 +283,7 @@ export function scanSourceFileForKeys(filePath: string): Set<string> {
               if (val) values.add(val)
             }
           }
-          
+
           // Add all found combinations
           for (const value of values) {
             keys.add(prefix + value)
@@ -304,11 +310,11 @@ export function scanSourceFileForKeys(filePath: string): Set<string> {
     while ((match = tmObjectRegex.exec(content)) !== null) {
       const baseKey = match[1]
       if (!baseKey) continue
-      
+
       // Add the base key - this will be expanded to include nested keys
       // by checking what actually exists in the locale files
       keys.add(baseKey)
-      
+
       // Mark this as a tm() call that should include all nested keys
       keys.add(`__tm_object__:${baseKey}`)
     }
@@ -351,17 +357,17 @@ export function scanAllSourceFiles(): Set<string> {
 
 /**
  * Finds translation keys that are defined but never used
- * 
+ *
  * This function handles special markers from scanSourceFileForKeys:
  * - __tm_object__:base.key - indicates that tm('base.key') was called,
  *   which means ALL nested keys under 'base.key.*' are implicitly used
  * - __plural_base__:some.key - indicates that t('some.key') was called,
  *   which means ALL plural forms (some.key.one, some.key.few, etc.) are implicitly used
- * 
+ *
  * This makes the check universal - no need to hardcode specific keys.
  * Any tm() call automatically marks all its nested keys as used.
  * Any t() call automatically marks all its plural forms as used.
- * 
+ *
  * @param localeKeySets - Map of locale to key sets
  * @param usedKeys - Set of keys found in source code (may include special markers)
  * @returns Array of unused key issues
@@ -376,7 +382,7 @@ export function findUnusedKeys(
   // Example: __tm_object__:blog.hero means all blog.hero.* keys are used
   const tmObjectPrefixes: string[] = []
   const pluralBaseKeys: string[] = []
-  
+
   for (const key of usedKeys) {
     if (key.startsWith('__tm_object__:')) {
       const prefix = key.replace('__tm_object__:', '')
@@ -389,7 +395,7 @@ export function findUnusedKeys(
 
   // Create expanded set of used keys including all nested keys under tm() objects
   const expandedUsedKeys = new Set(usedKeys)
-  
+
   // For each tm() object prefix, mark all keys that start with that prefix as used
   // This is the UNIVERSAL expansion - works for any tm() call automatically
   for (const [_locale, keySet] of localeKeySets.entries()) {
@@ -400,7 +406,7 @@ export function findUnusedKeys(
           expandedUsedKeys.add(key)
         }
       }
-      
+
       // Expand pluralization keys
       // If we have base key 'some.key', mark 'some.key.one', 'some.key.few', etc. as used
       for (const baseKey of pluralBaseKeys) {
@@ -420,7 +426,7 @@ export function findUnusedKeys(
       if (key.startsWith('__tm_object__:') || key.startsWith('__plural_base__:')) {
         continue
       }
-      
+
       if (!expandedUsedKeys.has(key)) {
         unused.push({
           type: 'unused',
@@ -438,13 +444,13 @@ export function findUnusedKeys(
 
 /**
  * Finds keys that exist in some locales but not others
- * 
+ *
  * Special handling for pluralization keys:
  * - Different languages have different plural forms
  * - Russian: one, few, many, other
  * - English/Turkish/Kazakh: one, other
  * - We only report missing keys if they're not pluralization-specific forms
- * 
+ *
  * @param localeKeySets - Map of locale to key sets
  * @returns Array of missing key issues
  */
@@ -629,18 +635,18 @@ export function isEmptyStructure(obj: any): boolean {
   if (obj === null || obj === undefined) {
     return true
   }
-  
+
   if (typeof obj !== 'object' || Array.isArray(obj)) {
     return false
   }
-  
+
   const keys = Object.keys(obj)
   if (keys.length === 0) {
     return true
   }
-  
+
   // Check if all nested values are also empty structures
-  return keys.every(key => isEmptyStructure(obj[key]))
+  return keys.every((key) => isEmptyStructure(obj[key]))
 }
 
 /**
@@ -654,12 +660,12 @@ export function findEmptyStructures(
   fileMap: Map<string, object>,
 ): EmptyStructureIssue[] {
   const emptyStructures: EmptyStructureIssue[] = []
-  
+
   for (const [filePath, content] of fileMap.entries()) {
     const checkObject = (obj: any, prefix = ''): void => {
       for (const [key, value] of Object.entries(obj)) {
         const fullKey = prefix ? `${prefix}.${key}` : key
-        
+
         if (typeof value === 'object' && value !== null && !Array.isArray(value)) {
           if (isEmptyStructure(value)) {
             emptyStructures.push({
@@ -677,10 +683,10 @@ export function findEmptyStructures(
         }
       }
     }
-    
+
     checkObject(content)
   }
-  
+
   return emptyStructures
 }
 
@@ -690,9 +696,12 @@ export function findEmptyStructures(
  * @param verbose - Whether to log verbose output
  * @returns Number of empty structures removed
  */
-export function removeEmptyStructures(emptyIssues: EmptyStructureIssue[], verbose: boolean): number {
+export function removeEmptyStructures(
+  emptyIssues: EmptyStructureIssue[],
+  verbose: boolean,
+): number {
   const fileChanges = new Map<string, { content: any; keysToRemove: string[] }>()
-  
+
   // Group keys by file
   for (const issue of emptyIssues) {
     if (!fileChanges.has(issue.filePath)) {
@@ -704,24 +713,24 @@ export function removeEmptyStructures(emptyIssues: EmptyStructureIssue[], verbos
         continue
       }
     }
-    
+
     const fileData = fileChanges.get(issue.filePath)!
     fileData.keysToRemove.push(issue.key)
   }
-  
+
   let totalRemoved = 0
-  
+
   // Process each file
   for (const [filePath, { content, keysToRemove }] of fileChanges.entries()) {
     let removedCount = 0
-    
+
     for (const key of keysToRemove) {
       if (removeKeyFromObject(content, key)) {
         removedCount++
         log(`  ✓ Removed empty structure "${key}" from ${filePath}`, verbose)
       }
     }
-    
+
     if (removedCount > 0) {
       // Write the modified content back to file
       writeFileSync(filePath, JSON.stringify(content, null, 2) + '\n', 'utf-8')
@@ -729,7 +738,7 @@ export function removeEmptyStructures(emptyIssues: EmptyStructureIssue[], verbos
       totalRemoved += removedCount
     }
   }
-  
+
   return totalRemoved
 }
 
@@ -742,7 +751,7 @@ export function removeEmptyStructures(emptyIssues: EmptyStructureIssue[], verbos
 export function removeKeyFromObject(obj: any, keyPath: string): boolean {
   const parts = keyPath.split('.')
   const lastKey = parts.pop()!
-  
+
   let current = obj
   for (const part of parts) {
     if (!(part in current)) {
@@ -750,27 +759,27 @@ export function removeKeyFromObject(obj: any, keyPath: string): boolean {
     }
     current = current[part]
   }
-  
+
   if (lastKey && lastKey in current) {
     delete current[lastKey]
-    
+
     // Clean up empty parent objects
     let parent = obj
     for (let i = 0; i < parts.length - 1; i++) {
       const part = parts[i]
       if (part) parent = parent[part]
     }
-    
+
     if (parts.length > 0) {
       const parentKey = parts[parts.length - 1]
       if (parentKey && Object.keys(current).length === 0) {
         delete parent[parentKey]
       }
     }
-    
+
     return true
   }
-  
+
   return false
 }
 
@@ -782,7 +791,7 @@ export function removeKeyFromObject(obj: any, keyPath: string): boolean {
  */
 export function removeUnusedKeys(unusedIssues: UnusedKeyIssue[], verbose: boolean): number {
   const fileChanges = new Map<string, { content: any; keysToRemove: string[] }>()
-  
+
   // Group keys by file
   for (const issue of unusedIssues) {
     if (!fileChanges.has(issue.filePath)) {
@@ -794,29 +803,31 @@ export function removeUnusedKeys(unusedIssues: UnusedKeyIssue[], verbose: boolea
         continue
       }
     }
-    
+
     const fileData = fileChanges.get(issue.filePath)!
     fileData.keysToRemove.push(issue.key)
   }
-  
+
   let totalRemoved = 0
-  
+
   // Process each file
   for (const [filePath, { content, keysToRemove }] of fileChanges.entries()) {
     let removedCount = 0
-    
+
     for (const key of keysToRemove) {
       // Try to find the key in the file content
       // The key might be stored with or without a prefix
       const flatKeys = flattenKeys(content)
-      const matchingKey = flatKeys.find(k => k === key || key.endsWith(`.${k}`) || k.endsWith(`.${key}`))
-      
+      const matchingKey = flatKeys.find(
+        (k) => k === key || key.endsWith(`.${k}`) || k.endsWith(`.${key}`),
+      )
+
       if (matchingKey && removeKeyFromObject(content, matchingKey)) {
         removedCount++
         log(`  ✓ Removed "${matchingKey}" from ${filePath}`, verbose)
       }
     }
-    
+
     if (removedCount > 0) {
       // Write the modified content back to file
       writeFileSync(filePath, JSON.stringify(content, null, 2) + '\n', 'utf-8')
@@ -824,7 +835,7 @@ export function removeUnusedKeys(unusedIssues: UnusedKeyIssue[], verbose: boolea
       totalRemoved += removedCount
     }
   }
-  
+
   return totalRemoved
 }
 
@@ -839,7 +850,7 @@ async function confirm(message: string): Promise<boolean> {
     input: process.stdin,
     output: process.stdout,
   })
-  
+
   return new Promise((resolve) => {
     rl.question(`${message} (y/N): `, (answer) => {
       rl.close()
@@ -969,7 +980,11 @@ async function main(): Promise<void> {
         unusedCount: unusedIssues.length,
         missingCount: missingIssues.length,
         emptyStructureCount: emptyStructureIssues.length,
-        totalIssues: duplicateIssues.length + unusedIssues.length + missingIssues.length + emptyStructureIssues.length,
+        totalIssues:
+          duplicateIssues.length +
+          unusedIssues.length +
+          missingIssues.length +
+          emptyStructureIssues.length,
       },
     }
 
@@ -989,9 +1004,9 @@ async function main(): Promise<void> {
       console.log('')
       console.log(`Found ${unusedIssues.length} unused key(s) that can be removed.`)
       console.log('')
-      
+
       const shouldRemove = await confirm('Do you want to remove all unused keys?')
-      
+
       if (shouldRemove) {
         log('', options.verbose)
         log('Removing unused keys...', options.verbose)
@@ -1017,15 +1032,17 @@ async function main(): Promise<void> {
       console.log('')
       console.log(`Found ${emptyStructureIssues.length} empty structure(s) that can be removed.`)
       console.log('')
-      
+
       const shouldRemove = await confirm('Do you want to remove all empty structures?')
-      
+
       if (shouldRemove) {
         log('', options.verbose)
         log('Removing empty structures...', options.verbose)
         const removedCount = removeEmptyStructures(emptyStructureIssues, options.verbose)
         console.log('')
-        console.log(`✅ Successfully removed ${removedCount} empty structure(s) from translation files.`)
+        console.log(
+          `✅ Successfully removed ${removedCount} empty structure(s) from translation files.`,
+        )
         console.log('')
       } else {
         console.log('')

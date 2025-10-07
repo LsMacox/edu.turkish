@@ -14,7 +14,7 @@
             class="w-full h-96 object-cover rounded-xl"
             src="https://storage.googleapis.com/uxpilot-auth.appspot.com/755a3d52cf-d33b22696c4656d49cbc.png"
             alt="Interactive map of Turkey with university locations marked, educational infographic style"
-          >
+          />
 
           <!-- Map Markers -->
           <div

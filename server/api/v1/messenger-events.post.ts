@@ -31,7 +31,10 @@ export default defineEventHandler(async (event) => {
 
   const validation = validateCrmConfig()
   if (!validation.isValid) {
-    console.warn('[CRM] Configuration is missing. Unable to log messenger event.', validation.errors)
+    console.warn(
+      '[CRM] Configuration is missing. Unable to log messenger event.',
+      validation.errors,
+    )
     throw createError({
       statusCode: 503,
       statusMessage: 'CRM integration is not configured',

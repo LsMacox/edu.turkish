@@ -19,7 +19,7 @@ describe('Standard Aliases Contract', () => {
     const tsconfigPath = resolve(rootDir, 'tsconfig.json')
     const tsconfigContent = readFileSync(tsconfigPath, 'utf-8')
     const tsconfig = parseJsonWithComments(tsconfigContent)
-    
+
     // Nuxt handles aliases automatically via extends, so we just verify the config extends Nuxt's config
     expect(tsconfig.extends).toBeDefined()
     expect(tsconfig.extends).toContain('.nuxt/tsconfig.json')
@@ -29,7 +29,7 @@ describe('Standard Aliases Contract', () => {
     const tsconfigPath = resolve(rootDir, 'tsconfig.json')
     const tsconfigContent = readFileSync(tsconfigPath, 'utf-8')
     const tsconfig = parseJsonWithComments(tsconfigContent)
-    
+
     // Nuxt handles aliases automatically via extends, so we just verify the config extends Nuxt's config
     expect(tsconfig.extends).toBeDefined()
     expect(tsconfig.extends).toContain('.nuxt/tsconfig.json')

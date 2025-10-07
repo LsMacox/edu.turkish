@@ -24,22 +24,26 @@
 ## Phase 3.2: Mock Implementations
 
 ### Prisma Mocks
+
 - [x] T005 Implement `createMockPrisma()` factory in `tests/test-utils/mocks/prisma.ts` that returns PrismaClient-compatible object with vi.fn() methods for all models (university, faq, review, application, etc.) and $transaction, $connect, $disconnect
 - [x] T006 Export `createMockPrisma` from `tests/test-utils/index.ts`
 
 ### Redis/Queue Mocks
+
 - [x] T007 Implement `MockQueue` class in `tests/test-utils/mocks/redis.ts` with in-memory job storage, methods: addJob, getJob, getQueueLength, getDeadLetterQueue, clear; implement exponential backoff logic (1s, 5s, 25s) and DLQ after 3 attempts
 - [x] T008 Implement `createMockQueue()` factory in `tests/test-utils/mocks/redis.ts` that returns new MockQueue instance
 - [x] T009 Implement `createMockRedis()` factory in `tests/test-utils/mocks/redis.ts` for basic Redis operations (get, set, del, exists)
 - [x] T010 Export `createMockQueue` and `createMockRedis` from `tests/test-utils/index.ts`
 
 ### Nuxt Composable Mocks
+
 - [x] T011 Implement `mockUseI18n()` factory in `tests/test-utils/mocks/nuxt.ts` that returns object with reactive locale Ref and t() function supporting dot notation and {param} interpolation
 - [x] T012 Implement `mockFetch()` factory in `tests/test-utils/mocks/fetch.ts` that accepts URL→response mapping and returns mock $fetch function
 - [x] T013 Implement `mockNuxtApp()` factory in `tests/test-utils/mocks/nuxt.ts` that returns object with $i18n and $fetch properties
 - [x] T014 Export `mockUseI18n`, `mockFetch`, `mockNuxtApp` from `tests/test-utils/index.ts`
 
 ### Test Fixtures
+
 - [x] T015 [P] Implement `createUniversity()` fixture in `tests/test-utils/fixtures/university.ts` with defaults for all fields, support overrides, include translations for all locales
 - [x] T016 [P] Implement `createFAQ()` fixture in `tests/test-utils/fixtures/faq.ts` with category and translations
 - [x] T017 [P] Implement `createApplication()` fixture in `tests/test-utils/fixtures/application.ts` based on LeadData type
@@ -89,12 +93,14 @@
 ## Dependencies
 
 **Sequential Dependencies**:
+
 - T001 blocks T002-T004 (need directory first)
 - T002-T004 block T005+ (need structure)
 - T005-T020 block T021+ (mocks must exist before refactoring)
 - T021-T038 block T039-T041 (refactoring before final cleanup)
 
 **Parallel Groups**:
+
 - **Group A** (T002-T004): Directory setup tasks
 - **Group B** (T015-T018): Fixture creation (independent files)
 - **Group C** (T028-T033): Component test refactoring (independent files)
@@ -104,6 +110,7 @@
 ## Parallel Execution Examples
 
 ### After Foundation Complete (T001-T004)
+
 ```
 Task: "Implement createMockPrisma() factory in tests/test-utils/mocks/prisma.ts"
 Task: "Implement MockQueue class in tests/test-utils/mocks/redis.ts"
@@ -112,6 +119,7 @@ Task: "Implement mockFetch() factory in tests/test-utils/mocks/fetch.ts"
 ```
 
 ### After Fixtures Complete (T015-T020)
+
 ```
 Task: "Refactor tests/components/PopularProgramsSection.test.ts to use mockUseI18n and mockFetch"
 Task: "Refactor tests/components/BaseButton.test.ts AAA pattern"

@@ -1,6 +1,6 @@
 /**
  * CRM Provider Type Definitions
- * 
+ *
  * Defines interfaces and types for CRM provider abstraction layer.
  * Supports multiple CRM providers (Bitrix, EspoCRM) with unified interface.
  */
@@ -60,9 +60,9 @@ export interface MessengerEventPayload {
 
 /**
  * Unified CRM Provider Interface
- * 
+ *
  * All CRM providers (Bitrix, EspoCRM) must implement this interface.
- * 
+ *
  * Contract:
  * - All methods must catch exceptions and return structured results
  * - Never throw exceptions that block primary operations
@@ -72,7 +72,7 @@ export interface MessengerEventPayload {
 export interface ICrmProvider {
   /**
    * Create a lead in the CRM system from application data
-   * 
+   *
    * @param data - Application request data
    * @returns Promise with lead creation result
    * @throws Never - Must catch all errors and return { success: false, error }
@@ -81,7 +81,7 @@ export interface ICrmProvider {
 
   /**
    * Log a messenger event (social media click) in the CRM system
-   * 
+   *
    * @param payload - Messenger event data
    * @returns Promise with event logging result
    * @throws Never - Must catch all errors and return { success: false, error }

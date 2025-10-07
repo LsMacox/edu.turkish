@@ -1,6 +1,6 @@
 /**
  * Contract: Alias Configuration Validation
- * 
+ *
  * Validates that import alias configurations are synchronized
  * across tsconfig.json, vitest.config.ts, and nuxt.config.ts
  */
@@ -24,7 +24,7 @@ export interface ConfigValidationResult {
 
 /**
  * Contract Test: Configuration files must have aligned alias definitions
- * 
+ *
  * GIVEN tsconfig.json, vitest.config.ts, and nuxt.config.ts exist
  * WHEN alias configurations are loaded
  * THEN all aliases in tsconfig must exist in vitest
@@ -37,7 +37,7 @@ export function validateAliasConfiguration(): ConfigValidationResult {
 
 /**
  * Contract Test: Standard aliases must be defined
- * 
+ *
  * GIVEN alias configuration
  * WHEN checking for required aliases
  * THEN '~' must map to './app' or './app/*'
@@ -49,7 +49,7 @@ export function validateStandardAliases(_config: AliasConfig[]): boolean {
 
 /**
  * Contract Test: Deprecated aliases should be removed (post-migration)
- * 
+ *
  * GIVEN alias configuration
  * WHEN checking for deprecated aliases
  * THEN '@', '@@', and '^' should not be present

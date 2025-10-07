@@ -1,6 +1,6 @@
 /**
  * Contract: Import Pattern Validation
- * 
+ *
  * Validates that import statements follow standardized patterns
  * based on file context (app, server, test, script)
  */
@@ -9,13 +9,13 @@ export type FileContext = 'app' | 'server' | 'test' | 'script' | 'seed'
 export type ImportType = 'internal' | 'cross-boundary' | 'root'
 
 export interface ImportStatement {
-  source: string          // The import path (e.g., '~/stores/universities')
-  filePath: string        // File containing the import
+  source: string // The import path (e.g., '~/stores/universities')
+  filePath: string // File containing the import
   lineNumber: number
   isRelative: boolean
-  relativeDepth: number   // Number of ../ segments
+  relativeDepth: number // Number of ../ segments
   usesAlias: boolean
-  alias?: string          // The alias used (e.g., '~', '~~')
+  alias?: string // The alias used (e.g., '~', '~~')
 }
 
 export interface ImportValidationResult {
@@ -33,20 +33,23 @@ export interface ImportViolation {
 
 /**
  * Contract Test: App files must use ~ for app imports
- * 
+ *
  * GIVEN a file in app/ directory
  * WHEN importing from another app/ file
  * THEN import must use ~ alias
  * AND must not use @, @@, or ^ aliases
  * AND must not use deep relative imports (../../)
  */
-export function validateAppImports(_filePath: string, _imports: ImportStatement[]): ImportValidationResult {
+export function validateAppImports(
+  _filePath: string,
+  _imports: ImportStatement[],
+): ImportValidationResult {
   throw new Error('Not implemented - contract test')
 }
 
 /**
  * Contract Test: Server files must use appropriate patterns
- * 
+ *
  * GIVEN a file in server/ directory
  * WHEN importing from server/ (internal)
  * THEN relative imports are allowed
@@ -55,25 +58,31 @@ export function validateAppImports(_filePath: string, _imports: ImportStatement[
  * WHEN importing from lib/ or prisma/ (root)
  * THEN must use ~~ alias
  */
-export function validateServerImports(_filePath: string, _imports: ImportStatement[]): ImportValidationResult {
+export function validateServerImports(
+  _filePath: string,
+  _imports: ImportStatement[],
+): ImportValidationResult {
   throw new Error('Not implemented - contract test')
 }
 
 /**
  * Contract Test: Test files must use aliases, not relative imports
- * 
+ *
  * GIVEN a file in tests/ directory
  * WHEN importing from app/, server/, lib/, or prisma/
  * THEN must use ~ or ~~ aliases
  * AND must not use relative imports (../../)
  */
-export function validateTestImports(_filePath: string, _imports: ImportStatement[]): ImportValidationResult {
+export function validateTestImports(
+  _filePath: string,
+  _imports: ImportStatement[],
+): ImportValidationResult {
   throw new Error('Not implemented - contract test')
 }
 
 /**
  * Contract Test: No deprecated aliases in use
- * 
+ *
  * GIVEN any TypeScript/Vue file
  * WHEN scanning imports
  * THEN no imports should use @, @@, or ^ aliases
@@ -84,7 +93,7 @@ export function validateNoDeprecatedImports(_imports: ImportStatement[]): Import
 
 /**
  * Contract Test: No deep relative imports
- * 
+ *
  * GIVEN any TypeScript/Vue file
  * WHEN scanning imports
  * THEN no imports should use ../../ or deeper

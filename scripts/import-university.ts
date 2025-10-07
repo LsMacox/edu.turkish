@@ -483,9 +483,9 @@ async function replaceFeaturedPrograms(
       // Fuzzy search: find by partial match (program name starts with the search term)
       if (!programId) {
         const fuzzyMatch = programTranslations.find(
-          (pt: any) => 
-            pt.locale === baseLocale && 
-            (pt.name || '').trim().toLowerCase().startsWith(nameTrimmed.toLowerCase())
+          (pt: any) =>
+            pt.locale === baseLocale &&
+            (pt.name || '').trim().toLowerCase().startsWith(nameTrimmed.toLowerCase()),
         )
         if (fuzzyMatch) {
           programId = fuzzyMatch.programId
@@ -588,14 +588,12 @@ async function ensureDirectionAndTranslation(slug: string, locale: string): Prom
   return directionId
 }
 
-
 async function linkDirectionsForUniversity(
   universityId: number,
   locale: string,
   data: z.infer<typeof UniversityInput>,
 ): Promise<void> {
-  const isDirectionSlug = (val: unknown): val is string =>
-    typeof val === 'string' && val.length > 0
+  const isDirectionSlug = (val: unknown): val is string => typeof val === 'string' && val.length > 0
 
   // Соберем список слагов: явные directions + из программ
   const fromPrograms = (data.programs || []).map((p) => p.direction_slug).filter(isDirectionSlug)

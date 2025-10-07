@@ -6,6 +6,7 @@
 ## Execution Flow
 
 This is a refactoring task with no new features. The workflow is:
+
 1. **Audit** → Identify all import patterns across the codebase
 2. **Configure** → Update Vitest configuration for `~/` alias support
 3. **Refactor** → Remove auto-importable items, standardize explicit imports
@@ -18,7 +19,7 @@ This is a refactoring task with no new features. The workflow is:
 
 ## Phase 3.1: Audit & Analysis
 
-- [X] **T001** Audit all import statements in `app/` directory
+- [x] **T001** Audit all import statements in `app/` directory
   - Scan for Vue API imports (`from 'vue'`)
   - Scan for Pinia store imports (`from '~/stores/*'`)
   - Scan for composable imports (`from '~/composables/*'`)
@@ -27,14 +28,14 @@ This is a refactoring task with no new features. The workflow is:
   - **Output**: List of files categorized by import type
   - **Result**: Found ~20 files with Vue API imports, ~20 files with store imports, ~8 files with composable imports
 
-- [X] **T002** Audit all import statements in `server/` directory
+- [x] **T002** Audit all import statements in `server/` directory
   - Verify all imports use `~/` alias consistently
   - Identify any relative imports (`../`)
   - Identify any `@/` alias usage
   - **Output**: List of server files needing standardization
   - **Result**: Found ~15 files with relative imports (`../`) - need standardization
 
-- [X] **T003** Audit all import statements in `tests/` directory
+- [x] **T003** Audit all import statements in `tests/` directory
   - Verify test imports are explicit (no auto-imports expected)
   - Check for relative imports or `@/` aliases
   - **Output**: List of test files needing standardization
@@ -42,14 +43,14 @@ This is a refactoring task with no new features. The workflow is:
 
 ## Phase 3.2: Configuration
 
-- [X] **T004** Update `vitest.config.ts` with vite-tsconfig-paths plugin
+- [x] **T004** Update `vitest.config.ts` with vite-tsconfig-paths plugin
   - Import `tsconfigPaths` from `vite-tsconfig-paths`
   - Add `tsconfigPaths()` to plugins array
   - Ensure compatibility with existing Vue plugin
   - **File**: `/home/lsmacox/projects/edu.turkish/vitest.config.ts`
   - **Result**: Added tsconfigPaths() plugin to vitest.config.ts
 
-- [X] **T005** Verify `nuxt.config.ts` alias configuration
+- [x] **T005** Verify `nuxt.config.ts` alias configuration
   - Confirm `~/` alias is available (default in Nuxt 4)
   - Document any custom aliases if needed
   - **File**: `/home/lsmacox/projects/edu.turkish/nuxt.config.ts`
@@ -232,6 +233,7 @@ Validation Phase (T032-T036) - Must run sequentially
 ```
 
 **Key Dependencies**:
+
 - T004 (Vitest config) must complete before T034 (test suite)
 - All refactoring tasks (T006-T031) must complete before validation (T032-T036)
 - Validation tasks (T032-T036) must run in order
@@ -239,6 +241,7 @@ Validation Phase (T032-T036) - Must run sequentially
 ## Parallel Execution Examples
 
 ### Audit Phase (Parallel)
+
 ```bash
 # Run T001-T003 together:
 Task: "Audit app/ imports"
@@ -247,6 +250,7 @@ Task: "Audit tests/ imports"
 ```
 
 ### Refactoring Phase (Parallel by Directory)
+
 ```bash
 # All T006-T031 can run in parallel since they modify different files:
 Task: "Remove Vue API imports from app/components/"
@@ -257,6 +261,7 @@ Task: "Standardize imports in tests/components/"
 ```
 
 ### Validation Phase (Sequential)
+
 ```bash
 # T032-T036 MUST run in order:
 1. TypeScript check
@@ -280,7 +285,7 @@ _Mark tasks as complete during implementation_
 **Audit**: T001-T003 (3 tasks)  
 **Configuration**: T004-T005 (2 tasks)  
 **Refactoring**: T006-T031 (26 tasks)  
-**Validation**: T032-T036 (5 tasks)  
+**Validation**: T032-T036 (5 tasks)
 
 **Total**: 36 tasks
 

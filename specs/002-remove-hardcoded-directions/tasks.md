@@ -42,11 +42,11 @@
 
 **Goal**: Identify which direction slugs are actually used and gather translation data
 
-- [X] **T001** Scan all university JSON files in `app/assets/json/universities/*.json` to extract unique `direction_slug` values from `programs[]` and `directions[]` arrays. Create a list of ~25 unique slugs. Output to temporary file or console for verification.
+- [x] **T001** Scan all university JSON files in `app/assets/json/universities/*.json` to extract unique `direction_slug` values from `programs[]` and `directions[]` arrays. Create a list of ~25 unique slugs. Output to temporary file or console for verification.
 
-- [X] **T002** Load existing i18n translation files (`i18n/locales/{en,ru,kk,tr}/directions.json`) and create a mapping structure: `{ [slug]: { en: "...", ru: "...", kk: "...", tr: "..." } }` for all slugs found in T001. Verify all 4 locales have translations for each slug.
+- [x] **T002** Load existing i18n translation files (`i18n/locales/{en,ru,kk,tr}/directions.json`) and create a mapping structure: `{ [slug]: { en: "...", ru: "...", kk: "...", tr: "..." } }` for all slugs found in T001. Verify all 4 locales have translations for each slug.
 
-- [X] **T003** Validate data completeness: Ensure every slug from T001 has translations in all 4 locales from T002. Report any missing translations. If any are missing, add placeholder translations or source from existing hardcoded data.
+- [x] **T003** Validate data completeness: Ensure every slug from T001 has translations in all 4 locales from T002. Report any missing translations. If any are missing, add placeholder translations or source from existing hardcoded data.
 
 ---
 
@@ -54,7 +54,7 @@
 
 **Goal**: Create seed file and update dependent code
 
-- [X] **T004** [P] Create `prisma/seed/study-directions.ts` with:
+- [x] **T004** [P] Create `prisma/seed/study-directions.ts` with:
   - Import Prisma client
   - Define `DirectionSeedData` type with slug and translations structure
   - Create array of seed data using results from T001-T003
@@ -65,14 +65,14 @@
   - Export the seeder function
   - File path: `/home/lsmacox/projects/edu.turkish/prisma/seed/study-directions.ts`
 
-- [X] **T005** Update `prisma/seed/seed.ts`:
+- [x] **T005** Update `prisma/seed/seed.ts`:
   - Import `seedStudyDirections` from `./study-directions`
   - Add seeding call BEFORE locations (directions should be seeded early)
   - Add console log: `'📚 Seeding study directions...'`
   - Update deletion order in development mode to include study direction tables
   - File path: `/home/lsmacox/projects/edu.turkish/prisma/seed/seed.ts`
 
-- [X] **T006** [P] Update `scripts/import-university.ts`:
+- [x] **T006** [P] Update `scripts/import-university.ts`:
   - Remove import of `DirectionSlug` and `ALL_DIRECTIONS` from line 22
   - Remove `DirectionSlugZ` Zod enum definition (line 27)
   - Change `direction_slug: DirectionSlugZ.optional()` to `direction_slug: z.string().optional()` (line 42)
@@ -82,14 +82,14 @@
   - Update type guards to use `typeof val === 'string'` instead of enum check
   - File path: `/home/lsmacox/projects/edu.turkish/scripts/import-university.ts`
 
-- [X] **T007** [P] Update `app/assets/json/universities/types.ts`:
+- [x] **T007** [P] Update `app/assets/json/universities/types.ts`:
   - Remove import of `DirectionSlug` and `ALL_DIRECTIONS` from line 10
   - Change `direction_slug?: DirectionSlug` to `direction_slug?: string` (line 225)
   - Change `directions?: DirectionSlug[]` to `directions?: string[]` (line 320)
   - Remove export of `ALLOWED_DIRECTIONS` (line 333)
   - File path: `/home/lsmacox/projects/edu.turkish/app/assets/json/universities/types.ts`
 
-- [X] **T008** [P] Create test file `tests/seed/study-directions.test.ts`:
+- [x] **T008** [P] Create test file `tests/seed/study-directions.test.ts`:
   - Import Prisma client and test utilities (Vitest)
   - Test: "should seed all directions from university JSONs"
   - Test: "should create translations for all 4 locales"
@@ -104,12 +104,12 @@
 
 **Goal**: Remove hardcoded files and run seed
 
-- [X] **T009** Remove hardcoded TypeScript file:
--  - Delete `app/types/directions.ts`
-  - Verify no other files import from this path (search codebase for `from.*directions` or `@/types/directions`)
-  - File path: `/home/lsmacox/projects/edu.turkish/app/types/directions.ts`
+- [x] **T009** Remove hardcoded TypeScript file:
+- - Delete `app/types/directions.ts`
+- Verify no other files import from this path (search codebase for `from.*directions` or `@/types/directions`)
+- File path: `/home/lsmacox/projects/edu.turkish/app/types/directions.ts`
 
-- [X] **T010** Remove hardcoded i18n direction files:
+- [x] **T010** Remove hardcoded i18n direction files:
   - Delete `i18n/locales/en/directions.json`
   - Delete `i18n/locales/ru/directions.json`
   - Delete `i18n/locales/kk/directions.json`
@@ -117,7 +117,7 @@
   - Verify no code references these files
   - File paths: `/home/lsmacox/projects/edu.turkish/i18n/locales/{en,ru,kk,tr}/directions.json`
 
-- [X] **T011** Run database seed and verify:
+- [x] **T011** Run database seed and verify:
   - Execute `npm run db:reset` (or `npm run db:seed` if data should be preserved)
   - Verify console output shows study directions seeded successfully
   - Open Prisma Studio (`npx prisma studio`) and verify:
@@ -132,7 +132,7 @@
 
 **Goal**: Ensure everything works without hardcoded files
 
-- [X] **T012** Run TypeScript type check:
+- [x] **T012** Run TypeScript type check:
   - Execute `npm run typecheck` (or `npx tsc --noEmit`)
   - Verify no compilation errors
   - Verify no import errors for removed `DirectionSlug` type
@@ -169,6 +169,7 @@ T004, T005, T006, T007, T008 → T009, T010 → T011 → T012 → T013 → T014
 **Critical Path**: T001 → T002 → T003 → T004 → T005 → T011 → T012 → T013 → T014
 
 **Parallel Opportunities**:
+
 - T004, T006, T007, T008 can run in parallel (different files)
 - T009, T010 can run in parallel (different files)
 

@@ -4,7 +4,7 @@ describe('POST /api/v1/applications - CRM Provider Routing', () => {
   describe('CRM Provider Selection', () => {
     it('should route to Bitrix when CRM_PROVIDER=bitrix', () => {
       process.env.CRM_PROVIDER = 'bitrix'
-      
+
       // Expected: Application submission uses BitrixService
       const expectedProvider = 'bitrix'
       expect(expectedProvider).toBe('bitrix')
@@ -12,7 +12,7 @@ describe('POST /api/v1/applications - CRM Provider Routing', () => {
 
     it('should route to EspoCRM when CRM_PROVIDER=espocrm', () => {
       process.env.CRM_PROVIDER = 'espocrm'
-      
+
       // Expected: Application submission uses EspoCrmService
       const expectedProvider = 'espocrm'
       expect(expectedProvider).toBe('espocrm')
@@ -20,7 +20,7 @@ describe('POST /api/v1/applications - CRM Provider Routing', () => {
 
     it('should default to Bitrix when CRM_PROVIDER not set', () => {
       delete process.env.CRM_PROVIDER
-      
+
       // Expected: Application submission uses BitrixService (default)
       const expectedProvider = 'bitrix'
       expect(expectedProvider).toBe('bitrix')
@@ -32,7 +32,7 @@ describe('POST /api/v1/applications - CRM Provider Routing', () => {
       // Expected: Application saved to DB regardless of CRM result
       const applicationSaved = true
       const crmFailed = true
-      
+
       expect(applicationSaved).toBe(true)
       expect(crmFailed).toBe(true)
       // Both can be true - application saved despite CRM failure
@@ -50,7 +50,7 @@ describe('POST /api/v1/applications - CRM Provider Routing', () => {
         id: 123,
         status: 'pending',
       }
-      
+
       expect(response.id).toBeDefined()
       expect(typeof response.id).toBe('number')
     })
@@ -72,7 +72,7 @@ describe('POST /api/v1/applications - CRM Provider Routing', () => {
       // Expected: Failure logged but request continues
       const crmResult = { success: false, error: 'Connection timeout' }
       const requestBlocked = false
-      
+
       expect(crmResult.success).toBe(false)
       expect(requestBlocked).toBe(false)
     })
@@ -82,7 +82,7 @@ describe('POST /api/v1/applications - CRM Provider Routing', () => {
       const crmTimedOut = true
       const applicationSaved = true
       const responseStatus = 201
-      
+
       expect(crmTimedOut).toBe(true)
       expect(applicationSaved).toBe(true)
       expect(responseStatus).toBe(201)
@@ -105,7 +105,7 @@ describe('POST /api/v1/applications - CRM Provider Routing', () => {
           errors: ['Email is required', 'Phone is invalid'],
         },
       }
-      
+
       expect(response.data.errors).toBeInstanceOf(Array)
       expect(response.data.errors.length).toBeGreaterThan(0)
     })
@@ -114,7 +114,7 @@ describe('POST /api/v1/applications - CRM Provider Routing', () => {
       // Expected: CRM failures don't cause 500 errors
       const crmFailed = true
       const responseStatus = 201 // Still success
-      
+
       expect(crmFailed).toBe(true)
       expect(responseStatus).not.toBe(500)
     })
@@ -149,7 +149,7 @@ describe('POST /api/v1/applications - CRM Provider Routing', () => {
         crmProvider: 'espocrm',
         crmSuccess: true,
       }
-      
+
       expect(response.crmProvider).toBeDefined()
     })
 
@@ -161,7 +161,7 @@ describe('POST /api/v1/applications - CRM Provider Routing', () => {
         crmSuccess: false,
         crmError: 'Connection timeout',
       }
-      
+
       expect(response.id).toBeDefined()
       expect(response.crmSuccess).toBe(false)
       expect(response.crmError).toBeDefined()

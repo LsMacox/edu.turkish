@@ -2,7 +2,7 @@ import { SUPPORTED_LOCALES, DEFAULT_LOCALE, type SupportedLocale } from '~~/lib/
 
 export { SUPPORTED_LOCALES, DEFAULT_LOCALE, type SupportedLocale }
 
-export type LocaleKey = "en" | "kk" | "tr" | "ru";
+export type LocaleKey = 'en' | 'kk' | 'tr' | 'ru'
 
 type LocaleKeys = {
   [key in LocaleKey]: string

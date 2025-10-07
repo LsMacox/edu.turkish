@@ -164,7 +164,7 @@ export interface UniversityFilters {
 
 export interface UniversityResponse {
   data: University[]
-   
+
   meta: import('./common').PaginationMeta
   filters: UniversityFilters
 }

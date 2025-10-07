@@ -12,6 +12,7 @@
 ### Primary User Story
 
 As a developer working on the edu.turkish codebase, I need a consistent and predictable import alias system so that:
+
 - I can quickly understand where modules are imported from without confusion
 - I can write imports that work correctly in all contexts (app code, server code, tests)
 - I don't waste time debugging import resolution issues

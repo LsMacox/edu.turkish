@@ -66,7 +66,10 @@ describe('CRM Lead Creation Integration', () => {
     it('should queue multiple leads independently', async () => {
       // Arrange
       const job1 = await queue.addJob('createLead', 'espocrm', applicationData)
-      const job2 = await queue.addJob('createLead', 'bitrix', { ...applicationData, email: 'test2@example.com' })
+      const job2 = await queue.addJob('createLead', 'bitrix', {
+        ...applicationData,
+        email: 'test2@example.com',
+      })
 
       // Assert
       expect(job1.id).not.toBe(job2.id)

@@ -33,6 +33,7 @@ As a developer working on the edu.turkish codebase, I need all module imports to
 **Migration Approach**: Big-bang refactor - all files will be updated in a single PR to ensure consistency and avoid mixed import patterns during transition.
 
 **Validation Requirements**:
+
 - TypeScript type checking must pass (`tsc --noEmit`)
 - ESLint validation must pass with no import-related errors
 - Full Vitest test suite must pass (all existing tests)

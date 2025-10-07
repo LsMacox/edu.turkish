@@ -118,7 +118,7 @@ describe('ApplicationModal', () => {
     it('should set tooltip z-index higher than modal', () => {
       const modalZIndex = 9999
       const tooltipZIndex = 10000
-      
+
       expect(tooltipZIndex).toBeGreaterThan(modalZIndex)
     })
 
@@ -204,14 +204,14 @@ describe('ApplicationModal', () => {
   describe('Edge Cases', () => {
     it('should handle very long error messages', () => {
       const longError = 'A'.repeat(1000)
-      
+
       // Expected: Message displayed without breaking UI
       expect(longError.length).toBe(1000)
     })
 
     it('should handle special characters in errors', () => {
       const specialChars = '<script>alert("xss")</script>'
-      
+
       // Expected: Special characters escaped/sanitized
       expect(specialChars).toContain('<')
       expect(specialChars).toContain('>')
@@ -219,7 +219,7 @@ describe('ApplicationModal', () => {
 
     it('should handle multiple errors of same type', () => {
       const errors = ['Error 1', 'Error 2', 'Error 3']
-      
+
       // Expected: All errors displayed
       expect(errors).toHaveLength(3)
     })

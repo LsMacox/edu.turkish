@@ -88,7 +88,7 @@
               class="w-full h-96 object-cover rounded-2xl shadow-custom"
               src="/images/team/why-choose.jpg"
               :alt="$t('about.whyChooseUs.imageAlt')"
-            >
+            />
           </div>
         </div>
 

@@ -62,7 +62,7 @@ export class MockQueueImpl implements MockQueue {
 
   async getQueueLength(): Promise<number> {
     return Array.from(this.jobs.values()).filter(
-      (job) => job.status === 'pending' || job.status === 'processing'
+      (job) => job.status === 'pending' || job.status === 'processing',
     ).length
   }
 
@@ -90,7 +90,8 @@ export class MockQueueImpl implements MockQueue {
       job.error = `Simulated failure attempt ${job.attempts}`
 
       if (job.attempts < this.maxAttempts) {
-        const delay = this.retryDelays[job.attempts - 1] ?? this.retryDelays[this.retryDelays.length - 1]!
+        const delay =
+          this.retryDelays[job.attempts - 1] ?? this.retryDelays[this.retryDelays.length - 1]!
         job.nextRetryAt = new Date(Date.now() + delay)
         job.status = 'pending'
       } else {

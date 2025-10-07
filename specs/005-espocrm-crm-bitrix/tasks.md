@@ -93,7 +93,7 @@ This task list implements a CRM abstraction layer with EspoCRM integration, Redi
   - Map `LeadData` to Bitrix lead format
   - Map `ActivityData` to Bitrix activity format
   - Implement all interface methods
-  - Preserve existing field mappings (UF_CRM_* fields)
+  - Preserve existing field mappings (UF*CRM*\* fields)
 
 - [x] **T017** Implement EspoCRM Provider in `server/services/crm/EspoCRMProvider.ts`
   - Implement `ICRMProvider` interface
@@ -287,6 +287,7 @@ This task list implements a CRM abstraction layer with EspoCRM integration, Redi
 ## Dependencies
 
 ### Critical Path
+
 ```
 T001-T005 (Setup)
   ↓
@@ -310,26 +311,33 @@ T039-T045 (Validation)
 ### Parallel Execution Groups
 
 **Group 1 - Setup** (after T001-T003):
+
 - T004 (Redis client) || T005 (CRM config)
 
 **Group 2 - Contract Tests** (after setup):
+
 - T006 (CRM Provider contract) || T007 (EspoCRM API contract)
 
 **Group 3 - Integration Tests** (after setup):
+
 - T008 (Lead creation) || T009 (Messenger activity) || T010 (Queue retry) || T011 (Provider switch)
 
 **Group 4 - Types** (after tests):
+
 - T012 (Provider types) || T013 (Operation types)
 
 **Group 5 - Unit Tests** (after implementation):
+
 - T030 || T031 || T032 || T033 || T034
 
 **Group 6 - Documentation** (after implementation):
+
 - T035 || T036
 
 ## Parallel Execution Examples
 
 ### Launch Contract Tests Together
+
 ```bash
 # T006 and T007 can run in parallel
 Task: "Contract test CRM Provider Interface in tests/contract/crm-provider.contract.test.ts"
@@ -337,6 +345,7 @@ Task: "Contract test EspoCRM API in tests/contract/espocrm-api.test.ts"
 ```
 
 ### Launch Integration Tests Together
+
 ```bash
 # T008-T011 can run in parallel
 Task: "Integration test lead creation in tests/integration/crm-lead-creation.test.ts"
@@ -346,6 +355,7 @@ Task: "Integration test provider switching in tests/integration/crm-provider-swi
 ```
 
 ### Launch Unit Tests Together
+
 ```bash
 # T030-T034 can run in parallel
 Task: "Unit test CRM Factory in tests/server/services/crm/CRMFactory.test.ts"

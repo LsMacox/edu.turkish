@@ -24,7 +24,7 @@ describe('CRM Queue Retry Integration', () => {
 
       // Act
       const job = await queue.addJob('createLead', 'espocrm', leadData)
-      
+
       // Assert
       expect(job.id).toBeDefined()
       expect(job.status).toBe('pending')
@@ -50,7 +50,7 @@ describe('CRM Queue Retry Integration', () => {
       // Act
       const job = await queue.addJob('createLead', 'espocrm', leadData)
       const retrieved = await queue.getJob(job.id)
-      
+
       // Assert
       expect(retrieved?.data).toEqual(leadData)
     })
@@ -64,7 +64,7 @@ describe('CRM Queue Retry Integration', () => {
 
       // Act
       const job = await queue.addJob('logActivity', 'espocrm', activityData)
-      
+
       // Assert
       expect(job.operation).toBe('logActivity')
     })
@@ -86,7 +86,7 @@ describe('CRM Queue Retry Integration', () => {
       // Act
       await queue.simulateFailure(job.id)
       const updated = await queue.getJob(job.id)
-      
+
       // Assert
       expect(updated?.attempts).toBe(1)
       expect(updated?.nextRetryAt).toBeDefined()
@@ -111,7 +111,7 @@ describe('CRM Queue Retry Integration', () => {
       await queue.simulateFailure(job.id)
       await queue.simulateFailure(job.id)
       const updated = await queue.getJob(job.id)
-      
+
       // Assert
       expect(updated?.attempts).toBe(2)
       const expectedDelay = 5000
@@ -136,7 +136,7 @@ describe('CRM Queue Retry Integration', () => {
       await queue.simulateFailure(job.id)
       await queue.simulateFailure(job.id)
       await queue.simulateFailure(job.id)
-      
+
       // Assert
       const dlqJobs = await queue.getDeadLetterQueue()
       expect(dlqJobs).toContainEqual(expect.objectContaining({ id: job.id, attempts: 3 }))
@@ -158,7 +158,7 @@ describe('CRM Queue Retry Integration', () => {
       await queue.simulateFailure(job.id)
       await queue.simulateFailure(job.id)
       await queue.simulateFailure(job.id)
-      
+
       // Assert
       const dlqJobs = await queue.getDeadLetterQueue()
       expect(dlqJobs).toHaveLength(1)
@@ -182,7 +182,7 @@ describe('CRM Queue Retry Integration', () => {
       // Act
       const job = await queue.addJob('createLead', 'espocrm', leadData)
       const retrieved = await queue.getJob(job.id)
-      
+
       // Assert
       expect(retrieved).toBeDefined()
       expect(retrieved?.data).toEqual(leadData)
@@ -192,7 +192,7 @@ describe('CRM Queue Retry Integration', () => {
       // Arrange & Act
       await queue.addJob('createLead', 'bitrix', { firstName: 'Job1' } as LeadData)
       await queue.addJob('createLead', 'espocrm', { firstName: 'Job2' } as LeadData)
-      
+
       // Assert
       expect(await queue.getQueueLength()).toBe(2)
     })
@@ -215,7 +215,7 @@ describe('CRM Queue Retry Integration', () => {
       await queue.simulateFailure(job.id)
       await queue.simulateSuccess(job.id)
       const retrieved = await queue.getJob(job.id)
-      
+
       // Assert
       expect(retrieved).toBeNull()
     })
@@ -234,7 +234,7 @@ describe('CRM Queue Retry Integration', () => {
 
       // Act
       await queue.simulateSuccess(job.id)
-      
+
       // Assert
       expect(await queue.getQueueLength()).toBe(0)
       expect(await queue.getJob(job.id)).toBeNull()
@@ -257,7 +257,7 @@ describe('CRM Queue Retry Integration', () => {
       // Act
       await queue.simulateFailure(job.id)
       const updated = await queue.getJob(job.id)
-      
+
       // Assert
       expect(updated?.error).toBeDefined()
       expect(updated?.error).toContain('Simulated failure')
@@ -274,7 +274,7 @@ describe('CRM Queue Retry Integration', () => {
         source: 'test',
       }
       const job = await queue.addJob('createLead', 'espocrm', leadData)
-      
+
       // Verify initial state
       expect(job.attempts).toBe(0)
 
@@ -283,7 +283,7 @@ describe('CRM Queue Retry Integration', () => {
       const firstAttempt = await queue.getJob(job.id)
       await queue.simulateFailure(job.id)
       const secondAttempt = await queue.getJob(job.id)
-      
+
       // Assert
       expect(firstAttempt?.attempts).toBe(1)
       expect(secondAttempt?.attempts).toBe(2)

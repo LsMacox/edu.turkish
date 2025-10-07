@@ -415,7 +415,13 @@ describe('formatTextReport', () => {
         },
       ],
       unusedIssues: [
-        { type: 'unused' as const, key: 'unused', locale: 'en' as Locale, filePath: 'f', severity: 'warning' as const },
+        {
+          type: 'unused' as const,
+          key: 'unused',
+          locale: 'en' as Locale,
+          filePath: 'f',
+          severity: 'warning' as const,
+        },
       ],
       missingIssues: [
         {
@@ -584,17 +590,13 @@ describe('isEmptyStructure', () => {
 // T012: Unit test for findEmptyStructures function
 describe('findEmptyStructures', () => {
   it('should return empty array when no empty structures', () => {
-    const fileMap = new Map([
-      ['file1.json', { a: 'value', b: { c: 'value2' } }],
-    ])
+    const fileMap = new Map([['file1.json', { a: 'value', b: { c: 'value2' } }]])
     const result = findEmptyStructures('en', fileMap)
     expect(result).toEqual([])
   })
 
   it('should detect empty object', () => {
-    const fileMap = new Map([
-      ['file1.json', { empty: {} }],
-    ])
+    const fileMap = new Map([['file1.json', { empty: {} }]])
     const result = findEmptyStructures('en', fileMap)
     expect(result).toHaveLength(1)
     expect(result[0]).toMatchObject({
@@ -605,18 +607,14 @@ describe('findEmptyStructures', () => {
   })
 
   it('should detect nested empty structures', () => {
-    const fileMap = new Map([
-      ['file1.json', { faq: { documents: { q1: {}, q2: {} } } }],
-    ])
+    const fileMap = new Map([['file1.json', { faq: { documents: { q1: {}, q2: {} } } }]])
     const result = findEmptyStructures('en', fileMap)
     expect(result.length).toBeGreaterThan(0)
-    expect(result.some(issue => issue.key.includes('q1'))).toBe(true)
+    expect(result.some((issue) => issue.key.includes('q1'))).toBe(true)
   })
 
   it('should not detect objects with values', () => {
-    const fileMap = new Map([
-      ['file1.json', { faq: { title: 'FAQ', items: ['a', 'b'] } }],
-    ])
+    const fileMap = new Map([['file1.json', { faq: { title: 'FAQ', items: ['a', 'b'] } }]])
     const result = findEmptyStructures('en', fileMap)
     expect(result).toEqual([])
   })

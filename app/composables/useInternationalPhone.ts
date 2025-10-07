@@ -1,7 +1,6 @@
 export const sanitizePhone = (value: string) => value.replace(/[^+\d]/g, '')
 
 export const useInternationalPhone = (phone: Ref<string>) => {
-
   const formatInternationalPhone = (raw: string) => {
     const input = sanitizePhone(raw)
     const hasPlus = input.startsWith('+')

@@ -16,7 +16,7 @@
             class="bg-white rounded-2xl shadow-custom overflow-hidden hover-lift"
           >
             <div class="relative">
-              <img :src="member.photo" :alt="member.name" class="w-full h-64 object-cover" >
+              <img :src="member.photo" :alt="member.name" class="w-full h-64 object-cover" />
               <div class="absolute bottom-4 left-4 bg-white rounded-lg px-3 py-1">
                 <span class="text-sm font-medium text-primary">{{ member.role }}</span>
               </div>

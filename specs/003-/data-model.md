@@ -14,6 +14,7 @@ This feature is a **code refactoring** and does not introduce new data entities 
 Represents the canonical import alias mapping used across the project.
 
 **Attributes**:
+
 - `alias` (string): The alias symbol (e.g., `~`, `~~`)
 - `target` (string): The resolved path (e.g., `./app/*`, `./*`)
 - `context` (enum): Where the alias is used (`tsconfig`, `vitest`, `nuxt`)
@@ -21,6 +22,7 @@ Represents the canonical import alias mapping used across the project.
 - `purpose` (string): Description of when to use this alias
 
 **Standard Aliases** (Active):
+
 ```typescript
 {
   alias: '~/*',
@@ -40,6 +42,7 @@ Represents the canonical import alias mapping used across the project.
 ```
 
 **Deprecated Aliases** (To be removed):
+
 ```typescript
 {
   alias: '@/*',
@@ -71,6 +74,7 @@ Represents the canonical import alias mapping used across the project.
 Represents valid import patterns for different file contexts.
 
 **Attributes**:
+
 - `fileContext` (enum): `app` | `server` | `test` | `script` | `seed`
 - `importType` (enum): `internal` | `cross-boundary` | `root`
 - `allowedAliases` (string[]): List of permitted aliases
@@ -160,23 +164,23 @@ The codebase transitions through these states during migration:
   - Multiple aliases in use
   - Relative imports in tests
   - Misaligned configs
-  
+
     ↓ (Config Alignment)
-    
+
 [State: Config Aligned]
   - vitest.config.ts matches tsconfig.json
   - All aliases available in all contexts
   - Tests can resolve imports
-  
+
     ↓ (Code Migration)
-    
+
 [State: Code Migrated]
   - All imports use standard aliases
   - No deprecated aliases in use
   - All tests pass
-  
+
     ↓ (Enforcement)
-    
+
 [Final State: Enforced]
   - ESLint rules prevent violations
   - Deprecated aliases removed from config
@@ -266,7 +270,7 @@ interface MigrationMetrics {
 Files are categorized by migration priority:
 
 1. **Critical** (tests/): Highest pain point, migrate first
-2. **High** (server/): Many relative imports, standardize next  
+2. **High** (server/): Many relative imports, standardize next
 3. **Medium** (app/): Some deprecated aliases, migrate after server
 4. **Low** (scripts/, prisma/seed/): Few issues, migrate last
 

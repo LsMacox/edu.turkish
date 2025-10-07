@@ -10,6 +10,7 @@
 **Question**: What direction slugs are currently hardcoded and which are actually used?
 
 **Findings**:
+
 - **Hardcoded count**: 60 directions in `app/types/directions.ts` (ALL_DIRECTIONS array)
 - **Actually used**: ~25 unique direction slugs referenced via `direction_slug` field in university JSON files
 - **University files**: 19 JSON files in `app/assets/json/universities/`
@@ -26,6 +27,7 @@
 **Question**: Do the existing Prisma tables support all required functionality?
 
 **Findings**:
+
 - ✅ `study_directions` table exists with auto-increment ID, timestamps
 - ✅ `study_direction_translations` table exists with:
   - `directionId` (foreign key)
@@ -49,12 +51,14 @@
 **Question**: How should the seed data be structured and loaded?
 
 **Findings**:
+
 - Current seed files use a pattern: `prisma/seed/*.ts` imported by `seed/seed.ts`
 - Existing seeders: `locations.ts`, `faqs.ts`, `faq-categories.ts`, `reviews.ts`, `blog.ts`
 - Seed order matters due to foreign key constraints
 - Directions should be seeded BEFORE universities (if universities reference them)
 
 **Decision**: Create `prisma/seed/study-directions.ts` with:
+
 1. Scan function to extract unique slugs from university JSONs
 2. Translation data structure (en, ru, kk, tr) for each direction
 3. Upsert logic to avoid duplicates
@@ -63,6 +67,7 @@
 **Rationale**: Follows existing seed pattern. Single source of truth (university JSONs determine which directions exist).
 
 **Alternatives Considered**:
+
 - Manual list: Rejected - prone to drift from actual usage
 - Seed all 60: Rejected - includes unused directions
 
@@ -73,13 +78,15 @@
 **Question**: How to handle TypeScript types after removing `DirectionSlug`?
 
 **Findings**:
+
 - `DirectionSlug` type is used in:
   - `app/types/directions.ts` (definition)
   - `app/assets/json/universities/types.ts` (import for `ProgramItem.direction_slug`)
   - `scripts/import-university.ts` (validation with Zod)
 - After removal, need runtime validation but not compile-time type
 
-**Decision**: 
+**Decision**:
+
 1. Remove `DirectionSlug` type and `ALL_DIRECTIONS` constant
 2. In `types.ts`: Change `direction_slug?: DirectionSlug` to `direction_slug?: string`
 3. In `import-university.ts`: Remove DirectionSlug import and Zod enum validation
@@ -88,6 +95,7 @@
 **Rationale**: Database is now the source of truth. Runtime validation via foreign key constraints is sufficient.
 
 **Alternatives Considered**:
+
 - Keep type, generate from DB: Rejected - adds complexity, build-time DB query
 - No type at all: Accepted - simpler, DB enforces validity
 
@@ -98,12 +106,14 @@
 **Question**: How to migrate translations from i18n JSON files to database?
 
 **Findings**:
+
 - Current i18n files: `i18n/locales/{locale}/directions.json`
 - Format: `{ "slug": "Translated Name", ... }`
 - Import script already reads from `i18n/directions.json` at repo root (but this file doesn't exist - it tries to fallback)
 - Actually uses translations embedded in `getDirectionNames()` function
 
 **Decision**:
+
 1. Create translation map in seed file using existing i18n JSON data as source
 2. Structure: `{ [slug]: { en: "...", ru: "...", kk: "...", tr: "..." } }`
 3. After seed runs successfully, delete i18n direction JSON files
@@ -118,6 +128,7 @@
 **Question**: What changes are needed in `scripts/import-university.ts`?
 
 **Findings**:
+
 - Line 22: Imports `DirectionSlug` and `ALL_DIRECTIONS`
 - Line 27: Creates Zod enum from `ALL_DIRECTIONS`
 - Line 42, 225: Uses `DirectionSlug` type
@@ -125,6 +136,7 @@
 - Lines 582-594: Loads from `i18n/directions.json` (will fail after we delete it)
 
 **Decision**:
+
 1. Remove imports of `DirectionSlug` and `ALL_DIRECTIONS`
 2. Change Zod validation from enum to simple string
 3. Remove `getDirectionNames()` function and i18n file reading logic
@@ -136,9 +148,10 @@
 
 ## Summary
 
-All research complete. No blockers found. 
+All research complete. No blockers found.
 
 **Key Decisions**:
+
 1. ✅ No database schema changes needed
 2. ✅ Create seed file scanning university JSONs for used directions
 3. ✅ Remove TypeScript types, rely on database validation

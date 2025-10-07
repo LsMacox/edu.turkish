@@ -203,6 +203,7 @@ _This section describes what the /tasks command will do - DO NOT execute during 
 **Estimated Output**: ~14 numbered tasks in tasks.md
 
 **Task Categories**:
+
 - 3 analysis tasks
 - 5 implementation tasks (some [P])
 - 3 cleanup tasks

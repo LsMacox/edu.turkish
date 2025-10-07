@@ -18,7 +18,7 @@
           class="aspect-square rounded-xl overflow-hidden hover-lift cursor-pointer"
           @click="openImageModal(image)"
         >
-          <img class="w-full h-full object-cover" :src="image.src" :alt="image.alt" >
+          <img class="w-full h-full object-cover" :src="image.src" :alt="image.alt" />
         </div>
       </div>
 

@@ -6,7 +6,11 @@ const BitrixServiceMock = vi.fn(() => ({
   logMessengerEvent: logMessengerEventMock,
 }))
 const getBitrixConfigMock = vi.fn(() => ({ domain: 'example.com', accessToken: 'token' }))
-const validateCrmConfigMock = vi.fn(() => ({ isValid: true, provider: 'bitrix', errors: [] as string[] }))
+const validateCrmConfigMock = vi.fn(() => ({
+  isValid: true,
+  provider: 'bitrix',
+  errors: [] as string[],
+}))
 const getCrmProviderMock = vi.fn(() => 'bitrix' as const)
 
 vi.mock('../../../../server/services/BitrixService', () => ({
@@ -26,7 +30,11 @@ beforeEach(() => {
   getBitrixConfigMock.mockClear()
   validateCrmConfigMock.mockClear()
   getCrmProviderMock.mockClear()
-  validateCrmConfigMock.mockReturnValue({ isValid: true, provider: 'bitrix', errors: [] as string[] })
+  validateCrmConfigMock.mockReturnValue({
+    isValid: true,
+    provider: 'bitrix',
+    errors: [] as string[],
+  })
   getCrmProviderMock.mockReturnValue('bitrix')
 })
 
@@ -112,7 +120,11 @@ describe('POST /api/v1/messenger-events', () => {
       referral_code: 'ref-123',
     })
 
-    validateCrmConfigMock.mockReturnValue({ isValid: false, provider: 'bitrix', errors: ['Config missing'] })
+    validateCrmConfigMock.mockReturnValue({
+      isValid: false,
+      provider: 'bitrix',
+      errors: ['Config missing'],
+    })
 
     const handlerModule = await import('../../../../server/api/v1/messenger-events.post')
     const handler = handlerModule.default

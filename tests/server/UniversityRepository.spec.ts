@@ -1,6 +1,6 @@
 import { describe, expect, it, vi } from 'vitest'
 import { Prisma as PrismaRuntime } from '@prisma/client'
-import type { Prisma as PrismaTypes , PrismaClient } from '@prisma/client'
+import type { Prisma as PrismaTypes, PrismaClient } from '@prisma/client'
 import { createMockPrisma } from '~~/tests/test-utils'
 import {
   UniversityRepository,
@@ -47,7 +47,10 @@ describe('UniversityRepository', () => {
     return { repository, findMany, count }
   }
 
-  type TuitionRange = { tuitionMin: PrismaTypes.Decimal | null; tuitionMax: PrismaTypes.Decimal | null }
+  type TuitionRange = {
+    tuitionMin: PrismaTypes.Decimal | null
+    tuitionMax: PrismaTypes.Decimal | null
+  }
   const matchesTuitionWhere = (
     where: PrismaTypes.UniversityWhereInput | undefined,
     range: TuitionRange,
@@ -192,18 +195,26 @@ describe('UniversityRepository', () => {
 
     const findMany = vi.fn().mockResolvedValue(universities)
     const count = vi.fn().mockResolvedValue(universities.length)
-    const universityGroupBy = vi.fn().mockImplementation((args: PrismaTypes.UniversityGroupByArgs) => {
-      if ('by' in args && Array.isArray(args.by) && args.by.includes('cityId')) {
-        return Promise.resolve([{ cityId: 10 }])
-      }
-      if ('by' in args && Array.isArray(args.by) && args.by.includes('type')) {
-        return Promise.resolve([{ type: 'tech' }, { type: 'state' }])
-      }
-      return Promise.resolve([])
-    })
+    const universityGroupBy = vi
+      .fn()
+      .mockImplementation((args: PrismaTypes.UniversityGroupByArgs) => {
+        if ('by' in args && Array.isArray(args.by) && args.by.includes('cityId')) {
+          return Promise.resolve([{ cityId: 10 }])
+        }
+        if ('by' in args && Array.isArray(args.by) && args.by.includes('type')) {
+          return Promise.resolve([{ type: 'tech' }, { type: 'state' }])
+        }
+        return Promise.resolve([])
+      })
     const aggregate = vi.fn().mockResolvedValue({
-      _min: { tuitionMin: new PrismaRuntime.Decimal(1000), tuitionMax: new PrismaRuntime.Decimal(1200) },
-      _max: { tuitionMin: new PrismaRuntime.Decimal(7000), tuitionMax: new PrismaRuntime.Decimal(8200) },
+      _min: {
+        tuitionMin: new PrismaRuntime.Decimal(1000),
+        tuitionMax: new PrismaRuntime.Decimal(1200),
+      },
+      _max: {
+        tuitionMin: new PrismaRuntime.Decimal(7000),
+        tuitionMax: new PrismaRuntime.Decimal(8200),
+      },
     })
     const academicProgramGroupBy = vi
       .fn()

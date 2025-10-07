@@ -38,7 +38,7 @@ let translationIdCounter = 1
 
 export function createUniversity(overrides?: Partial<UniversityFixture>): UniversityFixture {
   const id = overrides?.id ?? universityIdCounter++
-  
+
   const defaults: UniversityFixture = {
     id,
     countryId: 1,

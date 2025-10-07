@@ -17,7 +17,7 @@
               alt="Modern education consultancy office"
               loading="lazy"
               decoding="async"
-            >
+            />
           </div>
           <div class="space-y-8">
             <div class="space-y-6">

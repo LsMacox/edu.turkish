@@ -15,7 +15,7 @@
               class="w-full h-80 object-cover rounded-2xl shadow-custom"
               src="/images/our-story.png"
               :alt="$t('about.story.imageAlt')"
-            >
+            />
           </div>
           <div class="space-y-6">
             <div class="space-y-4">

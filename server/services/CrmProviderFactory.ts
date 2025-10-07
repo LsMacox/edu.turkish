@@ -5,7 +5,7 @@ import { EspoCrmService } from './EspoCrmService'
 
 /**
  * CRM Provider Factory
- * 
+ *
  * Creates CRM provider instances based on environment configuration.
  * Supports Bitrix and EspoCRM providers.
  */

@@ -2,7 +2,7 @@ import { describe, expect, it } from 'vitest'
 
 /**
  * Integration test for messenger event routing with CRM provider
- * 
+ *
  * Tests that messenger events route to the configured CRM provider
  * and handle failures gracefully without 401 errors.
  * These tests will fail until CRM provider routing is implemented.
@@ -12,7 +12,7 @@ describe('POST /api/v1/messenger-events - CRM Provider Routing', () => {
   describe('CRM Provider Selection', () => {
     it('should route to Bitrix when CRM_PROVIDER=bitrix', () => {
       process.env.CRM_PROVIDER = 'bitrix'
-      
+
       // Expected: Messenger event uses BitrixService
       const expectedProvider = 'bitrix'
       expect(expectedProvider).toBe('bitrix')
@@ -20,7 +20,7 @@ describe('POST /api/v1/messenger-events - CRM Provider Routing', () => {
 
     it('should route to EspoCRM when CRM_PROVIDER=espocrm', () => {
       process.env.CRM_PROVIDER = 'espocrm'
-      
+
       // Expected: Messenger event uses EspoCrmService
       const expectedProvider = 'espocrm'
       expect(expectedProvider).toBe('espocrm')
@@ -28,7 +28,7 @@ describe('POST /api/v1/messenger-events - CRM Provider Routing', () => {
 
     it('should default to Bitrix when CRM_PROVIDER not set', () => {
       delete process.env.CRM_PROVIDER
-      
+
       // Expected: Messenger event uses BitrixService (default)
       const expectedProvider = 'bitrix'
       expect(expectedProvider).toBe('bitrix')
@@ -40,7 +40,7 @@ describe('POST /api/v1/messenger-events - CRM Provider Routing', () => {
       process.env.CRM_PROVIDER = 'espocrm'
       process.env.ESPOCRM_API_URL = 'https://crm.example.com/api/v1'
       process.env.ESPOCRM_API_KEY = 'valid-key'
-      
+
       // Expected: No 401 error when EspoCRM is configured
       const expectedStatus = 200 // or 201
       expect(expectedStatus).not.toBe(401)
@@ -48,7 +48,7 @@ describe('POST /api/v1/messenger-events - CRM Provider Routing', () => {
 
     it('should NOT attempt Bitrix auth when EspoCRM configured', () => {
       process.env.CRM_PROVIDER = 'espocrm'
-      
+
       // Expected: Bitrix endpoints not called
       const bitrixCalled = false
       expect(bitrixCalled).toBe(false)
@@ -57,12 +57,12 @@ describe('POST /api/v1/messenger-events - CRM Provider Routing', () => {
     it('should use EspoCRM authentication headers', () => {
       process.env.CRM_PROVIDER = 'espocrm'
       process.env.ESPOCRM_API_KEY = 'test-key'
-      
+
       // Expected: X-Api-Key header used, not Bitrix auth
       const headers = {
         'X-Api-Key': 'test-key',
       }
-      
+
       expect(headers['X-Api-Key']).toBeDefined()
     })
   })
@@ -72,7 +72,7 @@ describe('POST /api/v1/messenger-events - CRM Provider Routing', () => {
       delete process.env.CRM_PROVIDER
       delete process.env.BITRIX_WEBHOOK_URL
       delete process.env.ESPOCRM_API_URL
-      
+
       // Expected: 503 Service Unavailable when CRM not configured
       const expectedStatus = 503
       expect(expectedStatus).toBe(503)
@@ -82,11 +82,11 @@ describe('POST /api/v1/messenger-events - CRM Provider Routing', () => {
       process.env.CRM_PROVIDER = 'espocrm'
       process.env.ESPOCRM_API_URL = 'https://crm.example.com/api/v1'
       process.env.ESPOCRM_API_KEY = 'test-key'
-      
+
       // Expected: 200 OK even if CRM integration fails
       const crmFailed = true
       const expectedStatus = 200
-      
+
       expect(crmFailed).toBe(true)
       expect(expectedStatus).toBe(200)
     })
@@ -95,7 +95,7 @@ describe('POST /api/v1/messenger-events - CRM Provider Routing', () => {
       // Expected: Errors logged server-side, not in response
       const crmError = 'Connection timeout'
       const userResponse = { success: true }
-      
+
       expect(crmError).toBeDefined()
       expect(userResponse.success).toBe(true)
     })
@@ -113,7 +113,7 @@ describe('POST /api/v1/messenger-events - CRM Provider Routing', () => {
         referralCode: 'PARTNER123',
         session: 'sess_abc',
       }
-      
+
       // Expected: Payload passed to provider.logMessengerEvent()
       expect(payload.channel).toBeDefined()
       expect(payload.referralCode).toBeDefined()
@@ -123,7 +123,7 @@ describe('POST /api/v1/messenger-events - CRM Provider Routing', () => {
       // Expected: Timeout doesn't cause error response
       const crmTimedOut = true
       const responseStatus = 200
-      
+
       expect(crmTimedOut).toBe(true)
       expect(responseStatus).toBe(200)
     })
@@ -132,7 +132,7 @@ describe('POST /api/v1/messenger-events - CRM Provider Routing', () => {
       // Expected: Connection errors handled gracefully
       const crmConnectionFailed = true
       const responseStatus = 200
-      
+
       expect(crmConnectionFailed).toBe(true)
       expect(responseStatus).toBe(200)
     })
@@ -173,7 +173,7 @@ describe('POST /api/v1/messenger-events - CRM Provider Routing', () => {
         success: true,
         crmProvider: 'espocrm',
       }
-      
+
       expect(response.success).toBe(true)
       expect(response.crmProvider).toBeDefined()
     })
@@ -184,7 +184,7 @@ describe('POST /api/v1/messenger-events - CRM Provider Routing', () => {
         success: true,
         activityId: '507f1f77bcf86cd799439012',
       }
-      
+
       expect(response.activityId).toBeDefined()
     })
 
@@ -193,7 +193,7 @@ describe('POST /api/v1/messenger-events - CRM Provider Routing', () => {
       const response = {
         success: true,
       }
-      
+
       expect(response).not.toHaveProperty('error')
       expect(response).not.toHaveProperty('crmError')
     })
@@ -203,7 +203,7 @@ describe('POST /api/v1/messenger-events - CRM Provider Routing', () => {
     it('should maintain Bitrix integration behavior', () => {
       process.env.CRM_PROVIDER = 'bitrix'
       process.env.BITRIX_WEBHOOK_URL = 'https://example.com/rest/1/token/'
-      
+
       // Expected: Existing Bitrix behavior unchanged
       const provider = 'bitrix'
       expect(provider).toBe('bitrix')
@@ -219,7 +219,7 @@ describe('POST /api/v1/messenger-events - CRM Provider Routing', () => {
   describe('Error Scenarios', () => {
     it('should handle invalid CRM_PROVIDER value', () => {
       process.env.CRM_PROVIDER = 'invalid-crm'
-      
+
       // Expected: Falls back to Bitrix (default)
       const expectedProvider = 'bitrix'
       expect(expectedProvider).toBe('bitrix')
@@ -228,7 +228,7 @@ describe('POST /api/v1/messenger-events - CRM Provider Routing', () => {
     it('should handle missing EspoCRM config', () => {
       process.env.CRM_PROVIDER = 'espocrm'
       delete process.env.ESPOCRM_API_URL
-      
+
       // Expected: Error logged, graceful failure
       const expectedStatus = 503
       expect(expectedStatus).toBe(503)
@@ -240,7 +240,7 @@ describe('POST /api/v1/messenger-events - CRM Provider Routing', () => {
         channel: '',
         referralCode: '',
       }
-      
+
       expect(invalidPayload.channel).toBe('')
       expect(invalidPayload.referralCode).toBe('')
       // Should return validation error

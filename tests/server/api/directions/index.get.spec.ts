@@ -26,7 +26,7 @@ describe('GET /api/v1/directions', () => {
   it('returns paginated directions with metadata from repository', async () => {
     const queryParams = { q: 'search term', page: '2', limit: '5', lang: 'en' }
     getQueryMock.mockReturnValue(queryParams)
-    
+
     // Override global getQuery for this test
     ;(globalThis as any).getQuery = getQueryMock
 

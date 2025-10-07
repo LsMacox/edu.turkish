@@ -43,7 +43,9 @@ export default defineEventHandler(async (event): Promise<ApplicationResponse> =>
       // Transform application data to LeadData format
       const leadData: LeadData = {
         firstName: body.personal_info.first_name,
-        lastName: body.personal_info.last_name?.trim() ? body.personal_info.last_name.trim() : undefined,
+        lastName: body.personal_info.last_name?.trim()
+          ? body.personal_info.last_name.trim()
+          : undefined,
         phone: body.personal_info.phone,
         email: body.personal_info.email,
         referralCode: body.referral_code || 'DIRECT',
@@ -100,7 +102,9 @@ export default defineEventHandler(async (event): Promise<ApplicationResponse> =>
       try {
         const leadData: LeadData = {
           firstName: body.personal_info.first_name,
-          lastName: body.personal_info.last_name?.trim() ? body.personal_info.last_name.trim() : undefined,
+          lastName: body.personal_info.last_name?.trim()
+            ? body.personal_info.last_name.trim()
+            : undefined,
           phone: body.personal_info.phone,
           email: body.personal_info.email,
           referralCode: body.referral_code || 'DIRECT',

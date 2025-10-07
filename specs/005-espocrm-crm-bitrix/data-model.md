@@ -32,6 +32,7 @@ interface FieldMappingConfig {
 ```
 
 **Validation Rules**:
+
 - `provider` must be one of: 'bitrix', 'espocrm'
 - `baseUrl` must be valid HTTP/HTTPS URL
 - `timeout` must be > 0 and < 30000 (30 seconds)
@@ -49,23 +50,23 @@ interface LeadData {
   lastName: string
   phone: string
   email: string
-  
+
   // Education Preferences (optional)
   fieldOfStudy?: string
   universities?: string[]
   programs?: string[]
-  
+
   // User Preferences (optional)
   userType?: 'student' | 'parent'
   language?: 'turkish' | 'english' | 'both'
   scholarship?: 'yes' | 'no'
   universityChosen?: string
-  
+
   // Attribution (required)
   referralCode: string
   source: string
   sourceDescription?: string
-  
+
   // UTM Parameters (optional)
   utm?: {
     source?: string
@@ -74,7 +75,7 @@ interface LeadData {
     content?: string
     term?: string
   }
-  
+
   // Additional
   additionalInfo?: string
   session?: string
@@ -82,6 +83,7 @@ interface LeadData {
 ```
 
 **Validation Rules**:
+
 - `firstName`, `lastName`, `phone`, `email`, `referralCode`, `source` are required
 - `email` must be valid email format
 - `phone` must be valid phone format (E.164 or local)
@@ -117,6 +119,7 @@ interface ActivityData {
 ```
 
 **Validation Rules**:
+
 - `channel` must be one of: 'telegramBot', 'whatsapp', 'instagram'
 - `referralCode` is required
 - `utm` and `metadata` are optional but if present, must have at least one field
@@ -137,6 +140,7 @@ interface CRMResult {
 ```
 
 **State Transitions**:
+
 - Initial: Operation queued
 - Processing: Operation in progress
 - Success: `success: true`, `id` present
@@ -164,6 +168,7 @@ interface CRMQueueJob {
 ```
 
 **State Transitions**:
+
 ```
 pending → processing → completed
               ↓
@@ -190,33 +195,33 @@ CRMQueueJob (N) → (1) CRMResult
 
 ### Bitrix → Standard
 
-| Bitrix Field | Standard Field | Notes |
-|--------------|---------------|-------|
-| `NAME` | `firstName` | Direct mapping |
-| `LAST_NAME` | `lastName` | Direct mapping |
-| `PHONE[0].VALUE` | `phone` | Array to string |
-| `EMAIL[0].VALUE` | `email` | Array to string |
-| `UF_CRM_REFERRAL_CODE` | `referralCode` | Custom field |
-| `UF_CRM_1234567893` | `userType` | Custom field |
-| `UF_CRM_1234567894` | `language` | Custom field |
-| `UF_CRM_1234567896` | `fieldOfStudy` | Custom field |
-| `UF_CRM_1234567897` | `university` | Custom field |
-| `SOURCE_ID` | `source` | Direct mapping |
+| Bitrix Field           | Standard Field | Notes           |
+| ---------------------- | -------------- | --------------- |
+| `NAME`                 | `firstName`    | Direct mapping  |
+| `LAST_NAME`            | `lastName`     | Direct mapping  |
+| `PHONE[0].VALUE`       | `phone`        | Array to string |
+| `EMAIL[0].VALUE`       | `email`        | Array to string |
+| `UF_CRM_REFERRAL_CODE` | `referralCode` | Custom field    |
+| `UF_CRM_1234567893`    | `userType`     | Custom field    |
+| `UF_CRM_1234567894`    | `language`     | Custom field    |
+| `UF_CRM_1234567896`    | `fieldOfStudy` | Custom field    |
+| `UF_CRM_1234567897`    | `university`   | Custom field    |
+| `SOURCE_ID`            | `source`       | Direct mapping  |
 
 ### EspoCRM → Standard
 
-| EspoCRM Field | Standard Field | Notes |
-|---------------|---------------|-------|
-| `firstName` | `firstName` | Direct mapping |
-| `lastName` | `lastName` | Direct mapping |
-| `phoneNumber` | `phone` | Direct mapping |
-| `emailAddress` | `email` | Direct mapping |
-| `referralCodeC` | `referralCode` | Custom field |
-| `userTypeC` | `userType` | Custom field |
-| `languageC` | `language` | Custom field |
-| `fieldOfStudyC` | `fieldOfStudy` | Custom field |
-| `universityC` | `university` | Custom field |
-| `source` | `source` | Direct mapping |
+| EspoCRM Field   | Standard Field | Notes          |
+| --------------- | -------------- | -------------- |
+| `firstName`     | `firstName`    | Direct mapping |
+| `lastName`      | `lastName`     | Direct mapping |
+| `phoneNumber`   | `phone`        | Direct mapping |
+| `emailAddress`  | `email`        | Direct mapping |
+| `referralCodeC` | `referralCode` | Custom field   |
+| `userTypeC`     | `userType`     | Custom field   |
+| `languageC`     | `language`     | Custom field   |
+| `fieldOfStudyC` | `fieldOfStudy` | Custom field   |
+| `universityC`   | `university`   | Custom field   |
+| `source`        | `source`       | Direct mapping |
 
 ## Validation Schema (Zod)
 
@@ -238,13 +243,15 @@ export const leadDataSchema = z.object({
   referralCode: z.string().min(1),
   source: z.string().min(1),
   sourceDescription: z.string().optional(),
-  utm: z.object({
-    source: z.string().optional(),
-    medium: z.string().optional(),
-    campaign: z.string().optional(),
-    content: z.string().optional(),
-    term: z.string().optional(),
-  }).optional(),
+  utm: z
+    .object({
+      source: z.string().optional(),
+      medium: z.string().optional(),
+      campaign: z.string().optional(),
+      content: z.string().optional(),
+      term: z.string().optional(),
+    })
+    .optional(),
   additionalInfo: z.string().optional(),
   session: z.string().optional(),
 })
@@ -253,21 +260,25 @@ export const activityDataSchema = z.object({
   channel: z.enum(['telegramBot', 'whatsapp', 'instagram']),
   referralCode: z.string().min(1),
   session: z.string().optional(),
-  utm: z.object({
-    source: z.string().optional(),
-    medium: z.string().optional(),
-    campaign: z.string().optional(),
-    content: z.string().optional(),
-    term: z.string().optional(),
-  }).optional(),
-  metadata: z.object({
-    page: z.string().optional(),
-    section: z.string().optional(),
-    component: z.string().optional(),
-    campaign: z.string().optional(),
-    referrer: z.string().optional(),
-    notes: z.string().optional(),
-  }).optional(),
+  utm: z
+    .object({
+      source: z.string().optional(),
+      medium: z.string().optional(),
+      campaign: z.string().optional(),
+      content: z.string().optional(),
+      term: z.string().optional(),
+    })
+    .optional(),
+  metadata: z
+    .object({
+      page: z.string().optional(),
+      section: z.string().optional(),
+      component: z.string().optional(),
+      campaign: z.string().optional(),
+      referrer: z.string().optional(),
+      notes: z.string().optional(),
+    })
+    .optional(),
 })
 ```
 

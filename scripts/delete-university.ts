@@ -54,7 +54,9 @@ async function resolveUniversityBySlug(slug: string, locale?: string) {
   if (matches.length === 0) return null
 
   if (!locale) {
-    const uniqueUniversityIds = Array.from(new Set(matches.map((m: { universityId: number; locale: string }) => m.universityId)))
+    const uniqueUniversityIds = Array.from(
+      new Set(matches.map((m: { universityId: number; locale: string }) => m.universityId)),
+    )
     if (uniqueUniversityIds.length > 1) {
       throw new Error(
         `Slug '${slug}' matches multiple universities across locales. Provide --locale to disambiguate.`,

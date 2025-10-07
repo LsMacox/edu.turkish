@@ -14,6 +14,7 @@ This feature does not introduce new application data models. Instead, it defines
 **Purpose**: Factory function that creates a mocked Prisma Client for repository tests
 
 **Interface**:
+
 ```typescript
 interface MockPrismaClient {
   // Core Prisma models
@@ -23,7 +24,7 @@ interface MockPrismaClient {
   review: MockPrismaModel
   application: MockPrismaModel
   // ... other models
-  
+
   // Prisma utilities
   $transaction: vi.Mock
   $connect: vi.Mock
@@ -43,11 +44,12 @@ interface MockPrismaModel {
 ```
 
 **Usage**:
+
 ```typescript
 const prisma = createMockPrisma({
   university: {
-    findMany: vi.fn().mockResolvedValue([...testData])
-  }
+    findMany: vi.fn().mockResolvedValue([...testData]),
+  },
 })
 ```
 
@@ -56,6 +58,7 @@ const prisma = createMockPrisma({
 **Purpose**: In-memory implementation of queue interface for testing CRM queue logic
 
 **Interface**:
+
 ```typescript
 interface MockQueue {
   addJob(operation: string, provider: string, data: unknown): Promise<Job>
@@ -78,6 +81,7 @@ interface Job {
 ```
 
 **Usage**:
+
 ```typescript
 const queue = createMockQueue()
 const job = await queue.addJob('createLead', 'espocrm', leadData)
@@ -88,6 +92,7 @@ const job = await queue.addJob('createLead', 'espocrm', leadData)
 **Purpose**: Mock Nuxt auto-imported composables for component tests
 
 **Interface**:
+
 ```typescript
 interface MockI18n {
   locale: Ref<string>
@@ -105,6 +110,7 @@ interface MockNuxtApp {
 ```
 
 **Usage**:
+
 ```typescript
 const i18n = mockUseI18n('en', translations)
 globalThis.useI18n = () => i18n
@@ -118,6 +124,7 @@ globalThis.$fetch = fetch
 **Purpose**: Factory functions for generating test data
 
 **Entities**:
+
 - University (with translations)
 - FAQ (with category and translations)
 - Review (with translations)
@@ -125,6 +132,7 @@ globalThis.$fetch = fetch
 - User session data
 
 **Interface**:
+
 ```typescript
 interface UniversityFixture {
   id: number
@@ -141,10 +149,11 @@ function createReview(overrides?: Partial<ReviewFixture>): ReviewFixture
 ```
 
 **Usage**:
+
 ```typescript
-const university = createUniversity({ 
+const university = createUniversity({
   title: 'Custom University',
-  tuitionMin: 5000 
+  tuitionMin: 5000,
 })
 ```
 
@@ -162,6 +171,7 @@ test-utils/index.ts (main entry)
 ## Migration from Current Approach
 
 ### Before (inline mocks)
+
 ```typescript
 // Each test file creates its own mocks
 const prisma = {
@@ -172,6 +182,7 @@ const prisma = {
 ```
 
 ### After (test-utils)
+
 ```typescript
 import { createMockPrisma } from '~~/tests/test-utils'
 
@@ -185,22 +196,26 @@ const prisma = createMockPrisma({
 ## Validation Rules
 
 **MockPrismaClient**:
+
 - Must match actual PrismaClient interface
 - All mocked methods return Promises
 - Support for $transaction with array of operations
 
 **MockRedisQueue**:
+
 - Jobs persist in memory within test
 - Exponential backoff simulation (1s, 5s, 25s)
 - DLQ after 3 failed attempts
 - Clear() resets all state
 
 **MockComposables**:
+
 - useI18n locale is reactive (Ref)
 - $fetch returns mocked responses by URL pattern
 - Translations resolve with fallback logic (locale → en)
 
 **TestFixtures**:
+
 - All timestamps use consistent base date
 - IDs are sequential integers
 - Translations include all supported locales by default

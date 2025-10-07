@@ -15,7 +15,7 @@ export function getBitrixConfig(): BitrixConfig {
 
   // Format: https://domain.bitrix24.com/rest/1/token/
   const urlMatch = webhookUrl.match(/https?:\/\/([^/]+)\/rest\/\d+\/([^/]+)/)
-  
+
   if (!urlMatch || !urlMatch[1] || !urlMatch[2]) {
     throw new Error('Invalid BITRIX_WEBHOOK_URL format')
   }
@@ -41,7 +41,9 @@ export function getEspoCrmConfig(): EspoCrmConfig {
     const missing: string[] = []
     if (!apiUrl) missing.push('ESPOCRM_URL')
     if (!apiKey) missing.push('ESPOCRM_API_KEY')
-    throw new Error(`EspoCRM configuration incomplete: ${missing.join(' and ')} ${missing.length === 1 ? 'is' : 'are'} required`)
+    throw new Error(
+      `EspoCRM configuration incomplete: ${missing.join(' and ')} ${missing.length === 1 ? 'is' : 'are'} required`,
+    )
   }
 
   return {
@@ -75,7 +77,9 @@ export function getCRMConfig(): CRMProviderConfig {
     const apiKey = process.env.ESPOCRM_API_KEY
 
     if (!apiUrl || !apiKey) {
-      throw new Error('EspoCRM configuration incomplete: ESPOCRM_URL and ESPOCRM_API_KEY are required')
+      throw new Error(
+        'EspoCRM configuration incomplete: ESPOCRM_URL and ESPOCRM_API_KEY are required',
+      )
     }
 
     // Normalize base URL to NOT include trailing /api/v1
@@ -114,7 +118,7 @@ function getDefaultFieldMappings(): FieldMappingConfig {
 
 /**
  * Validate CRM configuration for the configured provider
- * 
+ *
  * @returns Validation result with provider and errors
  */
 export function validateCrmConfig(): {

@@ -91,8 +91,8 @@ import { createMockPrisma } from '~~/tests/test-utils'
 
 const prisma = createMockPrisma({
   university: {
-    findMany: vi.fn().mockResolvedValue([testUniversity])
-  }
+    findMany: vi.fn().mockResolvedValue([testUniversity]),
+  },
 })
 
 const repository = new UniversityRepository(prisma)

@@ -1,194 +1,193 @@
 {
-    "reviews": {
-      "labels": {
-        "studentExperience": "Student experience",
-        "parent": "Parent",
-        "yearSuffix": ""
-      },
-      "hero": {
-        "title": "Reviews from our students",
-        "titleAccent": "and parents",
-        "description": "Real admission stories through Edu.turkish. Learn how we helped more than 500 students realize their dreams of studying in Turkey.",
-        "stats": {
-          "students": "Satisfied students",
-          "rating": "Average rating",
-          "success": "Successful admissions"
-        }
-      },
-      "mediaReviews": {
-        "title": "Video and photo reviews",
-        "titleAccent": "from our students",
-        "description": "Watch real success stories from our students. Video and photo reviews about admission and studying at Turkish universities.",
-        "error": "Failed to load reviews. Please try refreshing the page.",
-        "empty": "No media reviews yet"
-      },
-      "achievements": {
-        "title": "Our achievements",
-        "titleAccent": "in numbers",
-        "description": "Results that speak for themselves. Every number is someone's dream come true.",
-        "stats": {
-          "students": {
-            "title": "Students",
-            "description": "Enrolled in Turkish universities"
-          },
-          "success": {
-            "title": "Success",
-            "description": "Admission percentage"
-          },
-          "universities": {
-            "title": "Universities",
-            "description": "Partner institutions"
-          },
-          "experience": {
-            "title": "Years",
-            "description": "Of successful work"
-          }
-        },
-        "overallRating": {
-          "title": "Overall rating",
-          "description": "Based on 70 reviews"
-        },
-        "support": {
-          "title": "Support",
-          "description": "Consultant availability"
-        },
-        "recommendation": {
-          "title": "Recommend us",
-          "description": "Students and parents"
-        }
-      },
-      "studentStories": {
-        "title": "Stories of our",
-        "titleAccent": "students",
-        "description": "Every success is a unique story. Meet our graduates who are already studying at leading Turkish universities.",
-        "ctaButton": "Become the next success"
-      },
-      "parentReviews": {
-        "title": "Parents trust",
-        "titleAccent": "our experience",
-        "description": "Opinions of parents who chose Edu.turkish for their children's education in Turkey"
-      },
-      "shareExperience": {
-        "title": "Share your",
-        "titleAccent": "experience",
-        "description": "Your review will help other students make the right decision. Tell us about your path to successful admission.",
-        "form": {
-          "name": {
-            "label": "Your name *",
-            "placeholder": "Enter your name"
-          },
-          "reviewerType": {
-            "label": "Who are you? *",
-            "placeholder": "Select reviewer type",
-            "student": "Student",
-            "parent": "Parent"
-          },
-          "university": {
-            "label": "University *",
-            "placeholder": "Choose university",
-            "loading": "Loading universities...",
-            "other": "Other"
-          },
-          "faculty": {
-            "label": "Faculty",
-            "placeholder": "For example: Medicine, Engineering"
-          },
-          "year": {
-            "label": "Year of admission",
-            "placeholder": "Choose year",
-            "earlier": "Earlier"
-          },
-          "rating": {
-            "label": "Rate our services *",
-            "placeholder": "Choose rating",
-            "excellent": "⭐⭐⭐⭐⭐ Excellent (5)",
-            "good": "⭐⭐⭐⭐ Good (4)",
-            "satisfactory": "⭐⭐⭐ Satisfactory (3)",
-            "poor": "⭐⭐ Poor (2)",
-            "veryPoor": "⭐ Very poor (1)"
-          },
-          "contact": {
-            "label": "Email or phone",
-            "placeholder": "For contact (will not be published)"
-          },
-          "review": {
-            "label": "Your review *",
-            "placeholder": "Share your admission and study experience. What helped you the most? What advice would you give to future students?"
-          },
-          "helpful": {
-            "label": "What was most helpful? (you can choose multiple)",
-            "aspects": {
-              "documents": "Document assistance",
-              "language": "Language preparation",
-              "exam-prep": "Exam preparation",
-              "university-choice": "University selection",
-              "visa": "Visa processing",
-              "accommodation": "Housing search",
-              "support": "Support at all stages",
-              "consultation": "Expert consultations"
-            }
-          },
-          "recommend": {
-            "label": "Would you recommend Edu.turkish?",
-            "yes": "Yes, definitely",
-            "maybe": "Maybe",
-            "no": "No"
-          },
-          "submit": "Share review",
-          "submitting": "Submitting..."
-        },
-        "validation": {
-          "nameRequired": "Please enter your name",
-          "universityRequired": "Please choose university",
-          "ratingRequired": "Please provide rating",
-          "reviewRequired": "Please write a review (minimum 50 characters)"
+  "reviews": {
+    "labels": {
+      "studentExperience": "Student experience",
+      "parent": "Parent",
+      "yearSuffix": ""
+    },
+    "hero": {
+      "title": "Reviews from our students",
+      "titleAccent": "and parents",
+      "description": "Real admission stories through Edu.turkish. Learn how we helped more than 500 students realize their dreams of studying in Turkey.",
+      "stats": {
+        "students": "Satisfied students",
+        "rating": "Average rating",
+        "success": "Successful admissions"
+      }
+    },
+    "mediaReviews": {
+      "title": "Video and photo reviews",
+      "titleAccent": "from our students",
+      "description": "Watch real success stories from our students. Video and photo reviews about admission and studying at Turkish universities.",
+      "error": "Failed to load reviews. Please try refreshing the page.",
+      "empty": "No media reviews yet"
+    },
+    "achievements": {
+      "title": "Our achievements",
+      "titleAccent": "in numbers",
+      "description": "Results that speak for themselves. Every number is someone's dream come true.",
+      "stats": {
+        "students": {
+          "title": "Students",
+          "description": "Enrolled in Turkish universities"
         },
         "success": {
-          "title": "Thank you for your review!",
-          "message": "We received your review and will definitely publish it after moderation. Your experience will help other students!"
+          "title": "Success",
+          "description": "Admission percentage"
         },
-        "error": {
-          "title": "Submission Error",
-          "dismiss": "Close"
+        "universities": {
+          "title": "Universities",
+          "description": "Partner institutions"
         },
-        "errors": {
-          "validation": "Please check the form fields for errors",
-          "generic": "An error occurred while submitting your review. Please try again."
+        "experience": {
+          "title": "Years",
+          "description": "Of successful work"
         }
       },
-      "nextReviewCTA": {
-        "title": "Want your review to be",
-        "titleAccent": "next?",
-        "description": "Join over 500 students who have already achieved their dream of education in Turkey with Edu.turkish",
-        "steps": {
-          "consultation": {
-            "title": "Free consultation",
-            "description": "We'll discuss your goals and choose the optimal path for admission"
-          },
-          "plan": {
-            "title": "Personal plan",
-            "description": "We'll create an individual preparation and admission strategy"
-          },
-          "admission": {
-            "title": "Admission",
-            "description": "We support you at every stage until enrollment in university"
+      "overallRating": {
+        "title": "Overall rating",
+        "description": "Based on 70 reviews"
+      },
+      "support": {
+        "title": "Support",
+        "description": "Consultant availability"
+      },
+      "recommendation": {
+        "title": "Recommend us",
+        "description": "Students and parents"
+      }
+    },
+    "studentStories": {
+      "title": "Stories of our",
+      "titleAccent": "students",
+      "description": "Every success is a unique story. Meet our graduates who are already studying at leading Turkish universities.",
+      "ctaButton": "Become the next success"
+    },
+    "parentReviews": {
+      "title": "Parents trust",
+      "titleAccent": "our experience",
+      "description": "Opinions of parents who chose Edu.turkish for their children's education in Turkey"
+    },
+    "shareExperience": {
+      "title": "Share your",
+      "titleAccent": "experience",
+      "description": "Your review will help other students make the right decision. Tell us about your path to successful admission.",
+      "form": {
+        "name": {
+          "label": "Your name *",
+          "placeholder": "Enter your name"
+        },
+        "reviewerType": {
+          "label": "Who are you? *",
+          "placeholder": "Select reviewer type",
+          "student": "Student",
+          "parent": "Parent"
+        },
+        "university": {
+          "label": "University *",
+          "placeholder": "Choose university",
+          "loading": "Loading universities...",
+          "other": "Other"
+        },
+        "faculty": {
+          "label": "Faculty",
+          "placeholder": "For example: Medicine, Engineering"
+        },
+        "year": {
+          "label": "Year of admission",
+          "placeholder": "Choose year",
+          "earlier": "Earlier"
+        },
+        "rating": {
+          "label": "Rate our services *",
+          "placeholder": "Choose rating",
+          "excellent": "⭐⭐⭐⭐⭐ Excellent (5)",
+          "good": "⭐⭐⭐⭐ Good (4)",
+          "satisfactory": "⭐⭐⭐ Satisfactory (3)",
+          "poor": "⭐⭐ Poor (2)",
+          "veryPoor": "⭐ Very poor (1)"
+        },
+        "contact": {
+          "label": "Email or phone",
+          "placeholder": "For contact (will not be published)"
+        },
+        "review": {
+          "label": "Your review *",
+          "placeholder": "Share your admission and study experience. What helped you the most? What advice would you give to future students?"
+        },
+        "helpful": {
+          "label": "What was most helpful? (you can choose multiple)",
+          "aspects": {
+            "documents": "Document assistance",
+            "language": "Language preparation",
+            "exam-prep": "Exam preparation",
+            "university-choice": "University selection",
+            "visa": "Visa processing",
+            "accommodation": "Housing search",
+            "support": "Support at all stages",
+            "consultation": "Expert consultations"
           }
         },
-        "stats": {
-          "students": "Successful students",
-          "admissions": "Admission rate",
-          "universities": "Partner universities",
-          "experience": "Years of experience"
+        "recommend": {
+          "label": "Would you recommend Edu.turkish?",
+          "yes": "Yes, definitely",
+          "maybe": "Maybe",
+          "no": "No"
         },
-        "cta": {
-          "button": "Start your journey to dreams"
+        "submit": "Share review",
+        "submitting": "Submitting..."
+      },
+      "validation": {
+        "nameRequired": "Please enter your name",
+        "universityRequired": "Please choose university",
+        "ratingRequired": "Please provide rating",
+        "reviewRequired": "Please write a review (minimum 50 characters)"
+      },
+      "success": {
+        "title": "Thank you for your review!",
+        "message": "We received your review and will definitely publish it after moderation. Your experience will help other students!"
+      },
+      "error": {
+        "title": "Submission Error",
+        "dismiss": "Close"
+      },
+      "errors": {
+        "validation": "Please check the form fields for errors",
+        "generic": "An error occurred while submitting your review. Please try again."
+      }
+    },
+    "nextReviewCTA": {
+      "title": "Want your review to be",
+      "titleAccent": "next?",
+      "description": "Join over 500 students who have already achieved their dream of education in Turkey with Edu.turkish",
+      "steps": {
+        "consultation": {
+          "title": "Free consultation",
+          "description": "We'll discuss your goals and choose the optimal path for admission"
         },
-        "features": {
-          "consultation": "Free consultation",
-          "noHiddenFees": "No hidden fees",
-          "guarantee": "Result guarantee"
+        "plan": {
+          "title": "Personal plan",
+          "description": "We'll create an individual preparation and admission strategy"
+        },
+        "admission": {
+          "title": "Admission",
+          "description": "We support you at every stage until enrollment in university"
         }
+      },
+      "stats": {
+        "students": "Successful students",
+        "admissions": "Admission rate",
+        "universities": "Partner universities",
+        "experience": "Years of experience"
+      },
+      "cta": {
+        "button": "Start your journey to dreams"
+      },
+      "features": {
+        "consultation": "Free consultation",
+        "noHiddenFees": "No hidden fees",
+        "guarantee": "Result guarantee"
       }
     }
   }
-  
+}

@@ -55,7 +55,7 @@ Follow-up TODOs: none
 
 - Styling MUST be unified via `app/assets/css` and `tailwind.config.ts`. Design tokens/utilities belong in these locations; no duplicate, page-local Tailwind config.
 - ESLint and Prettier MUST pass on every PR. TypeScript type checks MUST pass. CI MUST run tests (Vitest) for changed areas at minimum.
- - Components MUST be split into page-specific feature components under `app/components/features/` and global/UI components under `app/components/**`.
+- Components MUST be split into page-specific feature components under `app/components/features/` and global/UI components under `app/components/**`.
   Rationale: Consistent look & feel, maintainable components, and stable builds.
 
 ### VI. Imports & Aliases (Nuxt Auto-Import)
@@ -77,7 +77,7 @@ Follow-up TODOs: none
   - Type-only imports (TypeScript)
   - Server modules and utilities under `~~/server/*`
   - Dynamic/async components via `defineAsyncComponent` or `() => import('~/components/...')`
-  Rationale: Auto-import reduces boilerplate and enforces consistent naming; explicit imports remain for external deps, types, server code, and lazy components.
+    Rationale: Auto-import reduces boilerplate and enforces consistent naming; explicit imports remain for external deps, types, server code, and lazy components.
 
 ### VII. Runtime Configuration & Environment Variables
 

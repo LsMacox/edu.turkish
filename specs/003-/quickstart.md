@@ -26,6 +26,7 @@ cat vitest.config.ts | grep -A 10 'alias'
 ```
 
 **Expected Output**:
+
 - `tsconfig.json` should have `~/*` → `./app/*` and `~~/*` → `./*`
 - `vitest.config.ts` should have matching aliases
 
@@ -108,6 +109,7 @@ import { contactChannels } from '~~/lib/contact/channels'
 ```
 
 **Validation**:
+
 1. Create test component with imports above
 2. Run `npm run lint` - should pass for ✅, fail for ❌
 3. Run `npm run dev` - component should load without errors
@@ -135,6 +137,7 @@ export default defineEventHandler(async () => {
 ```
 
 **Validation**:
+
 1. Create test endpoint with imports above
 2. Run `npm run lint` - should pass for ✅, fail for ❌
 3. Start dev server and hit endpoint - should respond without errors
@@ -168,6 +171,7 @@ describe('Import Alias Test', () => {
 ```
 
 **Validation**:
+
 1. Create test file with imports above
 2. Run `npm test` - should pass
 3. Uncomment ❌ line and run lint - should fail
@@ -189,6 +193,7 @@ describe('Import Alias Test', () => {
 **Cause**: `vitest.config.ts` aliases don't match `tsconfig.json`
 
 **Solution**:
+
 ```bash
 # Verify vitest config has all aliases
 cat vitest.config.ts | grep -A 10 'alias'
@@ -201,6 +206,7 @@ cat vitest.config.ts | grep -A 10 'alias'
 **Cause**: ESLint rules not configured
 
 **Solution**:
+
 ```bash
 # Check eslint.config.mjs for no-restricted-imports rule
 cat eslint.config.mjs | grep -A 20 'no-restricted-imports'
@@ -213,6 +219,7 @@ cat eslint.config.mjs | grep -A 20 'no-restricted-imports'
 **Cause**: Nuxt config not aligned with tsconfig
 
 **Solution**:
+
 ```bash
 # Regenerate Nuxt types
 npm run postinstall

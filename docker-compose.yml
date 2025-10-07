@@ -83,7 +83,7 @@ services:
       ESPOCRM_DB_USER: ${ESPOCRM_DB_USER}
       ESPOCRM_DB_PASSWORD: ${ESPOCRM_DB_PASSWORD}
       # Убираем предупреждение entrypoint'a о MYSQL_ONETIME_PASSWORD
-      MYSQL_ONETIME_PASSWORD: ""
+      MYSQL_ONETIME_PASSWORD: ''
       TZ: 'UTC'
     ports:
       - '${DB_PORT:-3306}:3306'
@@ -203,7 +203,7 @@ services:
     command:
       - redis-server
       - --appendonly
-      - "yes"
+      - 'yes'
       - --appendfsync
       - everysec
       - --requirepass

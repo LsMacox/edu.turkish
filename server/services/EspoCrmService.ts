@@ -8,7 +8,7 @@ import type {
 
 /**
  * EspoCRM Service
- * 
+ *
  * Implements ICrmProvider interface for EspoCRM REST API integration.
  * Handles lead creation, messenger event logging, and connection testing.
  */
@@ -75,7 +75,7 @@ export class EspoCrmService implements ICrmProvider {
       if (!response.ok) {
         const errorData = await response.json().catch(() => ({}))
         const errorMessage = errorData.message || errorData.error || `HTTP ${response.status}`
-        
+
         // Don't retry on 4xx errors (except 429)
         if (response.status >= 400 && response.status < 500 && response.status !== 429) {
           console.error('EspoCRM lead creation failed (client error):', errorMessage)
@@ -134,7 +134,7 @@ export class EspoCrmService implements ICrmProvider {
       if (!response.ok) {
         const errorData = await response.json().catch(() => ({}))
         const errorMessage = errorData.message || errorData.error || `HTTP ${response.status}`
-        
+
         // Don't retry on 4xx errors (except 429)
         if (response.status >= 400 && response.status < 500 && response.status !== 429) {
           console.error('EspoCRM activity creation failed (client error):', errorMessage)
@@ -162,7 +162,6 @@ export class EspoCrmService implements ICrmProvider {
     }
   }
 
-
   /**
    * Transform application data to EspoCRM Lead format
    */
@@ -171,7 +170,7 @@ export class EspoCrmService implements ICrmProvider {
 
     // Build description with additional info
     const descriptionParts: string[] = []
-    
+
     if (additional_info) {
       descriptionParts.push(additional_info)
     }
@@ -208,7 +207,7 @@ export class EspoCrmService implements ICrmProvider {
    */
   private transformEventToActivity(payload: MessengerEventPayload): Record<string, any> {
     const now = new Date().toISOString()
-    
+
     // Build description with event details
     const descriptionParts: string[] = [
       `Channel: ${payload.channel}`,

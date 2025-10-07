@@ -13,11 +13,11 @@ This document describes the data model for study directions. The tables already 
 
 ### Fields
 
-| Field       | Type       | Constraints     | Description                      |
-| ----------- | ---------- | --------------- | -------------------------------- |
-| id          | Int        | PK, AUTO_INC    | Unique identifier                |
-| createdAt   | DateTime   | DEFAULT now()   | Creation timestamp               |
-| updatedAt   | DateTime   | AUTO_UPDATE     | Last update timestamp            |
+| Field     | Type     | Constraints   | Description           |
+| --------- | -------- | ------------- | --------------------- |
+| id        | Int      | PK, AUTO_INC  | Unique identifier     |
+| createdAt | DateTime | DEFAULT now() | Creation timestamp    |
+| updatedAt | DateTime | AUTO_UPDATE   | Last update timestamp |
 
 ### Relationships
 
@@ -37,16 +37,16 @@ This document describes the data model for study directions. The tables already 
 
 ### Fields
 
-| Field        | Type       | Constraints                           | Description                           |
-| ------------ | ---------- | ------------------------------------- | ------------------------------------- |
-| id           | Int        | PK, AUTO_INC                          | Unique identifier                     |
-| directionId  | Int        | FK → study_directions.id, CASCADE DEL | Reference to parent direction         |
-| locale       | String(5)  | NOT NULL                              | Locale code (en, ru, kk, tr)          |
-| name         | String(255)| NULLABLE                              | Localized direction name              |
-| description  | Text       | NULLABLE                              | Localized description                 |
-| slug         | String(255)| NOT NULL                              | SEO-friendly slug for this locale     |
-| createdAt    | DateTime   | DEFAULT now()                         | Creation timestamp                    |
-| updatedAt    | DateTime   | AUTO_UPDATE                           | Last update timestamp                 |
+| Field       | Type        | Constraints                           | Description                       |
+| ----------- | ----------- | ------------------------------------- | --------------------------------- |
+| id          | Int         | PK, AUTO_INC                          | Unique identifier                 |
+| directionId | Int         | FK → study_directions.id, CASCADE DEL | Reference to parent direction     |
+| locale      | String(5)   | NOT NULL                              | Locale code (en, ru, kk, tr)      |
+| name        | String(255) | NULLABLE                              | Localized direction name          |
+| description | Text        | NULLABLE                              | Localized description             |
+| slug        | String(255) | NOT NULL                              | SEO-friendly slug for this locale |
+| createdAt   | DateTime    | DEFAULT now()                         | Creation timestamp                |
+| updatedAt   | DateTime    | AUTO_UPDATE                           | Last update timestamp             |
 
 ### Unique Constraints
 
@@ -68,13 +68,13 @@ This document describes the data model for study directions. The tables already 
 
 ### Fields
 
-| Field        | Type      | Constraints                        | Description                       |
-| ------------ | --------- | ---------------------------------- | --------------------------------- |
-| id           | Int       | PK, AUTO_INC                       | Unique identifier                 |
-| universityId | Int       | FK → universities.id, CASCADE DEL  | Reference to university           |
-| directionId  | Int       | FK → study_directions.id, CASCADE DEL | Reference to direction         |
-| createdAt    | DateTime  | DEFAULT now()                      | Link creation timestamp           |
-| updatedAt    | DateTime  | AUTO_UPDATE                        | Link update timestamp             |
+| Field        | Type     | Constraints                           | Description             |
+| ------------ | -------- | ------------------------------------- | ----------------------- |
+| id           | Int      | PK, AUTO_INC                          | Unique identifier       |
+| universityId | Int      | FK → universities.id, CASCADE DEL     | Reference to university |
+| directionId  | Int      | FK → study_directions.id, CASCADE DEL | Reference to direction  |
+| createdAt    | DateTime | DEFAULT now()                         | Link creation timestamp |
+| updatedAt    | DateTime | AUTO_UPDATE                           | Link update timestamp   |
 
 ### Unique Constraints
 
@@ -92,6 +92,7 @@ This document describes the data model for study directions. The tables already 
 ### Source Data
 
 Direction slugs are extracted from university JSON files:
+
 - **Location**: `app/assets/json/universities/*.json`
 - **Field**: `programs[].direction_slug` and/or `directions[]` array
 - **Format**: Kebab-case strings (e.g., "computer-engineering", "medicine")
@@ -140,6 +141,7 @@ interface DirectionSeedData {
 N/A - Study directions are relatively static master data. No complex state machine.
 
 Possible operations:
+
 - **Create**: Via seed or admin interface (future)
 - **Update**: Update translations
 - **Delete**: Orphaned directions (no universities reference them) can be cleaned up
@@ -152,6 +154,7 @@ Possible operations:
 ### Database-Level Constraints
 
 ✅ Enforced by Prisma schema:
+
 - Unique `[directionId, locale]`
 - Unique `[locale, slug]`
 - Foreign key cascades
@@ -160,6 +163,7 @@ Possible operations:
 ### Application-Level Validation
 
 Required in seed script:
+
 - All 4 locales must have translations
 - Slug format validation (lowercase, hyphens)
 - At least one direction must be seeded
@@ -177,6 +181,7 @@ Required in seed script:
 **To**: Database-driven via `study_directions` and `study_direction_translations` tables
 
 **Data Flow**:
+
 1. Old: TypeScript enum → runtime validation → hardcoded i18n JSON
 2. New: Database seed → Prisma query → dynamic i18n from DB
 

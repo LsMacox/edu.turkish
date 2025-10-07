@@ -98,6 +98,7 @@ npm run dev
 ```
 
 Visit:
+
 - http://localhost:3000/ru (home page)
 - http://localhost:3000/ru/universities (universities listing)
 - http://localhost:3000/ru/about (about page)

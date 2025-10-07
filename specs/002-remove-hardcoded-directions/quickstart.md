@@ -21,7 +21,8 @@ npx prisma studio
 # Navigate to study_directions table and note record count
 ```
 
-**Expected**: 
+**Expected**:
+
 - ✅ `directions.ts` exists with 60 direction slugs
 - ✅ 4 i18n direction JSON files exist
 - ⚠️ Database may have 0 or some study_directions records
@@ -39,6 +40,7 @@ npm run db:seed
 ```
 
 **Expected Output**:
+
 ```
 🌱 Starting database seeding...
 🧹 Clearing existing data...
@@ -53,12 +55,14 @@ npm run db:seed
 ```
 
 **Validation**:
+
 ```bash
 # Open Prisma Studio and verify
 npx prisma studio
 ```
 
 Check:
+
 - ✅ `study_directions` table has ~25 records (not 60)
 - ✅ `study_direction_translations` table has ~100 records (25 × 4)
 - ✅ Each direction has translations in all 4 locales (en, ru, kk, tr)
@@ -77,6 +81,7 @@ echo $?  # Should output: 0
 ```
 
 **Expected**:
+
 - ✅ No TypeScript compilation errors
 - ✅ Import completes successfully
 - ✅ University-direction links created in `university_pivot_study_directions`
@@ -97,6 +102,7 @@ rm i18n/locales/tr/directions.json
 ```
 
 **Validation**:
+
 ```bash
 # Verify files are gone
 ls app/types/directions.ts 2>&1  # Should error: No such file
@@ -116,6 +122,7 @@ npm run build
 ```
 
 **Expected**:
+
 - ✅ No compilation errors
 - ✅ No import errors for removed `DirectionSlug` type
 - ✅ Build succeeds
@@ -130,6 +137,7 @@ npm run dev
 ```
 
 **Manual Browser Test**:
+
 1. Navigate to `http://localhost:3000`
 2. Browse to universities page
 3. Verify direction filters work (if applicable)
@@ -137,6 +145,7 @@ npm run dev
 5. Verify multilingual switching works for direction names
 
 **Expected**:
+
 - ✅ App starts without errors
 - ✅ Direction data displays correctly
 - ✅ No console errors related to directions
@@ -155,6 +164,7 @@ npm run test tests/seed/study-directions.test.ts
 ```
 
 **Expected**:
+
 - ✅ All tests pass
 - ✅ Seed validation tests confirm data integrity
 - ✅ No regressions in existing tests
@@ -203,16 +213,16 @@ npm run dev
 
 ## Time Estimate
 
-| Step | Time | 
-|------|------|
-| 1. Pre-check | 2 min |
-| 2. Seed | 3 min |
-| 3. Import test | 2 min |
-| 4. Remove files | 1 min |
-| 5. TypeCheck | 2 min |
-| 6. Manual test | 3 min |
-| 7. Run tests | 2 min |
-| **Total** | **~15 min** |
+| Step            | Time        |
+| --------------- | ----------- |
+| 1. Pre-check    | 2 min       |
+| 2. Seed         | 3 min       |
+| 3. Import test  | 2 min       |
+| 4. Remove files | 1 min       |
+| 5. TypeCheck    | 2 min       |
+| 6. Manual test  | 3 min       |
+| 7. Run tests    | 2 min       |
+| **Total**       | **~15 min** |
 
 ---
 

@@ -13,7 +13,7 @@
       >
         <!-- Swipe indicator (mobile only) -->
         <div class="md:hidden flex justify-center pt-3 pb-2">
-          <div class="w-10 h-1 bg-gray-300 rounded-full"/>
+          <div class="w-10 h-1 bg-gray-300 rounded-full" />
         </div>
 
         <!-- Header -->
@@ -83,8 +83,6 @@
             />
           </div>
 
-          
-
           <div>
             <label class="block text-base md:text-sm font-medium text-gray-700 mb-2.5">{{
               $t('modal.additional_info')
@@ -142,7 +140,7 @@
             type="hidden"
             name="source"
             :value="referralCode || props.userPreferences?.source || 'website'"
-          >
+          />
 
           <button
             type="submit"
@@ -265,7 +263,6 @@ watch(
 const closeModal = () => {
   emit('close')
 }
-
 
 const submitForm = async () => {
   if (isSubmitting.value) return

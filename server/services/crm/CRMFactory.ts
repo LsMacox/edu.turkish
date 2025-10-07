@@ -5,7 +5,7 @@ import { getCRMConfig, validateCRMConfig } from '~~/server/utils/crm-config'
 
 /**
  * CRM Factory
- * 
+ *
  * Factory pattern for creating CRM provider instances.
  * Handles provider selection based on configuration.
  */

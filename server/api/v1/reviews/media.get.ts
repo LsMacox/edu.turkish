@@ -20,7 +20,7 @@ export default defineEventHandler(async (event: any) => {
       limit: parsePositiveInt(limit as string) ?? 12,
       mediaType: type as 'video' | 'image' | undefined,
       locale: lang as LocaleKey,
-    })  
+    })
 
     return {
       data: reviews,

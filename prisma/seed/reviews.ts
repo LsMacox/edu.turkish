@@ -179,7 +179,7 @@ export async function seedReviews(prisma: PrismaClient) {
   for (const review of reviews) {
     // Auto-detect mediaType based on media fields
     let mediaType: 'text' | 'video' | 'image' = review.mediaType || 'text'
-    
+
     // If has video, it's a video review
     if (review.videoUrl) {
       mediaType = 'video'

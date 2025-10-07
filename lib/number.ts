@@ -55,7 +55,7 @@ export function toPositiveInteger(value: unknown): number | undefined {
  * @param defaultValue The default value to return if conversion is not possible.
  * @returns A positive integer or the default value.
  */
-export function toPositiveIntegerWithDefault (value: unknown, defaultValue: number) {
+export function toPositiveIntegerWithDefault(value: unknown, defaultValue: number) {
   const candidate = Array.isArray(value) ? value[0] : value
   const parsed = parsePositiveInt(candidate)
   return parsed ?? defaultValue

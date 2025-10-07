@@ -1,11 +1,11 @@
-import type { Job } from 'bullmq';
+import type { Job } from 'bullmq'
 import { Queue } from 'bullmq'
 import type { CRMQueueJob, LeadData, ActivityData } from '~~/server/types/crm'
 import { getRedisClient } from '~~/server/utils/redis'
 
 /**
  * Redis Queue Service
- * 
+ *
  * Manages CRM operation queue with retry logic using BullMQ.
  */
 export class RedisQueue {
@@ -53,7 +53,7 @@ export class RedisQueue {
       },
       {
         jobId: `${operation}-${provider}-${Date.now()}-${Math.random().toString(36).substr(2, 9)}`,
-      }
+      },
     )
 
     return {
@@ -74,7 +74,7 @@ export class RedisQueue {
   async getJob(jobId: string): Promise<CRMQueueJob | null> {
     this.ensureConnection()
     const job = await this.queue!.getJob(jobId)
-    
+
     if (!job) {
       return null
     }
@@ -99,7 +99,7 @@ export class RedisQueue {
    */
   private async getJobStatus(job: Job): Promise<'pending' | 'processing' | 'completed' | 'failed'> {
     const state = await job.getState()
-    
+
     switch (state) {
       case 'waiting':
       case 'delayed':
@@ -130,7 +130,7 @@ export class RedisQueue {
   async getDeadLetterQueue(): Promise<CRMQueueJob[]> {
     this.ensureConnection()
     const failedJobs = await this.queue!.getFailed()
-    
+
     return Promise.all(
       failedJobs.map(async (job) => ({
         id: job.id!,
@@ -143,7 +143,7 @@ export class RedisQueue {
         lastAttemptAt: job.processedOn ? new Date(job.processedOn) : undefined,
         error: job.failedReason,
         status: 'failed' as const,
-      }))
+      })),
     )
   }
 

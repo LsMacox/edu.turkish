@@ -55,7 +55,14 @@ function loadTranslations(): Map<string, DirectionSeedData> {
   }
 
   for (const locale of LOCALES) {
-    const localeFile = path.join(process.cwd(), 'i18n', 'locales', locale, 'pages', 'universities.json')
+    const localeFile = path.join(
+      process.cwd(),
+      'i18n',
+      'locales',
+      locale,
+      'pages',
+      'universities.json',
+    )
     const hasFile = (() => {
       try {
         return readFileSync(localeFile, 'utf-8')
@@ -72,7 +79,8 @@ function loadTranslations(): Map<string, DirectionSeedData> {
       const slug = programKey
       if (!seedData.has(slug)) continue
 
-      const title = typeof (programValue as any)?.title === 'string' ? (programValue as any).title : slug
+      const title =
+        typeof (programValue as any)?.title === 'string' ? (programValue as any).title : slug
       seedData.get(slug)!.translations[locale] = title
     }
   }
