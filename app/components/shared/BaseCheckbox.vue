@@ -12,7 +12,7 @@
       ]"
       :disabled="disabled"
       @change="$emit('update:checked', ($event.target as HTMLInputElement).checked)"
-    />
+    >
     <span
       :class="[
         'ml-3 text-base md:text-sm font-medium',

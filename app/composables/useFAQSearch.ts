@@ -119,7 +119,7 @@ export const useFAQSearch = (options: SearchOptions = {}) => {
 
     searchHistory.value = history
 
-    if (process.client) {
+    if (import.meta.client) {
       try {
         localStorage.setItem('faq-search-history', JSON.stringify(history))
       } catch (e) {
@@ -130,7 +130,7 @@ export const useFAQSearch = (options: SearchOptions = {}) => {
 
   const clearSearchHistory = () => {
     searchHistory.value = []
-    if (process.client) {
+    if (import.meta.client) {
       try {
         localStorage.removeItem('faq-search-history')
       } catch (e) {
@@ -141,7 +141,7 @@ export const useFAQSearch = (options: SearchOptions = {}) => {
 
   // Load search history from localStorage on client side
   const loadSearchHistory = () => {
-    if (process.client) {
+    if (import.meta.client) {
       try {
         const saved = localStorage.getItem('faq-search-history')
         if (saved) {

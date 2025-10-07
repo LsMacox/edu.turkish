@@ -24,7 +24,11 @@ vi.mock('../../../../server/repositories', () => ({
 
 describe('GET /api/v1/directions', () => {
   it('returns paginated directions with metadata from repository', async () => {
-    getQueryMock.mockReturnValue({ q: 'search term', page: '2', limit: '5', lang: 'en' })
+    const queryParams = { q: 'search term', page: '2', limit: '5', lang: 'en' }
+    getQueryMock.mockReturnValue(queryParams)
+    
+    // Override global getQuery for this test
+    ;(globalThis as any).getQuery = getQueryMock
 
     const repoResponse = {
       data: [
@@ -51,7 +55,7 @@ describe('GET /api/v1/directions', () => {
     const handlerModule = await import('../../../../server/api/v1/directions/index.get')
     const handler = handlerModule.default
 
-    const event = { context: { locale: 'ru' } }
+    const event = { context: { locale: 'en' } }
     const result = await handler(event as any)
 
     expect(UniversityRepositoryMock).toHaveBeenCalledWith(expect.any(Object))

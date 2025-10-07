@@ -1,36 +1,16 @@
-import { describe, it, expect, beforeEach, afterEach, vi } from 'vitest'
+import { describe, it, expect, beforeEach, afterEach } from 'vitest'
 import { mount, flushPromises } from '@vue/test-utils'
-import { nextTick, ref } from 'vue'
-
-// @ts-ignore - Vue component type import in test
-import type PopularProgramsSectionType from '~/components/features/universities/sections/PopularProgramsSection.vue'
-
-const PopularProgramsSection = {} as typeof PopularProgramsSectionType
+import { nextTick } from 'vue'
+import { mockUseI18n, mockFetch } from '~~/tests/test-utils'
+import PopularProgramsSection from '~/components/features/universities/sections/PopularProgramsSection.vue'
 import enUniversities from '~~/i18n/locales/en/pages/universities.json'
 import ruUniversities from '~~/i18n/locales/ru/pages/universities.json'
-
-// @ts-ignore - Nuxt auto-imports
 
 type TestLocale = 'en' | 'ru'
 
 const messagesByLocale: Record<TestLocale, typeof enUniversities> = {
   en: enUniversities,
   ru: ruUniversities,
-}
-
-const resolveTranslation = (locale: TestLocale, key: string): string | undefined => {
-  const segments = key.split('.')
-  let current: unknown = messagesByLocale[locale] as Record<string, unknown>
-
-  for (const segment of segments) {
-    if (typeof current !== 'object' || current === null) {
-      return undefined
-    }
-
-    current = (current as Record<string, unknown>)[segment]
-  }
-
-  return typeof current === 'string' ? current : undefined
 }
 
 const createPriceText = (locale: TestLocale, value: number) => {
@@ -55,28 +35,6 @@ const createUniversitiesText = (locale: TestLocale, count: number) => {
   const template = dynamicMessages[pluralCategory] ?? dynamicMessages.other
 
   return template?.replace('{count}', String(count)) ?? ''
-}
-
-const createI18nMock = (initialLocale: TestLocale) => {
-  const locale = ref<TestLocale>(initialLocale)
-
-  const translate = (key: string, params: Record<string, unknown> = {}) => {
-    const message = resolveTranslation(locale.value, key)
-
-    if (typeof message !== 'string') {
-      return key
-    }
-
-    return message.replace(/\{(\w+)\}/g, (_, paramKey) => {
-      const value = params[paramKey]
-      return value !== undefined ? String(value) : ''
-    })
-  }
-
-  return {
-    locale,
-    t: translate,
-  }
 }
 
 describe('PopularProgramsSection', () => {
@@ -118,14 +76,15 @@ describe('PopularProgramsSection', () => {
 
   let originalUseI18n: any
   let originalFetch: any
-  let i18nMock: ReturnType<typeof createI18nMock>
-  let fetchMock: ReturnType<typeof vi.fn>
+  let i18nMock: ReturnType<typeof mockUseI18n>
+  let fetchMock: ReturnType<typeof mockFetch>
 
   beforeEach(() => {
-    i18nMock = createI18nMock('en')
     originalUseI18n = (globalThis as any).useI18n
     originalFetch = (globalThis as any).$fetch
-    fetchMock = vi.fn().mockResolvedValue(mockResponse)
+
+    i18nMock = mockUseI18n('en', enUniversities)
+    fetchMock = mockFetch({ '/api/v1/universities/popular-programs': mockResponse })
 
     ;(globalThis as any).useI18n = () => ({
       locale: i18nMock.locale,
@@ -138,7 +97,6 @@ describe('PopularProgramsSection', () => {
   afterEach(() => {
     ;(globalThis as any).useI18n = originalUseI18n
     ;(globalThis as any).$fetch = originalFetch
-    vi.clearAllMocks()
   })
 
   const mountComponent = () =>
@@ -146,6 +104,11 @@ describe('PopularProgramsSection', () => {
       global: {
         stubs: {
           Icon: true,
+          BaseSectionHeader: {
+            name: 'BaseSectionHeader',
+            template: '<div data-testid="section-header"><slot /></div>',
+            props: ['title', 'subtitle', 'align', 'marginBottom'],
+          },
         },
         config: {
           globalProperties: {
@@ -173,10 +136,33 @@ describe('PopularProgramsSection', () => {
     const wrapper = mountComponent()
     await flushPromises()
 
-    i18nMock.locale.value = 'ru'
-    await nextTick()
+    // Update the global i18n mock to return Russian translations
+    ;(globalThis as any).useI18n = () => ({
+      locale: { value: 'ru' },
+      t: (key: string, params?: Record<string, unknown>) => {
+        const messages = ruUniversities as any
+        const keys = key.split('.')
+        let value: any = messages
+        for (const k of keys) {
+          value = value?.[k]
+        }
+        
+        if (typeof value === 'string' && params) {
+          return Object.entries(params).reduce((str, [k, v]) => {
+            return str.replace(`{${k}}`, String(v))
+          }, value)
+        }
+        
+        return value || key
+      },
+    })
 
-    const firstProgramCard = wrapper.findAll('.grid > div').at(0)
+    // Force re-render by unmounting and remounting
+    wrapper.unmount()
+    const newWrapper = mountComponent()
+    await flushPromises()
+
+    const firstProgramCard = newWrapper.findAll('.grid > div').at(0)
     expect(firstProgramCard).toBeTruthy()
 
     const universitiesText = firstProgramCard!.find('.text-gray-500').text()

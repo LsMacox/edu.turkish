@@ -36,6 +36,20 @@ vi.mock('~/components/ui/display/BaseCard.vue', () => ({
   },
 }))
 
+// Mock Nuxt composables
+vi.stubGlobal('useI18n', () => ({
+  t: (key: string) => key,
+  locale: { value: 'ru' },
+}))
+
+vi.stubGlobal('useLocalePath', () => {
+  return (path: string) => `/ru${path}`
+})
+
+vi.stubGlobal('useApplicationModalStore', () => ({
+  openModal: vi.fn(),
+}))
+
 describe('UniversityCard', () => {
   const defaultProps = {
     title: 'Istanbul Technical University',
@@ -50,6 +64,12 @@ describe('UniversityCard', () => {
   it('renders all subcomponents correctly', () => {
     const wrapper = mount(UniversityCard, {
       props: defaultProps,
+      global: {
+        stubs: {
+          NuxtImg: true,
+          Icon: true,
+        },
+      },
     })
 
     expect(wrapper.find('[data-testid="card-header"]').exists()).toBe(true)
@@ -60,11 +80,23 @@ describe('UniversityCard', () => {
   it('displays university image when provided', () => {
     const wrapper = mount(UniversityCard, {
       props: defaultProps,
+      global: {
+        stubs: {
+          NuxtImg: true,
+          Icon: true,
+        },
+      },
     })
 
-    const img = wrapper.find('img')
-    expect(img.exists()).toBe(true)
-    expect(img.attributes('src')).toBe(defaultProps.image)
+    // Verify that NuxtImg is rendered when image is provided
+    const nuxtImg = wrapper.find('nuxtimg')
+    expect(nuxtImg.exists()).toBe(true)
+    expect(nuxtImg.attributes('src')).toBe(defaultProps.image)
+    expect(nuxtImg.attributes('alt')).toBe(`${defaultProps.title} campus`)
+    
+    // Verify that the fallback div (with Icon) is NOT rendered when image is provided
+    const fallbackDiv = wrapper.find('.bg-gray-200')
+    expect(fallbackDiv.exists()).toBe(false)
   })
 
   it('shows fallback icon when no image provided', () => {
@@ -72,6 +104,14 @@ describe('UniversityCard', () => {
       props: {
         ...defaultProps,
         image: undefined,
+      },
+      global: {
+        stubs: {
+          Icon: {
+            template: '<span data-testid="icon" />',
+            props: ['name', 'class'],
+          },
+        },
       },
     })
 
@@ -85,7 +125,7 @@ describe('UniversityCard', () => {
 
     // Verify the detailHref is passed to the actions component
     const actions = wrapper.findComponent({ name: 'UniversityCardActions' })
-    expect(actions.props('detailHref')).toBe('/university/istanbul-tech')
+    expect(actions.props('detailHref')).toBe('/ru/university/istanbul-tech')
   })
 
   it('generates fallback href when no slug provided', () => {
@@ -98,7 +138,7 @@ describe('UniversityCard', () => {
 
     // Verify the fallback detailHref is passed to the actions component
     const actions = wrapper.findComponent({ name: 'UniversityCardActions' })
-    expect(actions.props('detailHref')).toBe('/university/istanbul-technical-university')
+    expect(actions.props('detailHref')).toBe('/ru/university/istanbul-technical-university')
   })
 
   it('computes type label correctly', () => {

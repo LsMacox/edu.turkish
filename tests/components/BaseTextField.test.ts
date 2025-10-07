@@ -1,9 +1,6 @@
 import { describe, it, expect, vi } from 'vitest'
 import { mount } from '@vue/test-utils'
-// @ts-ignore - Vue component type import in test
-import type BaseTextField from '~/components/shared/BaseTextField.vue'
-
-// @ts-ignore - Nuxt auto-imports
+import BaseTextField from '~/components/shared/BaseTextField.vue'
 
 describe('BaseTextField', () => {
   const defaultProps = {
@@ -12,7 +9,7 @@ describe('BaseTextField', () => {
   }
 
   it('renders correctly with minimal props', () => {
-    const wrapper = mount({} as typeof BaseTextField, {
+    const wrapper = mount(BaseTextField, {
       props: defaultProps,
     })
 
@@ -21,7 +18,7 @@ describe('BaseTextField', () => {
   })
 
   it('displays label when provided', () => {
-    const wrapper = mount({} as typeof BaseTextField, {
+    const wrapper = mount(BaseTextField, {
       props: {
         ...defaultProps,
         label: 'Email Address',
@@ -34,7 +31,7 @@ describe('BaseTextField', () => {
   })
 
   it('shows required indicator when required', () => {
-    const wrapper = mount({} as typeof BaseTextField, {
+    const wrapper = mount(BaseTextField, {
       props: {
         ...defaultProps,
         label: 'Name',
@@ -49,7 +46,7 @@ describe('BaseTextField', () => {
 
   it('displays error message correctly', () => {
     const errorMessage = 'This field is required'
-    const wrapper = mount({} as typeof BaseTextField, {
+    const wrapper = mount(BaseTextField, {
       props: {
         ...defaultProps,
         error: errorMessage,
@@ -63,7 +60,7 @@ describe('BaseTextField', () => {
 
   it('displays helper text when provided', () => {
     const helperText = 'Enter your email address'
-    const wrapper = mount({} as typeof BaseTextField, {
+    const wrapper = mount(BaseTextField, {
       props: {
         ...defaultProps,
         helperText,
@@ -74,7 +71,7 @@ describe('BaseTextField', () => {
   })
 
   it('shows icon when provided', () => {
-    const wrapper = mount({} as typeof BaseTextField, {
+    const wrapper = mount(BaseTextField, {
       props: {
         ...defaultProps,
         icon: 'mdi:email',
@@ -85,7 +82,7 @@ describe('BaseTextField', () => {
   })
 
   it('shows clear button when clearable and has value', async () => {
-    const wrapper = mount({} as typeof BaseTextField, {
+    const wrapper = mount(BaseTextField, {
       props: {
         ...defaultProps,
         modelValue: 'some text',
@@ -99,7 +96,7 @@ describe('BaseTextField', () => {
 
   it('emits update:modelValue when input changes', async () => {
     const mockUpdate = vi.fn()
-    const wrapper = mount({} as typeof BaseTextField, {
+    const wrapper = mount(BaseTextField, {
       props: {
         ...defaultProps,
         'onUpdate:modelValue': mockUpdate,
@@ -113,7 +110,7 @@ describe('BaseTextField', () => {
   })
 
   it('emits clear event when clear button is clicked', async () => {
-    const wrapper = mount({} as typeof BaseTextField, {
+    const wrapper = mount(BaseTextField, {
       props: {
         ...defaultProps,
         modelValue: 'some text',
@@ -128,7 +125,7 @@ describe('BaseTextField', () => {
   })
 
   it('applies correct accessibility attributes', () => {
-    const wrapper = mount({} as typeof BaseTextField, {
+    const wrapper = mount(BaseTextField, {
       props: {
         ...defaultProps,
         label: 'Email',
@@ -144,7 +141,7 @@ describe('BaseTextField', () => {
   })
 
   it('handles different input types correctly', () => {
-    const wrapper = mount({} as typeof BaseTextField, {
+    const wrapper = mount(BaseTextField, {
       props: {
         ...defaultProps,
         type: 'email',
@@ -155,7 +152,7 @@ describe('BaseTextField', () => {
   })
 
   it('applies size classes correctly', () => {
-    const wrapper = mount({} as typeof BaseTextField, {
+    const wrapper = mount(BaseTextField, {
       props: {
         ...defaultProps,
         size: 'lg',
@@ -167,7 +164,7 @@ describe('BaseTextField', () => {
   })
 
   it('handles focus and blur events', async () => {
-    const wrapper = mount({} as typeof BaseTextField, {
+    const wrapper = mount(BaseTextField, {
       props: defaultProps,
     })
 
@@ -181,7 +178,7 @@ describe('BaseTextField', () => {
   })
 
   it('handles disabled state correctly', () => {
-    const wrapper = mount({} as typeof BaseTextField, {
+    const wrapper = mount(BaseTextField, {
       props: {
         ...defaultProps,
         disabled: true,
@@ -194,7 +191,7 @@ describe('BaseTextField', () => {
   })
 
   it('handles readonly state correctly', () => {
-    const wrapper = mount({} as typeof BaseTextField, {
+    const wrapper = mount(BaseTextField, {
       props: {
         ...defaultProps,
         readonly: true,

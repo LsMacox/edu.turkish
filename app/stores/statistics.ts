@@ -44,7 +44,7 @@ export const useStatisticsStore = defineStore('statistics', () => {
 
   // Actions
   const fetchStatistics = async () => {
-    if (process.client) {
+    if (import.meta.client) {
       /* debug removed */
     }
     loading.value = true
@@ -53,15 +53,15 @@ export const useStatisticsStore = defineStore('statistics', () => {
     try {
       const response = await $fetch<ReviewStatistics>('/api/v1/statistics')
       statistics.value = response
-      if (process.client) {
+      if (import.meta.client) {
         /* debug removed */
       }
     } catch (err: any) {
       error.value = err.message || 'Failed to fetch statistics'
-      if (process.client) console.error('[statistics] fetch error', err)
+      if (import.meta.client) console.error('[statistics] fetch error', err)
     } finally {
       loading.value = false
-      if (process.client) {
+      if (import.meta.client) {
         /* debug removed */
       }
     }

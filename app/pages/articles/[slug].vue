@@ -515,7 +515,7 @@ const articlePath = computed(() =>
 
 const articleUrl = computed(() => {
   const path = articlePath.value || '/'
-  if (process.client) {
+  if (import.meta.client) {
     return new URL(path, window.location.origin).toString()
   }
   return new URL(path, requestUrl.origin).toString()
@@ -541,7 +541,7 @@ const shareLinks = computed(() => {
 
 const copyShareLink = async () => {
   try {
-    if (process.client && navigator?.clipboard) {
+    if (import.meta.client && navigator?.clipboard) {
       await navigator.clipboard.writeText(articleUrl.value)
       showToast(t('article.share.copySuccess'), { type: 'success' })
     } else {
@@ -594,7 +594,7 @@ const loadRelatedArticles = async () => {
 
     relatedArticles.value = candidates
   } catch (err) {
-    if (process.client) {
+    if (import.meta.client) {
       console.error('[article] Failed to load related articles', err)
     }
     relatedArticles.value = []

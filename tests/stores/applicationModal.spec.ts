@@ -4,17 +4,18 @@ import { setActivePinia, createPinia } from 'pinia'
 import { useApplicationModalStore } from '~/stores/applicationModal'
 
 describe('useApplicationModalStore', () => {
-  let originalProcessClient: boolean | undefined
-
   beforeEach(() => {
     setActivePinia(createPinia())
-    originalProcessClient = (process as any).client
-    ;(process as any).client = true
+    // Ensure document.body exists and is clean
+    if (typeof document !== 'undefined') {
+      document.body.style.overflow = ''
+    }
   })
 
   afterEach(() => {
-    ;(process as any).client = originalProcessClient
-    document.body.style.removeProperty('overflow')
+    if (typeof document !== 'undefined') {
+      document.body.style.removeProperty('overflow')
+    }
   })
 
   it('restores previous body overflow on close', () => {

@@ -2,34 +2,29 @@ import { describe, it, expect, beforeEach, vi } from 'vitest'
 import { mount } from '@vue/test-utils'
 import { setActivePinia, createPinia } from 'pinia'
 import { nextTick } from 'vue'
-// @ts-ignore - Vue component type import in test
-import type FilterPanelType from '~/components/features/universities/discovery/FilterPanel.vue'
-// @ts-ignore - Vue component type import in test
-import type BaseRangeSliderType from '~/components/shared/BaseRangeSlider.vue'
+import { mockUseI18n } from '~~/tests/test-utils'
+import FilterPanel from '~/components/features/universities/discovery/FilterPanel.vue'
+import BaseRangeSlider from '~/components/shared/BaseRangeSlider.vue'
 import { useUniversitiesStore } from '~/stores/universities'
 
-const FilterPanel = {} as typeof FilterPanelType
-const BaseRangeSlider = {} as typeof BaseRangeSliderType
-
-// @ts-ignore - Nuxt auto-imports
-
-const routerReplaceMock = vi.fn(() => Promise.resolve())
-const routerPushMock = vi.fn(() => Promise.resolve())
+const routerReplaceMock = vi.fn().mockResolvedValue(undefined)
+const routerPushMock = vi.fn().mockResolvedValue(undefined)
 const routeMock = { query: {} as Record<string, unknown> }
 
-vi.stubGlobal('useRouter', () => ({
+const i18nMock = mockUseI18n('ru', {})
+
+// Override global mocks for this test file
+const routerMock = {
   replace: routerReplaceMock,
   push: routerPushMock,
-}))
+}
 
+vi.stubGlobal('useRouter', () => routerMock)
 vi.stubGlobal('useRoute', () => routeMock)
-vi.stubGlobal('useI18n', () => ({
-  t: (key: string) => key,
-  locale: { value: 'ru' },
-}))
-;(
-  globalThis as unknown as { requestAnimationFrame: (cb: (time: number) => void) => number }
-).requestAnimationFrame = (cb: (time: number) => void) => {
+vi.stubGlobal('useI18n', () => i18nMock)
+
+;(globalThis as unknown as { requestAnimationFrame: (cb: (time: number) => void) => number })
+  .requestAnimationFrame = (cb: (time: number) => void) => {
   cb(0)
   return 0
 }
@@ -67,7 +62,7 @@ const mountFilterPanel = () =>
       },
       config: {
         globalProperties: {
-          $t: (key: string) => key,
+          $t: i18nMock.t,
         } as any,
       },
       stubs: {
@@ -158,7 +153,10 @@ describe('FilterPanel', () => {
   })
 
   it('triggers a single route update when apply is clicked', async () => {
-    createStoreWithRange([500, 15000], ['bachelor'])
+    const store = createStoreWithRange([500, 15000], ['bachelor'])
+    
+    // Spy on the store's applyFilters method
+    const applyFiltersSpy = vi.spyOn(store, 'applyFilters')
 
     const wrapper = mountFilterPanel()
 
@@ -172,7 +170,15 @@ describe('FilterPanel', () => {
     await applyButton!.trigger('click')
     await nextTick()
 
-    expect(routerReplaceMock).toHaveBeenCalledTimes(1)
+    // The store's applyFilters should have been called
+    expect(applyFiltersSpy).toHaveBeenCalledWith(
+      expect.objectContaining({
+        q: '',
+        city: 'Все города',
+        type: 'Все',
+        level: 'all',
+      })
+    )
   })
   it('renders level options based on available filters', async () => {
     createStoreWithRange([500, 15000], ['bachelor', 'master', 'phd'])

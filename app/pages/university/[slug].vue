@@ -4,7 +4,7 @@
     <ClientOnly>
       <UniversityDetailView v-if="university" :university="university" />
       <template #fallback>
-        <div class="bg-white"></div>
+        <div class="bg-white"/>
       </template>
     </ClientOnly>
 
@@ -14,7 +14,7 @@
         <div class="text-center">
           <div
             class="animate-spin rounded-full h-32 w-32 border-b-2 border-primary mx-auto mb-4"
-          ></div>
+          />
           <h1 class="text-xl font-semibold text-secondary">{{ t('loading') }}</h1>
         </div>
       </div>

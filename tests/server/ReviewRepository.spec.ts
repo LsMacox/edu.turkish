@@ -1,6 +1,6 @@
 import { describe, expect, it, vi } from 'vitest'
-import type { PrismaClient, Prisma } from '@prisma/client'
-
+import type { Prisma } from '@prisma/client'
+import { createMockPrisma } from '~~/tests/test-utils'
 import { ReviewRepository } from '~~/server/repositories/ReviewRepository'
 
 type ReviewRecord = Prisma.UniversityReviewGetPayload<{
@@ -26,44 +26,42 @@ const createRepositoryWithMocks = () => {
   const programTranslationFindMany = vi.fn()
   const reviewTranslationFindMany = vi.fn()
   const faqTranslationFindMany = vi.fn()
-  const transaction = vi.fn(async (queries: Promise<unknown>[]) => Promise.all(queries))
 
-  const prisma = {
+  const prisma = createMockPrisma({
     universityReview: {
       findMany: reviewFindMany,
       count: reviewCount,
       aggregate: reviewAggregate,
       create: reviewCreate,
-    },
+    } as any,
     university: {
       count: universityCount,
       findMany: universityFindMany,
-    },
+    } as any,
     universityProgram: {
       count: academicProgramCount,
-    },
+    } as any,
     universityScholarship: {
       count: scholarshipCount,
-    },
+    } as any,
     application: {
       count: applicationCount,
-    },
+    } as any,
     universityTranslation: {
       findMany: universityTranslationFindMany,
-    },
+    } as any,
     universityProgramTranslation: {
       findMany: programTranslationFindMany,
-    },
+    } as any,
     universityReviewTranslation: {
       findMany: reviewTranslationFindMany,
-    },
+    } as any,
     faqTranslation: {
       findMany: faqTranslationFindMany,
-    },
-    $transaction: transaction,
-  } as unknown as PrismaClient
+    } as any,
+  })
 
-  const repository = new ReviewRepository(prisma)
+  const repository = new ReviewRepository(prisma as any)
 
   return {
     repository,
@@ -81,7 +79,7 @@ const createRepositoryWithMocks = () => {
       programTranslationFindMany,
       reviewTranslationFindMany,
       faqTranslationFindMany,
-      transaction,
+      transaction: prisma.$transaction,
     },
   }
 }

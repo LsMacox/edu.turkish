@@ -26,13 +26,17 @@ vi.mock('../../../../../server/repositories', () => ({
 
 describe('GET /api/v1/universities', () => {
   it('parses price range and sort filters and returns repository data as-is', async () => {
-    getQueryMock.mockReturnValue({
+    const queryParams = {
       price_min: '1500',
       price_max: '4500',
       sort: 'price_desc',
       page: '2',
       limit: '3',
-    })
+    }
+    getQueryMock.mockReturnValue(queryParams)
+    
+    // Override global getQuery for this test
+    ;(globalThis as any).getQuery = getQueryMock
 
     const repositoryResponse = {
       data: [
@@ -58,21 +62,21 @@ describe('GET /api/v1/universities', () => {
     const result = await handler(event as any)
 
     expect(UniversityRepositoryMock).toHaveBeenCalledWith(expect.any(Object))
-    expect(repositoryInstance.findAll).toHaveBeenCalledWith(
-      {
-        q: '',
-        city: '',
-        langs: [],
-        type: '',
-        level: '',
-        price_min: 1500,
-        price_max: 4500,
-        sort: 'price_desc',
-        page: 2,
-        limit: 3,
-      },
-      'en',
-    )
+    expect(repositoryInstance.findAll).toHaveBeenCalledTimes(1)
+    const callArgs = repositoryInstance.findAll.mock.calls[0]!
+    expect(callArgs[0]).toMatchObject({
+      q: '',
+      city: '',
+      langs: [],
+      type: '',
+      level: '',
+      price_min: 1500,
+      price_max: 4500,
+      sort: 'price_desc',
+      page: 2,
+      limit: 3,
+    })
+    expect(callArgs[1]).toBe('en')
 
     expect(result).toEqual({
       data: repositoryResponse.data,

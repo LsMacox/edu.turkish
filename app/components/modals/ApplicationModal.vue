@@ -13,7 +13,7 @@
       >
         <!-- Swipe indicator (mobile only) -->
         <div class="md:hidden flex justify-center pt-3 pb-2">
-          <div class="w-10 h-1 bg-gray-300 rounded-full"></div>
+          <div class="w-10 h-1 bg-gray-300 rounded-full"/>
         </div>
 
         <!-- Header -->
@@ -60,7 +60,7 @@
               class="w-full px-4 border border-gray-300 rounded-xl focus:ring-2 focus:ring-primary focus:border-transparent outline-none focus:outline-none transition-all py-4 md:py-3 text-base md:text-sm min-h-[52px] md:min-h-auto"
               @input="onPhoneInput"
               @keydown="onPhoneKeydown"
-            />
+            >
           </div>
 
           <div>
@@ -85,7 +85,7 @@
               :placeholder="$t('modal.message_placeholder')"
               rows="3"
               class="w-full px-4 border border-gray-300 rounded-xl focus:ring-2 focus:ring-primary focus:border-transparent focus:outline-none transition-all resize-none py-4 md:py-3 text-base md:text-sm min-h-[100px]"
-            ></textarea>
+            />
           </div>
 
           <!-- Preferences display - только для анкеты с главной страницы -->
@@ -125,7 +125,7 @@
             type="hidden"
             name="source"
             :value="referralCode || props.userPreferences?.source || 'website'"
-          />
+          >
 
           <button
             type="submit"
@@ -370,7 +370,7 @@ onMounted(() => {
 watch(
   () => props.isOpen,
   (isOpen) => {
-    if (process.client) {
+    if (import.meta.client) {
       if (isOpen) {
         document.body.style.overflow = 'hidden'
       } else {

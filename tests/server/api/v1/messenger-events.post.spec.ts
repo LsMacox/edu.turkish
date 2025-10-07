@@ -5,8 +5,9 @@ const logMessengerEventMock = vi.fn()
 const BitrixServiceMock = vi.fn(() => ({
   logMessengerEvent: logMessengerEventMock,
 }))
-const getBitrixConfigMock = vi.fn(() => ({ domain: 'example.com', accessToken: 'token', webhookUrl: 'https://example.bitrix24.com/rest/1/token' }))
+const getBitrixConfigMock = vi.fn(() => ({ domain: 'example.com', accessToken: 'token' }))
 const validateCrmConfigMock = vi.fn(() => ({ isValid: true, provider: 'bitrix', errors: [] as string[] }))
+const getCrmProviderMock = vi.fn(() => 'bitrix' as const)
 
 vi.mock('../../../../server/services/BitrixService', () => ({
   BitrixService: BitrixServiceMock,
@@ -15,6 +16,7 @@ vi.mock('../../../../server/services/BitrixService', () => ({
 vi.mock('../../../../server/utils/crm-config', () => ({
   getBitrixConfig: getBitrixConfigMock,
   validateCrmConfig: validateCrmConfigMock,
+  getCrmProvider: getCrmProviderMock,
 }))
 
 beforeEach(() => {
@@ -23,7 +25,9 @@ beforeEach(() => {
   BitrixServiceMock.mockClear()
   getBitrixConfigMock.mockClear()
   validateCrmConfigMock.mockClear()
+  getCrmProviderMock.mockClear()
   validateCrmConfigMock.mockReturnValue({ isValid: true, provider: 'bitrix', errors: [] as string[] })
+  getCrmProviderMock.mockReturnValue('bitrix')
 })
 
 vi.stubGlobal('defineEventHandler', (<T>(handler: T) => handler) as any)

@@ -12,8 +12,8 @@
           <!-- Close Button -->
           <button
             class="absolute top-4 right-4 text-white hover:text-gray-300 transition-colors"
-            @click="close"
             aria-label="Close"
+            @click="close"
           >
             <Icon name="mdi:close" class="text-3xl" />
           </button>
@@ -21,8 +21,8 @@
           <!-- Prev Button -->
           <button
             class="hidden md:flex absolute left-4 top-1/2 -translate-y-1/2 w-11 h-11 rounded-full bg-white/90 hover:bg-white text-secondary items-center justify-center shadow"
-            @click.stop="prev"
             aria-label="Previous"
+            @click.stop="prev"
           >
             <Icon name="mdi:chevron-left" />
           </button>
@@ -30,8 +30,8 @@
           <!-- Next Button -->
           <button
             class="hidden md:flex absolute right-4 top-1/2 -translate-y-1/2 w-11 h-11 rounded-full bg-white/90 hover:bg-white text-secondary items-center justify-center shadow"
-            @click.stop="next"
             aria-label="Next"
+            @click.stop="next"
           >
             <Icon name="mdi:chevron-right" />
           </button>
@@ -46,7 +46,7 @@
                 class="max-h-[80vh] w-auto h-auto object-contain"
                 loading="eager"
                 decoding="async"
-              />
+              >
 
               <!-- Video -->
               <video

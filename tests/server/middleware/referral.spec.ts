@@ -1,4 +1,5 @@
 import { afterAll, beforeEach, describe, expect, it, vi } from 'vitest'
+import type { H3Event } from 'h3'
 
 const getQueryMock = vi.fn()
 const setCookieMock = vi.fn()
@@ -17,18 +18,18 @@ vi.mock('h3', async () => {
 const originalNodeEnv = process.env.NODE_ENV
 
 beforeEach(() => {
-  vi.resetModules()
-
   getQueryMock.mockReset()
   setCookieMock.mockReset()
   sendRedirectMock.mockReset()
   getCookieMock.mockReset()
   getCookieMock.mockReturnValue(undefined)
+  
+  // Override global mocks for this test
+  ;(globalThis as any).getQuery = getQueryMock
+  ;(globalThis as any).setCookie = setCookieMock
+  ;(globalThis as any).getCookie = getCookieMock
+  ;(globalThis as any).sendRedirect = sendRedirectMock
 })
-
-vi.stubGlobal('defineEventHandler', (<T>(handler: T) => handler) as any)
-vi.stubGlobal('getQuery', getQueryMock)
-vi.stubGlobal('setCookie', setCookieMock)
 
 afterAll(() => {
   process.env.NODE_ENV = originalNodeEnv

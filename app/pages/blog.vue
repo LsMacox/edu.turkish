@@ -1,6 +1,6 @@
 <template>
   <div class="bg-white">
-    <BlogHeroSection :hero="hero" :hero-image="heroImage" v-model="searchInput" />
+    <BlogHeroSection v-model="searchInput" :hero="hero" :hero-image="heroImage" />
 
     <section class="section-py-sm bg-white border-b border-gray-100">
       <div class="container mx-auto container-padding-narrow">

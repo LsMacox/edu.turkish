@@ -29,6 +29,7 @@ function getLocaleFiles(localeCode: string): string[] {
   return files
 }
 
+
 export default defineNuxtConfig({
   ssr: true,
   compatibilityDate: '2025-07-15',
@@ -46,9 +47,7 @@ export default defineNuxtConfig({
     [
       '@nuxtjs/i18n',
       {
-        // Used for generating absolute alternate/canonical links
         baseUrl: siteUrl,
-        // Don't change this path, it is correct
         langDir: 'locales',
         locales: SUPPORTED_LOCALES.map(code => ({
           code,
@@ -57,8 +56,6 @@ export default defineNuxtConfig({
         })),
         defaultLocale: DEFAULT_LOCALE,
         detectBrowserLanguage: { useCookie: true, cookieKey: 'i18n_locale', redirectOn: 'root' },
-        // Missing-key config removed for compatibility
-        // Always prefix routes with locale (including default) for consistent SEO-friendly URLs
         strategy: 'prefix',
       },
     ],
@@ -104,7 +101,6 @@ export default defineNuxtConfig({
     [
       '@nuxtjs/sitemap',
       {
-        // Uses runtimeConfig.public.siteUrl implicitly
         autoLastmod: true,
       },
     ],

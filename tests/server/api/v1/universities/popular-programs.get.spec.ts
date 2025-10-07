@@ -170,7 +170,7 @@ describe('popular programs handler', () => {
       },
     })
 
-    getQueryMock.mockReturnValue({ lang: 'kk' })
+    getQueryMock.mockReturnValue({ lang: 'ru' })
 
     const result = await popularProgramsHandler({} as never)
 
@@ -179,7 +179,7 @@ describe('popular programs handler', () => {
       where: {
         translations: {
           some: {
-            locale: 'kk',
+            locale: 'ru',
           },
         },
       },

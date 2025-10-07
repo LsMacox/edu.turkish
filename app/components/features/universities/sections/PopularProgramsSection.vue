@@ -11,7 +11,7 @@
       <div v-if="loading" class="text-center py-8">
         <div
           class="inline-block w-8 h-8 border-4 border-primary border-t-transparent rounded-full animate-spin"
-        ></div>
+        />
         <p class="mt-2 text-gray-600">{{ t('universities_page.popular_programs.loading') }}</p>
       </div>
 

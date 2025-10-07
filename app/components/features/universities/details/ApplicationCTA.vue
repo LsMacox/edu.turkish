@@ -40,7 +40,7 @@
                     class="w-full px-4 py-3 bg-white border border-gray-300 rounded-xl focus:ring-2 focus:ring-primary focus:border-transparent focus:outline-none font-medium text-secondary placeholder-gray-400 transition-all duration-200"
                     @input="onPhoneInput"
                     @keydown="onPhoneKeydown"
-                  />
+                  >
                 </div>
               </div>
             </div>
@@ -89,7 +89,7 @@
                 rows="4"
                 class="w-full px-4 py-3 bg-white border border-gray-300 rounded-xl focus:ring-2 focus:ring-primary focus:border-transparent focus:outline-none font-medium text-secondary placeholder-gray-400 transition-all duration-200 resize-none"
                 :placeholder="$t('applicationCTA.form.comment_placeholder')"
-              ></textarea>
+              />
             </div>
 
             <BaseCheckbox

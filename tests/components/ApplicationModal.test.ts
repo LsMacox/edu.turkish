@@ -1,12 +1,5 @@
 import { describe, expect, it } from 'vitest'
 
-/**
- * Component tests for ApplicationModal
- * 
- * Tests error message extraction and display logic.
- * These tests will fail until ApplicationModal error handling is fixed.
- */
-
 describe('ApplicationModal', () => {
   describe('Error Message Extraction', () => {
     it('should extract validation errors from array', () => {

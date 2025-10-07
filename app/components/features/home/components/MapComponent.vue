@@ -14,29 +14,29 @@
             class="w-full h-96 object-cover rounded-xl"
             src="https://storage.googleapis.com/uxpilot-auth.appspot.com/755a3d52cf-d33b22696c4656d49cbc.png"
             alt="Interactive map of Turkey with university locations marked, educational infographic style"
-          />
+          >
 
           <!-- Map Markers -->
           <div
             class="absolute top-1/4 left-1/3 w-4 h-4 bg-primary rounded-full animate-pulse cursor-pointer"
             title="Istanbul Universities"
             @click="selectCity('istanbul')"
-          ></div>
+          />
           <div
             class="absolute top-1/3 left-1/2 w-4 h-4 bg-primary rounded-full animate-pulse cursor-pointer"
             title="Ankara Universities"
             @click="selectCity('ankara')"
-          ></div>
+          />
           <div
             class="absolute top-1/2 left-1/4 w-4 h-4 bg-primary rounded-full animate-pulse cursor-pointer"
             title="Izmir Universities"
             @click="selectCity('izmir')"
-          ></div>
+          />
           <div
             class="absolute bottom-1/3 right-1/3 w-4 h-4 bg-primary rounded-full animate-pulse cursor-pointer"
             title="Antalya Universities"
             @click="selectCity('antalya')"
-          ></div>
+          />
 
           <!-- Info Card -->
           <div class="absolute top-4 right-4 bg-white rounded-xl shadow-lg p-4 max-w-xs">
