@@ -1,3 +1,4 @@
+import { sanitizePhone } from '../useInternationalPhone'
 import { useFormValidation } from '../useFormValidation'
 
 export interface ApplicationModalFormData {
@@ -31,9 +32,11 @@ export const useApplicationModalValidation = () => {
   const validateApplicationModal = async (form: ApplicationModalFormData) => {
     Object.keys(applicationModalRules).forEach((field) => validation.touchField(field))
 
+    const sanitizedPhone = sanitizePhone(form.phone)
+
     return validation.validateFields({
       name: { value: form.name, rules: applicationModalRules.name },
-      phone: { value: form.phone, rules: applicationModalRules.phone },
+      phone: { value: sanitizedPhone, rules: applicationModalRules.phone },
       email: { value: form.email, rules: applicationModalRules.email },
       message: { value: form.message ?? '', rules: applicationModalRules.message },
       agreement: { value: form.agreement, rules: applicationModalRules.agreement },

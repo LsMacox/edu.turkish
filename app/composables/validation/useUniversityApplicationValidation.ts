@@ -1,3 +1,4 @@
+import { sanitizePhone } from '../useInternationalPhone'
 import { useFormValidation } from '../useFormValidation'
 
 export interface UniversityApplicationFormData {
@@ -37,9 +38,11 @@ export const useUniversityApplicationValidation = () => {
   const validateUniversityApplication = async (form: UniversityApplicationFormData) => {
     Object.keys(universityApplicationRules).forEach((field) => validation.touchField(field))
 
+    const sanitizedPhone = sanitizePhone(form.phone)
+
     return validation.validateFields({
       name: { value: form.name, rules: universityApplicationRules.name },
-      phone: { value: form.phone, rules: universityApplicationRules.phone },
+      phone: { value: sanitizedPhone, rules: universityApplicationRules.phone },
       email: { value: form.email, rules: universityApplicationRules.email },
       program: { value: form.program, rules: universityApplicationRules.program },
       level: { value: form.level, rules: universityApplicationRules.level },
