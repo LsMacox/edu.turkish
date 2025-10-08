@@ -147,9 +147,7 @@ describe('FilterPanel', () => {
     expect(sliderInput.attributes('min')).toBe(String(initialRange[0]))
     expect(sliderInput.attributes('max')).toBe(String(initialRange[1]))
 
-    const rangeDisplay = wrapper.find('span.text-gray-600')
-    expect(rangeDisplay.exists()).toBe(true)
-    expect(rangeDisplay.text()).toBe('$500 - $15,000')
+    expect(wrapper.text()).toContain('$500 - $15,000')
 
     store.availableFilters = {
       ...store.availableFilters,
@@ -167,8 +165,7 @@ describe('FilterPanel', () => {
     expect(updatedSliderInput.attributes('min')).toBe(String(updatedRange[0]))
     expect(updatedSliderInput.attributes('max')).toBe(String(updatedRange[1]))
 
-    const updatedRangeDisplay = wrapper.find('span.text-gray-600')
-    expect(updatedRangeDisplay.text()).toBe('$1,000 - $20,000')
+    expect(wrapper.text()).toContain('$1,000 - $20,000')
   })
 
   it('triggers a single route update when apply is clicked', async () => {

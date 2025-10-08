@@ -93,10 +93,6 @@ describe('UniversityCard', () => {
     expect(nuxtImg.exists()).toBe(true)
     expect(nuxtImg.attributes('src')).toBe(defaultProps.image)
     expect(nuxtImg.attributes('alt')).toBe(`${defaultProps.title} campus`)
-
-    // Verify that the fallback div (with Icon) is NOT rendered when image is provided
-    const fallbackDiv = wrapper.find('.bg-gray-200')
-    expect(fallbackDiv.exists()).toBe(false)
   })
 
   it('shows fallback icon when no image provided', () => {

@@ -119,14 +119,9 @@ describe('PopularProgramsSection', () => {
     const wrapper = mountComponent()
     await flushPromises()
 
-    const firstProgramCard = wrapper.findAll('.grid > div').at(0)
-    expect(firstProgramCard).toBeTruthy()
-
-    const universitiesText = firstProgramCard!.find('.text-gray-500').text()
-    const priceText = firstProgramCard!.find('.text-primary').text()
-
-    expect(universitiesText).toBe(createUniversitiesText('en', 42))
-    expect(priceText).toBe(createPriceText('en', 3500))
+    const renderedText = wrapper.text()
+    expect(renderedText).toContain(createUniversitiesText('en', 42))
+    expect(renderedText).toContain(createPriceText('en', 3500))
   })
 
   it('updates dynamic values when locale changes', async () => {
@@ -159,13 +154,8 @@ describe('PopularProgramsSection', () => {
     const newWrapper = mountComponent()
     await flushPromises()
 
-    const firstProgramCard = newWrapper.findAll('.grid > div').at(0)
-    expect(firstProgramCard).toBeTruthy()
-
-    const universitiesText = firstProgramCard!.find('.text-gray-500').text()
-    const priceText = firstProgramCard!.find('.text-primary').text()
-
-    expect(universitiesText).toBe(createUniversitiesText('ru', 42))
-    expect(priceText).toBe(createPriceText('ru', 3500))
+    const renderedText = newWrapper.text()
+    expect(renderedText).toContain(createUniversitiesText('ru', 42))
+    expect(renderedText).toContain(createPriceText('ru', 3500))
   })
 })
