@@ -104,6 +104,35 @@ export class EspoCRMProvider implements ICRMProvider {
       })
 
       if (!response.ok) {
+        // Handle duplicate (409): update existing lead with new fields and return as duplicate
+        if (response.status === 409) {
+          try {
+            const existing = await response.json()
+            const id = Array.isArray(existing) && existing.length > 0 ? existing[0]?.id : undefined
+            if (id) {
+              // Best-effort update to propagate latest questionnaire fields
+              try {
+                const updateResult = await this.updateLead(id, sanitizedData)
+                if (!updateResult.success) {
+                  console.warn('EspoCRM duplicate lead update failed:', updateResult.error)
+                }
+              } catch (e: any) {
+                console.warn('EspoCRM duplicate lead update threw:', e?.message || e)
+              }
+
+              return {
+                success: true,
+                id,
+                provider: 'espocrm',
+                operation: 'createLead',
+                timestamp: new Date(),
+                duplicate: true,
+              }
+            }
+          } catch {
+            // fall through to generic error handling
+          }
+        }
         const errorText = await response.text().catch(() => '')
         try {
           const parsed = JSON.parse(errorText)
@@ -337,7 +366,8 @@ export class EspoCRMProvider implements ICRMProvider {
   }
 
   private transformLeadData(data: Partial<LeadData>, isUpdate = false): Partial<EspoCRMLead> {
-    const lead: Partial<EspoCRMLead> = {}
+    // Use a flexible object to support dynamic custom field keys via config.fieldMappings
+    const lead: Partial<EspoCRMLead> & Record<string, any> = {}
 
     if (data.firstName) {
       lead.firstName = data.firstName
@@ -356,7 +386,7 @@ export class EspoCRMProvider implements ICRMProvider {
     }
 
     if (data.referralCode) {
-      lead.referralCodeC = data.referralCode
+      lead[this.config.fieldMappings.referralCode] = data.referralCode
     }
 
     if (data.source) {
@@ -367,15 +397,15 @@ export class EspoCRMProvider implements ICRMProvider {
     }
 
     if (data.userType) {
-      lead.userTypeC = data.userType
+      lead[this.config.fieldMappings.userType] = data.userType
     }
 
     if (data.language) {
-      lead.languageC = data.language
+      lead[this.config.fieldMappings.language] = data.language
     }
 
     if (data.universities && data.universities.length > 0) {
-      lead.universityC = data.universities[0]
+      lead[this.config.fieldMappings.university] = data.universities[0]
     }
 
     // Build description
@@ -387,6 +417,18 @@ export class EspoCRMProvider implements ICRMProvider {
 
     if (data.additionalInfo) {
       descriptionParts.push(data.additionalInfo)
+    }
+
+    if (data.userType) {
+      descriptionParts.push(`UserType: ${data.userType}`)
+    }
+
+    if (data.language) {
+      descriptionParts.push(`Language: ${data.language}`)
+    }
+
+    if (data.universityChosen) {
+      descriptionParts.push(`UniversityChosen: ${data.universityChosen}`)
     }
 
     if (data.utm) {

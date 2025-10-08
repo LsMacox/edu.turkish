@@ -47,7 +47,9 @@ export default defineEventHandler(async (event): Promise<ApplicationResponse> =>
           ? body.personal_info.last_name.trim()
           : undefined,
         phone: body.personal_info.phone,
-        email: body.personal_info.email,
+        email: body.personal_info.email?.trim()
+          ? body.personal_info.email.trim()
+          : undefined,
         referralCode: body.referral_code || 'DIRECT',
         source: body.source || 'website',
         sourceDescription: body.source,
@@ -56,6 +58,7 @@ export default defineEventHandler(async (event): Promise<ApplicationResponse> =>
         universities: body.preferences?.universities,
         programs: body.preferences?.programs,
         scholarship: body.user_preferences?.scholarship,
+        universityChosen: body.user_preferences?.universityChosen,
         additionalInfo: body.additional_info,
       }
 
@@ -67,7 +70,11 @@ export default defineEventHandler(async (event): Promise<ApplicationResponse> =>
 
       if (crmResult.success) {
         crmLeadId = crmResult.id || null
-        console.log(`✓ CRM lead created: ${crmLeadId} (${crmProvider})`)
+        if (crmResult.duplicate) {
+          console.log(`✓ CRM lead exists (duplicate): ${crmLeadId} (${crmProvider})`)
+        } else {
+          console.log(`✓ CRM lead created: ${crmLeadId} (${crmProvider})`)
+        }
       } else if (crmResult.validationErrors && crmResult.validationErrors.length) {
         // Validation failure from CRM input schema — return 400 to frontend
         throw createError({
@@ -80,9 +87,13 @@ export default defineEventHandler(async (event): Promise<ApplicationResponse> =>
         crmError = crmResult.error || 'Unknown CRM error'
         console.error(`✗ CRM lead creation failed (${crmProvider}):`, crmError)
 
-        const queue = new RedisQueue()
-        await queue.addJob('createLead', crmProvider as 'bitrix' | 'espocrm', leadData)
-        console.log('→ CRM operation queued for retry')
+        try {
+          const queue = new RedisQueue()
+          await queue.addJob('createLead', crmProvider as 'bitrix' | 'espocrm', leadData)
+          console.log('→ CRM operation queued for retry')
+        } catch (queueErr: any) {
+          console.error('Failed to enqueue CRM retry job:', queueErr?.message || queueErr)
+        }
       }
     } catch (error: any) {
       crmError = error.message
@@ -106,7 +117,9 @@ export default defineEventHandler(async (event): Promise<ApplicationResponse> =>
             ? body.personal_info.last_name.trim()
             : undefined,
           phone: body.personal_info.phone,
-          email: body.personal_info.email,
+          email: body.personal_info.email?.trim()
+            ? body.personal_info.email.trim()
+            : undefined,
           referralCode: body.referral_code || 'DIRECT',
           source: body.source || 'website',
         }

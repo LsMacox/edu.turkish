@@ -22,7 +22,7 @@ export function getCRMConfig(): CRMProviderConfig {
     provider,
     timeout,
     retries,
-    fieldMappings: getDefaultFieldMappings(),
+    fieldMappings: provider === 'espocrm' ? getEspoFieldMappings() : getBitrixFieldMappings(),
   }
 
   if (provider === 'espocrm') {
@@ -63,13 +63,25 @@ export function getCRMConfig(): CRMProviderConfig {
   }
 }
 
-function getDefaultFieldMappings(): FieldMappingConfig {
+function getBitrixFieldMappings(): FieldMappingConfig {
+  // Defaults tailored for Bitrix, overridable via CRM_MAP_* env vars
   return {
     referralCode: process.env.CRM_MAP_REFERRAL_CODE || 'UF_CRM_REFERRAL_CODE',
     userType: process.env.CRM_MAP_USER_TYPE || 'UF_CRM_1234567893',
     language: process.env.CRM_MAP_LANGUAGE || 'UF_CRM_1234567894',
     university: process.env.CRM_MAP_UNIVERSITY || 'UF_CRM_1234567897',
     source: process.env.CRM_MAP_SOURCE || 'SOURCE_ID',
+  }
+}
+
+function getEspoFieldMappings(): FieldMappingConfig {
+  // Defaults tailored for EspoCRM custom field names, overridable via ESPOCRM_MAP_* env vars
+  return {
+    referralCode: process.env.ESPOCRM_MAP_REFERRAL_CODE || 'referralCodeC',
+    userType: process.env.ESPOCRM_MAP_USER_TYPE || 'userTypeC',
+    language: process.env.ESPOCRM_MAP_LANGUAGE || 'languageC',
+    university: process.env.ESPOCRM_MAP_UNIVERSITY || 'universityC',
+    source: 'source', // built-in Espo field; do not remap
   }
 }
 
