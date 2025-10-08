@@ -46,7 +46,7 @@ RUN pnpm exec prisma generate
 RUN pnpm run build
 
 # Prune dev dependencies to prepare production node_modules
-RUN pnpm install --prod --frozen-lockfile --offline
+RUN pnpm install --prod --frozen-lockfile --offline --ignore-scripts
 
 
 # =========================
