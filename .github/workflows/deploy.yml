@@ -36,9 +36,23 @@ jobs:
           ssh -o StrictHostKeyChecking=no -p "${SSH_PORT:-22}" "${SSH_USER}@${SSH_HOST}" 'bash -s' << 'EOF'
           set -euo pipefail
 
-          APP_DIR="/app/edu.turkish"
-          if [ ! -d "$APP_DIR" ]; then
-            APP_DIR="/app/edu-turkish"
+          # Определяем директорию с приложением
+          for candidate in \
+            "/app/edu.turkish" \
+            "/app/edu-turkish"; do
+            if [ -d "$candidate" ]; then
+              APP_DIR="$candidate"
+              break
+            fi
+          done
+
+          if [ -z "${APP_DIR:-}" ]; then
+            APP_DIR="$(find /app -maxdepth 2 -type d \( -name 'edu.turkish' -o -name 'edu-turkish' \) | head -n 1 || true)"
+          fi
+
+          if [ -z "$APP_DIR" ]; then
+            echo "Не удалось найти директорию приложения (ищем edu.turkish или edu-turkish в /app)." >&2
+            exit 1
           fi
 
           cd "$APP_DIR"
