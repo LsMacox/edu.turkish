@@ -36,10 +36,15 @@ jobs:
           ssh -o StrictHostKeyChecking=no -p "${SSH_PORT:-22}" "${SSH_USER}@${SSH_HOST}" 'bash -s' << 'EOF'
           set -euo pipefail
 
-          cd /app/edu-turkish
+          APP_DIR="/app/edu.turkish"
+          if [ ! -d "$APP_DIR" ]; then
+            APP_DIR="/app/edu-turkish"
+          fi
+
+          cd "$APP_DIR"
 
           # На случай безопасности Git в новых версиях
-          git config --global --add safe.directory /app/edu-turkish || true
+          git config --global --add safe.directory "$APP_DIR" || true
 
           # Обновляем код до состояния origin/main
           git fetch --all --prune
