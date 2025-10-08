@@ -2,12 +2,14 @@
   <section class="section-py-lg bg-background">
     <div class="container mx-auto container-padding-narrow">
       <div class="max-w-6xl mx-auto">
-        <BaseSectionHeader
-          :title="$t('about.values.title')"
-          :subtitle="$t('about.values.subtitle')"
-          align="center"
-          margin-bottom="lg"
-        />
+        <div class="text-center mb-16">
+          <h2 class="text-section-title mb-6">
+            {{ $t('about.values.title') }}
+          </h2>
+          <p class="text-section-subtitle max-w-3xl mx-auto">
+            {{ $t('about.values.subtitle') }}
+          </p>
+        </div>
 
         <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
           <BaseFeatureCard

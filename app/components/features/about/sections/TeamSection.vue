@@ -2,12 +2,14 @@
   <section id="team" class="section-py-lg">
     <div class="container mx-auto container-padding-narrow">
       <div class="max-w-6xl mx-auto">
-        <BaseSectionHeader
-          :title="t('about.team.title')"
-          :subtitle="t('about.team.subtitle')"
-          align="center"
-          margin-bottom="lg"
-        />
+        <div class="text-center mb-16">
+          <h2 class="text-section-title mb-6">
+            {{ t('about.team.title') }}
+          </h2>
+          <p class="text-section-subtitle max-w-3xl mx-auto">
+            {{ t('about.team.subtitle') }}
+          </p>
+        </div>
 
         <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
           <div

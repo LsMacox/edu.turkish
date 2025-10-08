@@ -2,12 +2,14 @@
   <section class="section-py-lg bg-background">
     <div class="container mx-auto container-padding-narrow">
       <div class="max-w-6xl mx-auto">
-        <BaseSectionHeader
-          :title="t('about.mission.title')"
-          :subtitle="t('about.mission.subtitle')"
-          align="center"
-          margin-bottom="lg"
-        />
+        <div class="text-center mb-16">
+          <h2 class="text-section-title mb-6">
+            {{ t('about.mission.title') }}
+          </h2>
+          <p class="text-section-subtitle max-w-3xl mx-auto">
+            {{ t('about.mission.subtitle') }}
+          </p>
+        </div>
 
         <div class="grid lg:grid-cols-3 gap-8 mb-16">
           <BaseFeatureCard
@@ -44,7 +46,7 @@
         <div
           class="bg-gradient-to-r from-primary to-red-600 rounded-2xl card-padding-lg lg:p-12 text-white text-center"
         >
-          <h3 class="text-2xl lg:text-3xl font-bold mb-4">
+          <h3 class="text-section-title mb-4 text-white">
             {{ t('about.mission.philosophy_title') }}
           </h3>
           <p class="text-lg lg:text-xl leading-relaxed max-w-4xl mx-auto">

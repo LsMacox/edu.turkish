@@ -2,12 +2,14 @@
   <section class="section-py-lg bg-background">
     <div class="container mx-auto container-padding-narrow">
       <div class="max-w-6xl mx-auto">
-        <BaseSectionHeader
-          :title="$t('about.story.title')"
-          :subtitle="$t('about.story.subtitle')"
-          align="center"
-          margin-bottom="lg"
-        />
+        <div class="text-center mb-16">
+          <h2 class="text-section-title mb-6">
+            {{ $t('about.story.title') }}
+          </h2>
+          <p class="text-section-subtitle max-w-3xl mx-auto">
+            {{ $t('about.story.subtitle') }}
+          </p>
+        </div>
 
         <div class="grid lg:grid-cols-2 gap-16 items-center">
           <div>

@@ -2,12 +2,14 @@
   <section class="section-py-lg bg-background">
     <div class="container mx-auto container-padding-narrow">
       <div class="max-w-6xl mx-auto">
-        <BaseSectionHeader
-          :title="t('about.guarantees.title')"
-          :subtitle="t('about.guarantees.subtitle')"
-          align="center"
-          margin-bottom="lg"
-        />
+        <div class="text-center mb-16">
+          <h2 class="text-section-title mb-6">
+            {{ t('about.guarantees.title') }}
+          </h2>
+          <p class="text-section-subtitle max-w-3xl mx-auto">
+            {{ t('about.guarantees.subtitle') }}
+          </p>
+        </div>
 
         <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-8 mb-16">
           <BaseFeatureCard
@@ -60,7 +62,7 @@
             >
               <Icon name="mdi:shield-check" class="text-green-600 text-3xl" />
             </div>
-            <h3 class="text-2xl lg:text-3xl font-bold mb-4">
+            <h3 class="text-section-title mb-4 text-white">
               {{ t('about.guarantees.admission_guarantee') }}
             </h3>
             <p class="text-lg leading-relaxed max-w-3xl mx-auto mb-6">

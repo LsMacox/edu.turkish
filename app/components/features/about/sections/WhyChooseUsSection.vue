@@ -2,12 +2,14 @@
   <section class="section-py-lg">
     <div class="container mx-auto container-padding-narrow">
       <div class="max-w-6xl mx-auto">
-        <BaseSectionHeader
-          :title="$t('about.whyChooseUs.title')"
-          :subtitle="$t('about.whyChooseUs.subtitle')"
-          align="center"
-          margin-bottom="lg"
-        />
+        <div class="text-center mb-16">
+          <h2 class="text-section-title mb-6">
+            {{ $t('about.whyChooseUs.title') }}
+          </h2>
+          <p class="text-section-subtitle max-w-3xl mx-auto">
+            {{ $t('about.whyChooseUs.subtitle') }}
+          </p>
+        </div>
 
         <div class="grid lg:grid-cols-2 gap-16 items-center mb-16">
           <div class="space-y-8">
@@ -97,7 +99,7 @@
         >
           <div class="grid lg:grid-cols-2 gap-8 items-center">
             <div>
-              <h3 class="text-2xl lg:text-3xl font-bold mb-4">
+              <h3 class="text-section-title mb-4 text-white">
                 {{ $t('about.whyChooseUs.database.title') }}
               </h3>
               <p class="text-lg leading-relaxed mb-6">

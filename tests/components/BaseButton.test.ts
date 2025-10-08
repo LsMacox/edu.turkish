@@ -58,7 +58,8 @@ describe('BaseButton', () => {
     })
 
     expect(wrapper.classes()).toContain('btn-padding-lg')
-    expect(wrapper.classes()).toContain('text-lg')
+    expect(wrapper.classes()).toContain('text-base')
+    expect(wrapper.classes()).toContain('md:text-lg')
     expect(wrapper.classes()).toContain('rounded-xl')
   })
 
