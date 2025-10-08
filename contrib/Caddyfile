@@ -1,14 +1,14 @@
 # Global options
 {
-    auto_https disable_redirects  # Разрешаем HTTPS для сайтов с tls, но без авто-редиректов
-    email {$CADDY_ACME_EMAIL}     # Email для Let's Encrypt
+    auto_https off              # критично: Caddy не лезет в ACME/HTTPS
+    # email {$CADDY_ACME_EMAIL} # больше не нужен, но можно оставить — безвредно
 }
 
 # App (Nuxt) origin — ВАЖНО: это не публичный домен, а origin-хост
 http://{$APP_DOMAIN} {
     encode zstd gzip
 
-    @static path_regexp static \.\nw{2,5}$
+    @static path_regexp static \.\w{2,5}$
     header @static Cache-Control "public, max-age=31536000, immutable"
 
     reverse_proxy app:3000 {
