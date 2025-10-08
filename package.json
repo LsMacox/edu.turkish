@@ -31,6 +31,7 @@
   "dependencies": {
     "@cloudgeek/vue3-video-player": "^0.3.10",
     "@directus/sdk": "20.1.0",
+    "@fingerprintjs/fingerprintjs": "^4.6.2",
     "@nuxt/fonts": "^0.11.4",
     "@nuxt/icon": "^2.0.0",
     "@nuxt/image": "^1.11.0",

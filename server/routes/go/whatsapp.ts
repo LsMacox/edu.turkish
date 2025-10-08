@@ -1,6 +1,6 @@
-import { getRequestURL } from 'h3'
+import { getRequestURL, getCookie } from 'h3'
 import { contactChannels } from '~~/lib/contact/channels'
-import { CrmProviderFactory } from '~~/server/services/CrmProviderFactory'
+import { CRMFactory } from '~~/server/services/crm/CRMFactory'
 import { extractUtmFromQuery } from '~~/server/utils/utm'
 
 export default defineEventHandler(async (event) => {
@@ -8,8 +8,16 @@ export default defineEventHandler(async (event) => {
   const referralCode = typeof query.referral_code === 'string' ? query.referral_code : ''
   const hasReferralCode = referralCode.length > 0
 
-  const sessionId =
+  const querySession =
     typeof query.session === 'string' && query.session.length > 0 ? query.session : undefined
+  const querySessionId =
+    typeof (query as any).session_id === 'string' && (query as any).session_id.length > 0
+      ? ((query as any).session_id as string)
+      : undefined
+  const cookieFp = getCookie(event, 'fp')
+  const sessionId = querySession || querySessionId || (cookieFp && cookieFp.length > 0
+    ? cookieFp
+    : undefined)
   const utm = extractUtmFromQuery(query as Record<string, any>)
 
   if (hasReferralCode) {
@@ -27,17 +35,14 @@ export default defineEventHandler(async (event) => {
         baseURL: requestUrl.origin,
       })
 
-      // Create minimal lead (if provider supports it)
-      const crm = CrmProviderFactory.create()
-      const minimalLeadPayload = {
+      // Create minimal lead via unified CRM provider
+      const crm = CRMFactory.createFromEnv()
+      await crm.createMinimalLeadFromActivity({
         channel: 'whatsapp',
         referralCode,
         session: sessionId,
         utm: utm as any,
-      }
-      if (typeof (crm as any).createMinimalLeadFromEvent === 'function') {
-        await (crm as any).createMinimalLeadFromEvent(minimalLeadPayload)
-      }
+      } as any)
     } catch (error) {
       console.error('[go/whatsapp] Failed to process messenger event and create lead', error)
     }

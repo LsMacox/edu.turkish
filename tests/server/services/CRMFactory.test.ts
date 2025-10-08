@@ -1,13 +1,13 @@
 import { afterEach, beforeEach, describe, expect, it } from 'vitest'
 
 /**
- * Unit tests for CrmProviderFactory
+ * Unit tests for CRMFactory
  *
  * Tests provider selection logic based on CRM_PROVIDER environment variable.
- * These tests will fail until CrmProviderFactory is implemented.
+ * Note: placeholders; actual provider creation is covered elsewhere.
  */
 
-describe('CrmProviderFactory', () => {
+describe('CRMFactory', () => {
   const originalEnv = { ...process.env }
 
   beforeEach(() => {
@@ -31,8 +31,7 @@ describe('CrmProviderFactory', () => {
     it('should default to Bitrix when CRM_PROVIDER not set', () => {
       process.env.BITRIX_WEBHOOK_URL = 'https://example.com/rest/1/token/'
 
-      // This will fail until CrmProviderFactory is implemented
-      // Expected: factory.create() returns BitrixService instance
+      // Expected: CRMFactory.createFromEnv() returns Bitrix provider
       const expectedProvider = 'bitrix'
       expect(expectedProvider).toBe('bitrix')
     })
@@ -51,7 +50,7 @@ describe('CrmProviderFactory', () => {
       process.env.ESPOCRM_API_URL = 'https://crm.example.com/api/v1'
       process.env.ESPOCRM_API_KEY = 'test-key'
 
-      // Expected: factory.create() returns EspoCrmService instance
+      // Expected: CRMFactory.create('espocrm') returns Espo provider
       const expectedProvider = 'espocrm'
       expect(expectedProvider).toBe('espocrm')
     })
@@ -69,7 +68,7 @@ describe('CrmProviderFactory', () => {
       process.env.CRM_PROVIDER = 'invalid-provider'
       process.env.BITRIX_WEBHOOK_URL = 'https://example.com/rest/1/token/'
 
-      // Expected: factory.create() returns BitrixService instance (default)
+      // Expected: CRMFactory.createFromEnv() defaults to Bitrix
       const expectedProvider = 'bitrix'
       expect(expectedProvider).toBe('bitrix')
     })
@@ -80,7 +79,7 @@ describe('CrmProviderFactory', () => {
       process.env.CRM_PROVIDER = 'bitrix'
       // BITRIX_WEBHOOK_URL not set
 
-      // Expected: factory.create() throws error
+      // Expected: CRMFactory.create('bitrix') throws error
       expect(() => {
         const config = process.env.BITRIX_WEBHOOK_URL
         if (!config) {
@@ -94,7 +93,7 @@ describe('CrmProviderFactory', () => {
       process.env.ESPOCRM_API_KEY = 'test-key'
       // ESPOCRM_API_URL not set
 
-      // Expected: factory.create() throws error
+      // Expected: CRMFactory.create('espocrm') throws error
       expect(() => {
         const config = {
           apiUrl: process.env.ESPOCRM_API_URL,
@@ -150,18 +149,18 @@ describe('CrmProviderFactory', () => {
 
   describe('Factory Pattern', () => {
     it('should have static create method', () => {
-      // Expected: CrmProviderFactory.create() exists
+      // Expected: CRMFactory.create() exists
       expect(true).toBe(true)
     })
 
     it('should return ICrmProvider interface', () => {
-      // Expected: factory.create() returns object implementing ICrmProvider
-      const expectedMethods = ['createLead', 'logMessengerEvent']
+      // Expected: factory returns object implementing ICRMProvider
+      const expectedMethods = ['createLead', 'logActivity']
       expect(expectedMethods).toHaveLength(2)
     })
 
     it('should not require instantiation', () => {
-      // Factory should be used as: CrmProviderFactory.create()
+      // Factory should be used as: CRMFactory.create()
       // Not: new CrmProviderFactory().create()
       expect(true).toBe(true)
     })

@@ -33,6 +33,11 @@
   "academicPrograms": {
     "title": "Академиялық бағдарламалар",
     "subtitle": "Тиісті білім деңгейін таңдаңыз",
+    "tabs": {
+      "bachelor": "Бакалавриат",
+      "master": "Магистратура",
+      "doctorate": "Докторантура"
+    },
     "table": {
       "programName": "Бағдарлама атауы",
       "language": "Тіл",

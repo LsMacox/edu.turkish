@@ -102,8 +102,8 @@ describe('POST /api/v1/messenger-events - CRM Provider Routing', () => {
   })
 
   describe('CRM Integration', () => {
-    it('should call CRM provider logMessengerEvent method', () => {
-      // Expected: CrmProviderFactory.create().logMessengerEvent() called
+    it('should call CRM provider logActivity method', () => {
+      // Expected: CRMFactory.createFromEnv().logActivity() called
       expect(true).toBe(true)
     })
 
@@ -114,7 +114,7 @@ describe('POST /api/v1/messenger-events - CRM Provider Routing', () => {
         session: 'sess_abc',
       }
 
-      // Expected: Payload passed to provider.logMessengerEvent()
+      // Expected: Payload passed to provider.logActivity()
       expect(payload.channel).toBeDefined()
       expect(payload.referralCode).toBeDefined()
     })

@@ -9,6 +9,11 @@
   "academicPrograms": {
     "title": "Academic Programs",
     "subtitle": "Choose the appropriate education level",
+    "tabs": {
+      "bachelor": "Bachelor's",
+      "master": "Master's",
+      "doctorate": "Doctorate"
+    },
     "table": {
       "programName": "Program Name",
       "language": "Language",

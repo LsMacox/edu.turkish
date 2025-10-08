@@ -11,6 +11,9 @@ export interface CRMProviderConfig {
   timeout: number
   retries: number
   fieldMappings: FieldMappingConfig
+  // EspoCRM-specific optional defaults
+  espoAssignedUserId?: string
+  espoAssignedTeamId?: string
 }
 
 export interface FieldMappingConfig {

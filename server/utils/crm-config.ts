@@ -1,55 +1,8 @@
-import type { BitrixConfig, CrmProviderType, EspoCrmConfig } from '~~/server/types/api/crm'
 import type { CRMProviderConfig, FieldMappingConfig } from '~~/server/types/crm'
 
-export function getCrmProvider(): CrmProviderType {
+export function getCrmProvider(): 'bitrix' | 'espocrm' {
   const provider = (process.env.CRM_PROVIDER || 'espocrm').toLowerCase()
   return provider === 'espocrm' ? 'espocrm' : 'bitrix'
-}
-
-export function getBitrixConfig(): BitrixConfig {
-  const webhookUrl = process.env.BITRIX_WEBHOOK_URL
-
-  if (!webhookUrl) {
-    throw new Error('Bitrix configuration incomplete: BITRIX_WEBHOOK_URL is required')
-  }
-
-  // Format: https://domain.bitrix24.com/rest/1/token/
-  const urlMatch = webhookUrl.match(/https?:\/\/([^/]+)\/rest\/\d+\/([^/]+)/)
-
-  if (!urlMatch || !urlMatch[1] || !urlMatch[2]) {
-    throw new Error('Invalid BITRIX_WEBHOOK_URL format')
-  }
-
-  const domain = urlMatch[1]
-  const accessToken = urlMatch[2]
-
-  return {
-    domain,
-    accessToken,
-    webhookUrl,
-  }
-}
-
-/**
- * @throws Error if required configuration is missing
- */
-export function getEspoCrmConfig(): EspoCrmConfig {
-  const apiUrl = process.env.ESPOCRM_URL
-  const apiKey = process.env.ESPOCRM_API_KEY
-
-  if (!apiUrl || !apiKey) {
-    const missing: string[] = []
-    if (!apiUrl) missing.push('ESPOCRM_URL')
-    if (!apiKey) missing.push('ESPOCRM_API_KEY')
-    throw new Error(
-      `EspoCRM configuration incomplete: ${missing.join(' and ')} ${missing.length === 1 ? 'is' : 'are'} required`,
-    )
-  }
-
-  return {
-    apiUrl,
-    apiKey,
-  }
 }
 
 /**
@@ -75,6 +28,8 @@ export function getCRMConfig(): CRMProviderConfig {
   if (provider === 'espocrm') {
     const apiUrl = process.env.ESPOCRM_URL
     const apiKey = process.env.ESPOCRM_API_KEY
+    const espoAssignedUserId = process.env.ESPOCRM_ASSIGNED_USER_ID
+    const espoAssignedTeamId = process.env.ESPOCRM_ASSIGNED_TEAM_ID
 
     if (!apiUrl || !apiKey) {
       throw new Error(
@@ -89,6 +44,8 @@ export function getCRMConfig(): CRMProviderConfig {
       ...base,
       baseUrl: normalizedBase,
       apiKey,
+      espoAssignedUserId,
+      espoAssignedTeamId,
     }
   }
 
@@ -121,30 +78,7 @@ function getDefaultFieldMappings(): FieldMappingConfig {
  *
  * @returns Validation result with provider and errors
  */
-export function validateCrmConfig(): {
-  isValid: boolean
-  provider: CrmProviderType
-  errors: string[]
-} {
-  const provider = getCrmProvider()
-  const errors: string[] = []
-
-  try {
-    if (provider === 'bitrix') {
-      getBitrixConfig()
-    } else {
-      getEspoCrmConfig()
-    }
-  } catch (error: any) {
-    errors.push(error.message || 'Unknown configuration error')
-  }
-
-  return {
-    isValid: errors.length === 0,
-    provider,
-    errors,
-  }
-}
+// Soft validator removed; use strict validateCRMConfig(getCRMConfig()) instead
 
 /**
  * Strict config validation used by CRMFactory

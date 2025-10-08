@@ -1,41 +1,46 @@
 import { beforeEach, describe, expect, it, vi } from 'vitest'
 
 const readBodyMock = vi.fn()
-const logMessengerEventMock = vi.fn()
-const BitrixServiceMock = vi.fn(() => ({
-  logMessengerEvent: logMessengerEventMock,
+const logActivityMock = vi.fn()
+const createFromEnvMock = vi.fn(() => ({
+  logActivity: logActivityMock,
 }))
-const getBitrixConfigMock = vi.fn(() => ({ domain: 'example.com', accessToken: 'token' }))
-const validateCrmConfigMock = vi.fn(() => ({
-  isValid: true,
+const getCRMConfigMock = vi.fn(() => ({ 
   provider: 'bitrix',
-  errors: [] as string[],
+  webhookUrl: 'https://example.com/rest/1/token',
+  timeout: 15000,
+  retries: 2,
+  fieldMappings: {}
 }))
-const getCrmProviderMock = vi.fn(() => 'bitrix' as const)
+const validateCRMConfigMock = vi.fn()
 
-vi.mock('../../../../server/services/BitrixService', () => ({
-  BitrixService: BitrixServiceMock,
+vi.mock('../../../../server/services/crm/CRMFactory', () => ({
+  CRMFactory: {
+    createFromEnv: createFromEnvMock,
+  },
 }))
 
 vi.mock('../../../../server/utils/crm-config', () => ({
-  getBitrixConfig: getBitrixConfigMock,
-  validateCrmConfig: validateCrmConfigMock,
-  getCrmProvider: getCrmProviderMock,
+  getCRMConfig: getCRMConfigMock,
+  validateCRMConfig: validateCRMConfigMock,
+}))
+
+vi.mock('../../../../server/utils/utm', () => ({
+  sanitizeUtm: vi.fn((utm) => utm),
 }))
 
 beforeEach(() => {
   readBodyMock.mockReset()
-  logMessengerEventMock.mockReset()
-  BitrixServiceMock.mockClear()
-  getBitrixConfigMock.mockClear()
-  validateCrmConfigMock.mockClear()
-  getCrmProviderMock.mockClear()
-  validateCrmConfigMock.mockReturnValue({
-    isValid: true,
-    provider: 'bitrix',
-    errors: [] as string[],
+  logActivityMock.mockReset()
+  createFromEnvMock.mockClear()
+  getCRMConfigMock.mockClear()
+  validateCRMConfigMock.mockClear()
+  
+  // Reset to default successful behavior
+  validateCRMConfigMock.mockImplementation(() => {}) // No throw = valid
+  createFromEnvMock.mockReturnValue({
+    logActivity: logActivityMock,
   })
-  getCrmProviderMock.mockReturnValue('bitrix')
 })
 
 vi.stubGlobal('defineEventHandler', (<T>(handler: T) => handler) as any)
@@ -43,6 +48,20 @@ vi.stubGlobal('readBody', readBodyMock)
 vi.stubGlobal('createError', (input: unknown) => input)
 
 describe('POST /api/v1/messenger-events', () => {
+  it('requires channel to be provided', async () => {
+    readBodyMock.mockResolvedValue({ referral_code: 'ref-123' })
+
+    const handlerModule = await import('../../../../server/api/v1/messenger-events.post')
+    const handler = handlerModule.default
+
+    await expect(handler({} as any)).rejects.toMatchObject({
+      statusCode: 400,
+      statusMessage: 'Channel is required',
+    })
+
+    expect(createFromEnvMock).not.toHaveBeenCalled()
+  })
+
   it('requires referral code to be provided', async () => {
     readBodyMock.mockResolvedValue({ channel: 'telegramPersonal' })
 
@@ -54,10 +73,10 @@ describe('POST /api/v1/messenger-events', () => {
       statusMessage: 'Referral code is required',
     })
 
-    expect(BitrixServiceMock).not.toHaveBeenCalled()
+    expect(createFromEnvMock).not.toHaveBeenCalled()
   })
 
-  it('proxies payload to Bitrix service when valid', async () => {
+  it('proxies payload to CRM service when valid', async () => {
     readBodyMock.mockResolvedValue({
       channel: 'telegramPersonal',
       referral_code: 'ref-123',
@@ -72,20 +91,22 @@ describe('POST /api/v1/messenger-events', () => {
       },
     })
 
-    logMessengerEventMock.mockResolvedValue({ success: true, activityId: 99 })
+    logActivityMock.mockResolvedValue({ success: true, id: 99 })
 
     const handlerModule = await import('../../../../server/api/v1/messenger-events.post')
     const handler = handlerModule.default
 
     const result = await handler({} as any)
 
-    expect(BitrixServiceMock).toHaveBeenCalledWith({ domain: 'example.com', accessToken: 'token' })
-    expect(logMessengerEventMock).toHaveBeenCalledWith({
+    expect(createFromEnvMock).toHaveBeenCalled()
+    expect(logActivityMock).toHaveBeenCalledWith({
       channel: 'telegramPersonal',
       referralCode: 'ref-123',
       session: 'session-1',
       utm: {
         utm_source: 'test-source',
+        utm_medium: '',
+        other: 42,
       },
       metadata: {
         page: '/contacts',
@@ -97,33 +118,33 @@ describe('POST /api/v1/messenger-events', () => {
     })
   })
 
-  it('returns 502 when Bitrix logging fails', async () => {
+  it('returns success with null activityId when CRM logging fails', async () => {
     readBodyMock.mockResolvedValue({
       channel: 'telegramPersonal',
       referral_code: 'ref-123',
     })
 
-    logMessengerEventMock.mockResolvedValue({ success: false, error: 'Failed to log' })
+    logActivityMock.mockResolvedValue({ success: false, error: 'Failed to log' })
 
     const handlerModule = await import('../../../../server/api/v1/messenger-events.post')
     const handler = handlerModule.default
 
-    await expect(handler({} as any)).rejects.toMatchObject({
-      statusCode: 502,
-      statusMessage: 'Failed to log',
+    const result = await handler({} as any)
+
+    expect(result).toEqual({
+      success: true,
+      activityId: null,
     })
   })
 
-  it('returns 503 when Bitrix is not configured', async () => {
+  it('returns 503 when CRM is not configured', async () => {
     readBodyMock.mockResolvedValue({
       channel: 'telegramPersonal',
       referral_code: 'ref-123',
     })
 
-    validateCrmConfigMock.mockReturnValue({
-      isValid: false,
-      provider: 'bitrix',
-      errors: ['Config missing'],
+    validateCRMConfigMock.mockImplementation(() => {
+      throw new Error('Config missing')
     })
 
     const handlerModule = await import('../../../../server/api/v1/messenger-events.post')
@@ -134,7 +155,6 @@ describe('POST /api/v1/messenger-events', () => {
       statusMessage: 'CRM integration is not configured',
     })
 
-    expect(BitrixServiceMock).not.toHaveBeenCalled()
-    expect(getBitrixConfigMock).not.toHaveBeenCalled()
+    expect(createFromEnvMock).not.toHaveBeenCalled()
   })
 })

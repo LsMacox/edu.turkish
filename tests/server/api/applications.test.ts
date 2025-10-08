@@ -58,7 +58,7 @@ describe('POST /api/v1/applications - CRM Provider Routing', () => {
 
   describe('CRM Integration', () => {
     it('should call CRM provider createLead method', () => {
-      // Expected: CrmProviderFactory.create().createLead() called
+      // Expected: CRMFactory.createFromEnv().createLead() called
       expect(true).toBe(true)
     })
 

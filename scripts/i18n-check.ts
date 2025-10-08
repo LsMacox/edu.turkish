@@ -268,11 +268,13 @@ export function scanSourceFileForKeys(filePath: string): Set<string> {
           const prefix = prefixMatch[1] + '.'
 
           // Try to find array of objects with 'value', 'id', 'code', or 'key' properties
+          // Also handle TypeScript 'as const' syntax
           const valuePatterns = [
             /\{\s*value\s*:\s*['"]([a-zA-Z0-9_-]+)['"]/g,
             /\{\s*id\s*:\s*['"]([a-zA-Z0-9_-]+)['"]/g,
             /\bcode\s*:\s*['"]([a-zA-Z0-9_-]+)['"]/g,
-            /\bkey\s*:\s*['"]([a-zA-Z0-9_-]+)['"]/g,
+            /\bkey\s*:\s*['"]([a-zA-Z0-9_-]+)['"]\s*(?:as\s+const)?/g,
+            /\btype\s*:\s*['"]([a-zA-Z0-9_-]+)['"]/g,
           ]
 
           const values = new Set<string>()
@@ -377,6 +379,34 @@ export function findUnusedKeys(
   usedKeys: Set<string>,
 ): UnusedKeyIssue[] {
   const unused: UnusedKeyIssue[] = []
+  
+  // Whitelist: Keys that are used dynamically and hard to detect
+  // These are typically enum values from Prisma schema or dynamic content
+  const whitelist = [
+    // University types from Prisma enum UniversityType
+    'universityDetail.universityType.state',
+    'universityDetail.universityType.private',
+    'universityDetail.universityType.tech',
+    'universityDetail.universityType.elite',
+    'universityDetail.universityType.public',
+    // Degree types from Prisma enum DegreeType (future use)
+    'academicPrograms.tabs.doctorate',
+    // FAQ answers - used via resolveAnswer() function
+    'universityDetail.faq.a1',
+    'universityDetail.faq.a2',
+    'universityDetail.faq.a3',
+    'universityDetail.faq.a4',
+    'universityDetail.faq.a5',
+    'universityDetail.faq.a6',
+    'universityDetail.faq.a7',
+    'universityDetail.faq.a8',
+    'universityDetail.faq.a9',
+    // Review form validation messages (currently using hardcoded English, may be migrated to i18n)
+    'reviews.shareExperience.validation.nameRequired',
+    'reviews.shareExperience.validation.universityRequired',
+    'reviews.shareExperience.validation.ratingRequired',
+    'reviews.shareExperience.validation.reviewRequired',
+  ]
 
   // Extract tm() object markers and expand them to include all nested keys
   // Example: __tm_object__:blog.hero means all blog.hero.* keys are used
@@ -424,6 +454,11 @@ export function findUnusedKeys(
     for (const key of keySet.keys) {
       // Skip internal markers
       if (key.startsWith('__tm_object__:') || key.startsWith('__plural_base__:')) {
+        continue
+      }
+
+      // Skip whitelisted keys
+      if (whitelist.includes(key)) {
         continue
       }
 

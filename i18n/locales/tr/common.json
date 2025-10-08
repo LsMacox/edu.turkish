@@ -9,6 +9,11 @@
   "academicPrograms": {
     "title": "Akademik Programlar",
     "subtitle": "Uygun eğitim seviyesini seçin",
+    "tabs": {
+      "bachelor": "Lisans",
+      "master": "Yüksek Lisans",
+      "doctorate": "Doktora"
+    },
     "table": {
       "programName": "Program Adı",
       "language": "Dil",

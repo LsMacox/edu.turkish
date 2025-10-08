@@ -14,15 +14,18 @@ interface EspoCRMLead {
   languageC?: 'turkish' | 'english' | 'both'
   universityC?: string
   description?: string
+  assignedUserId?: string
+  teamsIds?: string[]
 }
 
 interface EspoCRMActivity {
   name: string
-  type: string
   status?: 'Planned' | 'Held' | 'Not Held'
   description?: string
   dateStart?: string
   dateEnd?: string
+  assignedUserId?: string
+  teamsIds?: string[]
 }
 
 export class EspoCRMProvider implements ICRMProvider {
@@ -69,6 +72,17 @@ export class EspoCRMProvider implements ICRMProvider {
   private getApiUrl(endpoint: string): string {
     const baseUrl = this.config.baseUrl
     return `${baseUrl}/api/v1/${endpoint}`
+  }
+
+  // EspoCRM expects datetime in "YYYY-MM-DD HH:mm" format (server local time)
+  private formatEspoDateTime(date: Date): string {
+    const pad = (n: number) => String(n).padStart(2, '0')
+    const y = date.getFullYear()
+    const m = pad(date.getMonth() + 1)
+    const d = pad(date.getDate())
+    const hh = pad(date.getHours())
+    const mm = pad(date.getMinutes())
+    return `${y}-${m}-${d} ${hh}:${mm}`
   }
 
   async createLead(data: LeadData): Promise<CRMResult> {
@@ -193,15 +207,25 @@ export class EspoCRMProvider implements ICRMProvider {
         descriptionLines.push(`Metadata: ${JSON.stringify(data.metadata)}`)
       }
 
+      const start = new Date()
+      const end = new Date(start.getTime() + 60 * 1000) // +1 minute to satisfy dateEnd requirement
       const activity: EspoCRMActivity = {
         name: `Messenger click: ${data.channel}`,
-        type: 'Call',
         status: 'Held',
         description: descriptionLines.join('\n'),
-        dateStart: new Date().toISOString(),
+        dateStart: this.formatEspoDateTime(start),
+        dateEnd: this.formatEspoDateTime(end),
       }
 
-      const url = this.getApiUrl('Activity')
+      // Assign to default user/team if provided in config (Espo may require assignment)
+      if (this.config.espoAssignedUserId) {
+        activity.assignedUserId = this.config.espoAssignedUserId
+      }
+      if (this.config.espoAssignedTeamId) {
+        activity.teamsIds = [this.config.espoAssignedTeamId]
+      }
+
+      const url = this.getApiUrl('Call')
 
       const response = await this.fetchWithTimeout(url, {
         method: 'POST',
@@ -246,10 +270,19 @@ export class EspoCRMProvider implements ICRMProvider {
         // Omit source to avoid enum validation issues; include channel in description
         description: JSON.stringify({
           channel: data.channel,
+          referralCode: data.referralCode,
           utm: data.utm,
           session: data.session,
           metadata: data.metadata,
         }),
+      }
+
+      // Optional assignment for leads as well
+      if (this.config.espoAssignedUserId) {
+        lead.assignedUserId = this.config.espoAssignedUserId
+      }
+      if (this.config.espoAssignedTeamId) {
+        lead.teamsIds = [this.config.espoAssignedTeamId]
       }
 
       const url = this.getApiUrl('Lead')
@@ -260,6 +293,24 @@ export class EspoCRMProvider implements ICRMProvider {
       })
 
       if (!response.ok) {
+        // Handle duplicate (409) by returning existing entity id
+        if (response.status === 409) {
+          try {
+            const existing = await response.json()
+            const id = Array.isArray(existing) && existing.length > 0 ? existing[0]?.id : undefined
+            if (id) {
+              return {
+                success: true,
+                id,
+                provider: 'espocrm',
+                operation: 'createMinimalLeadFromActivity',
+                timestamp: new Date(),
+              }
+            }
+          } catch {
+            // fall through to generic error handling
+          }
+        }
         const errorText = await response.text().catch(() => '')
         throw new Error(`HTTP error! status: ${response.status}, body: ${errorText}`)
       }
