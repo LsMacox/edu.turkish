@@ -37,7 +37,7 @@
 
           <div class="flex flex-col sm:flex-row gap-3 md:gap-4 pt-2 md:pt-4">
             <button
-              class="bg-primary text-white px-4 md:px-8 py-3 md:py-4 rounded-xl hover:bg-red-600 transition-all shadow-lg text-btn-lg"
+              class="hidden sm:inline-flex items-center justify-center bg-primary text-white px-4 md:px-8 py-3 md:py-4 rounded-xl hover:bg-red-600 transition-all shadow-lg text-btn-lg"
               @click="modal.openModal()"
             >
               {{ t('cta.apply') }}
@@ -89,7 +89,7 @@
           </div>
           <!-- Success rate badge - positioned differently on mobile vs desktop -->
           <div
-            class="lg:absolute lg:-top-4 lg:-right-4 mt-4 lg:mt-0 bg-white rounded-xl shadow-custom p-3 md:p-4 max-w-xs lg:animate-bounce"
+            class="absolute -top-4 -right-4 bg-white rounded-xl shadow-custom p-3 md:p-4 max-w-xs lg:animate-bounce"
           >
             <div class="flex items-center gap-2 md:gap-3">
               <div
