@@ -8,7 +8,7 @@
 http://{$APP_DOMAIN} {
     encode zstd gzip
 
-    @static path_regexp static \.\w{2,5}$
+    @static path_regexp static \.\nw{2,5}$
     header @static Cache-Control "public, max-age=31536000, immutable"
 
     reverse_proxy app:3000 {
@@ -20,6 +20,9 @@ http://{$APP_DOMAIN} {
 
 # Directus origin
 http://{$DIRECTUS_DOMAIN} {
+    redir https://{$DIRECTUS_DOMAIN}{uri} 308
+}
+https://{$DIRECTUS_DOMAIN} {
     encode zstd gzip
 
     # basicauth можно оставить закомментированным
@@ -28,10 +31,15 @@ http://{$DIRECTUS_DOMAIN} {
         header_up X-Forwarded-Host {host}
         header_up Host {host}
     }
+
+    tls {$CADDY_ACME_EMAIL}
 }
 
 # EspoCRM origin
 http://{$CRM_DOMAIN} {
+    redir https://{$CRM_DOMAIN}{uri} 308
+}
+https://{$CRM_DOMAIN} {
     encode zstd gzip
 
     reverse_proxy espocrm:80 {
@@ -39,6 +47,8 @@ http://{$CRM_DOMAIN} {
         header_up X-Forwarded-Host {host}
         header_up Host {host}
     }
+
+    tls {$CADDY_ACME_EMAIL}
 }
 
 # НИКАКИХ редиректов с :80 на https здесь быть не должно
