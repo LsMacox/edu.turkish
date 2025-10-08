@@ -9,6 +9,7 @@ const ALLOWED_HOSTS = new Set<string>([
   '127.0.0.1:3000',
   '0.0.0.0:3000',
   'edu-turkish.com',
+  'origin.edu-turkish.com',
   'crm.edu-turkish.com',
   'cms.edu-turkish.com',
   ...envHosts,
