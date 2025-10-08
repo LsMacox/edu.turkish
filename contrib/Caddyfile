@@ -1,15 +1,20 @@
 # Global options
 {
-    email {$CADDY_ACME_EMAIL}
-    # Optional: set default ACME CA (Let's Encrypt production by default)
-    # acme_ca https://acme-v02.api.letsencrypt.org/directory
+    auto_https off              # критично: Caddy не лезет в ACME/HTTPS
+    # email {$CADDY_ACME_EMAIL} # больше не нужен, но можно оставить — безвредно
 }
 
-# App (Nuxt) site
-{$APP_DOMAIN} {
+# App (Nuxt) origin — ВАЖНО: это не публичный домен, а origin-хост
+http://{$APP_DOMAIN} {
     encode zstd gzip
+
     @static path_regexp static \.\w{2,5}$
     header @static Cache-Control "public, max-age=31536000, immutable"
+
+    # если нужен IP клиента, доверь прокси (Bunny)
+    servers :80 {
+        trusted_proxies 0.0.0.0/0
+    }
 
     reverse_proxy app:3000 {
         header_up X-Forwarded-Proto {scheme}
@@ -18,14 +23,15 @@
     }
 }
 
-# Directus admin/API
-{$DIRECTUS_DOMAIN} {
+# Directus origin
+http://{$DIRECTUS_DOMAIN} {
     encode zstd gzip
-    # Optional basic auth for admin surface; uncomment and set users if needed
-    # basicauth / {
-    #     admin JDJhJDE0JHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eA==
-    # }
 
+    servers :80 {
+        trusted_proxies 0.0.0.0/0
+    }
+
+    # basicauth можно оставить закомментированным
     reverse_proxy directus:8055 {
         header_up X-Forwarded-Proto {scheme}
         header_up X-Forwarded-Host {host}
@@ -33,10 +39,14 @@
     }
 }
 
-# EspoCRM admin/API
-{$CRM_DOMAIN} {
+# EspoCRM origin
+http://{$CRM_DOMAIN} {
     encode zstd gzip
-    
+
+    servers :80 {
+        trusted_proxies 0.0.0.0/0
+    }
+
     reverse_proxy espocrm:80 {
         header_up X-Forwarded-Proto {scheme}
         header_up X-Forwarded-Host {host}
@@ -44,9 +54,9 @@
     }
 }
 
-# Local HTTP fallback for convenience (optional)
+# НИКАКИХ редиректов с :80 на https здесь быть не должно
+# Если нужен healthcheck:
 :80 {
-    redir https://{$APP_DOMAIN}{uri}
+    respond 200 /health "ok"
+    handle_path / { respond 404 }
 }
-
-
