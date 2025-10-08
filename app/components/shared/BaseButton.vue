@@ -150,13 +150,13 @@ const tag = computed(() => {
 const sizeClasses = computed(() => {
   switch (props.size) {
     case 'sm':
-      return 'btn-padding-sm text-sm rounded-lg'
+      return 'btn-padding-sm text-xs md:text-sm rounded-lg'
     case 'lg':
-      return 'btn-padding-lg text-lg rounded-xl'
+      return 'btn-padding-lg text-base md:text-lg rounded-xl'
     case 'xl':
-      return 'btn-padding-xl text-xl rounded-2xl min-h-touch-48'
+      return 'btn-padding-xl text-lg md:text-xl rounded-2xl min-h-touch-48'
     default: // md
-      return 'btn-padding-md text-base rounded-xl'
+      return 'btn-padding-md text-sm md:text-base rounded-xl'
   }
 })
 
@@ -166,11 +166,11 @@ const iconSizeClasses = computed(() => {
     case 'sm':
       return 'w-4 h-4'
     case 'lg':
-      return 'w-6 h-6'
+      return 'w-5 h-5 md:w-6 md:h-6'
     case 'xl':
-      return 'w-7 h-7'
+      return 'w-6 h-6 md:w-7 md:h-7'
     default: // md
-      return 'w-5 h-5'
+      return 'w-4 h-4 md:w-5 md:h-5'
   }
 })
 

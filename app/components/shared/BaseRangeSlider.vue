@@ -7,7 +7,7 @@
       >
     </div>
 
-    <div class="relative h-6 isolate" style="z-index: 0; contain: layout">
+    <div class="hidden sm:block relative h-6 isolate" style="z-index: 0; contain: layout">
       <!-- Track -->
       <div class="absolute w-full h-2 bg-gray-200 rounded-lg top-1/2 -translate-y-1/2" />
 

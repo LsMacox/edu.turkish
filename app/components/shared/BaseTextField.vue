@@ -35,7 +35,7 @@
 <template>
   <div class="relative">
     <!-- Enhanced label with required indicator -->
-    <label v-if="label" :for="inputId" class="block text-sm font-medium text-secondary mb-2">
+    <label v-if="label" :for="inputId" class="block text-sm font-medium text-secondary mb-1.5 md:mb-2">
       {{ label }}
       <span v-if="required" class="text-red-500 ml-1" aria-label="required">*</span>
     </label>
@@ -72,7 +72,7 @@
           // Size-based styling
           sizeClasses,
           // Icon padding
-          icon ? (iconPosition === 'right' ? 'pr-12 md:pr-10' : 'pl-12 md:pl-10') : 'px-4',
+          icon ? (iconPosition === 'right' ? 'pr-10 md:pr-10' : 'pl-10 md:pl-10') : 'px-3 md:px-4',
           // State-based styling
           disabled ? 'opacity-50 cursor-not-allowed bg-gray-50' : '',
           inputReadonly ? 'bg-gray-50 cursor-default' : '',
@@ -95,7 +95,7 @@
       >
         <Icon
           :name="icon"
-          :class="['w-6 h-6 md:w-5 md:h-5', error ? 'text-red-400' : 'text-gray-400']"
+          :class="['w-5 h-5 md:w-5 md:h-5', error ? 'text-red-400' : 'text-gray-400']"
         />
       </div>
 
@@ -107,7 +107,7 @@
       >
         <Icon
           :name="icon"
-          :class="['w-6 h-6 md:w-5 md:h-5', error ? 'text-red-400' : 'text-gray-400']"
+          :class="['w-5 h-5 md:w-5 md:h-5', error ? 'text-red-400' : 'text-gray-400']"
         />
       </div>
 
@@ -119,12 +119,12 @@
         :aria-label="$t('common.clear') || 'Clear'"
         @click="handleClear"
       >
-        <Icon name="mdi:close" class="w-5 h-5" />
+        <Icon name="mdi:close" class="w-4 h-4 md:w-5 md:h-5" />
       </button>
     </div>
 
     <!-- Enhanced error and helper text -->
-    <div v-if="error || helperText" class="mt-2">
+    <div v-if="error || helperText" class="mt-1.5 md:mt-2">
       <p
         v-if="error"
         :id="`${inputId}-error`"
@@ -224,7 +224,7 @@ const emit = defineEmits<{
 const sizeClasses = computed(() => {
   const sizes = {
     sm: 'py-2 md:py-2 text-sm min-h-touch-44',
-    md: 'py-4 md:py-3 text-base md:text-sm min-h-touch-48 md:min-h-auto',
+    md: 'py-3 md:py-3 text-sm md:text-sm min-h-touch-44 md:min-h-auto',
     lg: 'py-5 md:py-4 text-lg md:text-base min-h-touch-48',
   }
   return sizes[props.size] || sizes.md

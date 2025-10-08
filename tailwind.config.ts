@@ -281,16 +281,16 @@ export default {
 
         // Spacing patterns - Button padding
         '.btn-padding-sm': {
-          '@apply px-3 py-2 md:px-4 md:py-2': {},
+          '@apply px-3 py-1.5 md:px-4 md:py-2': {},
         },
         '.btn-padding-md': {
-          '@apply px-4 py-3 md:px-6 md:py-3': {},
+          '@apply px-3 py-2.5 md:px-6 md:py-3': {},
         },
         '.btn-padding-lg': {
-          '@apply px-6 py-3 md:px-8 md:py-4': {},
+          '@apply px-5 py-3 md:px-8 md:py-4': {},
         },
         '.btn-padding-xl': {
-          '@apply px-8 py-4 md:px-10 md:py-5': {},
+          '@apply px-6 py-4 md:px-10 md:py-5': {},
         },
       })
     },

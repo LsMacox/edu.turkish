@@ -3,8 +3,8 @@
     <select
       :value="modelValue"
       :class="[
-        'w-full px-4 pr-12 md:pr-10 bg-white rounded-xl focus:outline-none appearance-none cursor-pointer text-secondary font-medium',
-        'py-4 md:py-3 text-base md:text-sm min-h-touch-48 md:min-h-auto',
+        'w-full px-3 md:px-4 pr-10 md:pr-10 bg-white rounded-xl focus:outline-none appearance-none cursor-pointer text-secondary font-medium',
+        'py-3 md:py-3 text-sm md:text-sm min-h-touch-44 md:min-h-auto',
         disabled ? 'opacity-50 cursor-not-allowed' : '',
         error
           ? 'border border-red-300 focus:ring-2 focus:ring-red-500 focus:border-red-500'
@@ -16,10 +16,10 @@
     >
       <slot />
     </select>
-    <div class="absolute inset-y-0 right-0 flex items-center pr-4 md:pr-3 pointer-events-none">
-      <Icon name="mdi:chevron-down" class="w-6 h-6 md:w-5 md:h-5 text-gray-400" />
+    <div class="absolute inset-y-0 right-0 flex items-center pr-3 md:pr-3 pointer-events-none">
+      <Icon name="mdi:chevron-down" class="w-5 h-5 md:w-5 md:h-5 text-gray-400" />
     </div>
-    <p v-if="error" class="mt-2 text-sm text-red-600">{{ error }}</p>
+    <p v-if="error" class="mt-1.5 md:mt-2 text-sm text-red-600">{{ error }}</p>
   </div>
 </template>
 
