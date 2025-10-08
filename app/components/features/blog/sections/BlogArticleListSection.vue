@@ -1,6 +1,6 @@
 <template>
   <div>
-    <h2 class="text-section-title mb-8">{{ title }}</h2>
+    <BaseSectionHeader :title="title" align="left" margin-bottom="lg" />
 
     <div class="grid md:grid-cols-2 gap-8 mb-12">
       <article

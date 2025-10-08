@@ -1,12 +1,12 @@
 <template>
   <section id="instagram-gallery" class="py-16">
     <div class="container mx-auto px-4 lg:px-6">
-      <div class="text-center mb-12">
-        <h2 class="text-section-title mb-4">Наши студенты</h2>
-        <p class="text-section-subtitle max-w-2xl mx-auto">
-          Следите за историями успеха в Instagram
-        </p>
-      </div>
+      <BaseSectionHeader
+        title="Наши студенты"
+        subtitle="Следите за историями успеха в Instagram"
+        align="center"
+        margin-bottom="lg"
+      />
 
       <div class="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-4">
         <div class="aspect-square rounded-xl overflow-hidden hover-lift">

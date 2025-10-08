@@ -1,12 +1,12 @@
 <template>
   <section class="py-16 bg-background">
     <div class="container mx-auto px-4 lg:px-6">
-      <div class="text-center mb-12">
-        <h2 class="text-section-title mb-4">
-          {{ $t('admissionRequirements.title') }}
-        </h2>
-        <p class="text-section-subtitle">{{ $t('admissionRequirements.subtitle') }}</p>
-      </div>
+      <BaseSectionHeader
+        :title="$t('admissionRequirements.title')"
+        :subtitle="$t('admissionRequirements.subtitle')"
+        align="center"
+        margin-bottom="lg"
+      />
 
       <div class="grid lg:grid-cols-2 gap-12">
         <!-- Required Documents -->

@@ -34,6 +34,8 @@ const props = withDefaults(defineProps<BaseSectionHeaderProps>(), {
   balanced: true,
 })
 
+const slots = useSlots()
+
 // Container classes
 const containerClasses = computed(() => {
   const alignMap = {
@@ -90,18 +92,10 @@ const preTitleClasses = computed(() => {
 
 // Title classes
 const titleClasses = computed(() => {
-  const sizeMap = {
-    sm: 'text-xl md:text-2xl',
-    md: 'text-2xl md:text-3xl',
-    lg: 'text-3xl lg:text-4xl',
-    xl: 'text-4xl lg:text-5xl xl:text-6xl',
-  }
-
   return [
-    sizeMap[props.size] || sizeMap.lg,
-    'font-bold text-secondary leading-tight',
+    'text-section-title',
     props.balanced ? 'text-balance' : '',
-    props.subtitle || props.$slots?.subtitle ? 'mb-4' : '',
+    props.subtitle || slots.subtitle ? 'mb-4' : '',
   ]
     .filter(Boolean)
     .join(' ')
@@ -109,16 +103,8 @@ const titleClasses = computed(() => {
 
 // Subtitle classes
 const subtitleClasses = computed(() => {
-  const sizeMap = {
-    sm: 'text-sm',
-    md: 'text-base',
-    lg: 'text-lg',
-    xl: 'text-xl',
-  }
-
   return [
-    sizeMap[props.size] || sizeMap.lg,
-    'text-gray-600 leading-relaxed',
+    'text-section-subtitle',
     props.balanced ? 'text-balance' : '',
   ]
     .filter(Boolean)

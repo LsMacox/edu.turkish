@@ -1,12 +1,12 @@
 <template>
   <section class="py-16 bg-white">
     <div class="container mx-auto px-4 lg:px-6">
-      <div class="text-center mb-12">
-        <h2 class="text-section-title mb-4">
-          {{ $t('academicPrograms.title') }}
-        </h2>
-        <p class="text-section-subtitle">{{ $t('academicPrograms.subtitle') }}</p>
-      </div>
+      <BaseSectionHeader
+        :title="$t('academicPrograms.title')"
+        :subtitle="$t('academicPrograms.subtitle')"
+        align="center"
+        margin-bottom="lg"
+      />
 
       <!-- Program Tabs -->
       <div class="flex justify-center mb-8">

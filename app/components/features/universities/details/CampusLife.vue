@@ -1,12 +1,12 @@
 <template>
   <section v-if="campusImages.length > 0" class="py-16 bg-white">
     <div class="container mx-auto px-4 lg:px-6">
-      <div class="text-center mb-12">
-        <h2 class="text-section-title mb-4">
-          {{ $t('universityDetail.campusLife.title') }}
-        </h2>
-        <p class="text-section-subtitle">{{ $t('universityDetail.campusLife.subtitle') }}</p>
-      </div>
+      <BaseSectionHeader
+        :title="$t('universityDetail.campusLife.title')"
+        :subtitle="$t('universityDetail.campusLife.subtitle')"
+        align="center"
+        margin-bottom="lg"
+      />
 
       <div
         v-if="campusImages.length > 0"

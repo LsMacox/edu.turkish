@@ -8,12 +8,12 @@
           <Icon name="mdi:magnify" class="text-orange-600 text-3xl" />
         </div>
 
-        <h2 class="text-3xl font-bold text-secondary mb-6">
-          {{ $t('universities_page.not_found.title') }}
-        </h2>
-        <p class="text-section-subtitle mb-8 max-w-2xl mx-auto">
-          {{ $t('universities_page.not_found.subtitle') }}
-        </p>
+        <BaseSectionHeader
+          :title="$t('universities_page.not_found.title')"
+          :subtitle="$t('universities_page.not_found.subtitle')"
+          align="center"
+          margin-bottom="lg"
+        />
 
         <div class="grid md:grid-cols-3 gap-6 mb-8">
           <div class="text-center">
@@ -69,7 +69,7 @@ const modal = useApplicationModalStore()
 const openApplicationForm = () => {
   // Простые предпочтения с информацией об источнике
   const simplePreferences = {
-    source: 'universities_not_found',
+    source: 'universities_not_found' as const,
     description: FORM_SOURCES.universities_not_found,
   }
 

@@ -59,12 +59,12 @@
     <!-- Key Information Section -->
     <section class="py-12 md:py-16 bg-white">
       <div class="container mx-auto px-4 lg:px-6">
-        <div class="text-center mb-8 md:mb-12">
-          <h2 class="text-section-title mb-4">
-            {{ $t('universityDetail.keyInformation.title') }}
-          </h2>
-          <p class="text-section-subtitle">{{ $t('universityDetail.keyInformation.subtitle') }}</p>
-        </div>
+        <BaseSectionHeader
+          :title="$t('universityDetail.keyInformation.title')"
+          :subtitle="$t('universityDetail.keyInformation.subtitle')"
+          align="center"
+          margin-bottom="lg"
+        />
 
         <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 md:gap-6">
           <div class="bg-white rounded-xl md:rounded-2xl shadow-custom p-4 md:p-6 text-center hover-lift">
@@ -184,9 +184,11 @@
     <section class="py-16 bg-background">
       <div class="container mx-auto px-4 lg:px-6">
         <div class="max-w-4xl mx-auto">
-          <h2 class="text-section-title mb-8 text-center">
-            {{ $t('universityDetail.aboutUniversity.title') }}
-          </h2>
+          <BaseSectionHeader
+            :title="$t('universityDetail.aboutUniversity.title')"
+            align="center"
+            margin-bottom="lg"
+          />
 
           <div class="space-y-8">
             <div class="bg-white rounded-2xl shadow-custom p-8">

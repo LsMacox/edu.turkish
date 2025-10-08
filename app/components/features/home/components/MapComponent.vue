@@ -1,12 +1,12 @@
 <template>
   <section id="map" class="py-16">
     <div class="container mx-auto px-4 lg:px-6">
-      <div class="text-center mb-12">
-        <h2 class="text-section-title mb-4">Университеты на карте</h2>
-        <p class="text-section-subtitle max-w-2xl mx-auto">
-          Выберите город и изучите доступные университеты
-        </p>
-      </div>
+      <BaseSectionHeader
+        title="Университеты на карте"
+        subtitle="Выберите город и изучите доступные университеты"
+        align="center"
+        margin-bottom="lg"
+      />
 
       <div class="bg-white rounded-2xl shadow-custom p-8">
         <div class="relative">
