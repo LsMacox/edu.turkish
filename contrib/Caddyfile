@@ -32,7 +32,12 @@ https://{$DIRECTUS_DOMAIN} {
         header_up Host {host}
     }
 
-    tls {$CADDY_ACME_EMAIL}
+    tls {
+        issuer acme {
+            email {$CADDY_ACME_EMAIL}
+            disable_http_challenge true
+        }
+    }
 }
 
 # EspoCRM origin
@@ -48,7 +53,12 @@ https://{$CRM_DOMAIN} {
         header_up Host {host}
     }
 
-    tls {$CADDY_ACME_EMAIL}
+    tls {
+        issuer acme {
+            email {$CADDY_ACME_EMAIL}
+            disable_http_challenge true
+        }
+    }
 }
 
 # НИКАКИХ редиректов с :80 на https здесь быть не должно
