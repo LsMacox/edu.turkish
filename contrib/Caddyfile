@@ -57,6 +57,7 @@ http://{$CRM_DOMAIN} {
 # НИКАКИХ редиректов с :80 на https здесь быть не должно
 # Если нужен healthcheck:
 :80 {
-    respond 200 /health "ok"
-    handle_path / { respond 404 }
+    @health path /health
+    respond @health "ok" 200
+    respond 404
 }
