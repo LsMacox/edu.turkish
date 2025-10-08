@@ -1,8 +1,8 @@
 <template>
   <section id="final-cta" class="section-py-lg bg-gradient-to-r from-primary to-red-600">
     <div class="container mx-auto container-padding-narrow text-center">
-      <div class="max-w-4xl mx-auto text-white">
-        <h2 class="text-section-title mb-6">
+      <div class="max-w-4xl mx-auto">
+        <h2 class="text-section-title mb-6 text-white">
           {{ t('home.final_cta.title') }}
         </h2>
         <p class="text-body-lg mb-8 opacity-90 text-white">
@@ -17,7 +17,7 @@
             >
               {{ timeLeft.days }}
             </div>
-            <p class="text-sm mt-2">{{ t('home.final_cta.days') }}</p>
+            <p class="text-sm mt-2 text-white">{{ t('home.final_cta.days') }}</p>
           </div>
           <div class="text-center">
             <div
@@ -25,7 +25,7 @@
             >
               {{ timeLeft.hours }}
             </div>
-            <p class="text-sm mt-2">{{ t('home.final_cta.hours') }}</p>
+            <p class="text-sm mt-2 text-white">{{ t('home.final_cta.hours') }}</p>
           </div>
           <div class="text-center">
             <div
@@ -33,7 +33,7 @@
             >
               {{ timeLeft.minutes }}
             </div>
-            <p class="text-sm mt-2">{{ t('home.final_cta.minutes') }}</p>
+            <p class="text-sm mt-2 text-white">{{ t('home.final_cta.minutes') }}</p>
           </div>
         </div>
 
@@ -44,7 +44,7 @@
           >
             {{ t('home.final_cta.button') }}
           </button>
-          <p class="text-sm opacity-80">
+          <p class="text-sm opacity-80 text-white">
             {{ t('home.final_cta.guarantee') }}
           </p>
         </div>

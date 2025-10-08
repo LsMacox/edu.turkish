@@ -8,20 +8,20 @@
           align="center"
           margin-bottom="lg"
         />
-        <div class="bg-white rounded-2xl shadow-custom card-padding-lg space-y-8">
+        <div class="bg-white rounded-2xl shadow-custom card-padding-lg space-y-5 md:space-y-8">
           <div class="space-y-4">
             <h3 class="text-card-title hidden md:block">{{ t('home.who.title') }}</h3>
-            <div class="grid md:grid-cols-2 gap-4">
+            <div class="grid md:grid-cols-2 gap-2.5 md:gap-4">
               <button
                 :class="[
-                  'p-6 border-2 rounded-xl hover:scale-105 transition-all text-left',
+                  'p-3 md:p-6 border-2 rounded-xl md:hover:scale-105 transition-all text-left min-h-touch-44 md:min-h-auto',
                   answers.userType === 'student'
                     ? 'border-primary bg-red-50'
                     : 'border-gray-200 hover:border-primary hover:bg-red-50',
                 ]"
                 @click="selectOption('userType', 'student')"
               >
-                <div class="flex items-center gap-3">
+                <div class="flex items-center gap-2 md:gap-3">
                   <BaseIconBadge icon="mdi:school" color="blue" size="md" rounded="xl" />
                   <div>
                     <p class="font-semibold text-secondary">{{ t('home.who.student') }}</p>
@@ -31,14 +31,14 @@
               </button>
               <button
                 :class="[
-                  'p-6 border-2 rounded-xl hover:scale-105 transition-all text-left',
+                  'p-3 md:p-6 border-2 rounded-xl md:hover:scale-105 transition-all text-left min-h-touch-44 md:min-h-auto',
                   answers.userType === 'parent'
                     ? 'border-primary bg-red-50'
                     : 'border-gray-200 hover:border-primary hover:bg-red-50',
                 ]"
                 @click="selectOption('userType', 'parent')"
               >
-                <div class="flex items-center gap-3">
+                <div class="flex items-center gap-2 md:gap-3">
                   <BaseIconBadge icon="mdi:heart" color="purple" size="md" rounded="xl" />
                   <div>
                     <p class="font-semibold text-secondary">{{ t('home.who.parent') }}</p>
@@ -53,10 +53,10 @@
             <h3 class="text-card-title">
               {{ t('home.who.university_chosen') }}
             </h3>
-            <div class="grid md:grid-cols-2 gap-4">
+            <div class="grid md:grid-cols-2 gap-2.5 md:gap-4">
               <button
                 :class="[
-                  'p-4 border-2 rounded-xl transition-all',
+                  'p-2.5 md:p-4 border-2 rounded-xl transition-all min-h-touch-44 md:min-h-auto text-sm md:text-base',
                   answers.universityChosen === 'yes'
                     ? 'border-primary bg-red-50'
                     : 'border-gray-200 hover:border-primary hover:bg-red-50',
@@ -67,7 +67,7 @@
               </button>
               <button
                 :class="[
-                  'p-4 border-2 rounded-xl transition-all',
+                  'p-2.5 md:p-4 border-2 rounded-xl transition-all min-h-touch-44 md:min-h-auto text-sm md:text-base',
                   answers.universityChosen === 'no'
                     ? 'border-primary bg-red-50'
                     : 'border-gray-200 hover:border-primary hover:bg-red-50',
@@ -83,10 +83,10 @@
             <h3 class="text-card-title">
               {{ t('home.who.language_interest') }}
             </h3>
-            <div class="grid md:grid-cols-2 gap-4">
+            <div class="grid md:grid-cols-2 gap-2.5 md:gap-4">
               <button
                 :class="[
-                  'p-4 border-2 rounded-xl transition-all',
+                  'p-2.5 md:p-4 border-2 rounded-xl transition-all min-h-touch-44 md:min-h-auto text-sm md:text-base',
                   answers.language === 'turkish'
                     ? 'border-primary bg-red-50'
                     : 'border-gray-200 hover:border-primary hover:bg-red-50',
@@ -97,7 +97,7 @@
               </button>
               <button
                 :class="[
-                  'p-4 border-2 rounded-xl transition-all',
+                  'p-2.5 md:p-4 border-2 rounded-xl transition-all min-h-touch-44 md:min-h-auto text-sm md:text-base',
                   answers.language === 'english'
                     ? 'border-primary bg-red-50'
                     : 'border-gray-200 hover:border-primary hover:bg-red-50',
@@ -113,10 +113,10 @@
             <h3 class="text-card-title">
               {{ t('home.who.scholarship_help') }}
             </h3>
-            <div class="grid md:grid-cols-2 gap-4">
+            <div class="grid md:grid-cols-2 gap-2.5 md:gap-4">
               <button
                 :class="[
-                  'p-4 border-2 rounded-xl transition-all',
+                  'p-2.5 md:p-4 border-2 rounded-xl transition-all min-h-touch-44 md:min-h-auto text-sm md:text-base',
                   answers.scholarship === 'yes'
                     ? 'border-primary bg-red-50'
                     : 'border-gray-200 hover:border-primary hover:bg-red-50',
@@ -127,7 +127,7 @@
               </button>
               <button
                 :class="[
-                  'p-4 border-2 rounded-xl transition-all',
+                  'p-2.5 md:p-4 border-2 rounded-xl transition-all min-h-touch-44 md:min-h-auto text-sm md:text-base',
                   answers.scholarship === 'no'
                     ? 'border-primary bg-red-50'
                     : 'border-gray-200 hover:border-primary hover:bg-red-50',
@@ -154,17 +154,17 @@
             </div>
           </div>
 
-          <div class="pt-6 flex flex-col sm:flex-row items-center justify-center gap-3">
+          <div class="pt-6 flex flex-col sm:flex-row items-center justify-center gap-2 md:gap-3">
             <button
               v-if="isFormComplete"
-              class="bg-primary text-white px-8 py-4 rounded-xl font-semibold text-lg hover:bg-red-600 transition-all shadow-lg w-full sm:w-auto min-h-touch-48"
+              class="bg-primary text-white px-5 py-2.5 md:px-8 md:py-4 rounded-xl font-semibold text-sm md:text-lg hover:bg-red-600 transition-all shadow-lg w-full sm:w-auto min-h-touch-44 md:min-h-touch-48"
               @click="openApplicationForm"
             >
               {{ t('home.who.get_offer') }}
             </button>
             <NuxtLink
               to="#universities"
-              class="bg-white border-2 border-primary text-primary px-8 py-4 rounded-xl font-semibold text-lg hover:bg-primary hover:text-white transition-all w-full sm:w-auto min-h-touch-48 text-center"
+              class="bg-white border-2 border-primary text-primary px-5 py-2.5 md:px-8 md:py-4 rounded-xl font-semibold text-sm md:text-lg hover:bg-primary hover:text-white transition-all w-full sm:w-auto min-h-touch-44 md:min-h-touch-48 text-center"
             >
               {{ t('home.who.view_universities') }}
             </NuxtLink>

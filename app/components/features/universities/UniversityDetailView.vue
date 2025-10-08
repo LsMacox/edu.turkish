@@ -57,50 +57,50 @@
     </section>
 
     <!-- Key Information Section -->
-    <section class="py-16 bg-white">
+    <section class="py-12 md:py-16 bg-white">
       <div class="container mx-auto px-4 lg:px-6">
-        <div class="text-center mb-12">
+        <div class="text-center mb-8 md:mb-12">
           <h2 class="text-section-title mb-4">
             {{ $t('universityDetail.keyInformation.title') }}
           </h2>
           <p class="text-section-subtitle">{{ $t('universityDetail.keyInformation.subtitle') }}</p>
         </div>
 
-        <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
-          <div class="bg-white rounded-2xl shadow-custom p-6 text-center hover-lift">
+        <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 md:gap-6">
+          <div class="bg-white rounded-xl md:rounded-2xl shadow-custom p-4 md:p-6 text-center hover-lift">
             <div
-              class="w-16 h-16 bg-blue-100 rounded-2xl flex items-center justify-center mx-auto mb-4"
+              class="w-12 h-12 md:w-16 md:h-16 bg-blue-100 rounded-2xl flex items-center justify-center mx-auto mb-3 md:mb-4"
             >
-              <Icon name="ph:map-pin" class="text-blue-600 text-2xl" />
+              <Icon name="ph:map-pin" class="text-blue-600 text-xl md:text-2xl" />
             </div>
-            <h3 class="text-card-title mb-2">
+            <h3 class="text-card-title mb-1 md:mb-2">
               {{ $t('universityDetail.keyInformation.city') }}
             </h3>
-            <p class="text-gray-600">{{ university.keyInfo.city }}</p>
+            <p class="text-gray-600 text-sm md:text-base">{{ university.keyInfo.city }}</p>
           </div>
 
-          <div class="bg-white rounded-2xl shadow-custom p-6 text-center hover-lift">
+          <div class="bg-white rounded-xl md:rounded-2xl shadow-custom p-4 md:p-6 text-center hover-lift">
             <div
-              class="w-16 h-16 bg-green-100 rounded-2xl flex items-center justify-center mx-auto mb-4"
+              class="w-12 h-12 md:w-16 md:h-16 bg-green-100 rounded-2xl flex items-center justify-center mx-auto mb-3 md:mb-4"
             >
-              <Icon name="ph:calendar" class="text-green-600 text-2xl" />
+              <Icon name="ph:calendar" class="text-green-600 text-xl md:text-2xl" />
             </div>
-            <h3 class="text-card-title mb-2">
+            <h3 class="text-card-title mb-1 md:mb-2">
               {{ $t('universityDetail.keyInformation.foundedYear') }}
             </h3>
-            <p class="text-gray-600">{{ university.keyInfo.foundedYear }}</p>
+            <p class="text-gray-600 text-sm md:text-base">{{ university.keyInfo.foundedYear }}</p>
           </div>
 
-          <div class="bg-white rounded-2xl shadow-custom p-6 text-center hover-lift">
+          <div class="bg-white rounded-xl md:rounded-2xl shadow-custom p-4 md:p-6 text-center hover-lift">
             <div
-              class="w-16 h-16 bg-purple-100 rounded-2xl flex items-center justify-center mx-auto mb-4"
+              class="w-12 h-12 md:w-16 md:h-16 bg-purple-100 rounded-2xl flex items-center justify-center mx-auto mb-3 md:mb-4"
             >
-              <Icon name="ph:currency-dollar" class="text-purple-600 text-2xl" />
+              <Icon name="ph:currency-dollar" class="text-purple-600 text-xl md:text-2xl" />
             </div>
-            <h3 class="text-card-title mb-2">
+            <h3 class="text-card-title mb-1 md:mb-2">
               {{ $t('universityDetail.keyInformation.cost') }}
             </h3>
-            <p class="text-gray-600">
+            <p class="text-gray-600 text-sm md:text-base">
               {{
                 $t('universityDetail.keyInformation.costFrom', {
                   cost:
@@ -113,68 +113,68 @@
             </p>
           </div>
 
-          <div class="bg-white rounded-2xl shadow-custom p-6 text-center hover-lift">
+          <div class="bg-white rounded-xl md:rounded-2xl shadow-custom p-4 md:p-6 text-center hover-lift">
             <div
-              class="w-16 h-16 bg-orange-100 rounded-2xl flex items-center justify-center mx-auto mb-4"
+              class="w-12 h-12 md:w-16 md:h-16 bg-orange-100 rounded-2xl flex items-center justify-center mx-auto mb-3 md:mb-4"
             >
-              <Icon name="ph:translate" class="text-orange-600 text-2xl" />
+              <Icon name="ph:translate" class="text-orange-600 text-xl md:text-2xl" />
             </div>
-            <h3 class="text-card-title mb-2">
+            <h3 class="text-card-title mb-1 md:mb-2">
               {{ $t('universityDetail.keyInformation.languages') }}
             </h3>
-            <p class="text-gray-600">{{ university.keyInfo.languages.join(', ') }}</p>
+            <p class="text-gray-600 text-sm md:text-base">{{ university.keyInfo.languages.join(', ') }}</p>
           </div>
 
-          <div class="bg-white rounded-2xl shadow-custom p-6 text-center hover-lift">
+          <div class="bg-white rounded-xl md:rounded-2xl shadow-custom p-4 md:p-6 text-center hover-lift">
             <div
-              class="w-16 h-16 bg-red-100 rounded-2xl flex items-center justify-center mx-auto mb-4"
+              class="w-12 h-12 md:w-16 md:h-16 bg-red-100 rounded-2xl flex items-center justify-center mx-auto mb-3 md:mb-4"
             >
-              <Icon name="ph:users" class="text-red-600 text-2xl" />
+              <Icon name="ph:users" class="text-red-600 text-xl md:text-2xl" />
             </div>
-            <h3 class="text-card-title mb-2">
+            <h3 class="text-card-title mb-1 md:mb-2">
               {{ $t('universityDetail.keyInformation.students') }}
             </h3>
-            <p class="text-gray-600">
+            <p class="text-gray-600 text-sm md:text-base">
               {{
                 university.keyInfo.studentsCount.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ' ')
               }}
             </p>
           </div>
 
-          <div class="bg-white rounded-2xl shadow-custom p-6 text-center hover-lift">
+          <div class="bg-white rounded-xl md:rounded-2xl shadow-custom p-4 md:p-6 text-center hover-lift">
             <div
-              class="w-16 h-16 bg-yellow-100 rounded-2xl flex items-center justify-center mx-auto mb-4"
+              class="w-12 h-12 md:w-16 md:h-16 bg-yellow-100 rounded-2xl flex items-center justify-center mx-auto mb-3 md:mb-4"
             >
-              <Icon name="ph:house" class="text-yellow-600 text-2xl" />
+              <Icon name="ph:house" class="text-yellow-600 text-xl md:text-2xl" />
             </div>
-            <h3 class="text-card-title mb-2">
+            <h3 class="text-card-title mb-1 md:mb-2">
               {{ $t('universityDetail.keyInformation.accommodation') }}
             </h3>
-            <p class="text-gray-600">{{ university.keyInfo.accommodation }}</p>
+            <p class="text-gray-600 text-sm md:text-base">{{ university.keyInfo.accommodation }}</p>
           </div>
 
-          <div class="bg-white rounded-2xl shadow-custom p-6 text-center hover-lift">
+          <div class="bg-white rounded-xl md:rounded-2xl shadow-custom p-4 md:p-6 text-center hover-lift">
             <div
-              class="w-16 h-16 bg-teal-100 rounded-2xl flex items-center justify-center mx-auto mb-4"
+              class="w-12 h-12 md:w-16 md:h-16 bg-teal-100 rounded-2xl flex items-center justify-center mx-auto mb-3 md:mb-4"
             >
-              <Icon name="ph:trophy" class="text-teal-600 text-2xl" />
+              <Icon name="ph:trophy" class="text-teal-600 text-xl md:text-2xl" />
             </div>
-            <h3 class="text-card-title mb-2">
+            <h3 class="text-card-title mb-1 md:mb-2">
               {{ $t('universityDetail.keyInformation.ranking') }}
             </h3>
-            <p class="text-gray-600">{{ university.keyInfo.ranking }}</p>
+            <p class="text-gray-600 text-sm md:text-base">{{ university.keyInfo.ranking }}</p>
           </div>
 
-          <div class="bg-white rounded-2xl shadow-custom p-6 text-center hover-lift">
+          <div class="bg-white rounded-xl md:rounded-2xl shadow-custom p-4 md:p-6 text-center hover-lift">
             <div
-              class="w-16 h-16 bg-indigo-100 rounded-2xl flex items-center justify-center mx-auto mb-4"
+              class="w-12 h-12 md:w-16 md:h-16 bg-indigo-100 rounded-2xl flex items-center justify-center mx-auto mb-3 md:mb-4"
             >
-              <Icon name="ph:globe" class="text-indigo-600 text-2xl" />
+              <Icon name="ph:globe" class="text-indigo-600 text-xl md:text-2xl" />
             </div>
-            <h3 class="text-card-title mb-2">
+            <h3 class="text-card-title mb-1 md:mb-2">
               {{ $t('universityDetail.keyInformation.internationalStudents') }}
             </h3>
-            <p class="text-gray-600">{{ university.keyInfo.internationalStudents }}</p>
+            <p class="text-gray-600 text-sm md:text-base">{{ university.keyInfo.internationalStudents }}</p>
           </div>
         </div>
       </div>

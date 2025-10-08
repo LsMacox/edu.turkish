@@ -344,8 +344,18 @@ const submitForm = async () => {
         duration: 7000,
       })
     } else {
-      const errorMessage = error?.data?.error || error?.message || $t('modal.error_message')
-      show(errorMessage, { title: $t('modal.error_title'), type: 'error', duration: 6000 })
+      // Берем содержательное сообщение из ответа сервера
+      const errorMessage =
+        (error?.data?.message as string) ||
+        (error?.message as string) ||
+        (error?.data?.statusMessage as string) ||
+        ($t('modal.error_message') as string)
+
+      show(errorMessage, {
+        title: $t('modal.error_title'),
+        type: 'error',
+        duration: 6000,
+      })
     }
   } finally {
     isSubmitting.value = false

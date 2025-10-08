@@ -141,6 +141,7 @@
 
 <script setup lang="ts">
 import { useUniversityApplicationValidation } from '~/composables/validation/useUniversityApplicationValidation'
+import type { DegreeType } from '~/types/domain'
 
 const { show } = useToast()
 
@@ -149,7 +150,7 @@ interface Props {
     name: string
     academicPrograms?: Array<{
       name: string
-      level: 'bachelor' | 'master'
+      level: DegreeType
       language: string
       duration: string
       price: number
@@ -320,11 +321,11 @@ const submitApplication = async () => {
       body: applicationData,
     })
 
-    // Success - response contains created application and optional Bitrix info
+    // Success - response contains created application and CRM info
 
-    // Проверяем результат интеграции с Bitrix
-    if (response.bitrix?.error) {
-      console.warn('Bitrix integration error:', response.bitrix.error)
+    // Проверяем результат интеграции с CRM (возможен Bitrix/EspoCRM)
+    if (response.crm?.error) {
+      console.warn(`CRM integration error (${response.crm.provider || 'unknown'}):`, response.crm.error)
     }
 
     // Reset form
