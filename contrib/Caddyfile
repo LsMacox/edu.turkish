@@ -35,7 +35,7 @@ https://{$DIRECTUS_DOMAIN} {
     tls {
         issuer acme {
             email {$CADDY_ACME_EMAIL}
-            disable_http_challenge true
+            disable_http_challenge
         }
     }
 }
@@ -56,7 +56,7 @@ https://{$CRM_DOMAIN} {
     tls {
         issuer acme {
             email {$CADDY_ACME_EMAIL}
-            disable_http_challenge true
+            disable_http_challenge
         }
     }
 }
