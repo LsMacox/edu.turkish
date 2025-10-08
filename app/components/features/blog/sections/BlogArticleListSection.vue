@@ -35,7 +35,7 @@
             <span>{{ featured.publishedAtLabel }}</span>
             <span v-if="featured.readingTimeLabel">• {{ featured.readingTimeLabel }}</span>
           </div>
-          <h3 class="text-2xl font-bold text-secondary mb-4">{{ featured.title }}</h3>
+          <h3 class="text-section-title mb-4">{{ featured.title }}</h3>
           <p class="text-gray-600 leading-relaxed mb-6">{{ featured.excerpt }}</p>
           <NuxtLink
             :to="articleLink(featured.slug)"

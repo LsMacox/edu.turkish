@@ -132,8 +132,8 @@
             </article>
 
             <aside class="space-y-8">
-              <div v-if="tableOfContents.length" class="rounded-3xl bg-white p-6 shadow-custom">
-                <h3 class="text-lg font-semibold text-secondary">
+              <div v-if="tableOfContents.length" class="hidden md:block rounded-3xl bg-white p-6 shadow-custom">
+                <h3 class="text-card-title mb-2">
                   {{ t('article.tableOfContents') }}
                 </h3>
                 <nav class="mt-4 space-y-2 text-sm text-gray-600">
@@ -158,7 +158,7 @@
                 class="rounded-3xl bg-gradient-to-br from-primary to-secondary p-[1px] shadow-lg"
               >
                 <div class="rounded-3xl bg-white p-6">
-                  <h3 class="text-lg font-semibold text-secondary">
+                  <h3 class="text-card-title mb-2">
                     {{ t('article.quickFacts.title') }}
                   </h3>
                   <ul class="mt-4 space-y-3 text-sm text-gray-600">
@@ -177,7 +177,7 @@
               </div>
 
               <div v-if="highlights.length" class="rounded-3xl bg-white p-6 shadow-custom">
-                <h3 class="text-lg font-semibold text-secondary">
+                <h3 class="text-card-title mb-2">
                   {{ t('article.highlights.title') }}
                 </h3>
                 <ul class="mt-4 space-y-3 text-sm text-gray-600">
@@ -189,7 +189,7 @@
               </div>
 
               <div class="rounded-3xl bg-background p-6">
-                <h3 class="text-lg font-semibold text-secondary">{{ t('article.share.title') }}</h3>
+                <h3 class="text-card-title mb-2">{{ t('article.share.title') }}</h3>
                 <p class="mt-2 text-sm text-gray-600">
                   {{ t('article.share.description') }}
                 </p>
@@ -217,7 +217,7 @@
               </div>
 
               <div v-if="tags.length" class="rounded-3xl bg-white p-6 shadow-custom">
-                <h3 class="text-lg font-semibold text-secondary">{{ t('article.tags.title') }}</h3>
+                <h3 class="text-card-title mb-2">{{ t('article.tags.title') }}</h3>
                 <div class="mt-4 flex flex-wrap gap-2">
                   <span
                     v-for="tag in tags"
@@ -237,10 +237,10 @@
         <div class="container mx-auto px-4 lg:px-6">
           <div class="flex flex-col gap-8 lg:flex-row lg:items-center lg:justify-between">
             <div>
-              <h2 class="text-2xl font-semibold text-secondary lg:text-3xl">
+              <h2 class="text-section-title">
                 {{ t('article.related.title') }}
               </h2>
-              <p class="mt-2 max-w-2xl text-gray-600">
+              <p class="text-section-subtitle max-w-2xl">
                 {{ t('article.related.description') }}
               </p>
             </div>
@@ -279,7 +279,7 @@
                 >
                   {{ related.category.label }}
                 </span>
-                <h3 class="text-lg font-semibold text-secondary group-hover:text-primary">
+                <h3 class="text-card-title group-hover:text-primary">
                   <NuxtLink
                     :to="localePath({ name: 'articles-slug', params: { slug: related.slug } })"
                   >

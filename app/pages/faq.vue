@@ -124,7 +124,7 @@
         <!-- No results state -->
         <div v-if="isActiveSearch && !hasResults && !isSearching" class="text-center py-12">
           <Icon name="mdi:magnify-close" class="w-16 h-16 text-gray-300 mx-auto mb-4" />
-          <h3 class="text-xl font-semibold text-gray-700 mb-2">{{ t('faq.noResultsTitle') }}</h3>
+          <h3 class="text-card-title mb-2">{{ t('faq.noResultsTitle') }}</h3>
           <p class="text-gray-500 mb-6">{{ t('faq.noResultsMessage', { query: searchQuery }) }}</p>
 
           <div class="space-y-3">
@@ -207,7 +207,7 @@
             name="mdi:frequently-asked-questions"
             class="w-16 h-16 text-gray-300 mx-auto mb-4"
           />
-          <h3 class="text-xl font-semibold text-gray-700 mb-2">{{ t('faq.startSearching') }}</h3>
+          <h3 class="text-card-title mb-2">{{ t('faq.startSearching') }}</h3>
           <p class="text-gray-500">{{ t('faq.startSearchingMessage') }}</p>
         </div>
       </div>
