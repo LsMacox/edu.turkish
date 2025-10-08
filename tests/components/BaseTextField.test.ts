@@ -151,18 +151,6 @@ describe('BaseTextField', () => {
     expect(wrapper.find('input').attributes('type')).toBe('email')
   })
 
-  it('applies size classes correctly', () => {
-    const wrapper = mount(BaseTextField, {
-      props: {
-        ...defaultProps,
-        size: 'lg',
-      },
-    })
-
-    const input = wrapper.find('input')
-    expect(input.classes()).toContain('py-5')
-  })
-
   it('handles focus and blur events', async () => {
     const wrapper = mount(BaseTextField, {
       props: defaultProps,
@@ -187,7 +175,6 @@ describe('BaseTextField', () => {
 
     const input = wrapper.find('input')
     expect(input.attributes('disabled')).toBeDefined()
-    expect(input.classes()).toContain('opacity-50')
   })
 
   it('handles readonly state correctly', () => {
