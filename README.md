@@ -94,6 +94,32 @@ npm run db:studio      # открыть Prisma Studio
 - Рекомендации по ключам и плейсхолдерам описаны в [docs/I18N.md](docs/I18N.md)
 - Для проверки консистентности используйте `npm run i18n:check`
 
+## CDN для статических ресурсов
+
+Приложение поддерживает доставку статических ресурсов через CDN. Для использования:
+
+1. Установите переменную окружения `NUXT_PUBLIC_CDN_URL`:
+   ```bash
+   NUXT_PUBLIC_CDN_URL=https://cdn.edu-turkish.com
+   ```
+
+2. Используйте composable `useCdn()` в компонентах:
+   ```vue
+   <script setup>
+   const { cdnUrl } = useCdn()
+   </script>
+
+   <template>
+     <img :src="cdnUrl('/images/universities/logo.png')" alt="Logo" />
+     <NuxtImg :src="cdnUrl('/images/reviews/photo.jpg')" alt="Review" />
+   </template>
+   ```
+
+3. Подробные примеры использования: `specs/007-cdn-replacement-for/EXAMPLES.md`
+4. Руководство по настройке: `specs/007-cdn-replacement-for/quickstart.md`
+
+**Примечание**: Оставьте `NUXT_PUBLIC_CDN_URL` пустым для отключения CDN (ресурсы будут загружаться из `/public/`)
+
 ## Документация
 
 - [Руководство по вкладу](docs/CONTRIBUTING.md)
@@ -113,6 +139,7 @@ npm run db:studio      # открыть Prisma Studio
 - **Directus**: `DIRECTUS_PUBLIC_URL`, `DIRECTUS_ADMIN_EMAIL`, `DIRECTUS_ADMIN_PASSWORD`, `DIRECTUS_KEY`, `DIRECTUS_SECRET`, `NUXT_PUBLIC_DIRECTUS_URL`
 - **Redis и очереди**: `REDIS_HOST`, `REDIS_PORT`, `REDIS_PASSWORD`
 - **Аналитика**: `NUXT_PUBLIC_YANDEX_METRIKA_ID`
+- **CDN**: `NUXT_PUBLIC_CDN_URL` — базовый URL для статических ресурсов (изображения, видео, документы). Оставьте пустым для отключения CDN
 - **Интеграции и инструменты**: `OPENROUTER_API_KEY`, секреты для SMTP/логирования по необходимости
 
 ## Деплой

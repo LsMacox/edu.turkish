@@ -169,6 +169,7 @@ export default defineNuxtConfig({
       siteUrl,
       directusUrl: process.env.NUXT_PUBLIC_DIRECTUS_URL || 'http://localhost:8055',
       yandexMetrikaId: process.env.NUXT_PUBLIC_YANDEX_METRIKA_ID || '',
+      cdnUrl: process.env.NUXT_PUBLIC_CDN_URL || '',
     },
   },
   nitro: {
