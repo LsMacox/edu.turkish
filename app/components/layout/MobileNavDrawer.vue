@@ -11,6 +11,10 @@
       <!-- Drawer -->
       <div
         class="fixed inset-0 md:inset-y-0 md:right-0 md:left-auto w-full md:w-80 md:max-w-[85vw] bg-white shadow-2xl overflow-y-auto z-[99999] animate-slide-in-right"
+        @touchstart.passive="onTouchStart"
+        @touchmove.passive="onTouchMove"
+        @touchend="onTouchEnd"
+        @touchcancel="onTouchCancel"
       >
         <!-- Header -->
         <div class="flex items-center justify-between p-5 md:p-6 border-b border-gray-100">
@@ -231,6 +235,10 @@ const options: Opt[] = [
 
 const currentLocale = computed(() => i18n.locale.value)
 
+const touchStartX = ref<number | null>(null)
+const touchDeltaX = ref(0)
+const SWIPE_THRESHOLD = 80
+
 function changeLocale(code: Opt['code']) {
   if (code !== currentLocale.value) {
     const path = switchLocalePath(code)
@@ -260,6 +268,41 @@ function isActive(to: string) {
 function goToSection(hash: string) {
   navigateTo({ path: localePath('/'), hash })
   closeDrawer()
+}
+
+function onTouchStart(event: TouchEvent) {
+  if (!props.isOpen) return
+
+  const touch = event.touches[0]
+  if (touch) {
+    touchStartX.value = touch.clientX
+    touchDeltaX.value = 0
+  }
+}
+
+function onTouchMove(event: TouchEvent) {
+  if (touchStartX.value === null) return
+
+  const touch = event.touches[0]
+  if (touch) {
+    touchDeltaX.value = touchStartX.value - touch.clientX
+  }
+}
+
+function onTouchEnd() {
+  if (touchStartX.value !== null && touchDeltaX.value >= SWIPE_THRESHOLD) {
+    closeDrawer()
+  }
+  resetTouch()
+}
+
+function onTouchCancel() {
+  resetTouch()
+}
+
+function resetTouch() {
+  touchStartX.value = null
+  touchDeltaX.value = 0
 }
 
 // Close drawer on escape key
