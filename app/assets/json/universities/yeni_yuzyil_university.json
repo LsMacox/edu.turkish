@@ -17,8 +17,8 @@
   "internationalStudents": 4000,
   "hasAccommodation": true,
   "hasScholarships": true,
-  "heroImage": "/images/universities/yuzyil-bg.webp",
-  "image": "/images/universities/yuzyil-preview.png",
+  "heroImage": "https://cdn.edu-turkish.com/images/universities/yuzyil-bg.webp",
+  "image": "https://cdn.edu-turkish.com/images/universities/yuzyil-preview.png",
   "about": {
     "history": "Университет основан Фондом здравоохранения и образования в 2009 году. С момента открытия развивает академические программы с акцентом на здравоохранение, естественные науки и технологии.",
     "mission": "Обеспечивать качественное высшее образование международного уровня, соединяющее теорию и практику; расширять исследовательские возможности и клиническую подготовку студентов.",
@@ -33,7 +33,11 @@
   "strong_programs": [
     {
       "category": "Медицина и стоматология",
-      "programs": ["Медицина", "Стоматология", "Фармация"]
+      "programs": [
+        "Медицина",
+        "Стоматология",
+        "Фармация"
+      ]
     },
     {
       "category": "Биология и науки о жизни",
@@ -54,7 +58,11 @@
     },
     {
       "category": "Право и общественные науки",
-      "programs": ["Право", "Политология и международные отношения", "Психология"]
+      "programs": [
+        "Право",
+        "Политология и международные отношения",
+        "Психология"
+      ]
     },
     {
       "category": "Коммуникации и медиа",
@@ -146,12 +154,16 @@
       {
         "name": "Аттестат/диплом",
         "description": "Апостиль и нотариальный перевод",
-        "format_requirements": ["PDF"]
+        "format_requirements": [
+          "PDF"
+        ]
       },
       {
         "name": "Загранпаспорт",
         "description": "Действителен на срок обучения",
-        "format_requirements": ["PDF"]
+        "format_requirements": [
+          "PDF"
+        ]
       },
       {
         "name": "Фото",

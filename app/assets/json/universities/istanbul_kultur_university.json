@@ -15,8 +15,8 @@
   "totalStudents": 14000,
   "hasAccommodation": true,
   "hasScholarships": true,
-  "heroImage": "/images/universities/kultur-bg.jpg",
-  "image": "/images/universities/kultur-preview.jpg",
+  "heroImage": "https://cdn.edu-turkish.com/images/universities/kultur-bg.jpg",
+  "image": "https://cdn.edu-turkish.com/images/universities/kultur-preview.jpg",
   "about": {
     "history": "İstanbul Kültür Üniversitesi (IKÜ) основан в 1997 году при Фонде образования Kültür College. Университет сочетает современное образование, теоретическую базу и практические навыки, ориентируясь на международные стандарты.",
     "mission": "Обеспечивать качественное образование, развивать прикладные навыки студентов и поддерживать их международную мобильность и карьерный рост.",
@@ -42,7 +42,10 @@
     },
     {
       "category": "Архитектура и дизайн",
-      "programs": ["Архитектура", "Дизайн интерьера и среды"]
+      "programs": [
+        "Архитектура",
+        "Дизайн интерьера и среды"
+      ]
     },
     {
       "category": "Экономика и управление",
@@ -55,7 +58,10 @@
     },
     {
       "category": "Социальные и гуманитарные науки",
-      "programs": ["Психология", "Преподавание английского языка"]
+      "programs": [
+        "Психология",
+        "Преподавание английского языка"
+      ]
     },
     {
       "category": "Искусство и медиа",
@@ -155,12 +161,16 @@
       {
         "name": "Аттестат о среднем образовании",
         "description": "Апостиль и нотариальный перевод",
-        "format_requirements": ["PDF"]
+        "format_requirements": [
+          "PDF"
+        ]
       },
       {
         "name": "Заграничный паспорт",
         "description": "Срок действия не менее 2 лет",
-        "format_requirements": ["PDF"]
+        "format_requirements": [
+          "PDF"
+        ]
       },
       {
         "name": "Фотографии",
@@ -169,7 +179,9 @@
       {
         "name": "Denklik belgesi",
         "description": "На турецком, 100-балльная шкала",
-        "format_requirements": ["PDF"]
+        "format_requirements": [
+          "PDF"
+        ]
       }
     ],
     "scholarships": [
@@ -177,7 +189,9 @@
         "name": "Скидка на обучение",
         "type": "university",
         "coverage_percentage": 50,
-        "eligibility_criteria": ["Скидка действует на все направления обучения"]
+        "eligibility_criteria": [
+          "Скидка действует на все направления обучения"
+        ]
       }
     ]
   },

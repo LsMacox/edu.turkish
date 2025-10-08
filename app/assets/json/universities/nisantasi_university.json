@@ -17,8 +17,8 @@
   "internationalStudents": 6000,
   "hasAccommodation": true,
   "hasScholarships": true,
-  "heroImage": "/images/universities/nisantasi-bg.jpg",
-  "image": "/images/universities/nisantasi-preview.jpg",
+  "heroImage": "https://cdn.edu-turkish.com/images/universities/nisantasi-bg.jpg",
+  "image": "https://cdn.edu-turkish.com/images/universities/nisantasi-preview.jpg",
   "about": {
     "history": "Основан фондом Nişantaşı Education and Culture Foundation с целью предложить конкурентное международное образование, сочетающее теорию с практикой, инновации и развитие навыков, востребованных на глобальном рынке.",
     "mission": "Подготовка специалистов, готовых к современным профессиям, через обновляемые учебные планы, практикоориентированное обучение и международное сотрудничество.",
@@ -65,7 +65,12 @@
     },
     {
       "category": "Психология и социальные науки",
-      "programs": ["Психология", "Социология", "Социальная работа", "Политология и госуправление"]
+      "programs": [
+        "Психология",
+        "Социология",
+        "Социальная работа",
+        "Политология и госуправление"
+      ]
     },
     {
       "category": "Кулинария и мода",
@@ -176,7 +181,9 @@
         "name": "Скидка на обучение",
         "type": "university",
         "coverage_percentage": 50,
-        "eligibility_criteria": ["Скидка действует на все направления обучения"]
+        "eligibility_criteria": [
+          "Скидка действует на все направления обучения"
+        ]
       }
     ]
   },

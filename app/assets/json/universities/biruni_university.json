@@ -18,8 +18,8 @@
   "internationalStudents": 2000,
   "hasAccommodation": true,
   "hasScholarships": true,
-  "heroImage": "/images/universities/biruni-bg.jpg",
-  "image": "/images/universities/biruni-preview.jpg",
+  "heroImage": "https://cdn.edu-turkish.com/images/universities/biruni-bg.jpg",
+  "image": "https://cdn.edu-turkish.com/images/universities/biruni-preview.jpg",
   "about": {
     "history": "Biruni University создан как университет будущего в области медицины и технологий.",
     "mission": "Готовить специалистов с глубокими знаниями и практическими навыками, способных конкурировать на международном уровне.",
@@ -34,7 +34,11 @@
   "strong_programs": [
     {
       "category": "Медицина и стоматология",
-      "programs": ["Медицина", "Стоматология", "Фармация"]
+      "programs": [
+        "Медицина",
+        "Стоматология",
+        "Фармация"
+      ]
     },
     {
       "category": "Здравоохранение",
@@ -162,7 +166,9 @@
       {
         "name": "Сертификат владения английским языком",
         "description": "TOEFL iBT ≥ 84 (для англоязычных программ)",
-        "format_requirements": ["PDF"]
+        "format_requirements": [
+          "PDF"
+        ]
       }
     ],
     "scholarships": [

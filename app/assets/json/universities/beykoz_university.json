@@ -17,8 +17,8 @@
   "internationalStudents": 2000,
   "hasAccommodation": true,
   "hasScholarships": true,
-  "heroImage": "/images/universities/beykoz-bg.jpg",
-  "image": "/images/universities/beykoz-preview.jpg",
+  "heroImage": "https://cdn.edu-turkish.com/images/universities/beykoz-bg.jpg",
+  "image": "https://cdn.edu-turkish.com/images/universities/beykoz-preview.jpg",
   "about": {
     "history": "Университет создан фондом TÜRLEV (Turkish Logistics Research & Education Foundation) и вырос из Beykoz Lojistik Meslek Yüksekokulu. В 2016 году получил статус университета.",
     "mission": "Готовить специалистов, соединяющих академические знания с практическими навыками, с акцентом на логистику, бизнес, дизайн, ИТ и инженерные направления.",
@@ -35,7 +35,9 @@
   "strong_programs": [
     {
       "category": "Логистика и управление цепями поставок",
-      "programs": ["Международная торговля и логистика"]
+      "programs": [
+        "Международная торговля и логистика"
+      ]
     },
     {
       "category": "Бизнес и экономика",
@@ -47,7 +49,11 @@
     },
     {
       "category": "Инженерия и компьютерные науки",
-      "programs": ["Компьютерная инженерия", "Программная инженерия", "Искусственный интеллект"]
+      "programs": [
+        "Компьютерная инженерия",
+        "Программная инженерия",
+        "Искусственный интеллект"
+      ]
     },
     {
       "category": "Дизайн и медиа",
@@ -61,7 +67,10 @@
     },
     {
       "category": "Психология и социальные науки",
-      "programs": ["Психология", "Политология и международные отношения"]
+      "programs": [
+        "Психология",
+        "Политология и международные отношения"
+      ]
     }
   ],
   "key_info_texts": {
@@ -163,12 +172,16 @@
       {
         "name": "Аттестат/диплом",
         "description": "Апостиль и нотариальный перевод",
-        "format_requirements": ["PDF"]
+        "format_requirements": [
+          "PDF"
+        ]
       },
       {
         "name": "Загранпаспорт",
         "description": "Срок действия не менее 18 месяцев",
-        "format_requirements": ["PDF"]
+        "format_requirements": [
+          "PDF"
+        ]
       },
       {
         "name": "Фото",
@@ -184,7 +197,9 @@
         "name": "Скидка на обучение",
         "type": "university",
         "coverage_percentage": 50,
-        "eligibility_criteria": ["Скидка действует на все направления обучения"]
+        "eligibility_criteria": [
+          "Скидка действует на все направления обучения"
+        ]
       }
     ]
   },

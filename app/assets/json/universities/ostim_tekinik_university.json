@@ -18,8 +18,8 @@
   "internationalStudents": 450,
   "hasAccommodation": true,
   "hasScholarships": true,
-  "heroImage": "/images/universities/ostim-tekinik-bg.jpg",
-  "image": "/images/universities/ostim-tekinik-preview.jpg",
+  "heroImage": "https://cdn.edu-turkish.com/images/universities/ostim-tekinik-bg.jpg",
+  "image": "https://cdn.edu-turkish.com/images/universities/ostim-tekinik-preview.jpg",
   "about": {
     "history": "Университет официально открылся в 2020 году как продолжение OSTİM Akademi, чтобы готовить инженеров и предпринимателей для промышленного кластера OSTİM.",
     "mission": "Интегрировать образование, исследования и промышленность, развивать инженеров, готовых к цифровой трансформации производства.",
@@ -34,19 +34,32 @@
   "strong_programs": [
     {
       "category": "Инженерия и робототехника",
-      "programs": ["Электроника и встраиваемые системы", "Аэрокосмическая инженерия"]
+      "programs": [
+        "Электроника и встраиваемые системы",
+        "Аэрокосмическая инженерия"
+      ]
     },
     {
       "category": "Индустрия 4.0 и производство",
-      "programs": ["Инженерия промышленных систем"]
+      "programs": [
+        "Инженерия промышленных систем"
+      ]
     },
     {
       "category": "ИТ и программная инженерия",
-      "programs": ["Компьютерная инженерия", "Программная инженерия", "Кибербезопасность"]
+      "programs": [
+        "Компьютерная инженерия",
+        "Программная инженерия",
+        "Кибербезопасность"
+      ]
     },
     {
       "category": "Бизнес и предпринимательство",
-      "programs": ["Международная торговля и финансы", "Бизнес-администрирование", "Логистика"]
+      "programs": [
+        "Международная торговля и финансы",
+        "Бизнес-администрирование",
+        "Логистика"
+      ]
     }
   ],
   "key_info_texts": {
@@ -95,15 +108,15 @@
     ],
     "gallery": [
       {
-        "url": "/images/universities/ostim-campus-1.jpg",
+        "url": "https://cdn.edu-turkish.com/images/universities/ostim-campus-1.jpg",
         "alt": "Главный кампус OSTİM Teknik"
       },
       {
-        "url": "/images/universities/ostim-lab-robotics.jpg",
+        "url": "https://cdn.edu-turkish.com/images/universities/ostim-lab-robotics.jpg",
         "alt": "Лаборатория робототехники"
       },
       {
-        "url": "/images/universities/ostim-startup.jpg",
+        "url": "https://cdn.edu-turkish.com/images/universities/ostim-startup.jpg",
         "alt": "Инкубатор стартапов OSTİM Tech"
       }
     ],
@@ -155,7 +168,9 @@
         "name": "Скидка на обучение",
         "type": "university",
         "coverage_percentage": 80,
-        "eligibility_criteria": ["Максимальная скидка до 80% действует на все направления обучения"]
+        "eligibility_criteria": [
+          "Максимальная скидка до 80% действует на все направления обучения"
+        ]
       }
     ]
   },

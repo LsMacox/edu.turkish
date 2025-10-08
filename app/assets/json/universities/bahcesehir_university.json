@@ -17,8 +17,8 @@
   "internationalStudents": 8000,
   "hasAccommodation": true,
   "hasScholarships": true,
-  "heroImage": "/images/universities/bahcesehir-bg.jpg",
-  "image": "/images/universities/bahcesehir-preview.png",
+  "heroImage": "https://cdn.edu-turkish.com/images/universities/bahcesehir-bg.jpg",
+  "image": "https://cdn.edu-turkish.com/images/universities/bahcesehir-preview.png",
   "about": {
     "history": "Bahçeşehir University основан в 1998 году Фондом образования Uğur. Университет входит в сеть BAU Global, соединяющую кампусы в США, Германии, Италии и других странах.",
     "mission": "Предоставлять образование мирового уровня, готовить специалистов для глобальной конкуренции и соединять науку с практикой.",
@@ -165,12 +165,16 @@
       {
         "name": "Аттестат/диплом",
         "description": "Апостиль и нотариальный перевод",
-        "format_requirements": ["PDF"]
+        "format_requirements": [
+          "PDF"
+        ]
       },
       {
         "name": "Загранпаспорт",
         "description": "Срок действия не менее 2 лет",
-        "format_requirements": ["PDF"]
+        "format_requirements": [
+          "PDF"
+        ]
       },
       {
         "name": "Фото",
@@ -182,7 +186,9 @@
         "name": "Скидка на обучение",
         "type": "university",
         "coverage_percentage": 25,
-        "eligibility_criteria": ["Размер скидки зависит от выбранного направления"]
+        "eligibility_criteria": [
+          "Размер скидки зависит от выбранного направления"
+        ]
       }
     ]
   },

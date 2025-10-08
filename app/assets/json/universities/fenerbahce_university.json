@@ -17,8 +17,8 @@
   "internationalStudents": 1000,
   "hasAccommodation": true,
   "hasScholarships": true,
-  "heroImage": "/images/universities/fenerbahce-bg.jpg",
-  "image": "/images/universities/fenerbahce-preview.jpg",
+  "heroImage": "https://cdn.edu-turkish.com/images/universities/fenerbahce-bg.jpg",
+  "image": "https://cdn.edu-turkish.com/images/universities/fenerbahce-preview.jpg",
   "about": {
     "history": "Основан фондом культуры, образования и здравоохранения Fenerbahçe. Университет делает ставку на современные методы обучения, практико-ориентированность и тесные связи с бизнесом, спортом и сектором здравоохранения.",
     "mission": "Готовить конкурентоспособных специалистов через сочетание академической подготовки, практики и индустриальных партнёрств, развивая сильные направления в спорте, здравоохранении, инженерии, бизнесе и коммуникациях.",
@@ -63,7 +63,11 @@
     },
     {
       "category": "Бизнес и экономика",
-      "programs": ["Бизнес-администрирование", "Экономика и финансы", "MBA"]
+      "programs": [
+        "Бизнес-администрирование",
+        "Экономика и финансы",
+        "MBA"
+      ]
     },
     {
       "category": "Коммуникации и медиа",
@@ -76,7 +80,10 @@
     },
     {
       "category": "Архитектура и дизайн",
-      "programs": ["Архитектура", "Дизайн интерьера и окружающей среды"]
+      "programs": [
+        "Архитектура",
+        "Дизайн интерьера и окружающей среды"
+      ]
     }
   ],
   "key_info_texts": {
@@ -171,30 +178,42 @@
       {
         "name": "Паспорт",
         "description": "Страница с данными",
-        "format_requirements": ["скан PDF/JPEG"]
+        "format_requirements": [
+          "скан PDF/JPEG"
+        ]
       },
       {
         "name": "Аттестат о среднем образовании",
         "description": "С переводом на турецкий или английский (при необходимости)",
-        "format_requirements": ["PDF"]
+        "format_requirements": [
+          "PDF"
+        ]
       },
       {
         "name": "Выписка оценок/транскрипт",
         "description": "За все годы обучения",
-        "format_requirements": ["PDF"]
+        "format_requirements": [
+          "PDF"
+        ]
       },
       {
         "name": "Сертификат владения языком",
         "description": "TOEFL/другой сертификат или справка об уровне",
-        "format_requirements": ["PDF"]
+        "format_requirements": [
+          "PDF"
+        ]
       },
       {
         "name": "Фотография 3×4",
-        "format_requirements": ["JPEG/PNG"]
+        "format_requirements": [
+          "JPEG/PNG"
+        ]
       },
       {
         "name": "Резюме (для магистратуры)",
-        "format_requirements": ["PDF"]
+        "format_requirements": [
+          "PDF"
+        ]
       }
     ],
     "scholarships": [
@@ -202,7 +221,9 @@
         "name": "Скидка на обучение",
         "type": "university",
         "coverage_percentage": 55,
-        "eligibility_criteria": ["Скидка действует на все направления обучения"]
+        "eligibility_criteria": [
+          "Скидка действует на все направления обучения"
+        ]
       }
     ]
   },

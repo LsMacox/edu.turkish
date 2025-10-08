@@ -17,8 +17,8 @@
   "internationalStudents": 2000,
   "hasAccommodation": true,
   "hasScholarships": true,
-  "heroImage": "/images/universities/topkapi-bg.png",
-  "image": "/images/universities/topkapi-preview.jpeg",
+  "heroImage": "https://cdn.edu-turkish.com/images/universities/topkapi-bg.png",
+  "image": "https://cdn.edu-turkish.com/images/universities/topkapi-preview.jpeg",
   "about": {
     "history": "Университет начал путь как Plato Vocational School, затем İstanbul Ayvansaray Üniversitesi, а в 2022 году получил название İstanbul Topkapı Üniversitesi.",
     "mission": "Формировать специалистов, которые соединяют академические знания и практические навыки, востребованные на глобальном рынке.",
@@ -33,11 +33,18 @@
   "strong_programs": [
     {
       "category": "Бизнес и управление",
-      "programs": ["Бизнес-администрирование", "Международная торговля и бизнес", "Экономика"]
+      "programs": [
+        "Бизнес-администрирование",
+        "Международная торговля и бизнес",
+        "Экономика"
+      ]
     },
     {
       "category": "Международные отношения и экономика",
-      "programs": ["Политология и международные отношения", "Экономика"]
+      "programs": [
+        "Политология и международные отношения",
+        "Экономика"
+      ]
     },
     {
       "category": "Инженерия и компьютерные науки",
@@ -162,12 +169,16 @@
       {
         "name": "Аттестат о среднем образовании",
         "description": "Апостиль и нотариальный перевод",
-        "format_requirements": ["PDF"]
+        "format_requirements": [
+          "PDF"
+        ]
       },
       {
         "name": "Загранпаспорт",
         "description": "Срок действия не менее 2 лет",
-        "format_requirements": ["PDF"]
+        "format_requirements": [
+          "PDF"
+        ]
       },
       {
         "name": "Фотографии",
@@ -176,12 +187,16 @@
       {
         "name": "Языковой сертификат (при наличии)",
         "description": "Напр. TOEFL iBT",
-        "format_requirements": ["PDF"]
+        "format_requirements": [
+          "PDF"
+        ]
       },
       {
         "name": "Denklik belgesi (при необходимости)",
         "description": "Эквивалентность аттестата",
-        "format_requirements": ["PDF"]
+        "format_requirements": [
+          "PDF"
+        ]
       }
     ],
     "scholarships": [
@@ -189,7 +204,9 @@
         "name": "Скидка на обучение",
         "type": "university",
         "coverage_percentage": 50,
-        "eligibility_criteria": ["Скидка действует на все направления обучения"]
+        "eligibility_criteria": [
+          "Скидка действует на все направления обучения"
+        ]
       }
     ]
   },
