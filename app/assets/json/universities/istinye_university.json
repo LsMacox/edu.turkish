@@ -15,8 +15,8 @@
   },
   "hasAccommodation": true,
   "hasScholarships": true,
-  "heroImage": "/images/universities/istinye-bg.webp",
-  "image": "/images/universities/istinye-preview.jpg",
+  "heroImage": "https://cdn.edu-turkish.com/images/universities/istinye-bg.webp",
+  "image": "https://cdn.edu-turkish.com/images/universities/istinye-preview.jpg",
   "about": {
     "history": "История университета",
     "mission": "Миссия университета",

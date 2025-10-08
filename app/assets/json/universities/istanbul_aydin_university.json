@@ -17,8 +17,8 @@
   "internationalStudents": 8500,
   "hasAccommodation": true,
   "hasScholarships": true,
-  "heroImage": "/images/universities/aydin-bg.png",
-  "image": "/images/universities/aydin-preview.jpg",
+  "heroImage": "https://cdn.edu-turkish.com/images/universities/aydin-bg.png",
+  "image": "https://cdn.edu-turkish.com/images/universities/aydin-preview.jpg",
   "about": {
     "history": "Istanbul Aydın University — частный университет, основанный в 2007 году с целью предоставить международное образование по доступной цене.",
     "mission": "Подготовка глобальных специалистов, сочетающих практические навыки и академическую подготовку в совремённой образовательной среде.",
@@ -45,11 +45,21 @@
     },
     {
       "category": "Медицина и здравоохранение",
-      "programs": ["Медицина", "Стоматология", "Фармация", "Физиотерапия", "Сестринское дело"]
+      "programs": [
+        "Медицина",
+        "Стоматология",
+        "Фармация",
+        "Физиотерапия",
+        "Сестринское дело"
+      ]
     },
     {
       "category": "Экономика и управление",
-      "programs": ["Международная торговля", "Экономика и финансы", "Менеджмент"]
+      "programs": [
+        "Международная торговля",
+        "Экономика и финансы",
+        "Менеджмент"
+      ]
     },
     {
       "category": "Социальные науки и искусство",
@@ -148,12 +158,16 @@
       {
         "name": "Аттестат о среднем образовании",
         "description": "Апостиль и нотариальный перевод",
-        "format_requirements": ["PDF"]
+        "format_requirements": [
+          "PDF"
+        ]
       },
       {
         "name": "Заграничный паспорт",
         "description": "Срок действия не менее 2 лет",
-        "format_requirements": ["PDF"]
+        "format_requirements": [
+          "PDF"
+        ]
       },
       {
         "name": "Фотографии",
@@ -162,7 +176,9 @@
       {
         "name": "Denklik belgesi",
         "description": "На турецком, оценивание по 100-балльной шкале",
-        "format_requirements": ["PDF"]
+        "format_requirements": [
+          "PDF"
+        ]
       }
     ],
     "scholarships": [
@@ -170,7 +186,9 @@
         "name": "Скидка на обучение",
         "type": "university",
         "coverage_percentage": 10,
-        "eligibility_criteria": ["Скидка действует на все направления обучения"]
+        "eligibility_criteria": [
+          "Скидка действует на все направления обучения"
+        ]
       }
     ],
     "dates": [

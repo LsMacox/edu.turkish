@@ -17,8 +17,8 @@
   "internationalStudents": 2000,
   "hasAccommodation": true,
   "hasScholarships": true,
-  "heroImage": "/images/universities/atlas-bg-2.jpg",
-  "image": "/images/universities/atlas-preview.webp",
+  "heroImage": "https://cdn.edu-turkish.com/images/universities/atlas-bg-2.jpg",
+  "image": "https://cdn.edu-turkish.com/images/universities/atlas-preview.webp",
   "about": {
     "history": "Университет основан Фондом образования, культуры и здравоохранения Турции и Балкан в 2018 году.",
     "mission": "Подготовка специалистов нового поколения, объединяющих академические знания, цифровые технологии и практику, с особым фокусом на медицина и здравоохранение.",
@@ -63,15 +63,25 @@
     },
     {
       "category": "Психология и когнитивные науки",
-      "programs": ["Психология", "Нейронаука", "Когнитивная реабилитация"]
+      "programs": [
+        "Психология",
+        "Нейронаука",
+        "Когнитивная реабилитация"
+      ]
     },
     {
       "category": "Бизнес и управление",
-      "programs": ["Бизнес-администрирование", "Управление технологиями и инновациями"]
+      "programs": [
+        "Бизнес-администрирование",
+        "Управление технологиями и инновациями"
+      ]
     },
     {
       "category": "Языки и переводы",
-      "programs": ["Английский язык и литература", "Перевод и устный перевод"]
+      "programs": [
+        "Английский язык и литература",
+        "Перевод и устный перевод"
+      ]
     }
   ],
   "key_info_texts": {
@@ -163,12 +173,16 @@
       {
         "name": "Аттестат о среднем образовании",
         "description": "Апостиль и нотариальный перевод",
-        "format_requirements": ["PDF"]
+        "format_requirements": [
+          "PDF"
+        ]
       },
       {
         "name": "Загранпаспорт",
         "description": "Срок действия — не менее 2 лет",
-        "format_requirements": ["PDF"]
+        "format_requirements": [
+          "PDF"
+        ]
       },
       {
         "name": "Фотографии",
@@ -177,7 +191,9 @@
       {
         "name": "Denklik belgesi",
         "description": "На турецком, оценивание по 100-балльной шкале",
-        "format_requirements": ["PDF"]
+        "format_requirements": [
+          "PDF"
+        ]
       }
     ],
     "scholarships": [
@@ -185,7 +201,9 @@
         "name": "Скидка на обучение",
         "type": "university",
         "coverage_percentage": 25,
-        "eligibility_criteria": ["Скидка действует на все направления обучения"]
+        "eligibility_criteria": [
+          "Скидка действует на все направления обучения"
+        ]
       }
     ]
   },

@@ -17,8 +17,8 @@
   "internationalStudents": 2000,
   "hasAccommodation": true,
   "hasScholarships": true,
-  "heroImage": "/images/universities/halic-bg.jpg",
-  "image": "/images/universities/halic-preview.webp",
+  "heroImage": "https://cdn.edu-turkish.com/images/universities/halic-bg.jpg",
+  "image": "https://cdn.edu-turkish.com/images/universities/halic-preview.webp",
   "about": {
     "history": "Университет основан Фондом помощи детям с лейкемией в 1998 году. Со временем вырос в междисциплинарный университет с акцентом на искусство, инженерные науки и инновации.",
     "mission": "Готовить специалистов, конкурентоспособных на глобальном уровне, объединяя практико-ориентированное обучение, исследовательские проекты и творческую среду.",
@@ -44,7 +44,10 @@
     },
     {
       "category": "Психология и бионауки",
-      "programs": ["Психология", "Молекулярная биология и генетика"]
+      "programs": [
+        "Психология",
+        "Молекулярная биология и генетика"
+      ]
     },
     {
       "category": "Бизнес и экономика",
@@ -159,22 +162,32 @@
       {
         "name": "Паспорт",
         "description": "Скан первой страницы паспорта",
-        "format_requirements": ["PDF", "JPEG"]
+        "format_requirements": [
+          "PDF",
+          "JPEG"
+        ]
       },
       {
         "name": "Аттестат/Диплом",
         "description": "Документ об образовании с приложением (при наличии)",
-        "format_requirements": ["PDF"]
+        "format_requirements": [
+          "PDF"
+        ]
       },
       {
         "name": "Транскрипт",
         "description": "Оценки за последние 2–3 года (или выписка из вуза)",
-        "format_requirements": ["PDF"]
+        "format_requirements": [
+          "PDF"
+        ]
       },
       {
         "name": "Фото",
         "description": "Фотография паспортного образца",
-        "format_requirements": ["JPEG", "PNG"]
+        "format_requirements": [
+          "JPEG",
+          "PNG"
+        ]
       }
     ],
     "scholarships": [
@@ -182,7 +195,9 @@
         "name": "Скидка на обучение",
         "type": "university",
         "coverage_percentage": 10,
-        "eligibility_criteria": ["Скидка действует на все направления обучения"]
+        "eligibility_criteria": [
+          "Скидка действует на все направления обучения"
+        ]
       }
     ]
   },

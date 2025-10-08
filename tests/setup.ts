@@ -67,6 +67,7 @@ beforeAll(() => {
     public: {
       siteUrl: 'https://edu-turkish.com',
       directusUrl: 'http://localhost:8055',
+      cdnUrl: 'https://cdn.edu-turkish.com',
     },
   }))
 
