@@ -1,7 +1,7 @@
 # Global options
 {
-    auto_https off              # критично: Caddy не лезет в ACME/HTTPS
-    # email {$CADDY_ACME_EMAIL} # больше не нужен, но можно оставить — безвредно
+    auto_https disable_redirects  # Разрешаем HTTPS для сайтов с tls, но без авто-редиректов
+    email {$CADDY_ACME_EMAIL}     # Email для Let's Encrypt
 }
 
 # App (Nuxt) origin — ВАЖНО: это не публичный домен, а origin-хост
