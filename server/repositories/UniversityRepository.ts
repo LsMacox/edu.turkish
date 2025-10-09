@@ -59,7 +59,10 @@ type UniversityDetailWithRelations = Prisma.UniversityGetPayload<{
 }>
 
 const CITY_ALL_VALUES = new Set(['Все города', 'All cities'])
-const TYPE_ALL_VALUES = new Set(['Все', 'All'])
+// Treat these values as "no filter" for type
+const TYPE_ALL_VALUES = new Set(['Все', 'All', 'Все типы', 'All types'])
+// Treat these values as "no filter" for level
+const LEVEL_ALL_VALUES = new Set(['Все уровни', 'All levels'])
 
 const TYPE_LABEL_MAP: Record<string, UniversityType> = {
   Государственный: 'state',
@@ -77,7 +80,13 @@ const LEVEL_LABEL_MAP: Record<string, DegreeType> = {
   Bachelor: 'bachelor',
   Master: 'master',
   PhD: 'phd',
+  Doctorate: 'phd',
+  doctorate: 'phd',
 }
+
+// Explicit allow-lists to validate enum values before sending to Prisma
+const VALID_UNIVERSITY_TYPES: readonly UniversityType[] = ['state', 'private', 'tech', 'elite'] as const
+const VALID_DEGREE_TYPES: readonly DegreeType[] = ['bachelor', 'master', 'phd'] as const
 
 const IMPORTANT_DATE_TYPE_MAP: Record<string, UniversityImportantDate['deadline_type']> = {
   deadline: 'application',
@@ -266,14 +275,18 @@ export class UniversityRepository {
     }
 
     if (params.type && !TYPE_ALL_VALUES.has(params.type)) {
-      const normalizedType = TYPE_LABEL_MAP[params.type] ?? params.type
-      where.type = normalizedType as UniversityType
+      const normalizedType = (TYPE_LABEL_MAP[params.type] ?? params.type) as string
+      if ((VALID_UNIVERSITY_TYPES as readonly string[]).includes(normalizedType)) {
+        where.type = normalizedType as UniversityType
+      }
     }
 
-    if (params.level && !TYPE_ALL_VALUES.has(params.level)) {
-      const mappedLevel = LEVEL_LABEL_MAP[params.level] ?? (params.level as DegreeType)
-      where.academicPrograms = {
-        some: { degreeType: mappedLevel },
+    if (params.level && !LEVEL_ALL_VALUES.has(params.level)) {
+      const mappedLevel = (LEVEL_LABEL_MAP[params.level] ?? (params.level as DegreeType)) as string
+      if ((VALID_DEGREE_TYPES as readonly string[]).includes(mappedLevel)) {
+        where.academicPrograms = {
+          some: { degreeType: mappedLevel as DegreeType },
+        }
       }
     }
 
