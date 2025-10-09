@@ -3,7 +3,8 @@ import fs from 'node:fs'
 import path from 'node:path'
 import { SUPPORTED_LOCALES, DEFAULT_LOCALE } from './lib/locales'
 
-const siteUrl = process.env.NUXT_SITE_URL || 'https://edu-turkish.com'
+const rawSiteUrl = process.env.NITRO_ORIGIN || process.env.NUXT_SITE_URL || 'https://edu-turkish.com'
+const siteUrl = (/^https?:\/\//i.test(rawSiteUrl) ? rawSiteUrl : `https://${rawSiteUrl}`).replace(/\/$/, '')
 
 const enablePrerender = process.env.NITRO_PRERENDER === 'true'
 const isProduction = process.env.NODE_ENV === 'production'
