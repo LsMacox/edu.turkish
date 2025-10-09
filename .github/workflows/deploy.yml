@@ -37,7 +37,7 @@ jobs:
           set -euo pipefail
 
           # Фиксированная директория приложения
-          APP_DIR="${HOME}/apps/edu-turkish"
+          APP_DIR="/root/apps/edu.turkis"
           cd "$APP_DIR"
 
           # Безопасность Git в новых версиях
