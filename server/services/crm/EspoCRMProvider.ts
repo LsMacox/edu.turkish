@@ -469,12 +469,12 @@ export class EspoCRMProvider implements ICRMProvider {
     const normalized = input.toLowerCase()
     // Map internal sources to EspoCRM enum options; fallback to omit if unknown
     const map: Record<string, string> = {
-      website: 'Web',
-      web: 'Web',
-      landing: 'Web',
-      university_detail: 'Web',
-      home_questionnaire: 'Web',
-      test: 'Web',
+      website: 'Web Site',
+      web: 'Web Site',
+      landing: 'Web Site',
+      university_detail: 'Web Site',
+      home_questionnaire: 'Web Site',
+      test: 'Web Site',
       referral: 'Partner',
       partner: 'Partner',
     }
