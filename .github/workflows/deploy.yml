@@ -47,6 +47,8 @@ jobs:
           git fetch --all --prune
           git reset --hard origin/main
 
+          docker buildx prune -af
+
           # Сборка и запуск сервиса app
           docker compose build --no-cache app
           docker compose up -d app
