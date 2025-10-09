@@ -36,44 +36,18 @@ jobs:
           ssh -o StrictHostKeyChecking=no -p "${SSH_PORT:-22}" "${SSH_USER}@${SSH_HOST}" 'bash -s' << 'EOF'
           set -euo pipefail
 
-          # Определяем директорию с приложением
-          for candidate in \
-            "/app/edu.turkish" \
-            "/app/edu-turkish"; do
-            if [ -d "$candidate" ]; then
-              APP_DIR="$candidate"
-              break
-            fi
-          done
-
-          if [ -z "${APP_DIR:-}" ]; then
-            APP_DIR="$(find /app -maxdepth 2 -type d \( -name 'edu.turkish' -o -name 'edu-turkish' \) | head -n 1 || true)"
-          fi
-
-          if [ -z "$APP_DIR" ]; then
-            echo "Не удалось найти директорию приложения (ищем edu.turkish или edu-turkish в /app)." >&2
-            exit 1
-          fi
-
+          # Фиксированная директория приложения
+          APP_DIR="${HOME}/apps/edu-turkish"
           cd "$APP_DIR"
 
-          # На случай безопасности Git в новых версиях
+          # Безопасность Git в новых версиях
           git config --global --add safe.directory "$APP_DIR" || true
 
           # Обновляем код до состояния origin/main
           git fetch --all --prune
           git reset --hard origin/main
 
-          # Выбираем доступную команду docker compose
-          if command -v docker-compose >/dev/null 2>&1; then
-            DC="docker-compose"
-          else
-            DC="docker compose"
-          fi
-
-          # Корректная последовательность для сервиса app
-          $DC stop app || true
-          $DC rm -f app || true
-          $DC build app
-          $DC up -d app
+          # Сборка и запуск сервиса app
+          docker compose build --no-cache app
+          docker compose up -d app
           EOF
