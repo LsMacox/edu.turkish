@@ -8,16 +8,8 @@ export default defineEventHandler(async (event) => {
   const referralCode = typeof query.referral_code === 'string' ? query.referral_code : ''
   const hasReferralCode = referralCode.length > 0
 
-  const querySession =
-    typeof query.session === 'string' && query.session.length > 0 ? query.session : undefined
-  const querySessionId =
-    typeof (query as any).session_id === 'string' && (query as any).session_id.length > 0
-      ? ((query as any).session_id as string)
-      : undefined
   const cookieFp = getCookie(event, 'fp')
-  const sessionId = querySession || querySessionId || (cookieFp && cookieFp.length > 0
-    ? cookieFp
-    : undefined)
+  const sessionId = cookieFp && cookieFp.length > 0 ? cookieFp : undefined
   const utm = extractUtmFromQuery(query as Record<string, any>)
 
   if (hasReferralCode) {

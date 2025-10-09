@@ -37,10 +37,9 @@ export const useContactChannels = () => {
 
   const channels = computed<Record<ContactChannelKey, ContactChannelInstance>>(() => {
     const referral = referralCode.value || ''
-    const sessionId = typeof route.query.session === 'string' ? route.query.session : undefined
     const utm = extractUtmFromQuery(route.query as Record<string, any>)
 
-    const hasTrackingParams = Boolean(referral || sessionId || utm)
+    const hasTrackingParams = Boolean(referral || utm)
 
     return Object.entries(contactChannels).reduce<
       Record<ContactChannelKey, ContactChannelInstance>
@@ -55,10 +54,6 @@ export const useContactChannels = () => {
           const routePath = channelRoutePaths[typedKey]
           const query: Record<string, string> = { referral_code: referral }
 
-          // Add session, utm if needed
-          if (sessionId) {
-            query.session = sessionId
-          }
           if (utm) {
             for (const [key, value] of Object.entries(utm)) {
               if (value) {
