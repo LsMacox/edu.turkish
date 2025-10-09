@@ -1,16 +1,22 @@
 <template>
   <!-- Mobile Navigation Overlay -->
   <Teleport to="body">
-    <div v-if="isOpen" class="fixed inset-0 z-[99999] lg:hidden">
+    <div v-if="isVisible" class="fixed inset-0 z-[99999] lg:hidden">
       <!-- Backdrop -->
       <div
-        class="fixed inset-0 bg-black/50 backdrop-blur-sm z-[99998] animate-fade-in"
+        :class="[
+          'fixed inset-0 bg-black/50 backdrop-blur-sm z-[99998]',
+          backdropAnimationClass,
+        ]"
         @click="closeDrawer"
       />
 
       <!-- Drawer -->
       <div
-        class="fixed inset-0 md:inset-y-0 md:right-0 md:left-auto w-full md:w-80 md:max-w-[85vw] bg-white shadow-2xl overflow-y-auto z-[99999] animate-slide-in-right"
+        :class="[
+          'fixed inset-0 md:inset-y-0 md:right-0 md:left-auto w-full md:w-80 md:max-w-[85vw] bg-white shadow-2xl overflow-y-auto z-[99999]',
+          drawerAnimationClass,
+        ]"
         @touchstart.passive="onTouchStart"
         @touchmove.passive="onTouchMove"
         @touchend="onTouchEnd"
@@ -235,9 +241,51 @@ const options: Opt[] = [
 
 const currentLocale = computed(() => i18n.locale.value)
 
+const closeAnimationDuration = 300
 const touchStartX = ref<number | null>(null)
 const touchDeltaX = ref(0)
 const SWIPE_THRESHOLD = 80
+const isVisible = ref(props.isOpen)
+const isClosing = ref(false)
+
+const drawerAnimationClass = computed(() =>
+  isClosing.value ? 'animate-slide-out-left' : 'animate-slide-in-right',
+)
+const backdropAnimationClass = computed(() =>
+  isClosing.value ? 'animate-fade-out' : 'animate-fade-in',
+)
+
+let closeTimer: ReturnType<typeof setTimeout> | null = null
+
+watch(
+  () => props.isOpen,
+  (value) => {
+    if (value) {
+      if (closeTimer) {
+        clearTimeout(closeTimer)
+        closeTimer = null
+      }
+      isVisible.value = true
+      requestAnimationFrame(() => {
+        isClosing.value = false
+      })
+    } else if (isVisible.value) {
+      isClosing.value = true
+      closeTimer = setTimeout(() => {
+        isVisible.value = false
+        isClosing.value = false
+        closeTimer = null
+      }, closeAnimationDuration)
+    }
+  },
+  { immediate: true },
+)
+
+onBeforeUnmount(() => {
+  if (closeTimer) {
+    clearTimeout(closeTimer)
+  }
+})
 
 function changeLocale(code: Opt['code']) {
   if (code !== currentLocale.value) {
