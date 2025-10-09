@@ -35,16 +35,14 @@ export default defineEventHandler(async (event): Promise<ApplicationResponse> =>
     // Create application in database
     const application = await applicationRepository.create(body)
 
-    // Extract fingerprint (if any) to build CRM deduplication key
+    // Extract identifiers to build CRM deduplication key (email + phone only)
     const fingerprintCookie = getCookie(event, 'fp')?.trim()
     const normalizedEmail = body.personal_info.email?.trim().toLowerCase() || undefined
     const normalizedPhone = body.personal_info.phone?.replace(/\D/g, '') || undefined
-    const fingerprintParts = fingerprintCookie
-      ? [fingerprintCookie, normalizedEmail ? `email:${normalizedEmail}` : null, normalizedPhone ? `phone:${normalizedPhone}` : null].filter(
-          (part): part is string => Boolean(part),
-        )
-      : []
-    const fingerprintKey = fingerprintParts.length > 1 ? fingerprintParts.join('|') : undefined
+    const fingerprintKey =
+      normalizedEmail && normalizedPhone
+        ? `email:${normalizedEmail}|phone:${normalizedPhone}`
+        : undefined
 
     // Send to CRM via abstraction layer
     let crmLeadId: string | number | null = null
