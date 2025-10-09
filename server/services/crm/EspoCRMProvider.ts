@@ -389,6 +389,10 @@ export class EspoCRMProvider implements ICRMProvider {
       lead[this.config.fieldMappings.referralCode] = data.referralCode
     }
 
+    if (data.fingerprintKey && this.config.fieldMappings.fingerprintKey) {
+      lead[this.config.fieldMappings.fingerprintKey] = data.fingerprintKey
+    }
+
     if (data.source) {
       const mapped = this.mapEspoSource(data.source)
       if (mapped) {
