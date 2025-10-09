@@ -1,3 +1,4 @@
+import { getCookie } from 'h3'
 import { prisma } from '~~/lib/prisma'
 import { ApplicationRepository } from '~~/server/repositories'
 import { validateApplicationData } from '~~/server/utils/api/applications'
@@ -34,6 +35,17 @@ export default defineEventHandler(async (event): Promise<ApplicationResponse> =>
     // Create application in database
     const application = await applicationRepository.create(body)
 
+    // Extract fingerprint (if any) to build CRM deduplication key
+    const fingerprintCookie = getCookie(event, 'fp')?.trim()
+    const normalizedEmail = body.personal_info.email?.trim().toLowerCase() || undefined
+    const normalizedPhone = body.personal_info.phone?.replace(/\D/g, '') || undefined
+    const fingerprintParts = fingerprintCookie
+      ? [fingerprintCookie, normalizedEmail ? `email:${normalizedEmail}` : null, normalizedPhone ? `phone:${normalizedPhone}` : null].filter(
+          (part): part is string => Boolean(part),
+        )
+      : []
+    const fingerprintKey = fingerprintParts.length > 1 ? fingerprintParts.join('|') : undefined
+
     // Send to CRM via abstraction layer
     let crmLeadId: string | number | null = null
     let crmError: string | null = null
@@ -60,6 +72,8 @@ export default defineEventHandler(async (event): Promise<ApplicationResponse> =>
         scholarship: body.user_preferences?.scholarship,
         universityChosen: body.user_preferences?.universityChosen,
         additionalInfo: body.additional_info,
+        session: fingerprintCookie,
+        fingerprintKey,
       }
 
       // Get CRM provider and attempt to create lead
@@ -122,6 +136,8 @@ export default defineEventHandler(async (event): Promise<ApplicationResponse> =>
             : undefined,
           referralCode: body.referral_code || 'DIRECT',
           source: body.source || 'website',
+          session: fingerprintCookie,
+          fingerprintKey,
         }
         const queue = new RedisQueue()
         const provider = CRMFactory.getCurrentProvider()

@@ -71,6 +71,7 @@ function getBitrixFieldMappings(): FieldMappingConfig {
     language: process.env.CRM_MAP_LANGUAGE || 'UF_CRM_1234567894',
     university: process.env.CRM_MAP_UNIVERSITY || 'UF_CRM_1234567897',
     source: process.env.CRM_MAP_SOURCE || 'SOURCE_ID',
+    fingerprintKey: process.env.CRM_MAP_FINGERPRINT_KEY,
   }
 }
 
@@ -82,6 +83,7 @@ function getEspoFieldMappings(): FieldMappingConfig {
     language: process.env.ESPOCRM_MAP_LANGUAGE || 'languageC',
     university: process.env.ESPOCRM_MAP_UNIVERSITY || 'universityC',
     source: 'source', // built-in Espo field; do not remap
+    fingerprintKey: process.env.ESPOCRM_MAP_FINGERPRINT_KEY || 'fingerprintKeyC',
   }
 }
 

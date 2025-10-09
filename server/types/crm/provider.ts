@@ -22,4 +22,5 @@ export interface FieldMappingConfig {
   language: string
   university: string
   source: string
+  fingerprintKey?: string
 }

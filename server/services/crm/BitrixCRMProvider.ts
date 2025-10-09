@@ -304,6 +304,13 @@ export class BitrixCRMProvider implements ICRMProvider {
       lead.UF_CRM_REFERRAL_CODE = data.referralCode
     }
 
+    if (data.fingerprintKey && this.config.fieldMappings.fingerprintKey) {
+      const field = this.config.fieldMappings.fingerprintKey
+      if (field) {
+        ;(lead as Record<string, any>)[field] = data.fingerprintKey
+      }
+    }
+
     if (data.userType) {
       lead.UF_CRM_1234567893 = data.userType
     }

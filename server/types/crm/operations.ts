@@ -38,6 +38,7 @@ export interface LeadData {
   // Additional
   additionalInfo?: string
   session?: string
+  fingerprintKey?: string
 }
 
 export interface ActivityData {
@@ -119,6 +120,7 @@ export const leadDataSchema = z.object({
     .optional(),
   additionalInfo: z.string().optional(),
   session: z.string().optional(),
+  fingerprintKey: z.string().min(3).optional(),
 })
 
 export const activityDataSchema = z.object({
