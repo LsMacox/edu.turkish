@@ -6,6 +6,7 @@
 ## Overview
 
 Successfully migrated all static asset paths to CDN URLs (`https://cdn.edu-turkish.com`) in:
+
 - University JSON files (images/universities)
 - Review seed files (images/reviews, videos/reviews)
 
@@ -14,11 +15,13 @@ Successfully migrated all static asset paths to CDN URLs (`https://cdn.edu-turki
 ### 1. University JSON Files (19 files)
 
 **Updated paths in all university JSON files:**
+
 - `heroImage`: Background images for university pages
 - `image`: Preview/thumbnail images for university cards
 - `gallery`: Campus and facility images (where applicable)
 
 **Files updated:**
+
 - `atlas_university.json`
 - `bahcesehir_university.json`
 - `beykoz_university.json`
@@ -40,6 +43,7 @@ Successfully migrated all static asset paths to CDN URLs (`https://cdn.edu-turki
 - `yeni_yuzyil_university.json`
 
 **Example changes:**
+
 ```json
 // Before
 "heroImage": "/images/universities/bahcesehir-bg.jpg",
@@ -55,6 +59,7 @@ Successfully migrated all static asset paths to CDN URLs (`https://cdn.edu-turki
 **File**: `prisma/seed/reviews.ts`
 
 **Updated paths:**
+
 - Video URLs: `/videos/reviews/*` → `https://cdn.edu-turkish.com/videos/reviews/*`
 - Video thumbnails: `/images/reviews/thumbnails/*` → `https://cdn.edu-turkish.com/images/reviews/thumbnails/*`
 - Photo URLs: `/images/reviews/*` → `https://cdn.edu-turkish.com/images/reviews/*`
@@ -62,6 +67,7 @@ Successfully migrated all static asset paths to CDN URLs (`https://cdn.edu-turki
 **Total replacements**: 12
 
 **Example changes:**
+
 ```typescript
 // Before
 videoUrl: '/videos/reviews/video_2025-09-28_17-31-55.mp4',
@@ -79,6 +85,7 @@ imageUrl: 'https://cdn.edu-turkish.com/images/reviews/photo_2025-09-28_17-32-20.
 Created automated migration script: `scripts/update-cdn-paths.ts`
 
 **Features:**
+
 - Automatically transforms paths to CDN URLs
 - Handles university JSON files (heroImage, image, gallery)
 - Handles review seed files (videos, images, thumbnails)
@@ -86,6 +93,7 @@ Created automated migration script: `scripts/update-cdn-paths.ts`
 - Idempotent (safe to run multiple times)
 
 **Usage:**
+
 ```bash
 npx tsx scripts/update-cdn-paths.ts
 ```

@@ -109,6 +109,7 @@
 ## Phase 3.4: Integration
 
 **No integration tasks needed** - This is a client-side utility with no:
+
 - Database changes (no Prisma migration)
 - Server endpoints (no API routes)
 - External services (CDN is external, no integration code)
@@ -153,6 +154,7 @@
 ## Phase 3.6: i18n & Content (mandatory for UI changes)
 
 **No i18n tasks needed** - This feature:
+
 - ✅ Has no UI strings (utility only)
 - ✅ Has no validation messages (no user input)
 - ✅ Has no dynamic content (no Directus integration)
@@ -167,7 +169,7 @@ Setup Phase (parallel):
 
 Tests Phase (parallel, after setup):
   T003 [P] Contract tests
-  T004 [P] Utility tests  
+  T004 [P] Utility tests
   T005 [P] Composable tests
 
 Core Implementation (sequential, after tests):
@@ -185,6 +187,7 @@ Polish Phase (parallel, after core):
 ## Parallel Execution Examples
 
 ### Setup Phase (T001-T002)
+
 ```bash
 # Launch both tasks together:
 Task: "Add CDN runtime config to nuxt.config.ts"
@@ -192,6 +195,7 @@ Task: "Update .env.example with CDN configuration"
 ```
 
 ### Tests Phase (T003-T005)
+
 ```bash
 # Launch all test tasks together:
 Task: "Contract test for CDN transformation in tests/contract/cdn-transformation.contract.ts"
@@ -200,6 +204,7 @@ Task: "Unit test for composable in tests/composables/useCdn.test.ts"
 ```
 
 ### Polish Phase (T008-T012)
+
 ```bash
 # Launch parallel tasks together:
 Task: "Verify all tests pass"
@@ -259,22 +264,26 @@ _GATE: Checked by main() before returning_
 
 ## Constitution Compliance
 
-✅ **Principle I (Structure)**: 
+✅ **Principle I (Structure)**:
+
 - Utility in `app/utils/cdn.ts`
 - Composable in `app/composables/useCdn.ts`
 - Tests in `tests/utils/`, `tests/composables/`, `tests/contract/`
 
 ✅ **Principle VI (Imports)**:
+
 - Composable auto-imported (no manual import)
 - Utility auto-imported from `~/utils/`
 - Uses `~/*` alias for imports
 
 ✅ **Principle VII (Runtime Config)**:
+
 - T001 adds `cdnUrl` to `runtimeConfig.public`
 - `NUXT_PUBLIC_CDN_URL` env var documented in T002
 - Sensible default (empty string)
 
 ✅ **Principle V (Quality)**:
+
 - TypeScript types required (T006, T007)
 - Vitest tests (T003-T005, T008)
 - Performance validation (T009)

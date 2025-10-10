@@ -1,6 +1,6 @@
 /**
  * Contract Test: CDN URL Transformation
- * 
+ *
  * Validates the contract between asset paths and CDN URLs
  * This is a client-side transformation contract, not an API contract
  */

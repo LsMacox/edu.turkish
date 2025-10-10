@@ -68,15 +68,15 @@ const { cdnUrl } = useCdn()
 <template>
   <!-- Simple image -->
   <img :src="cdnUrl('/images/universities/logo.png')" alt="University Logo" />
-  
+
   <!-- With Nuxt Image -->
-  <NuxtImg 
-    :src="cdnUrl('/images/reviews/student.jpg')" 
+  <NuxtImg
+    :src="cdnUrl('/images/reviews/student.jpg')"
     alt="Student Review"
     width="400"
     height="300"
   />
-  
+
   <!-- Video -->
   <video :src="cdnUrl('/videos/reviews/campus-tour.mp4')" controls />
 </template>
@@ -110,17 +110,17 @@ const university = ref<University>({
 // ~/composables/useUniversity.ts
 export function useUniversity(id: number) {
   const { cdnUrl } = useCdn()
-  
+
   const university = ref({
     id,
-    logo: '/images/universities/default.png'
+    logo: '/images/universities/default.png',
   })
-  
+
   const logoUrl = computed(() => cdnUrl(university.value.logo))
-  
+
   return {
     university,
-    logoUrl
+    logoUrl,
   }
 }
 ```
@@ -150,7 +150,7 @@ const testPaths = [
   '/images/universities/logo.png',
   'images/reviews/photo.jpg',
   '/public/videos/tour.mp4',
-  '/images/test.png?v=123'
+  '/images/test.png?v=123',
 ]
 </script>
 
@@ -159,7 +159,7 @@ const testPaths = [
     <h2>CDN Transformation Test</h2>
     <ul>
       <li v-for="path in testPaths" :key="path">
-        <strong>Input:</strong> {{ path }}<br>
+        <strong>Input:</strong> {{ path }}<br />
         <strong>Output:</strong> {{ cdnUrl(path) }}
       </li>
     </ul>
@@ -216,6 +216,7 @@ npm run test -- --coverage
 ```
 
 Expected output:
+
 ```
 ✓ CDN Transformation Contract (15 tests)
   ✓ Path Normalization Contract (4 tests)
@@ -327,6 +328,7 @@ console.timeEnd('cdn-transform')
 ## Support
 
 For issues or questions:
+
 - Check contract tests: `specs/007-cdn-replacement-for/contracts/`
 - Review research: `specs/007-cdn-replacement-for/research.md`
 - See data model: `specs/007-cdn-replacement-for/data-model.md`

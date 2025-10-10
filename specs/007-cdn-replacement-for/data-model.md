@@ -16,7 +16,7 @@ This feature is primarily a **client-side transformation utility** with no datab
 ```typescript
 interface RuntimeConfig {
   public: {
-    cdnUrl: string  // CDN base URL, e.g., 'https://cdn.edu-turkish.com'
+    cdnUrl: string // CDN base URL, e.g., 'https://cdn.edu-turkish.com'
   }
 }
 ```
@@ -24,6 +24,7 @@ interface RuntimeConfig {
 **Environment Variable**: `NUXT_PUBLIC_CDN_URL`
 
 **Validation**:
+
 - Must be valid URL or empty string
 - No trailing slash
 - HTTPS in production (recommended)
@@ -38,12 +39,12 @@ interface RuntimeConfig {
 /**
  * Asset path input - can be absolute or relative
  */
-type AssetPath = string  // e.g., '/images/logo.png' or 'images/logo.png'
+type AssetPath = string // e.g., '/images/logo.png' or 'images/logo.png'
 
 /**
  * CDN URL output - fully qualified URL
  */
-type CdnUrl = string  // e.g., 'https://cdn.edu-turkish.com/images/logo.png'
+type CdnUrl = string // e.g., 'https://cdn.edu-turkish.com/images/logo.png'
 
 /**
  * Transform asset path to CDN URL
@@ -68,14 +69,14 @@ function transformToCdn(path: AssetPath, cdnBaseUrl: string): CdnUrl
 
 ### Examples
 
-| Input | CDN Base URL | Output |
-|-------|--------------|--------|
-| `/images/universities/logo.png` | `https://cdn.edu-turkish.com` | `https://cdn.edu-turkish.com/images/universities/logo.png` |
-| `images/reviews/photo.jpg` | `https://cdn.edu-turkish.com` | `https://cdn.edu-turkish.com/images/reviews/photo.jpg` |
-| `/public/videos/tour.mp4` | `https://cdn.edu-turkish.com` | `https://cdn.edu-turkish.com/videos/tour.mp4` |
-| `/images/logo.png?v=123` | `https://cdn.edu-turkish.com` | `https://cdn.edu-turkish.com/images/logo.png?v=123` |
-| `https://other-cdn.com/image.png` | `https://cdn.edu-turkish.com` | `https://other-cdn.com/image.png` (unchanged) |
-| `/images/logo.png` | `` (empty) | `/images/logo.png` (unchanged) |
+| Input                             | CDN Base URL                  | Output                                                     |
+| --------------------------------- | ----------------------------- | ---------------------------------------------------------- |
+| `/images/universities/logo.png`   | `https://cdn.edu-turkish.com` | `https://cdn.edu-turkish.com/images/universities/logo.png` |
+| `images/reviews/photo.jpg`        | `https://cdn.edu-turkish.com` | `https://cdn.edu-turkish.com/images/reviews/photo.jpg`     |
+| `/public/videos/tour.mp4`         | `https://cdn.edu-turkish.com` | `https://cdn.edu-turkish.com/videos/tour.mp4`              |
+| `/images/logo.png?v=123`          | `https://cdn.edu-turkish.com` | `https://cdn.edu-turkish.com/images/logo.png?v=123`        |
+| `https://other-cdn.com/image.png` | `https://cdn.edu-turkish.com` | `https://other-cdn.com/image.png` (unchanged)              |
+| `/images/logo.png`                | `` (empty)                    | `/images/logo.png` (unchanged)                             |
 
 ## API Surface
 
@@ -94,6 +95,7 @@ export function toCdnUrl(path: string, cdnBaseUrl: string): string
 ```
 
 **Characteristics**:
+
 - Pure function (no side effects)
 - Idempotent (same input → same output)
 - SSR-safe (no DOM/window access)
@@ -109,19 +111,20 @@ export function toCdnUrl(path: string, cdnBaseUrl: string): string
  */
 export function useCdn() {
   const config = useRuntimeConfig()
-  
+
   return {
     /**
      * Transform asset path to CDN URL
      * @param path - Asset path
      * @returns CDN URL
      */
-    cdnUrl: (path: string) => string
+    cdnUrl: (path: string) => string,
   }
 }
 ```
 
 **Usage**:
+
 ```vue
 <script setup>
 const { cdnUrl } = useCdn()
@@ -172,16 +175,16 @@ const logoUrl = cdnUrl('/images/universities/logo.png')
 
 ## Edge Cases
 
-| Case | Behavior |
-|------|----------|
-| Empty path | Returns empty string |
-| Empty CDN URL | Returns original path |
-| Already CDN URL | Returns as-is (no double transformation) |
-| Relative path | Normalized and prefixed with CDN URL |
-| Absolute path | Normalized and prefixed with CDN URL |
-| Query parameters | Preserved in output |
-| Hash fragment | Preserved in output |
-| Special characters | Preserved (browser handles encoding) |
+| Case               | Behavior                                 |
+| ------------------ | ---------------------------------------- |
+| Empty path         | Returns empty string                     |
+| Empty CDN URL      | Returns original path                    |
+| Already CDN URL    | Returns as-is (no double transformation) |
+| Relative path      | Normalized and prefixed with CDN URL     |
+| Absolute path      | Normalized and prefixed with CDN URL     |
+| Query parameters   | Preserved in output                      |
+| Hash fragment      | Preserved in output                      |
+| Special characters | Preserved (browser handles encoding)     |
 
 ## Testing Strategy
 

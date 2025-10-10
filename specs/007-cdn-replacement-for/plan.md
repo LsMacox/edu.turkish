@@ -119,6 +119,7 @@ public/
 ```
 
 **Structure Decision**: Nuxt web application structure. CDN transformation implemented as:
+
 1. Core utility function in `~/utils/cdn.ts` for pure transformation logic
 2. Composable in `~/composables/useCdn.ts` for reactive/component usage
 3. Runtime config in `nuxt.config.ts` for CDN base URL
@@ -201,7 +202,6 @@ _This section describes what the /tasks command will do - DO NOT execute during 
 1. **Setup Phase** (parallel):
    - [P] Add runtime config to `nuxt.config.ts`
    - [P] Update `.env.example` with CDN URL
-   
 2. **Core Implementation** (sequential):
    - Create utility function `~/utils/cdn.ts` (pure logic)
    - Create composable `~/composables/useCdn.ts` (uses utility)
@@ -216,6 +216,7 @@ _This section describes what the /tasks command will do - DO NOT execute during 
 **Estimated Output**: 10-12 numbered, ordered tasks in tasks.md
 
 **Key Dependencies**:
+
 - Runtime config must be added before composable (needs config access)
 - Utility must exist before composable (composable uses utility)
 - Tests can run in parallel after implementation

@@ -22,8 +22,8 @@ const { cdnUrl } = useCdn()
 </script>
 
 <template>
-  <NuxtImg 
-    :src="cdnUrl('/images/reviews/student.jpg')" 
+  <NuxtImg
+    :src="cdnUrl('/images/reviews/student.jpg')"
     alt="Student Review"
     width="400"
     height="300"
@@ -87,10 +87,10 @@ const images = ref([
 
 <template>
   <div class="gallery">
-    <img 
-      v-for="(image, index) in images" 
+    <img
+      v-for="(image, index) in images"
       :key="index"
-      :src="cdnUrl(image)" 
+      :src="cdnUrl(image)"
       :alt="`Review ${index + 1}`"
     />
   </div>
@@ -105,18 +105,18 @@ const images = ref([
 // ~/composables/useUniversity.ts
 export function useUniversity(id: number) {
   const { cdnUrl } = useCdn()
-  
+
   const university = ref({
     id,
     name: '',
-    logo: '/images/universities/default.png'
+    logo: '/images/universities/default.png',
   })
-  
+
   const logoUrl = computed(() => cdnUrl(university.value.logo))
-  
+
   return {
     university,
-    logoUrl
+    logoUrl,
   }
 }
 ```
@@ -252,9 +252,9 @@ export default defineEventHandler((event) => {
   const config = useRuntimeConfig()
   const imagePath = '/images/universities/logo.png'
   const cdnUrl = toCdnUrl(imagePath, config.public.cdnUrl)
-  
+
   return {
-    url: cdnUrl
+    url: cdnUrl,
   }
 })
 ```
@@ -289,7 +289,7 @@ function getImageUrl(path: string) {
 const { cdnUrl } = useCdn()
 
 const backgroundImage = computed(() => ({
-  backgroundImage: `url(${cdnUrl('/images/hero-bg.jpg')})`
+  backgroundImage: `url(${cdnUrl('/images/hero-bg.jpg')})`,
 }))
 </script>
 
@@ -343,11 +343,7 @@ function handleImageError(event: Event) {
 </script>
 
 <template>
-  <img 
-    :src="cdnUrl(imagePath)" 
-    @error="handleImageError"
-    alt="University Logo" 
-  />
+  <img :src="cdnUrl(imagePath)" @error="handleImageError" alt="University Logo" />
 </template>
 ```
 
@@ -370,7 +366,7 @@ const logoUrl = computed(() => cdnUrl('/images/logo.png'))
 <template>
   <!-- ✅ Good -->
   <img :src="logoUrl" alt="Logo" />
-  
+
   <!-- ❌ Avoid (unless path is truly dynamic) -->
   <img :src="cdnUrl('/images/logo.png')" alt="Logo" />
 </template>
