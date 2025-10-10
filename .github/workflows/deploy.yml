@@ -4,6 +4,11 @@ on:
   push:
     branches: ['main']
   workflow_dispatch:
+    inputs:
+      run_migrations:
+        description: 'Run Prisma migrations on the production environment'
+        type: boolean
+        default: false
 
 concurrency:
   group: deploy-${{ github.ref }}
@@ -116,15 +121,21 @@ jobs:
           curl -fsS -X POST "https://api.bunny.net/pullzone/${BUNNY_APP_ZONE_ID}/purgeCache" \
             -H "AccessKey: ${BUNNY_API_KEY}"
 
-      - name: Health check (HTTP)
-        if: always()
+      - name: Run Prisma migrations (manual trigger)
+        if: github.event_name == 'workflow_dispatch' && github.event.inputs.run_migrations == 'true'
         env:
-          APP_HEALTH_URL: ${{ vars.APP_HEALTH_URL }}
+          SSH_HOST: ${{ secrets.SSH_HOST }}
+          SSH_USER: root
+          SSH_PORT: ${{ secrets.SSH_PORT }}
         run: |
-          if [ -n "${APP_HEALTH_URL:-}" ]; then
-            echo "Checking $APP_HEALTH_URL ..."
-            curl -fsS --retry 5 --retry-delay 2 "$APP_HEALTH_URL" >/dev/null
-            echo "Health OK"
-          else
-            echo "APP_HEALTH_URL not set, skipping health check."
-          fi
+          set -euo pipefail
+          echo "Running pnpm run db:deploy on $SSH_HOST"
+
+          ssh -o StrictHostKeyChecking=no -p "${SSH_PORT:-22}" "${SSH_USER}@${SSH_HOST}" 'bash -s' << 'EOF'
+          set -euo pipefail
+
+          APP_DIR="/root/apps/edu.turkish"
+          cd "$APP_DIR"
+
+          pnpm run db:deploy
+          EOF
