@@ -1,3 +1,4 @@
+import { eventHandler } from 'h3'
 import type { H3Event } from 'h3'
 import {
   getCookie as h3GetCookie,
@@ -33,7 +34,7 @@ const sanitizeRedirectLocation = (event: H3Event): string | null => {
   }
 }
 
-const handler = async (event: H3Event) => {
+const handler = eventHandler(async (event) => {
   const getQueryFn = (globalThis as any).getQuery || h3GetQuery
   const query = getQueryFn(event) as { ref?: string }
   const code = (query.ref || '').trim()
@@ -55,14 +56,23 @@ const handler = async (event: H3Event) => {
     })
   }
 
-  const method = event.node?.req?.method || 'GET'
-  if (method === 'GET' && !isApiPath(event.path)) {
-    const location = sanitizeRedirectLocation(event)
-    if (!location) return
-
-    const sendRedirectFn = (globalThis as any).sendRedirect || h3SendRedirect
-    await sendRedirectFn(event, location, 302)
+  const method = (event.node?.req?.method || 'GET').toUpperCase()
+  if (method !== 'GET') {
+    return
   }
-}
+
+  const path = event.path
+  if (isApiPath(path)) {
+    return
+  }
+
+  const location = sanitizeRedirectLocation(event)
+  if (!location) {
+    return
+  }
+
+  const sendRedirectFn = (globalThis as any).sendRedirect || h3SendRedirect
+  await sendRedirectFn(event, location, 302)
+})
 
 export default handler
