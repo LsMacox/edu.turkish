@@ -19,5 +19,8 @@
   },
   "range": {
     "to": "дейін"
+  },
+  "pageLoadingOverlay": {
+    "ariaLabel": "Бет жүктелуде"
   }
 }

@@ -19,5 +19,8 @@
   },
   "range": {
     "to": "kadar"
+  },
+  "pageLoadingOverlay": {
+    "ariaLabel": "Sayfa yükleniyor"
   }
 }
