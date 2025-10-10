@@ -27,7 +27,6 @@ export type UniversityListItem = Prisma.UniversityGetPayload<{
 
 type FeaturedProgramWithRelations = Prisma.UniversityFeaturedProgramGetPayload<{
   include: {
-    translations: true
     program: { include: { translations: true } }
   }
 }>
@@ -38,7 +37,6 @@ type UniversityDetailWithRelations = Prisma.UniversityGetPayload<{
     academicPrograms: { include: { translations: true } }
     featuredPrograms: {
       include: {
-        translations: true
         program: { include: { translations: true } }
       }
     }
@@ -168,7 +166,6 @@ export class UniversityRepository {
 
     for (const fp of featuredPrograms) {
       const order = typeof fp.displayOrder === 'number' ? fp.displayOrder : Number.MAX_SAFE_INTEGER
-      const translation = this.selectBestTranslation(fp.translations || [], locale.fallbacks)
       const programTranslation = this.selectBestTranslation(
         fp.program?.translations || [],
         locale.fallbacks,
@@ -176,8 +173,7 @@ export class UniversityRepository {
       const programName = (programTranslation?.name ?? '').trim()
       if (!programName) continue
 
-      const rawCategory = ((translation?.label as string | undefined) ?? '').trim()
-      const category = rawCategory.length > 0 ? rawCategory : DEFAULT_CATEGORY
+      const category = DEFAULT_CATEGORY
 
       const current = groups.get(category)
       if (!current) {
@@ -720,7 +716,6 @@ export class UniversityRepository {
         academicPrograms: { include: { translations: true } },
         featuredPrograms: {
           include: {
-            translations: true,
             program: { include: { translations: true } },
           },
           orderBy: { displayOrder: 'asc' },
