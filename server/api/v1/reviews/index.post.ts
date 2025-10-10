@@ -1,6 +1,7 @@
 import { prisma } from '~~/lib/prisma'
 import { ReviewRepository } from '~~/server/repositories'
 import type { CreateReviewResponse } from '~~/server/types/api'
+import { SUPPORTED_LOCALES } from '~~/server/utils/locale'
 import { z } from 'zod'
 import { parsePositiveInt } from '~~/lib/number'
 
@@ -13,8 +14,8 @@ const createReviewSchema = z.object({
   rating: z.coerce.number().min(1).max(5),
   contact: z.string().optional(),
   review: z.string().min(50, 'Review must be at least 50 characters').max(2000, 'Review too long'),
-  helpful: z.array(z.string()).optional(),
-  recommend: z.string().optional(),
+  helpfulAspects: z.array(z.string()).optional(),
+  recommendation: z.string().optional(),
   type: z.enum(['student', 'parent']).optional().default('student'),
 })
 
@@ -24,6 +25,7 @@ export default defineEventHandler(async (event): Promise<CreateReviewResponse> =
     assertMethod(event, 'POST')
 
     const locale = event.context.locale || 'ru'
+    const translationLocale = SUPPORTED_LOCALES.includes(locale) ? locale : 'ru'
     const body = await readBody(event)
 
     // Validate request body
@@ -73,25 +75,7 @@ export default defineEventHandler(async (event): Promise<CreateReviewResponse> =
     // Prepare review data for all supported locales
     const translations = [
       {
-        locale: 'ru',
-        name: data.name,
-        quote: data.review,
-        universityName: data.university,
-      },
-      {
-        locale: 'en',
-        name: data.name,
-        quote: data.review,
-        universityName: data.university,
-      },
-      {
-        locale: 'tr',
-        name: data.name,
-        quote: data.review,
-        universityName: data.university,
-      },
-      {
-        locale: 'kk',
+        locale: translationLocale,
         name: data.name,
         quote: data.review,
         universityName: data.university,
@@ -100,11 +84,11 @@ export default defineEventHandler(async (event): Promise<CreateReviewResponse> =
 
     // Create additional metadata
     const achievements: any = {}
-    if (data.helpful && data.helpful.length > 0) {
-      achievements.helpful_aspects = data.helpful
+    if (data.helpfulAspects && data.helpfulAspects.length > 0) {
+      achievements.helpful_aspects = data.helpfulAspects
     }
-    if (data.recommend) {
-      achievements.recommendation = data.recommend
+    if (data.recommendation) {
+      achievements.recommendation = data.recommendation
     }
     if (data.faculty) {
       achievements.faculty = data.faculty

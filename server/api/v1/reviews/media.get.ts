@@ -8,9 +8,9 @@ export default defineEventHandler(async (event: any) => {
   const lang = getHeader(event, 'Accept-Language') || 'ru'
 
   const {
-    featured = 'true',
+    featured = true,
     limit = '12',
-    type, // 'video' | 'image' | undefined (все)
+    type,
   } = query
 
   try {

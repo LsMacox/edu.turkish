@@ -56,8 +56,8 @@ export interface CreateReviewRequest {
   rating: number
   contact?: string
   review: string
-  helpful?: string[]
-  recommend?: string
+  helpfulAspects?: string[]
+  recommendation?: string
   type?: UserType
 }
 

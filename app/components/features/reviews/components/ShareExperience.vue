@@ -192,7 +192,7 @@
                 <BaseCheckbox
                   v-for="aspect in helpfulAspects"
                   :key="aspect.value"
-                  :checked="form.helpful.includes(aspect.value)"
+                  :checked="form.helpfulAspects.includes(aspect.value)"
                   @update:checked="toggleHelpful(aspect.value)"
                 >
                   {{ $t(`reviews.shareExperience.form.helpful.aspects.${aspect.value}`) }}
@@ -210,7 +210,7 @@
                   class="flex items-center space-x-2 cursor-pointer p-2 rounded-lg hover:bg-gray-50 transition-colors"
                 >
                   <input
-                    v-model="form.recommend"
+                    v-model="form.recommendation"
                     type="radio"
                     name="recommend"
                     value="yes"
@@ -224,7 +224,7 @@
                   class="flex items-center space-x-2 cursor-pointer p-2 rounded-lg hover:bg-gray-50 transition-colors"
                 >
                   <input
-                    v-model="form.recommend"
+                    v-model="form.recommendation"
                     type="radio"
                     name="recommend"
                     value="maybe"
@@ -238,7 +238,7 @@
                   class="flex items-center space-x-2 cursor-pointer p-2 rounded-lg hover:bg-gray-50 transition-colors"
                 >
                   <input
-                    v-model="form.recommend"
+                    v-model="form.recommendation"
                     type="radio"
                     name="recommend"
                     value="no"
@@ -323,8 +323,8 @@ interface ReviewForm {
   rating: string
   contact: string
   review: string
-  helpful: string[]
-  recommend: string
+  helpfulAspects: string[]
+  recommendation: string
   reviewerType: UserType | ''
 }
 
@@ -341,8 +341,8 @@ const form = reactive<ReviewForm>({
   rating: '',
   contact: '',
   review: '',
-  helpful: [],
-  recommend: '',
+  helpfulAspects: [],
+  recommendation: '',
   reviewerType: '',
 })
 
@@ -414,11 +414,11 @@ const helpfulAspects = [
 ]
 
 function toggleHelpful(value: string) {
-  const index = form.helpful.indexOf(value)
+  const index = form.helpfulAspects.indexOf(value)
   if (index > -1) {
-    form.helpful.splice(index, 1)
+    form.helpfulAspects.splice(index, 1)
   } else {
-    form.helpful.push(value)
+    form.helpfulAspects.push(value)
   }
 }
 
@@ -470,8 +470,8 @@ async function submitReview() {
       rating: parsePositiveInt(form.rating) ?? 0,
       contact: form.contact.trim() || undefined,
       review: form.review.trim(),
-      helpful: form.helpful.length > 0 ? form.helpful : undefined,
-      recommend: form.recommend || undefined,
+      helpfulAspects: form.helpfulAspects.length > 0 ? form.helpfulAspects : undefined,
+      recommendation: form.recommendation || undefined,
       type: (form.reviewerType || 'student') as UserType,
     }
 
@@ -494,8 +494,8 @@ async function submitReview() {
           rating: '',
           contact: '',
           review: '',
-          helpful: [],
-          recommend: '',
+          helpfulAspects: [],
+          recommendation: '',
           reviewerType: '',
         })
         resetReviewValidation()
