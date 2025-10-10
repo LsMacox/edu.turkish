@@ -2,13 +2,15 @@ import { readFileSync, readdirSync } from 'node:fs'
 import path from 'node:path'
 import type { PrismaClient } from '@prisma/client'
 
+type SupportedLocale = 'ru'
+
 interface DirectionSeedData {
   slug: string
-  translations: Record<'en' | 'ru' | 'kk' | 'tr', string>
+  translations: Record<SupportedLocale, string>
 }
 
 const UNIVERSITIES_DIR = path.join(process.cwd(), 'app', 'assets', 'json', 'universities')
-const LOCALES = ['en', 'ru', 'kk', 'tr'] as const
+const LOCALES: SupportedLocale[] = ['ru']
 
 function loadUniversityDirectionSlugs(): string[] {
   const slugs = new Set<string>()
@@ -46,10 +48,7 @@ function loadTranslations(): Map<string, DirectionSeedData> {
     seedData.set(slug, {
       slug,
       translations: {
-        en: slug,
         ru: slug,
-        kk: slug,
-        tr: slug,
       },
     })
   }

@@ -105,9 +105,9 @@ describe('Study Directions Seed', () => {
     expect(totalTranslations).toBeGreaterThan(0)
   })
 
-  it('should create translations for all 4 locales', async () => {
+  it('should create translations for the RU locale only', async () => {
     const directions = await prisma.studyDirection.findMany({ include: { translations: true } })
-    const locales = ['en', 'ru', 'kk', 'tr']
+    const locales = ['ru']
 
     for (const direction of directions) {
       expect(direction.translations?.length).toBe(4)
@@ -118,7 +118,7 @@ describe('Study Directions Seed', () => {
 
   it('should have unique slugs per locale', async () => {
     const translations = await prisma.studyDirectionTranslation.findMany()
-    const locales = ['en', 'ru', 'kk', 'tr']
+    const locales = ['ru']
 
     for (const locale of locales) {
       const localeTranslations = translations.filter((t) => t.locale === locale)
@@ -136,7 +136,7 @@ describe('Study Directions Seed', () => {
       'psychology',
     ]
     const translations = await prisma.studyDirectionTranslation.findMany({
-      where: { locale: 'en' },
+      where: { locale: 'ru' },
     })
     const seededSlugs = translations.map((t) => t.slug)
 

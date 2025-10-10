@@ -63,6 +63,19 @@ const handler = async (event: H3Event) => {
     const sendRedirectFn = (globalThis as any).sendRedirect || h3SendRedirect
     await sendRedirectFn(event, location, 302)
   }
+
+  const requestUrl = event.node.req.url || '/'
+  const host = event.node.req.headers.host || 'localhost'
+  const url = new URL(requestUrl, `http://${host}`)
+  const params = new URLSearchParams(url.searchParams)
+
+  params.delete('ref')
+  params.delete('referral_code')
+
+  const cleanedSearch = params.toString()
+  const redirectPath = cleanedSearch ? `${url.pathname}?${cleanedSearch}` : url.pathname
+
+  await sendRedirect(event, redirectPath, 302)
 }
 
 export default handler
