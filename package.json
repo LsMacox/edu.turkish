@@ -12,6 +12,7 @@
     "lint:fix": "npm run lint -- --fix",
     "format": "prettier . --write",
     "format:check": "prettier . --check",
+    "typecheck": "vue-tsc --noEmit -p tsconfig.json",
     "db:generate": "docker compose exec app npx prisma generate",
     "db:push": "docker compose exec app npx prisma db push",
     "db:migrate": "docker compose exec app npx prisma migrate dev",
@@ -52,6 +53,7 @@
     "ofetch": "^1.4.1",
     "pinia": "^3.0.3",
     "prisma": "^6.16.3",
+    "swiper": "^12.0.2",
     "tailwindcss-animate": "^1.0.7",
     "vue": "^3.5.22",
     "vue-router": "^4.5.1",
@@ -74,6 +76,7 @@
     "tsx": "^4.20.6",
     "typescript": "^5.9.3",
     "vite-tsconfig-paths": "^5.1.4",
-    "vitest": "^3.2.4"
+    "vitest": "^3.2.4",
+    "vue-tsc": "^3.1.1"
   }
 }
