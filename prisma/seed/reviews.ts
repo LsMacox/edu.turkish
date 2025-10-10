@@ -35,7 +35,8 @@ const studentReviews: SeedReview[] = [
     university: 'İstanbul University',
     quote: 'Видео отзыв о поступлении и обучении',
     videoUrl: 'https://cdn.edu-turkish.com/videos/reviews/video_2025-09-28_17-31-55.mp4',
-    videoThumb: 'https://cdn.edu-turkish.com/images/reviews/thumbnails/video_2025-09-28_17-31-55.png',
+    videoThumb:
+      'https://cdn.edu-turkish.com/images/reviews/thumbnails/video_2025-09-28_17-31-55.png',
   },
   {
     type: 'student',
@@ -46,7 +47,8 @@ const studentReviews: SeedReview[] = [
     university: 'Marmara University',
     quote: 'Отзыв о процессе поступления',
     videoUrl: 'https://cdn.edu-turkish.com/videos/reviews/video_2025-09-28_17-31-59.mp4',
-    videoThumb: 'https://cdn.edu-turkish.com/images/reviews/thumbnails/video_2025-09-28_17-31-59.png',
+    videoThumb:
+      'https://cdn.edu-turkish.com/images/reviews/thumbnails/video_2025-09-28_17-31-59.png',
   },
   {
     type: 'student',

@@ -28,7 +28,7 @@ export class BlogRepository {
 
   private formatDate(date: Date, locale: string): string {
     try {
-      const formatter = new Intl.DateTimeFormat(resolveLocaleTag(locale), {
+      const formatter = new Intl.DateTimeFormat(resolveLocaleTag(locale as any), {
         day: '2-digit',
         month: 'short',
         year: 'numeric',
@@ -185,7 +185,7 @@ export class BlogRepository {
 
   private formatViewCount(count: number, locale: string): string {
     const normalizedCount = Math.max(0, Math.round(count))
-    const formatter = new Intl.NumberFormat(resolveLocaleTag(locale))
+    const formatter = new Intl.NumberFormat(resolveLocaleTag(locale as any))
     const formattedCount = formatter.format(normalizedCount)
 
     switch (locale) {

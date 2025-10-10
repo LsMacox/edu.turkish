@@ -85,7 +85,12 @@ const LEVEL_LABEL_MAP: Record<string, DegreeType> = {
 }
 
 // Explicit allow-lists to validate enum values before sending to Prisma
-const VALID_UNIVERSITY_TYPES: readonly UniversityType[] = ['state', 'private', 'tech', 'elite'] as const
+const VALID_UNIVERSITY_TYPES: readonly UniversityType[] = [
+  'state',
+  'private',
+  'tech',
+  'elite',
+] as const
 const VALID_DEGREE_TYPES: readonly DegreeType[] = ['bachelor', 'master', 'phd'] as const
 
 const IMPORTANT_DATE_TYPE_MAP: Record<string, UniversityImportantDate['deadline_type']> = {

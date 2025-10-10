@@ -105,7 +105,7 @@ export async function getDirectionStats(
     },
   })
 
-  const directionIds = directions.map((direction) => direction.id)
+  const directionIds = directions.map((direction: { id: number }) => direction.id)
 
   if (directionIds.length === 0) {
     return {

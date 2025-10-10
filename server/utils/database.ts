@@ -24,7 +24,7 @@ export async function withTransaction<T>(
   fn: (tx: Prisma.TransactionClient) => Promise<T>,
 ): Promise<T> {
   // Use interactive transaction to get a fully-typed tx client
-  return await prisma.$transaction(async (tx) => {
+  return await prisma.$transaction(async (tx: Prisma.TransactionClient) => {
     return await fn(tx)
   })
 }

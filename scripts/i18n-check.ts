@@ -379,7 +379,7 @@ export function findUnusedKeys(
   usedKeys: Set<string>,
 ): UnusedKeyIssue[] {
   const unused: UnusedKeyIssue[] = []
-  
+
   // Whitelist: Keys that are used dynamically and hard to detect
   // These are typically enum values from Prisma schema or dynamic content
   const whitelist = [
