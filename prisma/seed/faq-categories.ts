@@ -1,42 +1,21 @@
 import type { PrismaClient } from '@prisma/client'
 
 export async function seedFaqCategories(prisma: PrismaClient) {
-  const categories: Array<{ key: string; translations: Record<string, string> }> = [
-    {
-      key: 'documents',
-      translations: { ru: 'Документы', en: 'Documents', tr: 'Belgeler', kk: 'Құжаттар' },
-    },
-    {
-      key: 'technology',
-      translations: { ru: 'Технологии', en: 'Technology', tr: 'Teknoloji', kk: 'Технологиялар' },
-    },
-    {
-      key: 'education',
-      translations: { ru: 'Образование', en: 'Education', tr: 'Eğitim', kk: 'Білім беру' },
-    },
-    {
-      key: 'residence',
-      translations: { ru: 'ВНЖ', en: 'Residence permit', tr: 'İkamet', kk: 'Ықтиярхат' },
-    },
-    {
-      key: 'relocation',
-      translations: { ru: 'Переезд', en: 'Relocation', tr: 'Taşınma', kk: 'Көшу' },
-    },
-    {
-      key: 'insurance',
-      translations: { ru: 'Страхование', en: 'Insurance', tr: 'Sigorta', kk: 'Сақтандыру' },
-    },
-    {
-      key: 'transport',
-      translations: { ru: 'Транспорт', en: 'Transport', tr: 'Ulaşım', kk: 'Көлік' },
-    },
-    { key: 'housing', translations: { ru: 'Жилье', en: 'Housing', tr: 'Konut', kk: 'Тұрғын үй' } },
+  const categories: Array<{ key: string; name: string }> = [
+    { key: 'documents', name: 'Документы' },
+    { key: 'technology', name: 'Технологии' },
+    { key: 'education', name: 'Образование' },
+    { key: 'residence', name: 'ВНЖ' },
+    { key: 'relocation', name: 'Переезд' },
+    { key: 'insurance', name: 'Страхование' },
+    { key: 'transport', name: 'Транспорт' },
+    { key: 'housing', name: 'Жилье' },
   ]
 
   const createdMap: Record<string, number> = {}
 
   for (const categoryDef of categories) {
-    const ruName = categoryDef.translations.ru
+    const ruName = categoryDef.name
 
     // Try to find existing category by RU name to avoid duplicates
     const existingRu = await (prisma as any).faqCategoryTranslation.findFirst({
@@ -56,13 +35,11 @@ export async function seedFaqCategories(prisma: PrismaClient) {
     }
 
     // Ensure translations are present and up-to-date (idempotent)
-    for (const [locale, name] of Object.entries(categoryDef.translations)) {
-      await (prisma as any).faqCategoryTranslation.upsert({
-        where: { categoryId_locale: { categoryId, locale } },
-        update: { name },
-        create: { categoryId, locale, name },
-      })
-    }
+    await (prisma as any).faqCategoryTranslation.upsert({
+      where: { categoryId_locale: { categoryId, locale: 'ru' } },
+      update: { name: ruName },
+      create: { categoryId, locale: 'ru', name: ruName },
+    })
 
     createdMap[categoryDef.key] = categoryId
   }

@@ -36,50 +36,32 @@ const categories = [
   {
     code: 'visas',
     order: 1,
-    translations: [
-      { locale: 'ru', title: 'Визы' },
-      { locale: 'en', title: 'Visas' },
-    ],
+    translations: [{ locale: 'ru', title: 'Визы' }],
   },
   {
     code: 'applications',
     order: 2,
-    translations: [
-      { locale: 'ru', title: 'Заявки' },
-      { locale: 'en', title: 'Applications' },
-    ],
+    translations: [{ locale: 'ru', title: 'Заявки' }],
   },
   {
     code: 'scholarships',
     order: 3,
-    translations: [
-      { locale: 'ru', title: 'Стипендии' },
-      { locale: 'en', title: 'Scholarships' },
-    ],
+    translations: [{ locale: 'ru', title: 'Стипендии' }],
   },
   {
     code: 'cost',
     order: 4,
-    translations: [
-      { locale: 'ru', title: 'Стоимость' },
-      { locale: 'en', title: 'Costs' },
-    ],
+    translations: [{ locale: 'ru', title: 'Стоимость' }],
   },
   {
     code: 'life',
     order: 5,
-    translations: [
-      { locale: 'ru', title: 'Жизнь в Турции' },
-      { locale: 'en', title: 'Student Life' },
-    ],
+    translations: [{ locale: 'ru', title: 'Жизнь в Турции' }],
   },
   {
     code: 'exams',
     order: 6,
-    translations: [
-      { locale: 'ru', title: 'Экзамены' },
-      { locale: 'en', title: 'Exams' },
-    ],
+    translations: [{ locale: 'ru', title: 'Экзамены' }],
   },
 ]
 
@@ -170,71 +152,6 @@ const articles: SeedArticle[] = [
           },
         ],
       },
-      {
-        locale: 'en',
-        slug: 'turkey-student-visa-guide',
-        title: 'Turkey Student Visa Guide: Step-by-Step Checklist',
-        excerpt:
-          'Learn which documents you need, how to book a consulate appointment and what to do after arriving in Turkey as an international student.',
-        readingTime: '8 min read',
-        heroKicker: 'Step-by-step plan',
-        heroSubtitle:
-          'A complete roadmap for your student visa application: from the first online booking to your residence permit appointment.',
-        heroLocation: 'Turkey',
-        imageAlt: 'Folder with visa documents and international student passport on a table',
-        heroImageAlt:
-          'International student preparing documents for a visa interview at the Turkish consulate',
-        seoDescription:
-          'Comprehensive checklist for the Turkish student visa in 2025. Required documents, processing times and practical tips.',
-        quickFacts: [
-          {
-            title: 'Visa type',
-            value: 'Öğrenci Vizesi (Student)',
-            icon: 'mdi:passport',
-          },
-          {
-            title: 'Processing time',
-            value: '4–6 weeks',
-            icon: 'mdi:calendar-clock',
-          },
-          {
-            title: 'Visa fee',
-            value: '≈ 60 USD',
-            icon: 'mdi:cash-multiple',
-          },
-        ],
-        highlights: [
-          'Detailed document checklist before submission',
-          'Step-by-step instructions for booking a consulate appointment',
-          'Checklist of actions after arriving in Turkey',
-        ],
-        tags: ['visa', 'documents', 'Turkey'],
-        content: [
-          { type: 'heading', level: 2, text: 'Key application steps' },
-          {
-            type: 'paragraph',
-            text: 'Book your appointment through the official consulate website. Prepare the invitation letter from your university, financial proof, medical insurance and the completed visa form.',
-          },
-          {
-            type: 'list',
-            ordered: true,
-            items: [
-              'Reserve a visa appointment online and pay the processing fee.',
-              'Collect all documents: acceptance letter, passport, photos, bank statement and insurance.',
-              'Arrive in Turkey and apply for the residence permit within 30 days.',
-            ],
-          },
-          {
-            type: 'quote',
-            text: 'Bring both originals and certified translations — incomplete files are not accepted.',
-            author: 'Aynur Muradova, visa consultant',
-          },
-          {
-            type: 'paragraph',
-            text: 'After arrival obtain your tax number and open a bank account. These documents are required for renting accommodation and completing the residence permit application.',
-          },
-        ],
-      },
     ],
   },
   {
@@ -300,65 +217,6 @@ const articles: SeedArticle[] = [
           {
             type: 'paragraph',
             text: 'Перед отправкой заявки сделайте копию формы и проверьте заполнение полей. Многие университеты не позволяют редактировать данные после отправки.',
-          },
-        ],
-      },
-      {
-        locale: 'en',
-        slug: 'turkey-application-checklist',
-        title: 'Application checklist for Turkish universities',
-        excerpt:
-          'Documents you need before submitting your application, how to certify translations and avoid common upload mistakes.',
-        readingTime: '7 min read',
-        heroKicker: 'Practice',
-        heroSubtitle: 'A step-by-step checklist to help you submit a flawless application.',
-        heroLocation: 'Online submission',
-        imageAlt:
-          'International applicant reviewing a document checklist before submitting an application',
-        heroImageAlt: 'Applicant taking photos of documents to upload into the system',
-        seoDescription:
-          'Detailed document checklist for applying to Turkish universities. Required certificates and translation rules.',
-        quickFacts: [
-          {
-            title: 'Submission format',
-            value: 'University online portal',
-            icon: 'mdi:laptop-check',
-          },
-          {
-            title: 'Translations',
-            value: 'Notarised copies',
-            icon: 'mdi:certificate-outline',
-          },
-          {
-            title: 'Expert tip',
-            value: 'Double-check scans before uploading',
-            icon: 'mdi:magnify-scan',
-          },
-        ],
-        highlights: [
-          'Ready-to-use checklist for university applications',
-          'File naming recommendations and deadline reminders',
-          'Reminder that forms cannot be edited after submission',
-        ],
-        tags: ['applications', 'documents', 'checklist'],
-        content: [
-          { type: 'heading', level: 2, text: 'Before you submit' },
-          {
-            type: 'paragraph',
-            text: 'Collect your passport, diploma, transcript, motivation letter and recommendation letters. Translate them into Turkish or English and notarise the copies.',
-          },
-          {
-            type: 'list',
-            ordered: false,
-            items: [
-              'Scan documents at 300 dpi or higher for better readability.',
-              'Rename files using a clear template: lastname_documenttype.pdf.',
-              'Check the passport validity — it should be valid for at least six months after the academic year starts.',
-            ],
-          },
-          {
-            type: 'paragraph',
-            text: 'Save a copy of your application before you submit. Many universities lock the form after submission, so double-check each field.',
           },
         ],
       },
@@ -430,65 +288,6 @@ const articles: SeedArticle[] = [
           },
         ],
       },
-      {
-        locale: 'en',
-        slug: 'how-to-win-a-turkish-scholarship',
-        title: 'How to win a full scholarship in Turkey',
-        excerpt:
-          'Overview of government and university scholarships, deadlines and strategies for compelling motivation letters.',
-        readingTime: '9 min read',
-        heroKicker: 'Funding',
-        heroSubtitle:
-          'Learn how to select the right scholarship and build a strong application package for the selection committee.',
-        heroLocation: 'Turkey Scholarships',
-        imageAlt: 'Students receiving scholarship certificates on stage',
-        heroImageAlt: 'Scholarship award ceremony in a Turkish university',
-        seoDescription:
-          'Guide to securing a full scholarship in Turkey. Tips for Türkiye Bursları and university grants.',
-        quickFacts: [
-          {
-            title: 'Main programme',
-            value: 'Türkiye Bursları',
-            icon: 'mdi:school-outline',
-          },
-          {
-            title: 'Competition',
-            value: 'Up to 1,000 applications per place',
-            icon: 'mdi:account-group',
-          },
-          {
-            title: 'Funding',
-            value: 'Covers tuition and accommodation',
-            icon: 'mdi:hand-coin',
-          },
-        ],
-        highlights: [
-          'Overview of government and university scholarships',
-          'Tips for writing a strong motivation letter',
-          'Reminder to track each programme deadline carefully',
-        ],
-        tags: ['scholarships', 'finance', 'advice'],
-        content: [
-          { type: 'heading', level: 2, text: 'Available programmes' },
-          {
-            type: 'paragraph',
-            text: 'Turkey offers national scholarships like Türkiye Bursları alongside many institutional awards. Some cover accommodation while others focus on tuition only.',
-          },
-          {
-            type: 'list',
-            ordered: false,
-            items: [
-              'Apply to at least two programmes because competition is intense.',
-              'Craft a motivation letter that clearly shows your fit with the chosen programme.',
-              'Request recommendation letters from professors who know your work personally.',
-            ],
-          },
-          {
-            type: 'paragraph',
-            text: 'Keep track of deadlines: national calls usually close in February, while university scholarships have their own schedules. Create reminders so you never miss a date.',
-          },
-        ],
-      },
     ],
   },
   {
@@ -553,65 +352,6 @@ const articles: SeedArticle[] = [
           {
             type: 'paragraph',
             text: 'Заложите резерв на учебные материалы и медицинскую страховку. Университеты часто предлагают льготные тарифы для студентов.',
-          },
-        ],
-      },
-      {
-        locale: 'en',
-        slug: 'study-costs-in-istanbul',
-        title: 'How much does it cost to study and live in Istanbul?',
-        excerpt:
-          'Budget breakdown for international students: accommodation, transportation, food and hidden academic expenses.',
-        readingTime: '6 min read',
-        heroKicker: 'Finances',
-        heroSubtitle:
-          'Realistic monthly and annual costs for a student in 2025 with money-saving advice.',
-        heroLocation: 'Istanbul',
-        imageAlt: 'Turkish lira banknotes and a calculator on a student desk',
-        heroImageAlt: 'International student planning a budget with a laptop in a cafe',
-        seoDescription:
-          'Cost of living and studying in Istanbul: tuition, rent, transportation, food and insurance for 2025.',
-        quickFacts: [
-          {
-            title: 'Tuition',
-            value: '4,000–6,000 USD per year',
-            icon: 'mdi:currency-usd',
-          },
-          {
-            title: 'Accommodation',
-            value: 'Dormitory 150–250 USD/month',
-            icon: 'mdi:home-city-outline',
-          },
-          {
-            title: 'Transport',
-            value: 'Istanbulkart 25–30 USD/month',
-            icon: 'mdi:bus',
-          },
-        ],
-        highlights: [
-          'Budget breakdown for studying and living in Istanbul',
-          'Advice on saving money on transport and food',
-          'Reminder to set aside a reserve for study materials',
-        ],
-        tags: ['budget', 'Istanbul', 'cost of living'],
-        content: [
-          { type: 'heading', level: 2, text: 'Key expense categories' },
-          {
-            type: 'paragraph',
-            text: 'Private universities charge around 4,000–6,000 USD per year. Dormitories range from 150–250 USD, while renting a flat starts at 400 USD per month.',
-          },
-          {
-            type: 'list',
-            ordered: false,
-            items: [
-              'Transport with Istanbulkart: 25–30 USD per month for daily commuting.',
-              'University cafeteria meals cost 3–4 USD.',
-              'Mobile plan with internet averages 12 USD per month.',
-            ],
-          },
-          {
-            type: 'paragraph',
-            text: 'Set aside a buffer for textbooks and health insurance. Many universities offer discounted packages for students.',
           },
         ],
       },
@@ -684,66 +424,6 @@ const articles: SeedArticle[] = [
           },
         ],
       },
-      {
-        locale: 'en',
-        slug: 'adapting-to-student-life-in-turkey',
-        title: 'How to adapt to student life in Turkey',
-        excerpt:
-          'Cultural tips, useful routines and must-see places during your first months in the country.',
-        readingTime: '8 min read',
-        heroKicker: 'Student life',
-        heroSubtitle:
-          'Build a comfortable routine, make friends and feel confident in a new environment.',
-        heroLocation: 'Istanbul, Ankara, Izmir',
-        imageAlt: 'Students enjoying sunset by the Bosphorus waterfront',
-        heroImageAlt: 'Group of international students chatting on campus lawn',
-        seoDescription:
-          'Adaptation guide for international students in Turkey: culture, language, student communities and must-have apps.',
-        quickFacts: [
-          {
-            title: 'First steps',
-            value: 'Orientation and buddy programmes',
-            icon: 'mdi:account-group-outline',
-          },
-          {
-            title: 'Essential apps',
-            value: 'BiTaksi, Marti, Yemeksepeti',
-            icon: 'mdi:cellphone-information',
-          },
-          {
-            title: 'Key advice',
-            value: 'Ask senior students for help',
-            icon: 'mdi:chat-question',
-          },
-        ],
-        highlights: [
-          'Adaptation plan for your first weeks at university',
-          'Recommendations for learning Turkish faster',
-          'List of must-have apps for everyday tasks',
-        ],
-        tags: ['student life', 'adaptation', 'tips'],
-        content: [
-          { type: 'heading', level: 2, text: 'Your first weeks' },
-          {
-            type: 'paragraph',
-            text: 'Attend orientation sessions, join university Telegram groups and look for buddy programmes. These steps speed up adaptation and help you meet new friends.',
-          },
-          {
-            type: 'list',
-            ordered: false,
-            items: [
-              'Learn basic Turkish phrases — locals really appreciate the effort.',
-              'Explore neighbourhoods around campus to find study-friendly cafes and parks.',
-              'Use apps like BiTaksi, Marti scooters and Yemeksepeti for daily needs.',
-            ],
-          },
-          {
-            type: 'quote',
-            text: 'The most helpful thing is to ask senior students for tips. They know where to buy textbooks and how to activate your transport card.',
-            author: 'Elif Kaya, buddy programme coordinator',
-          },
-        ],
-      },
     ],
   },
   {
@@ -786,42 +466,6 @@ const articles: SeedArticle[] = [
           {
             type: 'paragraph',
             text: 'Некоторые университеты принимают внутренние экзамены YÖS или SAT. Уточняйте требования на сайте факультета.',
-          },
-        ],
-      },
-      {
-        locale: 'en',
-        slug: 'toefl-vs-ielts-for-turkey',
-        title: 'TOEFL vs IELTS: which exam should you take for Turkey?',
-        excerpt:
-          'Comparing admission requirements, exam formats and target scores for international applicants.',
-        readingTime: '5 min read',
-        heroKicker: 'Exams',
-        heroSubtitle:
-          'Find out which exam fits you best in 2025 and how to prepare for each format.',
-        heroLocation: 'Online / Test centre',
-        imageAlt: 'TOEFL and IELTS preparation materials on a student desk',
-        heroImageAlt: 'Student preparing for an international English exam',
-        seoDescription:
-          'TOEFL vs IELTS for Turkish universities. Minimum required scores and preparation strategies.',
-        content: [
-          { type: 'heading', level: 2, text: 'University requirements' },
-          {
-            type: 'paragraph',
-            text: 'Most Turkish programmes accept both exams. Bachelor programmes usually require IELTS 6.0 or TOEFL iBT 72, while graduate schools ask for higher scores.',
-          },
-          {
-            type: 'list',
-            ordered: false,
-            items: [
-              'Pick the exam format you feel comfortable with: computer-based TOEFL or paper-based IELTS.',
-              'Remember that both certificates are valid for two years.',
-              'Use official practice tests to master time management.',
-            ],
-          },
-          {
-            type: 'paragraph',
-            text: 'Some universities also accept YÖS or SAT scores. Always double-check the faculty requirements.',
           },
         ],
       },
@@ -885,61 +529,6 @@ const articles: SeedArticle[] = [
               'Январь–февраль: государственные стипендии и программы обмена.',
               'Март–апрель: большинство частных университетов закрывают набор.',
               'Май–июнь: приём документов в государственные университеты.',
-            ],
-          },
-        ],
-      },
-      {
-        locale: 'en',
-        slug: 'application-calendar-2025',
-        title: 'Application calendar for 2025 intake',
-        excerpt:
-          'Key deadlines for Turkish universities and national scholarship programmes for the upcoming academic year.',
-        readingTime: '4 min read',
-        heroKicker: 'Deadlines',
-        heroSubtitle:
-          'University and scholarship deadlines month by month so you never miss a date.',
-        heroLocation: '2025/26 academic year',
-        imageAlt: 'Calendar with highlighted application deadlines',
-        heroImageAlt: 'Student planning deadlines on a tablet',
-        seoDescription:
-          'Important application deadlines for Turkish universities and scholarships in 2025.',
-        quickFacts: [
-          {
-            title: 'Campaign start',
-            value: 'January — Türkiye Bursları',
-            icon: 'mdi:calendar-start',
-          },
-          {
-            title: 'Deadline peak',
-            value: 'March–April for private universities',
-            icon: 'mdi:calendar-alert',
-          },
-          {
-            title: 'Tracking method',
-            value: 'Personal calendar with reminders',
-            icon: 'mdi:calendar-check',
-          },
-        ],
-        highlights: [
-          'Timeline of deadlines for each month',
-          'Comparison of public and private programmes',
-          'Advice to prepare documents ahead of time',
-        ],
-        tags: ['deadlines', '2025 intake', 'calendar'],
-        content: [
-          { type: 'heading', level: 2, text: 'Month-by-month timeline' },
-          {
-            type: 'paragraph',
-            text: 'January opens Türkiye Bursları, March brings private university deadlines and public universities collect documents in June. Prepare your paperwork in advance.',
-          },
-          {
-            type: 'list',
-            ordered: true,
-            items: [
-              'January–February: national scholarships and exchange programmes.',
-              'March–April: most private universities close their intake.',
-              'May–June: public universities collect application documents.',
             ],
           },
         ],
