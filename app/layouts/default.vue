@@ -28,25 +28,40 @@ const modal = useApplicationModalStore()
 const { locale } = useI18n()
 const config = useRuntimeConfig()
 const route = useRoute()
+const localeHead = useLocaleHead({ dir: true, seo: true })
+
 useHead(() => {
   const metrikaId = config.public.yandexMetrikaId
+  const headFromLocale = localeHead.value
+  const canonicalHref = config.public.siteUrl + route.path
 
-  return {
-    htmlAttrs: { lang: locale.value },
-    link: [{ rel: 'canonical', href: config.public.siteUrl + route.path }],
-    ...(metrikaId
-      ? {
-          noscript: [
-            {
-              key: 'yandex-metrika-noscript',
-              innerHTML: `<div><img src="https://mc.yandex.ru/watch/${metrikaId}" style="position:absolute; left:-9999px;" alt="" /></div>`,
-            },
-          ],
-          __dangerouslyDisableSanitizersByTagID: {
-            'yandex-metrika-noscript': ['innerHTML'],
-          },
-        }
-      : {}),
+  const existingLinks = headFromLocale.link ?? []
+  const links = [
+    ...existingLinks.filter((link) => link.rel !== 'canonical'),
+    { rel: 'canonical', href: canonicalHref },
+  ]
+
+  const head = {
+    ...headFromLocale,
+    htmlAttrs: {
+      ...headFromLocale.htmlAttrs,
+      lang: locale.value,
+    },
+    link: links,
+  } as Record<string, unknown>
+
+  if (metrikaId) {
+    head.noscript = [
+      {
+        key: 'yandex-metrika-noscript',
+        innerHTML: `<div><img src="https://mc.yandex.ru/watch/${metrikaId}" style="position:absolute; left:-9999px;" alt="" /></div>`,
+      },
+    ]
+    head.__dangerouslyDisableSanitizersByTagID = {
+      'yandex-metrika-noscript': ['innerHTML'],
+    }
   }
+
+  return head
 })
 </script>
