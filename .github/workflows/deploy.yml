@@ -7,8 +7,8 @@ on:
   workflow_dispatch:
 
 concurrency:
-  group: deploy-main
-  cancel-in-progress: true
+  group: deploy-${{ github.ref }}
+  cancel-in-progress: false
 
 jobs:
   deploy:
@@ -19,7 +19,32 @@ jobs:
       - name: Checkout (metadata only)
         uses: actions/checkout@v4
 
-      - name: Start SSH agent and add private key
+      - name: Set APP_TAG (short SHA)
+        run: echo "APP_TAG=${GITHUB_SHA::7}" >> "$GITHUB_ENV"
+
+      - name: Show planned tag
+        run: echo "APP_TAG=$APP_TAG"
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: 'npm'
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Run linter
+        run: npm run lint
+
+      - name: Run typecheck
+        run: npm run typecheck
+
+      - name: Run tests
+        run: npm run test
+
+      - name: Prepare SSH key
+        if: success()
         uses: webfactory/ssh-agent@v0.9.0
         with:
           ssh-private-key: |
@@ -40,11 +65,7 @@ jobs:
           APP_DIR="/root/apps/edu.turkish"
           cd "$APP_DIR"
 
-          # Безопасность Git в новых версиях
-          git config --global --add safe.directory "$APP_DIR" || true
-
-          # Обновляем код до состояния origin/main
-          git fetch --all --prune
+          git fetch origin main
           git reset --hard origin/main
 
           docker buildx prune -af

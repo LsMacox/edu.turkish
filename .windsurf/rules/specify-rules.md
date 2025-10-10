@@ -3,6 +3,7 @@
 Auto-generated from all feature plans. Last updated: 2025-10-03
 
 ## Active Technologies
+
 - TypeScript 5.9.3, Vue 3.5.22, Nuxt 4.1.3 + Nuxt Image (@nuxt/image 1.11.0), Nuxt runtime config (007-cdn-replacement-for)
 - N/A (CDN external, no local storage) (007-cdn-replacement-for)
 
@@ -36,6 +37,7 @@ npm test [ONLY COMMANDS FOR ACTIVE TECHNOLOGIES][ONLY COMMANDS FOR ACTIVE TECHNO
 TypeScript 5.9+ (Node.js runtime via tsx): Follow standard conventions
 
 ## Recent Changes
+
 - 007-cdn-replacement-for: Added TypeScript 5.9.3, Vue 3.5.22, Nuxt 4.1.3 + Nuxt Image (@nuxt/image 1.11.0), Nuxt runtime config
 
 - 006-vitest-config-ts: Added TypeScript 5.9.3, Node.js (via Nuxt 4.1.3) + Vitest 3.2.4, @nuxt/test-utils 3.19.2, @vue/test-utils 2.4.6, Prisma 6.16.3, ioredis 5.8.1, bullmq 5.61.0
