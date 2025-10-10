@@ -56,7 +56,7 @@ jobs:
         if: success()
         uses: webfactory/ssh-agent@v0.9.0
         with:
-          ssh-private-key: ${{ secrets.SSH_PRIVATE_KEY }}
+          ssh-private-key: ${{ secrets.SSH_KEY }}
 
       - name: Add host to known_hosts (optional)
         if: success()
@@ -69,7 +69,7 @@ jobs:
         if: success()
         env:
           SSH_HOST: ${{ secrets.SSH_HOST }}
-          SSH_USER: ${{ secrets.SSH_USER }}
+          SSH_USER: root
           SSH_PORT: ${{ secrets.SSH_PORT }}
           APP_TAG: ${{ env.APP_TAG }}
         run: |
