@@ -15,6 +15,9 @@
 
     <!-- Global Toasts -->
     <UiFeedbackToast />
+
+    <!-- Page loading overlay -->
+    <UiFeedbackPageLoadingOverlay />
   </div>
 </template>
 
