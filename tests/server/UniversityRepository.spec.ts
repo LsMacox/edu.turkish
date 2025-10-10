@@ -261,7 +261,7 @@ describe('UniversityRepository', () => {
     expect(universityGroupBy).toHaveBeenCalledTimes(2)
     expect(academicProgramGroupBy).toHaveBeenCalledTimes(2)
     expect(cityTranslationFindMany).toHaveBeenCalledWith({
-      where: { cityId: { in: [10] }, locale: { in: ['en', 'ru'] } },
+      where: { cityId: { in: [10] }, locale: { in: ['en'] } },
       select: { cityId: true, locale: true, name: true },
     })
 
@@ -681,7 +681,7 @@ describe('UniversityRepository', () => {
     })
   })
 
-  it('falls back to Russian when Kazakh translation is missing', async () => {
+  it('returns empty fields when translation for locale is missing', async () => {
     const baseDate = new Date('2024-01-01T00:00:00.000Z')
     const { repository, findMany, count } = createRepositoryWithMocks()
 
@@ -745,9 +745,9 @@ describe('UniversityRepository', () => {
 
     expect(result.data).toHaveLength(1)
     expect(result.data[0]).toMatchObject({
-      title: 'Российский университет',
-      city: 'Нур-Султан',
-      slug: 'rossiyskiy-universitet',
+      title: '',
+      city: '',
+      slug: '',
     })
   })
 })
