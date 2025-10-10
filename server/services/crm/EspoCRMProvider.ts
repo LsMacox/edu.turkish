@@ -477,11 +477,18 @@ export class EspoCRMProvider implements ICRMProvider {
       web: 'Web Site',
       landing: 'Web Site',
       university_detail: 'Web Site',
+      universities_cta: 'Web Site',
+      universities_not_found: 'Web Site',
       home_questionnaire: 'Web Site',
+      home_faq: 'Web Site',
       test: 'Web Site',
       referral: 'Partner',
       partner: 'Partner',
     }
-    return map[normalized]
+    const mapped = map[normalized]
+    if (!mapped) {
+      console.warn('EspoCRMProvider: unknown lead source received', input)
+    }
+    return mapped
   }
 }
