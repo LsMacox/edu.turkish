@@ -546,7 +546,6 @@ export class UniversityRepository {
         language: program.languageCode,
         duration_years: program.durationYears,
         tuition_per_year: this.decimalToNumber(program.tuitionPerYear),
-        description: translation?.description ?? '',
       }
     })
   }

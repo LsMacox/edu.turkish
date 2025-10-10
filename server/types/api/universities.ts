@@ -94,7 +94,7 @@ export interface UniversityProgram {
   language: string
   duration_years: number
   tuition_per_year: number
-  description: string
+  description?: string
   specializations?: string[]
 }
 
