@@ -21,7 +21,7 @@
         <div
           v-for="review in featuredReviews"
           :key="review.id"
-          class="bg-white rounded-2xl shadow-custom card-padding-lg flex flex-col"
+          class="card-surface flex flex-col"
         >
           <div class="mb-6">
             <h3 class="font-semibold text-secondary">{{ review.name }}</h3>

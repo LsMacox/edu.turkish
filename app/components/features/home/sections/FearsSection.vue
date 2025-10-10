@@ -9,7 +9,7 @@
       />
 
       <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-        <div class="bg-white rounded-2xl shadow-custom card-padding-lg">
+        <div class="card-surface">
           <BaseIconBadge icon="mdi:alert-circle" color="red" size="md" class="mb-6" />
           <h3 class="text-card-title mb-4">
             {{ t('home.fears.fear1_title') }}
@@ -25,7 +25,7 @@
           </div>
         </div>
 
-        <div class="bg-white rounded-2xl shadow-custom card-padding-lg">
+        <div class="card-surface">
           <BaseIconBadge icon="mdi:translate" color="blue" size="md" class="mb-6" />
           <h3 class="text-card-title mb-4">
             {{ t('home.fears.fear2_title') }}
@@ -41,7 +41,7 @@
           </div>
         </div>
 
-        <div class="bg-white rounded-2xl shadow-custom card-padding-lg">
+        <div class="card-surface">
           <BaseIconBadge icon="mdi:clock-alert" color="orange" size="md" class="mb-6" />
           <h3 class="text-card-title mb-4">
             {{ t('home.fears.fear3_title') }}
@@ -57,7 +57,7 @@
           </div>
         </div>
 
-        <div class="bg-white rounded-2xl shadow-custom card-padding-lg">
+        <div class="card-surface">
           <BaseIconBadge icon="mdi:currency-usd" color="purple" size="md" class="mb-6" />
           <h3 class="text-card-title mb-4">
             {{ t('home.fears.fear4_title') }}
@@ -73,7 +73,7 @@
           </div>
         </div>
 
-        <div class="bg-white rounded-2xl shadow-custom card-padding-lg">
+        <div class="card-surface">
           <BaseIconBadge icon="mdi:close-circle" color="green" size="md" class="mb-6" />
           <h3 class="text-card-title mb-4">
             {{ t('home.fears.fear5_title') }}
@@ -89,7 +89,7 @@
           </div>
         </div>
 
-        <div class="bg-white rounded-2xl shadow-custom card-padding-lg">
+        <div class="card-surface">
           <BaseIconBadge icon="mdi:home" color="yellow" size="md" class="mb-6" />
           <h3 class="text-card-title mb-4">
             {{ t('home.fears.fear6_title') }}

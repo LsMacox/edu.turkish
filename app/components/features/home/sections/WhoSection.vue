@@ -8,7 +8,7 @@
           align="center"
           margin-bottom="lg"
         />
-        <div class="bg-white rounded-2xl shadow-custom card-padding-lg space-y-5 md:space-y-8">
+        <div class="card-surface space-y-5 md:space-y-8">
           <div class="space-y-4">
             <h3 class="text-card-title hidden md:block">{{ t('home.who.title') }}</h3>
             <div class="grid md:grid-cols-2 gap-2.5 md:gap-4">
