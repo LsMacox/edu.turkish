@@ -110,9 +110,13 @@ describe('Study Directions Seed', () => {
     const locales = ['ru']
 
     for (const direction of directions) {
-      expect(direction.translations?.length).toBe(4)
-      const directionLocales = direction.translations?.map((t: Translation) => t.locale) ?? []
+      const translations = direction.translations ?? []
+      expect(translations.length).toBe(locales.length)
+
+      const directionLocales = translations.map((t: Translation) => t.locale)
+      expect(new Set(directionLocales).size).toBe(directionLocales.length)
       locales.forEach((locale) => expect(directionLocales).toContain(locale))
+      directionLocales.forEach((locale) => expect(locales).toContain(locale))
     }
   })
 

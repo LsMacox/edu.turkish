@@ -10,6 +10,6 @@ export default defineNuxtPlugin((nuxtApp) => {
   })
 
   nuxtApp.hook('page:finish', stopLoading)
-  nuxtApp.hook('page:error', stopLoading)
+  nuxtApp.hook('app:error', stopLoading)
   nuxtApp.hook('page:transition:finish', stopLoading)
 })
