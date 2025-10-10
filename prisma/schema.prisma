@@ -392,8 +392,6 @@ model Application {
   lastName       String?           @map("last_name") @db.VarChar(100)
   email          String?           @db.VarChar(255)
   phone          String            @db.VarChar(30) @default("")
-  country        String?           @db.VarChar(100)
-  city           String?           @db.VarChar(100)
   source         String            @db.VarChar(100) @default("unknown")
   referralCode   String?           @map("referral_code") @db.VarChar(100)
   personalInfo   Json              @map("personal_info")

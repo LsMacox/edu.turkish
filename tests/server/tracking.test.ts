@@ -79,8 +79,6 @@ describe('tracking code generation', () => {
           lastName: 'Doe',
           email: 'john@example.com',
           phone: '+1234567890',
-          country: null,
-          city: null,
           source: 'website',
           referralCode: null,
           personalInfo: request.personal_info,

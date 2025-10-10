@@ -19,8 +19,6 @@ export class ApplicationRepository {
     const normalizedLastName = data.personal_info.last_name?.trim() || null
     const normalizedEmail = data.personal_info.email?.trim() || null
     const normalizedPhone = data.personal_info.phone?.trim() || ''
-    const normalizedCountry = data.personal_info.country?.trim() || null
-    const normalizedCity = data.personal_info.city?.trim() || null
     const normalizedSource = data.source?.trim() || 'website'
     const normalizedReferralCode = data.ref?.trim() || null
 
@@ -32,8 +30,6 @@ export class ApplicationRepository {
         lastName: normalizedLastName,
         email: normalizedEmail,
         phone: normalizedPhone,
-        country: normalizedCountry,
-        city: normalizedCity,
         source: normalizedSource,
         referralCode: normalizedReferralCode,
         personalInfo: data.personal_info,
@@ -86,8 +82,6 @@ export class ApplicationRepository {
       lastName: application.lastName,
       email: application.email,
       phone: application.phone,
-      country: application.country,
-      city: application.city,
       source: application.source,
       referralCode: application.referralCode,
       personalInfo: application.personalInfo,
@@ -156,8 +150,6 @@ export class ApplicationRepository {
         lastName: app.lastName,
         email: app.email,
         phone: app.phone,
-        country: app.country,
-        city: app.city,
         source: app.source,
         referralCode: app.referralCode,
         personalInfo: app.personalInfo,
