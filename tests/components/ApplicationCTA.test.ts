@@ -161,12 +161,25 @@ describe('ApplicationCTA', () => {
     })
 
     const textFields = wrapper.findAllComponents(BaseTextFieldStub)
-    await textFields[0].setValue('John Doe')
+    const nameField = textFields[0]
+    const emailField = textFields[1]
+
+    if (!nameField || !emailField) {
+      throw new Error('Expected name and email text fields to be rendered')
+    }
+
+    await nameField.setValue('John Doe')
     await wrapper.find('input[type="tel"]').setValue('+1 555 1234')
-    await textFields[1].setValue('john@example.com')
+    await emailField.setValue('john@example.com')
 
     const selects = wrapper.findAllComponents(BaseSelectStub)
-    await selects[0].setValue('Computer Science')
+    const programSelect = selects[0]
+
+    if (!programSelect) {
+      throw new Error('Expected academic program select to be rendered')
+    }
+
+    await programSelect.setValue('Computer Science')
 
     await wrapper.find('textarea').setValue('Looking forward to applying')
 
