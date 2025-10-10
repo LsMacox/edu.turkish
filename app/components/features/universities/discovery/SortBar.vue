@@ -12,7 +12,7 @@
       <label class="text-sm font-medium text-secondary">{{
         $t('universities_page.sort.sort_label')
       }}</label>
-      <BaseSelect :model-value="sort" @update:model-value="$emit('update:sort', $event)">
+      <BaseSelect :model-value="sort" @update:model-value="onUpdateSort">
         <option value="pop">{{ $t('universities_page.sort.options.popularity') }}</option>
         <option value="price_asc">{{ $t('universities_page.sort.options.price_asc') }}</option>
         <option value="price_desc">{{ $t('universities_page.sort.options.price_desc') }}</option>
@@ -24,6 +24,15 @@
 </template>
 
 <script setup lang="ts">
-defineProps<{ total: number; displayed: number; sort: string }>()
-defineEmits<{ (e: 'update:sort', value: string): void }>()
+import type { SortOption } from '~/stores/universities'
+import { SORT_OPTIONS } from '~/stores/universities'
+
+defineProps<{ total: number; displayed: number; sort: SortOption }>()
+const emit = defineEmits<{ (e: 'update:sort', value: SortOption): void }>()
+
+const onUpdateSort = (value: string) => {
+  if ((SORT_OPTIONS as readonly string[]).includes(value)) {
+    emit('update:sort', value as SortOption)
+  }
+}
 </script>

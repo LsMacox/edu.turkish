@@ -162,10 +162,7 @@ async function loadMore() {
   }
 }
 
-// Destructure store properties for template usage
 const { sort, totalUniversities } = storeToRefs(universitiesStore)
 const { setSort, fetchUniversities } = universitiesStore
 
-// Modal state for template
-// Modal state kept in store; no local usage here to satisfy linter
 </script>

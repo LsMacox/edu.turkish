@@ -11,6 +11,10 @@ export const CITY_ALL_VALUE = '__all_cities__'
 export const TYPE_ALL_VALUE = '__all_types__'
 export const LEVEL_ALL_VALUE = 'all'
 
+export const SORT_OPTIONS = ['pop', 'price_asc', 'price_desc', 'alpha', 'lang_en'] as const
+export type SortOption = (typeof SORT_OPTIONS)[number]
+const DEFAULT_SORT: SortOption = 'pop'
+
 const LEVEL_TRANSLATION_KEYS: Record<DegreeType | typeof LEVEL_ALL_VALUE, string> = {
   [LEVEL_ALL_VALUE]: 'universities_page.filters.all_levels',
   bachelor: 'universities_page.filters.levels.bachelor',
@@ -174,8 +178,7 @@ export const useUniversitiesStore = defineStore('universities', () => {
 
   // State for filters and sort
   const filters = ref<UniversityFilters>(getDefaultFilters())
-  type SortOption = 'pop' | 'price_asc' | 'price_desc' | 'alpha' | 'lang_en'
-  const sort = ref<SortOption>('pop')
+  const sort = ref<SortOption>(DEFAULT_SORT)
 
   // Flag to prevent infinite loops during URL sync
   const isUpdatingFromURL = ref(false)
@@ -238,7 +241,7 @@ export const useUniversitiesStore = defineStore('universities', () => {
             ? effectiveFilters.price[1]
             : undefined,
         sort:
-          (options?.overrides?.sort || sort.value) !== 'pop'
+          (options?.overrides?.sort || sort.value) !== DEFAULT_SORT
             ? options?.overrides?.sort || sort.value
             : undefined,
         page: options?.page ?? 1,
@@ -406,14 +409,14 @@ export const useUniversitiesStore = defineStore('universities', () => {
 
   const resetFilters = () => {
     filters.value = getDefaultFilters()
-    sort.value = 'pop'
+    sort.value = DEFAULT_SORT
     updateURL()
   }
 
   const resetFiltersFromFooter = () => {
     isFromFooter.value = true
     filters.value = getDefaultFilters()
-    sort.value = 'pop'
+    sort.value = DEFAULT_SORT
     updateURL()
   }
 
@@ -422,10 +425,8 @@ export const useUniversitiesStore = defineStore('universities', () => {
     const route = useRoute()
     filters.value = initializeFiltersFromURL()
     const rq = route.query as Partial<Record<string, unknown>>
-    const qSort = typeof rq.sort === 'string' ? (rq.sort as SortOption) : 'pop'
-    sort.value = (['pop', 'price_asc', 'price_desc', 'alpha', 'lang_en'] as const).includes(qSort)
-      ? qSort
-      : 'pop'
+    const qSort = typeof rq.sort === 'string' ? (rq.sort as SortOption) : DEFAULT_SORT
+    sort.value = (SORT_OPTIONS as readonly string[]).includes(qSort) ? qSort : DEFAULT_SORT
     nextTick(() => {
       isUpdatingFromURL.value = false
       fetchUniversities()
@@ -441,10 +442,8 @@ export const useUniversitiesStore = defineStore('universities', () => {
     const route = useRoute()
     filters.value = initializeFiltersFromURL()
     const rq = route.query as Partial<Record<string, unknown>>
-    const qSort = typeof rq.sort === 'string' ? (rq.sort as SortOption) : 'pop'
-    sort.value = (['pop', 'price_asc', 'price_desc', 'alpha', 'lang_en'] as const).includes(qSort)
-      ? qSort
-      : 'pop'
+    const qSort = typeof rq.sort === 'string' ? (rq.sort as SortOption) : DEFAULT_SORT
+    sort.value = (SORT_OPTIONS as readonly string[]).includes(qSort) ? qSort : DEFAULT_SORT
     await fetchUniversities(options)
   }
 
