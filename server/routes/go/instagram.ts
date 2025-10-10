@@ -5,7 +5,7 @@ import { extractUtmFromQuery } from '~~/server/utils/utm'
 
 export default defineEventHandler(async (event) => {
   const query = getQuery(event)
-  const referralCode = typeof query.referral_code === 'string' ? query.referral_code : ''
+  const referralCode = typeof query.ref === 'string' ? query.ref : ''
   const hasReferralCode = referralCode.length > 0
 
   const cookieFp = getCookie(event, 'fp')
@@ -20,7 +20,7 @@ export default defineEventHandler(async (event) => {
         method: 'POST',
         body: {
           channel: 'instagram',
-          referral_code: referralCode,
+          ref: referralCode,
           session: sessionId,
           utm,
         },

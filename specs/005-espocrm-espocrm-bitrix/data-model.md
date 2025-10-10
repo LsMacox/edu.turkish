@@ -124,7 +124,7 @@ interface ApplicationRequest {
   additional_info?: string
   source: string // ✅ Already accepts any string
   user_preferences?: UserPreferencesDTO
-  referral_code?: string
+  ref?: string
 }
 ```
 

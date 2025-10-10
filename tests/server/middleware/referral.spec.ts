@@ -43,7 +43,7 @@ describe('referral middleware', () => {
     const handler = handlerModule.default
 
     const event = {
-      node: { req: { method: 'GET' } },
+      node: { req: { method: 'GET', url: '/some-page?ref=dev-123' } },
       path: '/some-page',
       context: {},
       headers: new Map(),
@@ -52,14 +52,14 @@ describe('referral middleware', () => {
 
     expect(setCookieMock).toHaveBeenCalledWith(
       event,
-      'referral_code',
+      'ref',
       'dev-123',
       expect.objectContaining({
         secure: false,
         httpOnly: false,
       }),
     )
-    expect(sendRedirectMock).toHaveBeenCalledWith(event, '/', 302)
+    expect(sendRedirectMock).toHaveBeenCalledWith(event, '/some-page', 302)
   })
 
   it('sets secure flag in production', async () => {
@@ -70,7 +70,7 @@ describe('referral middleware', () => {
     const handler = handlerModule.default
 
     const event = {
-      node: { req: { method: 'GET' } },
+      node: { req: { method: 'GET', url: '/some-page?ref=prod-123' } },
       path: '/some-page',
       context: {},
       headers: new Map(),
@@ -79,13 +79,32 @@ describe('referral middleware', () => {
 
     expect(setCookieMock).toHaveBeenCalledWith(
       event,
-      'referral_code',
+      'ref',
       'prod-123',
       expect.objectContaining({
         secure: true,
       }),
     )
-    expect(sendRedirectMock).toHaveBeenCalledWith(event, '/', 302)
+    expect(sendRedirectMock).toHaveBeenCalledWith(event, '/some-page', 302)
+  })
+
+  it('preserves other query parameters when redirecting', async () => {
+    process.env.NODE_ENV = 'development'
+    getQueryMock.mockReturnValue({ ref: 'keepme' })
+
+    const handlerModule = await import('../../../server/middleware/referral')
+    const handler = handlerModule.default
+
+    const event = {
+      node: { req: { method: 'GET', url: '/landing?ref=keepme&utm=123' } },
+      path: '/landing',
+      context: {},
+      headers: new Map(),
+    }
+
+    await handler(event as any)
+
+    expect(sendRedirectMock).toHaveBeenCalledWith(event, '/landing?utm=123', 302)
   })
 
   it('does not redirect for invalid referral code', async () => {
@@ -96,7 +115,7 @@ describe('referral middleware', () => {
     const handler = handlerModule.default
 
     const event = {
-      node: { req: { method: 'GET' } },
+      node: { req: { method: 'GET', url: '/?ref=invalid%20code!' } },
       path: '/',
       context: {},
       headers: new Map(),
@@ -115,7 +134,7 @@ describe('referral middleware', () => {
     const handler = handlerModule.default
 
     const event = {
-      node: { req: { method: 'POST' } },
+      node: { req: { method: 'POST', url: '/some-page?ref=partner123' } },
       path: '/some-page',
       context: {},
       headers: new Map(),
@@ -134,7 +153,7 @@ describe('referral middleware', () => {
     const handler = handlerModule.default
 
     const event = {
-      node: { req: { method: 'GET' } },
+      node: { req: { method: 'GET', url: '/api/something?ref=partner123' } },
       path: '/api/something',
       context: {},
       headers: new Map(),
@@ -153,7 +172,7 @@ describe('referral middleware', () => {
     const handler = handlerModule.default
 
     const event = {
-      node: { req: { method: 'GET' } },
+      node: { req: { method: 'GET', url: '/some-page?ref=new-code' } },
       path: '/some-page',
       context: {},
       headers: new Map(),
@@ -164,6 +183,6 @@ describe('referral middleware', () => {
     await handler(event as any)
 
     expect(setCookieMock).not.toHaveBeenCalled()
-    expect(sendRedirectMock).toHaveBeenCalledWith(event, '/', 302)
+    expect(sendRedirectMock).toHaveBeenCalledWith(event, '/some-page', 302)
   })
 })

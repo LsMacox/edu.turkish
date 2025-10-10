@@ -191,7 +191,7 @@ X-Api-Key: {API_KEY}
 | `personal_info.phone`      | `phoneNumber`  | Direct                           |
 | `source`                   | `source`       | Direct                           |
 | `additional_info`          | `description`  | Append preferences               |
-| `referral_code`            | `description`  | Append as "Referral: {code}"     |
+| `ref`                      | `description`  | Append as "Referral: {code}"     |
 | `preferences.universities` | `description`  | Append as "Universities: {list}" |
 
 **Name Field Construction**:

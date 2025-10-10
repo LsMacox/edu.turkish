@@ -107,7 +107,7 @@ curl -X POST http://localhost:3000/api/v1/applications \
       "phone": "+77001234567",
       "email": "ivan@example.com"
     },
-    "referral_code": "PARTNER123",
+    "ref": "PARTNER123",
     "source": "university_detail"
   }'
 
@@ -122,7 +122,7 @@ curl -X POST http://localhost:3000/api/v1/applications \
 
 ```bash
 # Click messenger link
-curl "http://localhost:3000/go/telegram?referral_code=PARTNER123&utm_source=instagram"
+curl "http://localhost:3000/go/telegram?ref=PARTNER123&utm_source=instagram"
 
 # Verify in EspoCRM
 # 1. Navigate to Activities
@@ -146,7 +146,7 @@ curl -X POST http://localhost:3000/api/v1/applications \
       "phone": "+77001111111",
       "email": "test@example.com"
     },
-    "referral_code": "TEST",
+    "ref": "TEST",
     "source": "test"
   }'
 
@@ -183,7 +183,7 @@ curl -X POST http://localhost:3000/api/v1/applications \
       "phone": "+77002222222",
       "email": "switch@example.com"
     },
-    "referral_code": "SWITCH",
+    "ref": "SWITCH",
     "source": "test"
   }'
 
@@ -272,7 +272,7 @@ curl -X POST http://localhost:3000/api/v1/applications \
       "phone": "+77003333333",
       "email": "minimal@example.com"
     },
-    "referral_code": "MIN",
+    "ref": "MIN",
     "source": "test"
   }'
 ```
