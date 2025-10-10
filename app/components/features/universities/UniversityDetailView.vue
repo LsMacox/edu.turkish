@@ -272,7 +272,7 @@
 </template>
 
 <script setup lang="ts">
-import type { UniversityDetailFrontend } from '~/stores/universityDetail'
+import type { UniversityDetailFrontend } from '~/types/university-detail'
 import { useApplicationModalStore } from '~/stores/applicationModal'
 import { useContactChannels } from '~/composables/useContactChannels'
 

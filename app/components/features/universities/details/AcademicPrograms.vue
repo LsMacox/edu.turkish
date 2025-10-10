@@ -86,7 +86,8 @@
 </template>
 
 <script setup lang="ts">
-import { useUniversityDetailStore, type UniversityProgram } from '~/stores/universityDetail'
+import { useUniversityDetailStore } from '~/stores/universityDetail'
+import type { UniversityProgram } from '~/types/university-detail'
 
 interface Props {
   programs: UniversityProgram[]
