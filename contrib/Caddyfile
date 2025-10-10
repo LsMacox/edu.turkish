@@ -1,7 +1,6 @@
 # Global options
 {
-    auto_https off              # критично: Caddy не лезет в ACME/HTTPS
-    # email {$CADDY_ACME_EMAIL} # больше не нужен, но можно оставить — безвредно
+    auto_https off
 }
 
 # App (Nuxt) origin — ВАЖНО: это не публичный домен, а origin-хост
@@ -12,8 +11,6 @@ http://{$APP_DOMAIN} {
     header @static Cache-Control "public, max-age=31536000, immutable"
 
     reverse_proxy app:3000 {
-        header_up X-Forwarded-Proto {scheme}
-        header_up X-Forwarded-Host {host}
         header_up Host {host}
     }
 }
@@ -22,18 +19,8 @@ http://{$APP_DOMAIN} {
 https://{$DIRECTUS_DOMAIN} {
     encode zstd gzip
 
-    # basicauth можно оставить закомментированным
     reverse_proxy directus:8055 {
-        header_up X-Forwarded-Proto {scheme}
-        header_up X-Forwarded-Host {host}
         header_up Host {host}
-    }
-
-    tls {
-        issuer acme {
-            email {$CADDY_ACME_EMAIL}
-            disable_http_challenge
-        }
     }
 }
 
@@ -42,16 +29,7 @@ https://{$CRM_DOMAIN} {
     encode zstd gzip
 
     reverse_proxy espocrm:80 {
-        header_up X-Forwarded-Proto {scheme}
-        header_up X-Forwarded-Host {host}
         header_up Host {host}
-    }
-
-    tls {
-        issuer acme {
-            email {$CADDY_ACME_EMAIL}
-            disable_http_challenge
-        }
     }
 }
 
