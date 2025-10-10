@@ -21,7 +21,7 @@ describe('useCdn', () => {
 
     it('transforms paths correctly', () => {
       const { cdnUrl } = useCdn()
-      
+
       expect(cdnUrl('/images/logo.png')).toBe('https://cdn.edu-turkish.com/images/logo.png')
       expect(cdnUrl('images/logo.png')).toBe('https://cdn.edu-turkish.com/images/logo.png')
       expect(cdnUrl('/public/images/logo.png')).toBe('https://cdn.edu-turkish.com/images/logo.png')

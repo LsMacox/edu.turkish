@@ -5,12 +5,12 @@ const logActivityMock = vi.fn()
 const createFromEnvMock = vi.fn(() => ({
   logActivity: logActivityMock,
 }))
-const getCRMConfigMock = vi.fn(() => ({ 
+const getCRMConfigMock = vi.fn(() => ({
   provider: 'bitrix',
   webhookUrl: 'https://example.com/rest/1/token',
   timeout: 15000,
   retries: 2,
-  fieldMappings: {}
+  fieldMappings: {},
 }))
 const validateCRMConfigMock = vi.fn()
 
@@ -35,7 +35,7 @@ beforeEach(() => {
   createFromEnvMock.mockClear()
   getCRMConfigMock.mockClear()
   validateCRMConfigMock.mockClear()
-  
+
   // Reset to default successful behavior
   validateCRMConfigMock.mockImplementation(() => {}) // No throw = valid
   createFromEnvMock.mockReturnValue({

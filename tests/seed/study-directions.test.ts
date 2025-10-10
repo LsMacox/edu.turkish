@@ -2,7 +2,7 @@ import { beforeAll, describe, expect, it } from 'vitest'
 import type { PrismaClient } from '@prisma/client'
 import { seedStudyDirections } from '~~/prisma/seed/study-directions'
 
-type Direction = { id: number }
+type Direction = { id: number; translations?: Translation[] }
 type Translation = { directionId: number; locale: string; slug: string; name: string }
 
 class InMemoryPrisma {
@@ -99,7 +99,7 @@ describe('Study Directions Seed', () => {
     expect(directions.length).toBeGreaterThan(0)
 
     const totalTranslations = directions.reduce(
-      (count, direction) => count + direction.translations.length,
+      (count, direction) => count + (direction.translations?.length ?? 0),
       0,
     )
     expect(totalTranslations).toBeGreaterThan(0)
@@ -110,8 +110,8 @@ describe('Study Directions Seed', () => {
     const locales = ['en', 'ru', 'kk', 'tr']
 
     for (const direction of directions) {
-      expect(direction.translations.length).toBe(4)
-      const directionLocales = direction.translations.map((t) => t.locale)
+      expect(direction.translations?.length).toBe(4)
+      const directionLocales = direction.translations?.map((t: Translation) => t.locale) ?? []
       locales.forEach((locale) => expect(directionLocales).toContain(locale))
     }
   })
