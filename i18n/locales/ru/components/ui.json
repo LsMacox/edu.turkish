@@ -19,5 +19,8 @@
   },
   "range": {
     "to": "до"
+  },
+  "pageLoadingOverlay": {
+    "ariaLabel": "Страница загружается"
   }
 }
