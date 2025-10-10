@@ -332,18 +332,15 @@ export const useUniversityDetailStore = defineStore('universityDetail', () => {
   // Removed unused getUniversityTypeInRussian
 
   /**
-   * Загрузка университета по слагу (новый метод с API)
+   * Базовая загрузка университета по идентификатору
    */
-  const loadUniversityBySlug = async (slug: string) => {
+  const fetchUniversity = async (identifier: string | number) => {
+    const normalizedIdentifier = identifier.toString()
     _loading.value = true
     _error.value = null
 
     try {
-      // Получаем текущую локаль
-      // use global locale from store
-
-      // Делаем запрос к API
-      const response = await $fetch<UniversityDetail>(`/api/v1/universities/${slug}`, {
+      const response = await $fetch<UniversityDetail>(`/api/v1/universities/${normalizedIdentifier}`, {
         headers: {
           'Accept-Language': locale.value,
         },
@@ -366,35 +363,17 @@ export const useUniversityDetailStore = defineStore('universityDetail', () => {
   }
 
   /**
+   * Загрузка университета по слагу (новый метод с API)
+   */
+  const loadUniversityBySlug = async (slug: string) => {
+    await fetchUniversity(slug)
+  }
+
+  /**
    * Загрузка университета по ID
    */
   const loadUniversityById = async (id: string | number) => {
-    _loading.value = true
-    _error.value = null
-
-    try {
-      // use global locale from store
-
-      const response = await $fetch<UniversityDetail>(`/api/v1/universities/${id}`, {
-        headers: {
-          'Accept-Language': locale.value,
-        },
-      })
-
-      if (response) {
-        const frontendUniversity = transformApiToFrontend(response)
-        _currentUniversity.value = frontendUniversity
-      } else {
-        _error.value = 'University not found'
-        _currentUniversity.value = null
-      }
-    } catch (err: any) {
-      console.error('Failed to load university:', err)
-      _error.value = err.message || 'Failed to load university'
-      _currentUniversity.value = null
-    } finally {
-      _loading.value = false
-    }
+    await fetchUniversity(id)
   }
 
   /**
