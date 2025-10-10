@@ -409,18 +409,16 @@ async function replacePrograms(
         programId: created.id,
         locale,
         name: p.name,
-        description: p.description,
       },
     })
     if (p.translation?.locale) {
       await (prisma as any).UniversityProgramTranslation.upsert({
         where: { programId_locale: { programId: created.id, locale: p.translation.locale } },
-        update: { name: p.translation.name, description: p.translation.description },
+        update: { name: p.translation.name },
         create: {
           programId: created.id,
           locale: p.translation.locale,
           name: p.translation.name,
-          description: p.translation.description,
         },
       })
     }
