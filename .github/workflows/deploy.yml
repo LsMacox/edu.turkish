@@ -120,22 +120,3 @@ jobs:
           echo "Purging Bunny CDN cache for zone ${BUNNY_APP_ZONE_ID}"
           curl -fsS -X POST "https://api.bunny.net/pullzone/${BUNNY_APP_ZONE_ID}/purgeCache" \
             -H "AccessKey: ${BUNNY_API_KEY}"
-
-      - name: Run Prisma migrations (manual trigger)
-        if: github.event_name == 'workflow_dispatch' && (github.event.inputs.run_migrations == 'true' || github.event.inputs.run_migrations == true)
-        env:
-          SSH_HOST: ${{ secrets.SSH_HOST }}
-          SSH_USER: root
-          SSH_PORT: ${{ secrets.SSH_PORT }}
-        run: |
-          set -euo pipefail
-          echo "Running pnpm run db:deploy on $SSH_HOST"
-
-          ssh -o StrictHostKeyChecking=no -p "${SSH_PORT:-22}" "${SSH_USER}@${SSH_HOST}" 'bash -s' << 'EOF'
-          set -euo pipefail
-
-          APP_DIR="/root/apps/edu.turkish"
-          cd "$APP_DIR"
-
-          pnpm run db:deploy
-          EOF
