@@ -19,9 +19,6 @@ http://{$APP_DOMAIN} {
 }
 
 # Directus origin
-http://{$DIRECTUS_DOMAIN} {
-    redir https://{$DIRECTUS_DOMAIN}{uri} 308
-}
 https://{$DIRECTUS_DOMAIN} {
     encode zstd gzip
 
@@ -41,9 +38,6 @@ https://{$DIRECTUS_DOMAIN} {
 }
 
 # EspoCRM origin
-http://{$CRM_DOMAIN} {
-    redir https://{$CRM_DOMAIN}{uri} 308
-}
 https://{$CRM_DOMAIN} {
     encode zstd gzip
 
