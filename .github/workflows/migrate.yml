@@ -32,5 +32,5 @@ jobs:
           ssh -o StrictHostKeyChecking=no -p "${SSH_PORT:-22}" "${SSH_USER}@${SSH_HOST}" bash -s <<'EOF'
           set -euo pipefail
           cd /root/apps/edu.turkish
-          docker compose exec -T app pnpm run db:deploy
+          docker compose exec app npx prisma migrate deploy
           EOF
