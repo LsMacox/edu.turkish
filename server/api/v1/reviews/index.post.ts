@@ -45,7 +45,6 @@ export default defineEventHandler(async (event): Promise<CreateReviewResponse> =
     let universityId: number | undefined
     const titleSearch = {
       contains: data.university,
-      mode: 'insensitive' as const,
     }
 
     const localizedTranslation = await prisma.universityTranslation.findFirst({
