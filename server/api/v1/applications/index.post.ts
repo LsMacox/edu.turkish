@@ -62,7 +62,7 @@ export default defineEventHandler(async (event): Promise<ApplicationResponse> =>
           : undefined,
         referralCode: body.ref || 'DIRECT',
         source: body.source || 'website',
-        sourceDescription: body.source,
+        sourceDescription: body.source_description || body.source,
         userType: body.user_preferences?.userType,
         language: body.user_preferences?.language,
         universities: body.preferences?.universities,
@@ -134,6 +134,7 @@ export default defineEventHandler(async (event): Promise<ApplicationResponse> =>
             : undefined,
           referralCode: body.ref || 'DIRECT',
           source: body.source || 'website',
+          sourceDescription: body.source_description || body.source,
           session: fingerprintCookie,
           fingerprintKey,
         }

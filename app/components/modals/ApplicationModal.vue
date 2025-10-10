@@ -139,7 +139,7 @@
           <input
             type="hidden"
             name="source"
-            :value="referralCode || props.userPreferences?.source || 'website'"
+            :value="props.userPreferences?.source || 'website'"
           />
 
           <button
@@ -286,6 +286,9 @@ const submitForm = async () => {
     const firstName = nameParts[0] || ''
     const lastName = nameParts.slice(1).join(' ') || ''
 
+    const ctaSource = props.userPreferences?.source || 'website'
+    const ctaDescription = props.userPreferences?.description
+
     const applicationData = {
       personal_info: {
         first_name: firstName,
@@ -302,8 +305,9 @@ const submitForm = async () => {
         start_date: new Date().getFullYear().toString(),
       },
       additional_info: form.value.message || '',
-      source: referralCode.value || props.userPreferences?.source || 'website',
-      ref: referralCode.value,
+      source: ctaSource,
+      source_description: ctaDescription,
+      ref: referralCode.value || undefined,
       user_preferences: props.userPreferences,
     }
 

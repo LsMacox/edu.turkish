@@ -26,6 +26,7 @@ export interface ApplicationRequest {
   }
   additional_info?: string
   source: string
+  source_description?: string
   user_preferences?: UserPreferencesDTO
   ref?: string
 }
