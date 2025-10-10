@@ -15,6 +15,28 @@ const isApiPath = (path: string | undefined): boolean => {
   return path.startsWith('/api/')
 }
 
+const sanitizeRedirectLocation = (event: H3Event): string | null => {
+  const rawUrl = event.node?.req?.url
+  if (!rawUrl) return null
+
+  try {
+    const parsed = new URL(rawUrl, 'http://internal')
+    const hadRef = parsed.searchParams.has('ref')
+    const hadReferralCode = parsed.searchParams.has('referral_code')
+
+    if (!hadRef && !hadReferralCode) {
+      return null
+    }
+
+    parsed.searchParams.delete('ref')
+    parsed.searchParams.delete('referral_code')
+
+    return `${parsed.pathname}${parsed.search}${parsed.hash}` || '/'
+  } catch {
+    return null
+  }
+}
+
 const handler = async (event: H3Event) => {
   const getQueryFn = (globalThis as any).getQuery || h3GetQuery
   const query = getQueryFn(event) as { ref?: string; referral_code?: string }
@@ -39,8 +61,11 @@ const handler = async (event: H3Event) => {
 
   const method = event.node?.req?.method || 'GET'
   if (method === 'GET' && !isApiPath(event.path)) {
+    const location = sanitizeRedirectLocation(event)
+    if (!location) return
+
     const sendRedirectFn = (globalThis as any).sendRedirect || h3SendRedirect
-    await sendRedirectFn(event, '/', 302)
+    await sendRedirectFn(event, location, 302)
   }
 }
 
