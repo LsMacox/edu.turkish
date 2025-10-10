@@ -15,7 +15,7 @@
     />
     <span
       :class="[
-        'ml-3 text-base md:text-sm font-medium',
+        'ml-3 text-xs md:text-sm font-medium leading-snug',
         disabled ? 'text-gray-400' : 'text-secondary',
       ]"
     >
