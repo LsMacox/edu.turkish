@@ -252,7 +252,6 @@ model UniversityProgramTranslation {
   programId   Int             @map("university_program_id")
   locale      String          @db.VarChar(5)
   name        String?         @db.VarChar(255)
-  description String?         @db.Text
   createdAt   DateTime        @default(now()) @map("created_at")
   updatedAt   DateTime        @updatedAt @map("updated_at")
 
