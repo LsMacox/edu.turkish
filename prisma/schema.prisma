@@ -677,7 +677,6 @@ model BlogArticle {
   coverImage         String?            @map("cover_image") @db.VarChar(500)
   heroImage          String?            @map("hero_image") @db.VarChar(500)
   readingTimeMinutes Int?               @map("reading_time_minutes")
-  meta               Json?              @db.Json
   createdAt          DateTime           @default(now()) @map("created_at")
   updatedAt          DateTime           @updatedAt @map("updated_at")
 

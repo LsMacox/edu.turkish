@@ -51,8 +51,6 @@ export interface BlogPopularArticle {
   title: string
   publishedAt: string
   publishedAtLabel: string
-  viewCount: number
-  viewCountLabel: string
 }
 
 export interface BlogArticlesResponse extends ApiResponse<BlogArticleListItem[]> {
