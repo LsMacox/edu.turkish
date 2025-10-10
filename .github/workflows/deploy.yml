@@ -1,55 +1,104 @@
-name: Deploy to server
+name: Deploy
 
 on:
   push:
-    branches:
-      - main
+    branches: ['main']
   workflow_dispatch:
 
 concurrency:
-  group: deploy-main
-  cancel-in-progress: true
+  group: deploy-${{ github.ref }}
+  cancel-in-progress: false
+
+env:
+  # Тег образа: короткий SHA коммита
+  APP_TAG: ${{ github.sha && join(fromJson(format('["{0}"]', github.sha))[0:1], '')[0:7] || 'main' }}
 
 jobs:
-  deploy:
-    name: SSH deploy to production
+  test-and-deploy:
     runs-on: ubuntu-latest
+    permissions:
+      contents: read
 
     steps:
-      - name: Checkout (metadata only)
+      - name: Checkout repository
         uses: actions/checkout@v4
+        with:
+          fetch-depth: 1
 
-      - name: Start SSH agent and add private key
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: 'npm'
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Run linter
+        run: npm run lint
+
+      - name: Run tests
+        run: npm run test
+
+      - name: Prepare SSH key
+        if: success()
         uses: webfactory/ssh-agent@v0.9.0
         with:
-          ssh-private-key: |
-            ${{ secrets.SSH_KEY }}
+          ssh-private-key: ${{ secrets.SSH_PRIVATE_KEY }}
 
-      - name: Deploy via SSH
+      - name: Add host to known_hosts (optional)
+        if: success()
+        run: |
+          mkdir -p ~/.ssh
+          echo "${{ secrets.SSH_KNOWN_HOSTS }}" >> ~/.ssh/known_hosts || true
+          chmod 600 ~/.ssh/known_hosts || true
+
+      - name: Remote deploy over SSH
+        if: success()
         env:
           SSH_HOST: ${{ secrets.SSH_HOST }}
+          SSH_USER: ${{ secrets.SSH_USER }}
           SSH_PORT: ${{ secrets.SSH_PORT }}
-          SSH_USER: ${{ secrets.SSH_USERNAME }}
+          APP_TAG: ${{ env.APP_TAG }}
         run: |
           set -euo pipefail
-          # Подключаемся к серверу и выполняем деплой-скрипт
+          echo "Deploying commit $APP_TAG to $SSH_HOST"
+
           ssh -o StrictHostKeyChecking=no -p "${SSH_PORT:-22}" "${SSH_USER}@${SSH_HOST}" 'bash -s' << 'EOF'
           set -euo pipefail
 
-          # Фиксированная директория приложения
           APP_DIR="/root/apps/edu.turkish"
+          export DOCKER_BUILDKIT=1
+          export APP_TAG="${APP_TAG:-main}"
+
           cd "$APP_DIR"
 
-          # Безопасность Git в новых версиях
           git config --global --add safe.directory "$APP_DIR" || true
-
-          # Обновляем код до состояния origin/main
-          git fetch --all --prune
+          git fetch origin main
           git reset --hard origin/main
 
-          docker builder prune -af
+          echo "[CLEANUP] pruning old images"
+          docker image prune -f --filter "until=168h" || true
+          docker builder prune -f --filter "until=168h" || true
 
-          # Сборка и запуск сервиса app
-          docker compose build --no-cache app
-          docker compose up -d app
+          echo "[BUILD] building app image with tag ${APP_TAG}"
+          docker compose build --pull app
+          docker compose up -d --remove-orphans app
+
+          echo "[CLEANUP] pruning unused data"
+          docker image prune -af || true
+          docker builder prune -af || true
           EOF
+
+      - name: Health check (HTTP)
+        if: always()
+        env:
+          APP_HEALTH_URL: ${{ vars.APP_HEALTH_URL }}
+        run: |
+          if [ -n "${APP_HEALTH_URL:-}" ]; then
+            echo "Checking $APP_HEALTH_URL ..."
+            curl -fsS --retry 5 --retry-delay 2 "$APP_HEALTH_URL" >/dev/null
+            echo "Health OK"
+          else
+            echo "APP_HEALTH_URL not set, skipping health check."
+          fi
