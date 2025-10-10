@@ -36,7 +36,7 @@
  *   const job = await queue.addJob('createLead', 'espocrm', data)
  */
 
-import { afterAll, beforeAll, vi } from 'vitest'
+import { afterAll, afterEach, beforeAll, vi } from 'vitest'
 import { config } from '@vue/test-utils'
 import {
   ref,
@@ -52,6 +52,10 @@ import {
   toRefs,
   useId,
 } from 'vue'
+
+const consoleMethodsToMock = ['debug', 'info', 'log', 'warn', 'error'] as const
+type ConsoleMethod = (typeof consoleMethodsToMock)[number]
+const consoleSpies: Partial<Record<ConsoleMethod, ReturnType<typeof vi.spyOn>>> = {}
 
 beforeAll(() => {
   // Mock Nuxt server utilities globally
@@ -130,8 +134,25 @@ beforeAll(() => {
   config.global.mocks = {
     $t: (key: string) => key,
   }
+
+  // Silence console output during tests while keeping spy visibility
+  consoleMethodsToMock.forEach((method) => {
+    consoleSpies[method] = vi.spyOn(console, method).mockImplementation(() => {})
+  })
+  g.__consoleSpies__ = consoleSpies
+})
+
+afterEach(() => {
+  consoleMethodsToMock.forEach((method) => {
+    consoleSpies[method]?.mockClear()
+  })
 })
 
 afterAll(() => {
-  // Global cleanup
+  consoleMethodsToMock.forEach((method) => {
+    consoleSpies[method]?.mockRestore()
+  })
+
+  const g = globalThis as any
+  delete g.__consoleSpies__
 })

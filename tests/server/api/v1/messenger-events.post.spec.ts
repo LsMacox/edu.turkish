@@ -1,4 +1,4 @@
-import { beforeEach, describe, expect, it, vi } from 'vitest'
+import { afterAll, afterEach, beforeAll, beforeEach, describe, expect, it, vi } from 'vitest'
 
 const readBodyMock = vi.fn()
 const logActivityMock = vi.fn()
@@ -29,18 +29,33 @@ vi.mock('../../../../server/utils/utm', () => ({
   sanitizeUtm: vi.fn((utm) => utm),
 }))
 
+let consoleWarnSpy: ReturnType<typeof vi.spyOn>
+
+beforeAll(() => {
+  consoleWarnSpy = vi.spyOn(console, 'warn').mockImplementation(() => {})
+})
+
 beforeEach(() => {
   readBodyMock.mockReset()
   logActivityMock.mockReset()
   createFromEnvMock.mockClear()
   getCRMConfigMock.mockClear()
   validateCRMConfigMock.mockClear()
+  consoleWarnSpy.mockClear()
 
   // Reset to default successful behavior
   validateCRMConfigMock.mockImplementation(() => {}) // No throw = valid
   createFromEnvMock.mockReturnValue({
     logActivity: logActivityMock,
   })
+})
+
+afterEach(() => {
+  consoleWarnSpy.mockClear()
+})
+
+afterAll(() => {
+  consoleWarnSpy.mockRestore()
 })
 
 vi.stubGlobal('defineEventHandler', (<T>(handler: T) => handler) as any)
@@ -60,6 +75,7 @@ describe('POST /api/v1/messenger-events', () => {
     })
 
     expect(createFromEnvMock).not.toHaveBeenCalled()
+    expect(consoleWarnSpy).not.toHaveBeenCalled()
   })
 
   it('requires referral code to be provided', async () => {
@@ -74,6 +90,7 @@ describe('POST /api/v1/messenger-events', () => {
     })
 
     expect(createFromEnvMock).not.toHaveBeenCalled()
+    expect(consoleWarnSpy).not.toHaveBeenCalled()
   })
 
   it('proxies payload to CRM service when valid', async () => {
@@ -116,6 +133,7 @@ describe('POST /api/v1/messenger-events', () => {
       success: true,
       activityId: 99,
     })
+    expect(consoleWarnSpy).not.toHaveBeenCalled()
   })
 
   it('returns success with null activityId when CRM logging fails', async () => {
@@ -134,6 +152,12 @@ describe('POST /api/v1/messenger-events', () => {
     expect(result).toEqual({
       success: true,
       activityId: null,
+    })
+    expect(consoleWarnSpy).toHaveBeenCalledTimes(1)
+    expect(consoleWarnSpy).toHaveBeenCalledWith('[CRM] Failed to log messenger event', {
+      channel: 'telegramPersonal',
+      referralCode: 'ref-123',
+      error: 'Failed to log',
     })
   })
 
@@ -156,5 +180,10 @@ describe('POST /api/v1/messenger-events', () => {
     })
 
     expect(createFromEnvMock).not.toHaveBeenCalled()
+    expect(consoleWarnSpy).toHaveBeenCalledTimes(1)
+    expect(consoleWarnSpy).toHaveBeenCalledWith(
+      '[CRM] Configuration is missing. Unable to log messenger event.',
+      'Config missing',
+    )
   })
 })

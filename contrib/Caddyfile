@@ -16,7 +16,7 @@ http://{$APP_DOMAIN} {
 }
 
 # Directus origin
-https://{$DIRECTUS_DOMAIN} {
+http://{$DIRECTUS_DOMAIN} {
     encode zstd gzip
 
     reverse_proxy directus:8055 {
@@ -25,7 +25,7 @@ https://{$DIRECTUS_DOMAIN} {
 }
 
 # EspoCRM origin
-https://{$CRM_DOMAIN} {
+http://{$CRM_DOMAIN} {
     encode zstd gzip
 
     reverse_proxy espocrm:80 {
