@@ -145,6 +145,7 @@ services:
       STORAGE_S3_ENDPOINT: ${DIRECTUS_STORAGE_S3_ENDPOINT}
       STORAGE_S3_ROOT: ${DIRECTUS_STORAGE_S3_ROOT}
       STORAGE_S3_FORCE_PATH_STYLE: ${DIRECTUS_STORAGE_S3_FORCE_PATH_STYLE}
+      STORAGE_S3_URL: ${DIRECTUS_STORAGE_S3_URL}
     volumes:
       - directus_uploads:/project/directus/uploads
       - ./contrib/directus:/project/directus
