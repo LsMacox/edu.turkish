@@ -140,6 +140,7 @@
 </template>
 
 <script setup lang="ts">
+import { useReferral } from '~/composables/useReferral'
 import { useUniversityApplicationValidation } from '~/composables/validation/useUniversityApplicationValidation'
 import type { DegreeType } from '~/types/domain'
 
@@ -159,6 +160,16 @@ interface Props {
 }
 
 const props = defineProps<Props>()
+
+const { referralCode, setReferralCode } = useReferral()
+
+onMounted(() => {
+  const referralCookie = useCookie<string | null>('ref')
+
+  if (referralCookie?.value) {
+    setReferralCode(referralCookie.value)
+  }
+})
 
 const form = ref({
   name: '',
@@ -313,6 +324,7 @@ const submitApplication = async () => {
       },
       additional_info: form.value.comment || '',
       source: 'university_detail',
+      ref: referralCode.value,
     }
 
     // Отправляем данные на сервер
