@@ -3,9 +3,7 @@ import FingerprintJS from '@fingerprintjs/fingerprintjs'
 export default defineNuxtPlugin(async () => {
   // Read cookie helper
   const getCookie = (name: string): string | null => {
-    const re = new RegExp(
-      '(?:^|; )' + name.replace(/([.$?*|{}()[\]\\/+^])/g, '\\$1') + '=([^;]*)',
-    )
+    const re = new RegExp('(?:^|; )' + name.replace(/([.$?*|{}()[\]\\/+^])/g, '\\$1') + '=([^;]*)')
     const match = document.cookie.match(re)
     if (!match || typeof match[1] !== 'string') return null
     return decodeURIComponent(match[1])
@@ -21,7 +19,8 @@ export default defineNuxtPlugin(async () => {
   }
 
   // If we already have fp, refresh cookie TTL and exit
-  const existing = getCookie('fp') || (typeof localStorage !== 'undefined' ? localStorage.getItem('fp') : null)
+  const existing =
+    getCookie('fp') || (typeof localStorage !== 'undefined' ? localStorage.getItem('fp') : null)
   if (existing) {
     setCookie('fp', existing)
     try {

@@ -155,8 +155,8 @@ export interface BaseBadgeEvents {
 
 export interface BaseCardEvents {
   click: [event: Event]
-  mouseenter?: [event: MouseEvent]
-  mouseleave?: [event: MouseEvent]
+  mouseenter: [event: MouseEvent]
+  mouseleave: [event: MouseEvent]
 }
 
 export interface BaseTextFieldEvents {
