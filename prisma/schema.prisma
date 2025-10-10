@@ -797,26 +797,9 @@ model UniversityFeaturedProgram {
   // Relations
   university     University @relation(fields: [universityId], references: [id], onDelete: Cascade)
   program        UniversityProgram @relation(fields: [programId], references: [id], onDelete: Cascade)
-  translations   UniversityFeaturedProgramTranslation[]
-
   @@map("university_pivot_featured_programs")
   @@index([universityId], map: "idx_featured_program_university")
   @@index([programId], map: "idx_featured_program_program")
   @@unique([universityId, programId], map: "uniq_featured_program_per_university")
   @@index([displayOrder], map: "idx_featured_program_order")
-}
-
-model UniversityFeaturedProgramTranslation {
-  id                 Int              @id @default(autoincrement())
-  featuredProgramId  Int              @map("university_pivot_featured_program_id")
-  locale             String           @db.VarChar(5)
-  label              String?          @db.VarChar(255)
-  createdAt          DateTime         @default(now()) @map("created_at")
-  updatedAt          DateTime         @updatedAt @map("updated_at")
-
-  // Relations
-  featuredProgram    UniversityFeaturedProgram  @relation(fields: [featuredProgramId], references: [id], onDelete: Cascade)
-
-  @@map("university_pivot_featured_program_translations")
-  @@unique([featuredProgramId, locale], map: "uniq_featured_program_translation")
 }
