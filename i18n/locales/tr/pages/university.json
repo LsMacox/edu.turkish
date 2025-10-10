@@ -21,6 +21,9 @@
     },
     "rankingNotSpecified": "Sıralama belirtilmemiş",
     "internationalCount": "{count}+ öğrenci",
+    "advantages": {
+      "autoDescription": "Üniversite {advantage} sunuyor"
+    },
     "programDuration": {
       "durationYears": "{count} yıl"
     },

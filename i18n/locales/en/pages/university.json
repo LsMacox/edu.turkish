@@ -21,6 +21,9 @@
     },
     "rankingNotSpecified": "Ranking not specified",
     "internationalCount": "{count}+ students",
+    "advantages": {
+      "autoDescription": "The university offers {advantage}"
+    },
     "programDuration": {
       "durationYears": "{count} year | {count} years"
     },

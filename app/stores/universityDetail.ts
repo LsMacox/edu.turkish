@@ -280,10 +280,19 @@ export const useUniversityDetailStore = defineStore('universityDetail', () => {
 
     // Если это массив строк, преобразуем в объекты
     if (Array.isArray(advantages) && advantages.length > 0 && typeof advantages[0] === 'string') {
-      return (advantages as unknown as string[]).map((advantage: string) => ({
-        title: advantage,
-        description: `Университет предлагает ${advantage.toLowerCase()}`,
-      }))
+      return (advantages as unknown as string[]).map((advantage: string) => {
+        const trimmedAdvantage = advantage?.toString().trim() ?? ''
+        const normalizedAdvantage = trimmedAdvantage
+          ? trimmedAdvantage.toLocaleLowerCase(locale.value)
+          : ''
+
+        return {
+          title: trimmedAdvantage || advantage,
+          description: t('universityDetail.advantages.autoDescription', {
+            advantage: normalizedAdvantage || trimmedAdvantage || advantage,
+          }),
+        }
+      })
     }
 
     // Fallback - пустой массив
