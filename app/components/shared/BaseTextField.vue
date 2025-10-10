@@ -57,6 +57,7 @@
         :min="min"
         :max="max"
         :step="step"
+        :maxlength="maxlength"
         :autocomplete="autocompleteAttr"
         :inputmode="inputModeAttr"
         :enterkeyhint="enterKeyHintAttr"

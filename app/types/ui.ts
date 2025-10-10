@@ -247,6 +247,7 @@ export interface BaseTextFieldProps {
   min?: string | number
   max?: string | number
   step?: string | number
+  maxlength?: number | string
   autocomplete?: string
   // Enhanced styling
   clearable?: boolean
