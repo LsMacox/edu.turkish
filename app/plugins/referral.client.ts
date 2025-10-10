@@ -16,8 +16,8 @@ export default defineNuxtPlugin(() => {
       .find((row) => row.startsWith('referral_code='))
     const existingVal = existing ? decodeURIComponent(existing.split('=')[1] || '') : ''
 
-    // Set cookie for 30 days if not set or different
-    if (existingVal !== code) {
+    // Set cookie for 30 days if not already present
+    if (!existingVal) {
       const days = 30
       const maxAge = days * 24 * 60 * 60
       const secure = location.protocol === 'https:' ? '; Secure' : ''
