@@ -86,7 +86,7 @@
 </template>
 
 <script setup lang="ts">
-import type { UniversityDetailFrontend } from '~/stores/universityDetail'
+import type { UniversityDetailFrontend } from '~/types/university-detail'
 
 interface Props {
   university?: UniversityDetailFrontend
