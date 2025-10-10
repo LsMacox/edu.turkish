@@ -5,7 +5,9 @@ import { extractUtmFromQuery } from '~~/server/utils/utm'
 
 export default defineEventHandler(async (event) => {
   const query = getQuery(event)
-  const referralCode = typeof query.ref === 'string' ? query.ref : ''
+  const referralFromQuery = typeof query.ref === 'string' ? query.ref : ''
+  const referralFromCookie = getCookie(event, 'referral_code') || ''
+  const referralCode = referralFromQuery || referralFromCookie
   const hasReferralCode = referralCode.length > 0
 
   const cookieFp = getCookie(event, 'fp')

@@ -1,7 +1,7 @@
-import { eventHandler, getCookie as h3GetCookie, getQuery as h3GetQuery, sendRedirect as h3SendRedirect, setCookie as h3SetCookie } from 'h3'
+import { eventHandler, getQuery as h3GetQuery, sendRedirect as h3SendRedirect, setCookie as h3SetCookie } from 'h3'
 import type { H3Event } from 'h3'
 
-const REFERRAL_COOKIE = 'ref'
+const REFERRAL_COOKIE_NAME = 'referral_code'
 const REFERRAL_MAX_AGE = 60 * 60 * 24 * 30 // 30 days
 const REFERRAL_CODE_PATTERN = /^[a-zA-Z0-9_-]+$/
 
@@ -37,18 +37,14 @@ const handler = eventHandler(async (event) => {
     return
   }
 
-  const getCookieFn = (globalThis as any).getCookie || h3GetCookie
-  const existing = getCookieFn(event, REFERRAL_COOKIE)
-  if (!existing) {
-    const setCookieFn = (globalThis as any).setCookie || h3SetCookie
-    setCookieFn(event, REFERRAL_COOKIE, code, {
-      maxAge: REFERRAL_MAX_AGE,
-      path: '/',
-      sameSite: 'lax',
-      httpOnly: false,
-      secure: process.env.NODE_ENV === 'production',
-    })
-  }
+  const setCookieFn = (globalThis as any).setCookie || h3SetCookie
+  setCookieFn(event, REFERRAL_COOKIE_NAME, code, {
+    maxAge: REFERRAL_MAX_AGE,
+    path: '/',
+    sameSite: 'lax',
+    httpOnly: false,
+    secure: process.env.NODE_ENV === 'production',
+  })
 
   const method = (event.node?.req?.method || 'GET').toUpperCase()
   if (method !== 'GET') {
