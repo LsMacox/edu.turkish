@@ -164,5 +164,4 @@ async function loadMore() {
 
 const { sort, totalUniversities } = storeToRefs(universitiesStore)
 const { setSort, fetchUniversities } = universitiesStore
-
 </script>

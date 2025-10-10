@@ -132,7 +132,10 @@
             </article>
 
             <aside class="space-y-8">
-              <div v-if="tableOfContents.length" class="hidden md:block rounded-3xl bg-white p-6 shadow-custom">
+              <div
+                v-if="tableOfContents.length"
+                class="hidden md:block rounded-3xl bg-white p-6 shadow-custom"
+              >
                 <h3 class="text-card-title mb-2">
                   {{ t('article.tableOfContents') }}
                 </h3>
