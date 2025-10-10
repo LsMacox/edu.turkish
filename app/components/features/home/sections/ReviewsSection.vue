@@ -76,7 +76,12 @@ const {
   error: reviewsError,
   refresh,
 } = await useFetch<ReviewListResponse<FeaturedReviewItem>>('/api/v1/reviews', {
-  query: computed(() => ({ featured: true, limit: 3, lang: locale.value })),
+  query: computed(() => ({
+    featured: true,
+    limit: 3,
+    lang: locale.value,
+    mediaType: 'text',
+  })),
   headers: computed(() => ({ 'Accept-Language': locale.value })),
 })
 
