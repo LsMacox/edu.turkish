@@ -21,27 +21,6 @@ export class ApplicationRepository {
     const normalizedPhone = data.personal_info.phone?.trim() || ''
     const normalizedCountry = data.personal_info.country?.trim() || null
     const normalizedCity = data.personal_info.city?.trim() || null
-    const normalizedProgram = (() => {
-      const programs = (
-        Array.isArray(data.preferences?.programs) ? (data.preferences.programs ?? []) : []
-      ).filter((program): program is string => typeof program === 'string' && program.trim() !== '')
-      if (programs.length > 0) {
-        return programs[0]?.trim() ?? null
-      }
-      return null
-    })()
-    const normalizedUniversity = (() => {
-      const universities = (
-        Array.isArray(data.preferences?.universities) ? (data.preferences.universities ?? []) : []
-      ).filter(
-        (university): university is string =>
-          typeof university === 'string' && university.trim() !== '',
-      )
-      if (universities.length > 0) {
-        return universities[0]?.trim() ?? null
-      }
-      return null
-    })()
     const normalizedSource = data.source?.trim() || 'website'
     const normalizedReferralCode = data.ref?.trim() || null
 
@@ -55,10 +34,6 @@ export class ApplicationRepository {
         phone: normalizedPhone,
         country: normalizedCountry,
         city: normalizedCity,
-        educationLevel: null,
-        educationField: null,
-        targetUniversity: normalizedUniversity,
-        targetProgram: normalizedProgram,
         source: normalizedSource,
         referralCode: normalizedReferralCode,
         personalInfo: data.personal_info,
@@ -113,10 +88,6 @@ export class ApplicationRepository {
       phone: application.phone,
       country: application.country,
       city: application.city,
-      educationLevel: application.educationLevel,
-      educationField: application.educationField,
-      targetUniversity: application.targetUniversity,
-      targetProgram: application.targetProgram,
       source: application.source,
       referralCode: application.referralCode,
       personalInfo: application.personalInfo,
@@ -187,10 +158,6 @@ export class ApplicationRepository {
         phone: app.phone,
         country: app.country,
         city: app.city,
-        educationLevel: app.educationLevel,
-        educationField: app.educationField,
-        targetUniversity: app.targetUniversity,
-        targetProgram: app.targetProgram,
         source: app.source,
         referralCode: app.referralCode,
         personalInfo: app.personalInfo,
