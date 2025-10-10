@@ -21,6 +21,9 @@
     },
     "rankingNotSpecified": "Рейтинг көрсетілмеген",
     "internationalCount": "{count}+ студент",
+    "advantages": {
+      "autoDescription": "Университет {advantage} ұсынады"
+    },
     "programDuration": {
       "durationYears": "{count} жыл"
     },
