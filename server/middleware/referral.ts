@@ -21,15 +21,11 @@ const sanitizeRedirectLocation = (event: H3Event): string | null => {
 
   try {
     const parsed = new URL(rawUrl, 'http://internal')
-    const hadRef = parsed.searchParams.has('ref')
-    const hadReferralCode = parsed.searchParams.has('referral_code')
-
-    if (!hadRef && !hadReferralCode) {
+    if (!parsed.searchParams.has('ref')) {
       return null
     }
 
     parsed.searchParams.delete('ref')
-    parsed.searchParams.delete('referral_code')
 
     return `${parsed.pathname}${parsed.search}${parsed.hash}` || '/'
   } catch {
@@ -39,8 +35,8 @@ const sanitizeRedirectLocation = (event: H3Event): string | null => {
 
 const handler = async (event: H3Event) => {
   const getQueryFn = (globalThis as any).getQuery || h3GetQuery
-  const query = getQueryFn(event) as { ref?: string; referral_code?: string }
-  const code = (query.ref || query.referral_code || '').trim()
+  const query = getQueryFn(event) as { ref?: string }
+  const code = (query.ref || '').trim()
 
   if (!code || !REFERRAL_CODE_PATTERN.test(code)) {
     return
