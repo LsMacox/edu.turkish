@@ -25,7 +25,7 @@
       </div>
 
       <!-- Carousel -->
-      <ClientOnly v-else-if="mediaReviews && mediaReviews.length > 0">
+      <ClientOnly v-else-if="mediaReviewItems.length > 0">
         <Swiper
           :modules="[Autoplay, Navigation, Pagination]"
           :slides-per-view="1"
@@ -49,7 +49,7 @@
           :navigation="true"
           class="media-reviews-swiper"
         >
-          <SwiperSlide v-for="(review, idx) in mediaReviews" :key="review.id">
+          <SwiperSlide v-for="(review, idx) in mediaReviewItems" :key="review.id">
             <MediaReviewCard
               :review="review"
               @play-video="() => openLightboxAt(idx)"
@@ -73,7 +73,7 @@
     </div>
 
     <!-- Unified Media Lightbox (images + videos with navigation) -->
-    <MediaLightboxModal :items="mediaReviews || []" :index="activeIndex" @close="closeLightbox" />
+    <MediaLightboxModal :items="mediaReviewItems" :index="activeIndex" @close="closeLightbox" />
   </section>
 </template>
 
@@ -111,7 +111,7 @@ const {
   pending: loading,
   error,
   refresh,
-} = await useFetch<MediaReview[]>('/api/v1/reviews/media', {
+} = await useFetch<{ data?: MediaReview[] }>('/api/v1/reviews/media', {
   query: computed(() => ({
     featured: true,
     limit: 12,
@@ -119,8 +119,9 @@ const {
   headers: computed(() => ({
     'Accept-Language': locale.value,
   })),
-  transform: (response: any) => response.data || [],
 })
+
+const mediaReviewItems = computed(() => mediaReviews.value?.data ?? [])
 
 // Refresh on locale change
 watch(
