@@ -25,9 +25,9 @@
     "directus:schema:apply": "docker compose exec -T directus sh -lc 'npx --yes directus schema apply /project/directus/schema.yaml --yes'",
     "test": "vitest run",
     "test:watch": "vitest --watch",
-    "translate": "tsx scripts/translate.ts",
-    "import:university": "tsx scripts/import-university.ts",
-    "i18n:check": "tsx scripts/i18n-check.ts"
+    "translate": "docker compose exec app npx tsx scripts/translate.ts",
+    "import:university": "docker compose exec app npx tsx scripts/import-university.ts",
+    "i18n:check": "docker compose exec app npx tsx scripts/i18n-check.ts"
   },
   "dependencies": {
     "@cloudgeek/vue3-video-player": "^0.3.10",
