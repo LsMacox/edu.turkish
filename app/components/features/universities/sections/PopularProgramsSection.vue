@@ -201,10 +201,13 @@ const { t, locale } = useI18n()
 
 const DEFAULT_LOCALE = 'ru'
 const CANONICAL_LOCALE_MAP: Record<string, string> = {
-  kk: 'kk',
+  kk: 'kk-KZ',
+  ru: 'ru-RU',
+  en: 'en-US',
+  tr: 'tr-TR',
 }
 
-const normalizeLanguageCode = (value?: string | null) => {
+const normalizeLanguageCode = (value?: string | null): string => {
   if (!value) {
     return DEFAULT_LOCALE
   }
@@ -215,9 +218,16 @@ const normalizeLanguageCode = (value?: string | null) => {
     return DEFAULT_LOCALE
   }
 
-  const base = trimmed.split(/[-_]/)[0]
+  const base = trimmed.split(/[-_]/)[0] || DEFAULT_LOCALE
 
-  return CANONICAL_LOCALE_MAP[base] ?? base
+  if (base in CANONICAL_LOCALE_MAP) {
+    const mapped = CANONICAL_LOCALE_MAP[base as keyof typeof CANONICAL_LOCALE_MAP]
+    if (mapped) {
+      return mapped
+    }
+  }
+
+  return DEFAULT_LOCALE
 }
 
 const pluralRules = computed(() => new Intl.PluralRules(locale.value))

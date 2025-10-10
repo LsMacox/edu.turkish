@@ -133,6 +133,11 @@ const colorClasses = computed(() => {
       soft: 'bg-gray-100 text-gray-700',
       outline: 'border border-gray-300 text-gray-700 bg-transparent',
     },
+    gray: {
+      solid: 'bg-gray-600 text-white',
+      soft: 'bg-gray-100 text-gray-700',
+      outline: 'border border-gray-300 text-gray-700 bg-transparent',
+    },
   }
 
   return colorMap[color]?.[variant] || colorMap.neutral.soft

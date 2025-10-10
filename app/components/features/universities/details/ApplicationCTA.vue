@@ -325,7 +325,10 @@ const submitApplication = async () => {
 
     // Проверяем результат интеграции с CRM (возможен Bitrix/EspoCRM)
     if (response.crm?.error) {
-      console.warn(`CRM integration error (${response.crm.provider || 'unknown'}):`, response.crm.error)
+      console.warn(
+        `CRM integration error (${response.crm.provider || 'unknown'}):`,
+        response.crm.error,
+      )
     }
 
     // Reset form

@@ -35,7 +35,11 @@
 <template>
   <div class="relative">
     <!-- Enhanced label with required indicator -->
-    <label v-if="label" :for="inputId" class="block text-sm font-medium text-secondary mb-1.5 md:mb-2">
+    <label
+      v-if="label"
+      :for="inputId"
+      class="block text-sm font-medium text-secondary mb-1.5 md:mb-2"
+    >
       {{ label }}
       <span v-if="required" class="text-red-500 ml-1" aria-label="required">*</span>
     </label>

@@ -67,7 +67,9 @@
         />
 
         <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 md:gap-6">
-          <div class="bg-white rounded-xl md:rounded-2xl shadow-custom p-4 md:p-6 text-center hover-lift">
+          <div
+            class="bg-white rounded-xl md:rounded-2xl shadow-custom p-4 md:p-6 text-center hover-lift"
+          >
             <div
               class="w-12 h-12 md:w-16 md:h-16 bg-blue-100 rounded-2xl flex items-center justify-center mx-auto mb-3 md:mb-4"
             >
@@ -79,7 +81,9 @@
             <p class="text-gray-600 text-sm md:text-base">{{ university.keyInfo.city }}</p>
           </div>
 
-          <div class="bg-white rounded-xl md:rounded-2xl shadow-custom p-4 md:p-6 text-center hover-lift">
+          <div
+            class="bg-white rounded-xl md:rounded-2xl shadow-custom p-4 md:p-6 text-center hover-lift"
+          >
             <div
               class="w-12 h-12 md:w-16 md:h-16 bg-green-100 rounded-2xl flex items-center justify-center mx-auto mb-3 md:mb-4"
             >
@@ -91,7 +95,9 @@
             <p class="text-gray-600 text-sm md:text-base">{{ university.keyInfo.foundedYear }}</p>
           </div>
 
-          <div class="bg-white rounded-xl md:rounded-2xl shadow-custom p-4 md:p-6 text-center hover-lift">
+          <div
+            class="bg-white rounded-xl md:rounded-2xl shadow-custom p-4 md:p-6 text-center hover-lift"
+          >
             <div
               class="w-12 h-12 md:w-16 md:h-16 bg-purple-100 rounded-2xl flex items-center justify-center mx-auto mb-3 md:mb-4"
             >
@@ -113,7 +119,9 @@
             </p>
           </div>
 
-          <div class="bg-white rounded-xl md:rounded-2xl shadow-custom p-4 md:p-6 text-center hover-lift">
+          <div
+            class="bg-white rounded-xl md:rounded-2xl shadow-custom p-4 md:p-6 text-center hover-lift"
+          >
             <div
               class="w-12 h-12 md:w-16 md:h-16 bg-orange-100 rounded-2xl flex items-center justify-center mx-auto mb-3 md:mb-4"
             >
@@ -122,10 +130,14 @@
             <h3 class="text-card-title mb-1 md:mb-2">
               {{ $t('universityDetail.keyInformation.languages') }}
             </h3>
-            <p class="text-gray-600 text-sm md:text-base">{{ university.keyInfo.languages.join(', ') }}</p>
+            <p class="text-gray-600 text-sm md:text-base">
+              {{ university.keyInfo.languages.join(', ') }}
+            </p>
           </div>
 
-          <div class="bg-white rounded-xl md:rounded-2xl shadow-custom p-4 md:p-6 text-center hover-lift">
+          <div
+            class="bg-white rounded-xl md:rounded-2xl shadow-custom p-4 md:p-6 text-center hover-lift"
+          >
             <div
               class="w-12 h-12 md:w-16 md:h-16 bg-red-100 rounded-2xl flex items-center justify-center mx-auto mb-3 md:mb-4"
             >
@@ -141,7 +153,9 @@
             </p>
           </div>
 
-          <div class="bg-white rounded-xl md:rounded-2xl shadow-custom p-4 md:p-6 text-center hover-lift">
+          <div
+            class="bg-white rounded-xl md:rounded-2xl shadow-custom p-4 md:p-6 text-center hover-lift"
+          >
             <div
               class="w-12 h-12 md:w-16 md:h-16 bg-yellow-100 rounded-2xl flex items-center justify-center mx-auto mb-3 md:mb-4"
             >
@@ -153,7 +167,9 @@
             <p class="text-gray-600 text-sm md:text-base">{{ university.keyInfo.accommodation }}</p>
           </div>
 
-          <div class="bg-white rounded-xl md:rounded-2xl shadow-custom p-4 md:p-6 text-center hover-lift">
+          <div
+            class="bg-white rounded-xl md:rounded-2xl shadow-custom p-4 md:p-6 text-center hover-lift"
+          >
             <div
               class="w-12 h-12 md:w-16 md:h-16 bg-teal-100 rounded-2xl flex items-center justify-center mx-auto mb-3 md:mb-4"
             >
@@ -165,7 +181,9 @@
             <p class="text-gray-600 text-sm md:text-base">{{ university.keyInfo.ranking }}</p>
           </div>
 
-          <div class="bg-white rounded-xl md:rounded-2xl shadow-custom p-4 md:p-6 text-center hover-lift">
+          <div
+            class="bg-white rounded-xl md:rounded-2xl shadow-custom p-4 md:p-6 text-center hover-lift"
+          >
             <div
               class="w-12 h-12 md:w-16 md:h-16 bg-indigo-100 rounded-2xl flex items-center justify-center mx-auto mb-3 md:mb-4"
             >
@@ -174,7 +192,9 @@
             <h3 class="text-card-title mb-1 md:mb-2">
               {{ $t('universityDetail.keyInformation.internationalStudents') }}
             </h3>
-            <p class="text-gray-600 text-sm md:text-base">{{ university.keyInfo.internationalStudents }}</p>
+            <p class="text-gray-600 text-sm md:text-base">
+              {{ university.keyInfo.internationalStudents }}
+            </p>
           </div>
         </div>
       </div>

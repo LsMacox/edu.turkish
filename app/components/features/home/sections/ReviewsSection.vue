@@ -75,13 +75,12 @@ const {
   pending,
   error: reviewsError,
   refresh,
-} = await useFetch<FeaturedReviewItem[]>('/api/v1/reviews', {
+} = await useFetch<ReviewListResponse<FeaturedReviewItem>>('/api/v1/reviews', {
   query: computed(() => ({ featured: true, limit: 3, lang: locale.value })),
   headers: computed(() => ({ 'Accept-Language': locale.value })),
-  transform: (res: ReviewListResponse<FeaturedReviewItem>) => res?.data ?? [],
 })
 
-const featuredReviews = computed(() => reviews.value ?? [])
+const featuredReviews = computed(() => reviews.value?.data ?? [])
 
 watch(
   () => locale.value,

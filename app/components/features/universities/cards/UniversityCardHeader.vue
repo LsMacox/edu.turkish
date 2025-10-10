@@ -37,6 +37,7 @@
 </template>
 
 <script setup lang="ts">
+import type { SemanticColor } from '~/types/ui'
 interface Props {
   title: string
   type?: string
@@ -50,7 +51,7 @@ withDefaults(defineProps<Props>(), {
   typeLabel: '',
 })
 
-const getBadgeColor = (type?: string): string => {
+const getBadgeColor = (type?: string): SemanticColor => {
   switch (type) {
     case 'state':
       return 'info'

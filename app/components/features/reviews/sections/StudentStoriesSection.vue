@@ -15,7 +15,12 @@
         Failed to load reviews. Please try again later.
       </div>
       <div v-else-if="pending" class="animate-pulse text-center">Loading reviews...</div>
-      <div v-for="review in studentReviews" v-else :key="review.id" class="max-w-4xl mx-auto mb-8">
+      <div
+        v-for="review in studentReviewItems"
+        v-else
+        :key="review.id"
+        class="max-w-4xl mx-auto mb-8"
+      >
         <div class="bg-white rounded-3xl shadow-custom hover-lift card-padding">
           <div class="mb-6">
             <h3 class="text-xl font-bold text-secondary mb-2">{{ review.name }}</h3>
@@ -74,11 +79,12 @@ const {
   pending,
   error: reviewsError,
   refresh,
-} = await useFetch<StudentReviewItem[]>('/api/v1/reviews', {
+} = await useFetch<ReviewListResponse<StudentReviewItem>>('/api/v1/reviews', {
   query: computed(() => ({ type: 'student', mediaType: 'text', limit: 3, lang: locale.value })),
   headers: computed(() => ({ 'Accept-Language': locale.value })),
-  transform: (res: ReviewListResponse<StudentReviewItem>) => res?.data ?? [],
 })
+
+const studentReviewItems = computed(() => studentReviews.value?.data ?? [])
 
 watch(
   () => locale.value,

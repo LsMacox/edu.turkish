@@ -59,6 +59,7 @@
 
 <script setup lang="ts">
 import { FORM_SOURCES } from '~/types/preferences'
+import type { ApplicationPreferences } from '~/types/preferences'
 
 import { useApplicationModalStore } from '~/stores/applicationModal'
 
@@ -66,7 +67,7 @@ const modal = useApplicationModalStore()
 
 const openApplicationForm = () => {
   // Простые предпочтения с информацией об источнике
-  const simplePreferences = {
+  const simplePreferences: ApplicationPreferences = {
     source: 'universities_cta',
     description: FORM_SOURCES.universities_cta,
   }

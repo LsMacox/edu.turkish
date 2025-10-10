@@ -28,6 +28,7 @@
 
 <script setup lang="ts">
 import { parsePositiveInt } from '~~/lib/number'
+import type { SemanticColor } from '~/types/ui'
 interface Props {
   city?: string
   languages?: string[]
@@ -58,7 +59,7 @@ const formattedTuition = computed(() => {
   return tuitionValue > 0 ? tuitionValue.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ' ') : '0'
 })
 
-const getBadgeColor = (colorType?: string): string => {
+const getBadgeColor = (colorType?: string): SemanticColor => {
   switch (colorType) {
     case 'green':
       return 'success'

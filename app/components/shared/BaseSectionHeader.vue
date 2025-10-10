@@ -103,12 +103,7 @@ const titleClasses = computed(() => {
 
 // Subtitle classes
 const subtitleClasses = computed(() => {
-  return [
-    'text-section-subtitle',
-    props.balanced ? 'text-balance' : '',
-  ]
-    .filter(Boolean)
-    .join(' ')
+  return ['text-section-subtitle', props.balanced ? 'text-balance' : ''].filter(Boolean).join(' ')
 })
 
 // Action classes

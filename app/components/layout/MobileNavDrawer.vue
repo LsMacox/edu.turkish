@@ -4,10 +4,7 @@
     <div v-if="isVisible" class="fixed inset-0 z-[99999] lg:hidden">
       <!-- Backdrop -->
       <div
-        :class="[
-          'fixed inset-0 bg-black/50 backdrop-blur-sm z-[99998]',
-          backdropAnimationClass,
-        ]"
+        :class="['fixed inset-0 bg-black/50 backdrop-blur-sm z-[99998]', backdropAnimationClass]"
         @click="closeDrawer"
       />
 

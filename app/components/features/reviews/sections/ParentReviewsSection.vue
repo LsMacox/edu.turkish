@@ -17,7 +17,7 @@
       <div v-else-if="pending" class="animate-pulse text-center">Loading reviews...</div>
       <div v-else class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-section">
         <div
-          v-for="(review, index) in parentReviews"
+          v-for="(review, index) in parentReviewItems"
           :key="review.id"
           :class="getGradientClass(index)"
           class="rounded-3xl card-padding shadow-custom hover-lift h-full flex flex-col"
@@ -72,11 +72,12 @@ const {
   pending,
   error: reviewsError,
   refresh,
-} = await useFetch<ParentReviewItem[]>('/api/v1/reviews', {
+} = await useFetch<ReviewListResponse<ParentReviewItem>>('/api/v1/reviews', {
   query: computed(() => ({ type: 'parent', mediaType: 'text', limit: 3, lang: locale.value })),
   headers: computed(() => ({ 'Accept-Language': locale.value })),
-  transform: (res: ReviewListResponse<ParentReviewItem>) => res?.data ?? [],
 })
+
+const parentReviewItems = computed(() => parentReviews.value?.data ?? [])
 
 watch(
   () => locale.value,

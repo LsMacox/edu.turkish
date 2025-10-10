@@ -63,7 +63,7 @@ const iconSizeClasses = computed(() => {
 const iconColorClasses = computed(() => {
   if (props.iconColor === 'inherit') return ''
 
-  const colorMap = {
+  const colorMap: Record<string, string> = {
     primary: 'text-primary',
     secondary: 'text-secondary',
     gray: 'text-gray-400',
@@ -71,6 +71,7 @@ const iconColorClasses = computed(() => {
     warning: 'text-yellow-600',
     error: 'text-red-600',
     info: 'text-blue-600',
+    neutral: 'text-gray-600',
   }
 
   return colorMap[props.iconColor] || colorMap.primary
@@ -84,7 +85,7 @@ const textClasses = computed(() => {
     lg: 'text-lg',
   }
 
-  const colorMap = {
+  const colorMap: Record<string, string> = {
     primary: 'text-primary',
     secondary: 'text-secondary',
     gray: 'text-gray-600',
@@ -92,6 +93,7 @@ const textClasses = computed(() => {
     warning: 'text-yellow-600',
     error: 'text-red-600',
     info: 'text-blue-600',
+    neutral: 'text-gray-600',
   }
 
   const weightMap = {

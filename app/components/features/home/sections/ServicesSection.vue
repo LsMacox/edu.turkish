@@ -25,7 +25,7 @@
 </template>
 
 <script setup lang="ts">
-import type { BaseIconBadgeProps } from '~/components/ui/display/BaseIconBadge.vue'
+import type { BaseIconBadgeProps } from '~/types/ui'
 
 const { t } = useI18n()
 

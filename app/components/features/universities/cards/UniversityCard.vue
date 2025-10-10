@@ -58,7 +58,7 @@ interface Props {
   city?: string
   languages?: string[]
   tuition?: number | string
-  badge?: string | { label: string; color?: string }
+  badge?: string | { label?: string; labelKey?: string; color: string }
   image?: string
   slug?: string
   featured?: boolean
