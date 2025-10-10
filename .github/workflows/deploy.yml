@@ -101,6 +101,21 @@ jobs:
           docker builder prune -af || true
           EOF
 
+      - name: Purge Bunny CDN cache
+        if: success()
+        env:
+          BUNNY_API_KEY: ${{ secrets.BUNNY_API_KEY }}
+          BUNNY_APP_ZONE_ID: ${{ secrets.BUNNY_APP_ZONE_ID }}
+        run: |
+          if [ -z "${BUNNY_API_KEY:-}" ] || [ -z "${BUNNY_APP_ZONE_ID:-}" ]; then
+            echo "Bunny CDN secrets are not configured. Skipping purge."
+            exit 0
+          fi
+
+          echo "Purging Bunny CDN cache for zone ${BUNNY_APP_ZONE_ID}"
+          curl -fsS -X POST "https://api.bunny.net/pullzone/${BUNNY_APP_ZONE_ID}/purgeCache" \
+            -H "AccessKey: ${BUNNY_API_KEY}"
+
       - name: Health check (HTTP)
         if: always()
         env:
