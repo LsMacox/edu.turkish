@@ -35,14 +35,12 @@ describe('GET /api/v1/directions', () => {
         {
           id: 1,
           name: 'Direction 1',
-          description: 'Desc 1',
           slug: 'direction-1',
           universities_count: 3,
         },
         {
           id: 2,
           name: 'Direction 2',
-          description: 'Desc 2',
           slug: 'direction-2',
           universities_count: 5,
         },

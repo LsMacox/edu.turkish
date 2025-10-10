@@ -1,4 +1,5 @@
-import type { PrismaClient, Prisma } from '@prisma/client'
+import { Prisma } from '@prisma/client'
+import type { PrismaClient } from '@prisma/client'
 import type { DegreeType, UniversityType } from '~/types/domain'
 import type {
   UniversityProgram as UniversityProgramDto,
@@ -17,44 +18,66 @@ import type {
 } from '~~/server/types/api'
 import { normalizeLocale, type NormalizedLocale } from '~~/server/utils/locale'
 
-export type UniversityListItem = Prisma.UniversityGetPayload<{
+const _universityListInclude = Prisma.validator<Prisma.UniversityDefaultArgs>()({
   include: {
-    translations: true
-    academicPrograms: true
-    city: { include: { translations: true } }
-  }
-}>
+    translations: true,
+    academicPrograms: true,
+    city: { include: { translations: true } },
+  },
+})
+export type UniversityListItem = Prisma.UniversityGetPayload<typeof _universityListInclude>
 
-type FeaturedProgramWithRelations = Prisma.UniversityFeaturedProgramGetPayload<{
+const _featuredProgramInclude = Prisma.validator<Prisma.UniversityFeaturedProgramDefaultArgs>()({
   include: {
-    program: { include: { translations: true } }
-  }
-}>
+    program: { include: { translations: true } },
+  },
+})
+type FeaturedProgramWithRelations = Prisma.UniversityFeaturedProgramGetPayload<
+  typeof _featuredProgramInclude
+>
 
-type UniversityDetailWithRelations = Prisma.UniversityGetPayload<{
+const _universityDetailInclude = Prisma.validator<Prisma.UniversityDefaultArgs>()({
   include: {
-    translations: true
-    academicPrograms: { include: { translations: true } }
+    translations: true,
+    academicPrograms: { include: { translations: true } },
     featuredPrograms: {
       include: {
-        program: { include: { translations: true } }
-      }
-    }
-    campusFacilities: { include: { translations: true } }
-    admissionRequirements: { include: { translations: true } }
-    requiredDocuments: { include: { translations: true } }
-    importantDates: { include: { translations: true } }
-    scholarships: { include: { translations: true } }
+        program: { include: { translations: true } },
+      },
+    },
+    campusFacilities: { include: { translations: true } },
+    admissionRequirements: { include: { translations: true } },
+    requiredDocuments: { include: { translations: true } },
+    importantDates: { include: { translations: true } },
+    scholarships: { include: { translations: true } },
     universityDirections: {
       include: {
-        direction: { include: { translations: true } }
-      }
-    }
-    media: { include: { translations: true } }
-    country: { include: { translations: true } }
-    city: { include: { translations: true } }
-  }
-}>
+        direction: { include: { translations: true } },
+      },
+    },
+    media: { include: { translations: true } },
+    country: { include: { translations: true } },
+    city: { include: { translations: true } },
+  },
+})
+type UniversityDetailWithRelations = Prisma.UniversityGetPayload<typeof _universityDetailInclude>
+
+const studyDirectionListSelect = Prisma.validator<Prisma.StudyDirectionDefaultArgs>()({
+  select: {
+    id: true,
+    translations: {
+      orderBy: { locale: 'asc' },
+      select: {
+        locale: true,
+        name: true,
+        slug: true,
+      },
+    },
+    _count: {
+      select: { universityDirections: true },
+    },
+  },
+})
 
 const CITY_ALL_VALUES = new Set(['Все города', 'All cities'])
 // Treat these values as "no filter" for type
@@ -459,7 +482,6 @@ export class UniversityRepository {
       return {
         id: direction.direction.id,
         name: translation?.name ?? '',
-        description: translation?.description ?? '',
         slug: translation?.slug ?? '',
         languages: [],
       }
@@ -947,41 +969,26 @@ export class UniversityRepository {
       ]
     }
 
-    const locales = Array.from(new Set([...localeInfo.fallbacks, 'ru']))
-
     const [directions, total] = await Promise.all([
       this.prisma.studyDirection.findMany({
         where,
         skip,
         take: limit,
         orderBy: { id: 'asc' },
-        select: {
-          id: true,
-          translations: {
-            where: { locale: { in: locales } },
-            orderBy: { locale: 'asc' },
-            select: {
-              locale: true,
-              name: true,
-              description: true,
-              slug: true,
-            },
-          },
-          _count: {
-            select: { universityDirections: true },
-          },
-        },
+        ...studyDirectionListSelect,
       }),
       this.prisma.studyDirection.count({ where }),
     ])
 
     return {
       data: directions.map((direction) => {
-        const translation = this.selectBestTranslation(direction.translations, localeInfo.fallbacks)
+        const translation = this.selectBestTranslation(
+          direction.translations,
+          localeInfo.fallbacks,
+        )
         return {
           id: direction.id,
           name: translation?.name || '',
-          description: translation?.description || '',
           slug: translation?.slug || '',
           universities_count: direction._count.universityDirections,
         }

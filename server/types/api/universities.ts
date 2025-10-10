@@ -101,7 +101,6 @@ export interface UniversityProgram {
 export interface UniversityStudyDirection {
   id: number
   name: string
-  description: string
   slug: string
   languages: string[]
 }

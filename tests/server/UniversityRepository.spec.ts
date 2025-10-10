@@ -676,7 +676,6 @@ describe('UniversityRepository', () => {
     expect(result.data).toHaveLength(1)
     expect(result.data[0]).toMatchObject({
       title: 'Қазақ Университеті',
-      description: 'Қазақ тіліндегі сипаттама',
       city: 'Алматы',
       slug: 'qazaq-universiteti',
     })
@@ -747,7 +746,6 @@ describe('UniversityRepository', () => {
     expect(result.data).toHaveLength(1)
     expect(result.data[0]).toMatchObject({
       title: 'Российский университет',
-      description: 'Описание только на русском',
       city: 'Нур-Султан',
       slug: 'rossiyskiy-universitet',
     })

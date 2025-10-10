@@ -1,9 +1,11 @@
-import { beforeAll, describe, expect, it } from 'vitest'
+import { afterAll, beforeAll, describe, expect, it, vi } from 'vitest'
 import type { PrismaClient } from '@prisma/client'
 import { seedStudyDirections } from '~~/prisma/seed/study-directions'
 
 type Direction = { id: number; translations?: Translation[] }
 type Translation = { directionId: number; locale: string; slug: string; name: string }
+
+const consoleLogSpy = vi.spyOn(console, 'log').mockImplementation(() => {})
 
 class InMemoryPrisma {
   private directionId = 1
@@ -92,6 +94,10 @@ describe('Study Directions Seed', () => {
     await prisma.studyDirection.deleteMany()
     await prisma.studyDirectionTranslation.deleteMany()
     await seedStudyDirections(prisma as unknown as PrismaClient)
+  })
+
+  afterAll(() => {
+    consoleLogSpy.mockRestore()
   })
 
   it('should seed all directions from university JSONs', async () => {

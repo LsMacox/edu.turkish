@@ -11,7 +11,6 @@ export interface DirectionQueryParams {
 export interface DirectionInfo {
   id: number
   name: string
-  description: string
   slug: string
   universities_count: number
 }
