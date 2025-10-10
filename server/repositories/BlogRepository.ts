@@ -222,7 +222,7 @@ export class BlogRepository {
   private mapArticleToDetail(article: ArticleWithRelations, locale: string): BlogArticleDetail {
     const base = this.mapArticleToListItem(article, locale)
     const translation = pickTranslation(article.translations, locale)
-    const meta = this.parseArticleMeta(article.meta, translation)
+    const metadata = this.extractTranslationMetadata(translation)
 
     return {
       ...base,
@@ -233,9 +233,9 @@ export class BlogRepository {
       heroLocation: translation?.heroLocation ?? undefined,
       seoDescription: translation?.seoDescription ?? undefined,
       content: this.normalizeContent(translation?.content),
-      quickFacts: meta.quickFacts,
-      highlights: meta.highlights,
-      tags: meta.tags,
+      quickFacts: metadata.quickFacts,
+      highlights: metadata.highlights,
+      tags: metadata.tags,
     }
   }
 
@@ -273,32 +273,17 @@ export class BlogRepository {
       .filter((item): item is string => item.length > 0)
   }
 
-  private parseArticleMeta(
-    meta: Prisma.JsonValue | null | undefined,
+  private extractTranslationMetadata(
     translation?: ArticleTranslation | null,
   ): {
     quickFacts: BlogArticleQuickFact[]
     highlights: string[]
     tags: string[]
   } {
-    let record: Record<string, unknown> = {}
-
-    if (meta && typeof meta === 'object' && !Array.isArray(meta)) {
-      record = meta as Record<string, unknown>
-    }
-
-    const baseQuickFacts = this.parseQuickFactsValue(record.quickFacts)
-    const baseHighlights = this.parseStringArrayValue(record.highlights)
-    const baseTags = this.parseStringArrayValue(record.tags)
-
-    const translationQuickFacts = this.parseQuickFactsValue(translation?.quickFacts ?? null)
-    const translationHighlights = this.parseStringArrayValue(translation?.highlights ?? null)
-    const translationTags = this.parseStringArrayValue(translation?.tags ?? null)
-
     return {
-      quickFacts: translationQuickFacts.length > 0 ? translationQuickFacts : baseQuickFacts,
-      highlights: translationHighlights.length > 0 ? translationHighlights : baseHighlights,
-      tags: translationTags.length > 0 ? translationTags : baseTags,
+      quickFacts: this.parseQuickFactsValue(translation?.quickFacts ?? null),
+      highlights: this.parseStringArrayValue(translation?.highlights ?? null),
+      tags: this.parseStringArrayValue(translation?.tags ?? null),
     }
   }
 

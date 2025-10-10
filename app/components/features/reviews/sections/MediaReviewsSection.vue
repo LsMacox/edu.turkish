@@ -1,5 +1,5 @@
 <template>
-  <section id="media-reviews" class="section-py-lg bg-white">
+  <section id="media-reviews" class="section-py-lg bg-background">
     <div class="container mx-auto container-padding-narrow">
       <!-- Header -->
       <div class="text-center mb-8 md:mb-12">

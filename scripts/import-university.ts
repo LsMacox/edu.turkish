@@ -247,7 +247,6 @@ async function main(): Promise<void> {
     universityId,
     data.locale,
     data.strong_programs ?? [],
-    data.translation,
   )
   // Link study directions based on explicit list or program-level hints
   await linkDirectionsForUniversity(universityId, data.locale, data)
@@ -432,11 +431,7 @@ async function replaceFeaturedPrograms(
   universityId: number,
   baseLocale: string,
   categories: Array<z.infer<typeof StrongProgramCategory>>,
-  translation?: z.infer<typeof UniversityInput>['translation'],
 ): Promise<void> {
-  await (prisma as any).UniversityFeaturedProgramTranslation.deleteMany({
-    where: { featuredProgram: { universityId } },
-  })
   await (prisma as any).UniversityFeaturedProgram.deleteMany({ where: { universityId } })
 
   if (!categories || categories.length === 0) return
@@ -455,15 +450,12 @@ async function replaceFeaturedPrograms(
     programIndex.set(normalizeKey(pt.locale, pt.name), pt.programId)
   }
 
-  type CreatedEntry = { id: number; categoryIndex: number }
-  const createdEntries: CreatedEntry[] = []
   let orderCounter = 0
   // Avoid duplicate featured entries for the same program within one university
   const usedProgramIds = new Set<number>()
 
   for (let categoryIndex = 0; categoryIndex < categories.length; categoryIndex++) {
     const category = categories[categoryIndex]
-    const label = category?.category?.trim() || null
     const programs = Array.isArray(category?.programs) ? category.programs : []
 
     for (const programNameRaw of programs) {
@@ -502,47 +494,16 @@ async function replaceFeaturedPrograms(
         continue
       }
 
-      const created = await (prisma as any).UniversityFeaturedProgram.create({
+      await (prisma as any).UniversityFeaturedProgram.create({
         data: {
           universityId,
           programId,
           displayOrder: orderCounter++,
-          translations: {
-            create: {
-              locale: baseLocale,
-              label,
-            },
-          },
         },
       })
 
       usedProgramIds.add(programId)
-      createdEntries.push({ id: created.id, categoryIndex })
     }
-  }
-
-  const translationLocale = translation?.locale
-  const translatedCategories = translation?.strong_programs
-  if (!translationLocale || !translatedCategories || translatedCategories.length === 0) {
-    return
-  }
-
-  for (const entry of createdEntries) {
-    const translatedCategory = translatedCategories[entry.categoryIndex]
-    const translatedLabel = translatedCategory?.category?.trim()
-    if (!translatedLabel) continue
-
-    await (prisma as any).UniversityFeaturedProgramTranslation.upsert({
-      where: {
-        featuredProgramId_locale: { featuredProgramId: entry.id, locale: translationLocale },
-      },
-      update: { label: translatedLabel },
-      create: {
-        featuredProgramId: entry.id,
-        locale: translationLocale,
-        label: translatedLabel,
-      },
-    })
   }
 }
 

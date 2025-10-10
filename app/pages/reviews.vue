@@ -52,8 +52,11 @@
       </div>
     </section>
 
+    <!-- Media Reviews Section (Video & Image Reviews) -->
+    <MediaReviewsSection />
+
     <!-- Review Stats Section - Наши достижения в цифрах -->
-    <section id="achievements" class="section-py-lg bg-background hidden md:block">
+    <section id="achievements" class="section-py-lg bg-white hidden md:block">
       <div class="container mx-auto container-padding-narrow">
         <div class="text-center mb-16">
           <h2 class="text-section-title mb-6">
@@ -186,9 +189,6 @@
         </div>
       </div>
     </section>
-
-    <!-- Media Reviews Section (Video & Image Reviews) -->
-    <MediaReviewsSection />
 
     <!-- Student Stories -->
     <StudentStoriesSection />
