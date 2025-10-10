@@ -58,27 +58,19 @@
             >
               {{ $t('modal.phone') }} {{ $t('modal.required') }}
             </label>
-            <input
+            <BaseTextField
               :id="phoneFieldId"
               v-model="form.phone"
               name="phone"
               type="tel"
               required
               :placeholder="$t('modal.phone_placeholder')"
-              inputmode="tel"
               autocomplete="tel"
-              maxlength="20"
-              :class="[
-                'w-full px-4 border rounded-xl outline-none focus:outline-none transition-all py-4 md:py-3 text-base md:text-sm min-h-[52px] md:min-h-auto',
-                phoneError
-                  ? 'border-red-300 focus:ring-2 focus:ring-red-500 focus:border-red-500'
-                  : 'border-gray-300 focus:ring-2 focus:ring-primary focus:border-transparent',
-              ]"
-              :aria-invalid="!!phoneError"
+              :maxlength="20"
+              :error="phoneError"
               @input="onPhoneInput"
               @keydown="onPhoneKeydown"
             />
-            <p v-if="phoneError" class="mt-2 text-sm text-red-600">{{ phoneError }}</p>
           </div>
 
           <div>
