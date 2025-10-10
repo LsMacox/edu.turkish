@@ -2,8 +2,8 @@ import { afterAll, beforeEach, describe, expect, it, vi } from 'vitest'
 
 const getQueryMock = vi.fn()
 const setCookieMock = vi.fn()
-const sendRedirectMock = vi.fn()
 const getCookieMock = vi.fn()
+const sendRedirectMock = vi.fn()
 const eventHandlerMock = vi.fn((handler: any) => handler)
 
 vi.mock('h3', async () => {
@@ -12,7 +12,6 @@ vi.mock('h3', async () => {
     ...actual,
     eventHandler: eventHandlerMock,
     sendRedirect: sendRedirectMock,
-    getCookie: getCookieMock,
   }
 })
 
@@ -21,15 +20,15 @@ const originalNodeEnv = process.env.NODE_ENV
 beforeEach(() => {
   getQueryMock.mockReset()
   setCookieMock.mockReset()
-  sendRedirectMock.mockReset()
   getCookieMock.mockReset()
-  getCookieMock.mockReturnValue(undefined)
+  sendRedirectMock.mockReset()
 
-  // Override global mocks for this test
   ;(globalThis as any).getQuery = getQueryMock
   ;(globalThis as any).setCookie = setCookieMock
   ;(globalThis as any).getCookie = getCookieMock
   ;(globalThis as any).sendRedirect = sendRedirectMock
+
+  getCookieMock.mockImplementation(() => undefined)
 })
 
 afterAll(() => {
@@ -37,9 +36,10 @@ afterAll(() => {
 })
 
 describe('referral middleware', () => {
-  it('sets referral cookie without secure flag in development', async () => {
+  it('sets referral_code cookie without secure flag in development', async () => {
     process.env.NODE_ENV = 'development'
     getQueryMock.mockReturnValue({ ref: 'dev-123' })
+    getCookieMock.mockImplementation(() => undefined)
 
     const handlerModule = await import('../../../server/middleware/referral')
     const handler = handlerModule.default
@@ -50,11 +50,13 @@ describe('referral middleware', () => {
       context: {},
       headers: new Map(),
     }
+
     await handler(event as any)
 
+    expect(setCookieMock).toHaveBeenCalledTimes(1)
     expect(setCookieMock).toHaveBeenCalledWith(
       event,
-      'ref',
+      'referral_code',
       'dev-123',
       expect.objectContaining({
         secure: false,
@@ -67,6 +69,7 @@ describe('referral middleware', () => {
   it('sets secure flag in production', async () => {
     process.env.NODE_ENV = 'production'
     getQueryMock.mockReturnValue({ ref: 'prod-123' })
+    getCookieMock.mockImplementation(() => undefined)
 
     const handlerModule = await import('../../../server/middleware/referral')
     const handler = handlerModule.default
@@ -77,11 +80,13 @@ describe('referral middleware', () => {
       context: {},
       headers: new Map(),
     }
+
     await handler(event as any)
 
+    expect(setCookieMock).toHaveBeenCalledTimes(1)
     expect(setCookieMock).toHaveBeenCalledWith(
       event,
-      'ref',
+      'referral_code',
       'prod-123',
       expect.objectContaining({
         secure: true,
@@ -93,6 +98,7 @@ describe('referral middleware', () => {
   it('preserves other query parameters when redirecting', async () => {
     process.env.NODE_ENV = 'development'
     getQueryMock.mockReturnValue({ ref: 'keepme' })
+    getCookieMock.mockImplementation(() => undefined)
 
     const handlerModule = await import('../../../server/middleware/referral')
     const handler = handlerModule.default
@@ -106,12 +112,14 @@ describe('referral middleware', () => {
 
     await handler(event as any)
 
+    expect(setCookieMock).toHaveBeenCalledTimes(1)
     expect(sendRedirectMock).toHaveBeenCalledWith(event, '/landing?utm=123', 302)
   })
 
-  it('does not redirect for invalid referral code', async () => {
+  it('does not act on invalid referral code', async () => {
     process.env.NODE_ENV = 'development'
     getQueryMock.mockReturnValue({ ref: 'invalid code!' })
+    getCookieMock.mockImplementation(() => undefined)
 
     const handlerModule = await import('../../../server/middleware/referral')
     const handler = handlerModule.default
@@ -122,6 +130,7 @@ describe('referral middleware', () => {
       context: {},
       headers: new Map(),
     }
+
     await handler(event as any)
 
     expect(setCookieMock).not.toHaveBeenCalled()
@@ -131,6 +140,7 @@ describe('referral middleware', () => {
   it('does not redirect non-GET requests', async () => {
     process.env.NODE_ENV = 'development'
     getQueryMock.mockReturnValue({ ref: 'partner123' })
+    getCookieMock.mockImplementation(() => undefined)
 
     const handlerModule = await import('../../../server/middleware/referral')
     const handler = handlerModule.default
@@ -141,15 +151,17 @@ describe('referral middleware', () => {
       context: {},
       headers: new Map(),
     }
+
     await handler(event as any)
 
-    expect(setCookieMock).toHaveBeenCalled()
+    expect(setCookieMock).toHaveBeenCalledTimes(1)
     expect(sendRedirectMock).not.toHaveBeenCalled()
   })
 
   it('does not redirect API routes', async () => {
     process.env.NODE_ENV = 'development'
     getQueryMock.mockReturnValue({ ref: 'partner123' })
+    getCookieMock.mockImplementation(() => undefined)
 
     const handlerModule = await import('../../../server/middleware/referral')
     const handler = handlerModule.default
@@ -160,31 +172,46 @@ describe('referral middleware', () => {
       context: {},
       headers: new Map(),
     }
+
     await handler(event as any)
 
-    expect(setCookieMock).toHaveBeenCalled()
+    expect(setCookieMock).toHaveBeenCalledTimes(1)
     expect(sendRedirectMock).not.toHaveBeenCalled()
   })
 
-  it('does not overwrite existing cookie', async () => {
+  it('migrates legacy referral cookie to the new name', async () => {
     process.env.NODE_ENV = 'development'
-    getQueryMock.mockReturnValue({ ref: 'new-code' })
+    getQueryMock.mockReturnValue({})
+    getCookieMock.mockImplementation((_, name: string) => {
+      if (name === 'ref') {
+        return 'legacy-123'
+      }
+
+      return undefined
+    })
 
     const handlerModule = await import('../../../server/middleware/referral')
     const handler = handlerModule.default
 
     const event = {
-      node: { req: { method: 'GET', url: '/some-page?ref=new-code' }, res: {} },
+      node: { req: { method: 'GET', url: '/some-page' }, res: {} },
       path: '/some-page',
       context: {},
       headers: new Map(),
     }
 
-    getCookieMock.mockReturnValue('existing-code')
-
     await handler(event as any)
 
-    expect(setCookieMock).not.toHaveBeenCalled()
-    expect(sendRedirectMock).toHaveBeenCalledWith(event, '/some-page', 302)
+    expect(setCookieMock).toHaveBeenCalledTimes(1)
+    expect(setCookieMock).toHaveBeenCalledWith(
+      event,
+      'referral_code',
+      'legacy-123',
+      expect.objectContaining({
+        secure: false,
+        httpOnly: false,
+      }),
+    )
+    expect(sendRedirectMock).not.toHaveBeenCalled()
   })
 })
