@@ -1,11 +1,5 @@
-import { eventHandler } from 'h3'
+import { eventHandler, getCookie as h3GetCookie, getQuery as h3GetQuery, sendRedirect as h3SendRedirect, setCookie as h3SetCookie } from 'h3'
 import type { H3Event } from 'h3'
-import {
-  getCookie as h3GetCookie,
-  getQuery as h3GetQuery,
-  sendRedirect as h3SendRedirect,
-  setCookie as h3SetCookie,
-} from 'h3'
 
 const REFERRAL_COOKIE = 'ref'
 const REFERRAL_MAX_AGE = 60 * 60 * 24 * 30 // 30 days

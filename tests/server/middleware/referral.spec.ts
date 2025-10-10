@@ -4,11 +4,13 @@ const getQueryMock = vi.fn()
 const setCookieMock = vi.fn()
 const sendRedirectMock = vi.fn()
 const getCookieMock = vi.fn()
+const eventHandlerMock = vi.fn((handler: any) => handler)
 
 vi.mock('h3', async () => {
   const actual = await vi.importActual<any>('h3')
   return {
     ...actual,
+    eventHandler: eventHandlerMock,
     sendRedirect: sendRedirectMock,
     getCookie: getCookieMock,
   }
@@ -43,7 +45,7 @@ describe('referral middleware', () => {
     const handler = handlerModule.default
 
     const event = {
-      node: { req: { method: 'GET', url: '/some-page?ref=dev-123' } },
+      node: { req: { method: 'GET', url: '/some-page?ref=dev-123' }, res: {} },
       path: '/some-page',
       context: {},
       headers: new Map(),
@@ -70,7 +72,7 @@ describe('referral middleware', () => {
     const handler = handlerModule.default
 
     const event = {
-      node: { req: { method: 'GET', url: '/some-page?ref=prod-123' } },
+      node: { req: { method: 'GET', url: '/some-page?ref=prod-123' }, res: {} },
       path: '/some-page',
       context: {},
       headers: new Map(),
@@ -96,7 +98,7 @@ describe('referral middleware', () => {
     const handler = handlerModule.default
 
     const event = {
-      node: { req: { method: 'GET', url: '/landing?ref=keepme&utm=123' } },
+      node: { req: { method: 'GET', url: '/landing?ref=keepme&utm=123' }, res: {} },
       path: '/landing',
       context: {},
       headers: new Map(),
@@ -115,7 +117,7 @@ describe('referral middleware', () => {
     const handler = handlerModule.default
 
     const event = {
-      node: { req: { method: 'GET', url: '/?ref=invalid%20code!' } },
+      node: { req: { method: 'GET', url: '/?ref=invalid%20code!' }, res: {} },
       path: '/',
       context: {},
       headers: new Map(),
@@ -134,7 +136,7 @@ describe('referral middleware', () => {
     const handler = handlerModule.default
 
     const event = {
-      node: { req: { method: 'POST', url: '/some-page?ref=partner123' } },
+      node: { req: { method: 'POST', url: '/some-page?ref=partner123' }, res: {} },
       path: '/some-page',
       context: {},
       headers: new Map(),
@@ -153,7 +155,7 @@ describe('referral middleware', () => {
     const handler = handlerModule.default
 
     const event = {
-      node: { req: { method: 'GET', url: '/api/something?ref=partner123' } },
+      node: { req: { method: 'GET', url: '/api/something?ref=partner123' }, res: {} },
       path: '/api/something',
       context: {},
       headers: new Map(),
@@ -172,7 +174,7 @@ describe('referral middleware', () => {
     const handler = handlerModule.default
 
     const event = {
-      node: { req: { method: 'GET', url: '/some-page?ref=new-code' } },
+      node: { req: { method: 'GET', url: '/some-page?ref=new-code' }, res: {} },
       path: '/some-page',
       context: {},
       headers: new Map(),
