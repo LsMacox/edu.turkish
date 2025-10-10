@@ -15,23 +15,33 @@
           <form class="space-y-6" @submit.prevent="submitApplication">
             <div class="grid md:grid-cols-2 gap-6">
               <div>
-                <label class="block text-sm font-semibold text-secondary mb-2">{{
-                  $t('applicationCTA.form.name_label')
-                }}</label>
+                <label
+                  class="block text-sm font-semibold text-secondary mb-2"
+                  :for="nameFieldId"
+                >
+                  {{ $t('applicationCTA.form.name_label') }}
+                </label>
                 <BaseTextField
+                  :id="nameFieldId"
                   v-model="form.name"
+                  name="name"
                   type="text"
                   :placeholder="$t('applicationCTA.form.name_placeholder')"
                   :error="nameError"
                 />
               </div>
               <div>
-                <label class="block text-sm font-semibold text-secondary mb-2">{{
-                  $t('applicationCTA.form.phone_label')
-                }}</label>
+                <label
+                  class="block text-sm font-semibold text-secondary mb-2"
+                  :for="phoneFieldId"
+                >
+                  {{ $t('applicationCTA.form.phone_label') }}
+                </label>
                 <div class="relative">
                   <input
+                    :id="phoneFieldId"
                     v-model="form.phone"
+                    name="phone"
                     type="tel"
                     required
                     :placeholder="$t('applicationCTA.form.phone_placeholder')"
@@ -54,11 +64,16 @@
             </div>
 
             <div>
-              <label class="block text-sm font-semibold text-secondary mb-2">{{
-                $t('applicationCTA.form.email_label')
-              }}</label>
+              <label
+                class="block text-sm font-semibold text-secondary mb-2"
+                :for="emailFieldId"
+              >
+                {{ $t('applicationCTA.form.email_label') }}
+              </label>
               <BaseTextField
+                :id="emailFieldId"
                 v-model="form.email"
+                name="email"
                 type="email"
                 :placeholder="$t('applicationCTA.form.email_placeholder')"
                 :error="emailError"
@@ -67,10 +82,19 @@
 
             <div class="grid md:grid-cols-2 gap-6">
               <div>
-                <label class="block text-sm font-semibold text-secondary mb-2"
-                  >{{ $t('applicationCTA.form.program_label') }} *</label
+                <label
+                  class="block text-sm font-semibold text-secondary mb-2"
+                  :for="programFieldId"
                 >
-                <BaseSelect v-model="form.program" required :error="programError">
+                  {{ $t('applicationCTA.form.program_label') }} *
+                </label>
+                <BaseSelect
+                  :id="programFieldId"
+                  v-model="form.program"
+                  name="program"
+                  required
+                  :error="programError"
+                >
                   <option value="">{{ $t('applicationCTA.form.program_placeholder') }}</option>
                   <option v-for="program in availablePrograms" :key="program" :value="program">
                     {{ program }}
@@ -79,10 +103,18 @@
                 </BaseSelect>
               </div>
               <div>
-                <label class="block text-sm font-semibold text-secondary mb-2">{{
-                  $t('applicationCTA.form.level_label')
-                }}</label>
-                <BaseSelect v-model="form.level" :error="levelError">
+                <label
+                  class="block text-sm font-semibold text-secondary mb-2"
+                  :for="levelFieldId"
+                >
+                  {{ $t('applicationCTA.form.level_label') }}
+                </label>
+                <BaseSelect
+                  :id="levelFieldId"
+                  v-model="form.level"
+                  name="level"
+                  :error="levelError"
+                >
                   <option value="bachelor">{{ $t('applicationCTA.form.level_bachelor') }}</option>
                   <option value="master">{{ $t('applicationCTA.form.level_master') }}</option>
                 </BaseSelect>
@@ -90,11 +122,16 @@
             </div>
 
             <div>
-              <label class="block text-sm font-semibold text-secondary mb-2">{{
-                $t('applicationCTA.form.comment_label')
-              }}</label>
+              <label
+                class="block text-sm font-semibold text-secondary mb-2"
+                :for="commentFieldId"
+              >
+                {{ $t('applicationCTA.form.comment_label') }}
+              </label>
               <textarea
+                :id="commentFieldId"
                 v-model="form.comment"
+                name="comment"
                 rows="4"
                 :class="[
                   'w-full px-4 py-3 bg-white rounded-xl focus:outline-none font-medium text-secondary placeholder-gray-400 transition-all duration-200 resize-none',
@@ -145,6 +182,13 @@ import { useUniversityApplicationValidation } from '~/composables/validation/use
 import type { DegreeType } from '~/types/domain'
 
 const { show } = useToast()
+
+const nameFieldId = useId()
+const phoneFieldId = useId()
+const emailFieldId = useId()
+const programFieldId = useId()
+const levelFieldId = useId()
+const commentFieldId = useId()
 
 interface Props {
   university: {

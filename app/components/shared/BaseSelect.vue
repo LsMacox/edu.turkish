@@ -1,6 +1,8 @@
 <template>
   <div class="relative">
     <select
+      :id="selectId"
+      :name="selectName"
       :value="modelValue"
       :class="[
         'w-full px-3 md:px-4 pr-10 md:pr-10 bg-white rounded-xl focus:outline-none appearance-none cursor-pointer text-secondary font-medium',
@@ -24,11 +26,20 @@
 </template>
 
 <script setup lang="ts">
-defineProps<{
-  modelValue: string
-  disabled?: boolean
-  error?: string
-}>()
+const props = withDefaults(
+  defineProps<{
+    modelValue: string
+    disabled?: boolean
+    error?: string
+    id?: string
+    name?: string
+  }>(),
+  {},
+)
+
+const generatedId = useId()
+const selectId = computed(() => props.id ?? generatedId)
+const selectName = computed(() => props.name ?? props.id ?? generatedId)
 
 defineEmits<{
   (e: 'update:modelValue', value: string): void

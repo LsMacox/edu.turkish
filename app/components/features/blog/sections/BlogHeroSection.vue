@@ -30,6 +30,8 @@
               class="absolute left-4 top-1/2 -translate-y-1/2 text-gray-400 w-5 h-5"
             />
             <input
+              :id="searchInputId"
+              :name="searchInputId"
               :value="modelValue"
               type="text"
               :placeholder="hero.searchPlaceholder"
@@ -99,4 +101,5 @@ defineEmits<{
 }>()
 
 const { t } = useI18n()
+const searchInputId = useId()
 </script>

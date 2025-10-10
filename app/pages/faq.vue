@@ -32,6 +32,8 @@
       <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
         <div class="relative">
           <input
+            :id="searchInputId"
+            :name="searchInputId"
             :value="searchQuery"
             type="text"
             :placeholder="t('faq.searchPlaceholder')"
@@ -221,6 +223,8 @@ definePageMeta({
 })
 
 const { t, te } = useI18n()
+
+const searchInputId = useId()
 
 // Initialize FAQ search composable
 const {

@@ -159,11 +159,16 @@
 
             <!-- Review Text -->
             <div>
-              <label class="block text-sm font-semibold text-secondary mb-2">
+              <label
+                class="block text-sm font-semibold text-secondary mb-2"
+                :for="reviewFieldId"
+              >
                 {{ $t('reviews.shareExperience.form.review.label') }}
               </label>
               <textarea
+                :id="reviewFieldId"
                 v-model="form.review"
+                name="review"
                 rows="6"
                 :placeholder="$t('reviews.shareExperience.form.review.placeholder')"
                 :class="[
@@ -307,6 +312,8 @@ import { parsePositiveInt } from '~~/lib/number'
 import type { UserType } from '~/types/domain'
 import { useReviewFormValidation } from '~/composables/validation/useReviewFormValidation'
 const { t } = useI18n()
+
+const reviewFieldId = useId()
 
 interface ReviewForm {
   name: string
