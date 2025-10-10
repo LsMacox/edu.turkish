@@ -24,10 +24,6 @@
           </p>
           <div class="flex items-center text-xs text-gray-500 gap-2">
             <span v-if="item.date">{{ item.date }}</span>
-            <template v-if="item.date && item.views">
-              <span>•</span>
-            </template>
-            <span v-if="item.views">{{ item.views }}</span>
           </div>
         </article>
       </div>
@@ -59,7 +55,6 @@ type SidebarPopularItem = {
   slug: string | null
   title: string
   date: string
-  views: string
 }
 
 type SidebarPopular = {

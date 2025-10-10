@@ -47,29 +47,6 @@ export class BlogRepository {
     }
   }
 
-  private formatReadingTime(
-    minutes: number | null | undefined,
-    locale: string,
-  ): string | undefined {
-    if (!minutes || minutes <= 0) {
-      return undefined
-    }
-
-    const safeMinutes = Math.round(minutes)
-
-    switch (locale) {
-      case 'en':
-        return `${safeMinutes} min read`
-      case 'kk':
-        return `${safeMinutes} мин оқу`
-      case 'tr':
-        return `${safeMinutes} dk okuma`
-      case 'ru':
-      default:
-        return `${safeMinutes} мин чтения`
-    }
-  }
-
   private normalizeContent(
     content: Prisma.JsonValue | null | undefined,
   ): BlogArticleContentBlock[] {
@@ -139,6 +116,11 @@ export class BlogRepository {
     const translation = pickTranslation(article.translations, locale)
     const categoryTranslation = pickTranslation(article.category.translations, locale)
 
+    const readingTimeLabel =
+      translation?.locale === locale && translation?.readingTime
+        ? translation.readingTime
+        : undefined
+
     return {
       id: article.id,
       slug: translation?.slug ?? String(article.id),
@@ -149,55 +131,11 @@ export class BlogRepository {
       publishedAt: article.publishedAt.toISOString(),
       publishedAtLabel: this.formatDate(article.publishedAt, locale),
       readingTimeMinutes: article.readingTimeMinutes ?? undefined,
-      readingTimeLabel:
-        translation?.readingTime ?? this.formatReadingTime(article.readingTimeMinutes, locale),
+      readingTimeLabel,
       category: {
         key: article.category.code,
         label: categoryTranslation?.title ?? article.category.code,
       },
-    }
-  }
-
-  private extractViewCount(meta: Prisma.JsonValue | null | undefined): number {
-    if (!meta || typeof meta !== 'object' || Array.isArray(meta)) {
-      return 0
-    }
-
-    const record = meta as Record<string, unknown>
-    const rawValue = record.views ?? record.viewCount ?? record.reads
-
-    if (typeof rawValue === 'number' && Number.isFinite(rawValue)) {
-      return Math.max(0, Math.round(rawValue))
-    }
-
-    if (typeof rawValue === 'string') {
-      const digits = rawValue.replace(/[^\d]/g, '')
-      if (digits) {
-        const parsed = Number.parseInt(digits, 10)
-        if (Number.isFinite(parsed)) {
-          return Math.max(0, parsed)
-        }
-      }
-    }
-
-    return 0
-  }
-
-  private formatViewCount(count: number, locale: string): string {
-    const normalizedCount = Math.max(0, Math.round(count))
-    const formatter = new Intl.NumberFormat(resolveLocaleTag(locale as any))
-    const formattedCount = formatter.format(normalizedCount)
-
-    switch (locale) {
-      case 'en':
-        return `${formattedCount} views`
-      case 'kk':
-        return `${formattedCount} қаралым`
-      case 'tr':
-        return `${formattedCount} görüntülenme`
-      case 'ru':
-      default:
-        return `${formattedCount} просмотров`
     }
   }
 
@@ -206,7 +144,6 @@ export class BlogRepository {
     locale: string,
   ): BlogPopularArticle {
     const base = this.mapArticleToListItem(article, locale)
-    const viewCount = this.extractViewCount(article.meta)
 
     return {
       id: base.id,
@@ -214,8 +151,6 @@ export class BlogRepository {
       title: base.title,
       publishedAt: base.publishedAt,
       publishedAtLabel: base.publishedAtLabel,
-      viewCount,
-      viewCountLabel: this.formatViewCount(viewCount, locale),
     }
   }
 
@@ -449,28 +384,19 @@ export class BlogRepository {
       }
     })
 
-    const popularCandidates = potentialPopular
-      .map((article) => ({
-        article,
-        views: this.extractViewCount(article.meta),
-      }))
-      .sort((a, b) => {
-        if (b.views !== a.views) {
-          return b.views - a.views
-        }
-        return b.article.publishedAt.getTime() - a.article.publishedAt.getTime()
-      })
-
+    const popularCandidates = potentialPopular.sort(
+      (a, b) => b.publishedAt.getTime() - a.publishedAt.getTime(),
+    )
     const seenPopularIds = new Set<number>()
     const mappedPopular: BlogPopularArticle[] = []
 
-    for (const candidate of popularCandidates) {
-      if (seenPopularIds.has(candidate.article.id)) {
+    for (const article of popularCandidates) {
+      if (seenPopularIds.has(article.id)) {
         continue
       }
 
-      seenPopularIds.add(candidate.article.id)
-      mappedPopular.push(this.mapArticleToPopularItem(candidate.article, locale))
+      seenPopularIds.add(article.id)
+      mappedPopular.push(this.mapArticleToPopularItem(article, locale))
 
       if (mappedPopular.length >= 4) {
         break

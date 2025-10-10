@@ -319,7 +319,6 @@ type SidebarPopularItem = {
   slug: string | null
   title: string
   date: string
-  views: string
 }
 
 type SidebarPopular = {
@@ -437,7 +436,7 @@ const sidebarPopular = computed<SidebarPopular>(() => {
   const translation = tm('blog.sidebar.popular') as
     | {
         title?: unknown
-        items?: Array<{ title?: unknown; date?: unknown; views?: unknown; slug?: unknown }>
+        items?: Array<{ title?: unknown; date?: unknown; slug?: unknown }>
       }
     | undefined
 
@@ -451,7 +450,6 @@ const sidebarPopular = computed<SidebarPopular>(() => {
         slug: item.slug,
         title: item.title,
         date: item.publishedAtLabel,
-        views: item.viewCountLabel,
       })),
     }
   }
@@ -463,7 +461,6 @@ const sidebarPopular = computed<SidebarPopular>(() => {
       slug: typeof item.slug === 'string' ? item.slug : null,
       title: resolveI18nValue(item?.title),
       date: resolveI18nValue(item?.date),
-      views: resolveI18nValue(item?.views),
     }))
     .filter((item) => item.title)
 
