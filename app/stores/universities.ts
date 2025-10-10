@@ -7,7 +7,9 @@ import type {
   UniversityFilters as ApiUniversityFilters,
 } from '~~/server/types/api'
 
-const LEVEL_ALL_VALUE = 'all'
+export const CITY_ALL_VALUE = '__all_cities__'
+export const TYPE_ALL_VALUE = '__all_types__'
+export const LEVEL_ALL_VALUE = 'all'
 
 const LEVEL_TRANSLATION_KEYS: Record<DegreeType | typeof LEVEL_ALL_VALUE, string> = {
   [LEVEL_ALL_VALUE]: 'universities_page.filters.all_levels',
@@ -65,6 +67,40 @@ export const useUniversitiesStore = defineStore('universities', () => {
   const defaultCityLabel = computed(() => t('universities_page.filters.all_cities') as string)
   const defaultTypeLabel = computed(() => t('universities_page.filters.all_types') as string)
 
+  const normalizeCity = (city: string | null | undefined): string => {
+    if (!city) return CITY_ALL_VALUE
+
+    const trimmed = city.trim()
+    if (!trimmed) return CITY_ALL_VALUE
+    const lower = trimmed.toLowerCase()
+    if (
+      trimmed === CITY_ALL_VALUE ||
+      trimmed === defaultCityLabel.value ||
+      lower === 'all'
+    ) {
+      return CITY_ALL_VALUE
+    }
+
+    return trimmed
+  }
+
+  const normalizeType = (type: string | null | undefined): string => {
+    if (!type) return TYPE_ALL_VALUE
+
+    const trimmed = type.trim()
+    if (!trimmed) return TYPE_ALL_VALUE
+    const lower = trimmed.toLowerCase()
+    if (
+      trimmed === TYPE_ALL_VALUE ||
+      trimmed === defaultTypeLabel.value ||
+      lower === 'all'
+    ) {
+      return TYPE_ALL_VALUE
+    }
+
+    return trimmed
+  }
+
   const normalizeLevel = (level: string | null | undefined): string => {
     const normalized = level?.trim()
     if (!normalized) return LEVEL_ALL_VALUE
@@ -79,9 +115,9 @@ export const useUniversitiesStore = defineStore('universities', () => {
   // Default filter values
   const getDefaultFilters = (): UniversityFilters => ({
     q: '',
-    city: defaultCityLabel.value,
+    city: CITY_ALL_VALUE,
     langs: [],
-    type: defaultTypeLabel.value,
+    type: TYPE_ALL_VALUE,
     level: LEVEL_ALL_VALUE,
     price: [availableFilters.value.priceRange[0], availableFilters.value.priceRange[1]] as [
       number,
@@ -100,8 +136,12 @@ export const useUniversitiesStore = defineStore('universities', () => {
     }
 
     // Normalize city value coming from URL
-    const rawCity = (query.city as string) || defaultCityLabel.value
-    const normalizedCity = rawCity || defaultCityLabel.value
+    const rawCity = Array.isArray(query.city)
+      ? (query.city[0] as string | undefined)
+      : typeof query.city === 'string'
+        ? query.city
+        : null
+    const normalizedCity = normalizeCity(rawCity)
 
     return {
       q: (query.q as string) || '',
@@ -111,7 +151,13 @@ export const useUniversitiesStore = defineStore('universities', () => {
           ? (query.langs as string[])
           : [query.langs as string]
         : [],
-      type: (query.type as string) || defaultTypeLabel.value,
+      type: normalizeType(
+        Array.isArray(query.type)
+          ? (query.type[0] as string | undefined)
+          : typeof query.type === 'string'
+            ? query.type
+            : null,
+      ),
       level: normalizeLevel((query.level as string) || LEVEL_ALL_VALUE),
       price:
         query.price_min || query.price_max
@@ -169,7 +215,7 @@ export const useUniversitiesStore = defineStore('universities', () => {
       const queryParams: UniversityQueryParams = {
         q: effectiveFilters.q || undefined,
         city:
-          effectiveFilters.city && effectiveFilters.city !== defaults.city
+          effectiveFilters.city && effectiveFilters.city !== CITY_ALL_VALUE
             ? effectiveFilters.city
             : undefined,
         langs:
@@ -177,7 +223,7 @@ export const useUniversitiesStore = defineStore('universities', () => {
             ? effectiveFilters.langs
             : undefined,
         type:
-          effectiveFilters.type && effectiveFilters.type !== defaults.type
+          effectiveFilters.type && effectiveFilters.type !== TYPE_ALL_VALUE
             ? effectiveFilters.type
             : undefined,
         level: effectiveFilters.level !== LEVEL_ALL_VALUE ? effectiveFilters.level : undefined,
@@ -267,9 +313,11 @@ export const useUniversitiesStore = defineStore('universities', () => {
     const query: RouteQuery = {}
 
     if (filters.value.q) query.q = filters.value.q
-    if (filters.value.city !== defaults.city) query.city = filters.value.city
+    if (filters.value.city !== defaults.city && filters.value.city !== CITY_ALL_VALUE)
+      query.city = filters.value.city
     if (filters.value.langs.length > 0) query.langs = filters.value.langs
-    if (filters.value.type !== defaults.type) query.type = filters.value.type
+    if (filters.value.type !== defaults.type && filters.value.type !== TYPE_ALL_VALUE)
+      query.type = filters.value.type
     if (filters.value.level !== defaults.level) query.level = filters.value.level
     if (filters.value.price[0] !== defaults.price[0]) query.price_min = filters.value.price[0]
     if (filters.value.price[1] !== defaults.price[1]) query.price_max = filters.value.price[1]
@@ -319,6 +367,10 @@ export const useUniversitiesStore = defineStore('universities', () => {
     ).forEach(([key, value]) => {
       if (key === 'level' && typeof value === 'string') {
         filters.value.level = normalizeLevel(value)
+      } else if (key === 'city' && typeof value === 'string') {
+        filters.value.city = normalizeCity(value)
+      } else if (key === 'type' && typeof value === 'string') {
+        filters.value.type = normalizeType(value)
       } else {
         // Assign with explicit casting to maintain type safety across union types
         ;(filters.value as any)[key] = value as any
@@ -337,13 +389,13 @@ export const useUniversitiesStore = defineStore('universities', () => {
   }
 
   const setCityFilter = (city: string) => {
-    filters.value.city = city
+    filters.value.city = normalizeCity(city)
     updateURL()
   }
 
   const setCityFilterFromFooter = (city: string) => {
     isFromFooter.value = true
-    filters.value.city = city
+    filters.value.city = normalizeCity(city)
     updateURL()
   }
 
