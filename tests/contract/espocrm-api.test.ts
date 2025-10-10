@@ -51,7 +51,7 @@ describe('EspoCRM API Contract', () => {
         },
         source: 'website',
         additional_info: 'Need campus in center',
-        referral_code: 'PARTNER123',
+        ref: 'PARTNER123',
       }
 
       expect(applicationData.personal_info.first_name).toBe('Ivan')

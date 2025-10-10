@@ -43,7 +43,7 @@ export class ApplicationRepository {
       return null
     })()
     const normalizedSource = data.source?.trim() || 'website'
-    const normalizedReferralCode = data.referral_code?.trim() || null
+    const normalizedReferralCode = data.ref?.trim() || null
 
     const application = await this.prisma.application.create({
       data: {

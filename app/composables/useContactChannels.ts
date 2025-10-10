@@ -52,7 +52,7 @@ export const useContactChannels = () => {
         // Use redirect route if tracking params are present
         if (hasTrackingParams) {
           const routePath = channelRoutePaths[typedKey]
-          const query: Record<string, string> = { referral_code: referral }
+          const query: Record<string, string> = { ref: referral }
 
           if (utm) {
             for (const [key, value] of Object.entries(utm)) {

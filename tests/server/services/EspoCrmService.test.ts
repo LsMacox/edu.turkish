@@ -38,7 +38,7 @@ describe('EspoCrmService', () => {
       },
       source: 'website',
       additional_info: 'Need campus in center',
-      referral_code: 'PARTNER123',
+      ref: 'PARTNER123',
     }
 
     it('should create lead successfully', async () => {

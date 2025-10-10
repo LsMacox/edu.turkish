@@ -27,7 +27,7 @@ export interface ApplicationRequest {
   additional_info?: string
   source: string
   user_preferences?: UserPreferencesDTO
-  referral_code?: string
+  ref?: string
 }
 
 export interface ApplicationResponse {

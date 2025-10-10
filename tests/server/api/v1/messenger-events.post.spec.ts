@@ -49,7 +49,7 @@ vi.stubGlobal('createError', (input: unknown) => input)
 
 describe('POST /api/v1/messenger-events', () => {
   it('requires channel to be provided', async () => {
-    readBodyMock.mockResolvedValue({ referral_code: 'ref-123' })
+    readBodyMock.mockResolvedValue({ ref: 'ref-123' })
 
     const handlerModule = await import('../../../../server/api/v1/messenger-events.post')
     const handler = handlerModule.default
@@ -79,7 +79,7 @@ describe('POST /api/v1/messenger-events', () => {
   it('proxies payload to CRM service when valid', async () => {
     readBodyMock.mockResolvedValue({
       channel: 'telegramPersonal',
-      referral_code: 'ref-123',
+      ref: 'ref-123',
       session: 'session-1',
       utm: {
         utm_source: 'test-source',
@@ -121,7 +121,7 @@ describe('POST /api/v1/messenger-events', () => {
   it('returns success with null activityId when CRM logging fails', async () => {
     readBodyMock.mockResolvedValue({
       channel: 'telegramPersonal',
-      referral_code: 'ref-123',
+      ref: 'ref-123',
     })
 
     logActivityMock.mockResolvedValue({ success: false, error: 'Failed to log' })
@@ -140,7 +140,7 @@ describe('POST /api/v1/messenger-events', () => {
   it('returns 503 when CRM is not configured', async () => {
     readBodyMock.mockResolvedValue({
       channel: 'telegramPersonal',
-      referral_code: 'ref-123',
+      ref: 'ref-123',
     })
 
     validateCRMConfigMock.mockImplementation(() => {

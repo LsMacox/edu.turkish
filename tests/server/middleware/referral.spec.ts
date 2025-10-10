@@ -52,7 +52,7 @@ describe('referral middleware', () => {
 
     expect(setCookieMock).toHaveBeenCalledWith(
       event,
-      'referral_code',
+      'ref',
       'dev-123',
       expect.objectContaining({
         secure: false,
@@ -79,7 +79,7 @@ describe('referral middleware', () => {
 
     expect(setCookieMock).toHaveBeenCalledWith(
       event,
-      'referral_code',
+      'ref',
       'prod-123',
       expect.objectContaining({
         secure: true,

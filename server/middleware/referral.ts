@@ -6,7 +6,7 @@ import {
   setCookie as h3SetCookie,
 } from 'h3'
 
-const REFERRAL_COOKIE = 'referral_code'
+const REFERRAL_COOKIE = 'ref'
 const REFERRAL_MAX_AGE = 60 * 60 * 24 * 30 // 30 days
 const REFERRAL_CODE_PATTERN = /^[a-zA-Z0-9_-]+$/
 

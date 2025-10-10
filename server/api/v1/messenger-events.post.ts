@@ -4,7 +4,7 @@ import { sanitizeUtm } from '~~/server/utils/utm'
 
 interface MessengerEventRequestBody {
   channel?: string
-  referral_code?: string
+  ref?: string
   session?: string
   utm?: Record<string, unknown>
   metadata?: Record<string, unknown>
@@ -13,7 +13,7 @@ interface MessengerEventRequestBody {
 export default defineEventHandler(async (event) => {
   const body = await readBody<MessengerEventRequestBody>(event)
   const channel = body.channel?.trim()
-  const referralCode = body.referral_code?.trim()
+  const referralCode = body.ref?.trim()
 
   if (!channel) {
     throw createError({

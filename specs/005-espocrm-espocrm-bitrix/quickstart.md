@@ -72,7 +72,7 @@ curl -X POST http://localhost:3000/api/v1/applications \
       "start_date": "2025"
     },
     "source": "quickstart-test",
-    "referral_code": "TEST123"
+    "ref": "TEST123"
   }'
 ```
 
@@ -89,7 +89,7 @@ curl -X POST http://localhost:3000/api/v1/messenger-events \
   -H "Content-Type: application/json" \
   -d '{
     "channel": "telegram",
-    "referral_code": "TEST123",
+    "ref": "TEST123",
     "session": "test-session-123"
   }'
 ```

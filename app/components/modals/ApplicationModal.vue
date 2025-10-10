@@ -303,7 +303,7 @@ const submitForm = async () => {
       },
       additional_info: form.value.message || '',
       source: referralCode.value || props.userPreferences?.source || 'website',
-      referral_code: referralCode.value,
+      ref: referralCode.value,
       user_preferences: props.userPreferences,
     }
 

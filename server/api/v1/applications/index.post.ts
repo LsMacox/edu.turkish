@@ -60,7 +60,7 @@ export default defineEventHandler(async (event): Promise<ApplicationResponse> =>
         email: body.personal_info.email?.trim()
           ? body.personal_info.email.trim()
           : undefined,
-        referralCode: body.referral_code || 'DIRECT',
+        referralCode: body.ref || 'DIRECT',
         source: body.source || 'website',
         sourceDescription: body.source,
         userType: body.user_preferences?.userType,
@@ -132,7 +132,7 @@ export default defineEventHandler(async (event): Promise<ApplicationResponse> =>
           email: body.personal_info.email?.trim()
             ? body.personal_info.email.trim()
             : undefined,
-          referralCode: body.referral_code || 'DIRECT',
+          referralCode: body.ref || 'DIRECT',
           source: body.source || 'website',
           session: fingerprintCookie,
           fingerprintKey,

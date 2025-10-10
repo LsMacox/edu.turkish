@@ -3,7 +3,7 @@ export const useReferral = () => {
 
   // Get referral code from cookies on client side
   onMounted(() => {
-    const cookies = document.cookie.split('; ').find((row) => row.startsWith('referral_code='))
+    const cookies = document.cookie.split('; ').find((row) => row.startsWith('ref='))
 
     if (cookies) {
       referralCode.value = cookies.split('=')[1] || ''
