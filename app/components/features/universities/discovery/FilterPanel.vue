@@ -19,7 +19,7 @@
         $t('universities_page.filters.city_label')
       }}</label>
       <BaseSelect v-model="state.city">
-        <option :value="allCitiesOption">{{ $t('universities_page.filters.all_cities') }}</option>
+        <option :value="CITY_ALL_VALUE">{{ $t('universities_page.filters.all_cities') }}</option>
         <option v-for="city in availableFilters.cities" :key="city" :value="city">
           {{ city }}
         </option>
@@ -50,7 +50,7 @@
         $t('universities_page.filters.type_label')
       }}</label>
       <BaseSelect v-model="state.type">
-        <option :value="allTypesOption">{{ $t('universities_page.filters.all_types') }}</option>
+        <option :value="TYPE_ALL_VALUE">{{ $t('universities_page.filters.all_types') }}</option>
         <option v-for="t in availableFilters.types" :key="t" :value="t">
           {{ getTypeLabel(t) }}
         </option>
@@ -103,7 +103,12 @@
 
 <script setup lang="ts">
 import { storeToRefs } from 'pinia'
-import { useUniversitiesStore } from '~/stores/universities'
+import {
+  CITY_ALL_VALUE,
+  LEVEL_ALL_VALUE,
+  TYPE_ALL_VALUE,
+  useUniversitiesStore,
+} from '~/stores/universities'
 
 const emit = defineEmits<{
   (
@@ -124,11 +129,6 @@ const universitiesStore = useUniversitiesStore()
 const { filters, availableFilters } = storeToRefs(universitiesStore)
 const { applyFilters } = universitiesStore
 const { t: translate } = useI18n()
-
-const allCitiesOption = computed(() => translate('universities_page.filters.all_cities') as string)
-const allTypesOption = computed(() => translate('universities_page.filters.all_types') as string)
-
-const LEVEL_ALL_VALUE = 'all'
 
 const LEVEL_LABEL_MAP: Record<string, string> = {
   bachelor: 'universities_page.filters.levels.bachelor',
@@ -159,9 +159,9 @@ const levelOptions = computed(() => {
 
 const state = reactive({
   q: '',
-  city: allCitiesOption.value,
+  city: CITY_ALL_VALUE,
   langs: [] as string[],
-  type: allTypesOption.value,
+  type: TYPE_ALL_VALUE,
   level: LEVEL_ALL_VALUE,
 })
 
@@ -202,13 +202,13 @@ function getLevelLabel(level: string): string {
 // Initialize state from URL filters
 const initializeFromFilters = () => {
   state.q = filters.value.q
-  state.city = filters.value.city || allCitiesOption.value
+  state.city = filters.value.city || CITY_ALL_VALUE
   const availableSet = new Set(availableLanguageCodes.value)
   const normalizedLangs = filters.value.langs
     .map((lang) => lang.toUpperCase())
     .filter((lang) => (availableSet.size > 0 ? availableSet.has(lang) : true))
   state.langs = normalizedLangs
-  state.type = filters.value.type || allTypesOption.value
+  state.type = filters.value.type || TYPE_ALL_VALUE
   state.level = filters.value.level || LEVEL_ALL_VALUE
   const price = filters.value.price?.length === 2 ? filters.value.price : priceRangeBounds.value
   priceRange.value = [price[0], price[1]] as [number, number]
@@ -272,9 +272,9 @@ function toggleLang(lang: string, checked: boolean) {
 
 function reset() {
   state.q = ''
-  state.city = allCitiesOption.value
+  state.city = CITY_ALL_VALUE
   state.langs = []
-  state.type = allTypesOption.value
+  state.type = TYPE_ALL_VALUE
   state.level = LEVEL_ALL_VALUE
   priceRange.value = [priceRangeBounds.value[0], priceRangeBounds.value[1]] as [number, number]
 
