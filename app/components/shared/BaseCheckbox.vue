@@ -1,6 +1,8 @@
 <template>
   <label class="flex items-center cursor-pointer py-1 min-h-touch-44 md:min-h-auto">
     <input
+      :id="checkboxId"
+      :name="checkboxName"
       :checked="checked"
       type="checkbox"
       :value="value"
@@ -25,11 +27,22 @@
 </template>
 
 <script setup lang="ts">
-defineProps<{
-  checked: boolean
-  value?: string
-  disabled?: boolean
-}>()
+const props = withDefaults(
+  defineProps<{
+    checked: boolean
+    value?: string
+    disabled?: boolean
+    id?: string
+    name?: string
+  }>(),
+  {
+    disabled: false,
+  },
+)
+
+const generatedId = useId()
+const checkboxId = computed(() => props.id ?? generatedId)
+const checkboxName = computed(() => props.name ?? props.id ?? generatedId)
 
 defineEmits<{
   (e: 'update:checked', value: boolean): void

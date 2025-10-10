@@ -48,6 +48,7 @@
     <div class="relative">
       <input
         :id="inputId"
+        :name="inputName"
         :value="modelValue"
         :type="type"
         :placeholder="placeholder"
@@ -169,7 +170,7 @@
 import type { BaseTextFieldProps } from '~/types/ui'
 
 // Generate unique ID for the input
-const inputId = useId()
+const generatedId = useId()
 const isFocused = ref(false)
 
 /**
@@ -201,6 +202,9 @@ const props = withDefaults(defineProps<BaseTextFieldProps>(), {
   required: false,
   disabled: false,
 })
+
+const inputId = computed(() => props.id ?? generatedId)
+const inputName = computed(() => props.name ?? props.id ?? generatedId)
 
 // Avoid collision with Vue's global isReadonly() helper
 const inputReadonly = computed(() => props.readonly)
@@ -368,11 +372,11 @@ const handleClear = () => {
 // Expose methods for parent component access
 defineExpose({
   focus: () => {
-    const input = document.getElementById(inputId) as HTMLInputElement
+    const input = document.getElementById(inputId.value) as HTMLInputElement | null
     input?.focus()
   },
   blur: () => {
-    const input = document.getElementById(inputId) as HTMLInputElement
+    const input = document.getElementById(inputId.value) as HTMLInputElement | null
     input?.blur()
   },
   clear: handleClear,

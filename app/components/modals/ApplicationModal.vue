@@ -35,11 +35,16 @@
         <!-- Form -->
         <form class="p-5 md:p-6 space-y-5 md:space-y-4 pb-8" @submit.prevent="submitForm">
           <div>
-            <label class="block text-base md:text-sm font-medium text-gray-700 mb-2.5"
-              >{{ $t('modal.your_name') }} {{ $t('modal.required') }}</label
+            <label
+              class="block text-base md:text-sm font-medium text-gray-700 mb-2.5"
+              :for="nameFieldId"
             >
+              {{ $t('modal.your_name') }} {{ $t('modal.required') }}
+            </label>
             <BaseTextField
+              :id="nameFieldId"
               v-model="form.name"
+              name="name"
               type="text"
               :placeholder="$t('modal.name_placeholder')"
               :error="nameError"
@@ -47,11 +52,16 @@
           </div>
 
           <div>
-            <label class="block text-base md:text-sm font-medium text-gray-700 mb-2.5"
-              >{{ $t('modal.phone') }} {{ $t('modal.required') }}</label
+            <label
+              class="block text-base md:text-sm font-medium text-gray-700 mb-2.5"
+              :for="phoneFieldId"
             >
+              {{ $t('modal.phone') }} {{ $t('modal.required') }}
+            </label>
             <input
+              :id="phoneFieldId"
               v-model="form.phone"
+              name="phone"
               type="tel"
               required
               :placeholder="$t('modal.phone_placeholder')"
@@ -72,11 +82,16 @@
           </div>
 
           <div>
-            <label class="block text-base md:text-sm font-medium text-gray-700 mb-2.5">{{
-              $t('modal.email')
-            }}</label>
+            <label
+              class="block text-base md:text-sm font-medium text-gray-700 mb-2.5"
+              :for="emailFieldId"
+            >
+              {{ $t('modal.email') }}
+            </label>
             <BaseTextField
+              :id="emailFieldId"
               v-model="form.email"
+              name="email"
               type="email"
               :placeholder="$t('modal.email_placeholder')"
               :error="emailError"
@@ -84,11 +99,16 @@
           </div>
 
           <div>
-            <label class="block text-base md:text-sm font-medium text-gray-700 mb-2.5">{{
-              $t('modal.additional_info')
-            }}</label>
+            <label
+              class="block text-base md:text-sm font-medium text-gray-700 mb-2.5"
+              :for="messageFieldId"
+            >
+              {{ $t('modal.additional_info') }}
+            </label>
             <textarea
+              :id="messageFieldId"
               v-model="form.message"
+              name="message"
               :placeholder="$t('modal.message_placeholder')"
               rows="3"
               :class="[
@@ -199,6 +219,11 @@ const phoneRef = computed({
 const { sanitizePhone, onPhoneInput, onPhoneKeydown } = useInternationalPhone(phoneRef)
 
 const { show } = useToast()
+
+const nameFieldId = useId()
+const phoneFieldId = useId()
+const emailFieldId = useId()
+const messageFieldId = useId()
 
 const {
   applicationModalRules,

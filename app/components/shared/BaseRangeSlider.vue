@@ -22,7 +22,9 @@
 
       <!-- Single input that controls both handles -->
       <input
+        :id="rangeInputId"
         ref="sliderRef"
+        :name="rangeInputId"
         type="range"
         :min="min"
         :max="max"
@@ -38,6 +40,8 @@
     <!-- Input fields -->
     <div class="flex items-center gap-3">
       <input
+        :id="minInputId"
+        :name="minInputId"
         :value="modelValue[0]"
         type="number"
         :min="min"
@@ -48,6 +52,8 @@
       />
       <div class="flex-1 text-center text-gray-400 text-sm">{{ t('range.to') }}</div>
       <input
+        :id="maxInputId"
+        :name="maxInputId"
         :value="modelValue[1]"
         type="number"
         :min="min"
@@ -78,6 +84,11 @@ const sliderRef = ref<HTMLInputElement>()
 const activeHandle = ref<'min' | 'max'>('min')
 
 const { t } = useI18n()
+
+const sliderId = useId()
+const rangeInputId = `${sliderId}-range`
+const minInputId = `${sliderId}-min`
+const maxInputId = `${sliderId}-max`
 
 const formatValue = (value: number) => {
   if (props.formatter) return props.formatter(value)
