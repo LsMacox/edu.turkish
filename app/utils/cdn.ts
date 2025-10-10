@@ -1,15 +1,15 @@
 /**
  * Transform asset path to CDN URL
- * 
+ *
  * @param path - Asset path (absolute or relative, e.g., '/images/logo.png' or 'images/logo.png')
  * @param cdnBaseUrl - CDN base URL from runtime config (e.g., 'https://cdn.edu-turkish.com')
  * @returns CDN URL or original path if CDN is disabled
- * 
+ *
  * @example
  * ```ts
  * toCdnUrl('/images/logo.png', 'https://cdn.edu-turkish.com')
  * // Returns: 'https://cdn.edu-turkish.com/images/logo.png'
- * 
+ *
  * toCdnUrl('/images/logo.png', '')
  * // Returns: '/images/logo.png' (CDN disabled)
  * ```

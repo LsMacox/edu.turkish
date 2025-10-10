@@ -57,17 +57,17 @@ Nuxt 4‑приложение с каталогом вузов, заявками
 
 ## Скрипты npm
 
-| Команда | Назначение |
-| --- | --- |
-| `npm run dev` | локальный режим разработки Nuxt |
-| `npm run build` / `npm run preview` | продакшн-сборка и предпросмотр |
-| `npm run lint` / `npm run lint:fix` | проверка ESLint и автоисправление |
-| `npm run format` / `npm run format:check` | форматирование Prettier |
-| `npm run test` / `npm run test:watch` | запуск тестов Vitest |
-| `npm run translate` | LLM‑перевод недостающих локализаций (см. `docs/scripts/TRANSLATE.md`) |
-| `npm run import:university` | импорт/обновление университета из JSON (см. `docs/scripts/IMPORT_UNIVERSITY.md`) |
-| `npm run i18n:check` | проверка качества переводов (см. `docs/scripts/I18N_CHECK.md`) |
-| `npm run directus:schema:snapshot` / `npm run directus:schema:apply` | экспорт и применение схемы Directus |
+| Команда                                                              | Назначение                                                                       |
+| -------------------------------------------------------------------- | -------------------------------------------------------------------------------- |
+| `npm run dev`                                                        | локальный режим разработки Nuxt                                                  |
+| `npm run build` / `npm run preview`                                  | продакшн-сборка и предпросмотр                                                   |
+| `npm run lint` / `npm run lint:fix`                                  | проверка ESLint и автоисправление                                                |
+| `npm run format` / `npm run format:check`                            | форматирование Prettier                                                          |
+| `npm run test` / `npm run test:watch`                                | запуск тестов Vitest                                                             |
+| `npm run translate`                                                  | LLM‑перевод недостающих локализаций (см. `docs/scripts/TRANSLATE.md`)            |
+| `npm run import:university`                                          | импорт/обновление университета из JSON (см. `docs/scripts/IMPORT_UNIVERSITY.md`) |
+| `npm run i18n:check`                                                 | проверка качества переводов (см. `docs/scripts/I18N_CHECK.md`)                   |
+| `npm run directus:schema:snapshot` / `npm run directus:schema:apply` | экспорт и применение схемы Directus                                              |
 
 ### Работа с базой данных через Docker
 
@@ -99,11 +99,13 @@ npm run db:studio      # открыть Prisma Studio
 Приложение поддерживает доставку статических ресурсов через CDN. Для использования:
 
 1. Установите переменную окружения `NUXT_PUBLIC_CDN_URL`:
+
    ```bash
    NUXT_PUBLIC_CDN_URL=https://cdn.edu-turkish.com
    ```
 
 2. Используйте composable `useCdn()` в компонентах:
+
    ```vue
    <script setup>
    const { cdnUrl } = useCdn()
