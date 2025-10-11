@@ -2,6 +2,7 @@
   "universityDetail": {
     "applyButton": "Университетке өтініш беру",
     "whatsappButton": "WhatsApp арқылы байланысу",
+    "metaTitleTemplate": "{name} — Түркияда шетелдік студенттерге арналған оқу | 2025 жылғы қабылдау",
     "keyInformation": {
       "title": "Негізгі ақпарат",
       "subtitle": "Университет туралы білу қажет барлық нәрсе",

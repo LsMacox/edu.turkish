@@ -2,6 +2,7 @@
   "universityDetail": {
     "applyButton": "Подать заявку в университет",
     "whatsappButton": "Связаться в WhatsApp",
+    "metaTitleTemplate": "{name} — обучение в Турции для иностранных студентов | Поступление 2025",
     "keyInformation": {
       "title": "Ключевая информация",
       "subtitle": "Все что нужно знать об университете",
