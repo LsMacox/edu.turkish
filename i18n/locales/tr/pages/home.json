@@ -1,5 +1,9 @@
 {
   "home": {
+    "seo": {
+      "title": "Ana Sayfa",
+      "description": "Edu.turkish ile Türkiye üniversitelerine başvurun: program seçimi, evrak hazırlığı, burs fırsatları ve her adımda danışman desteği."
+    },
     "hero": {
       "title": "Yurtdışı üniversitesine girmek",
       "title_accent": "kolay",

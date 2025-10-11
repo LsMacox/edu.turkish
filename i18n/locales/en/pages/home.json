@@ -1,5 +1,9 @@
 {
   "home": {
+    "seo": {
+      "title": "Home",
+      "description": "Edu.turkish guides international students into Turkish universities: program matching, application support, scholarships, and dedicated advisors throughout admission."
+    },
     "hero": {
       "title": "Study abroad at a foreign university",
       "title_accent": "easily",

@@ -147,8 +147,20 @@ export default defineNuxtConfig({
         { name: 'viewport', content: 'width=device-width, initial-scale=1' },
         {
           name: 'description',
-          content: 'Обучение в Турции: поступление, программы, стипендии и поддержка.',
+          content:
+            'Edu.turkish помогает поступить в университеты Турции: подбор программ, подготовка документов, стипендии и сопровождение на каждом этапе.',
         },
+        {
+          property: 'og:description',
+          content:
+            'Edu.turkish помогает поступить в университеты Турции: подбор программ, подготовка документов, стипендии и сопровождение на каждом этапе.',
+        },
+        {
+          name: 'twitter:description',
+          content:
+            'Edu.turkish помогает поступить в университеты Турции: подбор программ, подготовка документов, стипендии и сопровождение на каждом этапе.',
+        },
+        { name: 'yandex-verification', content: 'a98923cf37486ffa' },
         { name: 'robots', content: 'index, follow' },
         { property: 'og:type', content: 'website' },
         { property: 'og:site_name', content: 'Edu.turkish' },

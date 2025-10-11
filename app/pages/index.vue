@@ -17,15 +17,25 @@
 // Можно изменить эту дату в зависимости от текущих дедлайнов университетов
 const applicationDeadline = '2025-11-01T23:59:59'
 
-useHead({
-  title: 'Главная',
+const { t } = useI18n()
+
+useHead(() => ({
+  title: t('home.seo.title'),
   meta: [
     {
       name: 'description',
-      content: 'Обучение в Турции: поступление в университеты, программы и поддержка.',
+      content: t('home.seo.description'),
+    },
+    {
+      property: 'og:description',
+      content: t('home.seo.description'),
+    },
+    {
+      name: 'twitter:description',
+      content: t('home.seo.description'),
     },
   ],
-})
+}))
 
 // Ensure universities are fetched on the home page reload (limit to 6)
 const universitiesStore = useUniversitiesStore()
