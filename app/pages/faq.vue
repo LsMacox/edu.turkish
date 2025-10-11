@@ -100,12 +100,13 @@
     <!-- FAQ Categories -->
     <section class="section-py-sm bg-gray-50">
       <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div class="flex flex-wrap justify-center gap-4">
+        <div class="flex flex-wrap justify-center gap-3 sm:gap-4">
           <button
             v-for="category in categories"
             :key="category.key"
             :class="[
-              'px-6 py-3 rounded-full font-medium transition-all min-h-touch-44 flex items-center space-x-2',
+              'px-4 py-2 text-sm rounded-full font-medium transition-all min-h-touch-44 flex items-center space-x-1.5',
+              'sm:px-6 sm:py-3 sm:text-base sm:space-x-2',
               activeCategory === category.key
                 ? 'bg-primary text-white shadow-md'
                 : 'bg-white text-gray-700 hover:bg-gray-50 border border-gray-200',
@@ -113,7 +114,7 @@
             :aria-pressed="activeCategory === category.key"
             @click="setActiveCategory(category.key)"
           >
-            <Icon :name="category.icon" class="w-4 h-4" />
+            <Icon :name="category.icon" class="w-4 h-4 sm:w-5 sm:h-5" />
             <span>{{ translateCategoryLabel(category.key, category.name) }}</span>
           </button>
         </div>
