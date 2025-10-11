@@ -8,10 +8,10 @@
         margin-bottom="lg"
       />
 
-      <div class="flex flex-wrap justify-center gap-4 mb-12">
+      <div class="flex flex-wrap justify-center gap-3 mb-10 md:gap-4 md:mb-12">
         <button
           :class="[
-            'px-6 py-2 rounded-xl font-medium transition-all',
+            'px-4 py-2 text-sm rounded-xl font-medium transition-all md:px-6 md:text-base',
             selectedCity === 'ALL_CITIES'
               ? 'bg-primary text-white'
               : 'bg-white border border-gray-300 text-secondary hover:border-primary hover:text-primary',
@@ -24,7 +24,7 @@
           v-for="city in mainCities"
           :key="city.code"
           :class="[
-            'px-6 py-2 rounded-xl font-medium transition-all',
+            'px-4 py-2 text-sm rounded-xl font-medium transition-all md:px-6 md:text-base',
             selectedCity === getCityLabel(city.code)
               ? 'bg-primary text-white'
               : 'bg-white border border-gray-300 text-secondary hover:border-primary hover:text-primary',
@@ -35,7 +35,7 @@
         </button>
         <button
           :class="[
-            'px-6 py-2 rounded-xl font-medium transition-all',
+            'px-4 py-2 text-sm rounded-xl font-medium transition-all md:px-6 md:text-base',
             englishOnly
               ? 'bg-primary text-white'
               : 'bg-white border border-gray-300 text-secondary hover:border-primary hover:text-primary',
@@ -46,7 +46,7 @@
         </button>
         <button
           :class="[
-            'px-6 py-2 rounded-xl font-medium transition-all',
+            'px-4 py-2 text-sm rounded-xl font-medium transition-all md:px-6 md:text-base',
             budgetOnly
               ? 'bg-primary text-white'
               : 'bg-white border border-gray-300 text-secondary hover:border-primary hover:text-primary',
