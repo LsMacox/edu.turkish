@@ -31,7 +31,7 @@
       <label class="block text-sm font-medium text-secondary mb-2">{{
         $t('universities_page.filters.language_label')
       }}</label>
-      <div v-if="availableLanguageCodes.length" class="space-y-2">
+      <div v-if="availableLanguageCodes.length" class="space-y-1">
         <BaseCheckbox
           v-for="lang in availableLanguageCodes"
           :key="lang"
