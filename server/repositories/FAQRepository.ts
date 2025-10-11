@@ -1,6 +1,6 @@
 import type { Prisma, PrismaClient } from '@prisma/client'
 import type { FAQItem, FAQQueryParams, FAQCategory } from '~~/server/types/api'
-import { mapFaqCategoryToApi, mapFaqItemToApi } from './faqMapper'
+import { mapFaqCategoryToApi, mapFaqItemToApi } from './faq-mapper'
 import { normalizeLocale } from '~~/server/utils/locale'
 
 export class FAQRepository {
