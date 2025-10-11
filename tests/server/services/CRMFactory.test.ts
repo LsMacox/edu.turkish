@@ -155,8 +155,8 @@ describe('CRMFactory', () => {
 
     it('should return ICrmProvider interface', () => {
       // Expected: factory returns object implementing ICRMProvider
-      const expectedMethods = ['createLead', 'logActivity']
-      expect(expectedMethods).toHaveLength(2)
+      const expectedMethods = ['createLead', 'logActivity', 'createMinimalLeadFromActivity']
+      expect(expectedMethods).toHaveLength(3)
     })
 
     it('should not require instantiation', () => {

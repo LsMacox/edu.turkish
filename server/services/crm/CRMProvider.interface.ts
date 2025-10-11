@@ -17,16 +17,6 @@ export interface ICRMProvider {
   createLead(data: LeadData): Promise<CRMResult>
 
   /**
-   * Update an existing lead in the CRM system
-   *
-   * @param id - CRM-specific lead ID
-   * @param data - Partial lead data to update
-   * @returns Promise resolving to CRM operation result
-   * @throws Error if lead not found or CRM is unreachable
-   */
-  updateLead(id: string | number, data: Partial<LeadData>): Promise<CRMResult>
-
-  /**
    * Log an activity/event in the CRM system
    *
    * @param data - Activity data (messenger clicks, etc.)

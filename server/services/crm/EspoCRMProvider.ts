@@ -110,16 +110,6 @@ export class EspoCRMProvider implements ICRMProvider {
             const existing = await response.json()
             const id = Array.isArray(existing) && existing.length > 0 ? existing[0]?.id : undefined
             if (id) {
-              // Best-effort update to propagate latest questionnaire fields
-              try {
-                const updateResult = await this.updateLead(id, sanitizedData)
-                if (!updateResult.success) {
-                  console.warn('EspoCRM duplicate lead update failed:', updateResult.error)
-                }
-              } catch (e: any) {
-                console.warn('EspoCRM duplicate lead update threw:', e?.message || e)
-              }
-
               return {
                 success: true,
                 id,
@@ -177,42 +167,6 @@ export class EspoCRMProvider implements ICRMProvider {
         operation: 'createLead',
         timestamp: new Date(),
         ...(validationErrors ? { validationErrors } : {}),
-      }
-    }
-  }
-
-  async updateLead(id: string | number, data: Partial<LeadData>): Promise<CRMResult> {
-    try {
-      const lead = this.transformLeadData(data as LeadData, true)
-      const url = this.getApiUrl(`Lead/${id}`)
-
-      const response = await this.fetchWithTimeout(url, {
-        method: 'PUT',
-        body: JSON.stringify(lead),
-      })
-
-      if (!response.ok) {
-        const errorText = await response.text().catch(() => '')
-        throw new Error(`HTTP error! status: ${response.status}, body: ${errorText}`)
-      }
-
-      const result = await response.json()
-
-      return {
-        success: true,
-        id: result.id || id,
-        provider: 'espocrm',
-        operation: 'updateLead',
-        timestamp: new Date(),
-      }
-    } catch (error: any) {
-      console.error('EspoCRM updateLead error:', error)
-      return {
-        success: false,
-        error: error.message,
-        provider: 'espocrm',
-        operation: 'updateLead',
-        timestamp: new Date(),
       }
     }
   }

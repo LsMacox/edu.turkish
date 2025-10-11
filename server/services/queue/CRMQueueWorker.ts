@@ -5,7 +5,7 @@ import { CRMFactory } from '~~/server/services/crm/CRMFactory'
 import { getRedisClient } from '~~/server/utils/redis'
 
 interface QueueJobData {
-  operation: 'createLead' | 'updateLead' | 'logActivity'
+  operation: 'createLead' | 'logActivity'
   provider: 'bitrix' | 'espocrm'
   data: LeadData | ActivityData
 }
@@ -75,15 +75,6 @@ export class CRMQueueWorker {
         case 'createLead':
           result = await crmProvider.createLead(data as LeadData)
           break
-        case 'updateLead': {
-          // For update, we need the ID - it should be in the data
-          const updateData = data as any
-          if (!updateData.id) {
-            throw new Error('Update operation requires lead ID')
-          }
-          result = await crmProvider.updateLead(updateData.id, updateData)
-          break
-        }
         case 'logActivity':
           result = await crmProvider.logActivity(data as ActivityData)
           break

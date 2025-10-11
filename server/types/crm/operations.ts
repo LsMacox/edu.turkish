@@ -67,7 +67,7 @@ export interface CRMResult {
   id?: string | number
   error?: string
   provider: 'bitrix' | 'espocrm'
-  operation: 'createLead' | 'updateLead' | 'logActivity' | 'createMinimalLeadFromActivity'
+  operation: 'createLead' | 'logActivity' | 'createMinimalLeadFromActivity'
   timestamp: Date
   duplicate?: boolean
   validationErrors?: string[]
@@ -75,7 +75,7 @@ export interface CRMResult {
 
 export interface CRMQueueJob {
   id: string
-  operation: 'createLead' | 'updateLead' | 'logActivity'
+  operation: 'createLead' | 'logActivity'
   provider: 'bitrix' | 'espocrm'
   data: LeadData | ActivityData
   attempts: number

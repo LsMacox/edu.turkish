@@ -117,46 +117,6 @@ export class BitrixCRMProvider implements ICRMProvider {
     }
   }
 
-  async updateLead(id: string | number, data: Partial<LeadData>): Promise<CRMResult> {
-    try {
-      const lead = this.transformLeadData(data as LeadData, true)
-      const url = this.getBitrixApiUrl('crm.lead.update')
-
-      const response = await this.fetchWithTimeout(url, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ id, fields: lead }),
-      })
-
-      if (!response.ok) {
-        throw new Error(`HTTP error! status: ${response.status}`)
-      }
-
-      const result = await response.json()
-
-      if (result.error) {
-        throw new Error(result.error_description || result.error)
-      }
-
-      return {
-        success: true,
-        id,
-        provider: 'bitrix',
-        operation: 'updateLead',
-        timestamp: new Date(),
-      }
-    } catch (error: any) {
-      console.error('Bitrix updateLead error:', error)
-      return {
-        success: false,
-        error: error.message,
-        provider: 'bitrix',
-        operation: 'updateLead',
-        timestamp: new Date(),
-      }
-    }
-  }
-
   async logActivity(data: ActivityData): Promise<CRMResult> {
     try {
       // Validate input

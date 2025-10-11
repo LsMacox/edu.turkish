@@ -39,7 +39,7 @@ export class RedisQueue {
    * Add a CRM operation job to the queue
    */
   async addJob(
-    operation: 'createLead' | 'updateLead' | 'logActivity',
+    operation: 'createLead' | 'logActivity',
     provider: 'bitrix' | 'espocrm',
     data: LeadData | ActivityData,
   ): Promise<CRMQueueJob> {
