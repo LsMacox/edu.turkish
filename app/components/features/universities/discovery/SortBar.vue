@@ -9,10 +9,14 @@
     </p>
 
     <div class="flex items-center gap-4">
-      <label class="text-sm font-medium text-secondary">{{
+      <label :for="sortFieldId" class="text-sm font-medium text-secondary">{{
         $t('universities_page.sort.sort_label')
       }}</label>
-      <BaseSelect :model-value="sort" @update:model-value="onUpdateSort">
+      <BaseSelect
+        :id="sortFieldId"
+        :model-value="sort"
+        @update:model-value="onUpdateSort"
+      >
         <option value="pop">{{ $t('universities_page.sort.options.popularity') }}</option>
         <option value="price_asc">{{ $t('universities_page.sort.options.price_asc') }}</option>
         <option value="price_desc">{{ $t('universities_page.sort.options.price_desc') }}</option>
@@ -29,6 +33,8 @@ import { SORT_OPTIONS } from '~/stores/universities'
 
 defineProps<{ total: number; displayed: number; sort: SortOption }>()
 const emit = defineEmits<{ (e: 'update:sort', value: SortOption): void }>()
+
+const sortFieldId = useId()
 
 const onUpdateSort = (value: string) => {
   if ((SORT_OPTIONS as readonly string[]).includes(value)) {

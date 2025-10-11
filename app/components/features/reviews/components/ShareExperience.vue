@@ -19,10 +19,11 @@
             <div class="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-6">
               <!-- Name -->
               <div>
-                <label class="block text-sm font-semibold text-secondary mb-2">
+                <label :for="nameFieldId" class="block text-sm font-semibold text-secondary mb-2">
                   {{ $t('reviews.shareExperience.form.name.label') }}
                 </label>
                 <BaseTextField
+                  :id="nameFieldId"
                   v-model="form.name"
                   type="text"
                   :placeholder="$t('reviews.shareExperience.form.name.placeholder')"
@@ -33,10 +34,10 @@
 
               <!-- Reviewer Type -->
               <div>
-                <label class="block text-sm font-semibold text-secondary mb-2">
+                <label :for="reviewerTypeFieldId" class="block text-sm font-semibold text-secondary mb-2">
                   {{ $t('reviews.shareExperience.form.reviewerType.label') }}
                 </label>
-                <BaseSelect v-model="form.reviewerType">
+                <BaseSelect :id="reviewerTypeFieldId" v-model="form.reviewerType">
                   <option value="">
                     {{ $t('reviews.shareExperience.form.reviewerType.placeholder') }}
                   </option>
@@ -53,10 +54,14 @@
             <div class="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-6">
               <!-- University -->
               <div>
-                <label class="block text-sm font-semibold text-secondary mb-2">
+                <label :for="universityFieldId" class="block text-sm font-semibold text-secondary mb-2">
                   {{ $t('reviews.shareExperience.form.university.label') }}
                 </label>
-                <BaseSelect v-model="form.university" :disabled="isLoadingUniversities">
+                <BaseSelect
+                  :id="universityFieldId"
+                  v-model="form.university"
+                  :disabled="isLoadingUniversities"
+                >
                   <option value="">
                     {{
                       isLoadingUniversities
@@ -84,10 +89,11 @@
             <div class="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-6">
               <!-- Faculty -->
               <div>
-                <label class="block text-sm font-semibold text-secondary mb-2">
+                <label :for="facultyFieldId" class="block text-sm font-semibold text-secondary mb-2">
                   {{ $t('reviews.shareExperience.form.faculty.label') }}
                 </label>
                 <BaseTextField
+                  :id="facultyFieldId"
                   v-model="form.faculty"
                   type="text"
                   :placeholder="$t('reviews.shareExperience.form.faculty.placeholder')"
@@ -97,10 +103,10 @@
 
               <!-- Year -->
               <div>
-                <label class="block text-sm font-semibold text-secondary mb-2">
+                <label :for="yearFieldId" class="block text-sm font-semibold text-secondary mb-2">
                   {{ $t('reviews.shareExperience.form.year.label') }}
                 </label>
-                <BaseSelect v-model="form.year">
+                <BaseSelect :id="yearFieldId" v-model="form.year">
                   <option value="">
                     {{ $t('reviews.shareExperience.form.year.placeholder') }}
                   </option>
@@ -119,10 +125,10 @@
             <div class="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-6">
               <!-- Rating -->
               <div>
-                <label class="block text-sm font-semibold text-secondary mb-2">
+                <label :for="ratingFieldId" class="block text-sm font-semibold text-secondary mb-2">
                   {{ $t('reviews.shareExperience.form.rating.label') }}
                 </label>
-                <BaseSelect v-model="form.rating">
+                <BaseSelect :id="ratingFieldId" v-model="form.rating">
                   <option value="">
                     {{ $t('reviews.shareExperience.form.rating.placeholder') }}
                   </option>
@@ -145,10 +151,11 @@
 
               <!-- Contact -->
               <div>
-                <label class="block text-sm font-semibold text-secondary mb-2">
+                <label :for="contactFieldId" class="block text-sm font-semibold text-secondary mb-2">
                   {{ $t('reviews.shareExperience.form.contact.label') }}
                 </label>
                 <BaseTextField
+                  :id="contactFieldId"
                   v-model="form.contact"
                   type="text"
                   :placeholder="$t('reviews.shareExperience.form.contact.placeholder')"
@@ -184,10 +191,10 @@
             </div>
 
             <!-- Helpful aspects -->
-            <div>
-              <label class="block text-sm font-semibold text-secondary mb-4">
+            <fieldset class="p-0 m-0 border-0">
+              <legend class="block text-sm font-semibold text-secondary mb-4">
                 {{ $t('reviews.shareExperience.form.helpful.label') }}
-              </label>
+              </legend>
               <div class="grid grid-cols-1 md:grid-cols-2 gap-2 md:gap-3">
                 <BaseCheckbox
                   v-for="aspect in helpfulAspects"
@@ -198,13 +205,13 @@
                   {{ $t(`reviews.shareExperience.form.helpful.aspects.${aspect.value}`) }}
                 </BaseCheckbox>
               </div>
-            </div>
+            </fieldset>
 
             <!-- Recommendation -->
-            <div>
-              <label class="block text-sm font-semibold text-secondary mb-4">
+            <fieldset class="p-0 m-0 border-0">
+              <legend class="block text-sm font-semibold text-secondary mb-4">
                 {{ $t('reviews.shareExperience.form.recommend.label') }}
-              </label>
+              </legend>
               <div class="flex flex-col space-y-3 md:flex-row md:space-y-0 md:space-x-6">
                 <label
                   class="flex items-center space-x-2 cursor-pointer p-2 rounded-lg hover:bg-gray-50 transition-colors"
@@ -249,7 +256,7 @@
                   }}</span>
                 </label>
               </div>
-            </div>
+            </fieldset>
 
             <!-- Submit Button -->
             <div class="flex justify-center pt-4 md:pt-6">
@@ -313,6 +320,13 @@ import type { UserType } from '~/types/domain'
 import { useReviewFormValidation } from '~/composables/validation/useReviewFormValidation'
 const { t } = useI18n()
 
+const nameFieldId = useId()
+const reviewerTypeFieldId = useId()
+const universityFieldId = useId()
+const facultyFieldId = useId()
+const yearFieldId = useId()
+const ratingFieldId = useId()
+const contactFieldId = useId()
 const reviewFieldId = useId()
 
 interface ReviewForm {

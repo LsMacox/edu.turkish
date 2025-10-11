@@ -2,10 +2,11 @@
   <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-6 gap-4 lg:gap-6 items-start">
     <!-- Search -->
     <div class="md:col-span-2 lg:col-span-2">
-      <label class="block text-sm font-medium text-secondary mb-2">{{
+      <label :for="searchFieldId" class="block text-sm font-medium text-secondary mb-2">{{
         $t('universities_page.filters.search_label')
       }}</label>
       <BaseTextField
+        :id="searchFieldId"
         v-model="state.q"
         type="text"
         :placeholder="$t('universities_page.filters.search_placeholder')"
@@ -15,10 +16,10 @@
 
     <!-- City -->
     <div class="md:col-span-1 lg:col-span-1">
-      <label class="block text-sm font-medium text-secondary mb-2">{{
+      <label :for="cityFieldId" class="block text-sm font-medium text-secondary mb-2">{{
         $t('universities_page.filters.city_label')
       }}</label>
-      <BaseSelect v-model="state.city">
+      <BaseSelect :id="cityFieldId" v-model="state.city">
         <option :value="CITY_ALL_VALUE">{{ $t('universities_page.filters.all_cities') }}</option>
         <option v-for="city in availableFilters.cities" :key="city" :value="city">
           {{ city }}
@@ -28,28 +29,30 @@
 
     <!-- Language -->
     <div class="md:col-span-1 lg:col-span-1">
-      <label class="block text-sm font-medium text-secondary mb-2">{{
-        $t('universities_page.filters.language_label')
-      }}</label>
-      <div v-if="availableLanguageCodes.length" class="space-y-2">
-        <BaseCheckbox
-          v-for="lang in availableLanguageCodes"
-          :key="lang"
-          :checked="state.langs.includes(lang)"
-          :value="lang"
-          @update:checked="toggleLang(lang, $event)"
-        >
-          {{ getLanguageLabel(lang) }}
-        </BaseCheckbox>
-      </div>
+      <fieldset class="p-0 m-0 border-0">
+        <legend class="block text-sm font-medium text-secondary mb-2">{{
+          $t('universities_page.filters.language_label')
+        }}</legend>
+        <div v-if="availableLanguageCodes.length" class="space-y-2">
+          <BaseCheckbox
+            v-for="lang in availableLanguageCodes"
+            :key="lang"
+            :checked="state.langs.includes(lang)"
+            :value="lang"
+            @update:checked="toggleLang(lang, $event)"
+          >
+            {{ getLanguageLabel(lang) }}
+          </BaseCheckbox>
+        </div>
+      </fieldset>
     </div>
 
     <!-- Type -->
     <div class="md:col-span-1 lg:col-span-1">
-      <label class="block text-sm font-medium text-secondary mb-2">{{
+      <label :for="typeFieldId" class="block text-sm font-medium text-secondary mb-2">{{
         $t('universities_page.filters.type_label')
       }}</label>
-      <BaseSelect v-model="state.type">
+      <BaseSelect :id="typeFieldId" v-model="state.type">
         <option :value="TYPE_ALL_VALUE">{{ $t('universities_page.filters.all_types') }}</option>
         <option v-for="t in availableFilters.types" :key="t" :value="t">
           {{ getTypeLabel(t) }}
@@ -59,10 +62,10 @@
 
     <!-- Level -->
     <div class="md:col-span-1 lg:col-span-1">
-      <label class="block text-sm font-medium text-secondary mb-2">{{
+      <label :for="levelFieldId" class="block text-sm font-medium text-secondary mb-2">{{
         $t('universities_page.filters.level_label')
       }}</label>
-      <BaseSelect v-model="state.level">
+      <BaseSelect :id="levelFieldId" v-model="state.level">
         <option :value="LEVEL_ALL_VALUE">{{ $t('universities_page.filters.all_levels') }}</option>
         <option v-for="level in levelOptions" :key="level.value" :value="level.value">
           {{ level.label }}
@@ -129,6 +132,11 @@ const universitiesStore = useUniversitiesStore()
 const { filters, availableFilters } = storeToRefs(universitiesStore)
 const { applyFilters } = universitiesStore
 const { t: translate } = useI18n()
+
+const searchFieldId = useId()
+const cityFieldId = useId()
+const typeFieldId = useId()
+const levelFieldId = useId()
 
 const LEVEL_LABEL_MAP: Record<string, string> = {
   bachelor: 'universities_page.filters.levels.bachelor',
