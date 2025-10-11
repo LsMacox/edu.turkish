@@ -2,10 +2,8 @@ import { describe, expect, it, vi } from 'vitest'
 import { Prisma as PrismaRuntime } from '@prisma/client'
 import type { Prisma as PrismaTypes, PrismaClient } from '@prisma/client'
 import { createMockPrisma } from '~~/tests/test-utils'
-import {
-  UniversityRepository,
-  type UniversityListItem,
-} from '~~/server/repositories/UniversityRepository'
+import { UniversityRepository } from '~~/server/repositories/UniversityRepository'
+import type { UniversityListItem } from '~~/server/repositories/university.prisma'
 import type { UniversityQueryParams } from '~~/server/types/api'
 
 describe('UniversityRepository', () => {
