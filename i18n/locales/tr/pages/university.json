@@ -2,6 +2,7 @@
   "universityDetail": {
     "applyButton": "Üniversiteye Başvur",
     "whatsappButton": "WhatsApp ile İletişime Geç",
+    "metaTitleTemplate": "{name} — Uluslararası öğrenciler için Türkiye'de eğitim | 2025 Başvurusu",
     "keyInformation": {
       "title": "Anahtar Bilgiler",
       "subtitle": "Üniversite hakkında bilmeniz gereken her şey",

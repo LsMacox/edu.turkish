@@ -94,8 +94,17 @@ const error = computed(() => universityDetailStore.error)
 // SEO and meta tags setup
 const headData = computed(() => {
   if (university.value && university.value.name) {
+    const defaultTitle = `${university.value.name} - Edu.turkish`
+    const metaTitleFromI18n = t('universityDetail.metaTitleTemplate', {
+      name: university.value.name,
+    })
+    const metaTitle =
+      metaTitleFromI18n && metaTitleFromI18n !== 'universityDetail.metaTitleTemplate'
+        ? metaTitleFromI18n
+        : defaultTitle
+
     return {
-      title: `${university.value.name} - Edu.turkish`,
+      title: metaTitle,
       meta: [
         {
           name: 'description',
@@ -103,7 +112,7 @@ const headData = computed(() => {
         },
         {
           property: 'og:title',
-          content: `${university.value.name} - Edu.turkish`,
+          content: metaTitle,
         },
         {
           property: 'og:description',

@@ -2,6 +2,7 @@
   "universityDetail": {
     "applyButton": "Apply to University",
     "whatsappButton": "Contact via WhatsApp",
+    "metaTitleTemplate": "{name} — Study in Turkey for International Students | Admission 2025",
     "keyInformation": {
       "title": "Key Information",
       "subtitle": "Everything you need to know about the university",
