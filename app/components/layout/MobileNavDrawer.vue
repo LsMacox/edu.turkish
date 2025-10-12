@@ -48,19 +48,53 @@
         <!-- Navigation Links -->
         <nav class="px-5 md:px-6 py-6 md:py-8">
           <div class="space-y-2">
-            <NuxtLink
-              to="#services"
-              :class="[
-                'flex items-center px-4 py-4 rounded-xl transition-colors min-h-touch-48 text-base font-medium',
-                isActive('#services')
-                  ? 'bg-primary/10 text-primary border-l-4 border-primary'
-                  : 'text-secondary hover:bg-gray-50',
-              ]"
-              @click="goToSection('#services')"
-            >
-              <Icon name="mdi:cog" class="mr-3 text-lg" />
-              {{ t('nav.services') }}
-            </NuxtLink>
+            <div class="rounded-xl overflow-hidden">
+              <button
+                type="button"
+                :class="[
+                  'flex w-full items-center px-4 py-4 transition-colors min-h-touch-48 text-base font-medium border-l-4',
+                  servicesMenuOpen || isServiceRouteActive
+                    ? 'bg-primary/10 text-primary border-primary'
+                    : 'text-secondary hover:bg-gray-50 border-transparent',
+                ]"
+                :aria-expanded="servicesMenuOpen || isServiceRouteActive"
+                aria-controls="mobile-services-menu"
+                @click="toggleServicesOpen"
+              >
+                <div class="flex items-center flex-1 text-left">
+                  <Icon name="mdi:cog" class="mr-3 text-lg" />
+                  <span>{{ t('nav.services') }}</span>
+                </div>
+                <Icon
+                  name="mdi:chevron-down"
+                  class="ml-2 text-lg transition-transform"
+                  :class="{ 'rotate-180': servicesMenuOpen || isServiceRouteActive }"
+                />
+              </button>
+              <transition name="accordion">
+                <div
+                  v-if="servicesMenuOpen || isServiceRouteActive"
+                  id="mobile-services-menu"
+                  class="bg-gray-50"
+                >
+                  <NuxtLink
+                    v-for="link in serviceLinks"
+                    :key="link.path"
+                    :to="link.path"
+                    class="flex items-center px-12 py-3 text-sm text-secondary border-l-4 border-transparent transition-colors"
+                    :class="
+                      isServiceLinkActive(link.path)
+                        ? 'border-primary text-primary bg-primary/5'
+                        : 'hover:bg-white'
+                    "
+                    @click="closeDrawer"
+                  >
+                    <span class="flex-1 text-left">{{ link.label }}</span>
+                    <Icon name="mdi:chevron-right" class="text-lg text-gray-400" />
+                  </NuxtLink>
+                </div>
+              </transition>
+            </div>
 
             <NuxtLink
               :to="localePath('/universities')"
@@ -237,6 +271,33 @@ const options: Opt[] = [
 ]
 
 const currentLocale = computed(() => i18n.locale.value)
+const serviceLinks = computed(() => [
+  {
+    label: t('nav.servicesDropdown.relocation'),
+    path: localePath('/services/relocation-in-turkey'),
+  },
+  {
+    label: t('nav.servicesDropdown.trYosCourses'),
+    path: localePath('/services/tr-yos-courses'),
+  },
+  {
+    label: t('nav.servicesDropdown.satCourses'),
+    path: localePath('/services/sat-courses'),
+  },
+  {
+    label: t('nav.servicesDropdown.languageCourse'),
+    path: localePath('/services/turkish-english-course'),
+  },
+  {
+    label: t('nav.servicesDropdown.documentTranslations'),
+    path: localePath('/services/document-translations'),
+  },
+])
+
+const servicesMenuOpen = ref(false)
+const isServiceRouteActive = computed(() =>
+  serviceLinks.value.some((link) => link.path === route.path) || route.hash === '#services',
+)
 
 const closeAnimationDuration = 300
 const touchStartX = ref<number | null>(null)
@@ -292,6 +353,23 @@ function changeLocale(code: Opt['code']) {
   }
 }
 
+function isServiceLinkActive(path: string) {
+  return route.path === path
+}
+
+function toggleServicesOpen() {
+  servicesMenuOpen.value = !servicesMenuOpen.value
+}
+
+watch(
+  () => props.isOpen,
+  (isOpen) => {
+    if (!isOpen) {
+      servicesMenuOpen.value = false
+    }
+  },
+)
+
 function closeDrawer() {
   emit('close')
 }
@@ -310,11 +388,6 @@ function isActive(to: string) {
 }
 
 // Navigate to home page with specific section hash from any route
-function goToSection(hash: string) {
-  navigateTo({ path: localePath('/'), hash })
-  closeDrawer()
-}
-
 function onTouchStart(event: TouchEvent) {
   if (!props.isOpen) return
 

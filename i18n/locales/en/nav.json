@@ -7,6 +7,13 @@
     "about": "About us",
     "faq": "FAQ",
     "language": "Language",
-    "social": "Social Networks"
+    "social": "Social Networks",
+    "servicesDropdown": {
+      "relocation": "Relocation in Turkey",
+      "trYosCourses": "TR-YÖS Courses",
+      "satCourses": "SAT Courses",
+      "languageCourse": "Turkish & English Course",
+      "documentTranslations": "Document Translations"
+    }
   }
 }

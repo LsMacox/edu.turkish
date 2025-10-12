@@ -7,6 +7,13 @@
     "about": "Біз туралы",
     "faq": "FAQ",
     "language": "Тіл",
-    "social": "Әлеуметтік желілер"
+    "social": "Әлеуметтік желілер",
+    "servicesDropdown": {
+      "relocation": "Түркияда орналасу",
+      "trYosCourses": "TR-YÖS курстары",
+      "satCourses": "SAT курстары",
+      "languageCourse": "Түрік және ағылшын тілі курсы",
+      "documentTranslations": "Құжаттарды аудару"
+    }
   }
 }

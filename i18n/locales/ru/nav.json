@@ -7,6 +7,13 @@
     "about": "О нас",
     "faq": "FAQ",
     "language": "Язык",
-    "social": "Социальные сети"
+    "social": "Социальные сети",
+    "servicesDropdown": {
+      "relocation": "Обустройство по Турции",
+      "trYosCourses": "Курсы TR-YÖS",
+      "satCourses": "Курсы SAT",
+      "languageCourse": "Курс по турецкому и английскому",
+      "documentTranslations": "Переводы документов"
+    }
   }
 }

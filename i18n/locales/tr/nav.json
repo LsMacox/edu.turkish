@@ -7,6 +7,13 @@
     "about": "Hakkımızda",
     "faq": "SSS",
     "language": "Dil",
-    "social": "Sosyal Ağlar"
+    "social": "Sosyal Ağlar",
+    "servicesDropdown": {
+      "relocation": "Türkiye'de Yerleşim",
+      "trYosCourses": "TR-YÖS Kursları",
+      "satCourses": "SAT Kursları",
+      "languageCourse": "Türkçe ve İngilizce Kursu",
+      "documentTranslations": "Belge Çevirileri"
+    }
   }
 }

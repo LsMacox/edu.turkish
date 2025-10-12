@@ -1,20 +1,12 @@
-import { Prisma } from '@prisma/client'
-import type { PrismaClient } from '@prisma/client'
+import type { Prisma, PrismaClient  } from '@prisma/client'
 import type { DegreeType, UniversityType } from '~/types/domain'
 import type { University, UniversityDetail, UniversityFilters, UniversityQueryParams } from '~~/server/types/api'
 import { SUPPORTED_LOCALES, type SupportedLocale } from '~~/lib/locales'
 import { normalizeLocale, type NormalizedLocale } from '~~/server/utils/locale'
 import type { UniversityFilterParams } from './university-filter'
-import {
-  appendFilterValues,
-  buildUniversityOrder,
-  buildUniversityWhere,
-  applyPostProcessSort,
-  VALID_DEGREE_TYPES,
-  VALID_UNIVERSITY_TYPES,
-} from './university-filter'
+import { buildUniversityOrder, buildUniversityWhere, applyPostProcessSort } from './university-filter'
 import { universityListInclude, universityDetailInclude, studyDirectionListSelect } from './university.prisma'
-import { mapUniversityListItem, mapUniversityDetail, generateBadgeLite, generateBadge } from './university-mapper'
+import { mapUniversityListItem, mapUniversityDetail, generateBadgeLite } from './university-mapper'
 
 export class UniversityRepository {
   constructor(private prisma: PrismaClient) {}
