@@ -3,6 +3,8 @@
 Auto-generated from all feature plans. Last updated: 2025-10-03
 
 ## Active Technologies
+- TypeScript 5.9, Node.js (Nuxt 4.1.3) + Nuxt 4, BullMQ 5.61, IORedis 5.8, Telegram Bot API (via fetch) (010-call-activity-espocrm)
+- Redis (queue), MySQL (Prisma for audit logs if needed) (010-call-activity-espocrm)
 
 - TypeScript 5.x, Vue 3 (Composition API), Nuxt 3 + Nuxt 3, Vue 3, Tailwind CSS, Pinia, Vitest (008-1-2-3)
 - i18n JSON files for content, localStorage/cookies for currency preference (008-1-2-3)
@@ -40,6 +42,7 @@ npm test [ONLY COMMANDS FOR ACTIVE TECHNOLOGIES][ONLY COMMANDS FOR ACTIVE TECHNO
 TypeScript 5.9+ (Node.js runtime via tsx): Follow standard conventions
 
 ## Recent Changes
+- 010-call-activity-espocrm: Added TypeScript 5.9, Node.js (Nuxt 4.1.3) + Nuxt 4, BullMQ 5.61, IORedis 5.8, Telegram Bot API (via fetch)
 
 - 008-1-2-3: Added TypeScript 5.x, Vue 3 (Composition API), Nuxt 3 + Nuxt 3, Vue 3, Tailwind CSS, Pinia, Vitest
 
