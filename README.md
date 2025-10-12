@@ -142,7 +142,31 @@ npm run db:studio      # открыть Prisma Studio
 - **Redis и очереди**: `REDIS_HOST`, `REDIS_PORT`, `REDIS_PASSWORD`
 - **Аналитика**: `NUXT_PUBLIC_YANDEX_METRIKA_ID`
 - **CDN**: `NUXT_PUBLIC_CDN_URL` — базовый URL для статических ресурсов (изображения, видео, документы). Оставьте пустым для отключения CDN
+- **EspoCRM Webhooks**: `NUXT_ESPOCRM_WEBHOOK_TOKEN`, `NUXT_ESPOCRM_ASSIGNED_TEAM_ID` — для интеграции вебхуков EspoCRM
+- **Telegram Bot**: `NUXT_TELEGRAM_BOT_TOKEN`, `NUXT_TELEGRAM_LEADS_CHANNEL_ID`, `NUXT_TELEGRAM_CALLS_CHANNEL_ID` — для уведомлений в Telegram
 - **Интеграции и инструменты**: `OPENROUTER_API_KEY`, секреты для SMTP/логирования по необходимости
+
+### Настройка EspoCRM Telegram уведомлений
+
+Для получения уведомлений о новых лидах и звонках из EspoCRM в Telegram:
+
+1. **Создайте Telegram бота** через @BotFather и получите токен
+2. **Создайте два канала** (для лидов и звонков) и добавьте бота как администратора
+3. **Получите ID каналов** (используйте @userinfobot)
+4. **Настройте переменные окружения**:
+   ```bash
+   NUXT_ESPOCRM_WEBHOOK_TOKEN=<сгенерируйте секретный токен>
+   NUXT_ESPOCRM_ASSIGNED_TEAM_ID=<ID команды для фильтрации>
+   NUXT_TELEGRAM_BOT_TOKEN=<токен от BotFather>
+   NUXT_TELEGRAM_LEADS_CHANNEL_ID=<ID канала для лидов>
+   NUXT_TELEGRAM_CALLS_CHANNEL_ID=<ID канала для звонков>
+   ```
+5. **Настройте вебхуки в EspoCRM**:
+   - URL для лидов: `https://your-domain.com/api/webhooks/espocrm/lead?token=YOUR_TOKEN`
+   - URL для звонков: `https://your-domain.com/api/webhooks/espocrm/call-activity?token=YOUR_TOKEN`
+   - Событие: `Create`
+
+Подробная инструкция: `specs/010-call-activity-espocrm/quickstart.md`
 
 ## Деплой
 
