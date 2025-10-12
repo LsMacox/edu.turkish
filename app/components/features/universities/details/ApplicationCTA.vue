@@ -15,10 +15,7 @@
           <form class="space-y-6" @submit.prevent="submitApplication">
             <div class="grid md:grid-cols-2 gap-6">
               <div>
-                <label
-                  class="block text-sm font-semibold text-secondary mb-2"
-                  :for="nameFieldId"
-                >
+                <label class="block text-sm font-semibold text-secondary mb-2" :for="nameFieldId">
                   {{ $t('applicationCTA.form.name_label') }}
                 </label>
                 <BaseTextField
@@ -31,10 +28,7 @@
                 />
               </div>
               <div>
-                <label
-                  class="block text-sm font-semibold text-secondary mb-2"
-                  :for="phoneFieldId"
-                >
+                <label class="block text-sm font-semibold text-secondary mb-2" :for="phoneFieldId">
                   {{ $t('applicationCTA.form.phone_label') }}
                 </label>
                 <div class="relative">
@@ -64,10 +58,7 @@
             </div>
 
             <div>
-              <label
-                class="block text-sm font-semibold text-secondary mb-2"
-                :for="emailFieldId"
-              >
+              <label class="block text-sm font-semibold text-secondary mb-2" :for="emailFieldId">
                 {{ $t('applicationCTA.form.email_label') }}
               </label>
               <BaseTextField
@@ -103,10 +94,7 @@
                 </BaseSelect>
               </div>
               <div>
-                <label
-                  class="block text-sm font-semibold text-secondary mb-2"
-                  :for="levelFieldId"
-                >
+                <label class="block text-sm font-semibold text-secondary mb-2" :for="levelFieldId">
                   {{ $t('applicationCTA.form.level_label') }}
                 </label>
                 <BaseSelect
@@ -122,10 +110,7 @@
             </div>
 
             <div>
-              <label
-                class="block text-sm font-semibold text-secondary mb-2"
-                :for="commentFieldId"
-              >
+              <label class="block text-sm font-semibold text-secondary mb-2" :for="commentFieldId">
                 {{ $t('applicationCTA.form.comment_label') }}
               </label>
               <textarea

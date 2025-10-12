@@ -208,9 +208,7 @@ export class BlogRepository {
       .filter((item): item is string => item.length > 0)
   }
 
-  private extractTranslationMetadata(
-    translation?: ArticleTranslation | null,
-  ): {
+  private extractTranslationMetadata(translation?: ArticleTranslation | null): {
     quickFacts: BlogArticleQuickFact[]
     highlights: string[]
     tags: string[]

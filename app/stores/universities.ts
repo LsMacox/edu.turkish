@@ -77,11 +77,7 @@ export const useUniversitiesStore = defineStore('universities', () => {
     const trimmed = city.trim()
     if (!trimmed) return CITY_ALL_VALUE
     const lower = trimmed.toLowerCase()
-    if (
-      trimmed === CITY_ALL_VALUE ||
-      trimmed === defaultCityLabel.value ||
-      lower === 'all'
-    ) {
+    if (trimmed === CITY_ALL_VALUE || trimmed === defaultCityLabel.value || lower === 'all') {
       return CITY_ALL_VALUE
     }
 
@@ -94,11 +90,7 @@ export const useUniversitiesStore = defineStore('universities', () => {
     const trimmed = type.trim()
     if (!trimmed) return TYPE_ALL_VALUE
     const lower = trimmed.toLowerCase()
-    if (
-      trimmed === TYPE_ALL_VALUE ||
-      trimmed === defaultTypeLabel.value ||
-      lower === 'all'
-    ) {
+    if (trimmed === TYPE_ALL_VALUE || trimmed === defaultTypeLabel.value || lower === 'all') {
       return TYPE_ALL_VALUE
     }
 

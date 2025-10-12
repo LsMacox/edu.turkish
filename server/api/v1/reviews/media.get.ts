@@ -7,11 +7,7 @@ export default defineEventHandler(async (event: any) => {
   const query = getQuery(event)
   const lang = getHeader(event, 'Accept-Language') || 'ru'
 
-  const {
-    featured = true,
-    limit = '12',
-    type,
-  } = query
+  const { featured = true, limit = '12', type } = query
 
   try {
     const repository = new ReviewRepository(prisma)

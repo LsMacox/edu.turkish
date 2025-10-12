@@ -246,11 +246,14 @@ export const useUniversityDetailStore = defineStore('universityDetail', () => {
     _error.value = null
 
     try {
-      const response = await $fetch<UniversityDetail>(`/api/v1/universities/${normalizedIdentifier}`, {
-        headers: {
-          'Accept-Language': locale.value,
+      const response = await $fetch<UniversityDetail>(
+        `/api/v1/universities/${normalizedIdentifier}`,
+        {
+          headers: {
+            'Accept-Language': locale.value,
+          },
         },
-      })
+      )
 
       if (response) {
         const frontendUniversity = transformApiToFrontend(response)

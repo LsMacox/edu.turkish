@@ -128,6 +128,11 @@ beforeAll(() => {
       template: '<span :data-icon="name"></span>',
       props: ['name'],
     },
+    BaseSectionHeader: {
+      template:
+        '<div><h2 class="section-title">{{ title }}</h2><p v-if="subtitle" class="section-subtitle">{{ subtitle }}</p><slot /></div>',
+      props: ['title', 'subtitle'],
+    },
   }
 
   // Mock i18n globally

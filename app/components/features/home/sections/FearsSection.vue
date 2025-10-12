@@ -67,10 +67,7 @@
             <p class="text-sm text-gray-500 italic">{{ t('home.fears.fear4_quote') }}</p>
             <div class="border-t pt-3">
               <p class="text-green-600 font-medium">{{ t('home.fears.fear4_solution1') }}</p>
-              <p
-                v-if="te('home.fears.fear4_solution2')"
-                class="text-green-600 font-medium"
-              >
+              <p v-if="te('home.fears.fear4_solution2')" class="text-green-600 font-medium">
                 {{ t('home.fears.fear4_solution2') }}
               </p>
               <p class="text-green-600 font-medium">{{ t('home.fears.fear4_solution3') }}</p>

@@ -34,7 +34,7 @@
             <button
               type="button"
               :class="[
-                'transition-colors font-medium cursor-pointer flex items-center gap-1 border-b-2 pb-0.5 border-transparent',
+                'transition-colors font-medium cursor-pointer flex items-center gap-1 border-b-2 border-transparent',
                 servicesMenuOpen || isServiceRouteActive
                   ? 'text-primary border-primary'
                   : 'text-secondary hover:text-primary',
@@ -171,6 +171,43 @@
             </div>
           </div>
 
+          <!-- Currency Selector (Desktop) -->
+          <div class="relative hidden md:block">
+            <button
+              type="button"
+              class="flex items-center gap-2 px-3 py-2 rounded-lg bg-background hover:bg-gray-100 transition-colors text-sm font-medium text-secondary min-h-touch-44"
+              @click="toggleCurrencyMenu"
+              @keydown.esc="closeCurrencyMenu"
+            >
+              <span>{{ currencySymbol }}</span>
+              <Icon
+                :name="currencyMenuOpen ? 'mdi:chevron-up' : 'mdi:chevron-down'"
+                class="text-base"
+              />
+            </button>
+
+            <transition name="fade" mode="out-in">
+              <div v-if="currencyMenuOpen" class="absolute right-0 top-full z-50 pt-2" @click.stop>
+                <div class="w-40 rounded-xl border border-gray-100 bg-white shadow-xl py-2">
+                  <button
+                    v-for="curr in currencyOptions"
+                    :key="curr.code"
+                    type="button"
+                    class="w-full text-left px-4 py-2 text-sm transition-colors"
+                    :class="
+                      curr.code === currencyRef
+                        ? 'text-primary bg-primary/10'
+                        : 'text-secondary hover:bg-gray-50'
+                    "
+                    @click="changeCurrency(curr.code)"
+                  >
+                    {{ curr.label }}
+                  </button>
+                </div>
+              </div>
+            </transition>
+          </div>
+
           <!-- CTA Button -->
           <button
             class="bg-primary text-white px-3 md:px-6 py-2 md:py-2 rounded-lg md:rounded-xl hover:bg-red-600 transition-colors shadow-lg text-btn"
@@ -202,6 +239,7 @@
 
 <script setup lang="ts">
 import type { SupportedLocale } from '~~/lib/locales'
+import type { Currency } from '~/types/services'
 
 // Site header with navigation and language switcher
 const modal = useApplicationModalStore()
@@ -211,6 +249,10 @@ const i18n = useI18n()
 const { t } = i18n
 const localePath = useLocalePath()
 const switchLocalePath = useSwitchLocalePath()
+
+// Currency management
+const { currencyRef, setCurrency, getCurrencySymbol } = useCurrency()
+const currencyMenuOpen = ref(false)
 
 // Mobile navigation state
 const isMobileNavOpen = ref(false)
@@ -241,8 +283,8 @@ const serviceLinks = computed(() => [
   },
 ])
 
-const isServiceRouteActive = computed(() =>
-  serviceLinks.value.some((link) => route.path === link.path) || route.hash === '#services',
+const isServiceRouteActive = computed(
+  () => serviceLinks.value.some((link) => route.path === link.path) || route.hash === '#services',
 )
 
 type Opt = { code: SupportedLocale; label: string }
@@ -256,7 +298,6 @@ const options: Opt[] = [
 const currentLocale = computed(() => i18n.locale.value)
 const activeIndex = computed(() => options.findIndex((o) => o.code === currentLocale.value))
 
-
 // Slider: 4 equal columns -> width = 25%, translateX(100% * index)
 const sliderStyle = computed(() => ({
   width: 'calc((100% - 0.5rem) / 4)',
@@ -268,6 +309,30 @@ function changeLocale(code: Opt['code']) {
     const path = switchLocalePath(code)
     if (path) navigateTo(path)
   }
+}
+
+// Currency selector
+type CurrencyOpt = { code: Currency; label: string }
+const currencyOptions = computed<CurrencyOpt[]>(() => [
+  { code: 'KZT', label: t('currency.selector.KZT') as string },
+  { code: 'TRY', label: t('currency.selector.TRY') as string },
+  { code: 'RUB', label: t('currency.selector.RUB') as string },
+  { code: 'USD', label: t('currency.selector.USD') as string },
+])
+
+const currencySymbol = computed(() => getCurrencySymbol())
+
+function changeCurrency(code: Currency) {
+  setCurrency(code)
+  closeCurrencyMenu()
+}
+
+function toggleCurrencyMenu() {
+  currencyMenuOpen.value = !currencyMenuOpen.value
+}
+
+function closeCurrencyMenu() {
+  currencyMenuOpen.value = false
 }
 
 function openServicesMenu() {

@@ -438,6 +438,7 @@ export class EspoCRMProvider implements ICRMProvider {
       test: 'Web Site',
       referral: 'Partner',
       partner: 'Partner',
+      service_page: 'Web Site',
     }
     const mapped = map[normalized]
     if (!mapped) {

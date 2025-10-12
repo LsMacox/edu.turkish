@@ -46,9 +46,7 @@ const LEVEL_LABEL_MAP: Record<string, DegreeType> = {
 export const VALID_UNIVERSITY_TYPES: readonly UniversityType[] = UNIVERSITY_TYPE_VALUES
 export const VALID_DEGREE_TYPES: readonly DegreeType[] = DEGREE_TYPE_VALUES
 
-export const appendFilterValues = (
-  translations: UniversitiesFilterTranslation | undefined,
-) => {
+export const appendFilterValues = (translations: UniversitiesFilterTranslation | undefined) => {
   if (!translations) return
 
   if (typeof translations.all_cities === 'string' && translations.all_cities.trim()) {
@@ -83,10 +81,7 @@ for (const locale of SUPPORTED_LOCALES) {
   appendFilterValues(UNIVERSITIES_PAGE_TRANSLATIONS[locale]?.filters)
 }
 
-const normalizePriceRange = (
-  min?: number,
-  max?: number,
-): { min?: number; max?: number } | null => {
+const normalizePriceRange = (min?: number, max?: number): { min?: number; max?: number } | null => {
   const hasValidMin = typeof min === 'number' && Number.isFinite(min) && min >= 0
   const hasValidMax = typeof max === 'number' && Number.isFinite(max) && max >= 0
 
@@ -97,11 +92,7 @@ const normalizePriceRange = (
   let normalizedMin = hasValidMin ? min : undefined
   let normalizedMax = hasValidMax ? max : undefined
 
-  if (
-    normalizedMin !== undefined &&
-    normalizedMax !== undefined &&
-    normalizedMin > normalizedMax
-  ) {
+  if (normalizedMin !== undefined && normalizedMax !== undefined && normalizedMin > normalizedMax) {
     const temp = normalizedMin
     normalizedMin = normalizedMax
     normalizedMax = temp
@@ -235,4 +226,3 @@ export const applyPostProcessSort = (
 
   return universities
 }
-

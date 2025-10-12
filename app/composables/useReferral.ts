@@ -3,12 +3,10 @@ export const useReferral = () => {
 
   // Get referral code from cookies on client side
   onMounted(() => {
-    const cookies = document.cookie
-      .split('; ')
-      .map((row) => {
-        const [key, ...valueParts] = row.split('=')
-        return [key, valueParts.join('=')] as const
-      })
+    const cookies = document.cookie.split('; ').map((row) => {
+      const [key, ...valueParts] = row.split('=')
+      return [key, valueParts.join('=')] as const
+    })
     const cookieMap = new Map(cookies)
 
     const codeFromCookie = cookieMap.get('referral_code') || ''

@@ -10,13 +10,12 @@ export const universityListInclude = Prisma.validator<Prisma.UniversityDefaultAr
 
 export type UniversityListItem = Prisma.UniversityGetPayload<typeof universityListInclude>
 
-export const featuredProgramInclude = Prisma.validator<
-  Prisma.UniversityFeaturedProgramDefaultArgs
->()({
-  include: {
-    program: { include: { translations: true } },
-  },
-})
+export const featuredProgramInclude =
+  Prisma.validator<Prisma.UniversityFeaturedProgramDefaultArgs>()({
+    include: {
+      program: { include: { translations: true } },
+    },
+  })
 
 export type FeaturedProgramWithRelations = Prisma.UniversityFeaturedProgramGetPayload<
   typeof featuredProgramInclude
@@ -67,4 +66,3 @@ export const studyDirectionListSelect = Prisma.validator<Prisma.StudyDirectionDe
     },
   },
 })
-

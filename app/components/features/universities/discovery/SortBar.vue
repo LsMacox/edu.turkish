@@ -12,11 +12,7 @@
       <label :for="sortFieldId" class="text-sm font-medium text-secondary">{{
         $t('universities_page.sort.sort_label')
       }}</label>
-      <BaseSelect
-        :id="sortFieldId"
-        :model-value="sort"
-        @update:model-value="onUpdateSort"
-      >
+      <BaseSelect :id="sortFieldId" :model-value="sort" @update:model-value="onUpdateSort">
         <option value="pop">{{ $t('universities_page.sort.options.popularity') }}</option>
         <option value="price_asc">{{ $t('universities_page.sort.options.price_asc') }}</option>
         <option value="price_desc">{{ $t('universities_page.sort.options.price_desc') }}</option>

@@ -53,7 +53,7 @@
     :aria-controls="ariaControls"
     :tabindex="tabIndex"
     :class="[
-      'inline-flex items-center justify-center font-semibold transition-all duration-200 touch-manipulation',
+      'active:bg-red-700  inline-flex items-center justify-center font-semibold transition-all duration-200 touch-manipulation',
       'focus:outline-none focus:ring-2 focus:ring-offset-2',
       'disabled:opacity-50 disabled:cursor-not-allowed',
       // Enhanced keyboard focus styling

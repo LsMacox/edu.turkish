@@ -243,11 +243,7 @@ async function main(): Promise<void> {
 
   // Replace related entities with provided payload (simple and deterministic)
   await replacePrograms(universityId, data.locale, data.programs)
-  await replaceFeaturedPrograms(
-    universityId,
-    data.locale,
-    data.strong_programs ?? [],
-  )
+  await replaceFeaturedPrograms(universityId, data.locale, data.strong_programs ?? [])
   // Link study directions based on explicit list or program-level hints
   await linkDirectionsForUniversity(universityId, data.locale, data)
   await replaceFacilities(universityId, data.locale, data.campus_life?.facilities ?? [])

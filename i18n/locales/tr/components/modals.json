@@ -40,6 +40,8 @@
     "success_title": "Başvuru gönderildi",
     "success_message": "30 dakika içinde sizinle iletişime geçeceğiz.",
     "error_title": "Gönderim hatası",
-    "error_message": "Lütfen tekrar deneyin veya bizimle doğrudan iletişime geçin."
+    "error_message": "Lütfen tekrar deneyin veya bizimle doğrudan iletişime geçin.",
+    "applying_for": "Başvuru yapıyorsunuz",
+    "service_context_label": "Seçilen hizmet"
   }
 }

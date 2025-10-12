@@ -295,8 +295,8 @@ const serviceLinks = computed(() => [
 ])
 
 const servicesMenuOpen = ref(false)
-const isServiceRouteActive = computed(() =>
-  serviceLinks.value.some((link) => link.path === route.path) || route.hash === '#services',
+const isServiceRouteActive = computed(
+  () => serviceLinks.value.some((link) => link.path === route.path) || route.hash === '#services',
 )
 
 const closeAnimationDuration = 300
