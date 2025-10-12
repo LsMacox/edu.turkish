@@ -37,7 +37,6 @@ vi.mock('~~/server/services/queue/RedisQueue', () => ({
 vi.mock('h3', () => ({
   getCookie: (...args: any[]) => getCookieMock(...args),
 }))
-
 ;(globalThis as any).readBody = readBodyMock
 ;(globalThis as any).assertMethod = assertMethodMock
 ;(globalThis as any).setResponseStatus = setResponseStatusMock

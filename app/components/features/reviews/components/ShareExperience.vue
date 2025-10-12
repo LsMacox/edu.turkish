@@ -34,7 +34,10 @@
 
               <!-- Reviewer Type -->
               <div>
-                <label :for="reviewerTypeFieldId" class="block text-sm font-semibold text-secondary mb-2">
+                <label
+                  :for="reviewerTypeFieldId"
+                  class="block text-sm font-semibold text-secondary mb-2"
+                >
                   {{ $t('reviews.shareExperience.form.reviewerType.label') }}
                 </label>
                 <BaseSelect :id="reviewerTypeFieldId" v-model="form.reviewerType">
@@ -54,7 +57,10 @@
             <div class="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-6">
               <!-- University -->
               <div>
-                <label :for="universityFieldId" class="block text-sm font-semibold text-secondary mb-2">
+                <label
+                  :for="universityFieldId"
+                  class="block text-sm font-semibold text-secondary mb-2"
+                >
                   {{ $t('reviews.shareExperience.form.university.label') }}
                 </label>
                 <BaseSelect
@@ -89,7 +95,10 @@
             <div class="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-6">
               <!-- Faculty -->
               <div>
-                <label :for="facultyFieldId" class="block text-sm font-semibold text-secondary mb-2">
+                <label
+                  :for="facultyFieldId"
+                  class="block text-sm font-semibold text-secondary mb-2"
+                >
                   {{ $t('reviews.shareExperience.form.faculty.label') }}
                 </label>
                 <BaseTextField
@@ -151,7 +160,10 @@
 
               <!-- Contact -->
               <div>
-                <label :for="contactFieldId" class="block text-sm font-semibold text-secondary mb-2">
+                <label
+                  :for="contactFieldId"
+                  class="block text-sm font-semibold text-secondary mb-2"
+                >
                   {{ $t('reviews.shareExperience.form.contact.label') }}
                 </label>
                 <BaseTextField
@@ -166,10 +178,7 @@
 
             <!-- Review Text -->
             <div>
-              <label
-                class="block text-sm font-semibold text-secondary mb-2"
-                :for="reviewFieldId"
-              >
+              <label class="block text-sm font-semibold text-secondary mb-2" :for="reviewFieldId">
                 {{ $t('reviews.shareExperience.form.review.label') }}
               </label>
               <textarea

@@ -22,7 +22,6 @@ beforeEach(() => {
   setCookieMock.mockReset()
   getCookieMock.mockReset()
   sendRedirectMock.mockReset()
-
   ;(globalThis as any).getQuery = getQueryMock
   ;(globalThis as any).setCookie = setCookieMock
   ;(globalThis as any).getCookie = getCookieMock

@@ -30,9 +30,9 @@
     <!-- Language -->
     <div class="md:col-span-1 lg:col-span-1">
       <fieldset class="p-0 m-0 border-0">
-        <legend class="block text-sm font-medium text-secondary mb-2">{{
-          $t('universities_page.filters.language_label')
-        }}</legend>
+        <legend class="block text-sm font-medium text-secondary mb-2">
+          {{ $t('universities_page.filters.language_label') }}
+        </legend>
         <div v-if="availableLanguageCodes.length" class="space-y-2">
           <BaseCheckbox
             v-for="lang in availableLanguageCodes"

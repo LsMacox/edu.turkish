@@ -23,18 +23,64 @@
 
         <!-- Desktop Navigation -->
         <nav class="hidden lg:flex items-center space-x-8">
-          <NuxtLink
-            to="#services"
-            :class="[
-              'transition-colors font-medium cursor-pointer',
-              isActive('#services')
-                ? 'text-primary border-b-2 border-primary pb-0.5'
-                : 'text-secondary hover:text-primary',
-            ]"
-            @click.prevent="goToSection('#services')"
+          <div
+            ref="servicesDropdownRef"
+            class="relative"
+            @mouseenter="cancelCloseAndOpen()"
+            @mouseleave="scheduleClose()"
+            @focusin="openServicesMenu"
+            @focusout="onServicesFocusOut"
           >
-            {{ t('nav.services') }}
-          </NuxtLink>
+            <button
+              type="button"
+              :class="[
+                'transition-colors font-medium cursor-pointer flex items-center gap-1 border-b-2 border-transparent',
+                servicesMenuOpen || isServiceRouteActive
+                  ? 'text-primary border-primary'
+                  : 'text-secondary hover:text-primary',
+              ]"
+              aria-haspopup="menu"
+              :aria-expanded="servicesMenuOpen"
+              aria-controls="services-menu"
+              @click.prevent="toggleServicesMenu"
+              @keydown.enter.prevent="toggleServicesMenu"
+              @keydown.space.prevent="toggleServicesMenu"
+              @keydown.esc.prevent="closeServicesMenu"
+            >
+              <span>{{ t('nav.services') }}</span>
+              <Icon
+                :name="servicesMenuOpen ? 'mdi:chevron-up' : 'mdi:chevron-down'"
+                class="text-base"
+              />
+            </button>
+
+            <transition name="fade" mode="out-in">
+              <div
+                v-if="servicesMenuOpen"
+                id="services-menu"
+                class="absolute left-0 top-full z-50 pt-2"
+                @mouseenter="cancelCloseAndOpen()"
+                @mouseleave="scheduleClose()"
+              >
+                <div class="w-64 rounded-xl border border-gray-100 bg-white shadow-xl py-2">
+                  <NuxtLink
+                    v-for="link in serviceLinks"
+                    :key="link.path"
+                    :to="link.path"
+                    class="block px-4 py-2 text-sm transition-colors"
+                    :class="
+                      isServiceLinkActive(link.path)
+                        ? 'text-primary bg-primary/10'
+                        : 'text-secondary hover:bg-gray-50'
+                    "
+                    @click="closeServicesMenu"
+                  >
+                    {{ link.label }}
+                  </NuxtLink>
+                </div>
+              </div>
+            </transition>
+          </div>
           <NuxtLink
             :to="localePath('/universities')"
             :class="[
@@ -125,6 +171,43 @@
             </div>
           </div>
 
+          <!-- Currency Selector (Desktop) -->
+          <div class="relative hidden md:block">
+            <button
+              type="button"
+              class="flex items-center gap-2 px-3 py-2 rounded-lg bg-background hover:bg-gray-100 transition-colors text-sm font-medium text-secondary min-h-touch-44"
+              @click="toggleCurrencyMenu"
+              @keydown.esc="closeCurrencyMenu"
+            >
+              <span>{{ currencySymbol }}</span>
+              <Icon
+                :name="currencyMenuOpen ? 'mdi:chevron-up' : 'mdi:chevron-down'"
+                class="text-base"
+              />
+            </button>
+
+            <transition name="fade" mode="out-in">
+              <div v-if="currencyMenuOpen" class="absolute right-0 top-full z-50 pt-2" @click.stop>
+                <div class="w-40 rounded-xl border border-gray-100 bg-white shadow-xl py-2">
+                  <button
+                    v-for="curr in currencyOptions"
+                    :key="curr.code"
+                    type="button"
+                    class="w-full text-left px-4 py-2 text-sm transition-colors"
+                    :class="
+                      curr.code === currencyRef
+                        ? 'text-primary bg-primary/10'
+                        : 'text-secondary hover:bg-gray-50'
+                    "
+                    @click="changeCurrency(curr.code)"
+                  >
+                    {{ curr.label }}
+                  </button>
+                </div>
+              </div>
+            </transition>
+          </div>
+
           <!-- CTA Button -->
           <button
             class="bg-primary text-white px-3 md:px-6 py-2 md:py-2 rounded-lg md:rounded-xl hover:bg-red-600 transition-colors shadow-lg text-btn"
@@ -156,6 +239,7 @@
 
 <script setup lang="ts">
 import type { SupportedLocale } from '~~/lib/locales'
+import type { Currency } from '~/types/services'
 
 // Site header with navigation and language switcher
 const modal = useApplicationModalStore()
@@ -166,8 +250,42 @@ const { t } = i18n
 const localePath = useLocalePath()
 const switchLocalePath = useSwitchLocalePath()
 
+// Currency management
+const { currencyRef, setCurrency, getCurrencySymbol } = useCurrency()
+const currencyMenuOpen = ref(false)
+
 // Mobile navigation state
 const isMobileNavOpen = ref(false)
+const servicesMenuOpen = ref(false)
+const servicesDropdownRef = ref<HTMLElement | null>(null)
+const closeTimer = ref<NodeJS.Timeout | null>(null)
+
+const serviceLinks = computed(() => [
+  {
+    label: t('nav.servicesDropdown.relocation'),
+    path: localePath('/services/relocation-in-turkey'),
+  },
+  {
+    label: t('nav.servicesDropdown.trYosCourses'),
+    path: localePath('/services/tr-yos-courses'),
+  },
+  {
+    label: t('nav.servicesDropdown.satCourses'),
+    path: localePath('/services/sat-courses'),
+  },
+  {
+    label: t('nav.servicesDropdown.languageCourse'),
+    path: localePath('/services/turkish-english-course'),
+  },
+  {
+    label: t('nav.servicesDropdown.documentTranslations'),
+    path: localePath('/services/document-translations'),
+  },
+])
+
+const isServiceRouteActive = computed(
+  () => serviceLinks.value.some((link) => route.path === link.path) || route.hash === '#services',
+)
 
 type Opt = { code: SupportedLocale; label: string }
 const options: Opt[] = [
@@ -190,6 +308,75 @@ function changeLocale(code: Opt['code']) {
   if (code !== currentLocale.value) {
     const path = switchLocalePath(code)
     if (path) navigateTo(path)
+  }
+}
+
+// Currency selector
+type CurrencyOpt = { code: Currency; label: string }
+const currencyOptions = computed<CurrencyOpt[]>(() => [
+  { code: 'KZT', label: t('currency.selector.KZT') as string },
+  { code: 'TRY', label: t('currency.selector.TRY') as string },
+  { code: 'RUB', label: t('currency.selector.RUB') as string },
+  { code: 'USD', label: t('currency.selector.USD') as string },
+])
+
+const currencySymbol = computed(() => getCurrencySymbol())
+
+function changeCurrency(code: Currency) {
+  setCurrency(code)
+  closeCurrencyMenu()
+}
+
+function toggleCurrencyMenu() {
+  currencyMenuOpen.value = !currencyMenuOpen.value
+}
+
+function closeCurrencyMenu() {
+  currencyMenuOpen.value = false
+}
+
+function openServicesMenu() {
+  servicesMenuOpen.value = true
+}
+
+function closeServicesMenu() {
+  servicesMenuOpen.value = false
+}
+
+function toggleServicesMenu() {
+  servicesMenuOpen.value = !servicesMenuOpen.value
+}
+
+function cancelCloseAndOpen() {
+  clearCloseTimer()
+  openServicesMenu()
+}
+
+function scheduleClose() {
+  clearCloseTimer()
+  closeTimer.value = setTimeout(() => {
+    closeServicesMenu()
+    closeTimer.value = null
+  }, 120)
+}
+
+function isServiceLinkActive(path: string) {
+  return route.path === path
+}
+
+function onServicesFocusOut(event: FocusEvent) {
+  const nextTarget = event.relatedTarget as Node | null
+  if (servicesDropdownRef.value && nextTarget && servicesDropdownRef.value.contains(nextTarget)) {
+    return
+  }
+
+  closeServicesMenu()
+}
+
+function clearCloseTimer() {
+  if (closeTimer.value) {
+    clearTimeout(closeTimer.value)
+    closeTimer.value = null
   }
 }
 
@@ -226,11 +413,6 @@ function isActive(to: string) {
 }
 
 // Navigate to home page with specific section hash from any route
-function goToSection(hash: string) {
-  navigateTo({ path: localePath('/'), hash })
-  closeMobileNav()
-}
-
 // Close mobile nav on route change
 watch(
   () => route.path,
@@ -238,4 +420,30 @@ watch(
     closeMobileNav()
   },
 )
+
+watch(
+  () => route.fullPath,
+  () => {
+    closeServicesMenu()
+  },
+)
+
+function handleDocumentClick(event: MouseEvent) {
+  const target = event.target as Node | null
+
+  if (!servicesDropdownRef.value || (target && servicesDropdownRef.value.contains(target))) {
+    return
+  }
+
+  closeServicesMenu()
+}
+
+onMounted(() => {
+  document.addEventListener('click', handleDocumentClick)
+})
+
+onBeforeUnmount(() => {
+  document.removeEventListener('click', handleDocumentClick)
+  clearCloseTimer()
+})
 </script>

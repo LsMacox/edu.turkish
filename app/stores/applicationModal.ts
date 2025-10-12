@@ -1,5 +1,6 @@
 import { defineStore } from 'pinia'
 import type { ApplicationPreferences, FormSubmissionData } from '~/types/preferences'
+import type { SubServiceId, ServiceApplicationContext } from '~/types/services'
 
 export const useApplicationModalStore = defineStore('applicationModal', () => {
   // State
@@ -41,6 +42,21 @@ export const useApplicationModalStore = defineStore('applicationModal', () => {
     }
   }
 
+  const openModalForSubService = (subServiceId: SubServiceId, subServiceName: string) => {
+    const context: ServiceApplicationContext = {
+      subServiceId,
+      subServiceName,
+      source: 'service-page',
+      sourceDescription: subServiceName,
+    }
+
+    openModal({
+      source: 'service_page',
+      description: subServiceName,
+      serviceContext: context,
+    })
+  }
+
   const submitApplication = (formData: FormSubmissionData) => {
     // Отслеживание отправки заявки
     if (import.meta.client && (window as any).ym) {
@@ -75,6 +91,7 @@ export const useApplicationModalStore = defineStore('applicationModal', () => {
     // Actions
     openModal,
     closeModal,
+    openModalForSubService,
     submitApplication,
     cleanup,
   }

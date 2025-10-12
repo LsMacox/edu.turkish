@@ -57,9 +57,7 @@ export default defineEventHandler(async (event): Promise<ApplicationResponse> =>
           ? body.personal_info.last_name.trim()
           : undefined,
         phone: body.personal_info.phone,
-        email: body.personal_info.email?.trim()
-          ? body.personal_info.email.trim()
-          : undefined,
+        email: body.personal_info.email?.trim() ? body.personal_info.email.trim() : undefined,
         referralCode: body.ref || 'DIRECT',
         source: body.source || 'website',
         sourceDescription: body.source_description || body.source,
@@ -129,9 +127,7 @@ export default defineEventHandler(async (event): Promise<ApplicationResponse> =>
             ? body.personal_info.last_name.trim()
             : undefined,
           phone: body.personal_info.phone,
-          email: body.personal_info.email?.trim()
-            ? body.personal_info.email.trim()
-            : undefined,
+          email: body.personal_info.email?.trim() ? body.personal_info.email.trim() : undefined,
           referralCode: body.ref || 'DIRECT',
           source: body.source || 'website',
           sourceDescription: body.source_description || body.source,

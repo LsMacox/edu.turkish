@@ -1,4 +1,6 @@
 import type { UserType } from './domain'
+import type { ServiceApplicationContext } from './services'
+
 // Simple preference interface for basic forms
 export interface SimplePreferences {
   source: string
@@ -16,7 +18,7 @@ export interface QuestionnairePreferences extends SimplePreferences {
 
 // Enhanced application preferences with validation and metadata
 export interface ApplicationPreferences {
-  source: FormSource
+  source: FormSource | 'service-page'
   description: string
   timestamp?: Date
   metadata?: Record<string, any>
@@ -30,6 +32,8 @@ export interface ApplicationPreferences {
   universityChosen?: 'yes' | 'no'
   language?: 'turkish' | 'english' | 'both'
   scholarship?: 'yes' | 'no'
+  // Service-specific context (for service pages)
+  serviceContext?: ServiceApplicationContext
 }
 
 // Union type for all preferences (maintaining backward compatibility)
@@ -42,6 +46,7 @@ export const FORM_SOURCES = {
   home_questionnaire: 'Заявка на основе анкеты с главной страницы',
   home_faq: 'Заявка из блока FAQ на главной странице',
   university_detail: 'Заявка с детальной страницы университета',
+  service_page: 'Заявка со страницы услуг',
 } as const
 
 export type FormSource = keyof typeof FORM_SOURCES

@@ -40,6 +40,8 @@
     "success_title": "Application sent",
     "success_message": "We will contact you within 30 minutes.",
     "error_title": "Submission error",
-    "error_message": "Please try again or contact us directly."
+    "error_message": "Please try again or contact us directly.",
+    "applying_for": "Applying for",
+    "service_context_label": "Selected service"
   }
 }

@@ -613,9 +613,7 @@ export async function seedBlog(prisma: PrismaClient) {
             highlights: translation.highlights
               ? (translation.highlights as Prisma.InputJsonValue)
               : undefined,
-            tags: translation.tags
-              ? (translation.tags as Prisma.InputJsonValue)
-              : undefined,
+            tags: translation.tags ? (translation.tags as Prisma.InputJsonValue) : undefined,
           })),
         },
       },

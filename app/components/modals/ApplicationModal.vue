@@ -114,6 +114,19 @@
             <p v-if="messageError" class="mt-2 text-sm text-red-600">{{ messageError }}</p>
           </div>
 
+          <!-- Service context display - for service pages -->
+          <div
+            v-if="userPreferences?.serviceContext"
+            class="bg-blue-50 border border-blue-200 rounded-xl p-4"
+          >
+            <h4 class="text-base md:text-sm font-semibold text-blue-800 mb-2.5">
+              {{ $t('modal.applying_for') }}
+            </h4>
+            <div class="text-sm md:text-xs text-blue-700">
+              <p>• {{ userPreferences.serviceContext.subServiceName }}</p>
+            </div>
+          </div>
+
           <!-- Preferences display - только для анкеты с главной страницы -->
           <div
             v-if="userPreferences && isQuestionnaire(userPreferences)"
@@ -148,11 +161,7 @@
           <p v-if="agreementError" class="mt-2 text-sm text-red-600">{{ agreementError }}</p>
 
           <!-- Hidden referral source field for debugging -->
-          <input
-            type="hidden"
-            name="source"
-            :value="props.userPreferences?.source || 'website'"
-          />
+          <input type="hidden" name="source" :value="props.userPreferences?.source || 'website'" />
 
           <button
             type="submit"
@@ -304,7 +313,12 @@ const submitForm = async () => {
     const lastName = nameParts.slice(1).join(' ') || ''
 
     const ctaSource = props.userPreferences?.source || 'website'
-    const ctaDescription = props.userPreferences?.description
+    let ctaDescription = props.userPreferences?.description
+
+    // Include sub-service name in source_description if available
+    if (props.userPreferences?.serviceContext) {
+      ctaDescription = props.userPreferences.serviceContext.subServiceName
+    }
 
     const applicationData = {
       personal_info: {

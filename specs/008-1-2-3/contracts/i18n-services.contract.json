@@ -1,0 +1,92 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "Services i18n Contract",
+  "description": "Contract for services.json structure across all locales (en, ru, kk, tr)",
+  "type": "object",
+  "required": ["services", "currency", "modal"],
+  "properties": {
+    "services": {
+      "type": "object",
+      "required": [
+        "relocation-in-turkey",
+        "tr-yos-courses",
+        "sat-courses",
+        "turkish-english-course",
+        "document-translations"
+      ],
+      "properties": {
+        "relocation-in-turkey": { "$ref": "#/definitions/serviceCategory" },
+        "tr-yos-courses": { "$ref": "#/definitions/serviceCategory" },
+        "sat-courses": { "$ref": "#/definitions/serviceCategory" },
+        "turkish-english-course": { "$ref": "#/definitions/serviceCategory" },
+        "document-translations": { "$ref": "#/definitions/serviceCategory" }
+      },
+      "additionalProperties": false
+    },
+    "currency": {
+      "type": "object",
+      "required": ["selector"],
+      "properties": {
+        "selector": {
+          "type": "object",
+          "required": ["label", "KZT", "TRY", "RUB", "USD"],
+          "properties": {
+            "label": { "type": "string", "minLength": 1 },
+            "KZT": { "type": "string", "minLength": 1 },
+            "TRY": { "type": "string", "minLength": 1 },
+            "RUB": { "type": "string", "minLength": 1 },
+            "USD": { "type": "string", "minLength": 1 }
+          },
+          "additionalProperties": false
+        }
+      }
+    },
+    "modal": {
+      "type": "object",
+      "required": ["applying_for", "service_context_label"],
+      "properties": {
+        "applying_for": { "type": "string", "minLength": 1 },
+        "service_context_label": { "type": "string", "minLength": 1 }
+      }
+    }
+  },
+  "definitions": {
+    "serviceCategory": {
+      "type": "object",
+      "required": ["title", "subtitle", "subServices"],
+      "properties": {
+        "title": { "type": "string", "minLength": 1 },
+        "subtitle": { "type": "string", "minLength": 1 },
+        "subServices": {
+          "type": "object",
+          "minProperties": 1,
+          "patternProperties": {
+            "^[a-z0-9-]+$": { "$ref": "#/definitions/subService" }
+          },
+          "additionalProperties": false
+        }
+      },
+      "additionalProperties": false
+    },
+    "subService": {
+      "type": "object",
+      "required": ["name", "description", "pricing"],
+      "properties": {
+        "name": { "type": "string", "minLength": 1 },
+        "description": { "type": "string", "minLength": 1 },
+        "pricing": {
+          "type": "object",
+          "required": ["KZT", "TRY", "RUB", "USD"],
+          "properties": {
+            "KZT": { "type": "string", "pattern": "^[0-9,]+$" },
+            "TRY": { "type": "string", "pattern": "^[0-9,]+$" },
+            "RUB": { "type": "string", "pattern": "^[0-9,]+$" },
+            "USD": { "type": "string", "pattern": "^[0-9,]+$" }
+          },
+          "additionalProperties": false
+        }
+      },
+      "additionalProperties": false
+    }
+  }
+}

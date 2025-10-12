@@ -6,6 +6,9 @@ Auto-generated from all feature plans. Last updated: 2025-10-03
 - TypeScript 5.9, Node.js (Nuxt 4.1.3) + Nuxt 4, BullMQ 5.61, IORedis 5.8, Telegram Bot API (via fetch) (010-call-activity-espocrm)
 - Redis (queue), MySQL (Prisma for audit logs if needed) (010-call-activity-espocrm)
 
+- TypeScript 5.x, Vue 3 (Composition API), Nuxt 3 + Nuxt 3, Vue 3, Tailwind CSS, Pinia, Vitest (008-1-2-3)
+- i18n JSON files for content, localStorage/cookies for currency preference (008-1-2-3)
+
 - TypeScript 5.9.3, Vue 3.5.22, Nuxt 4.1.3 + Nuxt Image (@nuxt/image 1.11.0), Nuxt runtime config (007-cdn-replacement-for)
 - N/A (CDN external, no local storage) (007-cdn-replacement-for)
 
@@ -40,6 +43,8 @@ TypeScript 5.9+ (Node.js runtime via tsx): Follow standard conventions
 
 ## Recent Changes
 - 010-call-activity-espocrm: Added TypeScript 5.9, Node.js (Nuxt 4.1.3) + Nuxt 4, BullMQ 5.61, IORedis 5.8, Telegram Bot API (via fetch)
+
+- 008-1-2-3: Added TypeScript 5.x, Vue 3 (Composition API), Nuxt 3 + Nuxt 3, Vue 3, Tailwind CSS, Pinia, Vitest
 
 - 007-cdn-replacement-for: Added TypeScript 5.9.3, Vue 3.5.22, Nuxt 4.1.3 + Nuxt Image (@nuxt/image 1.11.0), Nuxt runtime config
 

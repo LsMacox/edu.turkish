@@ -7,9 +7,8 @@ export const SUPPORTED_LOCALE_SET = new Set<SupportedLocale>(SUPPORTED_LOCALES)
 export const isSupportedLocale = (value: string): value is SupportedLocale =>
   SUPPORTED_LOCALE_SET.has(value as SupportedLocale)
 
-export const resolveSupportedLocale = (
-  locale: NormalizedLocale,
-): SupportedLocale | null => (isSupportedLocale(locale.normalized) ? locale.normalized : null)
+export const resolveSupportedLocale = (locale: NormalizedLocale): SupportedLocale | null =>
+  isSupportedLocale(locale.normalized) ? locale.normalized : null
 
 export const selectTranslation = <T extends { locale: string | null | undefined }>(
   translations: readonly T[] | null | undefined,
@@ -68,4 +67,3 @@ export const extractStringArray = (value: Prisma.JsonValue | null | undefined): 
 
   return value.filter((item): item is string => typeof item === 'string')
 }
-

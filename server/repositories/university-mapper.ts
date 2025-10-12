@@ -25,10 +25,7 @@ import {
   extractStringArray,
   resolveSupportedLocale,
 } from '../utils/university-locale'
-import {
-  FEATURED_PROGRAM_CATEGORY,
-  IMPORTANT_DATE_TYPE_MAP,
-} from './university.constants'
+import { FEATURED_PROGRAM_CATEGORY, IMPORTANT_DATE_TYPE_MAP } from './university.constants'
 
 type Badge = { label?: string; labelKey?: string; color: string } | undefined
 
@@ -65,8 +62,7 @@ export const mapUniversityListItem = (
     totalStudents: university.totalStudents ?? 0,
     internationalStudents: university.internationalStudents ?? 0,
     ranking: {
-      text:
-        typeof keyInfoTexts?.ranking_text === 'string' ? keyInfoTexts.ranking_text : undefined,
+      text: typeof keyInfoTexts?.ranking_text === 'string' ? keyInfoTexts.ranking_text : undefined,
     },
     hasAccommodation: university.hasAccommodation ?? false,
     languages,
@@ -85,7 +81,7 @@ const buildFeaturedPrograms = (
   locale: NormalizedLocale,
 ): { categories: StrongProgramCategory[]; categoryNames: string[] } => {
   const supported = resolveSupportedLocale(locale)
-  const defaultCategory = supported ? FEATURED_PROGRAM_CATEGORY[supported] ?? '' : ''
+  const defaultCategory = supported ? (FEATURED_PROGRAM_CATEGORY[supported] ?? '') : ''
   const groups = new Map<
     string,
     {
@@ -364,13 +360,12 @@ export const generateBadge = (
   return undefined
 }
 
-export const generateBadgeLite = (
-  university: { type?: string },
-): { label?: string; labelKey?: string; color: string } | undefined => {
+export const generateBadgeLite = (university: {
+  type?: string
+}): { label?: string; labelKey?: string; color: string } | undefined => {
   if (university.type === 'tech') {
     return { labelKey: 'universities_page.card.badges.technical', color: 'purple' }
   }
 
   return undefined
 }
-

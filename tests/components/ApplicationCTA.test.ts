@@ -4,9 +4,7 @@ import { defineComponent, computed } from 'vue'
 
 import ApplicationCTA from '~/components/features/universities/details/ApplicationCTA.vue'
 
-const validateUniversityApplicationMock = vi
-  .fn()
-  .mockResolvedValue({ isValid: true, errors: [] })
+const validateUniversityApplicationMock = vi.fn().mockResolvedValue({ isValid: true, errors: [] })
 const resetUniversityApplicationValidationMock = vi.fn()
 const setReferralCodeMock = vi.fn()
 const sanitizePhoneMock = vi.fn((value: string) => value)
