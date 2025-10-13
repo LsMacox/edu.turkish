@@ -14,11 +14,38 @@
         @apply="handleApply"
       />
     </template>
+
+    <template #who-is-this-for>
+      <WhoIsThisForSection key-prefix="services.relocation-in-turkey.whoIsThisFor" />
+    </template>
+
+    <template #expected-results>
+      <ExpectedResultsSection key-prefix="services.relocation-in-turkey.expectedResults" />
+    </template>
+
+    <template #timeline-plan>
+      <TimelinePlanSection key-prefix="services.relocation-in-turkey.timelinePlan" />
+    </template>
+
+    <template #responsibility-matrix>
+      <ResponsibilityMatrixSection
+        key-prefix="services.relocation-in-turkey.responsibilityMatrix"
+      />
+    </template>
+
+    <template #risk-mitigation>
+      <RiskMitigationSection key-prefix="services.relocation-in-turkey.riskMitigation" />
+    </template>
+
+    <template #faq>
+      <ServiceFAQSection key-prefix="services.relocation-in-turkey.faq" />
+    </template>
   </ServicePageLayout>
 </template>
 
 <script setup lang="ts">
-import type { SubServiceId, Currency } from '~/types/services'
+import type { Currency } from '~/types/currency'
+import type { SubServiceId } from '~/types/services'
 
 const { t, tm } = useI18n()
 const modal = useApplicationModalStore()

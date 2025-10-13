@@ -14,11 +14,32 @@
         @apply="handleApply"
       />
     </template>
+
+    <template #course-goal>
+      <CourseGoalSection key-prefix="services.tr-yos-courses.courseGoal" />
+    </template>
+
+    <template #program-content>
+      <ProgramContentSection key-prefix="services.tr-yos-courses.programContent" />
+    </template>
+
+    <template #format-schedule>
+      <FormatScheduleSection key-prefix="services.tr-yos-courses.formatSchedule" />
+    </template>
+
+    <template #student-results>
+      <StudentResultsSection key-prefix="services.tr-yos-courses.studentResults" />
+    </template>
+
+    <template #faq>
+      <ServiceFAQSection key-prefix="services.tr-yos-courses.faq" />
+    </template>
   </ServicePageLayout>
 </template>
 
 <script setup lang="ts">
-import type { SubServiceId, Currency } from '~/types/services'
+import type { Currency } from '~/types/currency'
+import type { SubServiceId } from '~/types/services'
 
 const { t, tm } = useI18n()
 const modal = useApplicationModalStore()

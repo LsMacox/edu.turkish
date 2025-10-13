@@ -14,11 +14,32 @@
         @apply="handleApply"
       />
     </template>
+
+    <template #course-goal>
+      <CourseGoalSection key-prefix="services.sat-courses.courseGoal" />
+    </template>
+
+    <template #program-content>
+      <ProgramContentSection key-prefix="services.sat-courses.programContent" />
+    </template>
+
+    <template #format-schedule>
+      <FormatScheduleSection key-prefix="services.sat-courses.formatSchedule" />
+    </template>
+
+    <template #student-results>
+      <StudentResultsSection key-prefix="services.sat-courses.studentResults" />
+    </template>
+
+    <template #faq>
+      <ServiceFAQSection key-prefix="services.sat-courses.faq" />
+    </template>
   </ServicePageLayout>
 </template>
 
 <script setup lang="ts">
-import type { SubServiceId, Currency } from '~/types/services'
+import type { Currency } from '~/types/currency'
+import type { SubServiceId } from '~/types/services'
 
 const { t, tm } = useI18n()
 const modal = useApplicationModalStore()

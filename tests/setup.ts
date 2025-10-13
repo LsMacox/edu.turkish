@@ -98,6 +98,7 @@ beforeAll(() => {
   // Mock Nuxt composables
   g.useI18n = vi.fn(() => ({
     t: (key: string) => key,
+    tm: (_key: string) => [],
     locale: ref('ru'),
   }))
   g.useLocalePath = vi.fn(() => (path: string) => `/ru${path}`)

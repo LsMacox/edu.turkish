@@ -172,7 +172,7 @@
           </div>
 
           <!-- Currency Selector (Desktop) -->
-          <div class="relative hidden md:block">
+          <div ref="currencyDropdownRef" class="relative hidden md:block">
             <button
               type="button"
               class="flex items-center gap-2 px-3 py-2 rounded-lg bg-background hover:bg-gray-100 transition-colors text-sm font-medium text-secondary min-h-touch-44"
@@ -239,7 +239,7 @@
 
 <script setup lang="ts">
 import type { SupportedLocale } from '~~/lib/locales'
-import type { Currency } from '~/types/services'
+import type { Currency } from '~/types/currency'
 
 // Site header with navigation and language switcher
 const modal = useApplicationModalStore()
@@ -258,6 +258,7 @@ const currencyMenuOpen = ref(false)
 const isMobileNavOpen = ref(false)
 const servicesMenuOpen = ref(false)
 const servicesDropdownRef = ref<HTMLElement | null>(null)
+const currencyDropdownRef = ref<HTMLElement | null>(null)
 const closeTimer = ref<NodeJS.Timeout | null>(null)
 
 const serviceLinks = computed(() => [
@@ -431,11 +432,15 @@ watch(
 function handleDocumentClick(event: MouseEvent) {
   const target = event.target as Node | null
 
-  if (!servicesDropdownRef.value || (target && servicesDropdownRef.value.contains(target))) {
-    return
+  // Close services menu if clicking outside it
+  if (servicesDropdownRef.value && !(target && servicesDropdownRef.value.contains(target))) {
+    closeServicesMenu()
   }
 
-  closeServicesMenu()
+  // Close currency menu if clicking outside it
+  if (currencyDropdownRef.value && !(target && currencyDropdownRef.value.contains(target))) {
+    closeCurrencyMenu()
+  }
 }
 
 onMounted(() => {

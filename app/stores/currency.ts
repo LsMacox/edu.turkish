@@ -1,9 +1,10 @@
 import { defineStore } from 'pinia'
-import type { Currency } from '~/types/services'
+import type { Currency } from '~/types/currency'
+import { CURRENCY_CODES } from '~/types/currency'
 
 const STORAGE_KEY = 'preferred-currency'
 const DEFAULT_CURRENCY: Currency = 'USD'
-const VALID_CURRENCIES: Currency[] = ['KZT', 'TRY', 'RUB', 'USD']
+const VALID_CURRENCIES: readonly Currency[] = CURRENCY_CODES
 
 /**
  * Currency store for managing user's preferred currency selection

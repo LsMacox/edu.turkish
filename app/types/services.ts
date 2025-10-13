@@ -3,29 +3,7 @@
  * Multi-currency pricing and service category structures
  */
 
-/**
- * Supported currencies for pricing display
- */
-export type Currency = 'KZT' | 'TRY' | 'RUB' | 'USD'
-
-/**
- * Currency information with symbol and label
- */
-export interface CurrencyInfo {
-  code: Currency
-  symbol: string
-  label: string // Localized name (e.g., "Tenge", "Lira")
-}
-
-/**
- * All supported currencies with their display information
- */
-export const CURRENCIES: Record<Currency, CurrencyInfo> = {
-  KZT: { code: 'KZT', symbol: '₸', label: 'Tenge' },
-  TRY: { code: 'TRY', symbol: '₺', label: 'Lira' },
-  RUB: { code: 'RUB', symbol: '₽', label: 'Ruble' },
-  USD: { code: 'USD', symbol: '$', label: 'Dollar' },
-}
+import type { Currency } from '~/types/currency'
 
 /**
  * Main service categories shown in navigation dropdown
@@ -142,4 +120,136 @@ export interface TrustIndicator {
 export interface SubServiceWithDelivery extends SubService {
   /** Human-readable delivery timeframe (e.g., "1–2 дня") */
   deliveryTime: string
+}
+
+// ============================================================================
+// New Section Component Types (Feature 012-x-30-60)
+// ============================================================================
+
+/**
+ * Common i18n key prefix interface for section components
+ */
+export interface I18nKeyPrefix {
+  /** Base i18n key prefix for the section (e.g., 'services.relocation-in-turkey.whoIsThisFor') */
+  keyPrefix: string
+}
+
+/**
+ * Timeline week structure for TimelinePlanSection
+ */
+export interface TimelineWeek {
+  number: number
+  activities: string
+}
+
+/**
+ * Responsibility item structure for ResponsibilityMatrixSection
+ */
+export interface ResponsibilityItem {
+  title: string
+  items: string[]
+}
+
+/**
+ * Risk item structure for RiskMitigationSection
+ */
+export interface RiskItem {
+  risk: string
+  mitigation: string
+}
+
+/**
+ * Package tier structure for CourseGoalSection
+ */
+export interface PackageTier {
+  name: string
+  targetScore: string
+}
+
+/**
+ * Program item structure for ProgramContentSection
+ */
+export interface ProgramItem {
+  title: string
+  description: string
+  icon: string
+}
+
+/**
+ * Case study structure for StudentResultsSection
+ */
+export interface CaseStudy {
+  before?: number
+  after?: number
+  score?: number
+  duration?: string
+  proof?: string
+  admission?: string
+}
+
+/**
+ * Level progression structure for LevelProgressionSection
+ */
+export interface LevelProgression {
+  from: string
+  to: string
+  outcome: string
+}
+
+/**
+ * Teacher profile structure for TeachersSection
+ */
+export interface TeacherProfile {
+  name: string
+  photo: string
+  achievements: string
+}
+
+/**
+ * FAQ item structure for ServiceFAQSection
+ */
+export interface FAQItem {
+  question: string
+  answer: string
+}
+
+/**
+ * Sample document structure for SampleDocumentsSection
+ */
+export interface SampleDocument {
+  type: string
+  image: string
+}
+
+// ============================================================================
+// Section Component Props (Feature 012-x-30-60)
+// ============================================================================
+
+/**
+ * PriceCalculatorSection
+ * Interactive calculator for document pricing
+ */
+export interface PriceCalculatorSectionProps extends I18nKeyPrefix {
+  /** Optional: Override title (defaults to i18n key) */
+  title?: string
+}
+
+/**
+ * UniversityRequirementsSection
+ * List of accepted formats and requirements
+ */
+export interface UniversityRequirementsSectionProps extends I18nKeyPrefix {
+  /** Optional: Override title (defaults to i18n key) */
+  title?: string
+}
+
+/**
+ * SampleDocumentsSection
+ * Gallery of anonymized document samples
+ */
+export interface SampleDocumentsSectionProps extends I18nKeyPrefix {
+  /** Optional: Override title (defaults to i18n key) */
+  title?: string
+  /** Optional: Gallery layout */
+  layout?: 'grid' | 'carousel'
 }

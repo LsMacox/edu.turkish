@@ -5,7 +5,7 @@
 </template>
 
 <script setup lang="ts">
-import type { Currency } from '~/types/services'
+import type { Currency } from '~/types/currency'
 import { useCurrency } from '~/composables/useCurrency'
 
 interface Props {

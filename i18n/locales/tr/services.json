@@ -3,6 +3,17 @@
     "common": {
       "deliveryTime": "Süre",
       "price": "Fiyat",
+      "week": "Hafta",
+      "day": "Gün",
+      "days": "gün",
+      "phase": "Aşama",
+      "documentType": "Belge Türü",
+      "languagePair": "Dil Çifti",
+      "urgency": "Aciliyet",
+      "estimatedPrice": "Tahmini Fiyat",
+      "acceptedFormats": "Kabul Edilen Formatlar",
+      "acceptedByUniversities": "Kabul Eden",
+      "sampleDocumentsNote": "Tüm örnekler gizlilik için anonimleştirilmiştir",
       "howItWorks": {
         "title": "Nasıl Çalışır",
         "steps": [
@@ -56,6 +67,108 @@
     "relocation-in-turkey": {
       "title": "Türkiye'ye Taşınma",
       "subtitle": "Türkiye'ye yerleşme için kapsamlı destek - vizeden ikamet iznine",
+      "whoIsThisFor": {
+        "title": "Bu Kimler İçin?",
+        "criteria": [
+          "Türk üniversitesine kabul edildiniz ve 4-8 hafta içinde taşınıyorsunuz",
+          "Vize, konut, banka hesabı ve ikamet izni 'anahtar teslim' şekilde gerekli",
+          "Devlet kurumlarında koşturmak ve hatalar için para cezası riski almak istemiyorsunuz"
+        ]
+      },
+      "expectedResults": {
+        "title": "Ne Elde Edeceksiniz",
+        "items": [
+          "Vize alındı, Türkiye'ye yasal giriş",
+          "Adınıza kira sözleşmesi, kamu hizmetleri bağlandı",
+          "Türk banka hesabı açıldı, banka kartı elinizde",
+          "İkamet izni başvurusu yapıldı, durum takibi dahil",
+          "Varıştan sonra 30 veya 60 gün boyunca kişisel danışman desteği"
+        ]
+      },
+      "timelinePlan": {
+        "title": "30 Günlük Taşınma Planı",
+        "weeks": [
+          {
+            "number": 1,
+            "activities": "Belge hazırlama ve vize merkezi randevusu alma"
+          },
+          {
+            "number": 2,
+            "activities": "Türkiye'ye varış, SIM kart, vergi numarası"
+          },
+          {
+            "number": 3,
+            "activities": "Konut arama ve kira sözleşmesi imzalama, banka hesabı açma"
+          },
+          {
+            "number": 4,
+            "activities": "İkamet izni belge paketi hazırlama ve başvuru"
+          }
+        ]
+      },
+      "responsibilityMatrix": {
+        "title": "Biz Yaparız / Siz Yaparsınız",
+        "weDo": {
+          "title": "Biz Yaparız",
+          "items": [
+            "Tüm gerekli belgeleri ve çevirileri hazırlarız",
+            "Konsoloslukta randevu alırız",
+            "Kriterlerinize uygun 3-5 konut seçeneği buluruz",
+            "Hesap açmak için bankaya sizinle birlikte gideriz",
+            "Göç idaresine ikamet izni başvurusu yaparız",
+            "Başvuru durumunu takip eder ve güncellemelerden haberdar ederiz"
+          ]
+        },
+        "youDo": {
+          "title": "Siz Yaparsınız",
+          "items": [
+            "Gerekli belgeleri sağlarsınız (pasaport, kabul mektubu vb.)",
+            "Konsolosluktaki randevuya katılırsınız",
+            "Sunduğumuz seçeneklerden konut seçersiniz",
+            "Kira sözleşmesini imzalar ve depozito ödersiniz",
+            "Banka belgelerini sağlar ve hesap formlarını imzalarsınız",
+            "İkamet izni için biyometrik randevuya katılırsınız"
+          ]
+        }
+      },
+      "riskMitigation": {
+        "title": "Riskler ve Nasıl Ele Alıyoruz",
+        "risks": [
+          {
+            "risk": "Eksik belgeler nedeniyle vize reddi",
+            "mitigation": "Tüm belgeleri önceden kontrol eder, örnek mektuplar sağlar ve mülakat sorularına hazırlarız"
+          },
+          {
+            "risk": "Kira sözleşmesi hataları veya elverişsiz şartlar",
+            "mitigation": "Tüm sözleşmeler çıkarlarınızı korumak için imzalamadan önce hukuk ekibimiz tarafından incelenir"
+          },
+          {
+            "risk": "Uluslararası öğrenciler için banka hesabı sınırlamaları",
+            "mitigation": "Birden fazla bankayla çalışıyoruz ve uluslararası öğrenciler için gereksinimlerini biliyoruz"
+          },
+          {
+            "risk": "İkamet izni gecikmeleri veya redleri",
+            "mitigation": "Başvuruları erken yapar ve devlet portalı üzerinden günlük olarak durumu takip ederiz"
+          }
+        ]
+      },
+      "faq": {
+        "title": "Sık Sorulan Sorular",
+        "items": [
+          {
+            "question": "Gelir belgesi olmadan vize alabilir miyim?",
+            "answer": "Evet, öğrenciler için kabul mektubunuzu ve burs onayınızı mali destek kanıtı olarak kullanabiliriz."
+          },
+          {
+            "question": "İkamet iznimi aldıktan sonra adresim değişirse ne olur?",
+            "answer": "Taşındıktan sonra 20 gün içinde göç idaresine bildirmeniz gerekir. Yeni adreste kaydınızı güncellemenize yardımcı oluruz."
+          },
+          {
+            "question": "Aile üyelerimi getirebilir miyim?",
+            "answer": "Evet, aile üyeleri bağımlı ikamet izni başvurusunda bulunabilir. Aile birleşimi sürecinin tamamını yönetiyoruz."
+          }
+        ]
+      },
       "subServices": {
         "relocation-visa-support": {
           "name": "Vize Desteği",
@@ -102,6 +215,88 @@
     "tr-yos-courses": {
       "title": "TR-YÖS Kursları",
       "subtitle": "Türk üniversitelerine giriş sınavlarına profesyonel hazırlık",
+      "courseGoal": {
+        "title": "Kurs Hedefi",
+        "description": "Sizi hedef fakültenize kabul için yeterli bir puana TR-YÖS'e hazırlayacağız.",
+        "packages": [
+          { "name": "Temel", "targetScore": "50-60" },
+          { "name": "Standart", "targetScore": "60-70" },
+          { "name": "Premium", "targetScore": "70+" }
+        ]
+      },
+
+      "programContent": {
+        "title": "Programın İçeriği",
+        "items": [
+          {
+            "title": "Teori",
+            "description": "Matematik, mantık ve geometri temelleri",
+            "icon": "mdi:book-open"
+          },
+          {
+            "title": "Pratik",
+            "description": "Gerçek sınav koşullarıyla 12 tam deneme sınavı",
+            "icon": "mdi:pencil"
+          },
+          {
+            "title": "Hata Analizi",
+            "description": "Aldığınız her test için kişiselleştirilmiş geri bildirim",
+            "icon": "mdi:chart-line"
+          },
+          {
+            "title": "Materyaller",
+            "description": "500+ problem ve detaylı notlar içeren görev bankası",
+            "icon": "mdi:folder"
+          }
+        ]
+      },
+      "formatSchedule": {
+        "title": "Format ve Program",
+        "format": "Çevrimiçi veya yüz yüze, grup (10'a kadar) veya bireysel",
+        "duration": "8 hafta (24 ders)",
+        "homework": "Evet, detaylı inceleme ve geri bildirimle",
+        "support": "Eğitmenlerle Telegram sohbeti aracılığıyla oturumlar arası"
+      },
+      "studentResults": {
+        "title": "Öğrenci Sonuçları",
+        "labels": {
+          "before": "Önce",
+          "after": "Sonra",
+          "duration": "Süre",
+          "admittedTo": "Kabul edildi"
+        },
+        "cases": [
+          {
+            "before": 42,
+            "after": 68,
+            "duration": "8 hafta",
+            "proof": "/images/tr-yos-case-1.png"
+          },
+          {
+            "before": 55,
+            "after": 72,
+            "duration": "6 hafta",
+            "proof": "/images/tr-yos-case-2.png"
+          }
+        ]
+      },
+      "faq": {
+        "title": "Sık Sorulan Sorular",
+        "items": [
+          {
+            "question": "Matematik seviyem zayıfsa başlayabilir miyim?",
+            "answer": "Evet, temel paketimiz sıfırdan başlar. Seviye testi yapıyoruz ve size uygun grubu öneriyoruz."
+          },
+          {
+            "question": "Deneme sınavları gerçek TR-YÖS'e ne kadar benziyor?",
+            "answer": "Deneme sınavlarımız gerçek TR-YÖS formatını, zorluk seviyesini ve zamanlama koşullarını taklit eder."
+          },
+          {
+            "question": "Bireysel dersler alabilir miyim?",
+            "answer": "Evet, bireysel dersler mevcuttur. Zayıf yönlerinize odaklanmak için özelleştirilmiş bir program oluştururuz."
+          }
+        ]
+      },
       "subServices": {
         "tr-yos-basic-preparation": {
           "name": "Temel TR-YÖS Hazırlığı",
@@ -148,6 +343,99 @@
     "sat-courses": {
       "title": "SAT Kursları",
       "subtitle": "Uluslararası üniversitelere kabul için uzman SAT hazırlığı",
+      "courseGoal": {
+        "title": "Kurs Hedefi",
+        "description": "Hedef üniversiteniz için rekabetçi bir SAT puanı elde etmenize yardımcı oluyoruz.",
+        "packages": [
+          {
+            "name": "Temel",
+            "targetScore": "1200+"
+          },
+          {
+            "name": "Standart",
+            "targetScore": "1350+"
+          },
+          {
+            "name": "Premium",
+            "targetScore": "1450+"
+          }
+        ]
+      },
+      "programContent": {
+        "title": "Programın İçeriği",
+        "items": [
+          {
+            "title": "Matematik",
+            "description": "Cebir, geometri, veri analizi ve ileri matematik",
+            "icon": "mdi:calculator"
+          },
+          {
+            "title": "Okuma ve Yazma",
+            "description": "Eleştirel okuma, kanıt tabanlı yazma ve dilbilgisi",
+            "icon": "mdi:text"
+          },
+          {
+            "title": "Zaman Yönetimi",
+            "description": "Bölüm başına hız stratejileri ve tempo kontrolü",
+            "icon": "mdi:clock"
+          },
+          {
+            "title": "Test Stratejileri",
+            "description": "Tahmin teknikleri, süreç eliminasyonu ve puan maksimizasyonu",
+            "icon": "mdi:strategy"
+          },
+          {
+            "title": "Tam Uzunlukta Deneme Sınavları",
+            "description": "Resmi College Board formatında 8 deneme sınavı",
+            "icon": "mdi:chart-box"
+          }
+        ]
+      },
+      "formatSchedule": {
+        "title": "Format ve Program",
+        "enrollmentSchedule": "Kayıt her ay açılır, sınav tarihlerinize göre başlangıç",
+        "duration": "12 hafta (36 ders)",
+        "recordings": "Tüm dersler kaydedilir ve 6 ay erişim",
+        "taskBank": "Resmi SAT soruları ve özel pratik setleri"
+      },
+      "studentResults": {
+        "title": "Öğrenci Sonuçları",
+        "labels": {
+          "before": "Önce",
+          "after": "Sonra",
+          "duration": "Süre",
+          "admittedTo": "Kabul edildi"
+        },
+        "cases": [
+          {
+            "score": 1420,
+            "proof": "/images/sat-report-1.png",
+            "admission": "MIT"
+          },
+          {
+            "score": 1380,
+            "proof": "/images/sat-report-2.png",
+            "admission": "Stanford"
+          }
+        ]
+      },
+      "faq": {
+        "title": "Sık Sorulan Sorular",
+        "items": [
+          {
+            "question": "SAT kaç kez alınabilir?",
+            "answer": "SAT'yi istediğiniz kadar alabilirsiniz. Çoğu öğrenci 2-3 kez alır. Üniversiteler genellikle en yüksek puanınızı kabul eder."
+          },
+          {
+            "question": "Test tarihimi değiştirebilir miyim?",
+            "answer": "Evet, College Board ücret karşılığında tarih değişikliğine izin verir. Süreci yönetmenize ve en iyi test tarihini seçmenize yardımcı oluruz."
+          },
+          {
+            "question": "TOEFL/IELTS'e de ihtiyacım var mı?",
+            "answer": "Üniversiteye bağlı. Bazıları ayrı İngilizce yeterlilik testleri yerine yüksek SAT Okuma ve Yazma puanlarını kabul eder."
+          }
+        ]
+      },
       "subServices": {
         "sat-basic-preparation": {
           "name": "Temel SAT Hazırlığı",
@@ -184,6 +472,84 @@
     "turkish-english-course": {
       "title": "Türkçe ve İngilizce Kursları",
       "subtitle": "Öğrenciler ve profesyoneller için dil kursları",
+      "levelProgression": {
+        "title": "Seviye İlerlemeniz",
+        "levels": [
+          {
+            "from": "A1",
+            "to": "A2",
+            "outcome": "Temel konuşmalar, günlük görevler, basit metinler"
+          },
+          {
+            "from": "B1",
+            "to": "B2",
+            "outcome": "İş toplantıları, akademik tartışmalar, karmaşık metinler"
+          },
+          {
+            "from": "C1",
+            "to": "C2",
+            "outcome": "Ana dili gibi akıcılık, profesyonel yazı, nüanslı ifade"
+          }
+        ]
+      },
+      "formatSchedule": {
+        "title": "Öğrenme Formatı",
+        "groupSize": "Grup başına 8'e kadar öğrenci",
+        "individual": "Bireysel dersler mevcut",
+        "conversationClubs": "Haftalık konuşma kulüpleri dahil",
+        "schedule": "Esnek program, sabah/akşam seçenekleri",
+        "platform": "Zoom + materyalli öğrenme portalı",
+        "certificate": "Tamamlama sertifikası verilir"
+      },
+      "teachers": {
+        "title": "Metodoloji ve Öğretmenler",
+        "methodology": "Gerçek dünya senaryolarıyla iletişimsel yaklaşım kullanıyoruz. Her ders konuşma pratiği, bağlamda dilbilgisi ve kültürel içgörüler içerir.",
+        "profiles": [
+          {
+            "name": "Ayşe Yılmaz",
+            "photo": "/images/team/teacher-placeholder.jpg",
+            "achievements": "Ana dili Türkçe, 10+ yıl öğretmenlik deneyimi, TÖMER sertifikalı"
+          },
+          {
+            "name": "John Smith",
+            "photo": "/images/team/teacher-placeholder.jpg",
+            "achievements": "Ana dili İngilizce, CELTA sertifikalı, Türkiye'de 8 yıl"
+          },
+          {
+            "name": "Mehmet Demir",
+            "photo": "/images/team/teacher-placeholder.jpg",
+            "achievements": "İki dilli Türkçe-İngilizce, Dilbilim Yüksek Lisans, sınav hazırlık uzmanı"
+          }
+        ]
+      },
+      "expectedResults": {
+        "title": "12 Haftada Sonuçlar",
+        "duration": "12",
+        "skills": [
+          "Türkçe banka hesabı açma",
+          "Üniversite mülakatını geçme",
+          "Haber makalelerini okuma ve ana fikirleri anlama",
+          "Resmi e-postalar ve başvurular yazma",
+          "Çeviri uygulamaları olmadan günlük yaşamda gezinme"
+        ]
+      },
+      "faq": {
+        "title": "Sık Sorulan Sorular",
+        "items": [
+          {
+            "question": "Bir dersi kaçırırsam ne olur?",
+            "answer": "Tüm dersler kaydedilir. Kaydı izleyebilirsiniz ve gerekirse telafi dersi ayarlarız."
+          },
+          {
+            "question": "Kursumu dondurabilir miyim?",
+            "answer": "Evet, 2 haftaya kadar dondurabilirsiniz. Sadece önceden bize bildirin."
+          },
+          {
+            "question": "İade politikanız nedir?",
+            "answer": "İlk 2 ders içinde tam iade. Bundan sonra kullanılmayan dersler için orantılı iade."
+          }
+        ]
+      },
       "subServices": {
         "language-turkish-beginner": {
           "name": "Başlangıç Türkçesi",
@@ -230,6 +596,70 @@
     "document-translations": {
       "title": "Belge Çevirileri",
       "subtitle": "Resmi belgeler için profesyonel onaylı çeviriler",
+      "priceCalculator": {
+        "title": "Fiyat Hesaplayıcı",
+        "documentTypes": [
+          "Diploma",
+          "Transkript",
+          "Pasaport",
+          "Doğum Belgesi",
+          "Evlilik Belgesi",
+          "Diğer"
+        ],
+        "languages": [
+          "İngilizce → Türkçe",
+          "Rusça → Türkçe",
+          "Kazakça → Türkçe",
+          "Türkçe → İngilizce"
+        ],
+        "urgency": ["Standart (5 iş günü)", "Ekspres (2 iş günü)", "Acil (24 saat)"],
+        "basePrices": {
+          "standard": {
+            "KZT": "10000",
+            "TRY": "350",
+            "RUB": "2000",
+            "USD": "20"
+          },
+          "express": {
+            "KZT": "15000",
+            "TRY": "525",
+            "RUB": "3000",
+            "USD": "30"
+          },
+          "rush": {
+            "KZT": "20000",
+            "TRY": "700",
+            "RUB": "4000",
+            "USD": "40"
+          }
+        }
+      },
+      "universityRequirements": {
+        "title": "Üniversitelerin Kabul Ettiği Formatlar",
+        "formats": [
+          "Noterli çeviri (en yaygın)",
+          "Apostil + noterli çeviri (bazı ülkeler için)",
+          "Konsolosluk onayı (Lahey Sözleşmesi dışı ülkeler için)"
+        ],
+        "acceptedBy": "İstanbul Üniversitesi, Boğaziçi, ODTÜ, Sabancı, Koç dahil tüm büyük Türk üniversiteleri"
+      },
+      "sampleDocuments": {
+        "title": "Örnek Sayfalar",
+        "samples": [
+          {
+            "type": "Diploma Çevirisi",
+            "image": "/images/sample-diploma.jpg"
+          },
+          {
+            "type": "Transkript Çevirisi",
+            "image": "/images/sample-transcript.jpg"
+          },
+          {
+            "type": "Pasaport Çevirisi",
+            "image": "/images/sample-passport.jpg"
+          }
+        ]
+      },
       "subServices": {
         "translation-diploma": {
           "name": "Diploma Çevirisi",

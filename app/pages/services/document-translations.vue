@@ -16,6 +16,20 @@
       />
     </template>
 
+    <template #price-calculator>
+      <PriceCalculatorSection key-prefix="services.document-translations.priceCalculator" />
+    </template>
+
+    <template #university-requirements>
+      <UniversityRequirementsSection
+        key-prefix="services.document-translations.universityRequirements"
+      />
+    </template>
+
+    <template #sample-documents>
+      <SampleDocumentsSection key-prefix="services.document-translations.sampleDocuments" />
+    </template>
+
     <template #how-it-works>
       <HowItWorksSection :steps="howItWorksSteps" />
     </template>
@@ -35,7 +49,8 @@
 </template>
 
 <script setup lang="ts">
-import type { SubServiceId, Currency } from '~/types/services'
+import type { Currency } from '~/types/currency'
+import type { SubServiceId } from '~/types/services'
 
 const { t, tm } = useI18n()
 const modal = useApplicationModalStore()
