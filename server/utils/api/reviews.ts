@@ -17,7 +17,10 @@ const resolveMediaType = (candidate: unknown): AllowedMediaType | undefined => {
     return undefined
   }
 
-  const normalized = candidate.trim()
+  const normalized = candidate.trim().toLowerCase()
+  if (normalized === '') {
+    return undefined
+  }
   return allowedMediaTypes.includes(normalized as AllowedMediaType)
     ? (normalized as AllowedMediaType)
     : undefined

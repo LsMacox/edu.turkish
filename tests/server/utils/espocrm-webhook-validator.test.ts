@@ -1,5 +1,7 @@
 import { describe, expect, it } from 'vitest'
 
+import { validateWebhookToken } from '~~/server/utils/espocrm-webhook-validator'
+
 /**
  * Unit test for EspoCRM webhook validator
  *
@@ -223,34 +225,35 @@ describe('EspoCRM Webhook Validator', () => {
       const token = 'test-webhook-token-123'
       const expectedToken = 'test-webhook-token-123'
 
-      // Expected: Token matches
-      expect(token).toBe(expectedToken)
+      expect(validateWebhookToken(token, expectedToken)).toBe(true)
     })
 
     it('should return false for invalid token', () => {
       const token = 'wrong-token'
       const expectedToken = 'test-webhook-token-123'
 
-      // Expected: Token does not match
-      expect(token).not.toBe(expectedToken)
+      expect(validateWebhookToken(token, expectedToken)).toBe(false)
     })
 
     it('should return false for empty token', () => {
       const token = ''
       const expectedToken = 'test-webhook-token-123'
 
-      // Expected: Empty token invalid
-      expect(token).not.toBe(expectedToken)
-      expect(token).toBe('')
+      expect(validateWebhookToken(token, expectedToken)).toBe(false)
     })
 
     it('should return false for undefined token', () => {
       const token = undefined
       const expectedToken = 'test-webhook-token-123'
 
-      // Expected: Undefined token invalid
-      expect(token).toBeUndefined()
-      expect(token).not.toBe(expectedToken)
+      expect(validateWebhookToken(token, expectedToken)).toBe(false)
+    })
+
+    it('should return false when token length differs', () => {
+      const token = 'test-webhook-token-12'
+      const expectedToken = 'test-webhook-token-123'
+
+      expect(validateWebhookToken(token, expectedToken)).toBe(false)
     })
   })
 

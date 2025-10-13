@@ -18,4 +18,12 @@ describe('parseReviewFilters', () => {
       limit: 50,
     })
   })
+
+  it('normalizes media type regardless of casing', () => {
+    const filters = parseReviewFilters({
+      mediaType: 'Video',
+    })
+
+    expect(filters.mediaType).toBe('video')
+  })
 })
