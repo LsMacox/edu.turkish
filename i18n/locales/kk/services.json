@@ -494,6 +494,14 @@
       },
       "formatSchedule": {
         "title": "Оқыту форматы",
+        "labels": {
+          "groupSize": "Топтағы студенттер саны",
+          "individual": "Жеке сабақтар",
+          "conversationClubs": "Сөйлесу клубтары",
+          "schedule": "Кесте",
+          "platform": "Платформа",
+          "certificate": "Сертификат"
+        },
         "groupSize": "Топта 8-ге дейін студент",
         "individual": "Жеке сабақтар қолжетімді",
         "conversationClubs": "Апта сайынғы сөйлесу клубтары қосылған",
