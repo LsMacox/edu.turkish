@@ -10,21 +10,25 @@
 **Question**: What is the structure of EspoCRM webhook payloads for Lead and Call entities?
 
 **Decision**: EspoCRM webhooks send POST requests with JSON payload containing:
+
 - Entity type (Lead, Call)
 - Entity data (all fields)
 - Event type (create, update, delete)
 - Timestamp
 
-**Rationale**: 
+**Rationale**:
+
 - EspoCRM webhooks are configurable per entity
 - Payload includes full entity data
 - We need to parse entity-specific fields (teams, assigned user, etc.)
 
 **Alternatives Considered**:
+
 - Polling EspoCRM API: Rejected - webhooks are more real-time and efficient
 - Using EspoCRM's built-in notifications: Rejected - doesn't support Telegram
 
 **Implementation Notes**:
+
 - Create TypeScript interfaces for Lead and Call webhook payloads
 - Handle both entity types with separate endpoints for clarity
 - Validate payload structure before processing
@@ -38,16 +42,19 @@
 **Decision**: Use Telegram Bot API's `sendMessage` method with channel ID as chat_id.
 
 **Rationale**:
+
 - Bot must be added as admin to the channel
 - Channel ID format: `-100{channel_id}` for public/private channels
 - Supports Markdown/HTML formatting for rich messages
 - Simple HTTP POST request, no SDK needed
 
 **Alternatives Considered**:
+
 - Telegram SDK (node-telegram-bot-api): Rejected - adds unnecessary dependency, simple fetch is sufficient
 - Telegram CLI: Rejected - not suitable for server automation
 
 **Implementation Notes**:
+
 ```typescript
 // Send message to channel
 POST https://api.telegram.org/bot{token}/sendMessage
@@ -67,17 +74,20 @@ POST https://api.telegram.org/bot{token}/sendMessage
 **Decision**: Use shared secret token in request header or query parameter.
 
 **Rationale**:
+
 - EspoCRM allows custom headers in webhook configuration
 - Simple to implement and validate
 - Sufficient security for internal system communication
 - No complex signature verification needed
 
 **Alternatives Considered**:
+
 - HMAC signature: Rejected - overly complex for internal use
 - IP whitelist: Rejected - not flexible for cloud deployments
 - No authentication: Rejected - security risk
 
 **Implementation Notes**:
+
 - Store token in environment variable: `NUXT_ESPOCRM_WEBHOOK_TOKEN`
 - Validate token in middleware before processing webhook
 - Return 401 Unauthorized if token invalid
@@ -92,25 +102,28 @@ POST https://api.telegram.org/bot{token}/sendMessage
 **Decision**: Create separate queue for Telegram notifications, reuse Redis connection.
 
 **Rationale**:
+
 - Existing queue is for CRM operations (createLead, logActivity)
 - Telegram notifications are different concern (outbound messaging)
 - Separate queue allows independent scaling and monitoring
 - Reuse Redis connection for efficiency
 
 **Alternatives Considered**:
+
 - Extend existing CRM queue: Rejected - mixes concerns, harder to maintain
 - Direct Telegram API calls without queue: Rejected - no retry logic, blocks webhook response
 - New Redis instance: Rejected - unnecessary resource overhead
 
 **Implementation Notes**:
+
 ```typescript
 // New queue: 'telegram-notifications'
 const queue = new Queue('telegram-notifications', {
   connection: getRedisClient(),
   defaultJobOptions: {
     attempts: 3,
-    backoff: { type: 'exponential', delay: 1000 }
-  }
+    backoff: { type: 'exponential', delay: 1000 },
+  },
 })
 ```
 
@@ -123,12 +136,14 @@ const queue = new Queue('telegram-notifications', {
 **Decision**: Format messages with business-relevant fields only, using HTML formatting.
 
 **Rationale**:
+
 - Consultants need quick overview without technical details
 - HTML formatting provides better readability (bold, links)
 - Different formats for leads vs calls
 - Include timestamp, source, contact info, key details
 
 **Alternatives Considered**:
+
 - Plain text: Rejected - less readable
 - Markdown: Rejected - HTML is more reliable in Telegram
 - Include all fields: Rejected - too verbose, includes technical IDs
@@ -136,6 +151,7 @@ const queue = new Queue('telegram-notifications', {
 **Implementation Notes**:
 
 **Lead Notification Format**:
+
 ```
 🆕 Новый лид
 
@@ -149,6 +165,7 @@ const queue = new Queue('telegram-notifications', {
 ```
 
 **Call Activity Format**:
+
 ```
 📞 Новый звонок
 
@@ -169,29 +186,32 @@ const queue = new Queue('telegram-notifications', {
 **Decision**: Check if entity's assigned team ID matches configured `ESPOCRM_ASSIGNED_TEAM_ID`.
 
 **Rationale**:
+
 - EspoCRM entities have `teamsIds` array field
 - Simple array inclusion check
 - Configured via environment variable for flexibility
 - Fail open (send notification) if team not specified
 
 **Alternatives Considered**:
+
 - Check assigned user: Rejected - team-based is more flexible
 - Multiple team support: Deferred - YAGNI, can add later if needed
 - Fail closed (skip if no team): Rejected - user wants simplified approach
 
 **Implementation Notes**:
+
 ```typescript
 function shouldNotify(entity: EspoCRMEntity): boolean {
   const configuredTeamId = useRuntimeConfig().espocrmAssignedTeamId
-  
+
   if (!configuredTeamId) {
     return true // No filter configured, send all
   }
-  
+
   if (!entity.teamsIds || entity.teamsIds.length === 0) {
     return true // No team assigned, send (simplified approach)
   }
-  
+
   return entity.teamsIds.includes(configuredTeamId)
 }
 ```
@@ -202,23 +222,27 @@ function shouldNotify(entity: EspoCRMEntity): boolean {
 
 **Question**: How to handle failures in webhook processing and Telegram delivery?
 
-**Decision**: 
+**Decision**:
+
 - Webhook endpoint: Fast response (200 OK), queue job for async processing
 - Queue worker: 3 retry attempts with exponential backoff
 - Failed jobs: Log error, move to dead letter queue
 
 **Rationale**:
+
 - Webhook must respond quickly to avoid EspoCRM timeout
 - Queue provides reliability and retry logic
 - Exponential backoff prevents overwhelming Telegram API
 - Dead letter queue for manual inspection of failures
 
 **Alternatives Considered**:
+
 - Synchronous processing: Rejected - slow, blocks webhook
 - Unlimited retries: Rejected - can cause infinite loops
 - Immediate failure notification: Rejected - too noisy
 
 **Implementation Notes**:
+
 - Webhook returns 200 immediately after queuing
 - Worker retries: 1s, 2s, 4s delays
 - Log failed jobs with full context for debugging
@@ -228,27 +252,29 @@ function shouldNotify(entity: EspoCRMEntity): boolean {
 
 ## Technology Stack Summary
 
-| Component | Technology | Version | Rationale |
-|-----------|-----------|---------|-----------|
-| Runtime | Node.js + Nuxt | 4.1.3 | Existing project stack |
-| Queue | BullMQ | 5.61.0 | Already in use, proven reliable |
-| Storage | Redis | via IORedis 5.8 | Queue backend, existing connection |
-| HTTP Client | ofetch | 1.4.1 | Nuxt's fetch wrapper, already available |
-| Validation | Zod | 4.1.12 | Type-safe schema validation, in use |
-| Testing | Vitest | 3.2.4 | Project standard |
-| Telegram API | Bot API | Latest | Official, no SDK needed |
+| Component    | Technology     | Version         | Rationale                               |
+| ------------ | -------------- | --------------- | --------------------------------------- |
+| Runtime      | Node.js + Nuxt | 4.1.3           | Existing project stack                  |
+| Queue        | BullMQ         | 5.61.0          | Already in use, proven reliable         |
+| Storage      | Redis          | via IORedis 5.8 | Queue backend, existing connection      |
+| HTTP Client  | ofetch         | 1.4.1           | Nuxt's fetch wrapper, already available |
+| Validation   | Zod            | 4.1.12          | Type-safe schema validation, in use     |
+| Testing      | Vitest         | 3.2.4           | Project standard                        |
+| Telegram API | Bot API        | Latest          | Official, no SDK needed                 |
 
 ---
 
 ## Integration Points
 
 ### Existing Systems
+
 1. **Redis Queue Infrastructure**: Reuse connection, create new queue
 2. **Environment Config**: Add new variables to `nuxt.config.ts`
 3. **Type System**: Extend existing CRM types in `server/types/`
 4. **Logging**: Use existing console logging pattern (upgrade to structured logging if needed)
 
 ### External Systems
+
 1. **EspoCRM**: Webhook source, must configure webhook URLs
 2. **Telegram Bot API**: Message delivery, requires bot token and channel IDs
 

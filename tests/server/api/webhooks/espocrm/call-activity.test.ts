@@ -2,7 +2,7 @@ import { describe, expect, it, beforeEach, vi } from 'vitest'
 
 /**
  * Contract test for EspoCRM call activity webhook endpoint
- * 
+ *
  * Tests the POST /api/webhooks/espocrm/call-activity endpoint
  * according to contracts/webhook-api.md specification
  */

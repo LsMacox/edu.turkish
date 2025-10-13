@@ -1,6 +1,6 @@
 /**
  * EspoCRM Webhook Type Definitions
- * 
+ *
  * Types for EspoCRM webhook payloads (Lead and Call entities)
  */
 

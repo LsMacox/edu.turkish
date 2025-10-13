@@ -240,6 +240,7 @@
 ## Dependencies
 
 **Sequential Dependencies**:
+
 ```
 T001 (config) → T003, T004 (types)
 T003, T004 → T005-T009 (tests)
@@ -254,6 +255,7 @@ T010-T017 → T022-T024 (integration tests)
 ```
 
 **Parallel Groups**:
+
 - T002, T003, T004 can run in parallel
 - T005, T006, T007, T008, T009 can run in parallel (all tests)
 - T010, T011 can run in parallel (different utilities)
@@ -265,6 +267,7 @@ T010-T017 → T022-T024 (integration tests)
 ## Parallel Execution Examples
 
 ### Example 1: Type Definitions (after T001)
+
 ```bash
 # Launch T003 and T004 together:
 Task: "Create EspoCRM webhook types in server/types/espocrm-webhook.ts"
@@ -272,6 +275,7 @@ Task: "Create Telegram notification types in server/types/telegram.ts"
 ```
 
 ### Example 2: Write All Tests (after T003, T004)
+
 ```bash
 # Launch T005-T009 together:
 Task: "Contract test for lead webhook in tests/server/api/webhooks/espocrm/lead.test.ts"
@@ -282,6 +286,7 @@ Task: "Unit test for TelegramNotificationService in tests/server/services/telegr
 ```
 
 ### Example 3: Utilities (after tests fail)
+
 ```bash
 # Launch T010 and T011 together:
 Task: "Create webhook validator utility in server/utils/espocrm-webhook-validator.ts"
@@ -289,6 +294,7 @@ Task: "Create Telegram message formatter in server/utils/telegram-formatter.ts"
 ```
 
 ### Example 4: Polish Tasks
+
 ```bash
 # Launch T018, T019, T020 together:
 Task: "Add error handling and logging improvements"

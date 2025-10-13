@@ -16,7 +16,7 @@ export function getRedisClient(): Redis {
       host: config.redisHost,
       port,
       password: config.redisPassword || undefined,
-      maxRetriesPerRequest: 3,
+      maxRetriesPerRequest: null,
       retryStrategy(times) {
         const delay = Math.min(times * 50, 2000)
         return delay

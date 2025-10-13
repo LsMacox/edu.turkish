@@ -97,3 +97,49 @@ export interface ServiceApplicationContext {
   source: 'service-page'
   sourceDescription: string // Full description for CRM (e.g., "TR-YÖS Basic Preparation")
 }
+
+/**
+ * Represents a single step in the "How It Works" process
+ */
+export interface ProcessStep {
+  /** Step number for visual display (typically 1-4) */
+  stepNumber: number
+  /** Short title of the step (max 50 chars) */
+  title: string
+  /** Detailed description of what happens (max 200 chars) */
+  description: string
+  /** Iconify icon name (e.g., "mdi:upload") */
+  icon: string
+}
+
+/**
+ * Represents a trust factor in "Why Choose Us" section
+ */
+export interface TrustFactor {
+  /** Main heading (max 60 chars) */
+  title: string
+  /** Supporting detail explaining the trust factor (max 150 chars) */
+  description: string
+  /** Iconify icon name (e.g., "mdi:certificate") */
+  icon: string
+}
+
+/**
+ * Represents a decorative trust indicator badge
+ */
+export interface TrustIndicator {
+  /** Display text (max 80 chars) */
+  text: string
+  /** Optional iconify icon name for visual enhancement */
+  icon?: string
+  /** Visual style variant */
+  variant?: 'default' | 'accent'
+}
+
+/**
+ * Extended SubService interface with delivery timeframe
+ */
+export interface SubServiceWithDelivery extends SubService {
+  /** Human-readable delivery timeframe (e.g., "1–2 дня") */
+  deliveryTime: string
+}

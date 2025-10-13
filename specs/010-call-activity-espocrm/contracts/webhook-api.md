@@ -16,14 +16,17 @@ This document defines the API contracts for EspoCRM webhook endpoints that recei
 **Method**: `POST`  
 **Path**: `/api/webhooks/espocrm/lead`  
 **Query Parameters**:
+
 - `token` (required): Webhook authentication token
 
 **Headers**:
+
 ```
 Content-Type: application/json
 ```
 
 **Body Schema**:
+
 ```json
 {
   "entityType": "Lead",
@@ -53,6 +56,7 @@ Content-Type: application/json
 ```
 
 **Example Request**:
+
 ```json
 {
   "entityType": "Lead",
@@ -86,6 +90,7 @@ Content-Type: application/json
 ### Response
 
 **Success Response** (200 OK):
+
 ```json
 {
   "success": true,
@@ -97,6 +102,7 @@ Content-Type: application/json
 **Error Responses**:
 
 **401 Unauthorized** (Invalid token):
+
 ```json
 {
   "success": false,
@@ -105,6 +111,7 @@ Content-Type: application/json
 ```
 
 **400 Bad Request** (Invalid payload):
+
 ```json
 {
   "success": false,
@@ -117,6 +124,7 @@ Content-Type: application/json
 ```
 
 **400 Bad Request** (Wrong event type):
+
 ```json
 {
   "success": false,
@@ -126,6 +134,7 @@ Content-Type: application/json
 ```
 
 **500 Internal Server Error**:
+
 ```json
 {
   "success": false,
@@ -154,14 +163,17 @@ Content-Type: application/json
 **Method**: `POST`  
 **Path**: `/api/webhooks/espocrm/call-activity`  
 **Query Parameters**:
+
 - `token` (required): Webhook authentication token
 
 **Headers**:
+
 ```
 Content-Type: application/json
 ```
 
 **Body Schema**:
+
 ```json
 {
   "entityType": "Call",
@@ -196,6 +208,7 @@ Content-Type: application/json
 ```
 
 **Example Request**:
+
 ```json
 {
   "entityType": "Call",
@@ -233,6 +246,7 @@ Content-Type: application/json
 ### Response
 
 **Success Response** (200 OK):
+
 ```json
 {
   "success": true,
@@ -257,6 +271,7 @@ Same as Lead webhook, with team filtering applied to Call entities.
 **URL**: `https://api.telegram.org/bot{token}/sendMessage`
 
 **Request Body**:
+
 ```json
 {
   "chat_id": "-100xxxxxxxxxx",
@@ -268,6 +283,7 @@ Same as Lead webhook, with team filtering applied to Call entities.
 ```
 
 **Success Response** (200 OK):
+
 ```json
 {
   "ok": true,
@@ -285,6 +301,7 @@ Same as Lead webhook, with team filtering applied to Call entities.
 ```
 
 **Error Response** (400 Bad Request):
+
 ```json
 {
   "ok": false,
@@ -303,26 +320,24 @@ Same as Lead webhook, with team filtering applied to Call entities.
 **Max Length**: 4096 characters (Telegram limit)
 
 **Template**:
+
 ```html
 🆕 <b>Новый лид</b>
 
-👤 <b>Имя:</b> {firstName} {lastName}
-📱 <b>Телефон:</b> {phoneNumber}
-📧 <b>Email:</b> {emailAddress}
-🏢 <b>Компания:</b> {accountName}
-🌐 <b>Источник:</b> {source}
-📊 <b>Статус:</b> {status}
-📝 <b>Описание:</b> {description}
-👨‍💼 <b>Ответственный:</b> {assignedUserName}
-⏰ <b>Время:</b> {formattedDateTime}
+👤 <b>Имя:</b> {firstName} {lastName} 📱 <b>Телефон:</b> {phoneNumber} 📧
+<b>Email:</b> {emailAddress} 🏢 <b>Компания:</b> {accountName} 🌐 <b>Источник:</b> {source} 📊
+<b>Статус:</b> {status} 📝 <b>Описание:</b> {description} 👨‍💼
+<b>Ответственный:</b> {assignedUserName} ⏰ <b>Время:</b> {formattedDateTime}
 ```
 
 **Field Rules**:
+
 - If field is empty/null, omit the entire line
 - Truncate description to 200 characters if longer
 - DateTime format: `DD.MM.YYYY HH:mm`
 
 **Example**:
+
 ```
 🆕 Новый лид
 
@@ -343,20 +358,18 @@ Same as Lead webhook, with team filtering applied to Call entities.
 **Max Length**: 4096 characters
 
 **Template**:
+
 ```html
 📞 <b>Новый звонок</b>
 
-👤 <b>Контакт:</b> {contactName or parentName}
-📱 <b>Телефон:</b> {phoneNumber}
-📊 <b>Статус:</b> {status}
-↔️ <b>Направление:</b> {direction}
-⏱ <b>Длительность:</b> {formattedDuration}
-📝 <b>Заметки:</b> {description}
-👨‍💼 <b>Ответственный:</b> {assignedUserName}
-⏰ <b>Время:</b> {formattedDateTime}
+👤 <b>Контакт:</b> {contactName or parentName} 📱 <b>Телефон:</b> {phoneNumber} 📊
+<b>Статус:</b> {status} ↔️ <b>Направление:</b> {direction} ⏱
+<b>Длительность:</b> {formattedDuration} 📝 <b>Заметки:</b> {description} 👨‍💼
+<b>Ответственный:</b> {assignedUserName} ⏰ <b>Время:</b> {formattedDateTime}
 ```
 
 **Field Rules**:
+
 - If field is empty/null, omit the entire line
 - Duration format: `MM:SS` (e.g., "15:00" for 900 seconds)
 - Direction: "Исходящий" / "Входящий"
@@ -364,6 +377,7 @@ Same as Lead webhook, with team filtering applied to Call entities.
 - Truncate description to 300 characters if longer
 
 **Example**:
+
 ```
 📞 Новый звонок
 
@@ -437,7 +451,8 @@ Same as Lead webhook, with team filtering applied to Call entities.
 
 **Current Version**: 1.0.0  
 **Breaking Changes**: None yet  
-**Future Considerations**: 
+**Future Considerations**:
+
 - v1.1: Add support for update events
 - v1.2: Add support for multiple teams
 - v2.0: Add webhook signature verification (HMAC)

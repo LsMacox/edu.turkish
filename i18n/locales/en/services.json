@@ -1,5 +1,58 @@
 {
   "services": {
+    "common": {
+      "deliveryTime": "Timeline",
+      "price": "Price",
+      "howItWorks": {
+        "title": "How It Works",
+        "steps": [
+          {
+            "title": "Upload Document",
+            "description": "Send us a scan or photo of your document via the website form",
+            "icon": "mdi:upload"
+          },
+          {
+            "title": "We Clarify Details",
+            "description": "Our manager will contact you to clarify requirements",
+            "icon": "mdi:message-text"
+          },
+          {
+            "title": "Translate and Certify",
+            "description": "Licensed translators perform the translation with notarial certification",
+            "icon": "mdi:translate"
+          },
+          {
+            "title": "Receive Ready File",
+            "description": "We send an electronic version and, if needed, the original by courier",
+            "icon": "mdi:check-circle"
+          }
+        ]
+      },
+      "whyChooseUs": {
+        "title": "Why Choose Us",
+        "factors": [
+          {
+            "title": "Licensed Translators",
+            "description": "All our specialists have official accreditation",
+            "icon": "mdi:certificate"
+          },
+          {
+            "title": "Accepted by Turkish Universities",
+            "description": "We work with all major universities in Turkey",
+            "icon": "mdi:school"
+          },
+          {
+            "title": "Support in Russian, Turkish, and English",
+            "description": "Communicate with us in your preferred language",
+            "icon": "mdi:web"
+          }
+        ]
+      },
+      "trustIndicators": {
+        "workingSince": "Working since 2019",
+        "documentsCount": "1000+ documents translated"
+      }
+    },
     "relocation-in-turkey": {
       "title": "Relocation in Turkey",
       "subtitle": "Comprehensive support for settling in Turkey - from visa to residence permit",
@@ -181,6 +234,7 @@
         "translation-diploma": {
           "name": "Diploma Translation",
           "description": "Certified translation of diplomas and degrees",
+          "deliveryTime": "2–3 days",
           "pricing": {
             "KZT": "30,000",
             "TRY": "1,000",
@@ -191,6 +245,7 @@
         "translation-transcript": {
           "name": "Transcript Translation",
           "description": "Certified translation of academic transcripts",
+          "deliveryTime": "3–5 days",
           "pricing": {
             "KZT": "40,000",
             "TRY": "1,400",
@@ -201,6 +256,7 @@
         "translation-passport": {
           "name": "Passport Translation",
           "description": "Certified translation of passport and ID documents",
+          "deliveryTime": "1–2 days",
           "pricing": {
             "KZT": "20,000",
             "TRY": "700",
@@ -211,6 +267,7 @@
         "translation-other-documents": {
           "name": "Other Documents",
           "description": "Translation of certificates, contracts, and other official documents",
+          "deliveryTime": "2–4 days",
           "pricing": {
             "KZT": "25,000",
             "TRY": "850",

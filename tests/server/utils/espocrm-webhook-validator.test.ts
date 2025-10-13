@@ -2,7 +2,7 @@ import { describe, expect, it } from 'vitest'
 
 /**
  * Unit test for EspoCRM webhook validator
- * 
+ *
  * Tests validation schemas and helper functions
  */
 

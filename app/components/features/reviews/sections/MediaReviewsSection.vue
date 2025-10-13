@@ -156,6 +156,11 @@ function closeLightbox() {
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
 }
 
+.media-reviews-swiper .swiper-navigation-icon {
+  height: 30px;
+  padding-left: 3px;
+}
+
 .media-reviews-swiper .swiper-button-next:after,
 .media-reviews-swiper .swiper-button-prev:after {
   font-size: 20px;

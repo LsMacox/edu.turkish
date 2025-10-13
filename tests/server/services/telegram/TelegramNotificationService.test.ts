@@ -2,7 +2,7 @@ import { describe, expect, it, beforeEach, vi } from 'vitest'
 
 /**
  * Unit test for TelegramNotificationService
- * 
+ *
  * Tests Telegram Bot API integration and error handling
  */
 

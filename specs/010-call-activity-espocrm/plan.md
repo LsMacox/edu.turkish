@@ -34,6 +34,7 @@
 ## Summary
 
 Implement webhook endpoint to receive EspoCRM notifications for new leads and call activities. When a new lead or call activity is created in EspoCRM, the system will:
+
 1. Receive webhook payload from EspoCRM
 2. Validate the request using token-based authentication
 3. Filter by ESPOCRM_ASSIGNED_TEAM_ID to determine if notification should be sent
@@ -51,12 +52,13 @@ This feature extends the existing CRM integration infrastructure (BullMQ queue, 
 **Target Platform**: Linux server (Docker)
 **Project Type**: Web application (Nuxt SSR with server API)
 **Performance Goals**: Handle webhook bursts, process notifications within minutes
-**Constraints**: 
+**Constraints**:
+
 - Webhook response must be fast (<500ms) to avoid EspoCRM timeouts
 - Queue-based processing for reliability
 - 3 retry attempts with exponential backoff
 - Only EspoCRM webhooks (not Bitrix)
-**Scale/Scope**: 
+  **Scale/Scope**:
 - 2 webhook endpoints (leads, call activities)
 - 2 Telegram channels
 - 1 queue worker extension
@@ -75,6 +77,7 @@ _GATE: Must pass before Phase 0 research. Re-check after Phase 1 design._
 ✅ **Components**: N/A - no UI components in this feature.
 
 ✅ **Runtime Config**: New environment variables will be declared in `nuxt.config.ts`:
+
 - `NUXT_ESPOCRM_WEBHOOK_TOKEN` → `runtimeConfig.espocrmWebhookToken`
 - `NUXT_ESPOCRM_ASSIGNED_TEAM_ID` → `runtimeConfig.espocrmAssignedTeamId`
 - `NUXT_TELEGRAM_BOT_TOKEN` → `runtimeConfig.telegramBotToken`
@@ -159,6 +162,7 @@ tests/
 **Status**: ✅ COMPLETE
 
 **Research Topics Completed**:
+
 1. ✅ EspoCRM webhook payload structure
 2. ✅ Telegram Bot API for channel messages
 3. ✅ Token-based webhook authentication
@@ -168,6 +172,7 @@ tests/
 7. ✅ Error handling and retry strategy
 
 **Key Decisions**:
+
 - Use separate `telegram-notifications` queue (reuse Redis connection)
 - HTML formatting for Telegram messages
 - Token-based authentication (simple, sufficient)
@@ -255,6 +260,7 @@ _This section describes what the /tasks command will do - DO NOT execute during 
    - Add setup instructions
 
 **Ordering Strategy**:
+
 - Types first (foundation)
 - Utilities depend on types
 - Services depend on utilities

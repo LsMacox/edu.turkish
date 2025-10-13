@@ -1,5 +1,58 @@
 {
   "services": {
+    "common": {
+      "deliveryTime": "Süre",
+      "price": "Fiyat",
+      "howItWorks": {
+        "title": "Nasıl Çalışır",
+        "steps": [
+          {
+            "title": "Belgeyi Yükleyin",
+            "description": "Web sitesi formu üzerinden belgenizin taranmış kopyasını veya fotoğrafını gönderin",
+            "icon": "mdi:upload"
+          },
+          {
+            "title": "Detayları Netleştiriyoruz",
+            "description": "Yöneticimiz gereksinimlerinizi netleştirmek için sizinle iletişime geçecek",
+            "icon": "mdi:message-text"
+          },
+          {
+            "title": "Çeviri ve Onay",
+            "description": "Lisanslı çevirmenler noter onaylı çeviri yapar",
+            "icon": "mdi:translate"
+          },
+          {
+            "title": "Hazır Dosyayı Alın",
+            "description": "Elektronik versiyonu ve gerekirse orijinali kurye ile gönderiyoruz",
+            "icon": "mdi:check-circle"
+          }
+        ]
+      },
+      "whyChooseUs": {
+        "title": "Neden Bizi Seçmelisiniz",
+        "factors": [
+          {
+            "title": "Lisanslı Çevirmenler",
+            "description": "Tüm uzmanlarımız resmi akreditasyona sahiptir",
+            "icon": "mdi:certificate"
+          },
+          {
+            "title": "Türk Üniversiteleri Tarafından Kabul Edilir",
+            "description": "Türkiye'deki tüm büyük üniversitelerle çalışıyoruz",
+            "icon": "mdi:school"
+          },
+          {
+            "title": "Rusça, Türkçe ve İngilizce Destek",
+            "description": "Bizimle tercih ettiğiniz dilde iletişim kurun",
+            "icon": "mdi:web"
+          }
+        ]
+      },
+      "trustIndicators": {
+        "workingSince": "2019'dan beri çalışıyoruz",
+        "documentsCount": "1000+ belge çevrildi"
+      }
+    },
     "relocation-in-turkey": {
       "title": "Türkiye'ye Taşınma",
       "subtitle": "Türkiye'ye yerleşme için kapsamlı destek - vizeden ikamet iznine",
@@ -181,6 +234,7 @@
         "translation-diploma": {
           "name": "Diploma Çevirisi",
           "description": "Diploma ve derecelerin onaylı çevirisi",
+          "deliveryTime": "2–3 gün",
           "pricing": {
             "KZT": "30,000",
             "TRY": "1,000",
@@ -191,6 +245,7 @@
         "translation-transcript": {
           "name": "Transkript Çevirisi",
           "description": "Akademik transkriptlerin onaylı çevirisi",
+          "deliveryTime": "3–5 gün",
           "pricing": {
             "KZT": "40,000",
             "TRY": "1,400",
@@ -201,6 +256,7 @@
         "translation-passport": {
           "name": "Pasaport Çevirisi",
           "description": "Pasaport ve kimlik belgelerinin onaylı çevirisi",
+          "deliveryTime": "1–2 gün",
           "pricing": {
             "KZT": "20,000",
             "TRY": "700",
@@ -211,6 +267,7 @@
         "translation-other-documents": {
           "name": "Diğer Belgeler",
           "description": "Sertifikalar, sözleşmeler ve diğer resmi belgelerin çevirisi",
+          "deliveryTime": "2–4 gün",
           "pricing": {
             "KZT": "25,000",
             "TRY": "850",

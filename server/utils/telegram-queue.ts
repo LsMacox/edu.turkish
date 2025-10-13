@@ -4,7 +4,7 @@ import { getRedisClient } from '~~/server/utils/redis'
 
 /**
  * Telegram Notification Queue
- * 
+ *
  * BullMQ queue for Telegram notification jobs
  */
 
@@ -16,7 +16,7 @@ let queue: Queue<TelegramNotificationJob> | null = null
 export function getTelegramQueue(): Queue<TelegramNotificationJob> {
   if (!queue) {
     const connection = getRedisClient()
-    
+
     queue = new Queue<TelegramNotificationJob>('telegram-notifications', {
       connection,
       defaultJobOptions: {

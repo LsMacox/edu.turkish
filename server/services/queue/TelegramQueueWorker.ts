@@ -6,7 +6,7 @@ import { createTelegramNotificationService } from '~~/server/services/telegram/T
 
 /**
  * Telegram Queue Worker
- * 
+ *
  * Processes Telegram notification jobs from the queue
  */
 
@@ -18,21 +18,21 @@ let worker: Worker | null = null
 export function getTelegramQueueWorker(): Worker {
   if (!worker) {
     const connection = getRedisClient()
-    
+
     worker = new Worker(
       'telegram-notifications',
       async (job: Job<TelegramNotificationJob>) => {
         console.log(`Processing Telegram notification job: ${job.id}`)
-        
+
         try {
           const service = createTelegramNotificationService()
           const result = await service.sendNotification(job.data)
-          
+
           if (!result.success) {
             // Throw error to trigger retry
             throw new Error(result.error || 'Failed to send Telegram notification')
           }
-          
+
           return result
         } catch (error: any) {
           console.error(`Telegram notification job ${job.id} failed:`, error)
@@ -56,7 +56,10 @@ export function getTelegramQueueWorker(): Worker {
 
     worker.on('failed', (job, err) => {
       if (job) {
-        console.error(`Telegram notification job ${job.id} failed after ${job.attemptsMade} attempts:`, err.message)
+        console.error(
+          `Telegram notification job ${job.id} failed after ${job.attemptsMade} attempts:`,
+          err.message,
+        )
       }
     })
 

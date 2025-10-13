@@ -1,6 +1,6 @@
 /**
  * Telegram Notification Type Definitions
- * 
+ *
  * Types for Telegram Bot API and notification queue jobs
  */
 
