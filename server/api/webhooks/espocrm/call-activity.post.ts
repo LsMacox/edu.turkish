@@ -10,7 +10,7 @@ import type { EspoCRMCallWebhook } from '~~/server/types/espocrm-webhook'
 
 /**
  * EspoCRM Call Activity Webhook Endpoint
- * 
+ *
  * Receives webhook notifications for new call activities from EspoCRM
  * and queues Telegram notifications
  */
@@ -32,7 +32,7 @@ export default defineEventHandler(async (event) => {
 
     // 2. Parse and validate request body
     const body = await readBody(event)
-    
+
     let payload: EspoCRMCallWebhook
     try {
       payload = espocrmCallWebhookSchema.parse(body)
@@ -61,7 +61,9 @@ export default defineEventHandler(async (event) => {
     // 4. Apply team filter
     if (!shouldNotifyByTeam(payload.entity.teamsIds, config.espocrmAssignedTeamId)) {
       // Return 200 OK but don't queue notification
-      console.log(`Call ${payload.entity.id} filtered out by team (teams: ${payload.entity.teamsIds?.join(', ') || 'none'})`)
+      console.log(
+        `Call ${payload.entity.id} filtered out by team (teams: ${payload.entity.teamsIds?.join(', ') || 'none'})`,
+      )
       return {
         success: true,
         message: 'Webhook received (filtered by team)',

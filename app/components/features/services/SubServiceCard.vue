@@ -16,8 +16,14 @@
       <!-- Price and CTA -->
       <div class="mt-auto space-y-4">
         <div class="flex items-baseline justify-between">
-          <span class="text-sm text-gray-500">Price</span>
+          <span class="text-sm text-gray-500">{{ $t('services.common.price') }}</span>
           <CurrencyPrice :pricing="pricing" size="lg" />
+        </div>
+
+        <!-- Delivery timeframe -->
+        <div v-if="deliveryTime" class="text-sm text-gray-600">
+          <span class="font-medium">{{ $t('services.common.deliveryTime') }}:</span>
+          {{ deliveryTime }}
         </div>
 
         <button
@@ -40,6 +46,7 @@ interface Props {
   name: string
   description: string
   pricing: Record<Currency, string>
+  deliveryTime?: string
 }
 
 interface Emits {

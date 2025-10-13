@@ -91,12 +91,14 @@ export type EspoCRMCallWebhook = EspoCRMWebhookPayload<EspoCRMCall>
 ```
 
 **Validation Rules**:
+
 - `entityType` must match expected type ('Lead' or 'Call')
 - `event` must be 'create' (we only process new records)
 - `entity` must contain required fields (id, name, createdAt)
 - `teamsIds` is optional array (empty = no team assignment)
 
 **Relationships**:
+
 - Lead → Teams (many-to-many via teamsIds)
 - Call → Contact/Account (via parentId/contactId)
 - Call → Teams (many-to-many via teamsIds)
@@ -166,6 +168,7 @@ export interface TelegramNotificationResult {
 ```
 
 **Validation Rules**:
+
 - `channelId` must be non-empty string
 - `message` must be non-empty, max 4096 characters (Telegram limit)
 - `parseMode` defaults to 'HTML'
@@ -221,6 +224,7 @@ export interface TelegramQueueJob {
 ### State Transitions
 
 **Queue Job States**:
+
 ```
 pending → processing → completed
                     ↓
@@ -235,32 +239,33 @@ pending → processing → completed
 
 ### Lead → Telegram Message
 
-| EspoCRM Field | Telegram Display | Required | Format |
-|--------------|------------------|----------|--------|
-| firstName + lastName | 👤 Имя | Yes | Text |
-| phoneNumber | 📱 Телефон | Yes | Text |
-| emailAddress | 📧 Email | No | Text |
-| accountName | 🏢 Компания | No | Text |
-| source | 🌐 Источник | No | Text |
-| status | 📊 Статус | Yes | Text |
-| description | 📝 Описание | No | Text (truncated if long) |
-| assignedUserName | 👨‍💼 Ответственный | No | Text |
-| createdAt | ⏰ Время | Yes | Formatted datetime |
+| EspoCRM Field        | Telegram Display | Required | Format                   |
+| -------------------- | ---------------- | -------- | ------------------------ |
+| firstName + lastName | 👤 Имя           | Yes      | Text                     |
+| phoneNumber          | 📱 Телефон       | Yes      | Text                     |
+| emailAddress         | 📧 Email         | No       | Text                     |
+| accountName          | 🏢 Компания      | No       | Text                     |
+| source               | 🌐 Источник      | No       | Text                     |
+| status               | 📊 Статус        | Yes      | Text                     |
+| description          | 📝 Описание      | No       | Text (truncated if long) |
+| assignedUserName     | 👨‍💼 Ответственный | No       | Text                     |
+| createdAt            | ⏰ Время         | Yes      | Formatted datetime       |
 
 ### Call → Telegram Message
 
-| EspoCRM Field | Telegram Display | Required | Format |
-|--------------|------------------|----------|--------|
-| contactName or parentName | 👤 Контакт | Yes | Text |
-| phoneNumber (from contact) | 📱 Телефон | No | Text |
-| status | 📊 Статус | Yes | Text |
-| direction | ↔️ Направление | No | Inbound/Outbound |
-| duration | ⏱ Длительность | No | MM:SS format |
-| description | 📝 Заметки | No | Text (truncated if long) |
-| assignedUserName | 👨‍💼 Ответственный | No | Text |
-| dateStart | ⏰ Время | Yes | Formatted datetime |
+| EspoCRM Field              | Telegram Display | Required | Format                   |
+| -------------------------- | ---------------- | -------- | ------------------------ |
+| contactName or parentName  | 👤 Контакт       | Yes      | Text                     |
+| phoneNumber (from contact) | 📱 Телефон       | No       | Text                     |
+| status                     | 📊 Статус        | Yes      | Text                     |
+| direction                  | ↔️ Направление   | No       | Inbound/Outbound         |
+| duration                   | ⏱ Длительность  | No       | MM:SS format             |
+| description                | 📝 Заметки       | No       | Text (truncated if long) |
+| assignedUserName           | 👨‍💼 Ответственный | No       | Text                     |
+| dateStart                  | ⏰ Время         | Yes      | Formatted datetime       |
 
 **Excluded Fields** (technical, not useful for consultants):
+
 - id, assignedUserId, teamsIds, parentId, contactId, accountId
 - modifiedAt, userId, entityType
 - Custom field IDs
@@ -279,38 +284,42 @@ import { z } from 'zod'
 export const espocrmLeadWebhookSchema = z.object({
   entityType: z.literal('Lead'),
   event: z.literal('create'),
-  entity: z.object({
-    id: z.string(),
-    name: z.string(),
-    firstName: z.string().optional(),
-    lastName: z.string().optional(),
-    phoneNumber: z.string().optional(),
-    emailAddress: z.string().email().optional(),
-    status: z.string(),
-    source: z.string().optional(),
-    assignedUserName: z.string().optional(),
-    teamsIds: z.array(z.string()).optional(),
-    createdAt: z.string(),
-  }).passthrough(), // Allow additional fields
+  entity: z
+    .object({
+      id: z.string(),
+      name: z.string(),
+      firstName: z.string().optional(),
+      lastName: z.string().optional(),
+      phoneNumber: z.string().optional(),
+      emailAddress: z.string().email().optional(),
+      status: z.string(),
+      source: z.string().optional(),
+      assignedUserName: z.string().optional(),
+      teamsIds: z.array(z.string()).optional(),
+      createdAt: z.string(),
+    })
+    .passthrough(), // Allow additional fields
   timestamp: z.string(),
 })
 
 export const espocrmCallWebhookSchema = z.object({
   entityType: z.literal('Call'),
   event: z.literal('create'),
-  entity: z.object({
-    id: z.string(),
-    name: z.string(),
-    status: z.enum(['Planned', 'Held', 'Not Held']),
-    dateStart: z.string().optional(),
-    duration: z.number().optional(),
-    description: z.string().optional(),
-    contactName: z.string().optional(),
-    parentName: z.string().optional(),
-    assignedUserName: z.string().optional(),
-    teamsIds: z.array(z.string()).optional(),
-    createdAt: z.string(),
-  }).passthrough(),
+  entity: z
+    .object({
+      id: z.string(),
+      name: z.string(),
+      status: z.enum(['Planned', 'Held', 'Not Held']),
+      dateStart: z.string().optional(),
+      duration: z.number().optional(),
+      description: z.string().optional(),
+      contactName: z.string().optional(),
+      parentName: z.string().optional(),
+      assignedUserName: z.string().optional(),
+      teamsIds: z.array(z.string()).optional(),
+      createdAt: z.string(),
+    })
+    .passthrough(),
   timestamp: z.string(),
 })
 ```
@@ -331,7 +340,7 @@ runtimeConfig: {
   telegramBotToken: process.env.NUXT_TELEGRAM_BOT_TOKEN || '',
   telegramLeadsChannelId: process.env.NUXT_TELEGRAM_LEADS_CHANNEL_ID || '',
   telegramCallsChannelId: process.env.NUXT_TELEGRAM_CALLS_CHANNEL_ID || '',
-  
+
   public: {
     // ... existing public config
   }
@@ -348,14 +357,21 @@ runtimeConfig: {
 
 ```typescript
 export class WebhookValidationError extends Error {
-  constructor(message: string, public details?: any) {
+  constructor(
+    message: string,
+    public details?: any,
+  ) {
     super(message)
     this.name = 'WebhookValidationError'
   }
 }
 
 export class TelegramAPIError extends Error {
-  constructor(message: string, public statusCode?: number, public response?: any) {
+  constructor(
+    message: string,
+    public statusCode?: number,
+    public response?: any,
+  ) {
     super(message)
     this.name = 'TelegramAPIError'
   }
@@ -372,11 +388,13 @@ export class TeamFilterError extends Error {
 ### Error Responses
 
 **Webhook Endpoint Errors**:
+
 - 401 Unauthorized: Invalid webhook token
 - 400 Bad Request: Invalid payload structure
 - 500 Internal Server Error: Unexpected error (still queues job if possible)
 
 **Queue Worker Errors**:
+
 - Logged to console with full context
 - Job retried up to 3 times
 - Moved to dead letter queue after max attempts
@@ -386,6 +404,7 @@ export class TeamFilterError extends Error {
 ## No Database Schema Changes
 
 This feature does not require any database migrations or schema changes:
+
 - ✅ No new Prisma models
 - ✅ No new database tables
 - ✅ Uses existing Redis for queue
@@ -396,13 +415,16 @@ This feature does not require any database migrations or schema changes:
 ## Summary
 
 **New Type Files**:
+
 1. `server/types/espocrm-webhook.ts` - EspoCRM webhook payload types
 2. `server/types/telegram.ts` - Telegram notification types
 
 **Extended Files**:
+
 1. `server/types/crm/operations.ts` - Add TelegramQueueJob type
 
 **Configuration**:
+
 1. `nuxt.config.ts` - Add 5 new runtime config variables
 
 **No Database Changes**: All processing is stateless and ephemeral.

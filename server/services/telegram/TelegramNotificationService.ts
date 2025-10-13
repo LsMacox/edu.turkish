@@ -8,7 +8,7 @@ import type {
 
 /**
  * Telegram Notification Service
- * 
+ *
  * Sends notifications to Telegram channels using Bot API
  */
 export class TelegramNotificationService {
@@ -31,7 +31,7 @@ export class TelegramNotificationService {
       console.log(`Sending Telegram notification to channel ${job.channelId}`)
 
       const url = `https://api.telegram.org/bot${this.botToken}/sendMessage`
-      
+
       const requestBody: TelegramSendMessageRequest = {
         chat_id: job.channelId,
         text: job.message,
@@ -49,7 +49,9 @@ export class TelegramNotificationService {
       })
 
       if (response.ok && response.result) {
-        console.log(`Telegram notification sent successfully: messageId=${response.result.message_id}`)
+        console.log(
+          `Telegram notification sent successfully: messageId=${response.result.message_id}`,
+        )
         return {
           success: true,
           messageId: response.result.message_id,
@@ -67,7 +69,7 @@ export class TelegramNotificationService {
     } catch (error: any) {
       const errorMessage = error.message || String(error)
       console.error(`Telegram notification failed: ${errorMessage}`, error)
-      
+
       return {
         success: false,
         error: errorMessage,

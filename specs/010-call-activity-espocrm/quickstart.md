@@ -36,6 +36,7 @@ NUXT_TELEGRAM_CALLS_CHANNEL_ID=-1001234567891
 **How to get values**:
 
 - **WEBHOOK_TOKEN**: Generate a secure random string (32+ chars)
+
   ```bash
   openssl rand -hex 32
   ```
@@ -64,7 +65,7 @@ runtimeConfig: {
   telegramBotToken: process.env.NUXT_TELEGRAM_BOT_TOKEN || '',
   telegramLeadsChannelId: process.env.NUXT_TELEGRAM_LEADS_CHANNEL_ID || '',
   telegramCallsChannelId: process.env.NUXT_TELEGRAM_CALLS_CHANNEL_ID || '',
-  
+
   public: {
     // ... existing config
   }
@@ -74,6 +75,7 @@ runtimeConfig: {
 ### 3. Install Dependencies
 
 No new dependencies needed - feature uses existing packages:
+
 - ✅ BullMQ (already installed)
 - ✅ IORedis (already installed)
 - ✅ ofetch (already installed)
@@ -131,6 +133,7 @@ npm run preview
    - Click Save
 
 2. **Check webhook received**:
+
    ```bash
    # Check server logs
    docker compose logs -f app
@@ -138,6 +141,7 @@ npm run preview
    ```
 
 3. **Check queue**:
+
    ```bash
    # In another terminal
    docker compose exec app npx tsx -e "
@@ -212,6 +216,7 @@ After setup, verify:
 **Cause**: Invalid webhook token
 
 **Solution**:
+
 1. Check `.env` file has correct `NUXT_ESPOCRM_WEBHOOK_TOKEN`
 2. Verify EspoCRM webhook URL includes `?token=YOUR_TOKEN`
 3. Restart application after changing `.env`
@@ -235,6 +240,7 @@ After setup, verify:
    - Set to empty string to disable filtering (for testing)
 
 4. **Queue worker not running**:
+
    ```bash
    # Check if worker is processing jobs
    docker compose logs -f app | grep "telegram-notifications"
@@ -252,6 +258,7 @@ After setup, verify:
 **Cause**: EspoCRM sending unexpected data structure
 
 **Solution**:
+
 1. Check server logs for validation error details
 2. Compare with expected schema in `contracts/webhook-api.md`
 3. Update EspoCRM webhook to send required fields
@@ -262,6 +269,7 @@ After setup, verify:
 **Cause**: Missing or malformed data in EspoCRM entity
 
 **Solution**:
+
 1. Check which fields are empty in EspoCRM
 2. Formatter skips empty fields - this is expected
 3. If critical field is missing, update EspoCRM entity
@@ -271,6 +279,7 @@ After setup, verify:
 **Cause**: Worker not started or Redis connection issue
 
 **Solution**:
+
 ```bash
 # Check Redis connection
 docker compose exec app npx tsx -e "
@@ -375,6 +384,7 @@ If issues occur:
    - Click Save
 
 2. **Stop queue worker**:
+
    ```bash
    # Set environment variable
    DISABLE_TELEGRAM_WORKER=true
@@ -382,6 +392,7 @@ If issues occur:
    ```
 
 3. **Clear queue** (if needed):
+
    ```bash
    docker compose exec app npx tsx -e "
    import { Queue } from 'bullmq';

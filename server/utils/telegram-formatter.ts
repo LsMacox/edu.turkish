@@ -2,7 +2,7 @@ import type { EspoCRMLead, EspoCRMCall } from '~~/server/types/espocrm-webhook'
 
 /**
  * Telegram Message Formatter
- * 
+ *
  * Formats EspoCRM entities into HTML-formatted Telegram messages
  */
 

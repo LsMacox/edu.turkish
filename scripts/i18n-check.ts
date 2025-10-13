@@ -406,6 +406,14 @@ export function findUnusedKeys(
     'reviews.shareExperience.validation.universityRequired',
     'reviews.shareExperience.validation.ratingRequired',
     'reviews.shareExperience.validation.reviewRequired',
+    // Enhanced service pages - common content (used via $t() in templates and tm() for objects)
+    'services.common.deliveryTime',
+    'services.common.howItWorks.title',
+    'services.common.howItWorks.steps',
+    'services.common.whyChooseUs.title',
+    'services.common.whyChooseUs.factors',
+    'services.common.trustIndicators.workingSince',
+    'services.common.trustIndicators.documentsCount',
   ]
 
   // Extract tm() object markers and expand them to include all nested keys

@@ -2,12 +2,12 @@ import { getTelegramQueue } from '~~/server/utils/telegram-queue'
 
 /**
  * Telegram Queue Health Check
- * 
+ *
  * Returns queue statistics and health status
- * 
+ *
  * Usage:
  *   curl https://your-domain.com/api/health/telegram-queue
- * 
+ *
  * Integration with monitoring:
  *   - Prometheus: Scrape this endpoint
  *   - Grafana: Create dashboard
@@ -16,31 +16,25 @@ import { getTelegramQueue } from '~~/server/utils/telegram-queue'
 export default defineEventHandler(async (event) => {
   try {
     const queue = getTelegramQueue()
-    
+
     // Get job counts
-    const counts = await queue.getJobCounts(
-      'waiting',
-      'active',
-      'completed',
-      'failed',
-      'delayed',
-    )
+    const counts = await queue.getJobCounts('waiting', 'active', 'completed', 'failed', 'delayed')
 
     // Calculate health status
     const waitingCount = counts.waiting || 0
     const failedCount = counts.failed || 0
     const activeCount = counts.active || 0
 
-    const isHealthy = 
-      waitingCount < 100 &&  // Not too many pending
-      failedCount < 10 &&    // Not too many failures
-      activeCount < 20       // Not stuck processing
+    const isHealthy =
+      waitingCount < 100 && // Not too many pending
+      failedCount < 10 && // Not too many failures
+      activeCount < 20 // Not stuck processing
 
     // Get recent failed jobs (if any)
     let recentFailures: any[] = []
     if (failedCount > 0) {
       const failedJobs = await queue.getFailed(0, 5)
-      recentFailures = failedJobs.map(job => ({
+      recentFailures = failedJobs.map((job) => ({
         id: job.id,
         attempts: job.attemptsMade,
         error: job.failedReason,
@@ -64,7 +58,7 @@ export default defineEventHandler(async (event) => {
     }
   } catch (error: any) {
     console.error('Telegram queue health check failed:', error)
-    
+
     setResponseStatus(event, 503)
     return {
       healthy: false,

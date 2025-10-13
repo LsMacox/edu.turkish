@@ -11,7 +11,24 @@
         :name="subService.name"
         :description="subService.description"
         :pricing="subService.pricing"
+        :delivery-time="subService.deliveryTime"
         @apply="handleApply"
+      />
+    </template>
+
+    <template #how-it-works>
+      <HowItWorksSection :steps="howItWorksSteps" />
+    </template>
+
+    <template #why-choose-us>
+      <ServicesWhyChooseUsSection :factors="whyChooseUsFactors" />
+    </template>
+
+    <template #trust-indicators>
+      <TrustIndicatorBadge
+        v-for="(indicator, index) in trustIndicators"
+        :key="index"
+        :indicator="indicator"
       />
     </template>
   </ServicePageLayout>
@@ -31,6 +48,7 @@ const subServices = computed(() => {
     id: id as SubServiceId,
     name: t(`services.document-translations.subServices.${id}.name`) as string,
     description: t(`services.document-translations.subServices.${id}.description`) as string,
+    deliveryTime: t(`services.document-translations.subServices.${id}.deliveryTime`) as string,
     pricing: {
       KZT: t(`services.document-translations.subServices.${id}.pricing.KZT`) as string,
       TRY: t(`services.document-translations.subServices.${id}.pricing.TRY`) as string,
@@ -38,6 +56,37 @@ const subServices = computed(() => {
       USD: t(`services.document-translations.subServices.${id}.pricing.USD`) as string,
     } as Record<Currency, string>,
   }))
+})
+
+const howItWorksSteps = computed(() => {
+  const raw = (tm('services.common.howItWorks.steps') || []) as unknown[]
+  return raw.map((_, index) => ({
+    title: t(`services.common.howItWorks.steps.${index}.title`) as string,
+    description: t(`services.common.howItWorks.steps.${index}.description`) as string,
+    icon: t(`services.common.howItWorks.steps.${index}.icon`) as string,
+  }))
+})
+
+const whyChooseUsFactors = computed(() => {
+  const raw = (tm('services.common.whyChooseUs.factors') || []) as unknown[]
+  return raw.map((_, index) => ({
+    title: t(`services.common.whyChooseUs.factors.${index}.title`) as string,
+    description: t(`services.common.whyChooseUs.factors.${index}.description`) as string,
+    icon: t(`services.common.whyChooseUs.factors.${index}.icon`) as string,
+  }))
+})
+
+const trustIndicators = computed(() => {
+  return [
+    {
+      text: t('services.common.trustIndicators.workingSince'),
+      icon: 'mdi:calendar-check',
+    },
+    {
+      text: t('services.common.trustIndicators.documentsCount'),
+      icon: 'mdi:file-document-multiple',
+    },
+  ]
 })
 
 const handleApply = ({ subServiceId, name }: { subServiceId: SubServiceId; name: string }) => {

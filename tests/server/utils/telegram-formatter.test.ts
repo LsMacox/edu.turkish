@@ -2,7 +2,7 @@ import { describe, expect, it } from 'vitest'
 
 /**
  * Unit test for Telegram message formatter
- * 
+ *
  * Tests message formatting for leads and calls
  */
 

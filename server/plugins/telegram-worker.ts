@@ -1,8 +1,11 @@
-import { getTelegramQueueWorker, closeTelegramQueueWorker } from '~~/server/services/queue/TelegramQueueWorker'
+import {
+  getTelegramQueueWorker,
+  closeTelegramQueueWorker,
+} from '~~/server/services/queue/TelegramQueueWorker'
 
 /**
  * Telegram Queue Worker Plugin
- * 
+ *
  * Starts the Telegram notification queue worker on server startup
  * and handles graceful shutdown
  */

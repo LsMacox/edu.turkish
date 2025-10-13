@@ -1,6 +1,6 @@
 /**
  * Custom Error Types
- * 
+ *
  * Structured error classes for better error handling and logging
  */
 

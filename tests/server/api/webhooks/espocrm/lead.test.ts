@@ -2,7 +2,7 @@ import { describe, expect, it, beforeEach, vi } from 'vitest'
 
 /**
  * Contract test for EspoCRM lead webhook endpoint
- * 
+ *
  * Tests the POST /api/webhooks/espocrm/lead endpoint
  * according to contracts/webhook-api.md specification
  */
@@ -25,18 +25,20 @@ describe('POST /api/webhooks/espocrm/lead', () => {
       const validToken = 'test-webhook-token-123'
       // Expected: 200 OK with jobId
       expect(validToken).toBe('test-webhook-token-123')
-      expect({
-        entityType: 'Lead',
-        event: 'create',
-        entity: {
-          id: '123',
-          name: 'Test Lead',
-          status: 'New',
-          createdAt: '2025-10-12T10:30:00Z',
-          modifiedAt: '2025-10-12T10:30:00Z',
-        },
-        timestamp: '2025-10-12T10:30:00Z',
-      }.entityType).toBe('Lead')
+      expect(
+        {
+          entityType: 'Lead',
+          event: 'create',
+          entity: {
+            id: '123',
+            name: 'Test Lead',
+            status: 'New',
+            createdAt: '2025-10-12T10:30:00Z',
+            modifiedAt: '2025-10-12T10:30:00Z',
+          },
+          timestamp: '2025-10-12T10:30:00Z',
+        }.entityType,
+      ).toBe('Lead')
     })
 
     it('should return 401 Unauthorized with invalid token', () => {

@@ -13,6 +13,7 @@ curl http://localhost:3000/api/health/telegram-queue
 ```
 
 **Ответ:**
+
 ```json
 {
   "healthy": true,
@@ -31,12 +32,14 @@ curl http://localhost:3000/api/health/telegram-queue
 ```
 
 **Преимущества:**
+
 - ✅ Не требует SSH доступа
 - ✅ Интеграция с мониторингом (Prometheus, Grafana)
 - ✅ Работает из любого места
 - ✅ Показывает последние ошибки
 
 **Когда использовать:**
+
 - Проверка здоровья системы
 - Production мониторинг
 - Автоматические healthchecks
@@ -70,6 +73,7 @@ createBullBoard({
 ```
 
 **Возможности:**
+
 - ✅ Просмотр всех задач
 - ✅ Retry через UI (один клик)
 - ✅ Удаление задач
@@ -103,6 +107,7 @@ GET bull:telegram-notifications:{job-id}
 ### ❌ Удалённые скрипты
 
 **Почему удалили все скрипты:**
+
 - `retry-job.ts` - Bull Board делает это лучше
 - `queue-status.ts` - Заменён на API endpoint
 - `view-failed-jobs.ts` - Заменён на API endpoint + Bull Board
@@ -110,12 +115,14 @@ GET bull:telegram-notifications:{job-id}
 ### ✅ Рекомендуемые способы:
 
 #### Способ 1: Bull Board UI (лучший)
+
 1. Установите Bull Board (см. выше)
 2. Откройте `/admin/queues`
 3. Найдите проваленную задачу
 4. Нажмите "Retry" → готово!
 
 #### Способ 2: Через код (автоматический retry)
+
 ```typescript
 // Система уже делает 3 автоматических retry
 // Настроено в server/utils/telegram-queue.ts:
@@ -129,6 +136,7 @@ GET bull:telegram-notifications:{job-id}
 ```
 
 #### Способ 3: Redis CLI (ручной)
+
 ```bash
 # Получить ID проваленной задачи
 ZRANGE bull:telegram-notifications:failed 0 -1
@@ -146,6 +154,7 @@ ZRANGE bull:telegram-notifications:failed 0 -1
 **Endpoint:** `GET /api/health/telegram-queue`
 
 **Критерии здоровья:**
+
 - ✅ `waiting < 100` - Не более 100 задач в очереди
 - ✅ `failed < 10` - Не более 10 проваленных задач
 - ✅ `active < 20` - Не более 20 активных задач
@@ -153,6 +162,7 @@ ZRANGE bull:telegram-notifications:failed 0 -1
 ### Alerting примеры
 
 **Cron job:**
+
 ```bash
 */5 * * * * curl https://your-domain.com/api/health/telegram-queue | \
   jq -e '.healthy == true' || \
@@ -160,6 +170,7 @@ ZRANGE bull:telegram-notifications:failed 0 -1
 ```
 
 **Uptime Kuma / UptimeRobot:**
+
 ```
 URL: https://your-domain.com/api/health/telegram-queue
 Keyword: "healthy":true
@@ -167,6 +178,7 @@ Interval: 5 minutes
 ```
 
 **Prometheus:**
+
 ```yaml
 - job_name: 'telegram-queue'
   metrics_path: '/api/health/telegram-queue'
@@ -178,16 +190,17 @@ Interval: 5 minutes
 
 ## 🎯 Резюме
 
-| Задача | Инструмент | Команда |
-|--------|-----------|---------|
-| Быстрая проверка | Health Check API | `curl /api/health/telegram-queue` |
-| Анализ ошибок | Health Check API | Показывает последние 5 ошибок |
-| Детальный просмотр | Bull Board UI | Веб-интерфейс |
-| Retry задач | Bull Board UI | Один клик в интерфейсе |
-| Глубокая отладка | Redis CLI | `docker compose exec redis redis-cli` |
-| Production мониторинг | Health Check API | Интеграция с Prometheus/Grafana |
+| Задача                | Инструмент       | Команда                               |
+| --------------------- | ---------------- | ------------------------------------- |
+| Быстрая проверка      | Health Check API | `curl /api/health/telegram-queue`     |
+| Анализ ошибок         | Health Check API | Показывает последние 5 ошибок         |
+| Детальный просмотр    | Bull Board UI    | Веб-интерфейс                         |
+| Retry задач           | Bull Board UI    | Один клик в интерфейсе                |
+| Глубокая отладка      | Redis CLI        | `docker compose exec redis redis-cli` |
+| Production мониторинг | Health Check API | Интеграция с Prometheus/Grafana       |
 
-**Главное правило:** 
+**Главное правило:**
+
 1. Используйте Health Check API для мониторинга
 2. Автоматические retry работают (3 попытки)
 3. Bull Board UI для визуального управления

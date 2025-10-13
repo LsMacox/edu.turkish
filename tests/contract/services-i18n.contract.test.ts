@@ -41,15 +41,15 @@ describe('services.json i18n contract', () => {
         const currencies = ['KZT', 'TRY', 'RUB', 'USD']
 
         Object.entries(data.services).forEach(([_categoryId, category]: [string, any]) => {
-          Object.entries(category.subServices).forEach(
-            ([_subServiceId, subService]: [string, any]) => {
-              currencies.forEach((currency) => {
-                expect(subService.pricing).toHaveProperty(currency)
-                expect(subService.pricing[currency]).toBeTruthy()
-                expect(typeof subService.pricing[currency]).toBe('string')
-              })
-            },
-          )
+          if (!category?.subServices) return
+
+          Object.entries(category.subServices).forEach(([_subServiceId, subService]: [string, any]) => {
+            currencies.forEach((currency) => {
+              expect(subService.pricing).toHaveProperty(currency)
+              expect(subService.pricing[currency]).toBeTruthy()
+              expect(typeof subService.pricing[currency]).toBe('string')
+            })
+          })
         })
       })
 
