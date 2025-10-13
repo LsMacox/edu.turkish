@@ -10,7 +10,18 @@ describe('calculatePagination', () => {
       total: 0,
       page: 1,
       limit: 1,
-      totalPages: 1,
+      totalPages: 0,
+    })
+  })
+
+  it('calculates total pages when there are results', () => {
+    const meta = calculatePagination(42, 2, 10)
+
+    expect(meta).toEqual({
+      total: 42,
+      page: 2,
+      limit: 10,
+      totalPages: 5,
     })
   })
 })

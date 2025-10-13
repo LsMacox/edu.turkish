@@ -100,7 +100,7 @@ describe('GET /api/v1/directions', () => {
       total: 0,
       page: 1,
       limit: 100,
-      totalPages: 1,
+      totalPages: 0,
     })
   })
 })
