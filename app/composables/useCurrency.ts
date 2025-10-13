@@ -1,6 +1,6 @@
 import { storeToRefs } from 'pinia'
 import { useCurrencyStore } from '~/stores/currency'
-import { CURRENCIES, type Currency } from '~/types/services'
+import { CURRENCIES, type Currency, CURRENCY_CODES } from '~/types/currency'
 
 /**
  * Composable for currency management and formatting
@@ -49,7 +49,7 @@ export function useCurrency() {
   /**
    * All available currencies
    */
-  const currencies: readonly Currency[] = ['KZT', 'TRY', 'RUB', 'USD'] as const
+  const currencies: readonly Currency[] = CURRENCY_CODES
 
   return {
     currency: store.currency,

@@ -3,6 +3,17 @@
     "common": {
       "deliveryTime": "Timeline",
       "price": "Price",
+      "week": "Week",
+      "day": "Day",
+      "days": "days",
+      "phase": "Phase",
+      "documentType": "Document Type",
+      "languagePair": "Language Pair",
+      "urgency": "Urgency",
+      "estimatedPrice": "Estimated Price",
+      "acceptedFormats": "Accepted Formats",
+      "acceptedByUniversities": "Accepted By",
+      "sampleDocumentsNote": "All samples are anonymized for privacy",
       "howItWorks": {
         "title": "How It Works",
         "steps": [
@@ -56,6 +67,108 @@
     "relocation-in-turkey": {
       "title": "Relocation in Turkey",
       "subtitle": "Comprehensive support for settling in Turkey - from visa to residence permit",
+      "whoIsThisFor": {
+        "title": "Who Is This For?",
+        "criteria": [
+          "You've been accepted to a Turkish university and are moving within 4-8 weeks",
+          "You need visa, housing, bank account, and residence permit handled 'turnkey'",
+          "You don't want to run around government offices and risk fines for mistakes"
+        ]
+      },
+      "expectedResults": {
+        "title": "What You'll Get",
+        "items": [
+          "Visa obtained, legal entry to Turkey",
+          "Rental contract in your name with utilities set up",
+          "Turkish bank account opened, debit card in hand",
+          "Residence permit application submitted, status tracking included",
+          "Personal curator support for 30 or 60 days after arrival"
+        ]
+      },
+      "timelinePlan": {
+        "title": "30-Day Relocation Plan",
+        "weeks": [
+          {
+            "number": 1,
+            "activities": "Document preparation and visa center appointment booking"
+          },
+          {
+            "number": 2,
+            "activities": "Arrival in Turkey, SIM card, tax number (vergi numarası)"
+          },
+          {
+            "number": 3,
+            "activities": "Housing search and rental contract signing, bank account opening"
+          },
+          {
+            "number": 4,
+            "activities": "Residence permit package preparation and submission"
+          }
+        ]
+      },
+      "responsibilityMatrix": {
+        "title": "We Do / You Do",
+        "weDo": {
+          "title": "We Do",
+          "items": [
+            "Prepare all required documents and translations",
+            "Book visa appointment at the consulate",
+            "Find 3-5 housing options matching your criteria",
+            "Accompany you to the bank for account opening",
+            "Submit residence permit application to immigration",
+            "Track application status and notify you of updates"
+          ]
+        },
+        "youDo": {
+          "title": "You Do",
+          "items": [
+            "Provide required documents (passport, acceptance letter, etc.)",
+            "Attend visa appointment at the consulate",
+            "Choose housing from the options we provide",
+            "Sign rental contract and pay deposit",
+            "Provide bank documents and sign account forms",
+            "Attend biometric appointment for residence permit"
+          ]
+        }
+      },
+      "riskMitigation": {
+        "title": "Risks & How We Address Them",
+        "risks": [
+          {
+            "risk": "Visa rejection due to incomplete documents",
+            "mitigation": "We pre-check all documents, provide sample letters, and prepare you for interview questions"
+          },
+          {
+            "risk": "Rental contract errors or unfavorable terms",
+            "mitigation": "All contracts are reviewed by our legal team before signing to protect your interests"
+          },
+          {
+            "risk": "Bank account limits for international students",
+            "mitigation": "We work with multiple banks and know their requirements for international students"
+          },
+          {
+            "risk": "Residence permit delays or rejections",
+            "mitigation": "We submit applications early and track status daily via the government portal"
+          }
+        ]
+      },
+      "faq": {
+        "title": "Frequently Asked Questions",
+        "items": [
+          {
+            "question": "Can I get a visa without an income statement?",
+            "answer": "Yes, for students we can use your acceptance letter and scholarship confirmation as proof of financial support."
+          },
+          {
+            "question": "What if my address changes after I get my residence permit?",
+            "answer": "You must notify immigration within 20 days of moving. We'll help you update your registration at the new address."
+          },
+          {
+            "question": "Can I bring my family members?",
+            "answer": "Yes, family members can apply for dependent residence permits. We handle the entire process for family reunification."
+          }
+        ]
+      },
       "subServices": {
         "relocation-visa-support": {
           "name": "Visa Support",
@@ -102,6 +215,88 @@
     "tr-yos-courses": {
       "title": "TR-YÖS Courses",
       "subtitle": "Professional preparation for Turkish university entrance exams",
+      "courseGoal": {
+        "title": "Course Goal",
+        "description": "We'll prepare you for TR-YÖS to a score sufficient for admission to your target faculty.",
+        "packages": [
+          { "name": "Basic", "targetScore": "50-60" },
+          { "name": "Standard", "targetScore": "60-70" },
+          { "name": "Premium", "targetScore": "70+" }
+        ]
+      },
+
+      "programContent": {
+        "title": "What's Inside the Program",
+        "items": [
+          {
+            "title": "Theory",
+            "description": "Mathematics, logic, and geometry fundamentals",
+            "icon": "mdi:book-open"
+          },
+          {
+            "title": "Practice",
+            "description": "12 full mock exams with real exam conditions",
+            "icon": "mdi:pencil"
+          },
+          {
+            "title": "Error Analysis",
+            "description": "Personalized feedback on every test you take",
+            "icon": "mdi:chart-line"
+          },
+          {
+            "title": "Materials",
+            "description": "Task bank with 500+ problems and detailed notes",
+            "icon": "mdi:folder"
+          }
+        ]
+      },
+      "formatSchedule": {
+        "title": "Format & Schedule",
+        "format": "Online or in-person, group (up to 10) or individual",
+        "duration": "8 weeks (24 lessons)",
+        "homework": "Yes, with detailed review and feedback",
+        "support": "Between sessions via Telegram chat with instructors"
+      },
+      "studentResults": {
+        "title": "Student Results",
+        "labels": {
+          "before": "Before",
+          "after": "After",
+          "duration": "Duration",
+          "admittedTo": "Admitted to"
+        },
+        "cases": [
+          {
+            "before": 42,
+            "after": 68,
+            "duration": "8 weeks",
+            "proof": "/images/tr-yos-case-1.png"
+          },
+          {
+            "before": 55,
+            "after": 72,
+            "duration": "6 weeks",
+            "proof": "/images/tr-yos-case-2.png"
+          }
+        ]
+      },
+      "faq": {
+        "title": "Frequently Asked Questions",
+        "items": [
+          {
+            "question": "How do I register for the TR-YÖS exam?",
+            "answer": "Registration opens in February on university websites. We'll guide you through the entire registration process."
+          },
+          {
+            "question": "Can I retake the exam if I'm not satisfied with my score?",
+            "answer": "Yes, you can take TR-YÖS at multiple universities. Each university has its own exam, so you have multiple chances."
+          },
+          {
+            "question": "Can I reschedule lessons if I have a conflict?",
+            "answer": "Yes, with 24 hours notice. We'll find a makeup time that works for both you and the instructor."
+          }
+        ]
+      },
       "subServices": {
         "tr-yos-basic-preparation": {
           "name": "Basic TR-YÖS Preparation",
@@ -148,6 +343,99 @@
     "sat-courses": {
       "title": "SAT Courses",
       "subtitle": "Expert SAT preparation for international university admissions",
+      "courseGoal": {
+        "title": "Target Results",
+        "description": "Focused on Digital SAT preparation with proven strategies for success.",
+        "packages": [
+          {
+            "name": "Foundation",
+            "targetScore": "1200+"
+          },
+          {
+            "name": "Advanced",
+            "targetScore": "1350+"
+          },
+          {
+            "name": "Elite",
+            "targetScore": "1450+"
+          }
+        ]
+      },
+      "programContent": {
+        "title": "Program Content",
+        "items": [
+          {
+            "title": "Math",
+            "description": "Algebra, geometry, data analysis, advanced math",
+            "icon": "mdi:calculator"
+          },
+          {
+            "title": "Reading & Writing",
+            "description": "Comprehension, grammar, rhetoric, vocabulary",
+            "icon": "mdi:text"
+          },
+          {
+            "title": "Mock Tests",
+            "description": "Weekly full-length tests with timing",
+            "icon": "mdi:clock"
+          },
+          {
+            "title": "Strategies",
+            "description": "Time management, section-specific tactics",
+            "icon": "mdi:strategy"
+          },
+          {
+            "title": "Progress Tracking",
+            "description": "Homework trackers and performance analytics",
+            "icon": "mdi:chart-box"
+          }
+        ]
+      },
+      "formatSchedule": {
+        "title": "Format",
+        "enrollmentSchedule": "New cohorts start every month",
+        "duration": "12 weeks (36 lessons)",
+        "recordings": "Access to all recorded sessions",
+        "taskBank": "Full task bank with 1000+ problems"
+      },
+      "studentResults": {
+        "title": "Case Studies",
+        "labels": {
+          "before": "Before",
+          "after": "After",
+          "duration": "Duration",
+          "admittedTo": "Admitted to"
+        },
+        "cases": [
+          {
+            "score": 1420,
+            "proof": "/images/sat-report-1.png",
+            "admission": "MIT"
+          },
+          {
+            "score": 1380,
+            "proof": "/images/sat-report-2.png",
+            "admission": "Stanford"
+          }
+        ]
+      },
+      "faq": {
+        "title": "Frequently Asked Questions",
+        "items": [
+          {
+            "question": "How many times can I take the SAT?",
+            "answer": "You can take the SAT as many times as you want. Most students take it 2-3 times to achieve their target score."
+          },
+          {
+            "question": "Can I change my test date?",
+            "answer": "Yes, College Board allows date changes for a fee. We'll help you navigate the process and choose the best test date."
+          },
+          {
+            "question": "Do I need TOEFL/IELTS too?",
+            "answer": "It depends on the university. Some accept high SAT Reading & Writing scores instead of separate English proficiency tests."
+          }
+        ]
+      },
       "subServices": {
         "sat-basic-preparation": {
           "name": "Basic SAT Preparation",
@@ -184,6 +472,84 @@
     "turkish-english-course": {
       "title": "Turkish & English Courses",
       "subtitle": "Language courses for students and professionals",
+      "levelProgression": {
+        "title": "Your Level Progression",
+        "levels": [
+          {
+            "from": "A1",
+            "to": "A2",
+            "outcome": "Basic conversations, daily tasks, simple texts"
+          },
+          {
+            "from": "B1",
+            "to": "B2",
+            "outcome": "Work meetings, academic discussions, complex texts"
+          },
+          {
+            "from": "C1",
+            "to": "C2",
+            "outcome": "Native-like fluency, professional writing, nuanced expression"
+          }
+        ]
+      },
+      "formatSchedule": {
+        "title": "Learning Format",
+        "groupSize": "Up to 8 students per group",
+        "individual": "Individual lessons available",
+        "conversationClubs": "Weekly conversation clubs included",
+        "schedule": "Flexible schedule, morning/evening options",
+        "platform": "Zoom + learning portal with materials",
+        "certificate": "Certificate of completion issued"
+      },
+      "teachers": {
+        "title": "Methodology & Teachers",
+        "methodology": "We use a communicative approach with real-world scenarios. Every lesson includes speaking practice, grammar in context, and cultural insights.",
+        "profiles": [
+          {
+            "name": "Ayşe Yılmaz",
+            "photo": "/images/team/teacher-placeholder.jpg",
+            "achievements": "Native Turkish speaker, 10+ years teaching experience, TÖMER certified"
+          },
+          {
+            "name": "John Smith",
+            "photo": "/images/team/teacher-placeholder.jpg",
+            "achievements": "Native English speaker, CELTA certified, 8 years in Turkey"
+          },
+          {
+            "name": "Mehmet Demir",
+            "photo": "/images/team/teacher-placeholder.jpg",
+            "achievements": "Bilingual Turkish-English, MA in Linguistics, exam prep specialist"
+          }
+        ]
+      },
+      "expectedResults": {
+        "title": "Results in 12 Weeks",
+        "duration": "12",
+        "skills": [
+          "Open a bank account in Turkish",
+          "Pass a university interview",
+          "Read news articles and understand main ideas",
+          "Write formal emails and applications",
+          "Navigate daily life without translation apps"
+        ]
+      },
+      "faq": {
+        "title": "Frequently Asked Questions",
+        "items": [
+          {
+            "question": "What if I miss a class?",
+            "answer": "All lessons are recorded. You can watch the recording and we'll schedule a makeup if needed."
+          },
+          {
+            "question": "Can I freeze my course?",
+            "answer": "Yes, you can freeze for up to 2 weeks. Just let us know in advance."
+          },
+          {
+            "question": "What's your refund policy?",
+            "answer": "Full refund within first 2 lessons. After that, prorated refund for unused lessons."
+          }
+        ]
+      },
       "subServices": {
         "language-turkish-beginner": {
           "name": "Turkish for Beginners",
@@ -230,6 +596,70 @@
     "document-translations": {
       "title": "Document Translations",
       "subtitle": "Professional certified translations for official documents",
+      "priceCalculator": {
+        "title": "Price Calculator",
+        "documentTypes": [
+          "Diploma",
+          "Transcript",
+          "Passport",
+          "Birth Certificate",
+          "Marriage Certificate",
+          "Other"
+        ],
+        "languages": [
+          "English → Turkish",
+          "Russian → Turkish",
+          "Kazakh → Turkish",
+          "Turkish → English"
+        ],
+        "urgency": ["Standard (5 business days)", "Express (2 business days)", "Rush (24 hours)"],
+        "basePrices": {
+          "standard": {
+            "KZT": "10000",
+            "TRY": "350",
+            "RUB": "2000",
+            "USD": "20"
+          },
+          "express": {
+            "KZT": "15000",
+            "TRY": "525",
+            "RUB": "3000",
+            "USD": "30"
+          },
+          "rush": {
+            "KZT": "20000",
+            "TRY": "700",
+            "RUB": "4000",
+            "USD": "40"
+          }
+        }
+      },
+      "universityRequirements": {
+        "title": "What Universities Accept",
+        "formats": [
+          "Notarized translation (most common)",
+          "Apostille + notarized translation (for some countries)",
+          "Consular legalization (for non-Hague countries)"
+        ],
+        "acceptedBy": "All major Turkish universities including Istanbul University, Boğaziçi, METU, Sabancı, Koç"
+      },
+      "sampleDocuments": {
+        "title": "Sample Pages",
+        "samples": [
+          {
+            "type": "Diploma Translation",
+            "image": "/images/sample-diploma.jpg"
+          },
+          {
+            "type": "Transcript Translation",
+            "image": "/images/sample-transcript.jpg"
+          },
+          {
+            "type": "Passport Translation",
+            "image": "/images/sample-passport.jpg"
+          }
+        ]
+      },
       "subServices": {
         "translation-diploma": {
           "name": "Diploma Translation",

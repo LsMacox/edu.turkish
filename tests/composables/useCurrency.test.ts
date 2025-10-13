@@ -1,7 +1,7 @@
 import { describe, it, expect, beforeEach } from 'vitest'
 import { setActivePinia, createPinia } from 'pinia'
 import { useCurrency } from '~/composables/useCurrency'
-import type { Currency } from '~/types/services'
+import type { Currency } from '~/types/currency'
 
 describe('useCurrency', () => {
   beforeEach(() => {

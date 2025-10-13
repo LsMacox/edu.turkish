@@ -14,11 +14,32 @@
         @apply="handleApply"
       />
     </template>
+
+    <template #level-progression>
+      <LevelProgressionSection key-prefix="services.turkish-english-course.levelProgression" />
+    </template>
+
+    <template #format-schedule>
+      <FormatScheduleSection key-prefix="services.turkish-english-course.formatSchedule" />
+    </template>
+
+    <template #teachers>
+      <TeachersSection key-prefix="services.turkish-english-course.teachers" />
+    </template>
+
+    <template #expected-results>
+      <ExpectedResultsSection key-prefix="services.turkish-english-course.expectedResults" />
+    </template>
+
+    <template #faq>
+      <ServiceFAQSection key-prefix="services.turkish-english-course.faq" />
+    </template>
   </ServicePageLayout>
 </template>
 
 <script setup lang="ts">
-import type { SubServiceId, Currency } from '~/types/services'
+import type { Currency } from '~/types/currency'
+import type { SubServiceId } from '~/types/services'
 import { useApplicationModalStore } from '~/stores/applicationModal'
 
 const { t, tm } = useI18n()

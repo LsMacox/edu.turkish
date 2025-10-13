@@ -19,7 +19,6 @@
 
 <script setup lang="ts">
 import type { TrustFactor } from '~/types/services'
-import { isRef, unref } from 'vue'
 
 interface Props {
   factor: TrustFactor

@@ -57,7 +57,7 @@
                     ? 'bg-primary/10 text-primary border-primary'
                     : 'text-secondary hover:bg-gray-50 border-transparent',
                 ]"
-                :aria-expanded="servicesMenuOpen || isServiceRouteActive"
+                :aria-expanded="servicesMenuOpen"
                 aria-controls="mobile-services-menu"
                 @click="toggleServicesOpen"
               >
@@ -68,15 +68,11 @@
                 <Icon
                   name="mdi:chevron-down"
                   class="ml-2 text-lg transition-transform"
-                  :class="{ 'rotate-180': servicesMenuOpen || isServiceRouteActive }"
+                  :class="{ 'rotate-180': servicesMenuOpen }"
                 />
               </button>
               <transition name="accordion">
-                <div
-                  v-if="servicesMenuOpen || isServiceRouteActive"
-                  id="mobile-services-menu"
-                  class="bg-gray-50"
-                >
+                <div v-if="servicesMenuOpen" id="mobile-services-menu" class="bg-gray-50">
                   <NuxtLink
                     v-for="link in serviceLinks"
                     :key="link.path"
@@ -295,6 +291,7 @@ const serviceLinks = computed(() => [
 ])
 
 const servicesMenuOpen = ref(false)
+const SERVICES_MENU_STORAGE_KEY = 'mobileServicesMenuOpen'
 const isServiceRouteActive = computed(
   () => serviceLinks.value.some((link) => link.path === route.path) || route.hash === '#services',
 )
@@ -359,16 +356,10 @@ function isServiceLinkActive(path: string) {
 
 function toggleServicesOpen() {
   servicesMenuOpen.value = !servicesMenuOpen.value
+  if (import.meta.client) {
+    localStorage.setItem(SERVICES_MENU_STORAGE_KEY, String(servicesMenuOpen.value))
+  }
 }
-
-watch(
-  () => props.isOpen,
-  (isOpen) => {
-    if (!isOpen) {
-      servicesMenuOpen.value = false
-    }
-  },
-)
 
 function closeDrawer() {
   emit('close')
@@ -425,6 +416,16 @@ function resetTouch() {
 
 // Close drawer on escape key
 onMounted(() => {
+  // Initialize from saved state; if none, open by default on services routes
+  if (import.meta.client) {
+    const saved = localStorage.getItem(SERVICES_MENU_STORAGE_KEY)
+    if (saved === 'true' || saved === 'false') {
+      servicesMenuOpen.value = saved === 'true'
+    } else if (isServiceRouteActive.value) {
+      servicesMenuOpen.value = true
+    }
+  }
+
   const handleEscape = (e: KeyboardEvent) => {
     if (e.key === 'Escape' && props.isOpen) {
       closeDrawer()

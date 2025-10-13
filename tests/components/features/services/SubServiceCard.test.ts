@@ -4,7 +4,7 @@ import { setActivePinia, createPinia } from 'pinia'
 import SubServiceCard from '~/components/features/services/SubServiceCard.vue'
 import CurrencyPrice from '~/components/features/services/CurrencyPrice.vue'
 import { useCurrency } from '~/composables/useCurrency'
-import type { Currency } from '~/types/services'
+import type { Currency } from '~/types/currency'
 
 describe('SubServiceCard', () => {
   beforeEach(() => {

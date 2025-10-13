@@ -29,7 +29,6 @@
 
 <script setup lang="ts">
 import type { ProcessStep } from '~/types/services'
-import { isRef, unref } from 'vue'
 
 interface Props {
   step: ProcessStep
