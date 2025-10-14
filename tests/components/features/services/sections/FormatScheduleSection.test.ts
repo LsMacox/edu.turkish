@@ -7,6 +7,12 @@ const messages = {
     'test-service': {
       formatSchedule: {
         title: 'Format & Schedule',
+        labels: {
+          format: 'Format',
+          duration: 'Duration',
+          homework: 'Homework',
+          support: 'Support',
+        },
         format: 'Online or in-person, group or individual',
         duration: '8 weeks (24 lessons)',
         homework: 'Yes, with detailed review',
@@ -68,6 +74,13 @@ describe('FormatScheduleSection', () => {
     const wrapper = createWrapper()
 
     expect(wrapper.text()).toContain('Online or in-person, group or individual')
+  })
+
+  it('renders translated labels when available', () => {
+    const wrapper = createWrapper()
+
+    expect(wrapper.text()).toContain('Format')
+    expect(wrapper.text()).toContain('Support')
   })
 
   it('renders duration', () => {
