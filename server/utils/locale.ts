@@ -29,8 +29,13 @@ const LOCALE_TAGS: LocaleKeys = {
  * Extracts base code from language tags (e.g., en-US -> en).
  */
 export function normalizeLocale(input?: string | null): NormalizedLocale {
-  const base = (input ?? 'ru').toLowerCase()
-  const normalized = base.split(/[-_]/)[0] as LocaleKey
+  const base = (input ?? DEFAULT_LOCALE).toLowerCase()
+  const candidate = base.split(/[-_]/)[0]
+  const normalized = (
+    SUPPORTED_LOCALES.includes(candidate as SupportedLocale)
+      ? candidate
+      : DEFAULT_LOCALE
+  ) as LocaleKey
   const fallbacks = [normalized, 'ru'].filter((v, i, a) => a.indexOf(v) === i) as LocaleKey[]
 
   return {
