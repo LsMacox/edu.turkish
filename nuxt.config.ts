@@ -40,7 +40,7 @@ export default defineNuxtConfig({
   devtools: { enabled: true },
   vite: {
     build: {
-      cssCodeSplit: false,
+      cssCodeSplit: true,
     },
   },
   modules: [
@@ -240,6 +240,13 @@ export default defineNuxtConfig({
     '/tr/privacy-policy': { prerender: enablePrerender },
     '/tr/university/**': { prerender: enablePrerender },
     '/tr/articles/**': { prerender: enablePrerender },
+    '/api/v1/reviews/media': {
+      cache: {
+        maxAge: 60 * 10,
+        swr: true,
+      },
+      headers: { 'cache-control': 'public, max-age=600, stale-while-revalidate=3600' },
+    },
     '/api/**': {
       prerender: false,
       headers: { 'cache-control': 'public, max-age=60, stale-while-revalidate=300' },
