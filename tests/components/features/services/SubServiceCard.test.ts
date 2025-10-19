@@ -124,4 +124,78 @@ describe('SubServiceCard', () => {
 
     expect(wrapper.text()).toContain(longDescription)
   })
+
+  describe('Dynamic USD pricing mode', () => {
+    it('should display price correctly in USD with priceUsd prop', () => {
+      const wrapper = mount(SubServiceCard, {
+        props: {
+          subServiceId: 'language-turkish-beginner',
+          name: 'Test Service',
+          description: 'Test description',
+          priceUsd: 350,
+        },
+        global: {
+          components: { CurrencyPrice },
+          mocks: { $t: (key: string) => key },
+        },
+      })
+
+      expect(wrapper.text()).toContain('$350')
+    })
+
+    it('should convert price correctly when currency changes', async () => {
+      const wrapper = mount(SubServiceCard, {
+        props: {
+          subServiceId: 'language-turkish-beginner',
+          name: 'Test Service',
+          description: 'Test description',
+          priceUsd: 100,
+        },
+        global: {
+          components: { CurrencyPrice },
+          mocks: { $t: (key: string) => key },
+        },
+      })
+
+      const { setCurrency } = useCurrency()
+
+      // Default USD
+      expect(wrapper.text()).toContain('$100')
+
+      // Switch to KZT (rate ~450)
+      setCurrency('KZT')
+      await wrapper.vm.$nextTick()
+      expect(wrapper.text()).toMatch(/₸/)
+
+      // Switch to TRY (rate ~32)
+      setCurrency('TRY')
+      await wrapper.vm.$nextTick()
+      expect(wrapper.text()).toMatch(/₺/)
+    })
+
+    it('should update currency symbol when currency changes', async () => {
+      const wrapper = mount(SubServiceCard, {
+        props: {
+          subServiceId: 'language-turkish-beginner',
+          name: 'Test Service',
+          description: 'Test description',
+          priceUsd: 500,
+        },
+        global: {
+          components: { CurrencyPrice },
+          mocks: { $t: (key: string) => key },
+        },
+      })
+
+      const { setCurrency } = useCurrency()
+
+      setCurrency('USD')
+      await wrapper.vm.$nextTick()
+      expect(wrapper.text()).toContain('$')
+
+      setCurrency('RUB')
+      await wrapper.vm.$nextTick()
+      expect(wrapper.text()).toContain('₽')
+    })
+  })
 })
