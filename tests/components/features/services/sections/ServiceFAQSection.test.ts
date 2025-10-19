@@ -44,6 +44,15 @@ const mockUseI18n = () => ({
     }
     return value || []
   },
+  te: (key: string) => {
+    const keys = key.split('.')
+    let value: any = messages
+    for (const k of keys) {
+      value = value?.[k]
+      if (value === undefined) return false
+    }
+    return value !== undefined
+  },
   locale: { value: 'en' },
 })
 

@@ -14,14 +14,13 @@ const props = withDefaults(defineProps<Props>(), {
   defaultExpanded: false,
 })
 
-const { t, tm } = useI18n()
+const { t, tm, te } = useI18n()
 
 const title = computed(() => props.title || t(`${props.keyPrefix}.title`))
 
 const subtitleText = computed(() => {
   const key = `${props.keyPrefix}.subtitle`
-  const val = t(key) as unknown as string
-  return val && val !== key ? val : ''
+  return te(key) ? ((t(key) as unknown) as string) : ''
 })
 
 type FaqAnswer = string | { title?: string; items?: string[]; ordered?: boolean }
