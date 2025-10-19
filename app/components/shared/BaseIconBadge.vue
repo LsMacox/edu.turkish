@@ -7,7 +7,7 @@
 <script setup lang="ts">
 export interface BaseIconBadgeProps {
   icon: string
-  color?: 'blue' | 'green' | 'purple' | 'orange' | 'red' | 'yellow' | 'pink'
+  color?: 'blue' | 'green' | 'purple' | 'orange' | 'red' | 'yellow' | 'pink' | 'teal'
   size?: 'sm' | 'md' | 'lg' | 'xl'
   rounded?: 'md' | 'lg' | 'xl' | '2xl'
 }
@@ -39,6 +39,7 @@ const badgeClasses = computed(() => {
     red: 'bg-red-100',
     yellow: 'bg-yellow-100',
     pink: 'bg-pink-100',
+    teal: 'bg-teal-100',
   }
   classes.push(colorMap[props.color])
 
@@ -75,6 +76,7 @@ const iconClasses = computed(() => {
     red: 'text-red-600',
     yellow: 'text-yellow-600',
     pink: 'text-pink-600',
+    teal: 'text-teal-600',
   }
   classes.push(iconColorMap[props.color])
 

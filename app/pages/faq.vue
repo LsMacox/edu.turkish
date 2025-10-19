@@ -10,7 +10,7 @@
           <p class="text-hero-subtitle mb-8 max-w-3xl mx-auto">
             {{ t('faq.subtitle') }}
           </p>
-          <div class="flex justify-center">
+          <div class="hidden md:flex justify-center">
             <NuxtImg
               class="w-64 h-64 object-contain"
               src="/images/faq-hero.png"
