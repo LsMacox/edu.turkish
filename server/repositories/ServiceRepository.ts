@@ -90,15 +90,21 @@ export class ServiceRepository {
     const offeringEntries = category.subServices.filter((sub: any) => sub.type !== 'calculator')
 
     const subServices: SubServiceDetail[] = offeringEntries.map((sub) => {
-      const subTranslation =
-        sub.translations.find((t) => t.locale === locale) ||
-        sub.translations.find((t) => t.locale === 'en')
+      const tryExact = sub.translations.find((t: any) => t.locale === locale)
+      const tryEn = sub.translations.find((t: any) => t.locale === 'en')
+      const tryAny = sub.translations[0] as any | undefined
+
+      const resolved = tryExact || tryEn || tryAny
+
+      const name = resolved?.name || tryEn?.name || tryAny?.name || sub.slug
+      const description =
+        resolved?.description || tryEn?.description || tryAny?.description || sub.slug
 
       return {
         id: sub.id,
         slug: sub.slug,
-        name: subTranslation?.name || 'Untitled',
-        description: subTranslation?.description || '',
+        name,
+        description,
         priceUsd: sub.priceUsd.toNumber(),
         deliveryTimeDays: sub.deliveryTimeDays,
         order: sub.order,

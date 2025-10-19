@@ -1,4 +1,4 @@
-import type { SupportedLocale } from '~~/lib/locales'
+import { SUPPORTED_LOCALES, type SupportedLocale } from '~~/lib/locales'
 
 type LocaleKeys = {
   [key in SupportedLocale]: string
@@ -25,14 +25,19 @@ const LOCALE_TAGS: LocaleKeys = {
  * Extracts base code from language tags (e.g., en-US -> en).
  */
 export function normalizeLocale(input?: string | null): NormalizedLocale {
-  const base = (input ?? 'ru').toLowerCase()
-  const normalized = base.split(/[-_]/)[0] as SupportedLocale
-  const fallbacks = [normalized, 'ru'].filter((v, i, a) => a.indexOf(v) === i) as SupportedLocale[]
-
-  return {
-    normalized,
-    fallbacks,
+  const raw = (input ?? '').trim()
+  if (!raw) {
+    return { normalized: 'ru', fallbacks: ['ru'] }
   }
+  const parts = raw.toLowerCase().split(/[-_]/)
+  const base = (parts[0] ?? '') as string
+  const isSupported = (SUPPORTED_LOCALES as readonly string[]).includes(base)
+  if (!isSupported) {
+    return { normalized: 'ru', fallbacks: ['ru'] }
+  }
+  const normalized = base as SupportedLocale
+  const fallbacks = [normalized, 'ru'].filter((v, i, a) => a.indexOf(v) === i) as SupportedLocale[]
+  return { normalized, fallbacks }
 }
 
 /**

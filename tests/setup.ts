@@ -134,6 +134,12 @@ beforeAll(() => {
         '<div><h2 class="section-title">{{ title }}</h2><p v-if="subtitle" class="section-subtitle">{{ subtitle }}</p><slot /></div>',
       props: ['title', 'subtitle'],
     },
+    UiDisplayFAQ: {
+      // Minimal FAQ display to expose text content in tests
+      template:
+        '<section><h2>{{ title }}</h2><p v-if="subtitle">{{ subtitle }}</p><div v-for="(it, idx) in items" :key="idx"><h3>{{ it.question }}</h3><div>{{ typeof it.answer === "string" ? it.answer : (it.answer?.title || "") }}</div></div></section>',
+      props: ['items', 'title', 'subtitle', 'background', 'showCta', 'variant'],
+    },
   }
 
   // Mock i18n globally
@@ -149,6 +155,12 @@ beforeAll(() => {
 })
 
 afterEach(() => {
+  // Clear mock cookies between tests to avoid state leakage
+  const g = globalThis as any
+  if (g.__mockCookies__ && typeof g.__mockCookies__.clear === 'function') {
+    g.__mockCookies__.clear()
+  }
+
   consoleMethodsToMock.forEach((method) => {
     consoleSpies[method]?.mockClear()
   })

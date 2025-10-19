@@ -1,4 +1,13 @@
 {
+  "currency": {
+    "selector": {
+      "label": "Para Birimi",
+      "KZT": "KZT",
+      "TRY": "TRY",
+      "RUB": "RUB",
+      "USD": "USD"
+    }
+  },
   "services": {
     "common": {
       "deliveryTime": "Süre",

@@ -1,4 +1,8 @@
 import type { SupportedLocale } from '~~/lib/locales'
+import type { SupportedCurrency } from '~~/lib/currency'
+export type { SupportedLocale } from '~~/lib/locales'
+export type { ExchangeRatesResponse } from '~~/server/types/api/exchange-rates'
+export type Currency = SupportedCurrency
 
 export interface ServiceCategoryListItem {
   id: number

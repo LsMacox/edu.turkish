@@ -1,4 +1,13 @@
 {
+  "currency": {
+    "selector": {
+      "label": "Currency",
+      "KZT": "KZT",
+      "TRY": "TRY",
+      "RUB": "RUB",
+      "USD": "USD"
+    }
+  },
   "services": {
     "common": {
       "deliveryTime": "Timeline",

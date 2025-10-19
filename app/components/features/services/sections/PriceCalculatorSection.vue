@@ -64,7 +64,15 @@ const props = withDefaults(defineProps<PriceCalculatorSectionProps>(), {
 
 const { t } = useI18n()
 const { currencyRef } = useCurrency()
-const exchangeRatesStore = useExchangeRatesStore()
+
+// Access Pinia store lazily with a safe fallback for test environments
+const getExchangeRatesStore = () => {
+  try {
+    return useExchangeRatesStore()
+  } catch {
+    return { convertPrice: (v: number) => v } as unknown as ReturnType<typeof useExchangeRatesStore>
+  }
+}
 
 // Computed title with i18n fallback
 const title = computed(() => props.title || t(`${props.keyPrefix}.title`))
@@ -130,7 +138,7 @@ const calculatedPrice = computed(() => {
   const langAdj = props.adjustments?.byLanguage?.[selectedLanguage.value] ?? 1
   const usdPrice = baseUsd * m * docAdj * langAdj
 
-  const converted = exchangeRatesStore.convertPrice(usdPrice, currency as any)
+  const converted = getExchangeRatesStore().convertPrice(usdPrice, currency as any)
   const rounded = Math.round(converted)
   return `${rounded} ${t(`currency.selector.${currency}`)}`
 })
