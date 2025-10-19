@@ -1,3 +1,4 @@
+import { timingSafeEqual } from 'node:crypto'
 import { z } from 'zod'
 
 /**
@@ -84,7 +85,19 @@ export function validateWebhookToken(token: string | undefined, expectedToken: s
   if (!token || !expectedToken) {
     return false
   }
-  return token === expectedToken
+
+  const providedBuffer = Buffer.from(token)
+  const expectedBuffer = Buffer.from(expectedToken)
+
+  if (providedBuffer.length !== expectedBuffer.length) {
+    return false
+  }
+
+  try {
+    return timingSafeEqual(providedBuffer, expectedBuffer)
+  } catch {
+    return false
+  }
 }
 
 /**
