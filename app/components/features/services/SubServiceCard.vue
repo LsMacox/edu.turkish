@@ -17,7 +17,7 @@
       <div class="mt-auto space-y-4">
         <div class="flex items-baseline justify-between">
           <span class="text-sm text-gray-500">{{ $t('services.common.price') }}</span>
-          <CurrencyPrice :pricing="pricing" size="lg" />
+          <CurrencyPrice :pricing="pricing" :price-usd="priceUsd" size="lg" />
         </div>
 
         <!-- Delivery timeframe -->
@@ -46,7 +46,8 @@ interface Props {
   subServiceId: SubServiceId
   name: string
   description: string
-  pricing: Record<Currency, string>
+  pricing?: Record<Currency, string>
+  priceUsd?: number
   deliveryTime?: string
 }
 
