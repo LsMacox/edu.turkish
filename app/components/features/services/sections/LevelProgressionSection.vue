@@ -36,8 +36,12 @@ const { t, tm } = useI18n()
 const computedTitle = computed(() => props.title || (t(`${props.keyPrefix}.title`) as string))
 
 const levels = computed(() => {
-  const raw = (tm(`${props.keyPrefix}.levels`) || []) as unknown[]
-  return raw.map((_, index) => ({
+  const raw = tm(`${props.keyPrefix}.levels`) as unknown
+  // Handle case where translation is missing or not an array
+  if (!raw || !Array.isArray(raw)) {
+    return []
+  }
+  return (raw as unknown[]).map((_: unknown, index: number) => ({
     from: t(`${props.keyPrefix}.levels.${index}.from`) as string,
     to: t(`${props.keyPrefix}.levels.${index}.to`) as string,
     outcome: t(`${props.keyPrefix}.levels.${index}.outcome`) as string,

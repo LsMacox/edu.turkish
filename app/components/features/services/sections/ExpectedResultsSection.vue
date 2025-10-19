@@ -16,6 +16,7 @@ import type { I18nKeyPrefix } from '~/types/services'
 
 interface Props extends I18nKeyPrefix {
   title?: string
+  items?: string[]
 }
 
 const props = withDefaults(defineProps<Props>(), {})
@@ -25,19 +26,17 @@ const { t, tm } = useI18n()
 const title = computed(() => props.title || t(`${props.keyPrefix}.title`))
 
 const items = computed<string[]>(() => {
+  if (props.items && props.items.length > 0) return props.items
   const raw = tm(`${props.keyPrefix}.items`) as unknown
-
   if (Array.isArray(raw)) {
     return (raw as unknown[]).map(
       (_: unknown, index: number) => t(`${props.keyPrefix}.items.${index}`) as string,
     )
   }
-
   if (raw && typeof raw === 'object') {
     const keys = Object.keys(raw as Record<string, unknown>)
     return keys.map((key: string) => t(`${props.keyPrefix}.items.${key}`) as string)
   }
-
   return [] as string[]
 })
 

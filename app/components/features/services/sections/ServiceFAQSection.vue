@@ -1,30 +1,9 @@
 <template>
-  <div>
-    <BaseSectionHeader :title="title" />
-
-    <div class="max-w-3xl mx-auto space-y-4">
-      <details
-        v-for="(item, index) in faqItems"
-        :key="index"
-        class="bg-white rounded-lg border border-gray-200 overflow-hidden"
-        :open="defaultExpanded"
-      >
-        <summary
-          class="cursor-pointer px-6 py-4 font-semibold text-lg hover:bg-gray-50 transition-colors flex items-center justify-between"
-        >
-          <span>{{ item.question }}</span>
-          <Icon name="mdi:chevron-down" class="w-6 h-6 text-gray-400 transition-transform" />
-        </summary>
-        <div class="px-6 py-4 text-gray-700 border-t border-gray-100">
-          {{ item.answer }}
-        </div>
-      </details>
-    </div>
-  </div>
+  <UiDisplayFAQ :items="faqs" :title="title" :subtitle="subtitleText" :background="false" />
 </template>
 
 <script setup lang="ts">
-import type { I18nKeyPrefix, FAQItem } from '~/types/services'
+import type { I18nKeyPrefix } from '~/types/services'
 
 interface Props extends I18nKeyPrefix {
   title?: string
@@ -35,21 +14,40 @@ const props = withDefaults(defineProps<Props>(), {
   defaultExpanded: false,
 })
 
-const { t, tm } = useI18n()
+const { t, tm, te } = useI18n()
 
 const title = computed(() => props.title || t(`${props.keyPrefix}.title`))
 
-const faqItems = computed(() => {
-  const raw = (tm(`${props.keyPrefix}.items`) || []) as unknown[]
-  return raw.map((_, index) => ({
+const subtitleText = computed(() =>
+  te(`${props.keyPrefix}.subtitle`) ? (t(`${props.keyPrefix}.subtitle`) as string) : ''
+)
+
+type FaqAnswer = string | { title?: string; items?: string[]; ordered?: boolean }
+
+const resolveAnswer = (path: string): FaqAnswer => {
+  const message = tm(path)
+  if (typeof message === 'string') return message
+  if (message && typeof message === 'object') {
+    const record = message as Record<string, unknown>
+    const items = Array.isArray(record.items)
+      ? record.items.filter((item): item is string => typeof item === 'string')
+      : undefined
+    const title = typeof record.title === 'string' ? record.title : undefined
+    const ordered = typeof record.ordered === 'boolean' ? record.ordered : undefined
+    if (title || (items && items.length > 0)) {
+      return { title, items, ordered }
+    }
+  }
+  return t(path)
+}
+
+const faqs = computed(() => {
+  const raw = tm(`${props.keyPrefix}.items`) as unknown
+  if (!Array.isArray(raw)) return []
+  return raw.map((_: unknown, index: number) => ({
     question: t(`${props.keyPrefix}.items.${index}.question`) as string,
-    answer: t(`${props.keyPrefix}.items.${index}.answer`) as string,
-  })) as FAQItem[]
+    answer: resolveAnswer(`${props.keyPrefix}.items.${index}.answer`),
+  })) as Array<{ question: string; answer: FaqAnswer }>
 })
 </script>
 
-<style scoped>
-details[open] summary icon {
-  transform: rotate(180deg);
-}
-</style>

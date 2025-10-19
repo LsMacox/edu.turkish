@@ -48,8 +48,9 @@ const description = computed(() => {
 })
 
 const packages = computed(() => {
-  const raw = (tm(`${props.keyPrefix}.packages`) || []) as unknown[]
-  return raw.map((_, index) => ({
+  const raw = tm(`${props.keyPrefix}.packages`) as unknown
+  if (!Array.isArray(raw)) return []
+  return raw.map((_: unknown, index: number) => ({
     name: t(`${props.keyPrefix}.packages.${index}.name`) as string,
     targetScore: t(`${props.keyPrefix}.packages.${index}.targetScore`) as string,
   })) as PackageTier[]

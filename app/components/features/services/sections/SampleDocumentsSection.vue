@@ -56,8 +56,12 @@ const title = computed(() => props.title || t(`${props.keyPrefix}.title`))
 
 // Load samples
 const samples = computed(() => {
-  const raw = (tm(`${props.keyPrefix}.samples`) || []) as unknown[]
-  return raw.map((_, index) => ({
+  if (props.samples && props.samples.length > 0) {
+    return props.samples
+  }
+  const raw = tm(`${props.keyPrefix}.samples`) as unknown
+  if (!Array.isArray(raw)) return []
+  return raw.map((_: unknown, index: number) => ({
     type: t(`${props.keyPrefix}.samples.${index}.type`) as string,
     image: t(`${props.keyPrefix}.samples.${index}.image`) as string,
   }))
