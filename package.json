@@ -8,7 +8,7 @@
     "generate": "nuxt generate",
     "preview": "nuxt preview",
     "postinstall": "nuxt prepare && prisma generate",
-    "lint": "eslint . --ext .js,.ts,.vue --report-unused-disable-directives",
+    "lint": "eslint app server tests specs prisma scripts --ext .js,.ts,.vue --report-unused-disable-directives --no-error-on-unmatched-pattern",
     "lint:fix": "npm run lint -- --fix",
     "format": "prettier . --write",
     "format:check": "prettier . --check",
