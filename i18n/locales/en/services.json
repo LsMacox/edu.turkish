@@ -378,6 +378,14 @@
       },
       "formatSchedule": {
         "title": "Learning Format",
+        "labels": {
+          "groupSize": "Group Size",
+          "individual": "Individual Lessons",
+          "conversationClubs": "Conversation Clubs",
+          "schedule": "Schedule",
+          "platform": "Platform",
+          "certificate": "Certificate"
+        },
         "groupSize": "Up to 8 students per group",
         "individual": "Individual lessons available",
         "conversationClubs": "Weekly conversation clubs included",

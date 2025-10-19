@@ -286,6 +286,14 @@
       },
       "formatSchedule": {
         "title": "Формат обучения",
+        "labels": {
+          "groupSize": "Размер группы",
+          "individual": "Индивидуальные занятия",
+          "conversationClubs": "Разговорные клубы",
+          "schedule": "Расписание",
+          "platform": "Платформа",
+          "certificate": "Сертификат"
+        },
         "groupSize": "До 8 студентов в группе",
         "individual": "Доступны индивидуальные занятия",
         "conversationClubs": "Еженедельные разговорные клубы включены",

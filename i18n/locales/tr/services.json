@@ -386,6 +386,14 @@
       },
       "formatSchedule": {
         "title": "Öğrenme Formatı",
+        "labels": {
+          "groupSize": "Grup mevcudu",
+          "individual": "Bireysel dersler",
+          "conversationClubs": "Konuşma kulüpleri",
+          "schedule": "Program",
+          "platform": "Platform",
+          "certificate": "Sertifika"
+        },
         "groupSize": "Grup başına 8'e kadar öğrenci",
         "individual": "Bireysel dersler mevcut",
         "conversationClubs": "Haftalık konuşma kulüpleri dahil",
