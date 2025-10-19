@@ -1,6 +1,6 @@
 import { prisma } from '~~/lib/prisma'
 import { ReviewRepository } from '~~/server/repositories/ReviewRepository'
-import type { LocaleKey } from '~~/server/utils/locale'
+import type { SupportedLocale } from '~~/lib/locales'
 import { parsePositiveInt } from '~~/lib/number'
 
 export default defineEventHandler(async (event: any) => {
@@ -15,7 +15,7 @@ export default defineEventHandler(async (event: any) => {
       featured: featured === 'true',
       limit: parsePositiveInt(limit as string) ?? 12,
       mediaType: type as 'video' | 'image' | undefined,
-      locale: lang as LocaleKey,
+      locale: lang as SupportedLocale,
     })
 
     return {

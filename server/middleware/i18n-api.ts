@@ -1,4 +1,4 @@
-import { SUPPORTED_LOCALES, DEFAULT_LOCALE, type SupportedLocale } from '~~/server/utils/locale'
+import { SUPPORTED_LOCALES, DEFAULT_LOCALE, type SupportedLocale } from '~~/lib/locales'
 
 export default defineEventHandler(async (event) => {
   if (!event.node.req.url?.startsWith('/api/')) {
