@@ -20,6 +20,7 @@ import type { I18nKeyPrefix } from '~/types/services'
 
 interface Props extends I18nKeyPrefix {
   title?: string
+  criteria?: string[]
 }
 
 const props = defineProps<Props>()
@@ -29,7 +30,9 @@ const { t, tm } = useI18n()
 const title = computed(() => props.title || t(`${props.keyPrefix}.title`))
 
 const criteria = computed(() => {
-  const raw = (tm(`${props.keyPrefix}.criteria`) || []) as unknown[]
-  return raw.map((_, index) => t(`${props.keyPrefix}.criteria.${index}`) as string)
+  if (props.criteria && props.criteria.length > 0) return props.criteria
+  const raw = tm(`${props.keyPrefix}.criteria`) as unknown
+  if (!Array.isArray(raw)) return []
+  return raw.map((_: unknown, index: number) => t(`${props.keyPrefix}.criteria.${index}`) as string)
 })
 </script>

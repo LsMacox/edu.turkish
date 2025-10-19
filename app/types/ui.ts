@@ -103,7 +103,7 @@ export interface BaseSectionHeaderProps {
 // BaseIconBadge Component Interface
 export interface BaseIconBadgeProps {
   icon: string
-  color?: 'blue' | 'green' | 'purple' | 'orange' | 'red' | 'yellow' | 'pink'
+  color?: 'blue' | 'green' | 'purple' | 'orange' | 'red' | 'yellow' | 'pink' | 'teal' 
   size?: Size | 'xl'
   rounded?: 'md' | 'lg' | 'xl' | '2xl'
 }

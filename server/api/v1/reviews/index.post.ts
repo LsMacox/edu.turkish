@@ -1,7 +1,7 @@
 import { prisma } from '~~/lib/prisma'
 import { ReviewRepository } from '~~/server/repositories'
 import type { CreateReviewResponse } from '~~/server/types/api'
-import { SUPPORTED_LOCALES } from '~~/server/utils/locale'
+import { SUPPORTED_LOCALES } from '~~/lib/locales'
 import { z } from 'zod'
 import { parsePositiveInt } from '~~/lib/number'
 

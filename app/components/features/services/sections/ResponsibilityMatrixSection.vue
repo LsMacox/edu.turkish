@@ -42,18 +42,20 @@ const { t, tm } = useI18n()
 const title = computed(() => props.title || t(`${props.keyPrefix}.title`))
 
 const weDo = computed(() => {
-  const raw = (tm(`${props.keyPrefix}.weDo.items`) || []) as unknown[]
+  const raw = tm(`${props.keyPrefix}.weDo.items`) as unknown
+  const items = Array.isArray(raw) ? raw.map((_: unknown, index: number) => t(`${props.keyPrefix}.weDo.items.${index}`) as string) : []
   return {
     title: t(`${props.keyPrefix}.weDo.title`) as string,
-    items: raw.map((_, index) => t(`${props.keyPrefix}.weDo.items.${index}`) as string),
+    items,
   } as ResponsibilityItem
 })
 
 const youDo = computed(() => {
-  const raw = (tm(`${props.keyPrefix}.youDo.items`) || []) as unknown[]
+  const raw = tm(`${props.keyPrefix}.youDo.items`) as unknown
+  const items = Array.isArray(raw) ? raw.map((_: unknown, index: number) => t(`${props.keyPrefix}.youDo.items.${index}`) as string) : []
   return {
     title: t(`${props.keyPrefix}.youDo.title`) as string,
-    items: raw.map((_, index) => t(`${props.keyPrefix}.youDo.items.${index}`) as string),
+    items,
   } as ResponsibilityItem
 })
 </script>

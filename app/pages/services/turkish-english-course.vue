@@ -1,7 +1,7 @@
 <template>
   <ServicePageLayout
-    :title="t('services.turkish-english-course.title')"
-    :subtitle="t('services.turkish-english-course.subtitle')"
+    :title="category?.title || t('services.turkish-english-course.title')"
+    :subtitle="category?.subtitle || t('services.turkish-english-course.subtitle')"
   >
     <template #sub-services>
       <SubServiceCard
@@ -10,55 +10,84 @@
         :sub-service-id="subService.id"
         :name="subService.name"
         :description="subService.description"
-        :pricing="subService.pricing"
+        :price-usd="subService.priceUsd"
+        :delivery-time="subService.deliveryTime"
         @apply="handleApply"
       />
     </template>
 
     <template #level-progression>
-      <LevelProgressionSection key-prefix="services.turkish-english-course.levelProgression" />
+      <LevelProgressionSection
+        key-prefix="services.turkish-english-course.levelProgression"
+        :title="metadataPath('levelProgression.title')"
+      />
     </template>
 
     <template #format-schedule>
-      <FormatScheduleSection key-prefix="services.turkish-english-course.formatSchedule" />
+      <FormatScheduleSection
+        key-prefix="services.turkish-english-course.formatSchedule"
+        :title="metadataPath('formatSchedule.title')"
+      />
     </template>
 
     <template #teachers>
-      <TeachersSection key-prefix="services.turkish-english-course.teachers" />
+      <TeachersSection
+        key-prefix="services.turkish-english-course.teachers"
+        :title="metadataPath('teachers.title')"
+      />
     </template>
 
     <template #expected-results>
-      <ExpectedResultsSection key-prefix="services.turkish-english-course.expectedResults" />
+      <ExpectedResultsSection
+        key-prefix="services.turkish-english-course.expectedResults"
+        :title="metadataPath('expectedResults.title')"
+      />
     </template>
 
     <template #faq>
-      <ServiceFAQSection key-prefix="services.turkish-english-course.faq" />
+      <ServiceFAQSection key-prefix="services.turkish-english-course.faq" :title="metadataPath('faq.title')" />
     </template>
   </ServicePageLayout>
 </template>
 
 <script setup lang="ts">
-import type { Currency } from '~/types/currency'
 import type { SubServiceId } from '~/types/services'
+import type { ServiceCategoryDetail } from '~~/server/types/api/services'
 import { useApplicationModalStore } from '~/stores/applicationModal'
+import { useExchangeRatesStore } from '~/stores/exchangeRates'
+import { useServices } from '~/composables/useServices'
 
-const { t, tm } = useI18n()
+const { t } = useI18n()
 const modal = useApplicationModalStore()
+const exchangeRatesStore = useExchangeRatesStore()
+const { fetchCategory } = useServices()
 
+// Fetch category data from database
+const { data: category } = await useAsyncData<ServiceCategoryDetail>(
+  'turkish-english-course',
+  () => fetchCategory('turkish-english-course'),
+  {
+    lazy: false,
+  }
+)
+
+// Ensure exchange rates are fresh
+onMounted(async () => {
+  await exchangeRatesStore.ensureFresh()
+})
+
+// Map database sub-services to component format
 const subServices = computed(() => {
-  const raw = (tm('services.turkish-english-course.subServices') || {}) as Record<string, unknown>
-  const ids = Object.keys(raw)
+  if (!category.value?.subServices) return []
 
-  return ids.map((id) => ({
-    id: id as SubServiceId,
-    name: t(`services.turkish-english-course.subServices.${id}.name`) as string,
-    description: t(`services.turkish-english-course.subServices.${id}.description`) as string,
-    pricing: {
-      KZT: t(`services.turkish-english-course.subServices.${id}.pricing.KZT`) as string,
-      TRY: t(`services.turkish-english-course.subServices.${id}.pricing.TRY`) as string,
-      RUB: t(`services.turkish-english-course.subServices.${id}.pricing.RUB`) as string,
-      USD: t(`services.turkish-english-course.subServices.${id}.pricing.USD`) as string,
-    } as Record<Currency, string>,
+  return category.value.subServices.map((subService) => ({
+    id: subService.slug as SubServiceId,
+    name: subService.name,
+    description: subService.description,
+    priceUsd: subService.priceUsd,
+    deliveryTime: subService.deliveryTimeDays
+      ? `${subService.deliveryTimeDays} ${t('services.common.days')}`
+      : undefined,
   }))
 })
 
@@ -66,12 +95,28 @@ const handleApply = ({ subServiceId, name }: { subServiceId: SubServiceId; name:
   modal.openModalForSubService(subServiceId, name)
 }
 
+// Helper to safely read structured metadata
+function metadataPath<T = any>(path: string): T | undefined {
+  const meta = category.value?.metadata as Record<string, unknown> | undefined | null
+  if (!meta) return undefined
+  const parts = path.split('.')
+  let node: any = meta
+  for (const part of parts) {
+    if (node && typeof node === 'object' && part in node) {
+      node = (node as any)[part]
+    } else {
+      return undefined
+    }
+  }
+  return node as T
+}
+
 useHead({
-  title: t('services.turkish-english-course.title'),
+  title: category.value?.title || t('services.turkish-english-course.title'),
   meta: [
     {
       name: 'description',
-      content: t('services.turkish-english-course.subtitle'),
+      content: category.value?.subtitle || t('services.turkish-english-course.subtitle'),
     },
   ],
 })

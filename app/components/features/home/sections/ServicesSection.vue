@@ -9,16 +9,27 @@
       />
 
       <div class="flex flex-wrap justify-center gap-8 max-w-6xl mx-auto">
-        <BaseFeatureCard
-          v-for="(card, i) in cards"
-          :key="i"
-          :icon="card.icon"
-          :icon-color="card.color"
-          :title="t(card.title)"
-          :description="t(card.text)"
-          hover="scale"
-          class="w-full sm:w-80 md:w-72 lg:w-80"
-        />
+        <NuxtLink
+          v-for="card in cards"
+          :key="card.slug"
+          :to="localePath(`/services/${card.slug}`)"
+          class="w-full sm:w-80 md:w-72 lg:w-80 focus:outline-none focus-visible:ring-2 focus-visible:ring-primary/60 rounded-xl"
+        >
+          <BaseFeatureCard
+            :icon="card.icon"
+            :icon-color="card.color"
+            :title="t(card.titleKey)"
+            :description="t(card.descriptionKey)"
+            hover="scale"
+          >
+            <template #footer>
+              <div class="flex items-center text-primary font-medium">
+                <span class="mr-1">{{ t('universities_page.card.details_button') }}</span>
+                <Icon name="mdi:arrow-right" class="w-4 h-4" />
+              </div>
+            </template>
+          </BaseFeatureCard>
+        </NuxtLink>
       </div>
     </div>
   </section>
@@ -28,42 +39,52 @@
 import type { BaseIconBadgeProps } from '~/types/ui'
 
 const { t } = useI18n()
+const localePath = useLocalePath()
 
-const cards: Array<{
-  title: string
-  text: string
+type ServiceCard = {
+  slug: 'relocation-in-turkey' | 'tr-yos-courses' | 'sat-courses' | 'turkish-english-course' | 'document-translations'
+  titleKey: string
+  descriptionKey: string
   color: BaseIconBadgeProps['color']
   icon: string
-}> = [
+}
+
+// Map service categories to icons/colors and use i18n service titles/subtitles
+const cards: ServiceCard[] = [
   {
-    title: 'home.services.card1_title',
-    text: 'home.services.card1_text',
+    slug: 'relocation-in-turkey',
+    titleKey: 'services.relocation-in-turkey.title',
+    descriptionKey: 'services.relocation-in-turkey.subtitle',
     color: 'blue',
-    icon: 'mdi:account',
+    icon: 'mdi:map-marker-path',
   },
   {
-    title: 'home.services.card2_title',
-    text: 'home.services.card2_text',
+    slug: 'tr-yos-courses',
+    titleKey: 'services.tr-yos-courses.title',
+    descriptionKey: 'services.tr-yos-courses.subtitle',
     color: 'green',
-    icon: 'mdi:cog',
+    icon: 'mdi:school',
   },
   {
-    title: 'home.services.card3_title',
-    text: 'home.services.card3_text',
+    slug: 'sat-courses',
+    titleKey: 'services.sat-courses.title',
+    descriptionKey: 'services.sat-courses.subtitle',
     color: 'purple',
+    icon: 'mdi:book-open-variant',
+  },
+  {
+    slug: 'turkish-english-course',
+    titleKey: 'services.turkish-english-course.title',
+    descriptionKey: 'services.turkish-english-course.subtitle',
+    color: 'teal',
     icon: 'mdi:translate',
   },
   {
-    title: 'home.services.card4_title',
-    text: 'home.services.card4_text',
-    color: 'green',
-    icon: 'mdi:chat',
-  },
-  {
-    title: 'home.services.card5_title',
-    text: 'home.services.card5_text',
+    slug: 'document-translations',
+    titleKey: 'services.document-translations.title',
+    descriptionKey: 'services.document-translations.subtitle',
     color: 'yellow',
-    icon: 'mdi:shield-check',
+    icon: 'mdi:file-document-check',
   },
 ]
 </script>

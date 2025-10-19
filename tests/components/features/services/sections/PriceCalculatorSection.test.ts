@@ -7,29 +7,6 @@ const messages = {
     'test-service': {
       priceCalculator: {
         title: 'Price Calculator',
-        documentTypes: ['Diploma', 'Transcript', 'Passport'],
-        languages: ['English → Turkish', 'Russian → Turkish'],
-        urgency: ['Standard (5 days)', 'Express (2 days)', 'Rush (24 hours)'],
-        basePrices: {
-          standard: {
-            KZT: '10000',
-            TRY: '350',
-            RUB: '2000',
-            USD: '20',
-          },
-          express: {
-            KZT: '15000',
-            TRY: '525',
-            RUB: '3000',
-            USD: '30',
-          },
-          rush: {
-            KZT: '20000',
-            TRY: '700',
-            RUB: '4000',
-            USD: '40',
-          },
-        },
       },
     },
   },
@@ -74,6 +51,11 @@ describe('PriceCalculatorSection', () => {
     return mount(PriceCalculatorSection, {
       props: {
         keyPrefix: 'services.test-service.priceCalculator',
+        documentTypes: ['Diploma', 'Transcript', 'Passport'],
+        languages: ['English → Turkish', 'Russian → Turkish'],
+        urgency: ['Standard (5 days)', 'Express (2 days)', 'Rush (24 hours)'],
+        standardPriceUsd: 20,
+        urgencyMultipliers: { express: 1.5, rush: 2.0 },
         ...props,
       },
       global: {
@@ -111,7 +93,7 @@ describe('PriceCalculatorSection', () => {
 
   it('renders urgency options', () => {
     const wrapper = createWrapper()
-
+  
     expect(wrapper.text()).toContain('Standard (5 days)')
     expect(wrapper.text()).toContain('Express (2 days)')
     expect(wrapper.text()).toContain('Rush (24 hours)')

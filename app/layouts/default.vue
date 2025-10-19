@@ -31,7 +31,6 @@ const route = useRoute()
 const localeHead = useLocaleHead({ dir: true, seo: true })
 
 useHead(() => {
-  const metrikaId = config.public.yandexMetrikaId
   const headFromLocale = localeHead.value
   const canonicalHref = config.public.siteUrl + route.path
 
@@ -49,18 +48,6 @@ useHead(() => {
     },
     link: links,
   } as Record<string, unknown>
-
-  if (metrikaId) {
-    head.noscript = [
-      {
-        key: 'yandex-metrika-noscript',
-        innerHTML: `<div><img src="https://mc.yandex.ru/watch/${metrikaId}" style="position:absolute; left:-9999px;" alt="" /></div>`,
-      },
-    ]
-    head.__dangerouslyDisableSanitizersByTagID = {
-      'yandex-metrika-noscript': ['innerHTML'],
-    }
-  }
 
   return head
 })

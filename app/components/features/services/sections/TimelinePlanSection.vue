@@ -28,6 +28,7 @@ import type { I18nKeyPrefix, TimelineWeek } from '~/types/services'
 interface Props extends I18nKeyPrefix {
   title?: string
   unit?: 'week' | 'day' | 'phase'
+  weeks?: TimelineWeek[]
 }
 
 const props = withDefaults(defineProps<Props>(), {
@@ -48,9 +49,12 @@ const unitLabel = computed(() => {
 })
 
 const weeks = computed(() => {
-  const rawWeeks = (tm(`${props.keyPrefix}.weeks`) || []) as Array<Record<string, unknown>>
-  return rawWeeks.map((week, index) => {
-    const numberFromData = typeof week?.number === 'number' ? (week.number as number) : undefined
+  if (props.weeks && props.weeks.length > 0) return props.weeks
+  const rawWeeks = tm(`${props.keyPrefix}.weeks`) as unknown
+  if (!Array.isArray(rawWeeks)) return []
+  return rawWeeks.map((week: unknown, index: number) => {
+    const weekRecord = week as Record<string, unknown>
+    const numberFromData = typeof weekRecord?.number === 'number' ? (weekRecord.number as number) : undefined
     return {
       number: numberFromData ?? index + 1,
       activities: t(`${props.keyPrefix}.weeks.${index}.activities`) as string,

@@ -46,8 +46,9 @@ const methodology = computed(() => {
 })
 
 const profiles = computed(() => {
-  const raw = (tm(`${props.keyPrefix}.profiles`) || []) as unknown[]
-  return raw.map((_, index) => ({
+  const raw = tm(`${props.keyPrefix}.profiles`) as unknown
+  if (!Array.isArray(raw)) return []
+  return raw.map((_: unknown, index: number) => ({
     name: t(`${props.keyPrefix}.profiles.${index}.name`) as string,
     photo: t(`${props.keyPrefix}.profiles.${index}.photo`) as string,
     achievements: t(`${props.keyPrefix}.profiles.${index}.achievements`) as string,

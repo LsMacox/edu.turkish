@@ -31,7 +31,7 @@ const props = withDefaults(defineProps<FormatScheduleSectionProps>(), {
   title: '',
 })
 
-const { t } = useI18n()
+const { t, te } = useI18n()
 
 const title = computed(() => props.title || t(`${props.keyPrefix}.title`))
 
@@ -63,18 +63,12 @@ const formatDetails = computed<FormatDetail[]>(() => {
 
   keys.forEach((key) => {
     const fullKey = `${props.keyPrefix}.${key}`
+    if (!te(fullKey)) {
+      return
+    }
     const value = t(fullKey) as unknown as string
-    // Add only if a translation exists (vue-i18n returns the key itself when missing)
-    if (value && value !== fullKey) {
-      const labelKey = `${props.keyPrefix}.labels.${key}`
-      const translatedLabel = t(labelKey) as unknown as string
-      const label = translatedLabel && translatedLabel !== labelKey ? translatedLabel : formatKey(key)
-
-      details.push({
-        key,
-        label,
-        value,
-      })
+    if (value) {
+      details[key] = value
     }
   })
 

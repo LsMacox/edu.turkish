@@ -5,6 +5,7 @@ import { seedLocations } from './locations'
 import { seedReviews } from './reviews'
 import { seedBlog } from './blog'
 import { seedStudyDirections } from './study-directions'
+import { seedServices } from './services'
 const { PrismaClient } = prismaPkg as any
 
 const prisma = new PrismaClient()
@@ -54,6 +55,9 @@ async function main() {
 
   console.log('📰 Seeding blog content...')
   await seedBlog(prisma)
+
+  console.log('🛠️ Seeding services...')
+  await seedServices(prisma)
 
   console.log('✅ Database seeding completed!')
 }

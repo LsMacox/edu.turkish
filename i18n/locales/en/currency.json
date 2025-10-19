@@ -1,0 +1,11 @@
+{
+    "currency": {
+        "selector": {
+        "label": "Currency",
+        "KZT": "Tenge (₸)",
+        "TRY": "Lira (₺)",
+        "RUB": "Ruble (₽)",
+        "USD": "Dollar ($)"
+        }
+    }
+}

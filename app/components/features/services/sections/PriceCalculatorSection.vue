@@ -9,14 +9,11 @@
           <label class="block text-sm font-medium text-gray-700 mb-2">
             {{ t('services.common.documentType') || 'Document Type' }}
           </label>
-          <select
-            v-model="selectedDocumentType"
-            class="w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-primary focus:border-transparent"
-          >
-            <option v-for="(docType, index) in documentTypes" :key="index" :value="index">
+          <BaseSelect v-model="selectedDocumentTypeModel">
+            <option v-for="(docType, index) in documentTypes" :key="index" :value="String(index)">
               {{ docType }}
             </option>
-          </select>
+          </BaseSelect>
         </div>
 
         <!-- Language Pair -->
@@ -24,14 +21,11 @@
           <label class="block text-sm font-medium text-gray-700 mb-2">
             {{ t('services.common.languagePair') || 'Language Pair' }}
           </label>
-          <select
-            v-model="selectedLanguage"
-            class="w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-primary focus:border-transparent"
-          >
-            <option v-for="(lang, index) in languages" :key="index" :value="index">
+          <BaseSelect v-model="selectedLanguageModel">
+            <option v-for="(lang, index) in languages" :key="index" :value="String(index)">
               {{ lang }}
             </option>
-          </select>
+          </BaseSelect>
         </div>
 
         <!-- Urgency -->
@@ -39,14 +33,11 @@
           <label class="block text-sm font-medium text-gray-700 mb-2">
             {{ t('services.common.urgency') || 'Urgency' }}
           </label>
-          <select
-            v-model="selectedUrgency"
-            class="w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-primary focus:border-transparent"
-          >
-            <option v-for="(urgency, index) in urgencyOptions" :key="index" :value="index">
+          <BaseSelect v-model="selectedUrgencyModel">
+            <option v-for="(urgency, index) in urgencyOptions" :key="index" :value="String(index)">
               {{ urgency }}
             </option>
-          </select>
+          </BaseSelect>
         </div>
 
         <!-- Price Display -->
@@ -65,73 +56,82 @@
 
 <script setup lang="ts">
 import type { PriceCalculatorSectionProps } from '@/types/services'
+import { useExchangeRatesStore } from '~/stores/exchangeRates'
 
 const props = withDefaults(defineProps<PriceCalculatorSectionProps>(), {
   title: '',
 })
 
-const { t, tm } = useI18n()
+const { t } = useI18n()
 const { currencyRef } = useCurrency()
+const exchangeRatesStore = useExchangeRatesStore()
 
 // Computed title with i18n fallback
 const title = computed(() => props.title || t(`${props.keyPrefix}.title`))
 
-// Load document types
-const documentTypes = computed(() => {
-  const raw = (tm(`${props.keyPrefix}.documentTypes`) || []) as unknown[]
-  return raw.map((_, index) => t(`${props.keyPrefix}.documentTypes.${index}`) as string)
-})
+// Document types from props only
+const documentTypes = computed(() => props.documentTypes ?? [])
 
-// Load languages
-const languages = computed(() => {
-  const raw = (tm(`${props.keyPrefix}.languages`) || []) as unknown[]
-  return raw.map((_, index) => t(`${props.keyPrefix}.languages.${index}`) as string)
-})
+// Languages from props only
+const languages = computed(() => props.languages ?? [])
 
-// Load urgency options
-const urgencyOptions = computed(() => {
-  const raw = (tm(`${props.keyPrefix}.urgency`) || []) as unknown[]
-  return raw.map((_, index) => t(`${props.keyPrefix}.urgency.${index}`) as string)
-})
+// Urgency options from props only
+const urgencyOptions = computed(() => props.urgency ?? [])
 
-// Load base prices
-const basePrices = computed(() => {
-  const standard = {
-    KZT: t(`${props.keyPrefix}.basePrices.standard.KZT`) as string,
-    TRY: t(`${props.keyPrefix}.basePrices.standard.TRY`) as string,
-    RUB: t(`${props.keyPrefix}.basePrices.standard.RUB`) as string,
-    USD: t(`${props.keyPrefix}.basePrices.standard.USD`) as string,
-  }
-  const express = {
-    KZT: t(`${props.keyPrefix}.basePrices.express.KZT`) as string,
-    TRY: t(`${props.keyPrefix}.basePrices.express.TRY`) as string,
-    RUB: t(`${props.keyPrefix}.basePrices.express.RUB`) as string,
-    USD: t(`${props.keyPrefix}.basePrices.express.USD`) as string,
-  }
-  const rush = {
-    KZT: t(`${props.keyPrefix}.basePrices.rush.KZT`) as string,
-    TRY: t(`${props.keyPrefix}.basePrices.rush.TRY`) as string,
-    RUB: t(`${props.keyPrefix}.basePrices.rush.RUB`) as string,
-    USD: t(`${props.keyPrefix}.basePrices.rush.USD`) as string,
-  }
-  return { standard, express, rush }
-})
+// No i18n or basePrices fallback; prices are computed from standardPriceUsd and multipliers
+
+const urgencyMultipliers = computed(() => ({
+  express: props.urgencyMultipliers?.express ?? 1.5,
+  rush: props.urgencyMultipliers?.rush ?? 2.0,
+}))
 
 // Selection state
 const selectedDocumentType = ref(0)
 const selectedLanguage = ref(0)
 const selectedUrgency = ref(0)
 
+// Bridge numeric refs to BaseSelect's string modelValue
+const selectedDocumentTypeModel = computed({
+  get: () => String(selectedDocumentType.value),
+  set: (v: string) => {
+    selectedDocumentType.value = Number(v)
+  },
+})
+const selectedLanguageModel = computed({
+  get: () => String(selectedLanguage.value),
+  set: (v: string) => {
+    selectedLanguage.value = Number(v)
+  },
+})
+const selectedUrgencyModel = computed({
+  get: () => String(selectedUrgency.value),
+  set: (v: string) => {
+    selectedUrgency.value = Number(v)
+  },
+})
+
 // Calculate price based on selections
 const calculatedPrice = computed(() => {
   const urgencyKey =
     selectedUrgency.value === 0 ? 'standard' : selectedUrgency.value === 1 ? 'express' : 'rush'
-  const prices = basePrices.value[urgencyKey]
   const currency = currencyRef.value
-  const price = prices[currency as keyof typeof prices]
 
-  if (!price) return ''
+  const baseUsd = props.standardPriceUsd
+  if (!baseUsd || !isFinite(baseUsd)) return ''
 
-  return `${price} ${t(`currency.selector.${currency}`)}`
+  const m =
+    urgencyKey === 'standard'
+      ? 1
+      : urgencyKey === 'express'
+        ? urgencyMultipliers.value.express
+        : urgencyMultipliers.value.rush
+
+  const docAdj = props.adjustments?.byDocumentType?.[selectedDocumentType.value] ?? 1
+  const langAdj = props.adjustments?.byLanguage?.[selectedLanguage.value] ?? 1
+  const usdPrice = baseUsd * m * docAdj * langAdj
+
+  const converted = exchangeRatesStore.convertPrice(usdPrice, currency as any)
+  const rounded = Math.round(converted)
+  return `${rounded} ${t(`currency.selector.${currency}`)}`
 })
 </script>

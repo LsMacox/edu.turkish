@@ -232,6 +232,22 @@ export interface SampleDocument {
 export interface PriceCalculatorSectionProps extends I18nKeyPrefix {
   /** Optional: Override title (defaults to i18n key) */
   title?: string
+  /** Optional: Provide values from DB metadata */
+  documentTypes?: string[]
+  languages?: string[]
+  urgency?: string[]
+  /** Optional: Per-option adjustments applied to the standard base price in USD */
+  adjustments?: {
+    byDocumentType?: number[]
+    byLanguage?: number[]
+  }
+  /** Optional: Standard base price in USD from DB (calculator). If provided, express/rush are calculated via multipliers. */
+  standardPriceUsd?: number
+  /** Optional: Urgency multipliers from DB. Defaults: express=1.5, rush=2.0 */
+  urgencyMultipliers?: {
+    express: number
+    rush: number
+  }
 }
 
 /**
@@ -241,6 +257,9 @@ export interface PriceCalculatorSectionProps extends I18nKeyPrefix {
 export interface UniversityRequirementsSectionProps extends I18nKeyPrefix {
   /** Optional: Override title (defaults to i18n key) */
   title?: string
+  /** Optional: Provide values from DB metadata */
+  formats?: string[]
+  acceptedBy?: string
 }
 
 /**
@@ -252,4 +271,6 @@ export interface SampleDocumentsSectionProps extends I18nKeyPrefix {
   title?: string
   /** Optional: Gallery layout */
   layout?: 'grid' | 'carousel'
+  /** Optional: Provide values from DB metadata */
+  samples?: SampleDocument[]
 }

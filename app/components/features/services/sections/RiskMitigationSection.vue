@@ -39,8 +39,9 @@ const { t, tm } = useI18n()
 const title = computed(() => props.title || t(`${props.keyPrefix}.title`))
 
 const risks = computed(() => {
-  const raw = (tm(`${props.keyPrefix}.risks`) || []) as unknown[]
-  return raw.map((_, index) => ({
+  const raw = tm(`${props.keyPrefix}.risks`) as unknown
+  if (!Array.isArray(raw)) return []
+  return raw.map((_: unknown, index: number) => ({
     risk: t(`${props.keyPrefix}.risks.${index}.risk`) as string,
     mitigation: t(`${props.keyPrefix}.risks.${index}.mitigation`) as string,
   })) as RiskItem[]
