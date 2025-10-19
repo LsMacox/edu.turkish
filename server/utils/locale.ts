@@ -1,16 +1,12 @@
-import { SUPPORTED_LOCALES, DEFAULT_LOCALE, type SupportedLocale } from '~~/lib/locales'
-
-export { SUPPORTED_LOCALES, DEFAULT_LOCALE, type SupportedLocale }
-
-export type LocaleKey = 'en' | 'kk' | 'tr' | 'ru'
+import { SUPPORTED_LOCALES, type SupportedLocale } from '~~/lib/locales'
 
 type LocaleKeys = {
-  [key in LocaleKey]: string
+  [key in SupportedLocale]: string
 }
 
 export interface NormalizedLocale {
-  normalized: LocaleKey
-  fallbacks: LocaleKey[]
+  normalized: SupportedLocale
+  fallbacks: SupportedLocale[]
 }
 
 /**
@@ -29,27 +25,26 @@ const LOCALE_TAGS: LocaleKeys = {
  * Extracts base code from language tags (e.g., en-US -> en).
  */
 export function normalizeLocale(input?: string | null): NormalizedLocale {
-  const candidate = (input ?? DEFAULT_LOCALE).toLowerCase().trim()
-  const base = candidate.split(/[-_]/)[0] as LocaleKey
-
-  const isSupported = SUPPORTED_LOCALES.includes(base as SupportedLocale)
-  const normalized: LocaleKey = isSupported ? base : (DEFAULT_LOCALE as LocaleKey)
-
-  const fallbacks = [normalized, DEFAULT_LOCALE as LocaleKey].filter(
-    (value, index, array) => array.indexOf(value) === index,
-  )
-
-  return {
-    normalized,
-    fallbacks,
+  const raw = (input ?? '').trim()
+  if (!raw) {
+    return { normalized: 'ru', fallbacks: ['ru'] }
   }
+  const parts = raw.toLowerCase().split(/[-_]/)
+  const base = (parts[0] ?? '') as string
+  const isSupported = (SUPPORTED_LOCALES as readonly string[]).includes(base)
+  if (!isSupported) {
+    return { normalized: 'ru', fallbacks: ['ru'] }
+  }
+  const normalized = base as SupportedLocale
+  const fallbacks = [normalized, 'ru'].filter((v, i, a) => a.indexOf(v) === i) as SupportedLocale[]
+  return { normalized, fallbacks }
 }
 
 /**
  * Convert locale code to IETF language tag for Intl APIs
  * @example resolveLocaleTag('kk') // 'kk-KZ'
  */
-export function resolveLocaleTag(locale: LocaleKey): string {
+export function resolveLocaleTag(locale: SupportedLocale): string {
   return LOCALE_TAGS[locale] ?? LOCALE_TAGS.ru
 }
 

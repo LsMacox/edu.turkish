@@ -1,4 +1,13 @@
 {
+  "currency": {
+    "selector": {
+      "label": "Currency",
+      "KZT": "KZT",
+      "TRY": "TRY",
+      "RUB": "RUB",
+      "USD": "USD"
+    }
+  },
   "services": {
     "common": {
       "deliveryTime": "Timeline",
@@ -168,48 +177,6 @@
             "answer": "Yes, family members can apply for dependent residence permits. We handle the entire process for family reunification."
           }
         ]
-      },
-      "subServices": {
-        "relocation-visa-support": {
-          "name": "Visa Support",
-          "description": "Full assistance with visa application, documentation, and appointment scheduling",
-          "pricing": {
-            "KZT": "200,000",
-            "TRY": "7,000",
-            "RUB": "40,000",
-            "USD": "400"
-          }
-        },
-        "relocation-housing-assistance": {
-          "name": "Housing Assistance",
-          "description": "Help finding and securing accommodation in your preferred area",
-          "pricing": {
-            "KZT": "150,000",
-            "TRY": "5,000",
-            "RUB": "30,000",
-            "USD": "300"
-          }
-        },
-        "relocation-bank-account": {
-          "name": "Bank Account Opening",
-          "description": "Assistance with opening a Turkish bank account and financial setup",
-          "pricing": {
-            "KZT": "100,000",
-            "TRY": "3,500",
-            "RUB": "20,000",
-            "USD": "200"
-          }
-        },
-        "relocation-residence-permit": {
-          "name": "Residence Permit",
-          "description": "Complete support for obtaining your Turkish residence permit",
-          "pricing": {
-            "KZT": "250,000",
-            "TRY": "8,500",
-            "RUB": "50,000",
-            "USD": "500"
-          }
-        }
       }
     },
     "tr-yos-courses": {
@@ -296,48 +263,6 @@
             "answer": "Yes, with 24 hours notice. We'll find a makeup time that works for both you and the instructor."
           }
         ]
-      },
-      "subServices": {
-        "tr-yos-basic-preparation": {
-          "name": "Basic TR-YÖS Preparation",
-          "description": "Foundational course covering all TR-YÖS topics with experienced instructors",
-          "pricing": {
-            "KZT": "250,000",
-            "TRY": "8,500",
-            "RUB": "50,000",
-            "USD": "500"
-          }
-        },
-        "tr-yos-advanced-preparation": {
-          "name": "Advanced TR-YÖS Preparation",
-          "description": "Intensive preparation with practice tests and personalized feedback",
-          "pricing": {
-            "KZT": "350,000",
-            "TRY": "12,000",
-            "RUB": "70,000",
-            "USD": "700"
-          }
-        },
-        "tr-yos-individual-tutoring": {
-          "name": "Individual TR-YÖS Tutoring",
-          "description": "One-on-one tutoring sessions tailored to your needs",
-          "pricing": {
-            "KZT": "500,000",
-            "TRY": "17,000",
-            "RUB": "100,000",
-            "USD": "1,000"
-          }
-        },
-        "tr-yos-mock-exams": {
-          "name": "TR-YÖS Mock Exams",
-          "description": "Full-length practice exams with detailed performance analysis",
-          "pricing": {
-            "KZT": "50,000",
-            "TRY": "1,700",
-            "RUB": "10,000",
-            "USD": "100"
-          }
-        }
       }
     },
     "sat-courses": {
@@ -435,38 +360,6 @@
             "answer": "It depends on the university. Some accept high SAT Reading & Writing scores instead of separate English proficiency tests."
           }
         ]
-      },
-      "subServices": {
-        "sat-basic-preparation": {
-          "name": "Basic SAT Preparation",
-          "description": "Comprehensive SAT course covering all sections and strategies",
-          "pricing": {
-            "KZT": "300,000",
-            "TRY": "10,000",
-            "RUB": "60,000",
-            "USD": "600"
-          }
-        },
-        "sat-advanced-preparation": {
-          "name": "Advanced SAT Preparation",
-          "description": "Intensive SAT prep with focus on high scores and college readiness",
-          "pricing": {
-            "KZT": "400,000",
-            "TRY": "14,000",
-            "RUB": "80,000",
-            "USD": "800"
-          }
-        },
-        "sat-individual-tutoring": {
-          "name": "Individual SAT Tutoring",
-          "description": "Personalized SAT tutoring with flexible scheduling",
-          "pricing": {
-            "KZT": "550,000",
-            "TRY": "19,000",
-            "RUB": "110,000",
-            "USD": "1,100"
-          }
-        }
       }
     },
     "turkish-english-course": {
@@ -494,6 +387,14 @@
       },
       "formatSchedule": {
         "title": "Learning Format",
+        "labels": {
+          "groupSize": "Group Size",
+          "individual": "Individual Lessons",
+          "conversationClubs": "Conversation Clubs",
+          "schedule": "Schedule",
+          "platform": "Platform",
+          "certificate": "Certificate"
+        },
         "groupSize": "Up to 8 students per group",
         "individual": "Individual lessons available",
         "conversationClubs": "Weekly conversation clubs included",
@@ -549,90 +450,13 @@
             "answer": "Full refund within first 2 lessons. After that, prorated refund for unused lessons."
           }
         ]
-      },
-      "subServices": {
-        "language-turkish-beginner": {
-          "name": "Turkish for Beginners",
-          "description": "Start learning Turkish from scratch with native speakers",
-          "pricing": {
-            "KZT": "180,000",
-            "TRY": "6,000",
-            "RUB": "35,000",
-            "USD": "350"
-          }
-        },
-        "language-turkish-intermediate": {
-          "name": "Turkish Intermediate",
-          "description": "Improve your Turkish skills to conversational fluency",
-          "pricing": {
-            "KZT": "200,000",
-            "TRY": "7,000",
-            "RUB": "40,000",
-            "USD": "400"
-          }
-        },
-        "language-english-beginner": {
-          "name": "English for Beginners",
-          "description": "Build a strong foundation in English language",
-          "pricing": {
-            "KZT": "180,000",
-            "TRY": "6,000",
-            "RUB": "35,000",
-            "USD": "350"
-          }
-        },
-        "language-english-intermediate": {
-          "name": "English Intermediate",
-          "description": "Advance your English to professional level",
-          "pricing": {
-            "KZT": "200,000",
-            "TRY": "7,000",
-            "RUB": "40,000",
-            "USD": "400"
-          }
-        }
       }
     },
     "document-translations": {
       "title": "Document Translations",
       "subtitle": "Professional certified translations for official documents",
       "priceCalculator": {
-        "title": "Price Calculator",
-        "documentTypes": [
-          "Diploma",
-          "Transcript",
-          "Passport",
-          "Birth Certificate",
-          "Marriage Certificate",
-          "Other"
-        ],
-        "languages": [
-          "English → Turkish",
-          "Russian → Turkish",
-          "Kazakh → Turkish",
-          "Turkish → English"
-        ],
-        "urgency": ["Standard (5 business days)", "Express (2 business days)", "Rush (24 hours)"],
-        "basePrices": {
-          "standard": {
-            "KZT": "10000",
-            "TRY": "350",
-            "RUB": "2000",
-            "USD": "20"
-          },
-          "express": {
-            "KZT": "15000",
-            "TRY": "525",
-            "RUB": "3000",
-            "USD": "30"
-          },
-          "rush": {
-            "KZT": "20000",
-            "TRY": "700",
-            "RUB": "4000",
-            "USD": "40"
-          }
-        }
+        "title": "Price Calculator"
       },
       "universityRequirements": {
         "title": "What Universities Accept",
@@ -659,62 +483,7 @@
             "image": "/images/sample-passport.jpg"
           }
         ]
-      },
-      "subServices": {
-        "translation-diploma": {
-          "name": "Diploma Translation",
-          "description": "Certified translation of diplomas and degrees",
-          "deliveryTime": "2–3 days",
-          "pricing": {
-            "KZT": "30,000",
-            "TRY": "1,000",
-            "RUB": "6,000",
-            "USD": "60"
-          }
-        },
-        "translation-transcript": {
-          "name": "Transcript Translation",
-          "description": "Certified translation of academic transcripts",
-          "deliveryTime": "3–5 days",
-          "pricing": {
-            "KZT": "40,000",
-            "TRY": "1,400",
-            "RUB": "8,000",
-            "USD": "80"
-          }
-        },
-        "translation-passport": {
-          "name": "Passport Translation",
-          "description": "Certified translation of passport and ID documents",
-          "deliveryTime": "1–2 days",
-          "pricing": {
-            "KZT": "20,000",
-            "TRY": "700",
-            "RUB": "4,000",
-            "USD": "40"
-          }
-        },
-        "translation-other-documents": {
-          "name": "Other Documents",
-          "description": "Translation of certificates, contracts, and other official documents",
-          "deliveryTime": "2–4 days",
-          "pricing": {
-            "KZT": "25,000",
-            "TRY": "850",
-            "RUB": "5,000",
-            "USD": "50"
-          }
-        }
       }
-    }
-  },
-  "currency": {
-    "selector": {
-      "label": "Currency",
-      "KZT": "Tenge (₸)",
-      "TRY": "Lira (₺)",
-      "RUB": "Ruble (₽)",
-      "USD": "Dollar ($)"
     }
   }
 }

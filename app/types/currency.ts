@@ -1,12 +1,6 @@
-/**
- * Currency domain: types and constants
- * Centralized to decouple from services domain and avoid duplication.
- */
+import { SUPPORTED_CURRENCY, type SupportedCurrency } from '~~/lib/currency'
 
-/**
- * Supported currencies for pricing display
- */
-export type Currency = 'KZT' | 'TRY' | 'RUB' | 'USD'
+export type Currency = SupportedCurrency
 
 /**
  * Currency information with symbol and localized label
@@ -30,4 +24,4 @@ export const CURRENCIES: Record<Currency, CurrencyInfo> = {
 /**
  * Canonical list of currency codes as a readonly tuple
  */
-export const CURRENCY_CODES = ['KZT', 'TRY', 'RUB', 'USD'] as const satisfies readonly Currency[]
+export const CURRENCY_CODES = SUPPORTED_CURRENCY satisfies readonly Currency[]

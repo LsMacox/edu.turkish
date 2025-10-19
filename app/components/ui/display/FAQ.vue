@@ -1,5 +1,5 @@
 <template>
-  <section class="py-16 bg-background">
+  <section :class="sectionClasses">
     <div class="container">
       <div v-if="displayTitle || displaySubtitle" class="text-center mb-12">
         <h2 v-if="displayTitle" class="text-section-title mb-4">
@@ -71,6 +71,7 @@ interface Props {
   items?: FaqItem[]
   title?: string
   subtitle?: string
+  background?: boolean
 }
 
 const { t, locale } = useI18n()
@@ -79,6 +80,7 @@ const props = withDefaults(defineProps<Props>(), {
   items: () => [],
   title: '',
   subtitle: '',
+  background: true,
 })
 
 // Use i18n defaults if no props are provided
@@ -104,4 +106,9 @@ const toggle = (index: number) => {
 const isOpen = (index: number) => openFaqs.value.includes(index)
 
 const isStringAnswer = (answer: FaqAnswer): answer is string => typeof answer === 'string'
+
+const sectionClasses = computed(() => [
+  'py-16',
+  props.background ? 'bg-background' : 'bg-transparent',
+])
 </script>

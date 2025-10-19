@@ -14,7 +14,7 @@ describe('services.json i18n contract', () => {
         }).not.toThrow()
       })
 
-      it('should have all required service categories', () => {
+      it('should have all required service categories with basic metadata', () => {
         const filePath = join(process.cwd(), `i18n/locales/${locale}/services.json`)
         const data = JSON.parse(readFileSync(filePath, 'utf-8'))
 
@@ -30,29 +30,18 @@ describe('services.json i18n contract', () => {
           expect(data.services).toHaveProperty(categoryId)
           expect(data.services[categoryId]).toHaveProperty('title')
           expect(data.services[categoryId]).toHaveProperty('subtitle')
-          expect(data.services[categoryId]).toHaveProperty('subServices')
+          // subServices are now in database, not i18n
         })
       })
 
-      it('should have complete pricing for all sub-services', () => {
+      it('should have services.common with UI strings', () => {
         const filePath = join(process.cwd(), `i18n/locales/${locale}/services.json`)
         const data = JSON.parse(readFileSync(filePath, 'utf-8'))
 
-        const currencies = ['KZT', 'TRY', 'RUB', 'USD']
-
-        Object.entries(data.services).forEach(([_categoryId, category]: [string, any]) => {
-          if (!category?.subServices) return
-
-          Object.entries(category.subServices).forEach(
-            ([_subServiceId, subService]: [string, any]) => {
-              currencies.forEach((currency) => {
-                expect(subService.pricing).toHaveProperty(currency)
-                expect(subService.pricing[currency]).toBeTruthy()
-                expect(typeof subService.pricing[currency]).toBe('string')
-              })
-            },
-          )
-        })
+        expect(data.services).toHaveProperty('common')
+        expect(data.services.common).toHaveProperty('price')
+        expect(data.services.common).toHaveProperty('deliveryTime')
+        expect(data.services.common).toHaveProperty('days')
       })
 
       it('should have currency selector labels', () => {

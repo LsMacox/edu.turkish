@@ -8,6 +8,20 @@ export type UtmParams = {
 }
 
 function coerce(value: unknown, maxLen = 200): string | undefined {
+  if (Array.isArray(value)) {
+    for (const item of value) {
+      const coerced = coerce(item, maxLen)
+      if (coerced) {
+        return coerced
+      }
+    }
+    return undefined
+  }
+
+  if (typeof value === 'number' && Number.isFinite(value)) {
+    return coerce(String(value), maxLen)
+  }
+
   if (typeof value !== 'string') return undefined
   const v = value.trim()
   if (!v || v.length > maxLen) return undefined

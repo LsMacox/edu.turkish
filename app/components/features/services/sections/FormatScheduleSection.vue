@@ -5,15 +5,15 @@
     <div class="mt-8 bg-gray-50 rounded-lg p-8">
       <dl class="grid gap-6 md:grid-cols-2">
         <div
-          v-for="(value, key) in formatDetails"
-          :key="key"
+          v-for="detail in formatDetails"
+          :key="detail.key"
           class="border-l-4 border-primary pl-4"
         >
           <dt class="text-sm font-semibold text-gray-500 uppercase mb-1">
-            {{ formatKey(key) }}
+            {{ detail.label }}
           </dt>
           <dd class="text-lg text-gray-900">
-            {{ value }}
+            {{ detail.value }}
           </dd>
         </div>
       </dl>
@@ -35,8 +35,14 @@ const { t } = useI18n()
 
 const title = computed(() => props.title || t(`${props.keyPrefix}.title`))
 
-const formatDetails = computed(() => {
-  const details: Record<string, string> = {}
+interface FormatDetail {
+  key: string
+  label: string
+  value: string
+}
+
+const formatDetails = computed<FormatDetail[]>(() => {
+  const details: FormatDetail[] = []
 
   // Dynamically collect all keys from the i18n object
   const keys = [
@@ -57,11 +63,18 @@ const formatDetails = computed(() => {
 
   keys.forEach((key) => {
     const fullKey = `${props.keyPrefix}.${key}`
-    const value = t(fullKey) as unknown as string
-    // Add only if a translation exists (vue-i18n returns the key itself when missing)
-    if (value && value !== fullKey) {
-      details[key] = value
+    const raw = t(fullKey) as unknown as string
+    if (!raw || raw === fullKey) {
+      return
     }
+    const labelKey = `${props.keyPrefix}.labels.${key}`
+    const labelCandidate = t(labelKey) as unknown as string
+    const label = labelCandidate && labelCandidate !== labelKey ? labelCandidate : formatKey(key)
+    details.push({
+      key,
+      label,
+      value: raw,
+    })
   })
 
   return details

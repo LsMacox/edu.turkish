@@ -46,10 +46,17 @@ const title = computed(() => props.title || t(`${props.keyPrefix}.title`))
 
 // Load formats
 const formats = computed(() => {
-  const raw = (tm(`${props.keyPrefix}.formats`) || []) as unknown[]
-  return raw.map((_, index) => t(`${props.keyPrefix}.formats.${index}`) as string)
+  if (props.formats && props.formats.length > 0) {
+    return props.formats
+  }
+  const raw = tm(`${props.keyPrefix}.formats`) as unknown
+  if (!Array.isArray(raw)) return []
+  return raw.map((_: unknown, index: number) => t(`${props.keyPrefix}.formats.${index}`) as string)
 })
 
 // Load acceptedBy text
-const acceptedBy = computed(() => t(`${props.keyPrefix}.acceptedBy`) as string)
+const acceptedBy = computed(() => {
+  if (props.acceptedBy) return props.acceptedBy
+  return t(`${props.keyPrefix}.acceptedBy`) as string
+})
 </script>

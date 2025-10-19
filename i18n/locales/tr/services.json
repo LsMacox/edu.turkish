@@ -1,4 +1,13 @@
 {
+  "currency": {
+    "selector": {
+      "label": "Para Birimi",
+      "KZT": "KZT",
+      "TRY": "TRY",
+      "RUB": "RUB",
+      "USD": "USD"
+    }
+  },
   "services": {
     "common": {
       "deliveryTime": "Süre",
@@ -168,48 +177,6 @@
             "answer": "Evet, aile üyeleri bağımlı ikamet izni başvurusunda bulunabilir. Aile birleşimi sürecinin tamamını yönetiyoruz."
           }
         ]
-      },
-      "subServices": {
-        "relocation-visa-support": {
-          "name": "Vize Desteği",
-          "description": "Vize başvurusu, belge hazırlama ve randevu alma konusunda tam destek",
-          "pricing": {
-            "KZT": "200,000",
-            "TRY": "7,000",
-            "RUB": "40,000",
-            "USD": "400"
-          }
-        },
-        "relocation-housing-assistance": {
-          "name": "Konut Yardımı",
-          "description": "Tercih ettiğiniz bölgede konut bulma ve kiralama konusunda yardım",
-          "pricing": {
-            "KZT": "150,000",
-            "TRY": "5,000",
-            "RUB": "30,000",
-            "USD": "300"
-          }
-        },
-        "relocation-bank-account": {
-          "name": "Banka Hesabı Açma",
-          "description": "Türk banka hesabı açma ve finansal kurulum konusunda yardım",
-          "pricing": {
-            "KZT": "100,000",
-            "TRY": "3,500",
-            "RUB": "20,000",
-            "USD": "200"
-          }
-        },
-        "relocation-residence-permit": {
-          "name": "İkamet İzni",
-          "description": "Türk ikamet izni alma konusunda tam destek",
-          "pricing": {
-            "KZT": "250,000",
-            "TRY": "8,500",
-            "RUB": "50,000",
-            "USD": "500"
-          }
-        }
       }
     },
     "tr-yos-courses": {
@@ -219,12 +186,20 @@
         "title": "Kurs Hedefi",
         "description": "Sizi hedef fakültenize kabul için yeterli bir puana TR-YÖS'e hazırlayacağız.",
         "packages": [
-          { "name": "Temel", "targetScore": "50-60" },
-          { "name": "Standart", "targetScore": "60-70" },
-          { "name": "Premium", "targetScore": "70+" }
+          {
+            "name": "Temel",
+            "targetScore": "50-60"
+          },
+          {
+            "name": "Standart",
+            "targetScore": "60-70"
+          },
+          {
+            "name": "Premium",
+            "targetScore": "70+"
+          }
         ]
       },
-
       "programContent": {
         "title": "Programın İçeriği",
         "items": [
@@ -296,48 +271,6 @@
             "answer": "Evet, bireysel dersler mevcuttur. Zayıf yönlerinize odaklanmak için özelleştirilmiş bir program oluştururuz."
           }
         ]
-      },
-      "subServices": {
-        "tr-yos-basic-preparation": {
-          "name": "Temel TR-YÖS Hazırlığı",
-          "description": "Deneyimli eğitmenlerle tüm TR-YÖS konularını kapsayan temel kurs",
-          "pricing": {
-            "KZT": "250,000",
-            "TRY": "8,500",
-            "RUB": "50,000",
-            "USD": "500"
-          }
-        },
-        "tr-yos-advanced-preparation": {
-          "name": "İleri Düzey TR-YÖS Hazırlığı",
-          "description": "Deneme sınavları ve kişisel geri bildirimle yoğun hazırlık",
-          "pricing": {
-            "KZT": "350,000",
-            "TRY": "12,000",
-            "RUB": "70,000",
-            "USD": "700"
-          }
-        },
-        "tr-yos-individual-tutoring": {
-          "name": "Bireysel TR-YÖS Dersleri",
-          "description": "İhtiyaçlarınıza göre uyarlanmış bire bir dersler",
-          "pricing": {
-            "KZT": "500,000",
-            "TRY": "17,000",
-            "RUB": "100,000",
-            "USD": "1,000"
-          }
-        },
-        "tr-yos-mock-exams": {
-          "name": "TR-YÖS Deneme Sınavları",
-          "description": "Detaylı performans analizi ile tam uzunlukta deneme sınavları",
-          "pricing": {
-            "KZT": "50,000",
-            "TRY": "1,700",
-            "RUB": "10,000",
-            "USD": "100"
-          }
-        }
       }
     },
     "sat-courses": {
@@ -435,38 +368,6 @@
             "answer": "Üniversiteye bağlı. Bazıları ayrı İngilizce yeterlilik testleri yerine yüksek SAT Okuma ve Yazma puanlarını kabul eder."
           }
         ]
-      },
-      "subServices": {
-        "sat-basic-preparation": {
-          "name": "Temel SAT Hazırlığı",
-          "description": "Tüm bölümleri ve stratejileri kapsayan kapsamlı SAT kursu",
-          "pricing": {
-            "KZT": "300,000",
-            "TRY": "10,000",
-            "RUB": "60,000",
-            "USD": "600"
-          }
-        },
-        "sat-advanced-preparation": {
-          "name": "İleri Düzey SAT Hazırlığı",
-          "description": "Yüksek puanlara odaklanan yoğun SAT hazırlığı",
-          "pricing": {
-            "KZT": "400,000",
-            "TRY": "14,000",
-            "RUB": "80,000",
-            "USD": "800"
-          }
-        },
-        "sat-individual-tutoring": {
-          "name": "Bireysel SAT Dersleri",
-          "description": "Esnek programla kişiselleştirilmiş SAT dersleri",
-          "pricing": {
-            "KZT": "550,000",
-            "TRY": "19,000",
-            "RUB": "110,000",
-            "USD": "1,100"
-          }
-        }
       }
     },
     "turkish-english-course": {
@@ -494,6 +395,14 @@
       },
       "formatSchedule": {
         "title": "Öğrenme Formatı",
+        "labels": {
+          "groupSize": "Grup mevcudu",
+          "individual": "Bireysel dersler",
+          "conversationClubs": "Konuşma kulüpleri",
+          "schedule": "Program",
+          "platform": "Platform",
+          "certificate": "Sertifika"
+        },
         "groupSize": "Grup başına 8'e kadar öğrenci",
         "individual": "Bireysel dersler mevcut",
         "conversationClubs": "Haftalık konuşma kulüpleri dahil",
@@ -549,90 +458,13 @@
             "answer": "İlk 2 ders içinde tam iade. Bundan sonra kullanılmayan dersler için orantılı iade."
           }
         ]
-      },
-      "subServices": {
-        "language-turkish-beginner": {
-          "name": "Başlangıç Türkçesi",
-          "description": "Ana dili Türkçe olan eğitmenlerle sıfırdan Türkçe öğrenin",
-          "pricing": {
-            "KZT": "180,000",
-            "TRY": "6,000",
-            "RUB": "35,000",
-            "USD": "350"
-          }
-        },
-        "language-turkish-intermediate": {
-          "name": "Orta Seviye Türkçe",
-          "description": "Türkçe becerilerinizi konuşma akıcılığına yükseltin",
-          "pricing": {
-            "KZT": "200,000",
-            "TRY": "7,000",
-            "RUB": "40,000",
-            "USD": "400"
-          }
-        },
-        "language-english-beginner": {
-          "name": "Başlangıç İngilizcesi",
-          "description": "İngilizce dilinde güçlü bir temel oluşturun",
-          "pricing": {
-            "KZT": "180,000",
-            "TRY": "6,000",
-            "RUB": "35,000",
-            "USD": "350"
-          }
-        },
-        "language-english-intermediate": {
-          "name": "Orta Seviye İngilizce",
-          "description": "İngilizcenizi profesyonel seviyeye yükseltin",
-          "pricing": {
-            "KZT": "200,000",
-            "TRY": "7,000",
-            "RUB": "40,000",
-            "USD": "400"
-          }
-        }
       }
     },
     "document-translations": {
       "title": "Belge Çevirileri",
       "subtitle": "Resmi belgeler için profesyonel onaylı çeviriler",
       "priceCalculator": {
-        "title": "Fiyat Hesaplayıcı",
-        "documentTypes": [
-          "Diploma",
-          "Transkript",
-          "Pasaport",
-          "Doğum Belgesi",
-          "Evlilik Belgesi",
-          "Diğer"
-        ],
-        "languages": [
-          "İngilizce → Türkçe",
-          "Rusça → Türkçe",
-          "Kazakça → Türkçe",
-          "Türkçe → İngilizce"
-        ],
-        "urgency": ["Standart (5 iş günü)", "Ekspres (2 iş günü)", "Acil (24 saat)"],
-        "basePrices": {
-          "standard": {
-            "KZT": "10000",
-            "TRY": "350",
-            "RUB": "2000",
-            "USD": "20"
-          },
-          "express": {
-            "KZT": "15000",
-            "TRY": "525",
-            "RUB": "3000",
-            "USD": "30"
-          },
-          "rush": {
-            "KZT": "20000",
-            "TRY": "700",
-            "RUB": "4000",
-            "USD": "40"
-          }
-        }
+        "title": "Fiyat Hesaplayıcı"
       },
       "universityRequirements": {
         "title": "Üniversitelerin Kabul Ettiği Formatlar",
@@ -659,62 +491,7 @@
             "image": "/images/sample-passport.jpg"
           }
         ]
-      },
-      "subServices": {
-        "translation-diploma": {
-          "name": "Diploma Çevirisi",
-          "description": "Diploma ve derecelerin onaylı çevirisi",
-          "deliveryTime": "2–3 gün",
-          "pricing": {
-            "KZT": "30,000",
-            "TRY": "1,000",
-            "RUB": "6,000",
-            "USD": "60"
-          }
-        },
-        "translation-transcript": {
-          "name": "Transkript Çevirisi",
-          "description": "Akademik transkriptlerin onaylı çevirisi",
-          "deliveryTime": "3–5 gün",
-          "pricing": {
-            "KZT": "40,000",
-            "TRY": "1,400",
-            "RUB": "8,000",
-            "USD": "80"
-          }
-        },
-        "translation-passport": {
-          "name": "Pasaport Çevirisi",
-          "description": "Pasaport ve kimlik belgelerinin onaylı çevirisi",
-          "deliveryTime": "1–2 gün",
-          "pricing": {
-            "KZT": "20,000",
-            "TRY": "700",
-            "RUB": "4,000",
-            "USD": "40"
-          }
-        },
-        "translation-other-documents": {
-          "name": "Diğer Belgeler",
-          "description": "Sertifikalar, sözleşmeler ve diğer resmi belgelerin çevirisi",
-          "deliveryTime": "2–4 gün",
-          "pricing": {
-            "KZT": "25,000",
-            "TRY": "850",
-            "RUB": "5,000",
-            "USD": "50"
-          }
-        }
       }
-    }
-  },
-  "currency": {
-    "selector": {
-      "label": "Para Birimi",
-      "KZT": "Tenge (₸)",
-      "TRY": "Lira (₺)",
-      "RUB": "Ruble (₽)",
-      "USD": "Dolar ($)"
     }
   }
 }

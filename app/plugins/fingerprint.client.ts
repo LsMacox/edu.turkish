@@ -1,6 +1,4 @@
-import FingerprintJS from '@fingerprintjs/fingerprintjs'
-
-export default defineNuxtPlugin(async () => {
+export default defineNuxtPlugin(() => {
   // Read cookie helper
   const getCookie = (name: string): string | null => {
     const re = new RegExp('(?:^|; )' + name.replace(/([.$?*|{}()[\]\\/+^])/g, '\\$1') + '=([^;]*)')
@@ -31,26 +29,37 @@ export default defineNuxtPlugin(async () => {
     return
   }
 
-  // Load and compute visitorId via FingerprintJS OSS
-  try {
-    const fpLib = await FingerprintJS.load()
-    const result = await fpLib.get()
-    const visitorId = result.visitorId
-    setCookie('fp', visitorId)
+  const loadFingerprint = async () => {
     try {
-      localStorage.setItem('fp', visitorId)
+      const FingerprintJS = (await import('@fingerprintjs/fingerprintjs')).default
+      const fpLib = await FingerprintJS.load()
+      const result = await fpLib.get()
+      const visitorId = result.visitorId
+      setCookie('fp', visitorId)
+      try {
+        localStorage.setItem('fp', visitorId)
+      } catch {
+        // Ignore localStorage errors
+      }
     } catch {
-      // Ignore localStorage errors
-    }
-  } catch {
-    // Fingerprint library failed
-    // Fallback: random token to avoid empty value
-    const fallback = Math.random().toString(36).slice(2) + Date.now().toString(36)
-    setCookie('fp', fallback)
-    try {
-      localStorage.setItem('fp', fallback)
-    } catch {
-      // Ignore localStorage errors
+      // Fingerprint library failed
+      // Fallback: random token to avoid empty value
+      const fallback = Math.random().toString(36).slice(2) + Date.now().toString(36)
+      setCookie('fp', fallback)
+      try {
+        localStorage.setItem('fp', fallback)
+      } catch {
+        // Ignore localStorage errors
+      }
     }
   }
+
+  if (typeof window !== 'undefined' && 'requestIdleCallback' in window) {
+    ;(window as typeof window & { requestIdleCallback: (cb: () => void) => number }).requestIdleCallback(
+      loadFingerprint,
+    )
+    return
+  }
+
+  setTimeout(loadFingerprint, 0)
 })

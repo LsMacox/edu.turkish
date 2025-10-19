@@ -10,6 +10,9 @@ import {
  * and handles graceful shutdown
  */
 export default defineNitroPlugin((nitroApp) => {
+  if (process.env.VITEST || process.env.NODE_ENV === 'test') {
+    return
+  }
   // Start worker on server startup
   console.log('Starting Telegram Queue Worker...')
   getTelegramQueueWorker()

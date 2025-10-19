@@ -8,7 +8,7 @@
     "generate": "nuxt generate",
     "preview": "nuxt preview",
     "postinstall": "nuxt prepare && prisma generate",
-    "lint": "eslint . --ext .js,.ts,.vue --report-unused-disable-directives",
+    "lint": "eslint app server tests specs prisma scripts --ext .js,.ts,.vue --report-unused-disable-directives --no-error-on-unmatched-pattern",
     "lint:fix": "npm run lint -- --fix",
     "format": "prettier . --write",
     "format:check": "prettier . --check",
@@ -30,7 +30,6 @@
     "i18n:check": "docker compose exec app npx tsx scripts/i18n-check.ts"
   },
   "dependencies": {
-    "@cloudgeek/vue3-video-player": "^0.3.10",
     "@directus/sdk": "20.1.0",
     "@fingerprintjs/fingerprintjs": "^4.6.2",
     "@nuxt/fonts": "^0.11.4",

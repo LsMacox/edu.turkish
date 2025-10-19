@@ -16,6 +16,7 @@ export default defineConfig({
     alias: {
       '~': resolve(__dirname, './app'),
       '~~': resolve(__dirname, '.'),
+      '#app': resolve(__dirname, './tests/test-utils/mocks/nuxt-app.ts'),
       h3: resolve(__dirname, './tests/test-utils/mocks/h3.ts'),
     },
     extensions: ['.mjs', '.js', '.ts', '.jsx', '.tsx', '.json', '.vue'],
