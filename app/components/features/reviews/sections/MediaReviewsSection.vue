@@ -26,8 +26,10 @@
 
       <!-- Carousel -->
       <ClientOnly v-else-if="mediaReviewItems.length > 0">
-        <Swiper
-          :modules="[Autoplay, Navigation, Pagination]"
+        <component
+          :is="swiperComponent"
+          v-if="isSwiperReady"
+          :modules="swiperModules"
           :slides-per-view="1"
           :space-between="16"
           :loop="true"
@@ -49,14 +51,21 @@
           :navigation="true"
           class="media-reviews-swiper"
         >
-          <SwiperSlide v-for="(review, idx) in mediaReviewItems" :key="review.id">
+          <component
+            :is="swiperSlideComponent"
+            v-for="(review, idx) in mediaReviewItems"
+            :key="review.id"
+          >
             <MediaReviewCard
               :review="review"
               @play-video="() => openLightboxAt(idx)"
               @open-image="() => openLightboxAt(idx)"
             />
-          </SwiperSlide>
-        </Swiper>
+          </component>
+        </component>
+        <div v-else class="text-center py-12">
+          <p class="text-gray-500">{{ $t('common.loading') }}</p>
+        </div>
 
         <template #fallback>
           <div class="text-center py-12">
@@ -79,12 +88,6 @@
 
 <script setup lang="ts">
 import { useFetch } from '#app'
-import { Autoplay, Navigation, Pagination } from 'swiper/modules'
-import { Swiper, SwiperSlide } from 'swiper/vue'
-
-import 'swiper/css'
-import 'swiper/css/navigation'
-import 'swiper/css/pagination'
 const { locale } = useI18n()
 
 interface MediaReview {
@@ -122,6 +125,68 @@ const {
 })
 
 const mediaReviewItems = computed(() => mediaReviews.value?.data ?? [])
+
+type SwiperVueModule = typeof import('swiper/vue')
+type SwiperComponentType = SwiperVueModule['Swiper']
+type SwiperSlideComponentType = SwiperVueModule['SwiperSlide']
+type SwiperModule = (typeof import('swiper/modules'))[keyof typeof import('swiper/modules')]
+
+const swiperComponent = shallowRef<SwiperComponentType | null>(null)
+const swiperSlideComponent = shallowRef<SwiperSlideComponentType | null>(null)
+const swiperModules = shallowRef<SwiperModule[]>([])
+
+const isSwiperReady = computed(
+  () =>
+    swiperComponent.value !== null &&
+    swiperSlideComponent.value !== null &&
+    swiperModules.value.length > 0,
+)
+
+if (import.meta.client) {
+  const loadSwiper = async () => {
+    if (swiperComponent.value) {
+      return
+    }
+
+    try {
+      await Promise.all([
+        import('swiper/css'),
+        import('swiper/css/navigation'),
+        import('swiper/css/pagination'),
+      ])
+
+      const [{ Swiper, SwiperSlide }, modules] = await Promise.all([
+        import('swiper/vue'),
+        import('swiper/modules'),
+      ])
+
+      swiperComponent.value = Swiper
+      swiperSlideComponent.value = SwiperSlide
+      swiperModules.value = [modules.Autoplay, modules.Navigation, modules.Pagination]
+    } catch (error) {
+      console.error('Failed to load Swiper', error)
+    }
+  }
+
+  const scheduleSwiperLoad = () => {
+    if (typeof window !== 'undefined' && 'requestIdleCallback' in window) {
+      ;(window as typeof window & { requestIdleCallback: (cb: () => void) => number }).requestIdleCallback(
+        () => {
+          loadSwiper()
+        },
+      )
+      return
+    }
+
+    setTimeout(() => {
+      loadSwiper()
+    }, 0)
+  }
+
+  onMounted(() => {
+    scheduleSwiperLoad()
+  })
+}
 
 // Refresh on locale change
 watch(
