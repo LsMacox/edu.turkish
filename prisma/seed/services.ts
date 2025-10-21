@@ -41,7 +41,8 @@ const SERVICES_SEED: Record<(typeof CATEGORY_SLUGS)[number], CategorySeed> = {
       },
       'notarized-translation': {
         name: 'Нотариально заверенный перевод',
-        description: 'Официальный перевод с нотариальным заверением, принимается университетами Турции',
+        description:
+          'Официальный перевод с нотариальным заверением, принимается университетами Турции',
         priceUsd: 20,
         deliveryTimeDays: 5,
       },
@@ -259,17 +260,8 @@ export async function seedServices(prisma: PrismaClient) {
                   'Неке туралы куәлік',
                   'Басқа',
                 ],
-                languages: [
-                  'Ағылшын → Түрік',
-                  'Орыс → Түрік',
-                  'Қазақ → Түрік',
-                  'Түрік → Ағылшын',
-                ],
-                urgency: [
-                  'Стандарт (5 жұмыс күні)',
-                  'Экспресс (2 жұмыс күні)',
-                  'Шұғыл (24 сағат)',
-                ],
+                languages: ['Ағылшын → Түрік', 'Орыс → Түрік', 'Қазақ → Түрік', 'Түрік → Ағылшын'],
+                urgency: ['Стандарт (5 жұмыс күні)', 'Экспресс (2 жұмыс күні)', 'Шұғыл (24 сағат)'],
                 adjustments: {
                   byDocumentType: [1, 1.2, 1.1, 1.3, 1.4, 1],
                   byLanguage: [1, 1.1, 1.05, 1.2],
@@ -292,11 +284,7 @@ export async function seedServices(prisma: PrismaClient) {
                   'Kazakça → Türkçe',
                   'Türkçe → İngilizce',
                 ],
-                urgency: [
-                  'Standart (5 iş günü)',
-                  'Ekspres (2 iş günü)',
-                  'Acil (24 saat)',
-                ],
+                urgency: ['Standart (5 iş günü)', 'Ekspres (2 iş günü)', 'Acil (24 saat)'],
                 adjustments: {
                   byDocumentType: [1, 1.2, 1.1, 1.3, 1.4, 1],
                   byLanguage: [1, 1.1, 1.05, 1.2],
@@ -308,7 +296,8 @@ export async function seedServices(prisma: PrismaClient) {
 
     // Upsert translations for all locales, only updating metadata when provided
     for (const locale of LOCALES) {
-      const localeMetadata = (perLocaleMetadata && perLocaleMetadata[locale]) || (hasMetadata ? metadata : undefined)
+      const localeMetadata =
+        (perLocaleMetadata && perLocaleMetadata[locale]) || (hasMetadata ? metadata : undefined)
 
       await prisma.serviceCategoryTranslation.upsert({
         where: {
@@ -354,7 +343,7 @@ export async function seedServices(prisma: PrismaClient) {
 
         console.log(
           `    ├─ Sub-service: ${subSlug} ($${priceUsd})` +
-            (subServiceData.type === 'calculator' ? ' [calculator]' : '')
+            (subServiceData.type === 'calculator' ? ' [calculator]' : ''),
         )
 
         // Upsert SubService

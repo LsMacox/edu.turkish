@@ -30,12 +30,9 @@ const formattedPrice = computed(() => {
 
   // New mode: convert USD price dynamically
   if (props.priceUsd !== undefined) {
-    const convertedPrice = exchangeRatesStore.convertPrice(
-      props.priceUsd,
-      currencyRef.value
-    )
+    const convertedPrice = exchangeRatesStore.convertPrice(props.priceUsd, currencyRef.value)
     const symbol = getCurrencySymbol(currencyRef.value)
-    
+
     // Format with thousands separator
     const formatted = Math.round(convertedPrice).toLocaleString('en-US')
     return `${symbol}${formatted}`

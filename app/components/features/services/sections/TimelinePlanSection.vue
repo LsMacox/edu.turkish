@@ -54,7 +54,8 @@ const weeks = computed(() => {
   if (!Array.isArray(rawWeeks)) return []
   return rawWeeks.map((week: unknown, index: number) => {
     const weekRecord = week as Record<string, unknown>
-    const numberFromData = typeof weekRecord?.number === 'number' ? (weekRecord.number as number) : undefined
+    const numberFromData =
+      typeof weekRecord?.number === 'number' ? (weekRecord.number as number) : undefined
     return {
       number: numberFromData ?? index + 1,
       activities: t(`${props.keyPrefix}.weeks.${index}.activities`) as string,

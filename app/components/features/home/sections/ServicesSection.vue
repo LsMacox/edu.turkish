@@ -42,7 +42,12 @@ const { t } = useI18n()
 const localePath = useLocalePath()
 
 type ServiceCard = {
-  slug: 'relocation-in-turkey' | 'tr-yos-courses' | 'sat-courses' | 'turkish-english-course' | 'document-translations'
+  slug:
+    | 'relocation-in-turkey'
+    | 'tr-yos-courses'
+    | 'sat-courses'
+    | 'turkish-english-course'
+    | 'document-translations'
   titleKey: string
   descriptionKey: string
   color: BaseIconBadgeProps['color']

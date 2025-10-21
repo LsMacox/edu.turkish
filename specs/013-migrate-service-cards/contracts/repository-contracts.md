@@ -21,6 +21,7 @@ This document defines the contracts for repository classes that handle data acce
 #### findAllCategories
 
 **Signature**:
+
 ```typescript
 async findAllCategories(locale: SupportedLocale): Promise<ServiceCategoryListItem[]>
 ```
@@ -28,9 +29,11 @@ async findAllCategories(locale: SupportedLocale): Promise<ServiceCategoryListIte
 **Purpose**: Get all active service categories with translations
 
 **Parameters**:
+
 - `locale`: Language code (en, ru, kk, tr)
 
 **Returns**:
+
 ```typescript
 interface ServiceCategoryListItem {
   id: number
@@ -43,12 +46,14 @@ interface ServiceCategoryListItem {
 ```
 
 **Behavior**:
+
 - Returns only active categories (`isActive = true`)
 - Orders by `order` field ascending
 - Falls back to English if translation missing
 - Throws error if database query fails
 
 **Example**:
+
 ```typescript
 const repository = new ServiceRepository(prisma)
 const categories = await repository.findAllCategories('ru')
@@ -60,6 +65,7 @@ const categories = await repository.findAllCategories('ru')
 #### findCategoryBySlug
 
 **Signature**:
+
 ```typescript
 async findCategoryBySlug(
   slug: string,
@@ -70,10 +76,12 @@ async findCategoryBySlug(
 **Purpose**: Get category details with sub-services by slug
 
 **Parameters**:
+
 - `slug`: Category slug (e.g., "turkish-english-course")
 - `locale`: Language code (en, ru, kk, tr)
 
 **Returns**:
+
 ```typescript
 interface ServiceCategoryDetail {
   id: number
@@ -97,6 +105,7 @@ interface SubServiceDetail {
 ```
 
 **Behavior**:
+
 - Returns `null` if category not found or inactive
 - Includes only active sub-services
 - Orders sub-services by `order` field
@@ -104,6 +113,7 @@ interface SubServiceDetail {
 - Eager loads translations to avoid N+1 queries
 
 **Example**:
+
 ```typescript
 const category = await repository.findCategoryBySlug('turkish-english-course', 'ru')
 if (!category) {
@@ -117,6 +127,7 @@ if (!category) {
 #### createSubService (Future - Admin Only)
 
 **Signature**:
+
 ```typescript
 async createSubService(input: CreateSubServiceInput): Promise<SubService>
 ```
@@ -124,6 +135,7 @@ async createSubService(input: CreateSubServiceInput): Promise<SubService>
 **Purpose**: Create a new sub-service with translations
 
 **Parameters**:
+
 ```typescript
 interface CreateSubServiceInput {
   serviceCategoryId: number
@@ -142,6 +154,7 @@ interface CreateSubServiceInput {
 **Returns**: Created `SubService` entity
 
 **Behavior**:
+
 - Validates slug uniqueness within category
 - Validates all 4 locales have translations
 - Validates priceUsd >= 0
@@ -149,11 +162,12 @@ interface CreateSubServiceInput {
 - Creates sub-service and translations in transaction
 
 **Example**:
+
 ```typescript
 const subService = await repository.createSubService({
   serviceCategoryId: 5,
   slug: 'language-turkish-advanced',
-  priceUsd: 500.00,
+  priceUsd: 500.0,
   order: 3,
   translations: [
     { locale: 'en', name: 'Advanced Turkish', description: '...' },
@@ -169,6 +183,7 @@ const subService = await repository.createSubService({
 #### updateSubService (Future - Admin Only)
 
 **Signature**:
+
 ```typescript
 async updateSubService(
   id: number,
@@ -179,6 +194,7 @@ async updateSubService(
 **Purpose**: Update sub-service details
 
 **Parameters**:
+
 ```typescript
 interface UpdateSubServiceInput {
   priceUsd?: number
@@ -191,6 +207,7 @@ interface UpdateSubServiceInput {
 **Returns**: Updated `SubService` entity
 
 **Behavior**:
+
 - Validates priceUsd >= 0 if provided
 - Throws error if sub-service not found
 - Only updates provided fields
@@ -208,6 +225,7 @@ interface UpdateSubServiceInput {
 #### getCurrentRates
 
 **Signature**:
+
 ```typescript
 async getCurrentRates(): Promise<Record<Currency, number>>
 ```
@@ -215,6 +233,7 @@ async getCurrentRates(): Promise<Record<Currency, number>>
 **Purpose**: Get current exchange rates for all currencies
 
 **Returns**:
+
 ```typescript
 {
   KZT: number,
@@ -225,12 +244,14 @@ async getCurrentRates(): Promise<Record<Currency, number>>
 ```
 
 **Behavior**:
+
 - Returns cached rates if not expired
 - Returns fallback rates if no valid cache
 - USD rate is always 1.0
 - Throws error if database query fails
 
 **Example**:
+
 ```typescript
 const repository = new ExchangeRateRepository(prisma)
 const rates = await repository.getCurrentRates()
@@ -242,6 +263,7 @@ const rates = await repository.getCurrentRates()
 #### updateRates
 
 **Signature**:
+
 ```typescript
 async updateRates(rates: Record<Currency, number>): Promise<void>
 ```
@@ -249,9 +271,11 @@ async updateRates(rates: Record<Currency, number>): Promise<void>
 **Purpose**: Update exchange rates in cache
 
 **Parameters**:
+
 - `rates`: Object with rates for all currencies
 
 **Behavior**:
+
 - Upserts rates for each currency
 - Sets `fetchedAt` to current time
 - Sets `expiresAt` to current time + 1 hour
@@ -259,11 +283,12 @@ async updateRates(rates: Record<Currency, number>): Promise<void>
 - Validates rates > 0
 
 **Example**:
+
 ```typescript
 await repository.updateRates({
   KZT: 450.25,
   TRY: 32.15,
-  RUB: 90.50,
+  RUB: 90.5,
   USD: 1.0,
 })
 ```
@@ -273,6 +298,7 @@ await repository.updateRates({
 #### getRateDetails
 
 **Signature**:
+
 ```typescript
 async getRateDetails(): Promise<ExchangeRateDetails>
 ```
@@ -280,6 +306,7 @@ async getRateDetails(): Promise<ExchangeRateDetails>
 **Purpose**: Get exchange rates with metadata
 
 **Returns**:
+
 ```typescript
 interface ExchangeRateDetails {
   rates: Record<Currency, number>
@@ -290,11 +317,13 @@ interface ExchangeRateDetails {
 ```
 
 **Behavior**:
+
 - Returns rates with timestamps
 - Calculates `isExpired` based on current time
 - Returns fallback if no cache exists
 
 **Example**:
+
 ```typescript
 const details = await repository.getRateDetails()
 if (details.isExpired) {
@@ -307,6 +336,7 @@ if (details.isExpired) {
 #### cleanupExpiredRates (Background Job)
 
 **Signature**:
+
 ```typescript
 async cleanupExpiredRates(): Promise<number>
 ```
@@ -316,11 +346,13 @@ async cleanupExpiredRates(): Promise<number>
 **Returns**: Number of deleted records
 
 **Behavior**:
+
 - Deletes rates where `expiresAt < now()`
 - Runs as scheduled job (daily)
 - Keeps last 7 days of history for debugging
 
 **Example**:
+
 ```typescript
 const deleted = await repository.cleanupExpiredRates()
 console.log(`Cleaned up ${deleted} expired rates`)
@@ -333,6 +365,7 @@ console.log(`Cleaned up ${deleted} expired rates`)
 ### Repository Errors
 
 **NotFoundError**:
+
 ```typescript
 class NotFoundError extends Error {
   constructor(entity: string, identifier: string) {
@@ -343,6 +376,7 @@ class NotFoundError extends Error {
 ```
 
 **ValidationError**:
+
 ```typescript
 class ValidationError extends Error {
   constructor(message: string, details?: unknown) {
@@ -354,6 +388,7 @@ class ValidationError extends Error {
 ```
 
 **Usage**:
+
 ```typescript
 const category = await repository.findCategoryBySlug('invalid-slug', 'en')
 if (!category) {
@@ -377,19 +412,19 @@ describe('ServiceRepository', () => {
       expect(categories).toHaveLength(5)
       expect(categories[0].order).toBeLessThanOrEqual(categories[1].order)
     })
-    
+
     it('returns translations for specified locale', async () => {
       const categories = await repository.findAllCategories('ru')
       expect(categories[0].title).toContain('Перевод')
     })
-    
+
     it('falls back to English when translation missing', async () => {
       // Create category with only English translation
       const categories = await repository.findAllCategories('kk')
       expect(categories[0].title).toBeTruthy()
     })
   })
-  
+
   describe('findCategoryBySlug', () => {
     it('returns category with sub-services', async () => {
       const category = await repository.findCategoryBySlug('turkish-english-course', 'ru')
@@ -397,22 +432,22 @@ describe('ServiceRepository', () => {
       expect(category!.subServices).toBeInstanceOf(Array)
       expect(category!.subServices.length).toBeGreaterThan(0)
     })
-    
+
     it('returns null for non-existent category', async () => {
       const category = await repository.findCategoryBySlug('invalid-slug', 'en')
       expect(category).toBeNull()
     })
-    
+
     it('orders sub-services by order field', async () => {
       const category = await repository.findCategoryBySlug('sat-courses', 'en')
-      const orders = category!.subServices.map(s => s.order)
+      const orders = category!.subServices.map((s) => s.order)
       expect(orders).toEqual([...orders].sort((a, b) => a - b))
     })
-    
+
     it('includes only active sub-services', async () => {
       // Deactivate a sub-service
       const category = await repository.findCategoryBySlug('tr-yos-courses', 'en')
-      const allActive = category!.subServices.every(s => s.isActive !== false)
+      const allActive = category!.subServices.every((s) => s.isActive !== false)
       expect(allActive).toBe(true)
     })
   })
@@ -434,27 +469,27 @@ describe('ExchangeRateRepository', () => {
       expect(rates).toHaveProperty('USD')
       expect(rates.USD).toBe(1.0)
     })
-    
+
     it('returns cached rates when not expired', async () => {
       await repository.updateRates({ KZT: 450, TRY: 32, RUB: 90, USD: 1 })
       const rates = await repository.getCurrentRates()
       expect(rates.KZT).toBe(450)
     })
-    
+
     it('returns fallback rates when cache expired', async () => {
       // Clear cache
       const rates = await repository.getCurrentRates()
       expect(rates.KZT).toBeGreaterThan(0)
     })
   })
-  
+
   describe('updateRates', () => {
     it('upserts rates for all currencies', async () => {
       await repository.updateRates({ KZT: 451, TRY: 33, RUB: 91, USD: 1 })
       const rates = await repository.getCurrentRates()
       expect(rates.KZT).toBe(451)
     })
-    
+
     it('sets expiration to 1 hour from now', async () => {
       await repository.updateRates({ KZT: 450, TRY: 32, RUB: 90, USD: 1 })
       const details = await repository.getRateDetails()
@@ -462,7 +497,7 @@ describe('ExchangeRateRepository', () => {
       expect(details.expiresAt.getTime()).toBeCloseTo(expectedExpiry.getTime(), -3)
     })
   })
-  
+
   describe('cleanupExpiredRates', () => {
     it('deletes expired rates', async () => {
       // Create expired rate
@@ -480,16 +515,19 @@ describe('ExchangeRateRepository', () => {
 ### Query Performance
 
 **ServiceRepository.findAllCategories**:
+
 - Max execution time: 50ms
 - Max database queries: 1 (with eager loading)
 - Expected result size: 5 categories
 
 **ServiceRepository.findCategoryBySlug**:
+
 - Max execution time: 100ms
 - Max database queries: 1 (with eager loading)
 - Expected result size: 1 category + 3-5 sub-services
 
 **ExchangeRateRepository.getCurrentRates**:
+
 - Max execution time: 20ms (cached)
 - Max database queries: 1
 - Expected result size: 4 rates
@@ -497,6 +535,7 @@ describe('ExchangeRateRepository', () => {
 ### Optimization Strategies
 
 **Eager Loading**:
+
 ```typescript
 // Good: Single query with includes
 const category = await prisma.serviceCategory.findUnique({
@@ -513,11 +552,14 @@ const category = await prisma.serviceCategory.findUnique({
 
 // Bad: N+1 queries
 const category = await prisma.serviceCategory.findUnique({ where: { slug } })
-const translations = await prisma.serviceCategoryTranslation.findMany({ where: { serviceCategoryId: category.id } })
+const translations = await prisma.serviceCategoryTranslation.findMany({
+  where: { serviceCategoryId: category.id },
+})
 const subServices = await prisma.subService.findMany({ where: { serviceCategoryId: category.id } })
 ```
 
 **Indexing**:
+
 - All foreign keys indexed
 - Unique constraints on slugs
 - Composite indexes on frequently queried combinations
@@ -529,17 +571,20 @@ const subServices = await prisma.subService.findMany({ where: { serviceCategoryI
 ### Constraints
 
 **ServiceCategory**:
+
 - `slug` must be unique
 - `order` must be >= 0
 - `isActive` must be boolean
 
 **SubService**:
+
 - `slug` must be unique within category
 - `priceUsd` must be >= 0
 - `deliveryTimeDays` must be >= 1 (if not null)
 - Must have translations for all 4 locales
 
 **ExchangeRate**:
+
 - `rate` must be > 0
 - `expiresAt` must be > `fetchedAt`
 - `baseCurrency` must be 'USD'
@@ -548,6 +593,7 @@ const subServices = await prisma.subService.findMany({ where: { serviceCategoryI
 ### Validation
 
 **Application-Level** (in repositories):
+
 ```typescript
 if (priceUsd < 0) {
   throw new ValidationError('Price must be non-negative')
@@ -563,6 +609,7 @@ if (!['en', 'ru', 'kk', 'tr'].includes(locale)) {
 ```
 
 **Database-Level** (in Prisma schema):
+
 ```prisma
 model SubService {
   priceUsd Decimal @db.Decimal(10, 2)
@@ -589,7 +636,7 @@ async createSubService(input: CreateSubServiceInput): Promise<SubService> {
         order: input.order ?? 0,
       },
     })
-    
+
     // Create translations
     await tx.subServiceTranslation.createMany({
       data: input.translations.map(t => ({
@@ -599,7 +646,7 @@ async createSubService(input: CreateSubServiceInput): Promise<SubService> {
         description: t.description,
       })),
     })
-    
+
     return subService
   })
 }
@@ -612,7 +659,7 @@ async updateRates(rates: Record<Currency, number>): Promise<void> {
   await this.prisma.$transaction(async (tx) => {
     const now = new Date()
     const expiresAt = new Date(now.getTime() + 3600000) // +1 hour
-    
+
     for (const [currency, rate] of Object.entries(rates)) {
       await tx.exchangeRate.upsert({
         where: {
@@ -657,13 +704,13 @@ async findCategoryBySlug(slug: string, locale: SupportedLocale) {
       // ... sub-services
     },
   })
-  
+
   if (!category) return null
-  
+
   // Use requested locale if available, otherwise English
   const translation = category.translations.find(t => t.locale === locale)
     || category.translations.find(t => t.locale === 'en')
-  
+
   return {
     ...category,
     title: translation?.title || 'Untitled',
@@ -690,11 +737,11 @@ async getCurrentRates(): Promise<Record<Currency, number>> {
       expiresAt: { gte: new Date() },
     },
   })
-  
+
   if (rates.length === 0) {
     return FALLBACK_RATES
   }
-  
+
   return rates.reduce((acc, rate) => {
     acc[rate.targetCurrency as Currency] = rate.rate.toNumber()
     return acc
@@ -707,6 +754,7 @@ async getCurrentRates(): Promise<Record<Currency, number>> {
 ## Changelog
 
 **v1.0 (2025-01-14)**:
+
 - Initial repository contracts
 - ServiceRepository with findAllCategories, findCategoryBySlug
 - ExchangeRateRepository with getCurrentRates, updateRates

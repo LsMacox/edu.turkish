@@ -12,25 +12,27 @@
 
 **Options Evaluated**:
 
-| API | Free Tier | Rate Limits | Currencies | Latency | Reliability |
-|-----|-----------|-------------|------------|---------|-------------|
-| exchangerate-api.io | 1,500 req/month | 50 req/day | All major | ~200ms | High |
-| fixer.io | 100 req/month | Limited | 170+ | ~150ms | High |
-| currencyapi.com | 300 req/month | 10 req/day | 150+ | ~180ms | Medium |
-| Open Exchange Rates | 1,000 req/month | Unlimited | 200+ | ~250ms | High |
+| API                 | Free Tier       | Rate Limits | Currencies | Latency | Reliability |
+| ------------------- | --------------- | ----------- | ---------- | ------- | ----------- |
+| exchangerate-api.io | 1,500 req/month | 50 req/day  | All major  | ~200ms  | High        |
+| fixer.io            | 100 req/month   | Limited     | 170+       | ~150ms  | High        |
+| currencyapi.com     | 300 req/month   | 10 req/day  | 150+       | ~180ms  | Medium      |
+| Open Exchange Rates | 1,000 req/month | Unlimited   | 200+       | ~250ms  | High        |
 
 **Recommendation**: **exchangerate-api.io**
+
 - **Rationale**: Best free tier (1,500 requests), sufficient for hourly updates (720/month)
 - **Endpoint**: `https://api.exchangerate-api.io/v4/latest/USD`
 - **Response format**: JSON with all conversion rates from USD base
 - **Caching strategy**: Cache for 1 hour, fallback to last known rates on failure
 
 **Fallback Rates** (hardcoded, updated quarterly):
+
 ```typescript
 const FALLBACK_RATES = {
-  KZT: 450.0,  // 1 USD = 450 KZT
-  TRY: 32.0,   // 1 USD = 32 TRY
-  RUB: 90.0,   // 1 USD = 90 RUB
+  KZT: 450.0, // 1 USD = 450 KZT
+  TRY: 32.0, // 1 USD = 32 TRY
+  RUB: 90.0, // 1 USD = 90 RUB
   USD: 1.0,
 }
 ```
@@ -40,6 +42,7 @@ const FALLBACK_RATES = {
 **Question**: How should we structure service tables to support translations and future extensibility?
 
 **Design Principles**:
+
 - Follow existing `*_translations` pattern (UniversityTranslation, etc.)
 - Separate category metadata from sub-service data
 - Store only USD prices in database
@@ -56,10 +59,10 @@ model ServiceCategory {
   isActive     Boolean  @default(true)
   createdAt    DateTime @default(now())
   updatedAt    DateTime @updatedAt
-  
+
   translations ServiceCategoryTranslation[]
   subServices  SubService[]
-  
+
   @@map("service_categories")
   @@index([slug])
   @@index([isActive, order])
@@ -73,9 +76,9 @@ model ServiceCategoryTranslation {
   subtitle          String?  @db.Text
   slug              String   @db.VarChar(255)
   metadata          Json?    // Page-specific content (FAQ, features, etc.)
-  
+
   serviceCategory   ServiceCategory @relation(fields: [serviceCategoryId], references: [id], onDelete: Cascade)
-  
+
   @@unique([serviceCategoryId, locale])
   @@map("service_category_translations")
   @@index([locale])
@@ -91,10 +94,10 @@ model SubService {
   isActive          Boolean  @default(true)
   createdAt         DateTime @default(now())
   updatedAt         DateTime @updatedAt
-  
+
   serviceCategory   ServiceCategory @relation(fields: [serviceCategoryId], references: [id], onDelete: Cascade)
   translations      SubServiceTranslation[]
-  
+
   @@unique([serviceCategoryId, slug])
   @@map("sub_services")
   @@index([serviceCategoryId, isActive, order])
@@ -106,9 +109,9 @@ model SubServiceTranslation {
   locale       String   @db.VarChar(5)
   name         String   @db.VarChar(255)
   description  String   @db.Text
-  
+
   subService   SubService @relation(fields: [subServiceId], references: [id], onDelete: Cascade)
-  
+
   @@unique([subServiceId, locale])
   @@map("sub_service_translations")
   @@index([locale])
@@ -121,7 +124,7 @@ model ExchangeRate {
   rate           Decimal  @db.Decimal(12, 6)
   fetchedAt      DateTime @default(now())
   expiresAt      DateTime
-  
+
   @@unique([baseCurrency, targetCurrency])
   @@map("exchange_rates")
   @@index([expiresAt])
@@ -129,6 +132,7 @@ model ExchangeRate {
 ```
 
 **Rationale**:
+
 - `ServiceCategory` stores fixed categories (document-translations, etc.)
 - `ServiceCategoryTranslation.metadata` as JSON for flexible page content
 - `SubService.priceUsd` as Decimal for precision
@@ -142,20 +146,15 @@ model ExchangeRate {
 **Migration Phases**:
 
 **Phase 1: Additive Changes**
+
 1. Add new database tables (migration)
 2. Seed data from Russian locale i18n
 3. Add API endpoints alongside existing pages
 4. Deploy with both systems active
 
-**Phase 2: Cutover**
-5. Update service pages to use database API
-6. Test all locales and currencies
-7. Verify no regressions
+**Phase 2: Cutover** 5. Update service pages to use database API 6. Test all locales and currencies 7. Verify no regressions
 
-**Phase 3: Cleanup**
-8. Remove service data from i18n JSON (keep common UI strings)
-9. Remove old code paths
-10. Monitor for issues
+**Phase 3: Cleanup** 8. Remove service data from i18n JSON (keep common UI strings) 9. Remove old code paths 10. Monitor for issues
 
 **Data Mapping** (Russian locale → Database):
 
@@ -205,6 +204,7 @@ SubService {
 ```
 
 **Price Conversion Logic**:
+
 - Extract USD price from i18n as base
 - Verify other currencies match expected conversion rates
 - Log discrepancies for manual review
@@ -216,18 +216,21 @@ SubService {
 **Decision**: **Client-side conversion**
 
 **Rationale**:
+
 - User's currency preference stored in localStorage (client-only)
 - Reduces server load (no per-request conversion)
 - Enables instant currency switching without API calls
 - Exchange rates cached in Pinia store for performance
 
 **Flow**:
+
 1. Server returns USD prices from database
 2. Client fetches exchange rates on mount (cached 1hr)
 3. Client converts USD → selected currency reactively
 4. Currency changes trigger immediate re-render
 
 **Implementation**:
+
 ```typescript
 // Composable
 const { data: rates } = await useFetch('/api/v1/exchange-rates')
@@ -247,50 +250,58 @@ const convertedPrice = computed(() => {
 **Test Layers**:
 
 **1. Contract Tests** (`tests/contract/services-api.contract.test.ts`)
+
 - Verify API response shapes match types
 - Test all locales return translations
 - Validate price conversion accuracy
 
 **2. Repository Tests** (`tests/repositories/ServiceRepository.test.ts`)
+
 - Test data fetching with translations
 - Test filtering by category, locale, active status
 - Test fallback to English when translation missing
 
 **3. Component Tests** (`tests/components/features/services/`)
+
 - Test SubServiceCard renders prices correctly
 - Test currency switching updates prices
 - Test missing data edge cases
 
 **4. Integration Tests**
+
 - Test full page load with database data
 - Test currency conversion end-to-end
 - Test exchange rate caching behavior
 
 **5. Visual Regression**
+
 - Screenshot comparison before/after migration
 - Verify no UI changes except improved currency accuracy
 
 **Coverage Goals**:
+
 - 90%+ for repositories and services
 - 80%+ for composables
 - 70%+ for components
 
 ## Technical Risks & Mitigations
 
-| Risk | Impact | Probability | Mitigation |
-|------|--------|-------------|------------|
-| Exchange rate API downtime | High | Low | Fallback rates + 1hr cache + error logging |
-| Price conversion inaccuracy | Medium | Low | Unit tests with known rates + manual verification |
-| Migration data loss | High | Low | Dry-run seeder + backup i18n files + rollback plan |
-| Performance degradation | Medium | Medium | Database indexes + query optimization + caching |
-| Translation missing | Low | Medium | Fallback to English + logging + admin alerts |
+| Risk                        | Impact | Probability | Mitigation                                         |
+| --------------------------- | ------ | ----------- | -------------------------------------------------- |
+| Exchange rate API downtime  | High   | Low         | Fallback rates + 1hr cache + error logging         |
+| Price conversion inaccuracy | Medium | Low         | Unit tests with known rates + manual verification  |
+| Migration data loss         | High   | Low         | Dry-run seeder + backup i18n files + rollback plan |
+| Performance degradation     | Medium | Medium      | Database indexes + query optimization + caching    |
+| Translation missing         | Low    | Medium      | Fallback to English + logging + admin alerts       |
 
 ## Dependencies
 
 **External**:
+
 - exchangerate-api.io (free tier, no API key required for basic usage)
 
 **Internal**:
+
 - Existing Prisma setup
 - Existing currency store and composable
 - Existing repository pattern
@@ -301,16 +312,19 @@ const convertedPrice = computed(() => {
 ## Performance Considerations
 
 **Database Queries**:
+
 - Eager load translations with `include` to avoid N+1
 - Index on `locale`, `serviceCategoryId`, `isActive`
 - Expected query time: <50ms for category with 5 sub-services
 
 **Exchange Rate Caching**:
+
 - Client-side Pinia store with 1hr TTL
 - Server-side database cache with 1hr TTL
 - Reduces API calls from ~1000/day to ~24/day
 
 **Page Load Impact**:
+
 - Additional API call for exchange rates (cached)
 - Additional API call for services (replaces i18n parsing)
 - Net impact: ~0ms (i18n parsing eliminated)
@@ -332,13 +346,15 @@ const convertedPrice = computed(() => {
 ## Conclusion
 
 **Recommendation**: Proceed with implementation using:
+
 - exchangerate-api.io for rates
 - Client-side conversion with Pinia caching
 - Prisma schema with 4 new tables
 - Phased migration (additive → cutover → cleanup)
 - Comprehensive test coverage at all layers
 
-**Estimated Effort**: 
+**Estimated Effort**:
+
 - Schema + Migration: 2 hours
 - Repositories + Services: 4 hours
 - API Endpoints: 2 hours

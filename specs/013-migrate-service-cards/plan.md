@@ -10,6 +10,7 @@
 Migrate service card data from i18n JSON files to database with multi-locale translations. Store prices in USD, fetch real-time exchange rates via API, and convert dynamically on client based on user's selected currency. Remove obsolete i18n entries after migration. Seed existing Russian locale data and enable future service additions through database operations.
 
 **Core Goals**:
+
 - Database-driven service content with `*_translations` pattern
 - USD base pricing with dynamic currency conversion (KZT, TRY, RUB, USD)
 - External exchange rate API integration with caching
@@ -29,6 +30,7 @@ Migrate service card data from i18n JSON files to database with multi-locale tra
 **Scale/Scope**: 5 service categories, ~20 sub-services, 4 locales (en/ru/kk/tr), ~1000 daily visitors
 
 **Architecture Patterns**:
+
 - Repository pattern for data access (`server/repositories/`)
 - Pinia stores for client state (`app/stores/`)
 - Nuxt auto-imports for components and composables
@@ -37,6 +39,7 @@ Migrate service card data from i18n JSON files to database with multi-locale tra
 - Alias imports: `~` (app), `~~` (root), `@` (app)
 
 **Existing Currency System**:
+
 - `useCurrencyStore()` - Pinia store with localStorage persistence
 - `useCurrency()` - Composable with formatting utilities
 - `Currency` type: 'KZT' | 'TRY' | 'RUB' | 'USD'
@@ -49,6 +52,7 @@ _GATE: Must pass before Phase 0 research. Re-check after Phase 1 design._
 **Status**: ✅ PASS (Constitution file is template-only, no specific gates defined)
 
 **Alignment with Project Standards**:
+
 - ✅ Repository pattern for data access (existing pattern)
 - ✅ Pinia stores for state management (existing pattern)
 - ✅ Type safety with TypeScript (existing requirement)
@@ -143,6 +147,7 @@ tests/
 ```
 
 **Structure Decision**: Nuxt full-stack web application with clear separation:
+
 - **Client**: `app/` for UI components, pages, composables, and stores
 - **Server**: `server/` for API routes, repositories, and business logic
 - **Database**: `prisma/` for schema and migrations
@@ -157,13 +162,16 @@ _No violations detected - all patterns align with existing architecture._
 ## Progress Tracking
 
 ### Phase 0: Research ✅ COMPLETE
+
 - **Output**: `research.md`
 - Exchange rate API selection, schema design, migration strategy, testing approach
 
 ### Phase 1: Design ✅ COMPLETE
+
 - **Outputs**: `data-model.md`, `contracts/api-contracts.md`, `contracts/repository-contracts.md`, `quickstart.md`
 - Entity definitions, API contracts, repository contracts, implementation guide
 
 ### Phase 2: Tasks (Next Step)
+
 - **Output**: `tasks.md` (created via `/tasks` command)
 - Actionable task breakdown with dependencies and estimates

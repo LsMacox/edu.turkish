@@ -1,11 +1,11 @@
 {
-    "currency": {
-        "selector": {
-        "label": "Para Birimi",
-        "KZT": "Tenge (₸)",
-        "TRY": "Lira (₺)",
-        "RUB": "Ruble (₽)",
-        "USD": "Dolar ($)"
-        }
+  "currency": {
+    "selector": {
+      "label": "Para Birimi",
+      "KZT": "Tenge (₸)",
+      "TRY": "Lira (₺)",
+      "RUB": "Ruble (₽)",
+      "USD": "Dolar ($)"
     }
+  }
 }

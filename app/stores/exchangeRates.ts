@@ -39,9 +39,11 @@ export const useExchangeRatesStore = defineStore('exchangeRates', {
     /**
      * Get rate for specific currency
      */
-    getRate: (state) => (currency: Currency): number => {
-      return state.rates[currency] ?? FALLBACK_RATES[currency]
-    },
+    getRate:
+      (state) =>
+      (currency: Currency): number => {
+        return state.rates[currency] ?? FALLBACK_RATES[currency]
+      },
   },
 
   actions: {
@@ -62,7 +64,7 @@ export const useExchangeRatesStore = defineStore('exchangeRates', {
         this.isFallback = response.isFallback ?? false
       } catch (error) {
         console.error('Failed to fetch exchange rates:', error)
-        
+
         // Keep fallback rates on error
         this.rates = FALLBACK_RATES
         this.isFallback = true

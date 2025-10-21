@@ -170,11 +170,11 @@ if (import.meta.client) {
 
   const scheduleSwiperLoad = () => {
     if (typeof window !== 'undefined' && 'requestIdleCallback' in window) {
-      ;(window as typeof window & { requestIdleCallback: (cb: () => void) => number }).requestIdleCallback(
-        () => {
-          loadSwiper()
-        },
-      )
+      ;(
+        window as typeof window & { requestIdleCallback: (cb: () => void) => number }
+      ).requestIdleCallback(() => {
+        loadSwiper()
+      })
       return
     }
 

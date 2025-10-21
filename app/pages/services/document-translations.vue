@@ -79,7 +79,7 @@ const { data: category } = await useAsyncData<ServiceCategoryDetail>(
   () => fetchCategory('document-translations'),
   {
     lazy: false,
-  }
+  },
 )
 
 // Ensure exchange rates are fresh

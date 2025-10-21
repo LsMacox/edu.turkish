@@ -1,4 +1,4 @@
-    // Minimal Nuxt app composables mock for tests
+// Minimal Nuxt app composables mock for tests
 export function useCookie<T = any>(name: string, _opts?: any) {
   const g = globalThis as any
   if (!g.__mockCookies__) g.__mockCookies__ = new Map<string, any>()

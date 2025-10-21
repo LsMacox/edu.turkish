@@ -15,9 +15,7 @@ export class ServiceRepository {
    * Get all active service categories with translations
    * Falls back to English if translation missing
    */
-  async findAllCategories(
-    locale: SupportedLocale
-  ): Promise<ServiceCategoryListItem[]> {
+  async findAllCategories(locale: SupportedLocale): Promise<ServiceCategoryListItem[]> {
     const categories = await this.prisma.serviceCategory.findMany({
       where: { isActive: true },
       include: {
@@ -52,7 +50,7 @@ export class ServiceRepository {
    */
   async findCategoryBySlug(
     slug: string,
-    locale: SupportedLocale
+    locale: SupportedLocale,
   ): Promise<ServiceCategoryDetail | null> {
     const category = await this.prisma.serviceCategory.findUnique({
       where: { slug },
@@ -131,12 +129,14 @@ export class ServiceRepository {
     const urgencyMultipliers =
       expressMultiplier && rushMultiplier
         ? {
-            express: typeof expressMultiplier.toNumber === 'function'
-              ? expressMultiplier.toNumber()
-              : Number(expressMultiplier),
-            rush: typeof rushMultiplier.toNumber === 'function'
-              ? rushMultiplier.toNumber()
-              : Number(rushMultiplier),
+            express:
+              typeof expressMultiplier.toNumber === 'function'
+                ? expressMultiplier.toNumber()
+                : Number(expressMultiplier),
+            rush:
+              typeof rushMultiplier.toNumber === 'function'
+                ? rushMultiplier.toNumber()
+                : Number(rushMultiplier),
           }
         : undefined
 
@@ -156,9 +156,7 @@ export class ServiceRepository {
   /**
    * Create a new sub-service with translations (Admin only - Future)
    */
-  async createSubService(
-    input: CreateSubServiceInput
-  ): Promise<{ id: number; slug: string }> {
+  async createSubService(input: CreateSubServiceInput): Promise<{ id: number; slug: string }> {
     // Validate slug uniqueness within category
     const existing = await this.prisma.subService.findUnique({
       where: {
@@ -178,9 +176,7 @@ export class ServiceRepository {
     const missingLocales = SUPPORTED_LOCALES.filter((l) => !locales.includes(l))
 
     if (missingLocales.length > 0) {
-      throw new Error(
-        `Missing translations for locales: ${missingLocales.join(', ')}`
-      )
+      throw new Error(`Missing translations for locales: ${missingLocales.join(', ')}`)
     }
 
     // Validate priceUsd >= 0
@@ -221,10 +217,7 @@ export class ServiceRepository {
   /**
    * Update sub-service details (Admin only - Future)
    */
-  async updateSubService(
-    id: number,
-    input: UpdateSubServiceInput
-  ): Promise<{ id: number }> {
+  async updateSubService(id: number, input: UpdateSubServiceInput): Promise<{ id: number }> {
     // Validate priceUsd >= 0 if provided
     if (input.priceUsd !== undefined && input.priceUsd < 0) {
       throw new Error('Price must be non-negative')

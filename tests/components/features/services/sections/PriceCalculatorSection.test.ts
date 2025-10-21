@@ -93,7 +93,7 @@ describe('PriceCalculatorSection', () => {
 
   it('renders urgency options', () => {
     const wrapper = createWrapper()
-  
+
     expect(wrapper.text()).toContain('Standard (5 days)')
     expect(wrapper.text()).toContain('Express (2 days)')
     expect(wrapper.text()).toContain('Rush (24 hours)')

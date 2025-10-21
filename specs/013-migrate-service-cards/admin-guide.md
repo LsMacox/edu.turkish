@@ -112,7 +112,7 @@ const repository = new ServiceRepository(prisma)
 await repository.createSubService({
   serviceCategoryId: 5,
   slug: 'language-turkish-advanced',
-  priceUsd: 500.00,
+  priceUsd: 500.0,
   order: 3,
   translations: [
     { locale: 'en', name: 'Advanced Turkish', description: '...' },
@@ -372,6 +372,7 @@ HAVING COUNT(sst.id) < 4;
 ### Service Not Appearing on Website
 
 **Check:**
+
 1. Is `isActive = true`?
 2. Does it have translations for all 4 locales?
 3. Is the category active?
@@ -388,6 +389,7 @@ WHERE ss.slug = 'your-service-slug';
 ### Price Not Updating
 
 **Check:**
+
 1. Is the price in USD (not another currency)?
 2. Did you clear the cache?
 3. Check browser console for errors
@@ -402,6 +404,7 @@ WHERE slug = 'your-service-slug';
 ### Exchange Rates Not Refreshing
 
 **Check:**
+
 1. Are rates expired?
 2. Is the external API accessible?
 3. Check server logs for API errors
@@ -445,6 +448,7 @@ The following features are planned for future releases:
 ## Support
 
 For questions or issues:
+
 - Check database schema: `prisma/schema.prisma`
 - Review API contracts: `specs/013-migrate-service-cards/contracts/`
 - Contact development team

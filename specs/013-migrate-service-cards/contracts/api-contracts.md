@@ -22,11 +22,13 @@ This document defines the API contracts for service data and exchange rate endpo
 | `locale` | string | No | 'en' | Language code (en, ru, kk, tr) |
 
 **Request Example**:
+
 ```http
 GET /api/v1/services/categories?locale=ru
 ```
 
 **Response Success (200)**:
+
 ```typescript
 {
   "categories": [
@@ -51,6 +53,7 @@ GET /api/v1/services/categories?locale=ru
 ```
 
 **Response Error (400)**:
+
 ```typescript
 {
   "error": "Invalid locale",
@@ -59,6 +62,7 @@ GET /api/v1/services/categories?locale=ru
 ```
 
 **Response Error (500)**:
+
 ```typescript
 {
   "error": "Internal server error",
@@ -67,6 +71,7 @@ GET /api/v1/services/categories?locale=ru
 ```
 
 **Contract Tests**:
+
 - [ ] Returns array of categories
 - [ ] Each category has required fields (id, slug, title, localizedSlug)
 - [ ] Subtitle can be null
@@ -94,11 +99,13 @@ GET /api/v1/services/categories?locale=ru
 | `locale` | string | No | 'en' | Language code (en, ru, kk, tr) |
 
 **Request Example**:
+
 ```http
 GET /api/v1/services/turkish-english-course?locale=ru
 ```
 
 **Response Success (200)**:
+
 ```typescript
 {
   "category": {
@@ -149,6 +156,7 @@ GET /api/v1/services/turkish-english-course?locale=ru
 ```
 
 **Response Error (404)**:
+
 ```typescript
 {
   "error": "Category not found",
@@ -157,6 +165,7 @@ GET /api/v1/services/turkish-english-course?locale=ru
 ```
 
 **Response Error (400)**:
+
 ```typescript
 {
   "error": "Invalid locale",
@@ -165,6 +174,7 @@ GET /api/v1/services/turkish-english-course?locale=ru
 ```
 
 **Contract Tests**:
+
 - [ ] Returns category with all required fields
 - [ ] Metadata is valid JSON object (can be null)
 - [ ] SubServices array is present (can be empty)
@@ -188,11 +198,13 @@ GET /api/v1/services/turkish-english-course?locale=ru
 **Query Parameters**: None
 
 **Request Example**:
+
 ```http
 GET /api/v1/exchange-rates
 ```
 
 **Response Success (200)**:
+
 ```typescript
 {
   "rates": {
@@ -208,6 +220,7 @@ GET /api/v1/exchange-rates
 ```
 
 **Response Error (500)**:
+
 ```typescript
 {
   "error": "Failed to fetch exchange rates",
@@ -226,6 +239,7 @@ GET /api/v1/exchange-rates
 ```
 
 **Contract Tests**:
+
 - [ ] Returns rates for all 4 currencies (KZT, TRY, RUB, USD)
 - [ ] USD rate is always 1.00
 - [ ] All rates are positive numbers
@@ -251,6 +265,7 @@ GET /api/v1/exchange-rates
 | `categorySlug` | string | Yes | Category slug |
 
 **Request Body**:
+
 ```typescript
 {
   "slug": "language-turkish-advanced",
@@ -283,6 +298,7 @@ GET /api/v1/exchange-rates
 ```
 
 **Response Success (201)**:
+
 ```typescript
 {
   "subService": {
@@ -298,6 +314,7 @@ GET /api/v1/exchange-rates
 ```
 
 **Response Error (400)**:
+
 ```typescript
 {
   "error": "Validation error",
@@ -306,6 +323,7 @@ GET /api/v1/exchange-rates
 ```
 
 **Response Error (401)**:
+
 ```typescript
 {
   "error": "Unauthorized",
@@ -374,18 +392,21 @@ export interface ApiError {
 **Current Version**: v1
 
 **Breaking Changes** (require new version):
+
 - Removing fields from responses
 - Changing field types
 - Changing endpoint paths
 - Changing authentication requirements
 
 **Non-Breaking Changes** (same version):
+
 - Adding new optional fields
 - Adding new endpoints
 - Adding new query parameters (with defaults)
 - Improving error messages
 
 **Deprecation Process**:
+
 1. Announce deprecation 3 months in advance
 2. Add deprecation warnings to responses
 3. Maintain old version for 6 months
@@ -398,6 +419,7 @@ export interface ApiError {
 **Current Limits**: None (internal API)
 
 **Future Considerations**:
+
 - Public API: 100 requests/minute per IP
 - Exchange rates: Cached for 1 hour (reduces external API calls)
 - Service data: No limit (infrequent changes)
@@ -407,16 +429,19 @@ export interface ApiError {
 ## Caching Headers
 
 **Service Endpoints**:
+
 ```http
 Cache-Control: public, max-age=3600, stale-while-revalidate=86400
 ```
 
 **Exchange Rate Endpoint**:
+
 ```http
 Cache-Control: public, max-age=3600, must-revalidate
 ```
 
 **Rationale**:
+
 - Services change infrequently (1 hour cache acceptable)
 - Exchange rates expire after 1 hour (must revalidate)
 - Stale-while-revalidate allows graceful degradation
@@ -426,6 +451,7 @@ Cache-Control: public, max-age=3600, must-revalidate
 ## Error Handling
 
 **Standard Error Response**:
+
 ```typescript
 {
   "error": string,      // Machine-readable error code
@@ -435,6 +461,7 @@ Cache-Control: public, max-age=3600, must-revalidate
 ```
 
 **HTTP Status Codes**:
+
 - `200` - Success
 - `201` - Created (for POST requests)
 - `400` - Bad Request (invalid parameters)
@@ -449,12 +476,14 @@ Cache-Control: public, max-age=3600, must-revalidate
 ## Security Considerations
 
 **Public Endpoints**:
+
 - No authentication required
 - Rate limiting recommended for production
 - Input validation via Zod schemas
 - SQL injection prevented by Prisma
 
 **Admin Endpoints** (future):
+
 - JWT authentication required
 - Role-based access control
 - Audit logging for mutations
@@ -465,12 +494,13 @@ Cache-Control: public, max-age=3600, must-revalidate
 ## Testing Strategy
 
 **Contract Tests** (`tests/contract/services-api.contract.test.ts`):
+
 ```typescript
 describe('GET /api/v1/services/categories', () => {
   it('returns array of categories with correct shape', async () => {
     const response = await fetch('/api/v1/services/categories?locale=ru')
     const data = await response.json()
-    
+
     expect(response.status).toBe(200)
     expect(data.categories).toBeInstanceOf(Array)
     expect(data.categories[0]).toMatchObject({
@@ -481,7 +511,7 @@ describe('GET /api/v1/services/categories', () => {
       order: expect.any(Number),
     })
   })
-  
+
   it('returns 400 for invalid locale', async () => {
     const response = await fetch('/api/v1/services/categories?locale=invalid')
     expect(response.status).toBe(400)
@@ -492,12 +522,12 @@ describe('GET /api/v1/services/:slug', () => {
   it('returns category with sub-services', async () => {
     const response = await fetch('/api/v1/services/turkish-english-course?locale=ru')
     const data = await response.json()
-    
+
     expect(response.status).toBe(200)
     expect(data.category.subServices).toBeInstanceOf(Array)
     expect(data.category.subServices[0].priceUsd).toBeGreaterThan(0)
   })
-  
+
   it('returns 404 for non-existent category', async () => {
     const response = await fetch('/api/v1/services/invalid-slug')
     expect(response.status).toBe(404)
@@ -508,7 +538,7 @@ describe('GET /api/v1/exchange-rates', () => {
   it('returns rates for all currencies', async () => {
     const response = await fetch('/api/v1/exchange-rates')
     const data = await response.json()
-    
+
     expect(response.status).toBe(200)
     expect(data.rates).toHaveProperty('KZT')
     expect(data.rates).toHaveProperty('TRY')
@@ -516,12 +546,12 @@ describe('GET /api/v1/exchange-rates', () => {
     expect(data.rates).toHaveProperty('USD')
     expect(data.rates.USD).toBe(1.0)
   })
-  
+
   it('uses fallback rates when API fails', async () => {
     // Mock external API failure
     const response = await fetch('/api/v1/exchange-rates')
     const data = await response.json()
-    
+
     if (data.isFallback) {
       expect(data.rates.KZT).toBeGreaterThan(0)
       expect(data.rates.TRY).toBeGreaterThan(0)
@@ -536,16 +566,19 @@ describe('GET /api/v1/exchange-rates', () => {
 ## Migration Compatibility
 
 **During Migration**:
+
 - Old i18n-based pages continue to work
 - New API endpoints available but unused
 - No breaking changes to existing functionality
 
 **After Migration**:
+
 - Service pages use API endpoints
 - i18n files cleaned up (only common UI strings remain)
 - Old code paths removed
 
 **Rollback Strategy**:
+
 - Keep i18n files until verification complete
 - Feature flag to switch between old/new implementation
 - Database migration can be rolled back via Prisma
@@ -555,17 +588,20 @@ describe('GET /api/v1/exchange-rates', () => {
 ## Performance Benchmarks
 
 **Target Response Times**:
+
 - GET /api/v1/services/categories: < 100ms
 - GET /api/v1/services/:slug: < 100ms
 - GET /api/v1/exchange-rates (cached): < 50ms
 - GET /api/v1/exchange-rates (fresh): < 200ms
 
 **Load Testing**:
+
 - 100 concurrent requests: < 500ms p95
 - 1000 requests/minute: < 1s p95
 - Database connection pool: 10 connections
 
 **Monitoring**:
+
 - Log slow queries (> 100ms)
 - Alert on error rate > 1%
 - Track external API failures
@@ -583,6 +619,7 @@ describe('GET /api/v1/exchange-rates', () => {
 ## Changelog
 
 **v1.0 (2025-01-14)**:
+
 - Initial API design
 - GET /api/v1/services/categories
 - GET /api/v1/services/:slug

@@ -26,57 +26,65 @@ specs/013-migrate-service-cards/
 ## Quick Navigation
 
 ### For Product/Business
+
 - **User Stories**: See `spec.md` → User Scenarios & Testing
 - **Success Criteria**: See `spec.md` → Success Criteria
 - **Timeline**: 3-4 days development + testing
 
 ### For Developers
+
 - **Getting Started**: Read `quickstart.md` for step-by-step guide
 - **Database Schema**: See `data-model.md` → Entity Definitions
 - **API Contracts**: See `contracts/api-contracts.md`
 - **Repository Contracts**: See `contracts/repository-contracts.md`
 
 ### For Architects
+
 - **Technical Decisions**: See `research.md` → Research Questions
 - **Architecture**: See `plan.md` → Technical Context
 - **Data Model**: See `data-model.md` → ERD and relationships
 
 ## Key Decisions
 
-| Decision | Choice | Rationale |
-|----------|--------|-----------|
-| Exchange Rate API | exchangerate-api.io | Best free tier (1,500 req/month), sufficient for hourly updates |
-| Currency Conversion | Client-side | User preference in localStorage, instant switching, reduced server load |
-| Base Currency | USD | Standard for international pricing, simplifies conversion logic |
-| Cache Duration | 1 hour | Balances freshness with API rate limits |
-| Translation Pattern | `*_translations` tables | Consistent with existing University/Blog patterns |
-| Metadata Storage | JSON field | Flexible for category-specific content without schema changes |
+| Decision            | Choice                  | Rationale                                                               |
+| ------------------- | ----------------------- | ----------------------------------------------------------------------- |
+| Exchange Rate API   | exchangerate-api.io     | Best free tier (1,500 req/month), sufficient for hourly updates         |
+| Currency Conversion | Client-side             | User preference in localStorage, instant switching, reduced server load |
+| Base Currency       | USD                     | Standard for international pricing, simplifies conversion logic         |
+| Cache Duration      | 1 hour                  | Balances freshness with API rate limits                                 |
+| Translation Pattern | `*_translations` tables | Consistent with existing University/Blog patterns                       |
+| Metadata Storage    | JSON field              | Flexible for category-specific content without schema changes           |
 
 ## Implementation Phases
 
 ### ✅ Phase 0: Research (Complete)
+
 - Exchange rate API evaluation
 - Database schema design
 - Migration strategy planning
 - Risk assessment
 
 ### ✅ Phase 1: Design (Complete)
+
 - Entity relationship diagram
 - API endpoint contracts
 - Repository method contracts
 - Step-by-step implementation guide
 
 ### 🔄 Phase 2: Tasks (Next)
+
 Run `/tasks` command to generate actionable task breakdown
 
 ### ⏳ Phase 3: Implementation (Pending)
+
 Run `/implement` command to execute tasks
 
 ## Architecture Summary
 
 **Data Flow**:
+
 ```
-i18n JSON (Russian) 
+i18n JSON (Russian)
     ↓ (one-time migration)
 Database (4 tables)
     ↓ (API endpoints)
@@ -86,6 +94,7 @@ UI Components
 ```
 
 **New Components**:
+
 - 4 Prisma models (ServiceCategory, ServiceCategoryTranslation, SubService, SubServiceTranslation, ExchangeRate)
 - 2 Repositories (ServiceRepository, ExchangeRateRepository)
 - 1 Service (ExchangeRateService)
@@ -95,6 +104,7 @@ UI Components
 - 1 Seeder script (services.ts)
 
 **Modified Components**:
+
 - Service pages (5 files) - fetch from API instead of i18n
 - SubServiceCard.vue - dynamic currency conversion
 - i18n JSON files (4 locales) - remove service data, keep common UI strings
@@ -102,12 +112,14 @@ UI Components
 ## Testing Strategy
 
 **Coverage Goals**:
+
 - Repositories: 90%+
 - Services: 90%+
 - Composables: 80%+
 - Components: 70%+
 
 **Test Layers**:
+
 1. Contract tests - API response shapes
 2. Repository tests - Data access logic
 3. Component tests - UI rendering and interaction
@@ -116,6 +128,7 @@ UI Components
 ## Migration Safety
 
 **Zero Downtime Strategy**:
+
 1. Add database tables (non-breaking)
 2. Seed data from i18n
 3. Add API endpoints (unused initially)
@@ -125,6 +138,7 @@ UI Components
 7. Remove old code paths
 
 **Rollback Plan**:
+
 - Keep i18n files until verification complete
 - Database migration can be rolled back
 - Git revert for code changes
@@ -153,11 +167,13 @@ UI Components
 ## Support
 
 **Questions?**
+
 - Technical: Review `data-model.md` and `contracts/`
 - Implementation: Follow `quickstart.md` step-by-step
 - Issues: Check `research.md` → Technical Risks & Mitigations
 
 **Resources**:
+
 - Prisma Docs: https://www.prisma.io/docs
 - exchangerate-api.io: https://www.exchangerate-api.com/docs
 - Nuxt Docs: https://nuxt.com/docs

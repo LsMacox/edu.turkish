@@ -52,7 +52,10 @@
     </template>
 
     <template #faq>
-      <ServiceFAQSection key-prefix="services.relocation-in-turkey.faq" :title="metadataPath('faq.title')" />
+      <ServiceFAQSection
+        key-prefix="services.relocation-in-turkey.faq"
+        :title="metadataPath('faq.title')"
+      />
     </template>
   </ServicePageLayout>
 </template>
@@ -75,7 +78,7 @@ const { data: category } = await useAsyncData<ServiceCategoryDetail>(
   () => fetchCategory('relocation-in-turkey'),
   {
     lazy: false,
-  }
+  },
 )
 
 // Ensure exchange rates are fresh

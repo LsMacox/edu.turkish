@@ -1,6 +1,6 @@
 import { prisma } from '~~/lib/prisma'
 import { ServiceRepository } from '~~/server/repositories/ServiceRepository'
-import { SUPPORTED_LOCALES, type SupportedLocale } from '~~/lib/locales' 
+import { SUPPORTED_LOCALES, type SupportedLocale } from '~~/lib/locales'
 
 export default defineEventHandler(async (event) => {
   const startTime = Date.now()

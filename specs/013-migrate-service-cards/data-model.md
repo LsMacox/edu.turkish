@@ -83,6 +83,7 @@
 **Purpose**: Represents a major service category page (e.g., "document-translations", "tr-yos-courses")
 
 **Attributes**:
+
 - `id`: Auto-increment primary key
 - `slug`: URL-friendly identifier (e.g., "turkish-english-course"), unique
 - `order`: Display order for category listing (default: 0)
@@ -91,19 +92,23 @@
 - `updatedAt`: Timestamp of last update
 
 **Relationships**:
+
 - Has many `ServiceCategoryTranslation` (1:N, cascade delete)
 - Has many `SubService` (1:N, cascade delete)
 
 **Constraints**:
+
 - `slug` must be unique
 - `slug` must match existing page routes
 
 **Indexes**:
+
 - Primary key on `id`
 - Unique index on `slug`
 - Composite index on `(isActive, order)` for listing queries
 
 **Business Rules**:
+
 - Only 5 categories exist (fixed by page structure)
 - Cannot delete category if it has active sub-services
 - Slug changes require route updates
@@ -115,6 +120,7 @@
 **Purpose**: Localized content for service category pages
 
 **Attributes**:
+
 - `id`: Auto-increment primary key
 - `serviceCategoryId`: Foreign key to ServiceCategory
 - `locale`: Language code (en, ru, kk, tr)
@@ -124,18 +130,22 @@
 - `metadata`: JSON field for page-specific content (FAQ, features, etc.)
 
 **Relationships**:
+
 - Belongs to `ServiceCategory` (N:1, cascade delete)
 
 **Constraints**:
+
 - Unique constraint on `(serviceCategoryId, locale)`
 - `locale` must be one of: en, ru, kk, tr
 
 **Indexes**:
+
 - Primary key on `id`
 - Unique index on `(serviceCategoryId, locale)`
 - Index on `locale` for locale-based queries
 
 **Business Rules**:
+
 - All categories must have translations for all 4 locales
 - Fallback to English if translation missing
 - `metadata` JSON structure varies by category (flexible)
@@ -190,6 +200,7 @@
 **Purpose**: Individual service offering within a category
 
 **Attributes**:
+
 - `id`: Auto-increment primary key
 - `serviceCategoryId`: Foreign key to ServiceCategory
 - `slug`: URL-friendly identifier within category (e.g., "translation-diploma")
@@ -201,19 +212,23 @@
 - `updatedAt`: Timestamp of last update
 
 **Relationships**:
+
 - Belongs to `ServiceCategory` (N:1, cascade delete)
 - Has many `SubServiceTranslation` (1:N, cascade delete)
 
 **Constraints**:
+
 - Unique constraint on `(serviceCategoryId, slug)`
 - `priceUsd` must be >= 0
 
 **Indexes**:
+
 - Primary key on `id`
 - Unique index on `(serviceCategoryId, slug)`
 - Composite index on `(serviceCategoryId, isActive, order)` for category listing
 
 **Business Rules**:
+
 - Price stored only in USD (converted on client)
 - `deliveryTimeDays` optional (not all services have delivery time)
 - Slug must be unique within category (not globally)
@@ -225,6 +240,7 @@
 **Purpose**: Localized names and descriptions for sub-services
 
 **Attributes**:
+
 - `id`: Auto-increment primary key
 - `subServiceId`: Foreign key to SubService
 - `locale`: Language code (en, ru, kk, tr)
@@ -232,18 +248,22 @@
 - `description`: Service description (text)
 
 **Relationships**:
+
 - Belongs to `SubService` (N:1, cascade delete)
 
 **Constraints**:
+
 - Unique constraint on `(subServiceId, locale)`
 - `locale` must be one of: en, ru, kk, tr
 
 **Indexes**:
+
 - Primary key on `id`
 - Unique index on `(subServiceId, locale)`
 - Index on `locale` for locale-based queries
 
 **Business Rules**:
+
 - All sub-services must have translations for all 4 locales
 - Fallback to English if translation missing
 - Name and description are plain text (no HTML)
@@ -255,6 +275,7 @@
 **Purpose**: Cache exchange rates from external API
 
 **Attributes**:
+
 - `id`: Auto-increment primary key
 - `baseCurrency`: Base currency code (always "USD")
 - `targetCurrency`: Target currency code (KZT, TRY, RUB, USD)
@@ -265,15 +286,18 @@
 **Relationships**: None (standalone cache table)
 
 **Constraints**:
+
 - Unique constraint on `(baseCurrency, targetCurrency)`
 - `rate` must be > 0
 
 **Indexes**:
+
 - Primary key on `id`
 - Unique index on `(baseCurrency, targetCurrency)`
 - Index on `expiresAt` for cleanup queries
 
 **Business Rules**:
+
 - Rates expire after 1 hour
 - Fallback to hardcoded rates if API fails
 - USD to USD rate is always 1.0
@@ -342,26 +366,31 @@ export interface UpdateSubServiceInput {
 ### Validation Rules
 
 **ServiceCategory.slug**:
+
 - Pattern: `^[a-z0-9-]+$`
 - Length: 3-100 characters
 - Must match existing page route
 
 **SubService.priceUsd**:
+
 - Min: 0
 - Max: 999999.99
 - Precision: 2 decimal places
 
 **SubService.deliveryTimeDays**:
+
 - Min: 1
 - Max: 365
 - Nullable
 
 **ExchangeRate.rate**:
+
 - Min: 0.000001
 - Max: 999999.999999
 - Precision: 6 decimal places
 
 **Locale**:
+
 - Enum: ['en', 'ru', 'kk', 'tr']
 - Case-sensitive
 
@@ -372,6 +401,7 @@ export interface UpdateSubServiceInput {
 ### Common Queries
 
 **1. Get category with sub-services by slug and locale**:
+
 ```typescript
 const category = await prisma.serviceCategory.findUnique({
   where: { slug: 'turkish-english-course' },
@@ -393,6 +423,7 @@ const category = await prisma.serviceCategory.findUnique({
 ```
 
 **2. Get all active categories with translations**:
+
 ```typescript
 const categories = await prisma.serviceCategory.findMany({
   where: { isActive: true },
@@ -406,6 +437,7 @@ const categories = await prisma.serviceCategory.findMany({
 ```
 
 **3. Get current exchange rates**:
+
 ```typescript
 const rates = await prisma.exchangeRate.findMany({
   where: {
@@ -416,6 +448,7 @@ const rates = await prisma.exchangeRate.findMany({
 ```
 
 **4. Update exchange rates**:
+
 ```typescript
 await prisma.exchangeRate.upsert({
   where: {
@@ -449,6 +482,7 @@ await prisma.exchangeRate.upsert({
 **Target**: Database tables
 
 **Category Mapping**:
+
 ```typescript
 const categoryMapping = {
   'document-translations': {
@@ -475,13 +509,14 @@ const categoryMapping = {
 ```
 
 **Price Extraction**:
+
 ```typescript
 // Extract USD price from i18n
 const i18nPricing = {
-  KZT: "180,000",
-  TRY: "6,000",
-  RUB: "35,000",
-  USD: "350"
+  KZT: '180,000',
+  TRY: '6,000',
+  RUB: '35,000',
+  USD: '350',
 }
 
 // Parse USD as base
@@ -490,6 +525,7 @@ const priceUsd = parseFloat(i18nPricing.USD.replace(/,/g, ''))
 ```
 
 **Metadata Extraction**:
+
 ```typescript
 // Extract page-specific content
 const metadata = {
@@ -507,6 +543,7 @@ const metadata = {
 ### Database Indexes
 
 **Critical Indexes**:
+
 1. `service_categories(slug)` - Unique, used in every page load
 2. `service_category_translations(serviceCategoryId, locale)` - Unique, used in every query
 3. `sub_services(serviceCategoryId, isActive, order)` - Composite, used in listing
@@ -517,16 +554,19 @@ const metadata = {
 ### Query Optimization
 
 **Eager Loading**:
+
 - Always include translations in category queries
 - Use `include` instead of separate queries
 - Limit sub-services to active only
 
 **Caching Strategy**:
+
 - Exchange rates: 1 hour TTL (client + server)
 - Service data: No cache (infrequent changes, small dataset)
 - Consider Redis for exchange rates in production
 
 **Expected Performance**:
+
 - Category query: <50ms (with 5 sub-services)
 - Exchange rate query: <10ms (indexed lookup)
 - Page load: <2s total (including SSR)
@@ -538,16 +578,19 @@ const metadata = {
 ### Constraints
 
 **Foreign Keys**:
+
 - All translations cascade delete with parent
 - Sub-services cascade delete with category
 
 **Unique Constraints**:
+
 - Category slug (global)
 - Sub-service slug (per category)
 - Translation (per entity + locale)
 - Exchange rate (per currency pair)
 
 **Check Constraints** (application-level):
+
 - `priceUsd >= 0`
 - `deliveryTimeDays >= 1` (if not null)
 - `rate > 0`
@@ -572,12 +615,14 @@ Database (constraints)
 ## Rollback Plan
 
 **If migration fails**:
+
 1. Keep i18n files intact until verification complete
 2. Feature flag to switch between i18n and database
 3. Database rollback via Prisma migration
 4. Revert code changes via Git
 
 **Verification Checklist**:
+
 - [ ] All 5 categories seeded
 - [ ] All ~20 sub-services seeded
 - [ ] All 4 locales have translations

@@ -78,8 +78,9 @@ describe('ServiceRepository', () => {
 
     ;(prisma.serviceCategory.findMany as any) = vi
       .fn()
-      .mockResolvedValue(categories.map(({ translations, subServices, ...c }) => ({ ...c, translations })))
-
+      .mockResolvedValue(
+        categories.map(({ translations, subServices, ...c }) => ({ ...c, translations })),
+      )
     ;(prisma.serviceCategory.findUnique as any) = vi
       .fn()
       .mockImplementation(async ({ where }: any) => {
@@ -87,25 +88,17 @@ describe('ServiceRepository', () => {
         if (!found) return null
         return found
       })
-
-    ;(prisma.subService.findUnique as any) = vi
-      .fn()
-      .mockImplementation(async ({ where }: any) => {
-        const { serviceCategoryId, slug } = where.serviceCategoryId_slug || {}
-        if (serviceCategoryId === 1 && slug === 'basic') {
-          return { id: 10, serviceCategoryId: 1, slug: 'basic' }
-        }
-        return null
-      })
-
+    ;(prisma.subService.findUnique as any) = vi.fn().mockImplementation(async ({ where }: any) => {
+      const { serviceCategoryId, slug } = where.serviceCategoryId_slug || {}
+      if (serviceCategoryId === 1 && slug === 'basic') {
+        return { id: 10, serviceCategoryId: 1, slug: 'basic' }
+      }
+      return null
+    })
     ;(prisma.subService.create as any) = vi
       .fn()
       .mockImplementation(async ({ data }: any) => ({ id: 999, ...data }))
-
-    ;(prisma.subServiceTranslation.createMany as any) = vi
-      .fn()
-      .mockResolvedValue({ count: 4 })
-
+    ;(prisma.subServiceTranslation.createMany as any) = vi.fn().mockResolvedValue({ count: 4 })
     ;(prisma.subService.update as any) = vi
       .fn()
       .mockImplementation(async ({ where }: any) => ({ id: where.id }))
@@ -203,7 +196,7 @@ describe('ServiceRepository', () => {
       if (category!.subServices.length > 1) {
         for (let i = 1; i < category!.subServices.length; i++) {
           expect(category!.subServices[i]!.order).toBeGreaterThanOrEqual(
-            category!.subServices[i - 1]!.order
+            category!.subServices[i - 1]!.order,
           )
         }
       }
@@ -253,9 +246,7 @@ describe('ServiceRepository', () => {
       expect(hasRussian).toBe(true)
 
       if (category!.subServices.length > 0) {
-        const hasRussianSubService = category!.subServices.some((s) =>
-          /[А-Яа-я]/.test(s.name)
-        )
+        const hasRussianSubService = category!.subServices.some((s) => /[А-Яа-я]/.test(s.name))
         expect(hasRussianSubService).toBe(true)
       }
     })

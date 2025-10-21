@@ -20,7 +20,7 @@ const title = computed(() => props.title || t(`${props.keyPrefix}.title`))
 
 const subtitleText = computed(() => {
   const key = `${props.keyPrefix}.subtitle`
-  return te(key) ? ((t(key) as unknown) as string) : ''
+  return te(key) ? (t(key) as unknown as string) : ''
 })
 
 type FaqAnswer = string | { title?: string; items?: string[]; ordered?: boolean }
@@ -51,4 +51,3 @@ const faqs = computed(() => {
   })) as Array<{ question: string; answer: FaqAnswer }>
 })
 </script>
-

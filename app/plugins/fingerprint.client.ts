@@ -55,9 +55,9 @@ export default defineNuxtPlugin(() => {
   }
 
   if (typeof window !== 'undefined' && 'requestIdleCallback' in window) {
-    ;(window as typeof window & { requestIdleCallback: (cb: () => void) => number }).requestIdleCallback(
-      loadFingerprint,
-    )
+    ;(
+      window as typeof window & { requestIdleCallback: (cb: () => void) => number }
+    ).requestIdleCallback(loadFingerprint)
     return
   }
 

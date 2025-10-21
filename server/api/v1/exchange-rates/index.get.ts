@@ -14,7 +14,7 @@ export default defineEventHandler(async (_event): Promise<ExchangeRatesResponse>
     // If rates are expired, fetch fresh rates and update cache
     if (rateDetails.isExpired) {
       console.log('Exchange rates expired, fetching fresh rates...')
-      
+
       const freshRates = await service.fetchRates()
       await repository.updateRates(freshRates)
 

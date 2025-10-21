@@ -45,7 +45,10 @@
     </template>
 
     <template #faq>
-      <ServiceFAQSection key-prefix="services.tr-yos-courses.faq" :title="metadataPath('faq.title')" />
+      <ServiceFAQSection
+        key-prefix="services.tr-yos-courses.faq"
+        :title="metadataPath('faq.title')"
+      />
     </template>
   </ServicePageLayout>
 </template>
@@ -68,7 +71,7 @@ const { data: category } = await useAsyncData<ServiceCategoryDetail>(
   () => fetchCategory('tr-yos-courses'),
   {
     lazy: false,
-  }
+  },
 )
 
 // Ensure exchange rates are fresh

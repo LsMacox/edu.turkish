@@ -38,13 +38,12 @@ describe('ExchangeRateRepository', () => {
       }
       return rows
     })
-
     ;(prisma.exchangeRate.upsert as any) = vi.fn(async (args: any) => {
       const now = args.update?.fetchedAt ?? new Date()
       const expiresAt = args.update?.expiresAt ?? new Date(now.getTime() + 3600000)
       const targetCurrency = args.where.baseCurrency_targetCurrency.targetCurrency as Currency
       const existingIdx = store.findIndex(
-        (r) => r.baseCurrency === 'USD' && r.targetCurrency === targetCurrency
+        (r) => r.baseCurrency === 'USD' && r.targetCurrency === targetCurrency,
       )
       const rateVal = (args.update?.rate ?? args.create?.rate) as number
       const row: Row = {
@@ -61,7 +60,6 @@ describe('ExchangeRateRepository', () => {
       }
       return row
     })
-
     ;(prisma.exchangeRate.create as any) = vi.fn(async ({ data }: any) => {
       const row: Row = {
         baseCurrency: data.baseCurrency,
@@ -73,7 +71,6 @@ describe('ExchangeRateRepository', () => {
       store.push(row)
       return row
     })
-
     ;(prisma.exchangeRate.deleteMany as any) = vi.fn(async (args: any) => {
       const lt: Date | undefined = args?.where?.expiresAt?.lt
       if (!lt) return { count: 0 }
@@ -104,7 +101,7 @@ describe('ExchangeRateRepository', () => {
       const testRates: Record<Currency, number> = {
         KZT: 450.25,
         TRY: 32.15,
-        RUB: 90.50,
+        RUB: 90.5,
         USD: 1.0,
       }
 
@@ -113,7 +110,7 @@ describe('ExchangeRateRepository', () => {
 
       expect(rates.KZT).toBe(450.25)
       expect(rates.TRY).toBe(32.15)
-      expect(rates.RUB).toBe(90.50)
+      expect(rates.RUB).toBe(90.5)
       expect(rates.USD).toBe(1.0)
     })
 

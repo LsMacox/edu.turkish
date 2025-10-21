@@ -30,7 +30,7 @@ export class ExchangeRateService {
 
       if (!response.ok) {
         console.error(
-          `Exchange rate API returned status ${response.status}: ${response.statusText}`
+          `Exchange rate API returned status ${response.status}: ${response.statusText}`,
         )
         return FALLBACK_RATES
       }
@@ -48,9 +48,7 @@ export class ExchangeRateService {
       // Validate rates are positive numbers
       for (const [currency, rate] of Object.entries(rates)) {
         if (typeof rate !== 'number' || rate <= 0) {
-          console.error(
-            `Invalid rate for ${currency}: ${rate}, using fallback`
-          )
+          console.error(`Invalid rate for ${currency}: ${rate}, using fallback`)
           return FALLBACK_RATES
         }
       }

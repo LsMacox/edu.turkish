@@ -68,7 +68,7 @@ const { data: category } = await useAsyncData<ServiceCategoryDetail>(
   () => fetchCategory('sat-courses'),
   {
     lazy: false,
-  }
+  },
 )
 
 // Ensure exchange rates are fresh
