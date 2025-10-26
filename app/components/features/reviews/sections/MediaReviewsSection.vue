@@ -208,7 +208,7 @@ function closeLightbox() {
 
 <style>
 .media-reviews-swiper {
-  padding-bottom: 3rem;
+  padding-bottom: 3rem !important;
 }
 
 .media-reviews-swiper .swiper-button-next,
