@@ -38,6 +38,7 @@
 
 import { afterAll, afterEach, beforeAll, vi } from 'vitest'
 import { config } from '@vue/test-utils'
+import { toCdnUrl } from '~/utils/cdn'
 import {
   ref,
   computed,
@@ -74,6 +75,14 @@ beforeAll(() => {
       cdnUrl: 'https://cdn.edu-turkish.com',
     },
   }))
+
+  // Mock CDN composable
+  g.useCdn = vi.fn(() => {
+    const cfg = g.useRuntimeConfig()
+    return {
+      cdnUrl: (path: string) => toCdnUrl(path, cfg.public.cdnUrl),
+    }
+  })
 
   // Export Vue APIs globally for components
   g.ref = ref
