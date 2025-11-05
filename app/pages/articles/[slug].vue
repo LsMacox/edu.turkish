@@ -178,19 +178,6 @@
                   </ul>
                 </div>
               </div>
-
-              <div v-if="highlights.length" class="rounded-3xl bg-white p-6 shadow-custom">
-                <h3 class="text-card-title mb-2">
-                  {{ t('article.highlights.title') }}
-                </h3>
-                <ul class="mt-4 space-y-3 text-sm text-gray-600">
-                  <li v-for="highlight in highlights" :key="highlight" class="flex gap-3">
-                    <Icon name="mdi:star-circle" class="mt-0.5 text-primary" />
-                    <span>{{ highlight }}</span>
-                  </li>
-                </ul>
-              </div>
-
               <div class="rounded-3xl bg-background p-6">
                 <h3 class="text-card-title mb-2">{{ t('article.share.title') }}</h3>
                 <p class="mt-2 text-sm text-gray-600">
@@ -509,7 +496,6 @@ const quickFacts = computed<BlogArticleQuickFact[]>(() => {
   return result
 })
 
-const highlights = computed(() => article.value?.highlights ?? [])
 const tags = computed(() => article.value?.tags ?? [])
 
 const articlePath = computed(() =>

@@ -169,7 +169,6 @@ export class BlogRepository {
       seoDescription: translation?.seoDescription ?? undefined,
       content: this.normalizeContent(translation?.content),
       quickFacts: metadata.quickFacts,
-      highlights: metadata.highlights,
       tags: metadata.tags,
     }
   }
@@ -210,12 +209,10 @@ export class BlogRepository {
 
   private extractTranslationMetadata(translation?: ArticleTranslation | null): {
     quickFacts: BlogArticleQuickFact[]
-    highlights: string[]
     tags: string[]
   } {
     return {
       quickFacts: this.parseQuickFactsValue(translation?.quickFacts ?? null),
-      highlights: this.parseStringArrayValue(translation?.highlights ?? null),
       tags: this.parseStringArrayValue(translation?.tags ?? null),
     }
   }

@@ -705,7 +705,6 @@ model BlogArticleTranslation {
   seoDescription String?     @map("seo_description") @db.VarChar(500)
   content        Json?       @db.Json
   quickFacts     Json?       @map("quick_facts") @db.Json
-  highlights     Json?       @db.Json
   tags           Json?       @db.Json
   createdAt      DateTime    @default(now()) @map("created_at")
   updatedAt      DateTime    @updatedAt @map("updated_at")

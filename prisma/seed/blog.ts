@@ -17,7 +17,6 @@ type TranslationContent = {
     value: string
     icon?: string
   }>
-  highlights?: string[]
   tags?: string[]
   content: Prisma.JsonValue
 }
@@ -120,11 +119,6 @@ const articles: SeedArticle[] = [
             icon: 'mdi:cash-multiple',
           },
         ],
-        highlights: [
-          'Подробный чек-лист документов перед подачей',
-          'Пояснения к записи на приём в консульство',
-          'Памятка действий после прилёта в Турцию',
-        ],
         tags: ['виза', 'документы', 'Турция'],
         content: [
           { type: 'heading', level: 2, text: 'Основные этапы оформления' },
@@ -193,11 +187,6 @@ const articles: SeedArticle[] = [
             icon: 'mdi:magnify-scan',
           },
         ],
-        highlights: [
-          'Готовый чек-лист для заявок в университеты',
-          'Рекомендации по именованию файлов и проверке сроков',
-          'Напоминание о невозможности редактирования анкеты после отправки',
-        ],
         tags: ['поступление', 'документы', 'чек-лист'],
         content: [
           { type: 'heading', level: 2, text: 'Перед началом' },
@@ -261,11 +250,6 @@ const articles: SeedArticle[] = [
             icon: 'mdi:hand-coin',
           },
         ],
-        highlights: [
-          'Описание государственных и университетских стипендий',
-          'Советы по сильному мотивационному письму',
-          'Напоминание следить за дедлайнами программ',
-        ],
         tags: ['стипендии', 'финансы', 'советы'],
         content: [
           { type: 'heading', level: 2, text: 'Какие программы доступны' },
@@ -327,11 +311,6 @@ const articles: SeedArticle[] = [
             value: 'Istanbulkart 25–30 USD/мес',
             icon: 'mdi:bus',
           },
-        ],
-        highlights: [
-          'Расчёт бюджета на обучение и жизнь в Стамбуле',
-          'Советы по экономии на транспорте и питании',
-          'Напоминание заложить резерв на учебные материалы',
         ],
         tags: ['бюджет', 'Стамбул', 'стоимость'],
         content: [
@@ -395,11 +374,6 @@ const articles: SeedArticle[] = [
             value: 'Спрашивайте помощь у старшекурсников',
             icon: 'mdi:chat-question',
           },
-        ],
-        highlights: [
-          'План адаптации на первые недели обучения',
-          'Рекомендации по изучению турецкого языка',
-          'Список приложений для повседневных задач',
         ],
         tags: ['студенческая жизнь', 'адаптация', 'советы'],
         content: [
@@ -510,11 +484,6 @@ const articles: SeedArticle[] = [
             icon: 'mdi:calendar-check',
           },
         ],
-        highlights: [
-          'Хронология дедлайнов по месяцам',
-          'Сравнение государственных и частных программ',
-          'Совет подготовить документы заранее',
-        ],
         tags: ['дедлайны', 'приём 2025', 'календарь'],
         content: [
           { type: 'heading', level: 2, text: 'Дедлайны по месяцам' },
@@ -609,9 +578,6 @@ export async function seedBlog(prisma: PrismaClient) {
             seoDescription: translation.seoDescription,
             quickFacts: translation.quickFacts
               ? (translation.quickFacts as Prisma.InputJsonValue)
-              : undefined,
-            highlights: translation.highlights
-              ? (translation.highlights as Prisma.InputJsonValue)
               : undefined,
             tags: translation.tags ? (translation.tags as Prisma.InputJsonValue) : undefined,
           })),

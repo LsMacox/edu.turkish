@@ -41,7 +41,6 @@ export interface BlogArticleDetail extends BlogArticleListItem {
   seoDescription?: string
   content: BlogArticleContentBlock[]
   quickFacts: BlogArticleQuickFact[]
-  highlights: string[]
   tags: string[]
 }
 
