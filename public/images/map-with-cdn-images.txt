@@ -1,0 +1,14 @@
+about-us-bg.png -> 17a859b6-2e09-4e15-9dd8-b40c50a7bbd6.png
+blog-hero.png -> 9ab6702d-df12-4b23-879a-e03b83151f1a.png
+main-hero.png -> 8ec3658d-c21c-4843-bacf-f5ae1f830173.png
+logo.png -> c905b440-9cea-4b23-8576-f1787a84d356.png
+review-hero.png -> d418281e-28c7-460e-a9b7-a636922849ba.png
+who-we-are.jpg -> f6893c58-7e43-4518-a403-139b942125f2.jpg
+our-story.png -> 0683f4da-e558-4c40-a747-a24f0fdbc535.png
+faq-hero.png -> a87cb155-2db1-4c53-b15c-0cb8ddbe949e.png
+
+team/why-choose.jpg -> 23fe23b3-7b1b-4241-8c01-da4fa809a81a.jpg
+team/nazrin-imanova.jpg -> 4720b921-b08f-4b9b-918c-af4c95a347c0.jpg
+team/hakim-nagayev.jpg -> 2cfed519-b904-4dfb-acd8-94b3cb7cb5b9.jpg
+team/adam-zugiraev.jpeg -> 7384dd3b-1f0d-496a-8a4d-caeef897c56b.jpeg
+team/turan-lalaev.jpg -> e08de759-0207-4e67-b162-15ba89e81b46.jpg

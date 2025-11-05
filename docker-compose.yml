@@ -16,7 +16,6 @@ services:
     ports:
       - '3000:3000'
     volumes:
-      - /var/lib/edu-turkish/videos:/app/public/videos
       - ./prisma:/app/prisma
       - ./scripts:/app/scripts:ro
       - ./lib:/app/lib:ro
@@ -70,6 +69,7 @@ services:
       APP_DB: edu_turkish
       APP_USER: app_user
       APP_PASS: ${DB_APP_PASS}
+      SHADOW_DB: ${SHADOW_DB}
       ESPOCRM_DB_NAME: ${ESPOCRM_DB_NAME}
       ESPOCRM_DB_USER: ${ESPOCRM_DB_USER}
       ESPOCRM_DB_PASSWORD: ${ESPOCRM_DB_PASSWORD}

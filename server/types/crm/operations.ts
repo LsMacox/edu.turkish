@@ -98,7 +98,7 @@ export const leadDataSchema = z.object({
       return t === '' ? undefined : t
     }
     return v
-  }, z.string().email().optional()),
+  }, z.union([z.string().email(), z.literal('')]).optional()),
   universities: z.array(z.string()).optional(),
   programs: z.array(z.string()).optional(),
   userType: z.enum(['student', 'parent']).optional(),
