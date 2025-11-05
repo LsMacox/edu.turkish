@@ -88,7 +88,7 @@
           <div>
             <img
               class="w-full h-96 object-cover rounded-2xl shadow-custom"
-              src="/images/team/why-choose.jpg"
+              :src="cdnUrl('23fe23b3-7b1b-4241-8c01-da4fa809a81a.jpg')"
               :alt="$t('about.whyChooseUs.imageAlt')"
             />
           </div>
@@ -135,4 +135,6 @@
   </section>
 </template>
 
-<script setup lang="ts"></script>
+<script setup lang="ts">
+const { cdnUrl } = useCdn()
+</script>

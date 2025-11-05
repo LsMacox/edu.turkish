@@ -5,17 +5,13 @@
         <!-- Logo -->
         <div class="flex items-center">
           <NuxtLink :to="localePath('/')" class="flex items-center space-x-2 cursor-pointer">
-            <NuxtImg
-              src="/images/logo.png"
+            <img
+              :src="cdnUrl('c905b440-9cea-4b23-8576-f1787a84d356.png')"
               alt="Edu.turkish"
-              width="120"
-              height="120"
-              sizes="60px"
-              :preload="true"
+              width="60"
+              height="60"
               fetchpriority="high"
               decoding="async"
-              format="webp"
-              :quality="78"
               class="h-[60px] w-[60px]"
             />
           </NuxtLink>
@@ -244,6 +240,7 @@ import type { Currency } from '~/types/currency'
 // Site header with navigation and language switcher
 const modal = useApplicationModalStore()
 const route = useRoute()
+const { cdnUrl } = useCdn()
 
 const i18n = useI18n()
 const { t } = i18n

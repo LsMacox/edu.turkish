@@ -15,7 +15,7 @@
           <div>
             <img
               class="w-full h-80 object-cover rounded-2xl shadow-custom"
-              src="/images/our-story.png"
+              :src="cdnUrl('0683f4da-e558-4c40-a747-a24f0fdbc535.png')"
               :alt="$t('about.story.imageAlt')"
             />
           </div>
@@ -101,4 +101,6 @@
   </section>
 </template>
 
-<script setup lang="ts"></script>
+<script setup lang="ts">
+const { cdnUrl } = useCdn()
+</script>

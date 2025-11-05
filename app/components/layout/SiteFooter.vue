@@ -148,16 +148,13 @@
       <div class="border-t border-gray-300 pt-8">
         <div class="flex flex-col md:flex-row justify-between items-center">
           <div class="flex items-center mb-4 md:mb-0">
-            <NuxtImg
-              src="/images/logo.png"
+            <img
+              :src="cdnUrl('c905b440-9cea-4b23-8576-f1787a84d356.png')"
               alt="Edu.turkish"
-              width="120"
-              height="120"
-              sizes="60px"
+              width="60"
+              height="60"
               loading="lazy"
               decoding="async"
-              format="webp"
-              :quality="78"
               class="h-[60px] w-[60px] mr-3"
             />
             <span class="text-xl font-bold text-secondary">Edu.turkish</span>
@@ -182,6 +179,7 @@ const router = useRouter()
 const localePath = useLocalePath()
 const { channels, getChannel } = useContactChannels()
 const instagramChannel = getChannel('instagram')
+const { cdnUrl } = useCdn()
 
 // Use universities store only if on universities page (locale-aware)
 const isUniversitiesPage = computed(() => route.path.startsWith(localePath('/universities')))

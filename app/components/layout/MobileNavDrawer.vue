@@ -22,16 +22,13 @@
         <!-- Header -->
         <div class="flex items-center justify-between p-5 md:p-6 border-b border-gray-100">
           <div class="flex items-center space-x-2">
-            <NuxtImg
-              src="/images/logo.png"
+            <img
+              :src="cdnUrl('c905b440-9cea-4b23-8576-f1787a84d356.png')"
               alt="Edu.turkish"
-              width="120"
-              height="120"
-              sizes="60px"
+              width="60"
+              height="60"
               loading="lazy"
               decoding="async"
-              format="webp"
-              :quality="78"
               class="h-[60px] w-[60px]"
             />
             <span class="text-lg md:text-xl font-bold text-secondary">Edu.turkish</span>
@@ -253,6 +250,7 @@ const route = useRoute()
 const { t } = useI18n()
 const { channels, getChannel } = useContactChannels()
 const instagramChannel = getChannel('instagram')
+const { cdnUrl } = useCdn()
 
 const i18n = useI18n<{ messages: Record<string, any> }, SupportedLocale>()
 const localePath = useLocalePath()

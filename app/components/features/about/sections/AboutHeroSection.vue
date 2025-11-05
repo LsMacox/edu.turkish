@@ -2,7 +2,7 @@
   <section class="relative bg-gradient-to-br from-blue-50 to-purple-50 section-py-lg h-[500px]">
     <div
       class="absolute inset-0 bg-center bg-no-repeat bg-cover opacity-30"
-      style="background-image: url('/images/about-us-bg.png')"
+      :style="`background-image: url('${cdnUrl('17a859b6-2e09-4e15-9dd8-b40c50a7bbd6.png')}')`"
       aria-hidden="true"
     />
     <div class="relative container mx-auto container-padding-narrow h-full flex items-center">
@@ -40,4 +40,5 @@
 
 <script setup lang="ts">
 const { t } = useI18n()
+const { cdnUrl } = useCdn()
 </script>

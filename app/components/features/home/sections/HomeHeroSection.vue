@@ -73,18 +73,12 @@
 
         <div class="relative order-1 lg:order-2">
           <div class="bg-white rounded-2xl md:rounded-3xl shadow-custom card-padding">
-            <NuxtImg
-              src="/images/main-hero.png"
+            <img
+              :src="cdnUrl('8ec3658d-c21c-4843-bacf-f5ae1f830173.png')"
               alt="Group of happy international students"
               class="w-full h-64 xs:h-72 md:h-80 object-cover rounded-xl md:rounded-2xl"
-              sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 864px"
-              :widths="[480, 640, 768, 864, 1024]"
-              :preload="true"
               fetchpriority="high"
               decoding="async"
-              :placeholder="true"
-              :quality="78"
-              format="webp"
             />
           </div>
           <!-- Success rate badge - positioned differently on mobile vs desktop -->
@@ -120,6 +114,7 @@ const modal = useApplicationModalStore()
 const { channels, getChannel } = useContactChannels()
 const instagramChannel = getChannel('instagram')
 const { t } = useI18n()
+const { cdnUrl } = useCdn()
 
 // no manual preload to avoid mismatch with Nuxt Image/IPX
 </script>
