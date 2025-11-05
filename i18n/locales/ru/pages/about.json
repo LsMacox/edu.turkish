@@ -119,34 +119,6 @@
         "email": {
           "button": "Отправить письмо"
         }
-      },
-      "offices": {
-        "title": "Наши офисы",
-        "almaty": {
-          "city": "Алматы, Казахстан",
-          "address": "ул. Достык, 123, офис 456",
-          "phone": "+7 (727) 123-45-67"
-        },
-        "istanbul": {
-          "city": "Стамбул, Турция",
-          "address": "Levent Mahallesi, Istanbul",
-          "phone": "+90 212 123 45 67"
-        },
-        "moscow": {
-          "city": "Москва, Россия",
-          "address": "ул. Тверская, 1, офис 789",
-          "phone": "+7 (495) 123-45-67"
-        }
-      },
-      "schedule": {
-        "title": "Режим работы",
-        "weekdays": "Понедельник - Пятница",
-        "weekdays_time": "09:00 - 18:00",
-        "saturday": "Суббота",
-        "saturday_time": "10:00 - 16:00",
-        "sunday": "Воскресенье",
-        "sunday_time": "Выходной",
-        "support_24_7": "Поддержка в WhatsApp"
       }
     }
   }

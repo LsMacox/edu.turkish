@@ -119,34 +119,6 @@
         "email": {
           "button": "Send Email"
         }
-      },
-      "offices": {
-        "title": "Our Offices",
-        "almaty": {
-          "city": "Almaty, Kazakhstan",
-          "address": "Dostyk Ave, 123, office 456",
-          "phone": "+7 (727) 123-45-67"
-        },
-        "istanbul": {
-          "city": "Istanbul, Turkey",
-          "address": "Levent Mahallesi, Istanbul",
-          "phone": "+90 212 123 45 67"
-        },
-        "moscow": {
-          "city": "Moscow, Russia",
-          "address": "Tverskaya St, 1, office 789",
-          "phone": "+7 (495) 123-45-67"
-        }
-      },
-      "schedule": {
-        "title": "Working Hours",
-        "weekdays": "Monday - Friday",
-        "weekdays_time": "09:00 - 18:00",
-        "saturday": "Saturday",
-        "saturday_time": "10:00 - 16:00",
-        "sunday": "Sunday",
-        "sunday_time": "Closed",
-        "support_24_7": "WhatsApp Support 24/7"
       }
     }
   }
