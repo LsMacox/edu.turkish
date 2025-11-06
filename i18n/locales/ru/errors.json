@@ -1,4 +1,37 @@
 {
   "universityNotFound": "Университет не найден",
-  "universityNotFoundDescription": "К сожалению, запрашиваемый университет не найден."
+  "universityNotFoundDescription": "К сожалению, запрашиваемый университет не найден.",
+  "required": "Это поле обязательно для заполнения",
+  "min_length": "Минимум {min} символов",
+  "max_length": "Максимум {max} символов",
+  "invalid_email": "Введите корректный email адрес",
+  "invalid_phone": "Введите корректный номер телефона (минимум 10 цифр)",
+  "invalid_format": "Неверный формат",
+  "invalid": "Неверное значение",
+  "crm_validation_error": "Ошибка: {message}",
+  "server_error": "Произошла ошибка сервера",
+  "unknown_error": "Произошла неожиданная ошибка",
+  "min_value": "Минимальное значение {min}",
+  "max_value": "Максимальное значение {max}",
+  "invalid_year": "Введите корректный год (формат ГГГГ)",
+  "fields": {
+    "personal_info": {
+      "first_name": {
+        "required": "Введите имя",
+        "min_length": "Имя слишком короткое (минимум {min})",
+        "max_length": "Имя слишком длинное (максимум {max})"
+      },
+      "phone": {
+        "required": "Введите номер телефона",
+        "invalid_phone": "Введите корректный номер телефона"
+      },
+      "email": {
+        "invalid_email": "Введите корректный email адрес",
+        "max_length": "Email слишком длинный (максимум {max})"
+      }
+    },
+    "additional_info": {
+      "max_length": "Слишком длинное сообщение (максимум {max} символов)"
+    }
+  }
 }

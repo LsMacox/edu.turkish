@@ -1,4 +1,37 @@
 {
   "universityNotFound": "Üniversite bulunamadı",
-  "universityNotFoundDescription": "Üzgünüz, istenen üniversite bulunamadı."
+  "universityNotFoundDescription": "Üzgünüz, istenen üniversite bulunamadı.",
+  "required": "Bu alan zorunludur",
+  "min_length": "En az {min} karakter gereklidir",
+  "max_length": "En fazla {max} karakter olabilir",
+  "invalid_email": "Geçerli bir e-posta adresi girin",
+  "invalid_phone": "Geçerli bir telefon numarası girin (en az 10 rakam)",
+  "invalid_format": "Geçersiz format",
+  "invalid": "Geçersiz değer",
+  "crm_validation_error": "Hata: {message}",
+  "server_error": "Sunucu hatası oluştu",
+  "unknown_error": "Beklenmeyen bir hata oluştu",
+  "min_value": "Minimum değer {min}",
+  "max_value": "Maksimum değer {max}",
+  "invalid_year": "Geçerli bir yıl girin (YYYY formatı)",
+  "fields": {
+    "personal_info": {
+      "first_name": {
+        "required": "Adınızı girin",
+        "min_length": "Ad çok kısa (en az {min})",
+        "max_length": "Ad çok uzun (en fazla {max})"
+      },
+      "phone": {
+        "required": "Telefon numaranızı girin",
+        "invalid_phone": "Geçerli bir telefon numarası girin"
+      },
+      "email": {
+        "invalid_email": "Geçerli bir e-posta adresi girin",
+        "max_length": "E-posta çok uzun (en fazla {max})"
+      }
+    },
+    "additional_info": {
+      "max_length": "Mesaj çok uzun (en fazla {max} karakter)"
+    }
+  }
 }

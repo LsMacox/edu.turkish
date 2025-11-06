@@ -16,3 +16,15 @@ export interface ErrorResponse {
   timestamp: string
   path: string
 }
+
+export interface FieldErrorIssue {
+  code: string
+  meta?: Record<string, any>
+}
+
+export interface ValidationErrorResponse {
+  error: string
+  fieldErrors?: Record<string, FieldErrorIssue[]>
+  nonFieldErrors?: FieldErrorIssue[]
+  traceId?: string
+}
