@@ -1,0 +1,38 @@
+{
+  "$schema": "https://unpkg.com/knip@5/schema.json",
+  "entry": [
+    "tailwind.config.ts",
+    "app/**/*.{js,ts,vue}",
+    "server/**/*.{js,ts}",
+    "prisma/seed/*.ts",
+    "scripts/*.ts",
+    "tests/**/*.test.ts"
+  ],
+  "project": [
+    "**/*.{js,ts,vue}",
+    "!**/*.d.ts"
+  ],
+  "ignore": [
+    ".nuxt/**",
+    ".nuxt-test/**",
+    "node_modules/**",
+    "dist/**",
+    ".output/**",
+    "specs/**/contracts/**",
+    "tests/test-utils/mocks/**",
+    "tests/**/fixtures/**"
+  ],
+  "ignoreDependencies": [
+    "@playwright/test",
+    "mysql2",
+    "eslint-config-prettier",
+    "@iconify-json/mdi",
+    "@iconify-json/ph",
+    "tsx",
+    "ufo",
+    "h3",
+    "@nuxt/schema"
+  ],
+  "ignoreBinaries": ["sleep", "knip"],
+  "ignoreExportsUsedInFile": true
+}

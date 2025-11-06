@@ -33,7 +33,7 @@ export class ApplicationRepository {
         source: normalizedSource,
         referralCode: normalizedReferralCode,
         personalInfo: data.personal_info,
-        preferences: data.preferences,
+        preferences: data.preferences || {},
         additionalInfo: data.additional_info || {},
       },
     })

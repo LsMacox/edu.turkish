@@ -1,4 +1,4 @@
-import { getRequestURL, getCookie } from 'h3'
+import { getCookie } from 'h3'
 import { contactChannels } from '~~/lib/contact/channels'
 import { CRMFactory } from '~~/server/services/crm/CRMFactory'
 import { extractUtmFromQuery } from '~~/server/utils/utm'
@@ -15,9 +15,7 @@ export default defineEventHandler(async (event) => {
   const utm = extractUtmFromQuery(query as Record<string, any>)
 
   if (hasReferralCode) {
-    const requestUrl = getRequestURL(event)
     try {
-      // Log messenger event (activity)
       await $fetch('/api/v1/messenger-events', {
         method: 'POST',
         body: {
@@ -26,10 +24,8 @@ export default defineEventHandler(async (event) => {
           session: sessionId,
           utm,
         },
-        baseURL: requestUrl.origin,
       })
 
-      // Create minimal lead via unified CRM provider
       const crm = CRMFactory.createFromEnv()
       await crm.createMinimalLeadFromActivity({
         channel: 'whatsapp',

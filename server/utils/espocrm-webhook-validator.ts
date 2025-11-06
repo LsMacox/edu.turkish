@@ -21,7 +21,7 @@ export const espocrmLeadWebhookSchema = z.object({
       firstName: z.string().optional(),
       lastName: z.string().optional(),
       phoneNumber: z.string().optional(),
-      emailAddress: z.union([z.string().email(), z.literal('')]).optional(),
+      emailAddress: z.string().optional(),
       accountName: z.string().optional(),
       status: z.string(),
       source: z.string().optional(),
