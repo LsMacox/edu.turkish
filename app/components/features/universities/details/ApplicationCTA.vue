@@ -101,7 +101,6 @@
                   :id="levelFieldId"
                   v-model="form.level"
                   name="level"
-                  :error="levelError"
                 >
                   <option value="bachelor">{{ $t('applicationCTA.form.level_bachelor') }}</option>
                   <option value="master">{{ $t('applicationCTA.form.level_master') }}</option>
@@ -136,7 +135,6 @@
             >
               {{ $t('applicationCTA.form.privacy_agreement') }}
             </BaseCheckbox>
-            <p v-if="privacyError" class="text-sm text-red-600">{{ privacyError }}</p>
 
             <div class="text-center">
               <button
@@ -163,7 +161,7 @@
 
 <script setup lang="ts">
 import { useReferral } from '~/composables/useReferral'
-import { useUniversityApplicationValidation } from '~/composables/validation/useUniversityApplicationValidation'
+import { useServerValidation } from '~/composables/useServerValidation'
 import type { DegreeType } from '~/types/domain'
 
 const { show } = useToast()
@@ -213,84 +211,18 @@ const form = ref({
 const isSubmitting = ref(false)
 
 const {
-  universityApplicationRules,
-  validateUniversityApplication,
-  validateField,
   getFieldError,
-  isFieldTouched,
-  resetForm: resetUniversityApplicationValidation,
-} = useUniversityApplicationValidation()
+  handleValidationError,
+  clearAllErrors,
+  nonFieldErrors,
+} = useServerValidation()
 
-const nameError = computed(() => getFieldError('name'))
-const phoneError = computed(() => getFieldError('phone'))
-const emailError = computed(() => getFieldError('email'))
-const programError = computed(() => getFieldError('program'))
-const levelError = computed(() => getFieldError('level'))
-const commentError = computed(() => getFieldError('comment'))
-const privacyError = computed(() => getFieldError('privacyAgreed'))
+const nameError = computed(() => getFieldError('personal_info.first_name'))
+const phoneError = computed(() => getFieldError('personal_info.phone'))
+const emailError = computed(() => getFieldError('personal_info.email'))
+const programError = computed(() => getFieldError('preferences.programs'))
+const commentError = computed(() => getFieldError('additional_info'))
 
-watch(
-  () => form.value.name,
-  async (value) => {
-    if (isFieldTouched('name')) {
-      await validateField('name', value, universityApplicationRules.name)
-    }
-  },
-)
-
-watch(
-  () => form.value.phone,
-  async (value) => {
-    if (isFieldTouched('phone')) {
-      await validateField('phone', value, universityApplicationRules.phone)
-    }
-  },
-)
-
-watch(
-  () => form.value.email,
-  async (value) => {
-    if (isFieldTouched('email')) {
-      await validateField('email', value, universityApplicationRules.email)
-    }
-  },
-)
-
-watch(
-  () => form.value.program,
-  async (value) => {
-    if (isFieldTouched('program')) {
-      await validateField('program', value, universityApplicationRules.program)
-    }
-  },
-)
-
-watch(
-  () => form.value.level,
-  async (value) => {
-    if (isFieldTouched('level')) {
-      await validateField('level', value, universityApplicationRules.level)
-    }
-  },
-)
-
-watch(
-  () => form.value.comment,
-  async (value) => {
-    if (isFieldTouched('comment')) {
-      await validateField('comment', value, universityApplicationRules.comment)
-    }
-  },
-)
-
-watch(
-  () => form.value.privacyAgreed,
-  async (value) => {
-    if (isFieldTouched('privacyAgreed')) {
-      await validateField('privacyAgreed', value, universityApplicationRules.privacyAgreed)
-    }
-  },
-)
 
 const phoneRef = computed({
   get: () => form.value.phone,
@@ -311,21 +243,11 @@ const availablePrograms = computed(() => {
 })
 
 const submitApplication = async () => {
-  if (isSubmitting.value) {
+  if (isSubmitting.value || !form.value.privacyAgreed) {
     return
   }
 
-  const validationResult = await validateUniversityApplication(form.value)
-
-  if (!validationResult.isValid) {
-    show(validationResult.errors[0] || 'Пожалуйста, проверьте форму перед отправкой', {
-      title: 'Проверьте форму',
-      type: 'warning',
-      duration: 4000,
-    })
-    return
-  }
-
+  clearAllErrors()
   isSubmitting.value = true
 
   try {
@@ -372,7 +294,6 @@ const submitApplication = async () => {
       )
     }
 
-    // Reset form
     form.value = {
       name: '',
       phone: '',
@@ -382,7 +303,7 @@ const submitApplication = async () => {
       comment: '',
       privacyAgreed: false,
     }
-    resetUniversityApplicationValidation()
+    clearAllErrors()
 
     // Показать сообщение об успехе
     show('Ваша заявка успешно отправлена! Мы свяжемся с вами в ближайшее время.', {
@@ -393,16 +314,16 @@ const submitApplication = async () => {
   } catch (error: any) {
     console.error('Error submitting application:', error)
 
-    // Показать сообщение об ошибке с учетом ошибок валидации сервера
-    const serverErrors = Array.isArray(error?.data?.errors) ? error.data.errors : null
-    if (serverErrors && serverErrors.length) {
-      show(serverErrors.join('\n'), {
-        title: 'Ошибка валидации',
-        type: 'error',
-        duration: 7000,
-      })
+    if (handleValidationError(error)) {
+      if (nonFieldErrors.value.length > 0) {
+        show(nonFieldErrors.value.join('\n'), {
+          title: 'Ошибка валидации',
+          type: 'error',
+          duration: 7000,
+        })
+      }
     } else {
-      show('Произошла ошибка при отправке заявки. Пожалуйста, попробуйте еще раз.', {
+      show(error?.data?.message || 'Произошла ошибка при отправке заявки. Пожалуйста, попробуйте еще раз.', {
         title: 'Ошибка отправки',
         type: 'error',
         duration: 5000,

@@ -9,14 +9,14 @@ export interface UserPreferencesDTO {
 export interface ApplicationRequest {
   personal_info: {
     first_name: string
-    last_name: string
-    email: string
+    last_name?: string
+    email?: string
     phone: string
     country?: string
     city?: string
     birth_date?: string
   }
-  preferences: {
+  preferences?: {
     universities?: string[]
     programs?: string[]
     budget?: string
@@ -25,9 +25,9 @@ export interface ApplicationRequest {
     language_preference?: string
   }
   additional_info?: string
-  source: string
+  source?: string
   source_description?: string
-  user_preferences?: UserPreferencesDTO
+  user_preferences?: any
   ref?: string
 }
 

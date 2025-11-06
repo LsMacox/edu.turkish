@@ -326,7 +326,7 @@
 <script setup lang="ts">
 import { parsePositiveInt } from '~~/lib/number'
 import type { UserType } from '~/types/domain'
-import { useReviewFormValidation } from '~/composables/validation/useReviewFormValidation'
+import { useServerValidation } from '~/composables/useServerValidation'
 const { t } = useI18n()
 
 const nameFieldId = useId()
@@ -370,54 +370,17 @@ const form = reactive<ReviewForm>({
 })
 
 const {
-  reviewFormRules,
-  validateReviewForm,
-  validateField,
   getFieldError,
-  isFieldTouched,
-  resetForm: resetReviewValidation,
-} = useReviewFormValidation()
+  handleValidationError,
+  clearAllErrors,
+  nonFieldErrors,
+} = useServerValidation()
 
 const nameError = computed(() => getFieldError('name'))
 const universityError = computed(() => getFieldError('university'))
 const ratingError = computed(() => getFieldError('rating'))
 const reviewError = computed(() => getFieldError('review'))
 
-watch(
-  () => form.name,
-  async (value) => {
-    if (isFieldTouched('name')) {
-      await validateField('name', value, reviewFormRules.name)
-    }
-  },
-)
-
-watch(
-  () => form.university,
-  async (value) => {
-    if (isFieldTouched('university')) {
-      await validateField('university', value, reviewFormRules.university)
-    }
-  },
-)
-
-watch(
-  () => form.rating,
-  async (value) => {
-    if (isFieldTouched('rating')) {
-      await validateField('rating', value, reviewFormRules.rating)
-    }
-  },
-)
-
-watch(
-  () => form.review,
-  async (value) => {
-    if (isFieldTouched('review')) {
-      await validateField('review', value, reviewFormRules.review)
-    }
-  },
-)
 
 const isSubmitting = ref(false)
 const submitted = ref(false)
@@ -467,18 +430,7 @@ async function submitReview() {
     return
   }
 
-  const validationResult = await validateReviewForm({
-    name: form.name,
-    university: form.university,
-    rating: form.rating,
-    review: form.review,
-  })
-
-  if (!validationResult.isValid) {
-    submissionError.value = t('reviews.shareExperience.errors.validation')
-    return
-  }
-
+  clearAllErrors()
   isSubmitting.value = true
   submissionError.value = ''
 
@@ -498,7 +450,6 @@ async function submitReview() {
       type: (form.reviewerType || 'student') as UserType,
     }
 
-    // Submit to API
     const data = await $fetch('/api/v1/reviews', {
       method: 'POST',
       body: reviewData,
@@ -507,7 +458,6 @@ async function submitReview() {
     if (data.success) {
       submitted.value = true
 
-      // Reset form after successful submission
       setTimeout(() => {
         Object.assign(form, {
           name: '',
@@ -521,20 +471,19 @@ async function submitReview() {
           recommendation: '',
           reviewerType: '',
         })
-        resetReviewValidation()
+        clearAllErrors()
         submitted.value = false
-      }, 5000)
-    } else {
-      throw new Error(data.message || 'Failed to submit review')
+      }, 3000)
     }
   } catch (error: any) {
     console.error('Error submitting review:', error)
 
-    // Handle validation errors
-    if (error.statusCode === 400) {
-      submissionError.value = t('reviews.shareExperience.errors.validation')
+    if (handleValidationError(error)) {
+      if (nonFieldErrors.value.length > 0) {
+        submissionError.value = nonFieldErrors.value.join('\n')
+      }
     } else {
-      submissionError.value = error.data?.message || t('reviews.shareExperience.errors.generic')
+      submissionError.value = error?.data?.message || t('reviews.shareExperience.errors.submit')
     }
   } finally {
     isSubmitting.value = false

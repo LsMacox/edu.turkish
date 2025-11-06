@@ -158,7 +158,6 @@
           <BaseCheckbox :checked="form.agreement" @update:checked="form.agreement = $event">
             {{ $t('modal.agreement') }}
           </BaseCheckbox>
-          <p v-if="agreementError" class="mt-2 text-sm text-red-600">{{ agreementError }}</p>
 
           <!-- Hidden referral source field for debugging -->
           <input type="hidden" name="source" :value="props.userPreferences?.source || 'website'" />
@@ -179,7 +178,7 @@
 <script setup lang="ts">
 import type { ApplicationPreferences, QuestionnairePreferences } from '~/types/preferences'
 import { useReferral } from '~/composables/useReferral'
-import { useApplicationModalValidation } from '~/composables/validation/useApplicationModalValidation'
+import { useServerValidation } from '~/composables/useServerValidation'
 
 interface Props {
   isOpen: boolean
@@ -227,64 +226,17 @@ const emailFieldId = useId()
 const messageFieldId = useId()
 
 const {
-  applicationModalRules,
-  validateApplicationModal,
-  validateField,
   getFieldError,
-  isFieldTouched,
-  resetForm: resetModalValidation,
-} = useApplicationModalValidation()
+  handleValidationError,
+  clearAllErrors,
+  nonFieldErrors,
+} = useServerValidation()
 
-const nameError = computed(() => getFieldError('name'))
-const phoneError = computed(() => getFieldError('phone'))
-const emailError = computed(() => getFieldError('email'))
-const messageError = computed(() => getFieldError('message'))
-const agreementError = computed(() => getFieldError('agreement'))
+const nameError = computed(() => getFieldError('personal_info.first_name'))
+const phoneError = computed(() => getFieldError('personal_info.phone'))
+const emailError = computed(() => getFieldError('personal_info.email'))
+const messageError = computed(() => getFieldError('additional_info'))
 
-watch(
-  () => form.value.name,
-  async (value) => {
-    if (isFieldTouched('name')) {
-      await validateField('name', value, applicationModalRules.name)
-    }
-  },
-)
-
-watch(
-  () => form.value.phone,
-  async (value) => {
-    if (isFieldTouched('phone')) {
-      await validateField('phone', value, applicationModalRules.phone)
-    }
-  },
-)
-
-watch(
-  () => form.value.email,
-  async (value) => {
-    if (isFieldTouched('email')) {
-      await validateField('email', value, applicationModalRules.email)
-    }
-  },
-)
-
-watch(
-  () => form.value.message,
-  async (value) => {
-    if (isFieldTouched('message')) {
-      await validateField('message', value, applicationModalRules.message)
-    }
-  },
-)
-
-watch(
-  () => form.value.agreement,
-  async (value) => {
-    if (isFieldTouched('agreement')) {
-      await validateField('agreement', value, applicationModalRules.agreement)
-    }
-  },
-)
 
 const closeModal = () => {
   emit('close')
@@ -292,18 +244,9 @@ const closeModal = () => {
 
 const submitForm = async () => {
   if (isSubmitting.value) return
+  if (!form.value.agreement) return
 
-  const validationResult = await validateApplicationModal(form.value)
-
-  if (!validationResult.isValid) {
-    show(validationResult.errors[0] || $t('modal.error_message'), {
-      title: $t('modal.error_title'),
-      type: 'error',
-      duration: 5000,
-    })
-    return
-  }
-
+  clearAllErrors()
   isSubmitting.value = true
 
   try {
@@ -366,25 +309,23 @@ const submitForm = async () => {
       message: '',
       agreement: false,
     }
-    resetModalValidation()
+    clearAllErrors()
   } catch (error: any) {
     console.error('Error submitting form:', error)
 
-    // Показываем конкретную ошибку пользователю
-    const serverErrors = Array.isArray(error?.data?.errors) ? error.data.errors : null
-    if (serverErrors && serverErrors.length) {
-      show(serverErrors.join('\n'), {
-        title: $t('modal.error_title'),
-        type: 'error',
-        duration: 7000,
-      })
+    if (handleValidationError(error)) {
+      if (nonFieldErrors.value.length > 0) {
+        show(nonFieldErrors.value.join('\n'), {
+          title: $t('modal.error_title'),
+          type: 'error',
+          duration: 7000,
+        })
+      }
     } else {
-      // Берем содержательное сообщение из ответа сервера
       const errorMessage =
         (error?.data?.message as string) ||
         (error?.message as string) ||
-        (error?.data?.statusMessage as string) ||
-        ($t('modal.error_message') as string)
+        ($t('errors.unknown_error') as string)
 
       show(errorMessage, {
         title: $t('modal.error_title'),
@@ -511,7 +452,7 @@ watch(
     }
 
     if (!isOpen) {
-      resetModalValidation()
+      clearAllErrors()
     }
   },
   { immediate: true },

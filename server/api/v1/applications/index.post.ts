@@ -1,7 +1,9 @@
 import { getCookie } from 'h3'
+import { ZodError } from 'zod'
 import { prisma } from '~~/lib/prisma'
 import { ApplicationRepository } from '~~/server/repositories'
-import { validateApplicationData } from '~~/server/utils/api/applications'
+import { ApplicationSchema } from '~~/server/utils/validation/schemas'
+import { formatZodError } from '~~/server/utils/validation/formatters'
 import { CRMFactory } from '~~/server/services/crm/CRMFactory'
 import { RedisQueue } from '~~/server/services/queue/RedisQueue'
 import type { ApplicationRequest, ApplicationResponse } from '~~/server/types/api'
@@ -14,19 +16,21 @@ export default defineEventHandler(async (event): Promise<ApplicationResponse> =>
   assertMethod(event, 'POST')
 
   try {
-    // Read and validate request body
-    const body = (await readBody(event)) as ApplicationRequest
+    const rawBody = await readBody(event)
 
-    // Validate the application data
-    const validation = validateApplicationData(body)
-    if (!validation.isValid) {
-      throw createError({
-        statusCode: 400,
-        statusMessage: 'Validation failed',
-        data: {
-          errors: validation.errors,
-        },
-      })
+    let body: ApplicationRequest
+    try {
+      body = ApplicationSchema.parse(rawBody) as ApplicationRequest
+    } catch (error) {
+      if (error instanceof ZodError) {
+        const validationError = formatZodError(error)
+        throw createError({
+          statusCode: 422,
+          statusMessage: 'Validation failed',
+          data: validationError,
+        })
+      }
+      throw error
     }
 
     // Initialize repository
@@ -86,11 +90,17 @@ export default defineEventHandler(async (event): Promise<ApplicationResponse> =>
           console.log(`✓ CRM lead created: ${crmLeadId} (${crmProvider})`)
         }
       } else if (crmResult.validationErrors && crmResult.validationErrors.length) {
-        // Validation failure from CRM input schema — return 400 to frontend
         throw createError({
-          statusCode: 400,
+          statusCode: 422,
           statusMessage: 'Validation failed',
-          data: { errors: crmResult.validationErrors },
+          data: {
+            error: 'ValidationError',
+            nonFieldErrors: crmResult.validationErrors.map((msg) => ({
+              code: 'crm_validation_error',
+              meta: { message: msg },
+            })),
+            traceId: Math.random().toString(36).substring(2, 12),
+          },
         })
       } else {
         // Non-validation CRM failure, queue for retry
@@ -109,14 +119,8 @@ export default defineEventHandler(async (event): Promise<ApplicationResponse> =>
       crmError = error.message
       console.error('Error in CRM integration:', error)
 
-      // If it's a validation error from our createLead (with errors array), surface to client
-      const errors = Array.isArray(error?.data?.errors) ? error.data.errors : null
-      if (error?.statusCode === 400 && errors && errors.length) {
-        throw createError({
-          statusCode: 400,
-          statusMessage: 'Validation failed',
-          data: { errors },
-        })
+      if (error?.statusCode === 422) {
+        throw error
       }
 
       // Otherwise, queue for retry on exception
@@ -156,19 +160,18 @@ export default defineEventHandler(async (event): Promise<ApplicationResponse> =>
       },
     }
   } catch (error: any) {
-    // Handle validation errors specifically
-    if (error.statusCode === 400) {
+    if (error.statusCode === 422) {
       throw error
     }
 
     console.error('Error creating application:', error)
 
-    // Handle other errors
     throw createError({
       statusCode: 500,
       statusMessage: 'Internal server error',
       data: {
-        error: 'Failed to process application',
+        error: 'server_error',
+        message: 'Failed to process application',
       },
     })
   }

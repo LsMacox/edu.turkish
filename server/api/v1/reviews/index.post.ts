@@ -1,23 +1,11 @@
+import { ZodError } from 'zod'
 import { prisma } from '~~/lib/prisma'
 import { ReviewRepository } from '~~/server/repositories'
 import type { CreateReviewResponse } from '~~/server/types/api'
 import { SUPPORTED_LOCALES } from '~~/lib/locales'
-import { z } from 'zod'
 import { parsePositiveInt } from '~~/lib/number'
-
-// Validation schema
-const createReviewSchema = z.object({
-  name: z.string().min(2, 'Name must be at least 2 characters').max(100, 'Name too long'),
-  university: z.string().min(2, 'University name is required'),
-  faculty: z.string().optional(),
-  year: z.string().optional(),
-  rating: z.coerce.number().min(1).max(5),
-  contact: z.string().optional(),
-  review: z.string().min(50, 'Review must be at least 50 characters').max(2000, 'Review too long'),
-  helpfulAspects: z.array(z.string()).optional(),
-  recommendation: z.string().optional(),
-  type: z.enum(['student', 'parent']).optional().default('student'),
-})
+import { ReviewSchema } from '~~/server/utils/validation/schemas'
+import { formatZodError } from '~~/server/utils/validation/formatters'
 
 export default defineEventHandler(async (event): Promise<CreateReviewResponse> => {
   try {
@@ -26,19 +14,22 @@ export default defineEventHandler(async (event): Promise<CreateReviewResponse> =
 
     const locale = event.context.locale || 'ru'
     const translationLocale = SUPPORTED_LOCALES.includes(locale) ? locale : 'ru'
-    const body = await readBody(event)
+    const rawBody = await readBody(event)
 
-    // Validate request body
-    const validationResult = createReviewSchema.safeParse(body)
-    if (!validationResult.success) {
-      throw createError({
-        statusCode: 400,
-        statusMessage: 'Validation error',
-        data: validationResult.error.issues,
-      })
+    let data: any
+    try {
+      data = ReviewSchema.parse(rawBody)
+    } catch (error) {
+      if (error instanceof ZodError) {
+        const validationError = formatZodError(error)
+        throw createError({
+          statusCode: 422,
+          statusMessage: 'Validation failed',
+          data: validationError,
+        })
+      }
+      throw error
     }
-
-    const data = validationResult.data
 
     // Initialize repository
     const reviewRepository = new ReviewRepository(prisma)
@@ -124,12 +115,10 @@ export default defineEventHandler(async (event): Promise<CreateReviewResponse> =
   } catch (err: any) {
     console.error('Error creating review:', err)
 
-    // Handle validation errors
-    if (err.statusCode === 400) {
+    if (err.statusCode === 422) {
       throw err
     }
 
-    // Handle other errors
     throw createError({
       statusCode: 500,
       statusMessage: 'Failed to submit review',
