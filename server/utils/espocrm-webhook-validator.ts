@@ -33,7 +33,32 @@ export const espocrmLeadEntitySchema = z
 export function parseLeadWebhookPayload(
   body: unknown,
 ): { event: 'create'; entity: Record<string, any> } {
-  const entity = espocrmLeadEntitySchema.parse(body)
+  let candidate: unknown = body
+
+  // Handle text/plain or raw JSON string
+  if (typeof candidate === 'string') {
+    try {
+      candidate = JSON.parse(candidate)
+    } catch {
+      // leave as-is; schema will report a clear error
+    }
+  }
+
+  // Handle urlencoded form like { data: '{...}' }
+  if (
+    candidate &&
+    typeof candidate === 'object' &&
+    'data' in (candidate as any) &&
+    typeof (candidate as any).data === 'string'
+  ) {
+    try {
+      candidate = JSON.parse((candidate as any).data)
+    } catch {
+      // leave as-is
+    }
+  }
+
+  const entity = espocrmLeadEntitySchema.parse(candidate)
   return { event: 'create', entity: entity as any }
 }
 
@@ -62,7 +87,30 @@ export const espocrmCallEntitySchema = z
 export function parseCallWebhookPayload(
   body: unknown,
 ): { event: 'create'; entity: Record<string, any> } {
-  const entity = espocrmCallEntitySchema.parse(body)
+  let candidate: unknown = body
+
+  if (typeof candidate === 'string') {
+    try {
+      candidate = JSON.parse(candidate)
+    } catch {
+      // noop
+    }
+  }
+
+  if (
+    candidate &&
+    typeof candidate === 'object' &&
+    'data' in (candidate as any) &&
+    typeof (candidate as any).data === 'string'
+  ) {
+    try {
+      candidate = JSON.parse((candidate as any).data)
+    } catch {
+      // noop
+    }
+  }
+
+  const entity = espocrmCallEntitySchema.parse(candidate)
   return { event: 'create', entity: entity as any }
 }
 
