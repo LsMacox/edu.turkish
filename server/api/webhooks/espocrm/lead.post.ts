@@ -1,12 +1,7 @@
 import { z } from 'zod'
-import {
-  espocrmLeadWebhookSchema,
-  validateWebhookToken,
-  shouldNotifyByTeam,
-} from '~~/server/utils/espocrm-webhook-validator'
+import { parseLeadWebhookPayload, validateWebhookToken, shouldNotifyByTeam } from '~~/server/utils/espocrm-webhook-validator'
 import { formatLeadNotification } from '~~/server/utils/telegram-formatter'
 import { getTelegramQueue } from '~~/server/utils/telegram-queue'
-import type { EspoCRMLeadWebhook } from '~~/server/types/espocrm-webhook'
 
 /**
  * EspoCRM Lead Webhook Endpoint
@@ -33,30 +28,22 @@ export default defineEventHandler(async (event) => {
     // 2. Parse and validate request body
     const body = await readBody(event)
 
-    let payload: EspoCRMLeadWebhook
+    let payload: { event: string; entity: any }
     try {
-      payload = espocrmLeadWebhookSchema.parse(body)
+      payload = parseLeadWebhookPayload(body)
     } catch (error) {
       if (error instanceof z.ZodError) {
         setResponseStatus(event, 400)
         return {
           success: false,
           error: 'Invalid webhook payload',
-          details: error.issues[0],
+          details: (error as z.ZodError).issues?.[0],
         }
       }
       throw error
     }
 
-    // 3. Check event type
-    if (payload.event !== 'create') {
-      setResponseStatus(event, 400)
-      return {
-        success: false,
-        error: "Only 'create' events are supported",
-        received: payload.event,
-      }
-    }
+    // 3. We accept only plain entity payloads from EspoCRM and treat them as 'create'
 
     // 4. Apply team filter
     if (!shouldNotifyByTeam(payload.entity.teamsIds, config.espocrmAssignedTeamId)) {

@@ -1,4 +1,5 @@
 import type { CRMProviderConfig, FieldMappingConfig } from '~~/server/types/crm'
+import { parsePositiveInt } from '~~/lib/number'
 
 export function getCrmProvider(): 'bitrix' | 'espocrm' {
   const provider = (process.env.CRM_PROVIDER || 'espocrm').toLowerCase()
@@ -15,8 +16,13 @@ export function getCrmProvider(): 'bitrix' | 'espocrm' {
 export function getCRMConfig(): CRMProviderConfig {
   const provider = getCrmProvider()
 
-  const timeout = 15000 // 15 seconds
-  const retries = 2
+  const timeout = parsePositiveInt(process.env.CRM_TIMEOUT_MS) ?? 15000 // 15 seconds default
+  const retries = (() => {
+    const raw = process.env.CRM_RETRIES
+    if (raw === undefined) return 2
+    const n = Math.floor(Number(raw))
+    return Number.isFinite(n) && n >= 0 ? n : 2
+  })()
 
   const base: Pick<CRMProviderConfig, 'provider' | 'timeout' | 'retries' | 'fieldMappings'> = {
     provider,

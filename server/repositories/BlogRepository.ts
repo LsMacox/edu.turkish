@@ -9,6 +9,7 @@ import type {
   BlogArticleQuickFact,
 } from '~~/server/types/api'
 import { pickTranslation, resolveLocaleTag } from '~~/server/utils/locale'
+import { sanitizeRichText } from '~~/server/utils/sanitize'
 
 type ArticleWithRelations = Prisma.BlogArticleGetPayload<{
   include: {
@@ -65,14 +66,14 @@ export class BlogRepository {
       switch (type) {
         case 'heading': {
           const level = Number(rawBlock.level) || 2
-          const text = String(rawBlock.text || '')
+          const text = sanitizeRichText(String(rawBlock.text || ''))
           if (text) {
             blocks.push({ type: 'heading', level, text })
           }
           break
         }
         case 'paragraph': {
-          const text = String(rawBlock.text || '')
+          const text = sanitizeRichText(String(rawBlock.text || ''))
           if (text) {
             blocks.push({ type: 'paragraph', text })
           }
@@ -80,7 +81,9 @@ export class BlogRepository {
         }
         case 'list': {
           const items = Array.isArray(rawBlock.items)
-            ? rawBlock.items.map((item: any) => String(item)).filter((item: string) => !!item)
+            ? rawBlock.items
+                .map((item: any) => sanitizeRichText(String(item)))
+                .filter((item: string) => !!item)
             : []
           if (items.length > 0) {
             blocks.push({ type: 'list', ordered: Boolean(rawBlock.ordered), items })
@@ -88,7 +91,7 @@ export class BlogRepository {
           break
         }
         case 'quote': {
-          const text = String(rawBlock.text || '')
+          const text = sanitizeRichText(String(rawBlock.text || ''))
           if (text) {
             const author = rawBlock.author ? String(rawBlock.author) : undefined
             blocks.push({ type: 'quote', text, author })
@@ -99,7 +102,9 @@ export class BlogRepository {
           const url = String(rawBlock.url || '')
           const alt = String(rawBlock.alt || '')
           if (url) {
-            const caption = rawBlock.caption ? String(rawBlock.caption) : undefined
+            const caption = rawBlock.caption
+              ? sanitizeRichText(String(rawBlock.caption))
+              : undefined
             blocks.push({ type: 'image', url, alt, caption })
           }
           break

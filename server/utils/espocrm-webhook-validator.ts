@@ -8,75 +8,63 @@ import { z } from 'zod'
  * and team filtering
  */
 
-/**
- * Zod schema for Lead webhook payload
- */
-export const espocrmLeadWebhookSchema = z.object({
-  entityType: z.literal('Lead'),
-  event: z.literal('create'),
-  entity: z
-    .object({
-      id: z.string(),
-      name: z.string(),
-      firstName: z.string().optional(),
-      lastName: z.string().optional(),
-      phoneNumber: z.string().optional(),
-      emailAddress: z.string().optional(),
-      accountName: z.string().optional(),
-      status: z.string(),
-      source: z.string().optional(),
-      industry: z.string().optional(),
-      website: z.string().optional(),
-      description: z.string().optional(),
-      assignedUserId: z.string().optional(),
-      assignedUserName: z.string().optional(),
-      teamsIds: z.array(z.string()).optional(),
-      teamsNames: z.record(z.string(), z.string()).optional(),
-      createdAt: z.string(),
-      modifiedAt: z.string(),
-    })
-    .passthrough(), // Allow additional custom fields
-  timestamp: z.string(),
-  userId: z.string().optional(),
-  userName: z.string().optional(),
-})
+
+
+// Some EspoCRM integrations can send a plain entity object without the envelope.
+export const espocrmLeadEntitySchema = z
+  .object({
+    id: z.string(),
+    name: z.string(),
+    firstName: z.string().optional(),
+    lastName: z.string().optional(),
+    phoneNumber: z.string().optional(),
+    emailAddress: z.string().optional(),
+    status: z.string(),
+    source: z.string().optional(),
+    description: z.string().optional(),
+    assignedUserId: z.string().optional(),
+    teamsIds: z.array(z.string()).optional(),
+    createdAt: z.string(),
+    modifiedAt: z.string(),
+  })
+  .passthrough()
+
+// Normalize lead webhook payload: accept either envelope or plain entity
+export function parseLeadWebhookPayload(
+  body: unknown,
+): { event: 'create'; entity: Record<string, any> } {
+  const entity = espocrmLeadEntitySchema.parse(body)
+  return { event: 'create', entity: entity as any }
+}
 
 /**
  * Zod schema for Call webhook payload
  */
-export const espocrmCallWebhookSchema = z.object({
-  entityType: z.literal('Call'),
-  event: z.literal('create'),
-  entity: z
-    .object({
-      id: z.string(),
-      name: z.string(),
-      status: z.enum(['Planned', 'Held', 'Not Held']),
-      dateStart: z.string().optional(),
-      dateEnd: z.string().optional(),
-      duration: z.number().optional(),
-      description: z.string().optional(),
-      direction: z.enum(['Outbound', 'Inbound']).optional(),
-      parentType: z.string().optional(),
-      parentId: z.string().optional(),
-      parentName: z.string().optional(),
-      contactId: z.string().optional(),
-      contactName: z.string().optional(),
-      accountId: z.string().optional(),
-      accountName: z.string().optional(),
-      phoneNumber: z.string().optional(),
-      assignedUserId: z.string().optional(),
-      assignedUserName: z.string().optional(),
-      teamsIds: z.array(z.string()).optional(),
-      teamsNames: z.record(z.string(), z.string()).optional(),
-      createdAt: z.string(),
-      modifiedAt: z.string(),
-    })
-    .passthrough(), // Allow additional custom fields
-  timestamp: z.string(),
-  userId: z.string().optional(),
-  userName: z.string().optional(),
-})
+// Plain call entity payload schema (SPSRM format)
+export const espocrmCallEntitySchema = z
+  .object({
+    id: z.string(),
+    name: z.string(),
+    status: z.enum(['Planned', 'Held', 'Not Held']),
+    dateStart: z.string().optional(),
+    dateEnd: z.string().optional(),
+    duration: z.number().optional(),
+    description: z.string().optional(),
+    direction: z.enum(['Outbound', 'Inbound']).optional(),
+    assignedUserId: z.string().optional(),
+    teamsIds: z.array(z.string()).optional(),
+    createdAt: z.string(),
+    modifiedAt: z.string(),
+  })
+  .passthrough()
+
+// Normalize call webhook payload: accept only plain entity
+export function parseCallWebhookPayload(
+  body: unknown,
+): { event: 'create'; entity: Record<string, any> } {
+  const entity = espocrmCallEntitySchema.parse(body)
+  return { event: 'create', entity: entity as any }
+}
 
 /**
  * Validate webhook token against configured token

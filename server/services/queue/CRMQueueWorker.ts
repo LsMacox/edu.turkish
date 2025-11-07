@@ -3,6 +3,7 @@ import { Worker } from 'bullmq'
 import type { LeadData, ActivityData } from '~~/server/types/crm'
 import { CRMFactory } from '~~/server/services/crm/CRMFactory'
 import { getRedisClient } from '~~/server/utils/redis'
+import { parsePositiveInt } from '~~/lib/number'
 
 interface QueueJobData {
   operation: 'createLead' | 'logActivity'
@@ -21,6 +22,10 @@ export class CRMQueueWorker {
   constructor() {
     const connection = getRedisClient()
 
+    const concurrency = parsePositiveInt(process.env.CRM_QUEUE_CONCURRENCY) ?? 5
+    const rateMax = parsePositiveInt(process.env.CRM_QUEUE_RATE_MAX) ?? 10
+    const rateDuration = parsePositiveInt(process.env.CRM_QUEUE_RATE_DURATION_MS) ?? 1000
+
     this.worker = new Worker(
       'crm-operations',
       async (job: Job<QueueJobData>) => {
@@ -28,10 +33,10 @@ export class CRMQueueWorker {
       },
       {
         connection,
-        concurrency: 5, // Process up to 5 jobs concurrently
+        concurrency, // Process up to 5 jobs concurrently
         limiter: {
-          max: 10, // Max 10 jobs
-          duration: 1000, // per second
+          max: rateMax, // Max 10 jobs
+          duration: rateDuration, // per second
         },
       },
     )
