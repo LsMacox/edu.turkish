@@ -9,11 +9,7 @@ export const useServerValidation = () => {
   const nonFieldErrors = ref<string[]>([])
   const { t } = useI18n()
 
-  const translateErrorCode = (
-    code: string,
-    meta?: Record<string, any>,
-    field?: string,
-  ): string => {
+  const translateErrorCode = (code: string, meta?: Record<string, any>, field?: string): string => {
     if (field) {
       const fieldKey = `errors.fields.${field}.${code}`
       const fieldMsg = meta ? t(fieldKey, meta) : t(fieldKey, code)
@@ -34,10 +30,7 @@ export const useServerValidation = () => {
     if (status === 422) {
       // Support various ofetch/h3 error shapes
       const raw =
-        error?.data ??
-        error?.response?._data ??
-        error?.response?.data ??
-        error?.data?.data
+        error?.data ?? error?.response?._data ?? error?.response?.data ?? error?.data?.data
 
       if (!raw) {
         return true

@@ -97,11 +97,7 @@
                 <label class="block text-sm font-semibold text-secondary mb-2" :for="levelFieldId">
                   {{ $t('applicationCTA.form.level_label') }}
                 </label>
-                <BaseSelect
-                  :id="levelFieldId"
-                  v-model="form.level"
-                  name="level"
-                >
+                <BaseSelect :id="levelFieldId" v-model="form.level" name="level">
                   <option value="bachelor">{{ $t('applicationCTA.form.level_bachelor') }}</option>
                   <option value="master">{{ $t('applicationCTA.form.level_master') }}</option>
                 </BaseSelect>
@@ -210,19 +206,14 @@ const form = ref({
 
 const isSubmitting = ref(false)
 
-const {
-  getFieldError,
-  handleValidationError,
-  clearAllErrors,
-  nonFieldErrors,
-} = useServerValidation()
+const { getFieldError, handleValidationError, clearAllErrors, nonFieldErrors } =
+  useServerValidation()
 
 const nameError = computed(() => getFieldError('personal_info.first_name'))
 const phoneError = computed(() => getFieldError('personal_info.phone'))
 const emailError = computed(() => getFieldError('personal_info.email'))
 const programError = computed(() => getFieldError('preferences.programs'))
 const commentError = computed(() => getFieldError('additional_info'))
-
 
 const phoneRef = computed({
   get: () => form.value.phone,
@@ -323,11 +314,15 @@ const submitApplication = async () => {
         })
       }
     } else {
-      show(error?.data?.message || 'Произошла ошибка при отправке заявки. Пожалуйста, попробуйте еще раз.', {
-        title: 'Ошибка отправки',
-        type: 'error',
-        duration: 5000,
-      })
+      show(
+        error?.data?.message ||
+          'Произошла ошибка при отправке заявки. Пожалуйста, попробуйте еще раз.',
+        {
+          title: 'Ошибка отправки',
+          type: 'error',
+          duration: 5000,
+        },
+      )
     }
   } finally {
     isSubmitting.value = false
