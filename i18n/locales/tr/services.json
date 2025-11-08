@@ -76,105 +76,78 @@
     "relocation-in-turkey": {
       "title": "Türkiye'ye Taşınma",
       "subtitle": "Türkiye'ye yerleşme için kapsamlı destek - vizeden ikamet iznine",
-      "whoIsThisFor": {
-        "title": "Bu Kimler İçin?",
-        "criteria": [
-          "Türk üniversitesine kabul edildiniz ve 4-8 hafta içinde taşınıyorsunuz",
-          "Vize, konut, banka hesabı ve ikamet izni 'anahtar teslim' şekilde gerekli",
-          "Devlet kurumlarında koşturmak ve hatalar için para cezası riski almak istemiyorsunuz"
-        ]
-      },
-      "expectedResults": {
-        "title": "Ne Elde Edeceksiniz",
-        "items": [
-          "Vize alındı, Türkiye'ye yasal giriş",
-          "Adınıza kira sözleşmesi, kamu hizmetleri bağlandı",
-          "Türk banka hesabı açıldı, banka kartı elinizde",
-          "İkamet izni başvurusu yapıldı, durum takibi dahil",
-          "Varıştan sonra 30 veya 60 gün boyunca kişisel danışman desteği"
-        ]
-      },
-      "timelinePlan": {
-        "title": "30 Günlük Taşınma Planı",
-        "weeks": [
-          {
-            "number": 1,
-            "activities": "Belge hazırlama ve vize merkezi randevusu alma"
-          },
-          {
-            "number": 2,
-            "activities": "Türkiye'ye varış, SIM kart, vergi numarası"
-          },
-          {
-            "number": 3,
-            "activities": "Konut arama ve kira sözleşmesi imzalama, banka hesabı açma"
-          },
-          {
-            "number": 4,
-            "activities": "İkamet izni belge paketi hazırlama ve başvuru"
-          }
-        ]
-      },
-      "responsibilityMatrix": {
-        "title": "Biz Yaparız / Siz Yaparsınız",
-        "weDo": {
-          "title": "Biz Yaparız",
-          "items": [
-            "Tüm gerekli belgeleri ve çevirileri hazırlarız",
-            "Konsoloslukta randevu alırız",
-            "Kriterlerinize uygun 3-5 konut seçeneği buluruz",
-            "Hesap açmak için bankaya sizinle birlikte gideriz",
-            "Göç idaresine ikamet izni başvurusu yaparız",
-            "Başvuru durumunu takip eder ve güncellemelerden haberdar ederiz"
+      "packages": {
+        "standard": {
+          "ctaButton": "Sipariş Ver",
+          "services": [
+            "Belge çevirisi ve tasdiki",
+            "Üniversite kayıt garantisi",
+            "Konut arama ve sözleşme imzalama",
+            "Havalimanı transferi ve şehir oryantasyonu",
+            "Üniversite ile nihai kayıt",
+            "Öğrenci karthi hazırlanması yardımı",
+            "İkamet izni başvurusu desteği",
+            "Denklik belgesi (diploma tanıma)",
+            "Vergi numarası kaydı"
           ]
         },
-        "youDo": {
-          "title": "Siz Yaparsınız",
-          "items": [
-            "Gerekli belgeleri sağlarsınız (pasaport, kabul mektubu vb.)",
-            "Konsolosluktaki randevuya katılırsınız",
-            "Sunduğumuz seçeneklerden konut seçersiniz",
-            "Kira sözleşmesini imzalar ve depozito ödersiniz",
-            "Banka belgelerini sağlar ve hesap formlarını imzalarsınız",
-            "İkamet izni için biyometrik randevuya katılırsınız"
+        "vip": {
+          "ctaButton": "Sipariş Ver",
+          "includes": "Tüm 'Standart' hizmetler artı:",
+          "additionalServices": [
+            "Daire arama ve kira sözleşmesi desteği",
+            "Altyapı kurulumu (internet, elektrik, su)",
+            "Adres kaydı (adres kayit) yardımı",
+            "Banka hesabı açma kişisel eşlik ile"
           ]
         }
       },
-      "riskMitigation": {
-        "title": "Riskler ve Nasıl Ele Alıyoruz",
-        "risks": [
-          {
-            "risk": "Eksik belgeler nedeniyle vize reddi",
-            "mitigation": "Tüm belgeleri önceden kontrol eder, örnek mektuplar sağlar ve mülakat sorularına hazırlarız"
-          },
-          {
-            "risk": "Kira sözleşmesi hataları veya elverişsiz şartlar",
-            "mitigation": "Tüm sözleşmeler çıkarlarınızı korumak için imzalamadan önce hukuk ekibimiz tarafından incelenir"
-          },
-          {
-            "risk": "Uluslararası öğrenciler için banka hesabı sınırlamaları",
-            "mitigation": "Birden fazla bankayla çalışıyoruz ve uluslararası öğrenciler için gereksinimlerini biliyoruz"
-          },
-          {
-            "risk": "İkamet izni gecikmeleri veya redleri",
-            "mitigation": "Başvuruları erken yapar ve devlet portalı üzerinden günlük olarak durumu takip ederiz"
-          }
-        ]
+      "benefits": {
+        "title": "Neden Biz?",
+        "content": "Modern, güvenilir hizmet sunuyoruz. Acele eden acentelerin aksine, resmi belgelerle ve şeffaf iletişimle her şeyi doğru şekilde yapıyoruz. Her adım izlenir ve her zaman bilgilendirilirsiniz."
+      },
+      "risks": {
+        "title": "Yaygın Hatalar",
+        "content": "Çok öğrenci hazırlıksız gelir ve kaçırılan ikamet izni son tarihleri için para cezalarıyla, yanlış belgeler nedeniyle reddedilmelerle veya konut sözleşmesi sorunlarıyla karşılaşır. Edu Turkish 2018'den beri sıfır red ile öğrencilere yardım ediyor."
       },
       "faq": {
         "title": "Sık Sorulan Sorular",
         "items": [
           {
-            "question": "Gelir belgesi olmadan vize alabilir miyim?",
-            "answer": "Evet, öğrenciler için kabul mektubunuzu ve burs onayınızı mali destek kanıtı olarak kullanabiliriz."
+            "question": "Tüm yerleşim süreci ne kadar sürer?",
+            "answer": "Tam süreç genellikle gelişten ikamet izni başvurusuna kadar 30-45 gün sürer. Belgelerinizi aldıktan sonra ayrıntılı bir zaman çizelgesi sağlıyoruz."
           },
           {
-            "question": "İkamet iznimi aldıktan sonra adresim değişirse ne olur?",
-            "answer": "Taşındıktan sonra 20 gün içinde göç idaresine bildirmeniz gerekir. Yeni adreste kaydınızı güncellemenize yardımcı oluruz."
+            "question": "Taksitle ödeyebilir miyim?",
+            "answer": "Evet, taksit planları sunuyoruz. Standart paket 2 ödemeye, VIP 3 ödemeye bölünebilir. Özel şartlar için bizimle iletişime geçin."
           },
           {
-            "question": "Aile üyelerimi getirebilir miyim?",
-            "answer": "Evet, aile üyeleri bağımlı ikamet izni başvurusunda bulunabilir. Aile birleşimi sürecinin tamamını yönetiyoruz."
+            "question": "Tüm Türk şehirlerinde çalışıyor musunuz?",
+            "answer": "İstanbul, Ankara, İzmir, Antalya ve Bursa'da faaliyet gösteriyoruz. Diğer şehirler için uzaktan danışmanlık ve belge hazırlama sağlayabiliriz."
+          },
+          {
+            "question": "Tam paket yerine bireysel hizmetleri sipariş edebilir miyim?",
+            "answer": "Evet, bireysel hizmetler mevcuttur. Ancak paketler daha iyi değer sunar (%15-20 indirim) ve yerleşim sürecinde hiçbir şeyin kaçırılmamasını sağlar."
+          },
+          {
+            "question": "Her şeyi kendim yapmanın riskleri nelerdir?",
+            "answer": "Yaygın sorunlar şunlardır: yetkililer tarafından reddedilen yanlış belge çevirileri, cezalarla (500-1000 TRY) sonuçlanan kaçırılan ikamet izni son tarihleri, uygunsuz kira sözleşmeleri ve uygun rehberlik olmadan banka hesabı açmada zorluklar."
+          },
+          {
+            "question": "Konaklama paket fiyatına dahil mi?",
+            "answer": "Hayır, paket arama yardımını ve sözleşme incelemesini kapsar. Kirayı doğrudan ev sahibine ödersiniz. Bütçeniz dahilinde seçenekler bulmanıza ve adil şartlar görüşmenize yardımcı oluruz."
+          },
+          {
+            "question": "Varıştan önce hangi belgeleri hazırlamalıyım?",
+            "answer": "Gerekli: pasaport (6+ ay geçerli), üniversite kabul mektubu, diploma ve not dökümü, sağlık sigortası belgesi ve 4 pasaport fotoğrafı. Rezervasyondan sonra talimatlarla birlikte tam bir kontrol listesi sağlıyoruz."
+          },
+          {
+            "question": "Vize başvurularında yardımcı oluyor musunuz?",
+            "answer": "Standart paket, öğrenci vizesi için kayıt belgelerini içerir. VIP paket, konsolosluk randevu rezervasyonu ve mülakat hazırlığı ile tam vize başvuru desteğini içerir."
+          },
+          {
+            "question": "İkamet iznim reddedilirse ne olur?",
+            "answer": "6 yılda, müşteriler rehberliğimizi izlediğinde sıfır red yaşadık. Bizim hatamız nedeniyle red olursa, ücretsiz yeniden başvuruyoruz ve ilgili tüm ceza veya yasal masrafları karşılıyoruz."
           }
         ]
       }

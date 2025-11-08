@@ -76,105 +76,78 @@
     "relocation-in-turkey": {
       "title": "Relocation in Turkey",
       "subtitle": "Comprehensive support for settling in Turkey - from visa to residence permit",
-      "whoIsThisFor": {
-        "title": "Who Is This For?",
-        "criteria": [
-          "You've been accepted to a Turkish university and are moving within 4-8 weeks",
-          "You need visa, housing, bank account, and residence permit handled 'turnkey'",
-          "You don't want to run around government offices and risk fines for mistakes"
-        ]
-      },
-      "expectedResults": {
-        "title": "What You'll Get",
-        "items": [
-          "Visa obtained, legal entry to Turkey",
-          "Rental contract in your name with utilities set up",
-          "Turkish bank account opened, debit card in hand",
-          "Residence permit application submitted, status tracking included",
-          "Personal curator support for 30 or 60 days after arrival"
-        ]
-      },
-      "timelinePlan": {
-        "title": "30-Day Relocation Plan",
-        "weeks": [
-          {
-            "number": 1,
-            "activities": "Document preparation and visa center appointment booking"
-          },
-          {
-            "number": 2,
-            "activities": "Arrival in Turkey, SIM card, tax number (vergi numarası)"
-          },
-          {
-            "number": 3,
-            "activities": "Housing search and rental contract signing, bank account opening"
-          },
-          {
-            "number": 4,
-            "activities": "Residence permit package preparation and submission"
-          }
-        ]
-      },
-      "responsibilityMatrix": {
-        "title": "We Do / You Do",
-        "weDo": {
-          "title": "We Do",
-          "items": [
-            "Prepare all required documents and translations",
-            "Book visa appointment at the consulate",
-            "Find 3-5 housing options matching your criteria",
-            "Accompany you to the bank for account opening",
-            "Submit residence permit application to immigration",
-            "Track application status and notify you of updates"
+      "packages": {
+        "standard": {
+          "ctaButton": "Order",
+          "services": [
+            "Document translation and legalization",
+            "University enrollment guarantee",
+            "Accommodation search and contract signing",
+            "Airport transfer and city orientation",
+            "Final registration with the university",
+            "Student pass issuance assistance",
+            "Residence permit application support",
+            "Denklik belgesi (diploma recognition)",
+            "Tax number (vergi numarası) registration"
           ]
         },
-        "youDo": {
-          "title": "You Do",
-          "items": [
-            "Provide required documents (passport, acceptance letter, etc.)",
-            "Attend visa appointment at the consulate",
-            "Choose housing from the options we provide",
-            "Sign rental contract and pay deposit",
-            "Provide bank documents and sign account forms",
-            "Attend biometric appointment for residence permit"
+        "vip": {
+          "ctaButton": "Order",
+          "includes": "All 'Standard' services plus:",
+          "additionalServices": [
+            "Apartment search and rental contract support",
+            "Utilities setup (internet, electricity, water)",
+            "Address registration (adres kayit) assistance",
+            "Bank account opening with personal accompaniment"
           ]
         }
       },
-      "riskMitigation": {
-        "title": "Risks & How We Address Them",
-        "risks": [
-          {
-            "risk": "Visa rejection due to incomplete documents",
-            "mitigation": "We pre-check all documents, provide sample letters, and prepare you for interview questions"
-          },
-          {
-            "risk": "Rental contract errors or unfavorable terms",
-            "mitigation": "All contracts are reviewed by our legal team before signing to protect your interests"
-          },
-          {
-            "risk": "Bank account limits for international students",
-            "mitigation": "We work with multiple banks and know their requirements for international students"
-          },
-          {
-            "risk": "Residence permit delays or rejections",
-            "mitigation": "We submit applications early and track status daily via the government portal"
-          }
-        ]
+      "benefits": {
+        "title": "Why Choose Us?",
+        "content": "We provide modern, trustworthy service. Unlike agencies that rush through processes, we handle everything properly with official documentation and transparent communication. Every step is tracked and you're always informed."
+      },
+      "risks": {
+        "title": "Common Mistakes to Avoid",
+        "content": "Many students arrive unprepared and face fines for missed residence permit deadlines, rejected applications due to incorrect documents, or housing contract issues. Edu Turkish has been helping students navigate Turkish bureaucracy since 2018 with zero rejected applications."
       },
       "faq": {
         "title": "Frequently Asked Questions",
         "items": [
           {
-            "question": "Can I get a visa without an income statement?",
-            "answer": "Yes, for students we can use your acceptance letter and scholarship confirmation as proof of financial support."
+            "question": "How long does the entire settlement process take?",
+            "answer": "The full process typically takes 30-45 days from arrival to residence permit submission. We provide a detailed timeline after you submit your documents."
           },
           {
-            "question": "What if my address changes after I get my residence permit?",
-            "answer": "You must notify immigration within 20 days of moving. We'll help you update your registration at the new address."
+            "question": "Can I pay in installments?",
+            "answer": "Yes, we offer payment plans. Standard package can be split into 2 payments, VIP into 3 payments. Contact us for specific terms."
           },
           {
-            "question": "Can I bring my family members?",
-            "answer": "Yes, family members can apply for dependent residence permits. We handle the entire process for family reunification."
+            "question": "Do you work in all Turkish cities?",
+            "answer": "We operate in Istanbul, Ankara, Izmir, Antalya, and Bursa. For other cities, we can provide remote consultation and document preparation."
+          },
+          {
+            "question": "Can I order individual services instead of a full package?",
+            "answer": "Yes, individual services are available. However, packages offer better value (15-20% discount) and ensure nothing is missed in the settlement process."
+          },
+          {
+            "question": "What are the risks of doing everything myself?",
+            "answer": "Common issues include: incorrect document translations rejected by authorities, missed residence permit deadlines resulting in fines (500-1000 TRY), unfavorable rental contracts, and difficulty opening bank accounts without proper guidance."
+          },
+          {
+            "question": "Is accommodation included in the package price?",
+            "answer": "No, the package covers search assistance and contract review. You pay rent directly to the landlord. We help you find options within your budget and negotiate fair terms."
+          },
+          {
+            "question": "What documents do I need to prepare before arrival?",
+            "answer": "Required: passport (valid 6+ months), university acceptance letter, diploma and transcript, health insurance certificate, and 4 passport photos. We provide a complete checklist with instructions after booking."
+          },
+          {
+            "question": "Do you help with visa applications?",
+            "answer": "Standard package includes enrollment documentation for student visa. VIP package includes full visa application support with consulate appointment booking and interview preparation."
+          },
+          {
+            "question": "What happens if my residence permit is rejected?",
+            "answer": "In 6 years, we've had zero rejections when clients follow our guidance. If a rejection occurs due to our error, we resubmit at no cost and cover any related fines or legal fees."
           }
         ]
       }

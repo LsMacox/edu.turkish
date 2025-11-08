@@ -63,17 +63,17 @@ const SERVICES_SEED: Record<(typeof CATEGORY_SLUGS)[number], CategorySeed> = {
   'relocation-in-turkey': {
     title: 'Переезд в Турцию',
     subServices: {
-      'starter-30d': {
-        name: 'Стартовый 30 дней',
-        description: 'SIM, vergi numarası, банк, жильё, подача на ВНЖ. Поддержка 30 дней',
-        priceUsd: 499,
-        deliveryTimeDays: 30,
+      'relocation-standard': {
+        name: 'Settlement in Turkey',
+        description: 'Standard package',
+        priceUsd: 1500,
+        deliveryTimeDays: null,
       },
-      'premium-60d': {
-        name: 'Премиум 60 дней',
-        description: 'Полное сопровождение, приоритетные слоты и поддержка 60 дней',
-        priceUsd: 899,
-        deliveryTimeDays: 60,
+      'relocation-vip': {
+        name: 'VIP Settlement in Turkey',
+        description: 'Premium package',
+        priceUsd: 2000,
+        deliveryTimeDays: null,
       },
     },
   },
@@ -372,25 +372,44 @@ export async function seedServices(prisma: PrismaClient) {
           },
         })
 
-        // Upsert Russian translation for sub-service
-        await prisma.subServiceTranslation.upsert({
-          where: {
-            subServiceId_locale: {
-              subServiceId: subService.id,
-              locale: 'ru',
+        // Upsert translations for all locales (fallback to provided name)
+        const defaultName = subServiceData.name || subSlug
+        const specialNames: Record<string, Record<string, string>> = {
+          'relocation-standard': {
+            en: 'Settlement in Turkey',
+            ru: 'Обустройство по Турции',
+            kk: 'Түркиядағы орналастыру',
+            tr: "Türkiye'de Yerleşim",
+          },
+          'relocation-vip': {
+            en: 'VIP Settlement in Turkey',
+            ru: 'Вип обустройство по Турции',
+            kk: 'VIP Түркиядағы орналастыру',
+            tr: "VIP Türkiye'de Yerleşim",
+          },
+        }
+        const namesByLocale = specialNames[subSlug] || {}
+        for (const locale of LOCALES) {
+          const name = (namesByLocale as any)[locale] || defaultName
+          await prisma.subServiceTranslation.upsert({
+            where: {
+              subServiceId_locale: {
+                subServiceId: subService.id,
+                locale,
+              },
             },
-          },
-          update: {
-            name: subServiceData.name || subSlug,
-            description: subServiceData.description || '',
-          },
-          create: {
-            subServiceId: subService.id,
-            locale: 'ru',
-            name: subServiceData.name || subSlug,
-            description: subServiceData.description || '',
-          },
-        })
+            update: {
+              name,
+              description: subServiceData.description || '',
+            },
+            create: {
+              subServiceId: subService.id,
+              locale,
+              name,
+              description: subServiceData.description || '',
+            },
+          })
+        }
       }
     }
 

@@ -2,60 +2,44 @@
   <ServicePageLayout
     :title="category?.title || t('services.relocation-in-turkey.title')"
     :subtitle="category?.subtitle || t('services.relocation-in-turkey.subtitle')"
+    sub-services-cols="md:grid-cols-2 lg:grid-cols-2"
   >
     <template #sub-services>
-      <SubServiceCard
-        v-for="subService in subServices"
-        :key="subService.id"
-        :sub-service-id="subService.id"
-        :name="subService.name"
-        :description="subService.description"
-        :price-usd="subService.priceUsd"
-        :delivery-time="subService.deliveryTime"
-        @apply="handleApply"
+      <!-- Standard Package -->
+      <PackageCard
+        v-if="standardPackage"
+        package-id="relocation-standard"
+        :name="standardPackage.name"
+        :price="standardPackage.priceUsd"
+        :services="standardServices"
+        :cta-text="t('services.relocation-in-turkey.packages.standard.ctaButton')"
+        :is-mobile-accordion="isMobile"
+        @apply="handlePackageApply"
+      />
+
+      <!-- VIP Package -->
+      <PackageCard
+        v-if="vipPackage"
+        package-id="relocation-vip"
+        :name="vipPackage.name"
+        :price="vipPackage.priceUsd"
+        :services="vipServices"
+        :cta-text="t('services.relocation-in-turkey.packages.vip.ctaButton')"
+        :includes-text="t('services.relocation-in-turkey.packages.vip.includes')"
+        is-vip
+        :is-mobile-accordion="isMobile"
+        @apply="handlePackageApply"
       />
     </template>
 
-    <template #who-is-this-for>
-      <WhoIsThisForSection
-        key-prefix="services.relocation-in-turkey.whoIsThisFor"
-        :title="metadataPath('whoIsThisFor.title')"
-      />
-    </template>
-
-    <template #expected-results>
-      <ExpectedResultsSection
-        key-prefix="services.relocation-in-turkey.expectedResults"
-        :title="metadataPath('expectedResults.title')"
-      />
-    </template>
-
-    <template #timeline-plan>
-      <TimelinePlanSection
-        key-prefix="services.relocation-in-turkey.timelinePlan"
-        :title="metadataPath('timelinePlan.title')"
-      />
-    </template>
-
-    <template #responsibility-matrix>
-      <ResponsibilityMatrixSection
-        key-prefix="services.relocation-in-turkey.responsibilityMatrix"
-        :title="metadataPath('responsibilityMatrix.title')"
-      />
-    </template>
-
-    <template #risk-mitigation>
-      <RiskMitigationSection
-        key-prefix="services.relocation-in-turkey.riskMitigation"
-        :title="metadataPath('riskMitigation.title')"
-      />
+    <template #why-choose-us>
+      <SettlementBenefitsSection key-prefix="services.relocation-in-turkey.benefits" />
     </template>
 
     <template #faq>
-      <ServiceFAQSection
-        key-prefix="services.relocation-in-turkey.faq"
-        :title="metadataPath('faq.title')"
-      />
+      <SettlementRisksSection key-prefix="services.relocation-in-turkey.risks" />
+      
+      <ServiceFAQSection key-prefix="services.relocation-in-turkey.faq" class="mt-16" />
     </template>
   </ServicePageLayout>
 </template>
@@ -67,7 +51,7 @@ import { useApplicationModalStore } from '~/stores/applicationModal'
 import { useExchangeRatesStore } from '~/stores/exchangeRates'
 import { useServices } from '~/composables/useServices'
 
-const { t } = useI18n()
+const { t, tm } = useI18n()
 const modal = useApplicationModalStore()
 const exchangeRatesStore = useExchangeRatesStore()
 const { fetchCategory } = useServices()
@@ -86,48 +70,64 @@ onMounted(async () => {
   await exchangeRatesStore.ensureFresh()
 })
 
-// Map database sub-services to component format
-const subServices = computed(() => {
-  if (!category.value?.subServices) return []
+// Get services from i18n as plain strings using index-based t(key[index])
+const getListStrings = (key: string): string[] => {
+  const raw = tm(key) as any
+  if (!Array.isArray(raw)) return []
+  return raw.map((_, idx) => t(`${key}[${idx}]`))
+}
 
-  return category.value.subServices.map((subService) => ({
-    id: subService.slug as SubServiceId,
-    name: subService.name,
-    description: subService.description,
-    priceUsd: subService.priceUsd,
-    deliveryTime: subService.deliveryTimeDays
-      ? `${subService.deliveryTimeDays} ${t('services.common.days')}`
-      : undefined,
-  }))
+const standardServices = computed<string[]>(() =>
+  getListStrings('services.relocation-in-turkey.packages.standard.services'),
+)
+
+const vipServices = computed<string[]>(() => {
+  const standard = getListStrings('services.relocation-in-turkey.packages.standard.services')
+  const additional = getListStrings('services.relocation-in-turkey.packages.vip.additionalServices')
+  return [...standard, ...additional]
 })
 
-const handleApply = ({ subServiceId, name }: { subServiceId: SubServiceId; name: string }) => {
+// Find packages from database
+const standardPackage = computed(() => 
+  category.value?.subServices?.find(s => s.slug === 'relocation-standard')
+)
+
+const vipPackage = computed(() => 
+  category.value?.subServices?.find(s => s.slug === 'relocation-vip')
+)
+
+// Mobile detection for accordion
+const isMobile = ref(false)
+onMounted(() => {
+  isMobile.value = window.innerWidth < 768
+  const handleResize = () => {
+    isMobile.value = window.innerWidth < 768
+  }
+  window.addEventListener('resize', handleResize)
+  onBeforeUnmount(() => {
+    window.removeEventListener('resize', handleResize)
+  })
+})
+
+// Handle package application
+const handlePackageApply = ({ 
+  packageId, 
+  name
+}: { 
+  packageId: SubServiceId
+  name: string
+  price: number
+}) => {
   modal.openModal({
     source: 'service_page',
     description: name,
     serviceContext: {
-      subServiceId,
+      subServiceId: packageId,
       subServiceName: name,
       source: 'service-page',
       sourceDescription: name,
     },
   })
-}
-
-// Helper to safely read structured metadata
-function metadataPath<T = any>(path: string): T | undefined {
-  const meta = category.value?.metadata as Record<string, unknown> | undefined | null
-  if (!meta) return undefined
-  const parts = path.split('.')
-  let node: any = meta
-  for (const part of parts) {
-    if (node && typeof node === 'object' && part in node) {
-      node = (node as any)[part]
-    } else {
-      return undefined
-    }
-  }
-  return node as T
 }
 
 useHead({
