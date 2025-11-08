@@ -4,7 +4,7 @@
     <BaseSectionHeader :title="title" :subtitle="subtitle" />
 
     <!-- Sub-Services Grid -->
-    <div class="grid gap-6 md:grid-cols-2 lg:grid-cols-3 mt-12">
+    <div :class="['grid gap-6 mt-12', subServicesCols]">
       <slot name="sub-services" />
     </div>
 
@@ -104,7 +104,10 @@
 interface Props {
   title: string
   subtitle?: string
+  subServicesCols?: string
 }
 
-defineProps<Props>()
+const { subServicesCols } = withDefaults(defineProps<Props>(), {
+  subServicesCols: 'md:grid-cols-2 lg:grid-cols-3',
+})
 </script>
