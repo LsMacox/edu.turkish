@@ -59,7 +59,10 @@ export const formatZodError = (error: ZodError): ValidationErrorResponse => {
   }
 }
 
-export const createNonFieldError = (code: string, meta?: Record<string, any>): ValidationErrorResponse => {
+export const createNonFieldError = (
+  code: string,
+  meta?: Record<string, any>,
+): ValidationErrorResponse => {
   return {
     error: 'ValidationError',
     nonFieldErrors: [{ code, ...(meta && { meta }) }],

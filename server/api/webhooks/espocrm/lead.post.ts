@@ -1,5 +1,9 @@
 import { z } from 'zod'
-import { parseLeadWebhookBatchPayload, validateWebhookToken, shouldNotifyByTeam } from '~~/server/utils/espocrm-webhook-validator'
+import {
+  parseLeadWebhookBatchPayload,
+  validateWebhookToken,
+  shouldNotifyByTeam,
+} from '~~/server/utils/espocrm-webhook-validator'
 import { formatLeadNotification } from '~~/server/utils/telegram-formatter'
 import { getTelegramQueue } from '~~/server/utils/telegram-queue'
 
