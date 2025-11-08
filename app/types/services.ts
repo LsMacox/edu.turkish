@@ -59,9 +59,7 @@ export type SubServiceId =
  * Package identifiers for service packages (e.g., Standard, VIP)
  * Used in PackageCard component for multi-tier service offerings
  */
-export type PackageId =
-  | 'relocation-standard'
-  | 'relocation-vip'
+export type PackageId = 'relocation-standard' | 'relocation-vip'
 
 /**
  * Sub-service structure
@@ -75,13 +73,14 @@ export interface SubService {
 
 /**
  * Extended application preferences to include sub-service context
- * Passed to ApplicationModal when user clicks "Apply" on a sub-service
+ * Passed to ApplicationModal when user clicks "Apply" on a sub-service or calculator
  */
 export interface ServiceApplicationContext {
-  subServiceId: SubServiceId
+  subServiceId?: SubServiceId // Optional for calculator submissions
   subServiceName: string // Localized name for display
   source: 'service-page'
   sourceDescription: string // Full description for CRM (e.g., "TR-YÖS Basic Preparation")
+  price?: string // Optional price display (e.g., "from 30$" or "by_request")
 }
 
 /**
@@ -230,28 +229,96 @@ export interface SampleDocument {
 }
 
 // ============================================================================
+// New Calculator Types (Feature 015-redesign-translation-documents)
+// ============================================================================
+
+/**
+ * Document type with base price
+ */
+export interface DocumentType {
+  name: string
+  priceUsd: number | null // null for "by request" option
+}
+
+/**
+ * Urgency option with surcharge
+ */
+export interface UrgencyOption {
+  name: string
+  surcharge: number // USD surcharge amount (0 for standard, 10 for rush, etc.)
+}
+
+/**
+ * Service card for service info display
+ */
+export interface ServiceCard {
+  title: string
+  description: string
+  icon: string // Iconify icon name
+}
+
+/**
+ * Calculator metadata structure
+ */
+export interface CalculatorMetadata {
+  documentTypes: DocumentType[]
+  languagePairs: string[]
+  urgency: UrgencyOption[]
+}
+
+/**
+ * Service category metadata structure
+ */
+export interface ServiceCategoryMetadata {
+  calculator?: CalculatorMetadata
+  serviceCards?: ServiceCard[]
+}
+
+/**
+ * Calculator submit event data
+ */
+export interface CalculatorSubmitEvent {
+  selectedDocumentType: DocumentType
+  selectedLanguagePair: string
+  selectedUrgency: UrgencyOption
+  calculatedPriceUsd: number | null
+  calculatedPriceFormatted: string // "от 30$" or "По запросу"
+}
+
+// ============================================================================
 // Section Component Props (Feature 012-x-30-60)
 // ============================================================================
 
 /**
  * PriceCalculatorSection
  * Interactive calculator for document pricing
+ * Supports both legacy (string arrays) and new (DocumentType/UrgencyOption) structures
  */
 export interface PriceCalculatorSectionProps extends I18nKeyPrefix {
   /** Optional: Override title (defaults to i18n key) */
   title?: string
-  /** Optional: Provide values from DB metadata */
+
+  // New structure (Feature 015-redesign-translation-documents)
+  /** Optional: Document types with base prices (new structure) */
+  documentTypesWithPrices?: DocumentType[]
+  /** Optional: Urgency options with surcharges (new structure) */
+  urgencyOptions?: UrgencyOption[]
+  /** Optional: Language pairs (shared between structures) */
+  languagePairs?: string[]
+
+  // Legacy structure (backward compatibility)
+  /** Optional: Provide values from DB metadata (legacy) */
   documentTypes?: string[]
   languages?: string[]
   urgency?: string[]
-  /** Optional: Per-option adjustments applied to the standard base price in USD */
+  /** Optional: Per-option adjustments applied to the standard base price in USD (legacy) */
   adjustments?: {
     byDocumentType?: number[]
     byLanguage?: number[]
   }
-  /** Optional: Standard base price in USD from DB (calculator). If provided, express/rush are calculated via multipliers. */
+  /** Optional: Standard base price in USD from DB (calculator). If provided, express/rush are calculated via multipliers (legacy). */
   standardPriceUsd?: number
-  /** Optional: Urgency multipliers from DB. Defaults: express=1.5, rush=2.0 */
+  /** Optional: Urgency multipliers from DB. Defaults: express=1.5, rush=2.0 (legacy) */
   urgencyMultipliers?: {
     express: number
     rush: number
