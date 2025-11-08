@@ -29,7 +29,7 @@ describe('Settlement Service i18n Contract (Feature 014)', () => {
           expect(services, 'packages.standard.services must exist').toBeDefined()
           expect(Array.isArray(services), 'packages.standard.services must be an array').toBe(true)
           expect(services, 'packages.standard.services must have exactly 9 items').toHaveLength(9)
-          
+
           // Each service should be a non-empty string
           services.forEach((service: any, index: number) => {
             expect(typeof service, `Service ${index} must be a string`).toBe('string')
@@ -40,9 +40,14 @@ describe('Settlement Service i18n Contract (Feature 014)', () => {
         it('should have packages.vip.additionalServices with exactly 4 items', () => {
           const services = data.services['relocation-in-turkey']?.packages?.vip?.additionalServices
           expect(services, 'packages.vip.additionalServices must exist').toBeDefined()
-          expect(Array.isArray(services), 'packages.vip.additionalServices must be an array').toBe(true)
-          expect(services, 'packages.vip.additionalServices must have exactly 4 items').toHaveLength(4)
-          
+          expect(Array.isArray(services), 'packages.vip.additionalServices must be an array').toBe(
+            true,
+          )
+          expect(
+            services,
+            'packages.vip.additionalServices must have exactly 4 items',
+          ).toHaveLength(4)
+
           // Each service should be a non-empty string
           services.forEach((service: any, index: number) => {
             expect(typeof service, `VIP service ${index} must be a string`).toBe('string')
@@ -117,12 +122,14 @@ describe('Settlement Service i18n Contract (Feature 014)', () => {
           expect(items, 'faq.items must exist').toBeDefined()
           expect(Array.isArray(items), 'faq.items must be an array').toBe(true)
           expect(items, 'faq.items must have exactly 9 items').toHaveLength(9)
-          
+
           // Each FAQ item must have question and answer
           items.forEach((item: any, index: number) => {
             expect(item, `FAQ item ${index} must be an object`).toBeDefined()
             expect(typeof item.question, `FAQ ${index} must have a question string`).toBe('string')
-            expect(item.question.length, `FAQ ${index} question must not be empty`).toBeGreaterThan(0)
+            expect(item.question.length, `FAQ ${index} question must not be empty`).toBeGreaterThan(
+              0,
+            )
             expect(typeof item.answer, `FAQ ${index} must have an answer string`).toBe('string')
             expect(item.answer.length, `FAQ ${index} answer must not be empty`).toBeGreaterThan(0)
           })
@@ -132,7 +139,7 @@ describe('Settlement Service i18n Contract (Feature 014)', () => {
       describe('Backward Compatibility', () => {
         it('should NOT have old section keys (they should be removed)', () => {
           const service = data.services['relocation-in-turkey']
-          
+
           // These old keys should be removed after implementation
           // Tests will pass initially (keys exist), then fail (being removed), then pass (fully migrated)
           // For now, we just document what should be removed
@@ -146,7 +153,9 @@ describe('Settlement Service i18n Contract (Feature 014)', () => {
             console.warn(`[${locale}] Old key 'timelinePlan' still exists - should be removed`)
           }
           if (service.responsibilityMatrix !== undefined) {
-            console.warn(`[${locale}] Old key 'responsibilityMatrix' still exists - should be removed`)
+            console.warn(
+              `[${locale}] Old key 'responsibilityMatrix' still exists - should be removed`,
+            )
           }
         })
       })
