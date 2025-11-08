@@ -94,6 +94,7 @@ Build the three new components with tests.
 **File**: `app/components/features/services/PackageCard.vue`
 
 **Implementation checklist**:
+
 - [ ] Create component file
 - [ ] Define props interface (packageId, name, price, services, includesText, isVip, isMobileAccordion, defaultExpanded)
 - [ ] Define emits interface (apply event)
@@ -115,6 +116,7 @@ pnpm test PackageCard
 ```
 
 **Test cases**:
+
 - Props validation
 - Event emission on CTA click
 - Accordion toggle on mobile
@@ -126,6 +128,7 @@ pnpm test PackageCard
 **File**: `app/components/features/services/SettlementBenefitsSection.vue`
 
 **Implementation checklist**:
+
 - [ ] Create component file
 - [ ] Define props interface (keyPrefix, optional title/content overrides)
 - [ ] Fetch content from i18n using keyPrefix
@@ -144,6 +147,7 @@ pnpm test SettlementBenefitsSection
 ```
 
 **Test cases**:
+
 - i18n integration (fetches title and content)
 - Fallback to English if translation missing
 - Responsive layout (desktop vs mobile)
@@ -153,6 +157,7 @@ pnpm test SettlementBenefitsSection
 **File**: `app/components/features/services/SettlementRisksSection.vue`
 
 **Implementation checklist**:
+
 - [ ] Create component file
 - [ ] Define props interface (keyPrefix, optional title/content overrides)
 - [ ] Fetch content from i18n using keyPrefix
@@ -171,6 +176,7 @@ pnpm test SettlementRisksSection
 ```
 
 **Test cases**:
+
 - i18n integration (fetches title and content)
 - Fallback to English if translation missing
 - Gradient background applied
@@ -186,6 +192,7 @@ Update the settlement service page to use new components and structure.
 #### File: `app/pages/services/relocation-in-turkey.vue`
 
 **Implementation checklist**:
+
 - [ ] Remove old section template slots (who-is-this-for, expected-results, timeline-plan, responsibility-matrix, risk-mitigation)
 - [ ] Keep database fetch logic (fetchCategory still needed for package metadata)
 - [ ] Replace SubServiceCard loop with PackageCard components
@@ -211,7 +218,7 @@ Update the settlement service page to use new components and structure.
         :is-mobile-accordion="isMobile"
         @apply="handleApply"
       />
-      
+
       <!-- VIP Package -->
       <PackageCard
         package-id="relocation-vip"
@@ -226,21 +233,14 @@ Update the settlement service page to use new components and structure.
     </template>
 
     <template #why-choose-us>
-      <SettlementBenefitsSection
-        key-prefix="services.relocation-in-turkey.benefits"
-      />
+      <SettlementBenefitsSection key-prefix="services.relocation-in-turkey.benefits" />
     </template>
 
     <!-- Custom slot usage: insert risks before FAQ -->
     <template #faq>
-      <SettlementRisksSection
-        key-prefix="services.relocation-in-turkey.risks"
-      />
-      
-      <ServiceFAQSection
-        key-prefix="services.relocation-in-turkey.faq"
-        class="mt-16"
-      />
+      <SettlementRisksSection key-prefix="services.relocation-in-turkey.risks" />
+
+      <ServiceFAQSection key-prefix="services.relocation-in-turkey.faq" class="mt-16" />
     </template>
   </ServicePageLayout>
 </template>
@@ -249,8 +249,8 @@ Update the settlement service page to use new components and structure.
 // ... existing imports and setup
 
 // Compute services from i18n
-const standardServices = computed(() => 
-  tm('services.relocation-in-turkey.packages.standard.services') as string[]
+const standardServices = computed(
+  () => tm('services.relocation-in-turkey.packages.standard.services') as string[],
 )
 
 const vipServices = computed(() => {
@@ -260,12 +260,12 @@ const vipServices = computed(() => {
 })
 
 // Map database packages
-const standardPackage = computed(() => 
-  category.value?.subServices.find(s => s.slug === 'relocation-standard')
+const standardPackage = computed(() =>
+  category.value?.subServices.find((s) => s.slug === 'relocation-standard'),
 )
 
-const vipPackage = computed(() => 
-  category.value?.subServices.find(s => s.slug === 'relocation-vip')
+const vipPackage = computed(() =>
+  category.value?.subServices.find((s) => s.slug === 'relocation-vip'),
 )
 
 // Detect mobile for accordion
@@ -296,9 +296,9 @@ import { prisma } from '../../lib/prisma'
 
 export async function seedSettlementPackages() {
   const category = await prisma.serviceCategory.findUnique({
-    where: { slug: 'relocation-in-turkey' }
+    where: { slug: 'relocation-in-turkey' },
   })
-  
+
   if (!category) {
     console.error('relocation-in-turkey category not found')
     return
@@ -309,8 +309,8 @@ export async function seedSettlementPackages() {
     where: {
       serviceCategoryId_slug: {
         serviceCategoryId: category.id,
-        slug: 'relocation-standard'
-      }
+        slug: 'relocation-standard',
+      },
     },
     update: { priceUsd: 1500, order: 1 },
     create: {
@@ -325,10 +325,10 @@ export async function seedSettlementPackages() {
           { locale: 'en', name: 'Settlement in Turkey', description: 'Standard package' },
           { locale: 'ru', name: 'Обустройство по Турции', description: 'Стандартный пакет' },
           { locale: 'kk', name: 'Түркиядағы орналастыру', description: 'Стандартты пакет' },
-          { locale: 'tr', name: "Türkiye'de Yerleşim", description: 'Standart paket' }
-        ]
-      }
-    }
+          { locale: 'tr', name: "Türkiye'de Yerleşim", description: 'Standart paket' },
+        ],
+      },
+    },
   })
 
   // VIP package
@@ -336,8 +336,8 @@ export async function seedSettlementPackages() {
     where: {
       serviceCategoryId_slug: {
         serviceCategoryId: category.id,
-        slug: 'relocation-vip'
-      }
+        slug: 'relocation-vip',
+      },
     },
     update: { priceUsd: 2000, order: 2 },
     create: {
@@ -352,17 +352,18 @@ export async function seedSettlementPackages() {
           { locale: 'en', name: 'VIP Settlement in Turkey', description: 'Premium package' },
           { locale: 'ru', name: 'Вип обустройство по Турции', description: 'Премиум пакет' },
           { locale: 'kk', name: 'VIP Түркиядағы орналастыру', description: 'Премиум пакет' },
-          { locale: 'tr', name: "VIP Türkiye'de Yerleşim", description: 'Premium paket' }
-        ]
-      }
-    }
+          { locale: 'tr', name: "VIP Türkiye'de Yerleşim", description: 'Premium paket' },
+        ],
+      },
+    },
   })
-  
+
   console.log('Settlement packages seeded')
 }
 ```
 
 Run seed:
+
 ```bash
 pnpm tsx prisma/seed/settlement-packages.ts
 ```
@@ -529,6 +530,7 @@ Before marking feature complete:
 **Cause**: Database doesn't have package records or API returns empty subServices array
 
 **Fix**:
+
 ```bash
 # Check database
 pnpm tsx -e "import { prisma } from './lib/prisma'; prisma.subService.findMany({ where: { serviceCategory: { slug: 'relocation-in-turkey' } } }).then(console.log)"
@@ -544,6 +546,7 @@ pnpm tsx prisma/seed/settlement-packages.ts
 **Cause**: i18n keys not added or incorrect structure
 
 **Fix**:
+
 ```bash
 # Verify key exists in all locales
 grep -r "packages.standard.services" i18n/locales/
@@ -559,6 +562,7 @@ pnpm test settlement-i18n.contract.test.ts
 **Cause**: `isMobile` ref not updating or accordion logic not implemented
 
 **Fix**:
+
 - Check `isMobileAccordion` prop is passed to PackageCard
 - Verify window resize listener is attached
 - Test with browser DevTools mobile emulation
@@ -570,9 +574,10 @@ pnpm test settlement-i18n.contract.test.ts
 **Cause**: Props interface doesn't match usage or SubServiceId type missing new slugs
 
 **Fix**:
+
 ```typescript
 // Add to app/types/services.ts
-export type SubServiceId = 
+export type SubServiceId =
   | 'relocation-standard'
   | 'relocation-vip'
   | ... // other IDs

@@ -15,9 +15,9 @@
 
 **Purpose**: Environment setup and validation
 
-- [X] T001 Create feature branch `014-redesign-settlement-service`
-- [X] T002 Verify all dependencies installed (`pnpm install`)
-- [X] T003 [P] Start dev server and verify settlement service page loads (`pnpm dev`)
+- [x] T001 Create feature branch `014-redesign-settlement-service`
+- [x] T002 Verify all dependencies installed (`pnpm install`)
+- [x] T003 [P] Start dev server and verify settlement service page loads (`pnpm dev`)
 
 **Checkpoint**: Development environment ready
 
@@ -29,13 +29,13 @@
 
 **⚠️ CRITICAL**: These tests MUST be written first and MUST fail before implementation
 
-- [X] T004 Create i18n contract test file `tests/contract/settlement-i18n.contract.test.ts`
-- [X] T005 Add test: Verify `packages.standard.services` has exactly 9 items for all 4 locales
-- [X] T006 Add test: Verify `packages.vip.additionalServices` has exactly 4 items for all 4 locales
-- [X] T007 Add test: Verify `faq.items` has exactly 9 items for all 4 locales
-- [X] T008 Add test: Verify all required keys exist (benefits, risks, ctaButton, includes)
-- [X] T009 Add test: Verify old section keys are removed (whoIsThisFor, expectedResults, etc.)
-- [X] T010 Run contract tests and confirm they FAIL (`pnpm test settlement-i18n.contract.test.ts`)
+- [x] T004 Create i18n contract test file `tests/contract/settlement-i18n.contract.test.ts`
+- [x] T005 Add test: Verify `packages.standard.services` has exactly 9 items for all 4 locales
+- [x] T006 Add test: Verify `packages.vip.additionalServices` has exactly 4 items for all 4 locales
+- [x] T007 Add test: Verify `faq.items` has exactly 9 items for all 4 locales
+- [x] T008 Add test: Verify all required keys exist (benefits, risks, ctaButton, includes)
+- [x] T009 Add test: Verify old section keys are removed (whoIsThisFor, expectedResults, etc.)
+- [x] T010 Run contract tests and confirm they FAIL (`pnpm test settlement-i18n.contract.test.ts`)
 
 **Checkpoint**: Contract tests written and failing (expected)
 
@@ -47,26 +47,26 @@
 
 **Priority**: P1 (Required before any component work)
 
-- [X] T011 Update English translations in `i18n/locales/en/services.json`:
+- [x] T011 Update English translations in `i18n/locales/en/services.json`:
   - Add `packages.standard.*` with 9 services
   - Add `packages.vip.*` with includes text and 4 additional services
   - Add `benefits.title` and `benefits.content`
   - Add `risks.title` and `risks.content`
   - Add `faq.title` and `faq.items` (9 questions with answers)
 
-- [X] T012 [P] Update Russian translations in `i18n/locales/ru/services.json`:
+- [x] T012 [P] Update Russian translations in `i18n/locales/ru/services.json`:
   - Translate all new keys from English
   - Verify terminology consistency with existing Russian content
 
-- [X] T013 [P] Update Kazakh translations in `i18n/locales/kk/services.json`:
+- [x] T013 [P] Update Kazakh translations in `i18n/locales/kk/services.json`:
   - Translate all new keys from English
   - Verify terminology consistency
 
-- [X] T014 [P] Update Turkish translations in `i18n/locales/tr/services.json`:
+- [x] T014 [P] Update Turkish translations in `i18n/locales/tr/services.json`:
   - Translate all new keys from English
   - Verify terminology consistency
 
-- [X] T015 Run contract tests and verify they PASS (`pnpm test settlement-i18n.contract.test.ts`)
+- [x] T015 Run contract tests and verify they PASS (`pnpm test settlement-i18n.contract.test.ts`)
 
 **Checkpoint**: All 4 locales have complete translations and pass contract tests
 
@@ -78,24 +78,24 @@
 
 **⚠️ CRITICAL**: These tests MUST fail before implementation
 
-- [X] T016 [P] Create test file `tests/components/features/services/PackageCard.test.ts`:
+- [x] T016 [P] Create test file `tests/components/features/services/PackageCard.test.ts`:
   - Test props validation (packageId, name, price, services required)
   - Test apply event emission with correct payload
   - Test accordion toggle on mobile (isMobileAccordion=true)
   - Test VIP styling applied when isVip=true
   - Test includesText displays for VIP packages
 
-- [X] T017 [P] Create test file `tests/components/features/services/SettlementBenefitsSection.test.ts`:
+- [x] T017 [P] Create test file `tests/components/features/services/SettlementBenefitsSection.test.ts`:
   - Test i18n integration (fetches title and content from keyPrefix)
   - Test fallback to English if translation missing
   - Test responsive layout rendering
 
-- [X] T018 [P] Create test file `tests/components/features/services/SettlementRisksSection.test.ts`:
+- [x] T018 [P] Create test file `tests/components/features/services/SettlementRisksSection.test.ts`:
   - Test i18n integration (fetches title and content from keyPrefix)
   - Test fallback to English if translation missing
   - Test gradient background styling
 
-- [X] T019 Run component tests and confirm they FAIL (`pnpm test PackageCard SettlementBenefits SettlementRisks`)
+- [x] T019 Run component tests and confirm they FAIL (`pnpm test PackageCard SettlementBenefits SettlementRisks`)
 
 **Checkpoint**: Component tests written and failing (expected)
 
@@ -107,7 +107,7 @@
 
 **Priority**: P1 (Required before page refactor)
 
-- [X] T020 [P] Implement `app/components/features/services/PackageCard.vue`:
+- [x] T020 [P] Implement `app/components/features/services/PackageCard.vue`:
   - Define props interface (packageId, name, price, services, includesText, isVip, isMobileAccordion, defaultExpanded)
   - Define emits interface (apply event with packageId, name, price payload)
   - Implement desktop layout (full card with visible services list)
@@ -118,7 +118,7 @@
   - Use Tailwind classes consistent with design system
   - Add accessibility attributes (aria-expanded, semantic ul/li markup)
 
-- [X] T021 [P] Implement `app/components/features/services/SettlementBenefitsSection.vue`:
+- [x] T021 [P] Implement `app/components/features/services/SettlementBenefitsSection.vue`:
   - Define props interface (keyPrefix, optional title/content overrides)
   - Fetch title and content from i18n using keyPrefix
   - Implement desktop layout (icon/illustration left, text right)
@@ -127,7 +127,7 @@
   - Add proper heading hierarchy (h2 for title)
   - Ensure responsive design (768px breakpoint)
 
-- [X] T022 [P] Implement `app/components/features/services/SettlementRisksSection.vue`:
+- [x] T022 [P] Implement `app/components/features/services/SettlementRisksSection.vue`:
   - Define props interface (keyPrefix, optional title/content overrides)
   - Fetch title and content from i18n using keyPrefix
   - Implement card layout with gradient background
@@ -135,7 +135,7 @@
   - Add full-width card with responsive padding
   - Add proper heading hierarchy (h2 for title)
 
-- [X] T023 Run component tests and verify they PASS (`pnpm test PackageCard SettlementBenefits SettlementRisks`)
+- [x] T023 Run component tests and verify they PASS (`pnpm test PackageCard SettlementBenefits SettlementRisks`)
 
 **Checkpoint**: All three components implemented and passing tests
 
@@ -147,7 +147,7 @@
 
 **Priority**: P1 (Core functionality)
 
-- [X] T024 Refactor `app/pages/services/relocation-in-turkey.vue`:
+- [x] T024 Refactor `app/pages/services/relocation-in-turkey.vue`:
   - Remove old section template slots (#who-is-this-for, #expected-results, #timeline-plan, #responsibility-matrix, #risk-mitigation)
   - Keep database fetch logic (fetchCategory for package metadata)
   - Replace SubServiceCard loop with two PackageCard components in #sub-services slot
@@ -160,7 +160,7 @@
   - Update handleApply to emit correct package context to application modal
   - Remove metadataPath helper function (no longer needed)
 
-- [X] T025 Test page rendering in dev server:
+- [x] T025 Test page rendering in dev server:
   - Desktop: Verify both package cards visible with all services listed
   - Mobile: Verify package cards render as accordion (default expanded)
   - All 4 languages: Verify content displays correctly (switch locale)
@@ -201,14 +201,14 @@
 
 **Priority**: P1 (Required before deployment)
 
-- [X] T029 [P] Run all linting and type checks:
+- [x] T029 [P] Run all linting and type checks:
   - ESLint: `pnpm lint`
   - TypeScript: `pnpm typecheck`
   - Prettier: `pnpm format`
 
-- [X] T030 [P] Run full test suite (`pnpm test`)
+- [x] T030 [P] Run full test suite (`pnpm test`)
 
-- [X] T031 [P] Build verification (`pnpm build`)
+- [x] T031 [P] Build verification (`pnpm build`)
 
 - [ ] T032 Manual testing checklist:
   - Desktop viewport: All sections render correctly
@@ -229,19 +229,19 @@
 
 **Priority**: P3 (Can be done after verification)
 
-- [X] T033 Remove old i18n keys from all 4 locale files:
+- [x] T033 Remove old i18n keys from all 4 locale files:
   - Delete `services.relocation-in-turkey.whoIsThisFor`
   - Delete `services.relocation-in-turkey.expectedResults`
   - Delete `services.relocation-in-turkey.timelinePlan`
   - Delete `services.relocation-in-turkey.responsibilityMatrix`
   - Delete `services.relocation-in-turkey.riskMitigation` (old version)
 
-- [X] T034 Verify old section components are not used by other pages:
+- [x] T034 Verify old section components are not used by other pages:
   - Search codebase for imports of WhoIsThisForSection, ExpectedResultsSection, etc.
   - If not used elsewhere, delete component files
   - RESULT: Components are still used by other pages (e.g. ExpectedResultsSection in turkish-english-course.vue), so NOT deleting them
 
-- [X] T035 Run tests again to confirm cleanup didn't break anything (`pnpm test`)
+- [x] T035 Run tests again to confirm cleanup didn't break anything (`pnpm test`)
 
 **Checkpoint**: Codebase cleaned up, no unused code
 
@@ -265,7 +265,8 @@
 
 **Within Phase 2**: All contract test tasks can be written together
 
-**Within Phase 3**: 
+**Within Phase 3**:
+
 ```bash
 # All locale updates can run in parallel (T012, T013, T014)
 Task: "Update Russian translations in i18n/locales/ru/services.json"
@@ -274,6 +275,7 @@ Task: "Update Turkish translations in i18n/locales/tr/services.json"
 ```
 
 **Within Phase 4**:
+
 ```bash
 # All component test files can be created in parallel (T016, T017, T018)
 Task: "Create test file tests/components/features/services/PackageCard.test.ts"
@@ -282,6 +284,7 @@ Task: "Create test file tests/components/features/services/SettlementRisksSectio
 ```
 
 **Within Phase 5**:
+
 ```bash
 # All three components can be implemented in parallel (T020, T021, T022)
 Task: "Implement app/components/features/services/PackageCard.vue"
@@ -290,6 +293,7 @@ Task: "Implement app/components/features/services/SettlementRisksSection.vue"
 ```
 
 **Within Phase 8**:
+
 ```bash
 # Linting, type checks, and build can run in parallel (T029, T030, T031)
 Task: "Run all linting and type checks"
@@ -380,15 +384,15 @@ If issues arise:
 
 ## Success Criteria
 
-- [X] All contract tests pass (i18n structure validated)
-- [X] All component tests pass (unit tests for 3 components)
-- [X] Page renders correctly on desktop and mobile
-- [X] All 4 languages display properly
-- [X] CTA buttons open application modal with correct context
-- [X] Performance metrics met (LCP < 2.5s, page load < 3s)
-- [X] No console errors
-- [X] Build succeeds
-- [X] Code passes lint and type checks
+- [x] All contract tests pass (i18n structure validated)
+- [x] All component tests pass (unit tests for 3 components)
+- [x] Page renders correctly on desktop and mobile
+- [x] All 4 languages display properly
+- [x] CTA buttons open application modal with correct context
+- [x] Performance metrics met (LCP < 2.5s, page load < 3s)
+- [x] No console errors
+- [x] Build succeeds
+- [x] Code passes lint and type checks
 
 ---
 

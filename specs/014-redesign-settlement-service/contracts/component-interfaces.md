@@ -19,21 +19,21 @@ This document defines the component interfaces (props, events, slots) for all ne
 ```typescript
 interface PackageCardProps {
   // Package identification
-  packageId: SubServiceId        // 'relocation-standard' | 'relocation-vip'
-  name: string                   // Package display name (e.g., "Settlement in Turkey")
-  price: number                  // Package price in USD (e.g., 1500)
-  
+  packageId: SubServiceId // 'relocation-standard' | 'relocation-vip'
+  name: string // Package display name (e.g., "Settlement in Turkey")
+  price: number // Package price in USD (e.g., 1500)
+
   // Package content
-  services: string[]             // List of service descriptions
-  includesText?: string          // Optional text before services (e.g., "All Standard services plus:")
-  
+  services: string[] // List of service descriptions
+  includesText?: string // Optional text before services (e.g., "All Standard services plus:")
+
   // Visual customization
-  isVip?: boolean               // If true, applies VIP styling (gradient, badge, etc.)
-  isHighlighted?: boolean       // If true, adds visual emphasis (recommended badge, border)
-  
+  isVip?: boolean // If true, applies VIP styling (gradient, badge, etc.)
+  isHighlighted?: boolean // If true, adds visual emphasis (recommended badge, border)
+
   // Mobile behavior
-  isMobileAccordion?: boolean   // If true, renders as accordion on mobile
-  defaultExpanded?: boolean     // Default accordion state (default: true)
+  isMobileAccordion?: boolean // If true, renders as accordion on mobile
+  defaultExpanded?: boolean // Default accordion state (default: true)
 }
 ```
 
@@ -42,11 +42,14 @@ interface PackageCardProps {
 ```typescript
 interface PackageCardEmits {
   // Emitted when user clicks the CTA button
-  (e: 'apply', payload: {
-    packageId: SubServiceId
-    name: string
-    price: number
-  }): void
+  (
+    e: 'apply',
+    payload: {
+      packageId: SubServiceId
+      name: string
+      price: number
+    },
+  ): void
 }
 ```
 
@@ -85,11 +88,11 @@ interface PackageCardEmits {
 ```typescript
 interface SettlementBenefitsSectionProps {
   // i18n key prefix for content
-  keyPrefix: string  // e.g., 'services.relocation-in-turkey.benefits'
-  
+  keyPrefix: string // e.g., 'services.relocation-in-turkey.benefits'
+
   // Optional overrides
-  title?: string     // Override title from i18n
-  content?: string   // Override content from i18n
+  title?: string // Override title from i18n
+  content?: string // Override content from i18n
 }
 ```
 
@@ -100,9 +103,7 @@ This is a presentational component with no user interactions.
 ### Usage Example
 
 ```vue
-<SettlementBenefitsSection
-  key-prefix="services.relocation-in-turkey.benefits"
-/>
+<SettlementBenefitsSection key-prefix="services.relocation-in-turkey.benefits" />
 ```
 
 ### Behavior Contract
@@ -123,11 +124,11 @@ This is a presentational component with no user interactions.
 ```typescript
 interface SettlementRisksSectionProps {
   // i18n key prefix for content
-  keyPrefix: string  // e.g., 'services.relocation-in-turkey.risks'
-  
+  keyPrefix: string // e.g., 'services.relocation-in-turkey.risks'
+
   // Optional overrides
-  title?: string     // Override title from i18n
-  content?: string   // Override content from i18n
+  title?: string // Override title from i18n
+  content?: string // Override content from i18n
 }
 ```
 
@@ -138,9 +139,7 @@ This is a presentational component with no user interactions.
 ### Usage Example
 
 ```vue
-<SettlementRisksSection
-  key-prefix="services.relocation-in-turkey.risks"
-/>
+<SettlementRisksSection key-prefix="services.relocation-in-turkey.risks" />
 ```
 
 ### Behavior Contract
@@ -162,9 +161,9 @@ This is a presentational component with no user interactions.
 
 ```typescript
 interface ServicePageLayoutSlots {
-  'sub-services'?: () => any        // For package cards (replaces old SubServiceCard loop)
-  'why-choose-us'?: () => any       // For benefits section (new usage)
-  'faq'?: () => any                 // For FAQ section (existing, reused)
+  'sub-services'?: () => any // For package cards (replaces old SubServiceCard loop)
+  'why-choose-us'?: () => any // For benefits section (new usage)
+  faq?: () => any // For FAQ section (existing, reused)
   // ... other slots not used by this page
 }
 ```
@@ -199,18 +198,16 @@ interface ServicePageLayoutSlots {
 
 ```typescript
 interface ServiceFAQSectionProps {
-  keyPrefix: string           // i18n key prefix (e.g., 'services.relocation-in-turkey.faq')
-  title?: string              // Optional title override
-  defaultExpanded?: boolean   // Default accordion state
+  keyPrefix: string // i18n key prefix (e.g., 'services.relocation-in-turkey.faq')
+  title?: string // Optional title override
+  defaultExpanded?: boolean // Default accordion state
 }
 ```
 
 ### Usage Example
 
 ```vue
-<ServiceFAQSection
-  key-prefix="services.relocation-in-turkey.faq"
-/>
+<ServiceFAQSection key-prefix="services.relocation-in-turkey.faq" />
 ```
 
 ---
@@ -244,7 +241,8 @@ ServicePageLayout
 ### Shared Design Tokens
 
 All components must use:
-- **Colors**: From Tailwind theme (primary, secondary, gray-*)
+
+- **Colors**: From Tailwind theme (primary, secondary, gray-\*)
 - **Spacing**: Tailwind spacing scale (mt-4, p-6, etc.)
 - **Typography**: Defined text sizes (text-section-title, text-section-subtitle)
 - **Shadows**: Defined shadows (shadow-custom, shadow-lg)
@@ -291,6 +289,7 @@ All components must use:
 ### Unit Tests
 
 Each component must have tests for:
+
 1. Props validation (required vs optional)
 2. Event emission (correct payload structure)
 3. i18n integration (fallback to English)
@@ -299,6 +298,7 @@ Each component must have tests for:
 ### Integration Tests
 
 Page must have tests for:
+
 1. Correct component composition
 2. Data flow from API to components
 3. User interactions (CTA click opens modal)
@@ -307,6 +307,7 @@ Page must have tests for:
 ### Visual Regression Tests
 
 Screenshots required for:
+
 1. Desktop view (all packages visible)
 2. Mobile view (accordion collapsed/expanded)
 3. Different languages (en, ru)

@@ -132,6 +132,7 @@ As a prospective student, I want to find answers to frequently asked questions a
 ### Content Migration
 
 **Remove from i18n** (`services.relocation-in-turkey.*`):
+
 - `whoIsThisFor.*` - entire section
 - `expectedResults.*` - entire section
 - `timelinePlan.*` - entire section
@@ -140,6 +141,7 @@ As a prospective student, I want to find answers to frequently asked questions a
 - `faq.*` - old FAQ items (will be replaced with new 9 questions)
 
 **Add to i18n** (`services.relocation-in-turkey.*`):
+
 - `packages.standard.*` - Standard package with 9 service items
 - `packages.vip.*` - VIP package with 4 additional service items
 - `benefits.*` - "Why Choose Us" content
