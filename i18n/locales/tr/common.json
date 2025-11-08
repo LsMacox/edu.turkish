@@ -1,7 +1,8 @@
 {
   "common": {
     "clear": "Temizle",
-    "loading": "Yükleniyor..."
+    "loading": "Yükleniyor...",
+    "from": "itibaren"
   },
   "cta": {
     "apply": "Başvuru yap"

@@ -3,43 +3,28 @@
     :title="category?.title || t('services.document-translations.title')"
     :subtitle="category?.subtitle || t('services.document-translations.subtitle')"
   >
-    <template #sub-services>
-      <SubServiceCard
-        v-for="subService in subServices"
-        :key="subService.id"
-        :sub-service-id="subService.id"
-        :name="subService.name"
-        :description="subService.description"
-        :price-usd="subService.priceUsd"
-        :delivery-time="subService.deliveryTime"
-        @apply="handleApply"
-      />
+    <template #service-cards>
+      <div
+        v-if="serviceCards && serviceCards.length > 0"
+        class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6"
+      >
+        <ServiceInfoCard
+          v-for="(card, index) in serviceCards"
+          :key="index"
+          :title="card.title"
+          :description="card.description"
+          :icon="card.icon"
+        />
+      </div>
     </template>
 
     <template #price-calculator>
       <PriceCalculatorSection
-        key-prefix="services.document-translations.priceCalculator"
-        :document-types="metadataPath('priceCalculator.documentTypes')"
-        :languages="metadataPath('priceCalculator.languages')"
-        :urgency="metadataPath('priceCalculator.urgency')"
-        :standard-price-usd="category?.calculator?.standardUsd"
-        :urgency-multipliers="category?.urgencyMultipliers"
-        :adjustments="metadataPath('priceCalculator.adjustments')"
-      />
-    </template>
-
-    <template #university-requirements>
-      <UniversityRequirementsSection
-        key-prefix="services.document-translations.universityRequirements"
-        :formats="metadataPath('universityRequirements.formats')"
-        :accepted-by="metadataPath('universityRequirements.acceptedBy')"
-      />
-    </template>
-
-    <template #sample-documents>
-      <SampleDocumentsSection
-        key-prefix="services.document-translations.sampleDocuments"
-        :samples="metadataPath('sampleDocuments.samples')"
+        key-prefix="services.document-translations.calculator"
+        :document-types-with-prices="metadataPath('calculator.documentTypes')"
+        :language-pairs="metadataPath('calculator.languagePairs')"
+        :urgency-options="metadataPath('calculator.urgency')"
+        @submit="handleCalculatorSubmit"
       />
     </template>
 
@@ -51,18 +36,19 @@
       <ServicesWhyChooseUsSection :factors="whyChooseUsFactors" />
     </template>
 
-    <template #trust-indicators>
-      <TrustIndicatorBadge
-        v-for="(indicator, index) in trustIndicators"
-        :key="index"
-        :indicator="indicator"
+    <template #final-cta>
+      <FinalCTASection
+        :title="t('services.document-translations.finalCTA.title')"
+        :button-text="t('services.document-translations.finalCTA.button')"
+        :icon="t('services.document-translations.finalCTA.icon')"
+        :service-name="t('services.document-translations.shortTitle')"
       />
     </template>
   </ServicePageLayout>
 </template>
 
 <script setup lang="ts">
-import type { SubServiceId } from '~/types/services'
+import type { CalculatorSubmitEvent, ServiceCard } from '~/types/services'
 import type { ServiceCategoryDetail } from '~~/server/types/api/services'
 import { useApplicationModalStore } from '~/stores/applicationModal'
 import { useExchangeRatesStore } from '~/stores/exchangeRates'
@@ -87,63 +73,48 @@ onMounted(async () => {
   await exchangeRatesStore.ensureFresh()
 })
 
-// Map database sub-services to component format
-const subServices = computed(() => {
-  if (!category.value?.subServices) return []
-
-  return category.value.subServices.map((subService) => ({
-    id: subService.slug as SubServiceId,
-    name: subService.name,
-    description: subService.description,
-    priceUsd: subService.priceUsd,
-    deliveryTime: subService.deliveryTimeDays
-      ? `${subService.deliveryTimeDays} ${t('services.common.days')}`
-      : undefined,
-  }))
+// Service cards from metadata
+const serviceCards = computed(() => {
+  return metadataPath<ServiceCard[]>('serviceCards') || []
 })
 
 const howItWorksSteps = computed(() => {
-  const raw = tm('services.common.howItWorks.steps') as unknown
+  const raw = tm('services.document-translations.howItWorks.steps') as unknown
   if (!Array.isArray(raw)) return []
   return raw.map((_: unknown, index: number) => ({
-    title: t(`services.common.howItWorks.steps.${index}.title`) as string,
-    description: t(`services.common.howItWorks.steps.${index}.description`) as string,
-    icon: t(`services.common.howItWorks.steps.${index}.icon`) as string,
+    title: t(`services.document-translations.howItWorks.steps.${index}.title`) as string,
+    description: t(
+      `services.document-translations.howItWorks.steps.${index}.description`,
+    ) as string,
+    icon: t(`services.document-translations.howItWorks.steps.${index}.icon`) as string,
   }))
 })
 
 const whyChooseUsFactors = computed(() => {
-  const raw = tm('services.common.whyChooseUs.factors') as unknown
+  const raw = tm('services.document-translations.whyChooseUs.factors') as unknown
   if (!Array.isArray(raw)) return []
   return raw.map((_: unknown, index: number) => ({
-    title: t(`services.common.whyChooseUs.factors.${index}.title`) as string,
-    description: t(`services.common.whyChooseUs.factors.${index}.description`) as string,
-    icon: t(`services.common.whyChooseUs.factors.${index}.icon`) as string,
+    title: t(`services.document-translations.whyChooseUs.factors.${index}.title`) as string,
+    description: t(
+      `services.document-translations.whyChooseUs.factors.${index}.description`,
+    ) as string,
+    icon: t(`services.document-translations.whyChooseUs.factors.${index}.icon`) as string,
   }))
 })
 
-const trustIndicators = computed(() => {
-  return [
-    {
-      text: t('services.common.trustIndicators.workingSince'),
-      icon: 'mdi:calendar-check',
-    },
-    {
-      text: t('services.common.trustIndicators.documentsCount'),
-      icon: 'mdi:file-document-multiple',
-    },
-  ]
-})
+const handleCalculatorSubmit = (event: CalculatorSubmitEvent) => {
+  const serviceName = `${event.selectedDocumentType.name} + ${event.selectedUrgency.name}`
+  const priceDisplay =
+    event.calculatedPriceUsd === null ? 'by_request' : event.calculatedPriceFormatted
 
-const handleApply = ({ subServiceId, name }: { subServiceId: SubServiceId; name: string }) => {
   modal.openModal({
     source: 'service_page',
-    description: name,
+    description: serviceName,
     serviceContext: {
-      subServiceId,
-      subServiceName: name,
+      subServiceName: serviceName,
       source: 'service-page',
-      sourceDescription: name,
+      sourceDescription: `${t('services.document-translations.title')}: ${event.selectedDocumentType.name}`,
+      price: priceDisplay,
     },
   })
 }

@@ -39,6 +39,7 @@ model SubServiceTranslation {
 ```
 
 **Rationale**: The `SubService` model already has all necessary fields:
+
 - `slug` - Package identifier ('relocation-standard', 'relocation-vip')
 - `priceUsd` - Package price ($1500, $2000)
 - `translations.name` - Package display name (localized)
@@ -55,6 +56,7 @@ Service lists, benefits, risks, and FAQ will live in i18n files, not the databas
 **Purpose**: Store only basic package metadata that changes infrequently
 
 **Data Stored**:
+
 - Package slug (relocation-standard, relocation-vip)
 - Package price in USD (1500, 2000)
 - Package name (translated: "Обустройство по Турции", "Settlement in Turkey", etc.)
@@ -107,6 +109,7 @@ Service lists, benefits, risks, and FAQ will live in i18n files, not the databas
 **Location**: `i18n/locales/{locale}/services.json`
 
 **Data Stored**:
+
 - Package service lists (9 for Standard, 4 additional for VIP)
 - Benefits section content
 - Risks section content
@@ -121,7 +124,7 @@ Service lists, benefits, risks, and FAQ will live in i18n files, not the databas
       // Keep existing
       "title": "Relocation in Turkey",
       "subtitle": "Comprehensive support for settling in Turkey",
-      
+
       // NEW: Package details
       "packages": {
         "standard": {
@@ -149,19 +152,19 @@ Service lists, benefits, risks, and FAQ will live in i18n files, not the databas
           ]
         }
       },
-      
+
       // NEW: Benefits section
       "benefits": {
         "title": "Why Choose Us?",
         "content": "We provide modern, trustworthy service. Unlike agencies that rush through processes, we handle everything properly with official documentation and transparent communication."
       },
-      
+
       // NEW: Risks section
       "risks": {
         "title": "Common Mistakes to Avoid",
         "content": "Many students arrive unprepared and face fines, rejected applications, or housing issues. Edu Turkish has been helping students navigate Turkish bureaucracy since 2018 with zero rejected applications."
       },
-      
+
       // NEW: FAQ (9 questions)
       "faq": {
         "title": "Frequently Asked Questions",
@@ -204,8 +207,8 @@ Service lists, benefits, risks, and FAQ will live in i18n files, not the databas
           }
         ]
       }
-      
-      // REMOVED: whoIsThisFor, expectedResults, timelinePlan, 
+
+      // REMOVED: whoIsThisFor, expectedResults, timelinePlan,
       //          responsibilityMatrix, riskMitigation (old)
     }
   }
@@ -295,7 +298,7 @@ export interface SubServiceDetail {
 ```typescript
 // Existing type - NO CHANGES
 
-export type SubServiceId = 
+export type SubServiceId =
   | 'relocation-visa-support'
   | 'relocation-housing-assistance'
   | 'relocation-bank-account'
@@ -303,21 +306,21 @@ export type SubServiceId =
   // Add new package slugs
   | 'relocation-standard'
   | 'relocation-vip'
-  // ... other services
+// ... other services
 
 // NEW: Package service item
 export interface PackageService {
-  text: string  // Service description from i18n
+  text: string // Service description from i18n
 }
 
 // NEW: Package card props
 export interface PackageCardProps {
-  packageId: SubServiceId  // 'relocation-standard' or 'relocation-vip'
-  name: string            // From database translation
-  price: number           // From database priceUsd
-  services: PackageService[]  // From i18n
-  isVip?: boolean         // For visual distinction
-  isMobile?: boolean      // For accordion behavior
+  packageId: SubServiceId // 'relocation-standard' or 'relocation-vip'
+  name: string // From database translation
+  price: number // From database priceUsd
+  services: PackageService[] // From i18n
+  isVip?: boolean // For visual distinction
+  isMobile?: boolean // For accordion behavior
 }
 ```
 

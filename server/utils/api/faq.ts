@@ -14,4 +14,3 @@ export function parseFAQFilters(query: Record<string, any>) {
     ...(lang ? { lang } : {}),
   }
 }
-

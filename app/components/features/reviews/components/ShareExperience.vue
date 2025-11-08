@@ -369,18 +369,13 @@ const form = reactive<ReviewForm>({
   reviewerType: '',
 })
 
-const {
-  getFieldError,
-  handleValidationError,
-  clearAllErrors,
-  nonFieldErrors,
-} = useServerValidation()
+const { getFieldError, handleValidationError, clearAllErrors, nonFieldErrors } =
+  useServerValidation()
 
 const nameError = computed(() => getFieldError('name'))
 const universityError = computed(() => getFieldError('university'))
 const ratingError = computed(() => getFieldError('rating'))
 const reviewError = computed(() => getFieldError('review'))
-
 
 const isSubmitting = ref(false)
 const submitted = ref(false)

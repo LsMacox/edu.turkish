@@ -25,12 +25,14 @@ This research analyzes the current implementation of the settlement service page
 **File**: `app/pages/services/relocation-in-turkey.vue`
 
 The current page:
+
 - Uses `ServicePageLayout` with 7 section slots
 - Fetches category data via `useServices().fetchCategory('relocation-in-turkey')`
 - Maps database `SubService` items to display format
 - Passes metadata paths to section components for i18n keys
 
 **Sections Currently Used**:
+
 1. `#sub-services` - Grid of SubServiceCard components
 2. `#who-is-this-for` - WhoIsThisForSection
 3. `#expected-results` - ExpectedResultsSection
@@ -60,6 +62,7 @@ Returns: ServiceCategoryDetail
 **Location**: `i18n/locales/{locale}/services.json`
 
 Current structure for `relocation-in-turkey`:
+
 - `title`, `subtitle` - Page header
 - `whoIsThisFor.*` - Who Is This For section
 - `expectedResults.*` - Expected Results section
@@ -139,6 +142,7 @@ model SubServiceTranslation {
 ### Components to Remove
 
 The following section components are used only by relocation-in-turkey page and will be removed:
+
 - WhoIsThisForSection
 - ExpectedResultsSection
 - TimelinePlanSection
@@ -161,11 +165,13 @@ The following section components are used only by relocation-in-turkey page and 
 
 ### Mobile Responsiveness
 
-**Current Behavior**: 
+**Current Behavior**:
+
 - SubServiceCard grid uses `md:grid-cols-2 lg:grid-cols-3`
 - All sections stack vertically on mobile
 
-**New Requirement**: 
+**New Requirement**:
+
 - Package cards must use accordion/collapsible on mobile
 - Default expanded state on mobile
 - Need CSS media queries or Vue responsive composable
@@ -175,6 +181,7 @@ The following section components are used only by relocation-in-turkey page and 
 **Supported Languages**: en, ru, kk, tr
 
 **Translation Coverage**:
+
 - All new content must have translations for all 4 languages
 - FAQ: 9 questions with full answers
 - Benefits: 1 section with content
@@ -190,6 +197,7 @@ The following section components are used only by relocation-in-turkey page and 
 ### Content Migration
 
 **Remove from i18n**:
+
 ```
 services.relocation-in-turkey.whoIsThisFor.*
 services.relocation-in-turkey.expectedResults.*
@@ -200,6 +208,7 @@ services.relocation-in-turkey.faq.* (old items)
 ```
 
 **Add to i18n**:
+
 ```
 services.relocation-in-turkey.packages.standard.name
 services.relocation-in-turkey.packages.standard.price
@@ -218,6 +227,7 @@ services.relocation-in-turkey.faq.items[0-8].answer
 ### Database Migration
 
 **No schema changes required**. The existing `SubService` model can store basic package info:
+
 - Standard package: slug='relocation-standard', priceUsd=1500
 - VIP package: slug='relocation-vip', priceUsd=2000
 
@@ -225,16 +235,16 @@ Service lists will be in i18n, not database.
 
 ### Code Changes Summary
 
-| File | Action | Lines Changed |
-|------|--------|---------------|
-| `app/pages/services/relocation-in-turkey.vue` | Major refactor | ~100 lines |
-| `app/components/features/services/PackageCard.vue` | Create | ~150 lines |
-| `app/components/features/services/SettlementBenefitsSection.vue` | Create | ~80 lines |
-| `app/components/features/services/SettlementRisksSection.vue` | Create | ~80 lines |
-| `i18n/locales/en/services.json` | Update | +80, -60 lines |
-| `i18n/locales/ru/services.json` | Update | +80, -60 lines |
-| `i18n/locales/kk/services.json` | Update | +80, -60 lines |
-| `i18n/locales/tr/services.json` | Update | +80, -60 lines |
+| File                                                             | Action         | Lines Changed  |
+| ---------------------------------------------------------------- | -------------- | -------------- |
+| `app/pages/services/relocation-in-turkey.vue`                    | Major refactor | ~100 lines     |
+| `app/components/features/services/PackageCard.vue`               | Create         | ~150 lines     |
+| `app/components/features/services/SettlementBenefitsSection.vue` | Create         | ~80 lines      |
+| `app/components/features/services/SettlementRisksSection.vue`    | Create         | ~80 lines      |
+| `i18n/locales/en/services.json`                                  | Update         | +80, -60 lines |
+| `i18n/locales/ru/services.json`                                  | Update         | +80, -60 lines |
+| `i18n/locales/kk/services.json`                                  | Update         | +80, -60 lines |
+| `i18n/locales/tr/services.json`                                  | Update         | +80, -60 lines |
 
 **Total**: ~3 new components, 1 major refactor, 4 i18n file updates
 
@@ -294,6 +304,7 @@ Service lists will be in i18n, not database.
 ## Dependencies
 
 ### Internal Dependencies
+
 - `ServicePageLayout` component (existing)
 - `ServiceFAQSection` component (existing)
 - `FAQ` component (existing)
@@ -301,10 +312,13 @@ Service lists will be in i18n, not database.
 - `useI18n` composable (existing)
 
 ### External Dependencies
+
 - None (all using existing packages)
 
 ### Blocked By
+
 - None
 
 ### Blocking
+
 - None

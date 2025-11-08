@@ -8,8 +8,6 @@ import { z } from 'zod'
  * and team filtering
  */
 
-
-
 // Some EspoCRM integrations can send a plain entity object without the envelope.
 export const espocrmLeadEntitySchema = z
   .object({
@@ -30,9 +28,10 @@ export const espocrmLeadEntitySchema = z
   .passthrough()
 
 // Normalize lead webhook payload: accept either envelope or plain entity
-export function parseLeadWebhookPayload(
-  body: unknown,
-): { event: 'create'; entity: Record<string, any> } {
+export function parseLeadWebhookPayload(body: unknown): {
+  event: 'create'
+  entity: Record<string, any>
+} {
   const candidate: unknown = body
 
   const entity = espocrmLeadEntitySchema.parse(candidate)
@@ -40,9 +39,10 @@ export function parseLeadWebhookPayload(
 }
 
 // Normalize lead webhook batch payload: accept array or single entity and return array of entities
-export function parseLeadWebhookBatchPayload(
-  body: unknown,
-): { event: 'create'; entities: Record<string, any>[] } {
+export function parseLeadWebhookBatchPayload(body: unknown): {
+  event: 'create'
+  entities: Record<string, any>[]
+} {
   const candidate: unknown = body
 
   if (Array.isArray(candidate)) {
@@ -76,9 +76,10 @@ export const espocrmCallEntitySchema = z
   .passthrough()
 
 // Normalize call webhook payload: accept only plain entity
-export function parseCallWebhookPayload(
-  body: unknown,
-): { event: 'create'; entity: Record<string, any> } {
+export function parseCallWebhookPayload(body: unknown): {
+  event: 'create'
+  entity: Record<string, any>
+} {
   const candidate: unknown = body
 
   const entity = espocrmCallEntitySchema.parse(candidate)
@@ -86,9 +87,10 @@ export function parseCallWebhookPayload(
 }
 
 // Normalize call webhook batch payload: accept array or single entity and return array of entities
-export function parseCallWebhookBatchPayload(
-  body: unknown,
-): { event: 'create'; entities: Record<string, any>[] } {
+export function parseCallWebhookBatchPayload(body: unknown): {
+  event: 'create'
+  entities: Record<string, any>[]
+} {
   const candidate: unknown = body
 
   if (Array.isArray(candidate)) {

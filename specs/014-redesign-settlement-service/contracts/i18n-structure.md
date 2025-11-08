@@ -37,7 +37,7 @@ services.relocation-in-turkey.*
       // Existing keys (keep as-is)
       "title": string,
       "subtitle": string,
-      
+
       // NEW: Package configurations
       "packages": {
         "standard": {
@@ -50,19 +50,19 @@ services.relocation-in-turkey.*
           "additionalServices": string[]    // Array of exactly 4 additional services
         }
       },
-      
+
       // NEW: Benefits section
       "benefits": {
         "title": string,                    // e.g., "Why Choose Us?"
         "content": string                   // Multi-sentence paragraph
       },
-      
+
       // NEW: Risks section
       "risks": {
         "title": string,                    // e.g., "Common Mistakes to Avoid"
         "content": string                   // Multi-sentence paragraph
       },
-      
+
       // NEW: FAQ section (replaces old FAQ)
       "faq": {
         "title": string,                    // e.g., "Frequently Asked Questions"
@@ -71,7 +71,7 @@ services.relocation-in-turkey.*
           "answer": string
         }>                                  // Array of exactly 9 FAQ items
       }
-      
+
       // REMOVED: The following keys are deleted
       // "whoIsThisFor": {...},
       // "expectedResults": {...},
@@ -90,12 +90,14 @@ services.relocation-in-turkey.*
 ### Package Services
 
 **Standard Package** (`services.relocation-in-turkey.packages.standard.services`):
+
 - **Type**: Array of strings
 - **Length**: Exactly 9 items
 - **Content**: Each item describes one service
 - **Max Length**: 150 characters per item
 
 **VIP Package** (`services.relocation-in-turkey.packages.vip.additionalServices`):
+
 - **Type**: Array of strings
 - **Length**: Exactly 4 items
 - **Content**: Each item describes one additional VIP service
@@ -104,11 +106,13 @@ services.relocation-in-turkey.*
 ### Benefits Section
 
 **Title** (`services.relocation-in-turkey.benefits.title`):
+
 - **Type**: String
 - **Max Length**: 80 characters
 - **Example**: "Why Choose Us?"
 
 **Content** (`services.relocation-in-turkey.benefits.content`):
+
 - **Type**: String
 - **Max Length**: 500 characters
 - **Format**: Plain text, 2-4 sentences
@@ -116,11 +120,13 @@ services.relocation-in-turkey.*
 ### Risks Section
 
 **Title** (`services.relocation-in-turkey.risks.title`):
+
 - **Type**: String
 - **Max Length**: 80 characters
 - **Example**: "Common Mistakes to Avoid"
 
 **Content** (`services.relocation-in-turkey.risks.content`):
+
 - **Type**: String
 - **Max Length**: 500 characters
 - **Format**: Plain text, 2-4 sentences
@@ -128,11 +134,13 @@ services.relocation-in-turkey.*
 ### FAQ Section
 
 **Title** (`services.relocation-in-turkey.faq.title`):
+
 - **Type**: String
 - **Max Length**: 80 characters
 - **Example**: "Frequently Asked Questions"
 
 **Items** (`services.relocation-in-turkey.faq.items`):
+
 - **Type**: Array of objects
 - **Length**: Exactly 9 items
 - **Structure**: Each item must have:
@@ -149,7 +157,7 @@ services.relocation-in-turkey.*
     "relocation-in-turkey": {
       "title": "Settlement in Turkey",
       "subtitle": "Comprehensive support for settling in Turkey - from visa to residence permit",
-      
+
       "packages": {
         "standard": {
           "ctaButton": "Order",
@@ -176,17 +184,17 @@ services.relocation-in-turkey.*
           ]
         }
       },
-      
+
       "benefits": {
         "title": "Why Choose Us?",
         "content": "We provide modern, trustworthy service. Unlike agencies that rush through processes, we handle everything properly with official documentation and transparent communication. Every step is tracked and you're always informed."
       },
-      
+
       "risks": {
         "title": "Common Mistakes to Avoid",
         "content": "Many students arrive unprepared and face fines for missed residence permit deadlines, rejected applications due to incorrect documents, or housing contract issues. Edu Turkish has been helping students navigate Turkish bureaucracy since 2018 with zero rejected applications."
       },
-      
+
       "faq": {
         "title": "Frequently Asked Questions",
         "items": [
@@ -238,10 +246,12 @@ services.relocation-in-turkey.*
 ## Russian (ru) Requirements
 
 All keys must be translated to Russian. Package names:
+
 - Standard: "Обустройство по Турции"
 - VIP: "Вип обустройство по Турции"
 
 Sample services translation:
+
 - "Document translation and legalization" → "Перевод и легализация документов"
 - "University enrollment guarantee" → "Гарантия зачисления в университет"
 
@@ -250,10 +260,12 @@ Sample services translation:
 ## Kazakh (kk) Requirements
 
 All keys must be translated to Kazakh. Package names:
+
 - Standard: "Түркиядағы орналастыру"
 - VIP: "VIP Түркиядағы орналастыру"
 
 Sample services translation:
+
 - "Document translation and legalization" → "Құжаттарды аудару және заңдастыру"
 - "University enrollment guarantee" → "Университетке түсу кепілдігі"
 
@@ -262,10 +274,12 @@ Sample services translation:
 ## Turkish (tr) Requirements
 
 All keys must be translated to Turkish. Package names:
+
 - Standard: "Türkiye'de Yerleşim"
 - VIP: "VIP Türkiye'de Yerleşim"
 
 Sample services translation:
+
 - "Document translation and legalization" → "Belge çevirisi ve tasdiki"
 - "University enrollment guarantee" → "Üniversite kaydı garantisi"
 
@@ -312,24 +326,26 @@ services.relocation-in-turkey.faq.items (array of 9)
 ```typescript
 describe('Settlement Service i18n Contract', () => {
   const locales = ['en', 'ru', 'kk', 'tr']
-  
-  locales.forEach(locale => {
+
+  locales.forEach((locale) => {
     describe(`Locale: ${locale}`, () => {
       it('should have packages.standard.services with exactly 9 items', () => {
-        const services = messages[locale].services['relocation-in-turkey'].packages.standard.services
+        const services =
+          messages[locale].services['relocation-in-turkey'].packages.standard.services
         expect(services).toHaveLength(9)
       })
-      
+
       it('should have packages.vip.additionalServices with exactly 4 items', () => {
-        const services = messages[locale].services['relocation-in-turkey'].packages.vip.additionalServices
+        const services =
+          messages[locale].services['relocation-in-turkey'].packages.vip.additionalServices
         expect(services).toHaveLength(4)
       })
-      
+
       it('should have faq.items with exactly 9 questions', () => {
         const items = messages[locale].services['relocation-in-turkey'].faq.items
         expect(items).toHaveLength(9)
       })
-      
+
       it('should have all required keys', () => {
         const section = messages[locale].services['relocation-in-turkey']
         expect(section.packages.standard.ctaButton).toBeDefined()
@@ -340,7 +356,7 @@ describe('Settlement Service i18n Contract', () => {
         expect(section.risks.content).toBeDefined()
         expect(section.faq.title).toBeDefined()
       })
-      
+
       it('should NOT have old section keys', () => {
         const section = messages[locale].services['relocation-in-turkey']
         expect(section.whoIsThisFor).toBeUndefined()
@@ -360,6 +376,7 @@ describe('Settlement Service i18n Contract', () => {
 ### Breaking Changes
 
 The following i18n keys are **removed** and will break any code referencing them:
+
 - `services.relocation-in-turkey.whoIsThisFor.*`
 - `services.relocation-in-turkey.expectedResults.*`
 - `services.relocation-in-turkey.timelinePlan.*`

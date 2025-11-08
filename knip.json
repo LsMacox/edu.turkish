@@ -8,10 +8,7 @@
     "scripts/*.ts",
     "tests/**/*.test.ts"
   ],
-  "project": [
-    "**/*.{js,ts,vue}",
-    "!**/*.d.ts"
-  ],
+  "project": ["**/*.{js,ts,vue}", "!**/*.d.ts"],
   "ignore": [
     ".nuxt/**",
     ".nuxt-test/**",

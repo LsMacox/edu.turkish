@@ -92,13 +92,16 @@ export const leadDataSchema = z.object({
   firstName: z.string().min(1).max(100),
   lastName: z.string().min(1).max(100).optional(),
   phone: z.string().min(10).max(20),
-  email: z.preprocess((v) => {
-    if (typeof v === 'string') {
-      const t = v.trim()
-      return t === '' ? undefined : t
-    }
-    return v
-  }, z.union([z.string().email(), z.literal('')]).optional()),
+  email: z.preprocess(
+    (v) => {
+      if (typeof v === 'string') {
+        const t = v.trim()
+        return t === '' ? undefined : t
+      }
+      return v
+    },
+    z.union([z.string().email(), z.literal('')]).optional(),
+  ),
   universities: z.array(z.string()).optional(),
   programs: z.array(z.string()).optional(),
   userType: z.enum(['student', 'parent']).optional(),

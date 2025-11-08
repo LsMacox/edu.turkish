@@ -426,36 +426,77 @@
       }
     },
     "document-translations": {
-      "title": "Document Translations",
-      "subtitle": "Professional certified translations for official documents",
-      "priceCalculator": {
-        "title": "Price Calculator"
+      "title": "Notarized Document Translations in Turkey",
+      "subtitle": "We help students and clients translate all necessary documents for university admission in Turkey and residence permit applications. Our translations are done by licensed translators (yeminli tercüman) and are accepted by all government institutions.",
+      "shortTitle": "Document Translation",
+      "calculator": {
+        "title": "Price Calculator",
+        "documentTypeLabel": "Document Type",
+        "languagePairLabel": "Language Pair",
+        "urgencyLabel": "Urgency",
+        "estimatedPrice": "Estimated Price",
+        "submitButton": "Submit Application",
+        "byRequest": "Upon Request"
       },
-      "universityRequirements": {
-        "title": "What Universities Accept",
-        "formats": [
-          "Notarized translation (most common)",
-          "Apostille + notarized translation (for some countries)",
-          "Consular legalization (for non-Hague countries)"
-        ],
-        "acceptedBy": "All major Turkish universities including Istanbul University, Boğaziçi, METU, Sabancı, Koç"
-      },
-      "sampleDocuments": {
-        "title": "Sample Pages",
-        "samples": [
+      "howItWorks": {
+        "title": "How It Works",
+        "steps": [
           {
-            "type": "Diploma Translation",
-            "image": "/images/sample-diploma.jpg"
+            "title": "Upload Document",
+            "description": "You send us documents online by submitting an application (PDF/photo) — no need to bring originals in person",
+            "icon": "mdi:upload"
           },
           {
-            "type": "Transcript Translation",
-            "image": "/images/sample-transcript.jpg"
+            "title": "We Clarify Details",
+            "description": "Our manager will contact you to clarify requirements",
+            "icon": "mdi:message-text"
           },
           {
-            "type": "Passport Translation",
-            "image": "/images/sample-passport.jpg"
+            "title": "Translate and Certify",
+            "description": "Licensed translators perform translation with notarial certification",
+            "icon": "mdi:translate"
+          },
+          {
+            "title": "Receive Ready File",
+            "description": "We send completed translations in digital format or paper copy, by courier throughout Turkey if needed",
+            "icon": "mdi:check-circle"
           }
         ]
+      },
+      "whyChooseUs": {
+        "title": "Why Choose Us",
+        "factors": [
+          {
+            "title": "Only accredited translators work",
+            "description": "All our specialists have official yeminli tercüman accreditation with document certification rights",
+            "icon": "mdi:certificate"
+          },
+          {
+            "title": "Translations accepted by all Turkish government institutions",
+            "description": "Our translations are guaranteed to be accepted by universities, immigration services and other government agencies",
+            "icon": "mdi:bank-check"
+          },
+          {
+            "title": "Online translation without office visit",
+            "description": "The entire process can be done remotely — send scans, receive ready translations",
+            "icon": "mdi:web"
+          },
+          {
+            "title": "Verification and correction before certification",
+            "description": "We carefully check each translation for compliance with Turkish institution requirements",
+            "icon": "mdi:file-document-check"
+          },
+          {
+            "title": "Rush translations — within a few hours",
+            "description": "If you need it quickly, we do translation and certification within 2-3 hours",
+            "icon": "mdi:clock-fast"
+          }
+        ]
+      },
+      "finalCTA": {
+        "title": "Want to quickly and accurately translate documents for admission or residence permit? Contact us now - we'll check your documents and advise which type of translation you need",
+        "button": "Send Documents",
+        "icon": "mdi:send"
       }
     }
   }

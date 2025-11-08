@@ -225,18 +225,13 @@ const phoneFieldId = useId()
 const emailFieldId = useId()
 const messageFieldId = useId()
 
-const {
-  getFieldError,
-  handleValidationError,
-  clearAllErrors,
-  nonFieldErrors,
-} = useServerValidation()
+const { getFieldError, handleValidationError, clearAllErrors, nonFieldErrors } =
+  useServerValidation()
 
 const nameError = computed(() => getFieldError('personal_info.first_name'))
 const phoneError = computed(() => getFieldError('personal_info.phone'))
 const emailError = computed(() => getFieldError('personal_info.email'))
 const messageError = computed(() => getFieldError('additional_info'))
-
 
 const closeModal = () => {
   emit('close')

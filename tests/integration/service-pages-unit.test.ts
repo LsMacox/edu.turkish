@@ -11,7 +11,6 @@ const mockExchangeRates: ExchangeRatesResponse = {
   isFallback: false,
 }
 
-
 const mockCategoryDetail: ServiceCategoryDetail = {
   id: 1,
   slug: 'turkish-english-course',

@@ -197,99 +197,247 @@ export async function seedServices(prisma: PrismaClient) {
       categorySlug === 'document-translations'
         ? {
             ru: {
-              priceCalculator: {
+              calculator: {
                 documentTypes: [
-                  'Диплом',
-                  'Транскрипт',
-                  'Паспорт',
-                  'Свидетельство о рождении',
-                  'Свидетельство о браке',
-                  'Другое',
+                  { name: 'Загранпаспорт', priceUsd: 20 },
+                  { name: 'Школьный аттестат', priceUsd: 30 },
+                  { name: 'Диплом', priceUsd: 45 },
+                  { name: 'Доверенность/Согласие', priceUsd: 40 },
+                  { name: 'Финансовые справки', priceUsd: 25 },
+                  { name: 'Остальное', priceUsd: null },
                 ],
-                languages: [
-                  'Английский → Турецкий',
-                  'Русский → Турецкий',
-                  'Казахский → Турецкий',
-                  'Турецкий → Английский',
-                ],
+                languagePairs: ['Русский – Турецкий', 'Турецкий – Русский'],
                 urgency: [
-                  'Стандарт (5 рабочих дней)',
-                  'Экспресс (2 рабочих дня)',
-                  'Срочно (24 часа)',
+                  { name: 'Стандарт (1-3 дня)', surcharge: 0 },
+                  { name: 'Срочно (до 3 часов)', surcharge: 10 },
                 ],
-                adjustments: {
-                  byDocumentType: [1, 1.2, 1.1, 1.3, 1.4, 1],
-                  byLanguage: [1, 1.1, 1.05, 1.2],
-                },
               },
+              serviceCards: [
+                {
+                  title: 'Аттестат / Диплом / Приложение к диплому',
+                  description:
+                    'Перевод и нотариальное заверение аттестатов, дипломов и приложений для поступления в турецкие университеты',
+                  icon: 'mdi:certificate',
+                },
+                {
+                  title: 'Справки из школы / университета',
+                  description:
+                    'Академические справки, выписки об оценках и другие документы из учебных заведений',
+                  icon: 'mdi:school',
+                },
+                {
+                  title: 'Паспорт / ID / Свидетельства',
+                  description:
+                    'Переводы паспортов, удостоверений личности, свидетельств о рождении, браке и других личных документов',
+                  icon: 'mdi:card-account-details',
+                },
+                {
+                  title: 'Справки о несудимости / медицинские справки',
+                  description:
+                    'Справки об отсутствии судимости, медицинские заключения и другие официальные справки',
+                  icon: 'mdi:file-document-check',
+                },
+                {
+                  title: 'Доверенности/Согласия',
+                  description:
+                    'Нотариальные доверенности, согласия родителей и другие юридические документы',
+                  icon: 'mdi:file-sign',
+                },
+                {
+                  title: 'Финансовые справки',
+                  description:
+                    'Банковские выписки, справки о доходах, гарантийные письма и финансовые документы',
+                  icon: 'mdi:bank',
+                },
+                {
+                  title: 'Другое',
+                  description:
+                    'Любые другие документы, требующие нотариального перевода - оценка стоимости индивидуально',
+                  icon: 'mdi:file-question',
+                },
+              ],
             },
             en: {
-              priceCalculator: {
+              calculator: {
                 documentTypes: [
-                  'Diploma',
-                  'Transcript',
-                  'Passport',
-                  'Birth Certificate',
-                  'Marriage Certificate',
-                  'Other',
+                  { name: 'Passport', priceUsd: 20 },
+                  { name: 'High School Certificate', priceUsd: 30 },
+                  { name: 'Diploma', priceUsd: 45 },
+                  { name: 'Power of Attorney/Consent', priceUsd: 40 },
+                  { name: 'Financial Statements', priceUsd: 25 },
+                  { name: 'Other', priceUsd: null },
                 ],
-                languages: [
-                  'English → Turkish',
-                  'Russian → Turkish',
-                  'Kazakh → Turkish',
-                  'Turkish → English',
-                ],
+                languagePairs: ['Russian – Turkish', 'Turkish – Russian'],
                 urgency: [
-                  'Standard (5 business days)',
-                  'Express (2 business days)',
-                  'Rush (24 hours)',
+                  { name: 'Standard (1-3 days)', surcharge: 0 },
+                  { name: 'Rush (up to 3 hours)', surcharge: 10 },
                 ],
-                adjustments: {
-                  byDocumentType: [1, 1.2, 1.1, 1.3, 1.4, 1],
-                  byLanguage: [1, 1.1, 1.05, 1.2],
-                },
               },
+              serviceCards: [
+                {
+                  title: 'Certificate / Diploma / Transcript',
+                  description:
+                    'Translation and notarization of certificates, diplomas and transcripts for university admission in Turkey',
+                  icon: 'mdi:certificate',
+                },
+                {
+                  title: 'School / University Documents',
+                  description:
+                    'Academic certificates, grade transcripts and other documents from educational institutions',
+                  icon: 'mdi:school',
+                },
+                {
+                  title: 'Passport / ID / Certificates',
+                  description:
+                    'Translation of passports, identity cards, birth certificates, marriage certificates and other personal documents',
+                  icon: 'mdi:card-account-details',
+                },
+                {
+                  title: 'Criminal Record / Medical Certificates',
+                  description:
+                    'Criminal record checks, medical reports and other official certificates',
+                  icon: 'mdi:file-document-check',
+                },
+                {
+                  title: 'Power of Attorney/Consents',
+                  description:
+                    'Notarized powers of attorney, parental consents and other legal documents',
+                  icon: 'mdi:file-sign',
+                },
+                {
+                  title: 'Financial Documents',
+                  description:
+                    'Bank statements, income certificates, guarantee letters and financial documents',
+                  icon: 'mdi:bank',
+                },
+                {
+                  title: 'Other',
+                  description:
+                    'Any other documents requiring notarized translation - individual cost assessment',
+                  icon: 'mdi:file-question',
+                },
+              ],
             },
             kk: {
-              priceCalculator: {
+              calculator: {
                 documentTypes: [
-                  'Диплом',
-                  'Транскрипт',
-                  'Паспорт',
-                  'Туу туралы куәлік',
-                  'Неке туралы куәлік',
-                  'Басқа',
+                  { name: 'Шетелдік паспорт', priceUsd: 20 },
+                  { name: 'Мектеп аттестаты', priceUsd: 30 },
+                  { name: 'Диплом', priceUsd: 45 },
+                  { name: 'Сенімхат/Келісім', priceUsd: 40 },
+                  { name: 'Қаржылық анықтамалар', priceUsd: 25 },
+                  { name: 'Басқалары', priceUsd: null },
                 ],
-                languages: ['Ағылшын → Түрік', 'Орыс → Түрік', 'Қазақ → Түрік', 'Түрік → Ағылшын'],
-                urgency: ['Стандарт (5 жұмыс күні)', 'Экспресс (2 жұмыс күні)', 'Шұғыл (24 сағат)'],
-                adjustments: {
-                  byDocumentType: [1, 1.2, 1.1, 1.3, 1.4, 1],
-                  byLanguage: [1, 1.1, 1.05, 1.2],
-                },
+                languagePairs: ['Орыс – Түрік', 'Түрік – Орыс'],
+                urgency: [
+                  { name: 'Стандарт (1-3 күн)', surcharge: 0 },
+                  { name: 'Шұғыл (3 сағатқа дейін)', surcharge: 10 },
+                ],
               },
+              serviceCards: [
+                {
+                  title: 'Аттестат / Диплом / Дипломға қосымша',
+                  description:
+                    'Түрік университеттеріне түсу үшін аттестаттар, дипломдар мен қосымшаларды аударма және нотариалдық куәландыру',
+                  icon: 'mdi:certificate',
+                },
+                {
+                  title: 'Мектеп / университет құжаттары',
+                  description:
+                    'Академиялық анықтамалар, бағалар туралы үзінді көшірмелер және оқу орындарының басқа құжаттары',
+                  icon: 'mdi:school',
+                },
+                {
+                  title: 'Паспорт / ID / Куәліктер',
+                  description:
+                    'Паспорттар, жеке куәліктер, туу туралы куәліктер, неке туралы куәліктер және басқа жеке құжаттарды аудару',
+                  icon: 'mdi:card-account-details',
+                },
+                {
+                  title: 'Соттылық жоқ туралы / медициналық анықтамалар',
+                  description:
+                    'Соттылық жоқ туралы анықтамалар, медициналық қорытындылар және басқа ресми анықтамалар',
+                  icon: 'mdi:file-document-check',
+                },
+                {
+                  title: 'Сенімхаттар/Келісімдер',
+                  description:
+                    'Нотариалды сенімхаттар, ата-аналардың келісімдері және басқа заңды құжаттар',
+                  icon: 'mdi:file-sign',
+                },
+                {
+                  title: 'Қаржылық анықтамалар',
+                  description:
+                    'Банк шоттары, табыс туралы анықтамалар, кепілдік хаттар және қаржылық құжаттар',
+                  icon: 'mdi:bank',
+                },
+                {
+                  title: 'Басқа',
+                  description:
+                    'Нотариалды аудармасы қажет кез келген басқа құжаттар - құнын жеке бағалау',
+                  icon: 'mdi:file-question',
+                },
+              ],
             },
             tr: {
-              priceCalculator: {
+              calculator: {
                 documentTypes: [
-                  'Diploma',
-                  'Transkript',
-                  'Pasaport',
-                  'Doğum Belgesi',
-                  'Evlilik Belgesi',
-                  'Diğer',
+                  { name: 'Pasaport', priceUsd: 20 },
+                  { name: 'Lise Diploması', priceUsd: 30 },
+                  { name: 'Diploma', priceUsd: 45 },
+                  { name: 'Vekaletname/Muvafakatname', priceUsd: 40 },
+                  { name: 'Mali Belgeler', priceUsd: 25 },
+                  { name: 'Diğer', priceUsd: null },
                 ],
-                languages: [
-                  'İngilizce → Türkçe',
-                  'Rusça → Türkçe',
-                  'Kazakça → Türkçe',
-                  'Türkçe → İngilizce',
+                languagePairs: ['Rusça – Türkçe', 'Türkçe – Rusça'],
+                urgency: [
+                  { name: 'Standart (1-3 gün)', surcharge: 0 },
+                  { name: 'Acil (3 saate kadar)', surcharge: 10 },
                 ],
-                urgency: ['Standart (5 iş günü)', 'Ekspres (2 iş günü)', 'Acil (24 saat)'],
-                adjustments: {
-                  byDocumentType: [1, 1.2, 1.1, 1.3, 1.4, 1],
-                  byLanguage: [1, 1.1, 1.05, 1.2],
-                },
               },
+              serviceCards: [
+                {
+                  title: 'Lise Diploması / Üniversite Diploması / Transkript',
+                  description:
+                    'Türk üniversitelerine başvuru için lise diplomaları, üniversite diplomaları ve transkriptlerin tercümesi ve noterce onayı',
+                  icon: 'mdi:certificate',
+                },
+                {
+                  title: 'Okul / Üniversite Belgeleri',
+                  description:
+                    'Akademik belgeler, not dökümü ve eğitim kurumlarından diğer belgeler',
+                  icon: 'mdi:school',
+                },
+                {
+                  title: 'Pasaport / Kimlik / Nüfus Belgeleri',
+                  description:
+                    'Pasaport, kimlik kartı, doğum belgesi, evlilik cüzdanı ve diğer kişisel belgelerin tercümesi',
+                  icon: 'mdi:card-account-details',
+                },
+                {
+                  title: 'Sabıka Kaydı / Sağlık Raporları',
+                  description: 'Sabıka kaydı belgeleri, sağlık raporları ve diğer resmi belgeler',
+                  icon: 'mdi:file-document-check',
+                },
+                {
+                  title: 'Vekaletnameler/Muvafakatnameler',
+                  description:
+                    'Noterce onaylı vekaletnameler, veli muvafakatnameleri ve diğer hukuki belgeler',
+                  icon: 'mdi:file-sign',
+                },
+                {
+                  title: 'Mali Belgeler',
+                  description:
+                    'Banka hesap özetleri, gelir belgeleri, taahhütnameler ve mali belgeler',
+                  icon: 'mdi:bank',
+                },
+                {
+                  title: 'Diğer',
+                  description:
+                    'Noterce onaylı tercümesi gereken diğer belgeler - bireysel maliyet değerlendirmesi',
+                  icon: 'mdi:file-question',
+                },
+              ],
             },
           }
         : null
