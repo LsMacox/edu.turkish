@@ -14,18 +14,18 @@ import { z } from 'zod'
 export const espocrmLeadEntitySchema = z
   .object({
     id: z.string(),
-    name: z.string(),
+    name: z.string().optional(),
     firstName: z.string().optional(),
     lastName: z.string().optional(),
     phoneNumber: z.string().optional(),
     emailAddress: z.string().optional(),
-    status: z.string(),
+    status: z.string().optional(),
     source: z.string().optional(),
     description: z.string().optional(),
     assignedUserId: z.string().optional(),
     teamsIds: z.array(z.string()).optional(),
-    createdAt: z.string(),
-    modifiedAt: z.string(),
+    createdAt: z.string().optional(),
+    modifiedAt: z.string().optional(),
   })
   .passthrough()
 
@@ -35,31 +35,23 @@ export function parseLeadWebhookPayload(
 ): { event: 'create'; entity: Record<string, any> } {
   let candidate: unknown = body
 
-  // Handle text/plain or raw JSON string
-  if (typeof candidate === 'string') {
-    try {
-      candidate = JSON.parse(candidate)
-    } catch {
-      // leave as-is; schema will report a clear error
-    }
-  }
+  const entity = espocrmLeadEntitySchema.parse(candidate)
+  return { event: 'create', entity: entity as any }
+}
 
-  // Handle urlencoded form like { data: '{...}' }
-  if (
-    candidate &&
-    typeof candidate === 'object' &&
-    'data' in (candidate as any) &&
-    typeof (candidate as any).data === 'string'
-  ) {
-    try {
-      candidate = JSON.parse((candidate as any).data)
-    } catch {
-      // leave as-is
-    }
+// Normalize lead webhook batch payload: accept array or single entity and return array of entities
+export function parseLeadWebhookBatchPayload(
+  body: unknown,
+): { event: 'create'; entities: Record<string, any>[] } {
+  let candidate: unknown = body
+
+  if (Array.isArray(candidate)) {
+    const entities = candidate.map((item) => espocrmLeadEntitySchema.parse(item))
+    return { event: 'create', entities: entities as any }
   }
 
   const entity = espocrmLeadEntitySchema.parse(candidate)
-  return { event: 'create', entity: entity as any }
+  return { event: 'create', entities: [entity as any] }
 }
 
 /**
@@ -69,8 +61,8 @@ export function parseLeadWebhookPayload(
 export const espocrmCallEntitySchema = z
   .object({
     id: z.string(),
-    name: z.string(),
-    status: z.enum(['Planned', 'Held', 'Not Held']),
+    name: z.string().optional(),
+    status: z.enum(['Planned', 'Held', 'Not Held']).optional(),
     dateStart: z.string().optional(),
     dateEnd: z.string().optional(),
     duration: z.number().optional(),
@@ -78,8 +70,8 @@ export const espocrmCallEntitySchema = z
     direction: z.enum(['Outbound', 'Inbound']).optional(),
     assignedUserId: z.string().optional(),
     teamsIds: z.array(z.string()).optional(),
-    createdAt: z.string(),
-    modifiedAt: z.string(),
+    createdAt: z.string().optional(),
+    modifiedAt: z.string().optional(),
   })
   .passthrough()
 
@@ -89,29 +81,23 @@ export function parseCallWebhookPayload(
 ): { event: 'create'; entity: Record<string, any> } {
   let candidate: unknown = body
 
-  if (typeof candidate === 'string') {
-    try {
-      candidate = JSON.parse(candidate)
-    } catch {
-      // noop
-    }
-  }
+  const entity = espocrmCallEntitySchema.parse(candidate)
+  return { event: 'create', entity: entity as any }
+}
 
-  if (
-    candidate &&
-    typeof candidate === 'object' &&
-    'data' in (candidate as any) &&
-    typeof (candidate as any).data === 'string'
-  ) {
-    try {
-      candidate = JSON.parse((candidate as any).data)
-    } catch {
-      // noop
-    }
+// Normalize call webhook batch payload: accept array or single entity and return array of entities
+export function parseCallWebhookBatchPayload(
+  body: unknown,
+): { event: 'create'; entities: Record<string, any>[] } {
+  let candidate: unknown = body
+
+  if (Array.isArray(candidate)) {
+    const entities = candidate.map((item) => espocrmCallEntitySchema.parse(item))
+    return { event: 'create', entities: entities as any }
   }
 
   const entity = espocrmCallEntitySchema.parse(candidate)
-  return { event: 'create', entity: entity as any }
+  return { event: 'create', entities: [entity as any] }
 }
 
 /**

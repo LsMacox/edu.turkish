@@ -1,5 +1,5 @@
 import { z } from 'zod'
-import { parseLeadWebhookPayload, validateWebhookToken, shouldNotifyByTeam } from '~~/server/utils/espocrm-webhook-validator'
+import { parseLeadWebhookBatchPayload, validateWebhookToken, shouldNotifyByTeam } from '~~/server/utils/espocrm-webhook-validator'
 import { formatLeadNotification } from '~~/server/utils/telegram-formatter'
 import { getTelegramQueue } from '~~/server/utils/telegram-queue'
 
@@ -28,9 +28,9 @@ export default defineEventHandler(async (event) => {
     // 2. Parse and validate request body
     const body = await readBody(event)
 
-    let payload: { event: string; entity: any }
+    let batch: { event: 'create'; entities: any[] }
     try {
-      payload = parseLeadWebhookPayload(body)
+      batch = parseLeadWebhookBatchPayload(body)
     } catch (error) {
       if (error instanceof z.ZodError) {
         setResponseStatus(event, 400)
@@ -46,46 +46,49 @@ export default defineEventHandler(async (event) => {
     // 3. We accept only plain entity payloads from EspoCRM and treat them as 'create'
 
     // 4. Apply team filter
-    if (!shouldNotifyByTeam(payload.entity.teamsIds, config.espocrmAssignedTeamId)) {
-      // Return 200 OK but don't queue notification
-      console.log(
-        `Lead ${payload.entity.id} filtered out by team (teams: ${payload.entity.teamsIds?.join(', ') || 'none'})`,
-      )
-      return {
-        success: true,
-        message: 'Webhook received (filtered by team)',
-      }
-    }
-
-    // 5. Format message
-    const message = formatLeadNotification(payload.entity as any)
-
-    // 6. Queue Telegram notification
     const queue = getTelegramQueue()
-    const job = await queue.add(
-      'sendNotification',
-      {
-        channelId: config.telegramLeadsChannelId,
-        message,
-        parseMode: 'HTML',
-        disableWebPagePreview: true,
-      },
-      {
-        attempts: 3,
-        backoff: {
-          type: 'exponential',
-          delay: 1000,
-        },
-      },
-    )
+    const processed: Array<{ id: string; jobId: string | number | undefined }> = []
+    const skipped: string[] = []
 
-    console.log(`Lead webhook processed: ${payload.entity.id}, job queued: ${job.id}`)
+    for (const entity of batch.entities) {
+      if (!shouldNotifyByTeam(entity.teamsIds, config.espocrmAssignedTeamId)) {
+        // Return 200 OK but don't queue notification
+        skipped.push(entity.id)
+        continue
+      }
+
+      // 5. Format message
+      const message = formatLeadNotification(entity as any)
+
+      // 6. Queue Telegram notification
+      const job = await queue.add(
+        'sendNotification',
+        {
+          channelId: config.telegramLeadsChannelId,
+          message,
+          parseMode: 'HTML',
+          disableWebPagePreview: true,
+        },
+        {
+          attempts: 3,
+          backoff: {
+            type: 'exponential',
+            delay: 1000,
+          },
+        },
+      )
+
+      processed.push({ id: entity.id, jobId: job.id })
+    }
 
     // 7. Return success immediately
     return {
       success: true,
-      message: 'Webhook received and queued for processing',
-      jobId: job.id,
+      message: 'Webhook received and processed',
+      total: batch.entities.length,
+      queued: processed.length,
+      skipped: skipped.length,
+      jobs: processed,
     }
   } catch (error: any) {
     console.error('Lead webhook error:', error)
