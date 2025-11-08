@@ -434,36 +434,77 @@
       }
     },
     "document-translations": {
-      "title": "Belge Çevirileri",
-      "subtitle": "Resmi belgeler için profesyonel onaylı çeviriler",
-      "priceCalculator": {
-        "title": "Fiyat Hesaplayıcı"
+      "title": "Türkiye'de Noterli Belge Çevirileri",
+      "subtitle": "Öğrencilere ve müşterilere Türkiye'deki üniversitelere başvuru ve ikamet izni başvuruları için gerekli tüm belgelerin çevirisinde yardımcı oluyoruz. Çevirilerimiz lisanslı tercümanlar (yeminli tercüman) tarafından yapılmaktadır ve tüm devlet kurumları tarafından kabul edilmektedir.",
+      "shortTitle": "Belge Çevirisi",
+      "calculator": {
+        "title": "Fiyat Hesaplayıcı",
+        "documentTypeLabel": "Belge Türü",
+        "languagePairLabel": "Dil Çifti",
+        "urgencyLabel": "Aciliyet",
+        "estimatedPrice": "Tahmini Fiyat",
+        "submitButton": "Başvuru Gönder",
+        "byRequest": "Talep Üzerine"
       },
-      "universityRequirements": {
-        "title": "Üniversitelerin Kabul Ettiği Formatlar",
-        "formats": [
-          "Noterli çeviri (en yaygın)",
-          "Apostil + noterli çeviri (bazı ülkeler için)",
-          "Konsolosluk onayı (Lahey Sözleşmesi dışı ülkeler için)"
-        ],
-        "acceptedBy": "İstanbul Üniversitesi, Boğaziçi, ODTÜ, Sabancı, Koç dahil tüm büyük Türk üniversiteleri"
-      },
-      "sampleDocuments": {
-        "title": "Örnek Sayfalar",
-        "samples": [
+      "howItWorks": {
+        "title": "Nasıl Çalışır",
+        "steps": [
           {
-            "type": "Diploma Çevirisi",
-            "image": "/images/sample-diploma.jpg"
+            "title": "Belgeyi Yükleyin",
+            "description": "Başvuru göndererek belgeleri bize çevrimiçi olarak gönderirsiniz (PDF/fotoğraf) — orijinalleri şahsen getirmenize gerek yok",
+            "icon": "mdi:upload"
           },
           {
-            "type": "Transkript Çevirisi",
-            "image": "/images/sample-transcript.jpg"
+            "title": "Detayları Netleştiririz",
+            "description": "Yöneticimiz gereksinimleri netleştirmek için sizinle iletişime geçecektir",
+            "icon": "mdi:message-text"
           },
           {
-            "type": "Pasaport Çevirisi",
-            "image": "/images/sample-passport.jpg"
+            "title": "Çeviri ve Onaylama",
+            "description": "Lisanslı tercümanlar noter onayı ile çeviri yapar",
+            "icon": "mdi:translate"
+          },
+          {
+            "title": "Hazır Dosyayı Alın",
+            "description": "Tamamlanmış çevirileri dijital formatta veya kağıt kopyasını gönderiyoruz, gerekirse Türkiye genelinde kurye ile",
+            "icon": "mdi:check-circle"
           }
         ]
+      },
+      "whyChooseUs": {
+        "title": "Neden Bizi Seçmelisiniz",
+        "factors": [
+          {
+            "title": "Sadece akredite tercümanlar çalışır",
+            "description": "Tüm uzmanlarımız belge onaylama hakkına sahip resmi yeminli tercüman akreditasyonuna sahiptir",
+            "icon": "mdi:certificate"
+          },
+          {
+            "title": "Çeviriler tüm Türk devlet kurumları tarafından kabul edilir",
+            "description": "Çevirilerimizin üniversiteler, göçmenlik hizmetleri ve diğer devlet kurumları tarafından kabul edilmesi garantilidir",
+            "icon": "mdi:bank-check"
+          },
+          {
+            "title": "Ofise gitmeden çevrimiçi çeviri imkanı",
+            "description": "Tüm süreç uzaktan yapılabilir — taramalar gönderin, hazır çevirileri alın",
+            "icon": "mdi:web"
+          },
+          {
+            "title": "Onaylamadan önce doğrulama ve düzeltme",
+            "description": "Her çeviriyi Türk kurumlarının gereksinimlerine uygunluk açısından dikkatlice kontrol ediyoruz",
+            "icon": "mdi:file-document-check"
+          },
+          {
+            "title": "Acil çeviriler — birkaç saat içinde",
+            "description": "Hızlı ihtiyacınız varsa, 2-3 saat içinde çeviri ve onaylama yapıyoruz",
+            "icon": "mdi:clock-fast"
+          }
+        ]
+      },
+      "finalCTA": {
+        "title": "Başvuru veya ikamet izni için belgeleri hızlı ve doğru bir şekilde çevirmek mi istiyorsunuz? Şimdi bizimle iletişime geçin - belgelerinizi kontrol edeceğiz ve hangi çeviri türüne ihtiyacınız olduğunu söyleyeceğiz",
+        "button": "Belgeleri Gönder",
+        "icon": "mdi:send"
       }
     }
   }
