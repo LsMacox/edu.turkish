@@ -38,7 +38,7 @@
 
     <template #faq>
       <SettlementRisksSection key-prefix="services.relocation-in-turkey.risks" />
-      
+
       <ServiceFAQSection key-prefix="services.relocation-in-turkey.faq" class="mt-16" />
     </template>
   </ServicePageLayout>
@@ -88,12 +88,12 @@ const vipServices = computed<string[]>(() => {
 })
 
 // Find packages from database
-const standardPackage = computed(() => 
-  category.value?.subServices?.find(s => s.slug === 'relocation-standard')
+const standardPackage = computed(() =>
+  category.value?.subServices?.find((s) => s.slug === 'relocation-standard'),
 )
 
-const vipPackage = computed(() => 
-  category.value?.subServices?.find(s => s.slug === 'relocation-vip')
+const vipPackage = computed(() =>
+  category.value?.subServices?.find((s) => s.slug === 'relocation-vip'),
 )
 
 // Mobile detection for accordion
@@ -110,10 +110,10 @@ onMounted(() => {
 })
 
 // Handle package application
-const handlePackageApply = ({ 
-  packageId, 
-  name
-}: { 
+const handlePackageApply = ({
+  packageId,
+  name,
+}: {
   packageId: PackageId
   name: string
   price: number
