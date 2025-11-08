@@ -1,5 +1,5 @@
 <template>
-  <section class="py-12 bg-gray-50 rounded-lg">
+  <section class="py-8 sm:py-12 px-4 sm:px-6 bg-gray-50 rounded-lg">
     <div class="container">
       <BaseSectionHeader
         :title="title || $t('services.common.whyChooseUs.title')"
@@ -7,7 +7,7 @@
         margin-bottom="lg"
       />
 
-      <div class="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-5xl mx-auto">
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-6 sm:gap-8 max-w-5xl mx-auto">
         <TrustFactor v-for="(factor, index) in factors" :key="index" :factor="factor" />
       </div>
     </div>

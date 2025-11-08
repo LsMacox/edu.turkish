@@ -1,12 +1,12 @@
 <template>
-  <section class="py-12">
+  <section class="py-8 sm:py-12 px-4 sm:px-0">
     <BaseSectionHeader
       :title="title || $t('services.common.howItWorks.title')"
       align="center"
       margin-bottom="lg"
     />
 
-    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 max-w-6xl mx-auto">
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 sm:gap-8 max-w-6xl mx-auto">
       <ProcessStep v-for="step in stepsWithNumbers" :key="step.stepNumber" :step="step" />
     </div>
   </section>

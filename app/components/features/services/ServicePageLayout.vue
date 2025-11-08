@@ -8,6 +8,14 @@
       <slot name="sub-services" />
     </div>
 
+    <!-- Service Cards Section (for document-translations) -->
+    <div v-if="$slots['service-cards']" class="mt-16">
+      <BaseSectionHeader title="Наши услуги" />
+      <div class="mt-8">
+        <slot name="service-cards" />
+      </div>
+    </div>
+
     <!-- Who Is This For Section -->
     <div v-if="$slots['who-is-this-for']" class="mt-16">
       <slot name="who-is-this-for" />
@@ -96,6 +104,11 @@
     <!-- Trust Indicators -->
     <div v-if="$slots['trust-indicators']" class="mt-12 flex flex-wrap justify-center gap-4">
       <slot name="trust-indicators" />
+    </div>
+
+    <!-- Final CTA Section -->
+    <div v-if="$slots['final-cta']" class="mt-16">
+      <slot name="final-cta" />
     </div>
   </div>
 </template>

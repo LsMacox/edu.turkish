@@ -2,7 +2,7 @@
   <div
     :class="[
       'package-card border rounded-lg p-6 transition-shadow bg-white',
-      isVip ? 'border-primary shadow-md' : 'border-gray-200 hover:shadow-lg'
+      isVip ? 'border-primary shadow-md' : 'border-gray-200 hover:shadow-lg',
     ]"
   >
     <div class="flex flex-col h-full">
@@ -35,7 +35,7 @@
             class="w-full flex items-center justify-between text-left font-semibold text-gray-700 mb-2"
             @click="toggleExpanded"
           >
-            <span>{{ $t('services.common.whatIncluded', 'What\'s Included') }}</span>
+            <span>{{ $t('services.common.whatIncluded', "What's Included") }}</span>
             <svg
               :class="['w-5 h-5 transition-transform', isExpanded ? 'rotate-180' : '']"
               fill="none"
@@ -113,7 +113,7 @@
             'w-full rounded-lg py-3 px-4 font-semibold transition-colors',
             isVip
               ? 'bg-gradient-to-r from-red-500 to-red-600 text-white hover:from-red-600 hover:to-red-700'
-              : 'bg-primary text-white hover:bg-red-600 active:bg-red-700'
+              : 'bg-primary text-white hover:bg-red-600 active:bg-red-700',
           ]"
           @click="handleApply"
         >
@@ -147,7 +147,7 @@ interface Emits {
       packageId: PackageId
       name: string
       price: number
-    }
+    },
   ): void
 }
 
