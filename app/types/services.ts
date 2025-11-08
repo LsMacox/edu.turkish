@@ -56,6 +56,14 @@ export type SubServiceId =
   | 'translation-other-documents'
 
 /**
+ * Package identifiers for service packages (e.g., Standard, VIP)
+ * Used in PackageCard component for multi-tier service offerings
+ */
+export type PackageId =
+  | 'relocation-standard'
+  | 'relocation-vip'
+
+/**
  * Sub-service structure
  */
 export interface SubService {

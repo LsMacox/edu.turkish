@@ -45,7 +45,7 @@
 </template>
 
 <script setup lang="ts">
-import type { SubServiceId } from '~/types/services'
+import type { PackageId } from '~/types/services'
 import type { ServiceCategoryDetail } from '~~/server/types/api/services'
 import { useApplicationModalStore } from '~/stores/applicationModal'
 import { useExchangeRatesStore } from '~/stores/exchangeRates'
@@ -114,7 +114,7 @@ const handlePackageApply = ({
   packageId, 
   name
 }: { 
-  packageId: SubServiceId
+  packageId: PackageId
   name: string
   price: number
 }) => {
@@ -122,7 +122,7 @@ const handlePackageApply = ({
     source: 'service_page',
     description: name,
     serviceContext: {
-      subServiceId: packageId,
+      subServiceId: packageId as any,
       subServiceName: name,
       source: 'service-page',
       sourceDescription: name,
