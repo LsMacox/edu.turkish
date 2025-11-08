@@ -33,7 +33,7 @@ export const espocrmLeadEntitySchema = z
 export function parseLeadWebhookPayload(
   body: unknown,
 ): { event: 'create'; entity: Record<string, any> } {
-  let candidate: unknown = body
+  const candidate: unknown = body
 
   const entity = espocrmLeadEntitySchema.parse(candidate)
   return { event: 'create', entity: entity as any }
@@ -43,7 +43,7 @@ export function parseLeadWebhookPayload(
 export function parseLeadWebhookBatchPayload(
   body: unknown,
 ): { event: 'create'; entities: Record<string, any>[] } {
-  let candidate: unknown = body
+  const candidate: unknown = body
 
   if (Array.isArray(candidate)) {
     const entities = candidate.map((item) => espocrmLeadEntitySchema.parse(item))
@@ -79,7 +79,7 @@ export const espocrmCallEntitySchema = z
 export function parseCallWebhookPayload(
   body: unknown,
 ): { event: 'create'; entity: Record<string, any> } {
-  let candidate: unknown = body
+  const candidate: unknown = body
 
   const entity = espocrmCallEntitySchema.parse(candidate)
   return { event: 'create', entity: entity as any }
@@ -89,7 +89,7 @@ export function parseCallWebhookPayload(
 export function parseCallWebhookBatchPayload(
   body: unknown,
 ): { event: 'create'; entities: Record<string, any>[] } {
-  let candidate: unknown = body
+  const candidate: unknown = body
 
   if (Array.isArray(candidate)) {
     const entities = candidate.map((item) => espocrmCallEntitySchema.parse(item))
