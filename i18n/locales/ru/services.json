@@ -240,6 +240,7 @@
     "sat-courses": {
       "title": "Курсы SAT",
       "subtitle": "Экспертная подготовка к SAT для поступления в международные университеты",
+      "temporarilyUnavailable": "Услуги временно не доступны",
       "courseGoal": {
         "title": "Цель курса",
         "description": "Фокус на Digital SAT: стратегии, практика и стабильный прогресс.",

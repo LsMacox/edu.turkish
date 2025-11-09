@@ -120,7 +120,5 @@ interface Props {
   subServicesCols?: string
 }
 
-const { subServicesCols } = withDefaults(defineProps<Props>(), {
-  subServicesCols: 'md:grid-cols-2 lg:grid-cols-3',
-})
+const { subServicesCols = 'md:grid-cols-2 lg:grid-cols-3', title, subtitle } = defineProps<Props>()
 </script>

@@ -249,6 +249,7 @@
     "sat-courses": {
       "title": "SAT Kursları",
       "subtitle": "Uluslararası üniversitelere kabul için uzman SAT hazırlığı",
+      "temporarilyUnavailable": "Hizmet geçici olarak kullanılamıyor",
       "courseGoal": {
         "title": "Kurs Hedefi",
         "description": "Hedef üniversiteniz için rekabetçi bir SAT puanı elde etmenize yardımcı oluyoruz.",

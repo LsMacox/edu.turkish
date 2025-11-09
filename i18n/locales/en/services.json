@@ -241,6 +241,7 @@
     "sat-courses": {
       "title": "SAT Courses",
       "subtitle": "Expert SAT preparation for international university admissions",
+      "temporarilyUnavailable": "Service temporarily unavailable",
       "courseGoal": {
         "title": "Target Results",
         "description": "Focused on Digital SAT preparation with proven strategies for success.",
