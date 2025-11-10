@@ -12,7 +12,7 @@
     "lint:fix": "npm run lint -- --fix",
     "format": "prettier . --write",
     "format:check": "prettier . --check",
-    "typecheck": "vue-tsc --noEmit -p tsconfig.json",
+    "typecheck": "nuxt prepare && vue-tsc --noEmit -p tsconfig.json",
     "db:generate": "docker compose exec app npx prisma generate",
     "db:push": "docker compose exec app npx prisma db push",
     "db:migrate": "docker compose exec app npx prisma migrate dev",
@@ -27,7 +27,6 @@
     "test:watch": "vitest --watch",
     "translate": "docker compose exec app npx tsx scripts/translate.ts",
     "import:university": "docker compose exec app npx tsx scripts/import-university.ts",
-    "i18n:check": "docker compose exec app npx tsx scripts/i18n-check.ts",
     "find:unused": "npx knip"
   },
   "dependencies": {

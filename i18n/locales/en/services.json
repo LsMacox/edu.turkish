@@ -344,6 +344,7 @@
     "turkish-english-course": {
       "title": "Turkish & English Courses",
       "subtitle": "Language courses for students and professionals",
+      "temporarilyUnavailable": "Service temporarily unavailable",
       "levelProgression": {
         "title": "Your Level Progression",
         "levels": [

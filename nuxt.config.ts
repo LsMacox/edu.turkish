@@ -101,6 +101,28 @@ const featureComponentGroups = getFeatureDirs().flatMap((feature) => {
   return entries
 })
 
+const STATIC_LOCALE_PAGES = [
+  'about',
+  'faq',
+  'blog',
+  'contract',
+  'universities',
+  'reviews',
+  'privacy-policy',
+]
+
+const localized = (paths: string[]) =>
+  Object.fromEntries(
+    SUPPORTED_LOCALES.flatMap((l) => paths.map((p) => [`/${l}${p}`, { prerender: enablePrerender }])),
+  )
+
+const prerenderLocaleIndex = Object.fromEntries(
+  SUPPORTED_LOCALES.map((l) => [`/${l}`, { prerender: enablePrerender }]),
+)
+
+const prerenderLocaleStatics = localized(STATIC_LOCALE_PAGES.map((s) => `/${s}`))
+const prerenderLocaleWildcards = localized(['/university/**', '/articles/**'])
+
 export default defineNuxtConfig({
   ssr: true,
   compatibilityDate: '2025-07-15',
@@ -111,7 +133,7 @@ export default defineNuxtConfig({
     },
   },
   modules: [
-    '@pinia/nuxt',
+    ['@pinia/nuxt', { storesDirs: ['stores'], autoImports: ['defineStore', 'storeToRefs'] }],
     '@nuxt/eslint',
     '@nuxtjs/tailwindcss',
     ['@nuxt/icon', { collections: ['mdi', 'ph'] }],
@@ -199,6 +221,9 @@ export default defineNuxtConfig({
       pathPrefix: false,
     },
   ],
+  imports: {
+    dirs: ['stores'],
+  },
   app: {
     head: {
       // Let @nuxtjs/i18n manage the <html lang> attribute for correct SEO per-locale
@@ -261,56 +286,25 @@ export default defineNuxtConfig({
   },
   routeRules: {
     '/': { prerender: enablePrerender },
-    '/ru': { prerender: enablePrerender },
-    '/en': { prerender: enablePrerender },
-    '/kk': { prerender: enablePrerender },
-    '/tr': { prerender: enablePrerender },
-    '/ru/about': { prerender: enablePrerender },
-    '/ru/faq': { prerender: enablePrerender },
-    '/ru/blog': { prerender: enablePrerender },
-    '/ru/contract': { prerender: enablePrerender },
-    '/ru/universities': { prerender: enablePrerender },
-    '/ru/reviews': { prerender: enablePrerender },
-    '/ru/privacy-policy': { prerender: enablePrerender },
-    '/ru/university/**': { prerender: enablePrerender },
-    '/ru/articles/**': { prerender: enablePrerender },
-    '/en/about': { prerender: enablePrerender },
-    '/en/faq': { prerender: enablePrerender },
-    '/en/blog': { prerender: enablePrerender },
-    '/en/contract': { prerender: enablePrerender },
-    '/en/universities': { prerender: enablePrerender },
-    '/en/reviews': { prerender: enablePrerender },
-    '/en/privacy-policy': { prerender: enablePrerender },
-    '/en/university/**': { prerender: enablePrerender },
-    '/en/articles/**': { prerender: enablePrerender },
-    '/kk/about': { prerender: enablePrerender },
-    '/kk/faq': { prerender: enablePrerender },
-    '/kk/blog': { prerender: enablePrerender },
-    '/kk/contract': { prerender: enablePrerender },
-    '/kk/universities': { prerender: enablePrerender },
-    '/kk/reviews': { prerender: enablePrerender },
-    '/kk/privacy-policy': { prerender: enablePrerender },
-    '/kk/university/**': { prerender: enablePrerender },
-    '/kk/articles/**': { prerender: enablePrerender },
-    '/tr/about': { prerender: enablePrerender },
-    '/tr/faq': { prerender: enablePrerender },
-    '/tr/blog': { prerender: enablePrerender },
-    '/tr/contract': { prerender: enablePrerender },
-    '/tr/universities': { prerender: enablePrerender },
-    '/tr/reviews': { prerender: enablePrerender },
-    '/tr/privacy-policy': { prerender: enablePrerender },
-    '/tr/university/**': { prerender: enablePrerender },
-    '/tr/articles/**': { prerender: enablePrerender },
+    ...prerenderLocaleIndex,
+    ...prerenderLocaleStatics,
+    ...prerenderLocaleWildcards,
     '/api/v1/reviews/media': {
       cache: {
         maxAge: 60 * 10,
         swr: true,
       },
-      headers: { 'cache-control': 'public, max-age=600, stale-while-revalidate=3600' },
+      headers: {
+        'cache-control': 'public, max-age=600, stale-while-revalidate=3600',
+        'x-robots-tag': 'noindex',
+      },
     },
     '/api/**': {
       prerender: false,
-      headers: { 'cache-control': 'public, max-age=60, stale-while-revalidate=300' },
+      headers: {
+        'cache-control': 'public, max-age=60, stale-while-revalidate=300',
+        'x-robots-tag': 'noindex',
+      },
     },
     '/_ipx/**': {
       headers: { 'cache-control': 'public, max-age=31536000, immutable' },
@@ -318,8 +312,14 @@ export default defineNuxtConfig({
     '/_nuxt/**': {
       headers: { 'cache-control': 'public, max-age=31536000, immutable' },
     },
-    '/sitemap.xml': { prerender: enablePrerender },
-    '/__sitemap__/**': { prerender: enablePrerender },
+    '/sitemap.xml': {
+      prerender: enablePrerender,
+      headers: { 'x-robots-tag': 'noindex' },
+    },
+    '/__sitemap__/**': {
+      prerender: enablePrerender,
+      headers: { 'x-robots-tag': 'noindex' },
+    },
     /** Ensure all pages are indexable unless overridden */
     '/**': {
       headers: {

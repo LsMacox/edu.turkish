@@ -344,6 +344,7 @@
     "turkish-english-course": {
       "title": "Türkçe ve İngilizce Kursları",
       "subtitle": "Öğrenciler ve profesyoneller için dil kursları",
+      "temporarilyUnavailable": "Hizmet geçici olarak kullanılamıyor",
       "levelProgression": {
         "title": "Seviye İlerlemeniz",
         "levels": [

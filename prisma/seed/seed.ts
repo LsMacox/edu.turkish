@@ -60,7 +60,12 @@ const seeders: Record<string, Seeder> = {
   services: {
     name: 'services',
     description: 'Сервисы и подсервисы',
-    tables: [],
+    tables: [
+      'serviceCategory',
+      'serviceCategoryTranslation',
+      'subService',
+      'subServiceTranslation',
+    ],
     run: async (prisma) => await seedServices(prisma),
   },
 }

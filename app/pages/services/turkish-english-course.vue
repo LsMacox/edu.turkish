@@ -6,7 +6,9 @@
           {{ t('services.turkish-english-course.title') }}
         </h1>
         <div class="bg-white rounded-lg shadow-md p-8 mt-8">
-          <p class="text-xl text-gray-600">Услуги временно не доступны</p>
+          <p class="text-xl text-gray-600">
+            {{ t('services.turkish-english-course.temporarilyUnavailable') }}
+          </p>
         </div>
       </div>
     </div>

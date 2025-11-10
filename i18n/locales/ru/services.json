@@ -336,6 +336,7 @@
     "turkish-english-course": {
       "title": "Курсы турецкого и английского",
       "subtitle": "Языковые курсы для студентов и профессионалов",
+      "temporarilyUnavailable": "Услуги временно не доступны",
       "levelProgression": {
         "title": "Ваш прогресс по уровням",
         "levels": [
