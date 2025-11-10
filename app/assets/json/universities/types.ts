@@ -6,12 +6,11 @@
  * Базируется на примере файла `kent_university.json`.
  */
 
-// Базовые перечисления (синхронизированы со schema.prisma)
-export type UniversityType = 'state' | 'private' | 'tech' | 'elite'
-export type DegreeType = 'bachelor' | 'master' | 'phd'
+import type { UniversityType, DegreeType, ImportantDateType } from '@prisma/client'
+
+// Базовые перечисления (импортируются из Prisma schema как единственный источник истины)
+export type { UniversityType, DegreeType, ImportantDateType }
 export type ProgramLanguage = 'tr' | 'en'
-// Типы важной даты (ImportantDate.type)
-export type ImportantDateType = 'deadline' | 'event' | 'exam' | 'notification'
 
 // Внимание: структура JSON импорта не содержит массивов переводов.
 // Все строки считаются переданными в одном базовом locale (см. UniversityJson.locale)

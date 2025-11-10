@@ -25,7 +25,6 @@ export function toCdnUrl(path: string, cdnBaseUrl: string): string {
     return path
   }
 
-  // Return as-is if already an absolute URL (http://, https://, data:)
   if (path.startsWith('http://') || path.startsWith('https://') || path.startsWith('data:')) {
     return path
   }

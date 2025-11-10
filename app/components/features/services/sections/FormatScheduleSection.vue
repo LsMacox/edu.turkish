@@ -31,7 +31,7 @@ const props = withDefaults(defineProps<FormatScheduleSectionProps>(), {
   title: '',
 })
 
-const { t } = useI18n()
+const { t, te } = useI18n()
 
 const title = computed(() => props.title || t(`${props.keyPrefix}.title`))
 
@@ -63,13 +63,14 @@ const formatDetails = computed<FormatDetail[]>(() => {
 
   keys.forEach((key) => {
     const fullKey = `${props.keyPrefix}.${key}`
-    const raw = t(fullKey) as unknown as string
-    if (!raw || raw === fullKey) {
+    if (!te(fullKey)) {
       return
     }
+    const raw = t(fullKey) as unknown as string
     const labelKey = `${props.keyPrefix}.labels.${key}`
-    const labelCandidate = t(labelKey) as unknown as string
-    const label = labelCandidate && labelCandidate !== labelKey ? labelCandidate : formatKey(key)
+    const label = te(labelKey)
+      ? (t(labelKey) as unknown as string) || formatKey(key)
+      : formatKey(key)
     details.push({
       key,
       label,

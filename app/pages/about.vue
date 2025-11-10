@@ -1,12 +1,12 @@
 <template>
   <div>
     <AboutHeroSection />
-    <WhoWeAreSection />
-    <TeamSection />
-    <GuaranteesSection />
-    <StorySection />
-    <WhyChooseUsSection />
-    <ContactInfo />
+    <AboutWhoWeAreSection />
+    <AboutTeamSection />
+    <AboutGuaranteesSection />
+    <AboutStorySection />
+    <AboutWhyChooseUsSection />
+    <AboutContactInfo />
   </div>
 </template>
 

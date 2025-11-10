@@ -58,7 +58,7 @@
       </div>
 
       <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-        <UniversityCard
+        <UniversitiesUniversityCard
           v-for="university in displayedUniversities"
           :key="university.id"
           :title="university.title"

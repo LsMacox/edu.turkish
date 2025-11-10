@@ -56,7 +56,7 @@
             v-for="(review, idx) in mediaReviewItems"
             :key="review.id"
           >
-            <MediaReviewCard
+            <ReviewsMediaReviewCard
               :review="review"
               @play-video="() => openLightboxAt(idx)"
               @open-image="() => openLightboxAt(idx)"
@@ -82,7 +82,11 @@
     </div>
 
     <!-- Unified Media Lightbox (images + videos with navigation) -->
-    <MediaLightboxModal :items="mediaReviewItems" :index="activeIndex" @close="closeLightbox" />
+    <ReviewsMediaLightboxModal
+      :items="mediaReviewItems"
+      :index="activeIndex"
+      @close="closeLightbox"
+    />
   </section>
 </template>
 

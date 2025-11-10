@@ -23,21 +23,21 @@
     </div>
 
     <div class="p-4 md:p-6 flex flex-col flex-1">
-      <UniversityCardHeader
+      <UniversitiesUniversityCardHeader
         :title="title"
         :type="type"
         :type-label="typeLabel"
         :featured="featured"
       />
 
-      <UniversityCardDetails
+      <UniversitiesUniversityCardDetails
         :city="city"
         :languages="languages"
         :tuition="tuition"
         :badge="badge"
       />
 
-      <UniversityCardActions
+      <UniversitiesUniversityCardActions
         :detail-href="detailHref"
         :apply-label="$t('universities_page.card.apply_button')"
         :detail-label="$t('universities_page.card.details_button')"
@@ -48,10 +48,6 @@
 </template>
 
 <script setup lang="ts">
-import UniversityCardHeader from './UniversityCardHeader.vue'
-import UniversityCardDetails from './UniversityCardDetails.vue'
-import UniversityCardActions from './UniversityCardActions.vue'
-
 interface Props {
   title: string
   type?: string

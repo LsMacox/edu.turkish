@@ -53,7 +53,7 @@
     </section>
 
     <!-- Media Reviews Section (Video & Image Reviews) -->
-    <MediaReviewsSection />
+    <ReviewsMediaReviewsSection />
 
     <!-- Review Stats Section - Наши достижения в цифрах -->
     <section id="achievements" class="section-py-lg bg-white hidden md:block">
@@ -191,16 +191,16 @@
     </section>
 
     <!-- Student Stories -->
-    <StudentStoriesSection />
+    <ReviewsStudentStoriesSection />
 
     <!-- Parent Reviews -->
-    <ParentReviewsSection />
+    <ReviewsParentReviewsSection />
 
     <!-- Share Experience Form -->
-    <ShareExperience />
+    <ReviewsShareExperience />
 
     <!-- Next Review CTA -->
-    <NextReviewCTA />
+    <ReviewsNextReviewCTA />
   </div>
 </template>
 

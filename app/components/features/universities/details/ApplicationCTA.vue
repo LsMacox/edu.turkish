@@ -158,7 +158,7 @@
 <script setup lang="ts">
 import { useReferral } from '~/composables/useReferral'
 import { useServerValidation } from '~/composables/useServerValidation'
-import type { DegreeType } from '~/types/domain'
+import type { DegreeType } from '@prisma/client'
 
 const { show } = useToast()
 

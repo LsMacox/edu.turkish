@@ -325,7 +325,7 @@
 
 <script setup lang="ts">
 import { parsePositiveInt } from '~~/lib/number'
-import type { UserType } from '~/types/domain'
+import type { UserType } from '@prisma/client'
 import { useServerValidation } from '~/composables/useServerValidation'
 const { t } = useI18n()
 

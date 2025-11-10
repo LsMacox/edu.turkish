@@ -1,5 +1,5 @@
 import { defineStore } from 'pinia'
-import type { DegreeType } from '../types/domain'
+import type { DegreeType } from '@prisma/client'
 import type {
   University,
   UniversityQueryParams,

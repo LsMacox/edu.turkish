@@ -153,21 +153,6 @@
 </template>
 
 <script setup lang="ts">
-/**
- * BaseTextField Component Script
- *
- * Provides enhanced text input functionality with:
- * - Real-time validation and error handling
- * - Accessibility features (ARIA labels, screen reader support)
- * - Responsive design with mobile-optimized touch targets
- * - Icon support with customizable positioning
- * - Clearable input option
- * - Multiple input types (text, email, password, etc.)
- *
- * @author edu.turkish development team
- * @since 1.0.0
- */
-
 import type { BaseTextFieldProps } from '~/types/ui'
 
 // Generate unique ID for the input

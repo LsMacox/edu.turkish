@@ -23,7 +23,7 @@
 
       <!-- Price -->
       <div class="mb-4">
-        <CurrencyPrice :price-usd="price" size="lg" />
+        <ServicesCurrencyPrice :price-usd="price" size="lg" />
       </div>
 
       <!-- Services List -->

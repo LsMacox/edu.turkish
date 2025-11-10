@@ -1,14 +1,14 @@
 <template>
   <div>
     <HomeHeroSection />
-    <WhoSection />
-    <HowSection />
-    <UniversitiesSection />
-    <ServicesSection />
-    <ReviewsSection />
-    <FearsSection />
-    <BlogSection />
-    <FinalCtaSection :deadline="applicationDeadline" />
+    <HomeWhoSection />
+    <HomeHowSection />
+    <HomeUniversitiesSection />
+    <HomeServicesSection />
+    <HomeReviewsSection />
+    <HomeFearsSection />
+    <HomeBlogSection />
+    <HomeFinalCtaSection :deadline="applicationDeadline" />
   </div>
 </template>
 

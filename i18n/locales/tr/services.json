@@ -15,6 +15,7 @@
       "week": "Hafta",
       "day": "Gün",
       "days": "gün",
+      "months": "ay",
       "phase": "Aşama",
       "documentType": "Belge Türü",
       "languagePair": "Dil Çifti",
@@ -157,24 +158,14 @@
       "subtitle": "Türk üniversitelerine giriş sınavlarına profesyonel hazırlık",
       "courseGoal": {
         "title": "Kurs Hedefi",
-        "description": "Sizi hedef fakültenize kabul için yeterli bir puana TR-YÖS'e hazırlayacağız.",
+        "description": "Seçtiğiniz fakülteye kabul için yeterli olacak en yüksek puana TR-YÖS'te ulaşmanız için hazırlarız — en rekabetçi programlar dahil. Her öğrenci eşit derecede güçlü bir müfredat alır ve sonuç hazırlık düzeyine ve seçilen öğrenme formatına bağlıdır.",
         "packages": [
-          {
-            "name": "Temel",
-            "targetScore": "50-60"
-          },
-          {
-            "name": "Standart",
-            "targetScore": "60-70"
-          },
-          {
-            "name": "Premium",
-            "targetScore": "70+"
-          }
+          { "name": "Temel", "targetScore": "300+" },
+          { "name": "Bireysel", "targetScore": "350+" }
         ]
       },
       "programContent": {
-        "title": "Programın İçeriği",
+        "title": "Programa Neler Dahil?",
         "items": [
           {
             "title": "Teori",
@@ -183,65 +174,71 @@
           },
           {
             "title": "Pratik",
-            "description": "Gerçek sınav koşullarıyla 12 tam deneme sınavı",
+            "description": "Teori sırasında detaylı açıklamalarla birçok problem çözülür",
             "icon": "mdi:pencil"
           },
           {
             "title": "Hata Analizi",
-            "description": "Aldığınız her test için kişiselleştirilmiş geri bildirim",
+            "description": "Tamamlanan testler hakkında kişisel geri bildirim",
             "icon": "mdi:chart-line"
           },
           {
             "title": "Materyaller",
-            "description": "500+ problem ve detaylı notlar içeren görev bankası",
+            "description": "500+ problemden oluşan görev bankası",
             "icon": "mdi:folder"
           }
         ]
       },
       "formatSchedule": {
-        "title": "Format ve Program",
-        "format": "Çevrimiçi veya yüz yüze, grup (10'a kadar) veya bireysel",
-        "duration": "8 hafta (24 ders)",
-        "homework": "Evet, detaylı inceleme ve geri bildirimle",
-        "support": "Eğitmenlerle Telegram sohbeti aracılığıyla oturumlar arası"
+        "title": "Format",
+        "labels": {
+          "format": "Format",
+          "recordings": "Kayıtlar",
+          "platform": "Platform",
+          "support": "Destek"
+        },
+        "format": "Rusça dersler",
+        "recordings": "Ders kayıtları öğrencilerimize açık",
+        "platform": "Herhangi bir cihazdan çevrimiçi öğrenme",
+        "support": "7/24 destek"
       },
       "studentResults": {
-        "title": "Öğrenci Sonuçları",
-        "labels": {
-          "before": "Önce",
-          "after": "Sonra",
-          "duration": "Süre",
-          "admittedTo": "Kabul edildi"
-        },
-        "cases": [
-          {
-            "before": 42,
-            "after": 68,
-            "duration": "8 hafta",
-            "proof": "/images/tr-yos-case-1.png"
-          },
-          {
-            "before": 55,
-            "after": 72,
-            "duration": "6 hafta",
-            "proof": "/images/tr-yos-case-2.png"
-          }
+        "title": "Maksimum Sonuçlar",
+        "maxResults": [
+          { "package": "Bireysel", "score": "424/500" },
+          { "package": "Grup", "score": "372/500" }
         ]
       },
       "faq": {
         "title": "Sık Sorulan Sorular",
         "items": [
           {
-            "question": "Matematik seviyem zayıfsa başlayabilir miyim?",
-            "answer": "Evet, temel paketimiz sıfırdan başlar. Seviye testi yapıyoruz ve size uygun grubu öneriyoruz."
+            "question": "'Temel' ve 'Bireysel' paketler arasındaki fark nedir?",
+            "answer": "Müfredat herkes için aynıdır ve yüksek TR-YÖS puanı hedefler. Fark, grup büyüklüğü ve öğretmenin dikkat düzeyindedir. 'Temel'de 10 kişiye kadar vardır, 'Bireysel' format ise kişisel dersler içerir."
           },
           {
-            "question": "Deneme sınavları gerçek TR-YÖS'e ne kadar benziyor?",
-            "answer": "Deneme sınavlarımız gerçek TR-YÖS formatını, zorluk seviyesini ve zamanlama koşullarını taklit eder."
+            "question": "Kurs ne kadar sürer?",
+            "answer": "7+ aydan fazla."
           },
           {
-            "question": "Bireysel dersler alabilir miyim?",
-            "answer": "Evet, bireysel dersler mevcuttur. Zayıf yönlerinize odaklanmak için özelleştirilmiş bir program oluştururuz."
+            "question": "Deneme dersleri mevcut mu?",
+            "answer": "Evet, isterseniz deneme dersine katılabilir ve öğretmenin yaklaşımını tanıyabilirsiniz."
+          },
+          {
+            "question": "Programa neler dahil?",
+            "answer": "Tam TR-YÖS hazırlık kursu: matematik, mantık, geometri, problem çözme, sınav stratejisi, deneme testleri vb."
+          },
+          {
+            "question": "Bir dersi kaçırırsam ne olur?",
+            "answer": "Gruplarda ders kayıtları sağlanır. Bireysel formatta dersi ertelemek mümkündür."
+          },
+          {
+            "question": "Kurstan sonra gerçekçi olarak kaç puan alabilirim?",
+            "answer": "Her şey öğrencinin seviyesine ve çabasına bağlıdır. Program, düzenli katılım ve ödev tamamlama ile 350+ puana hazırlık için tasarlanmıştır!"
+          },
+          {
+            "question": "Öğrenim formatı çevrimiçi mi yoksa yüz yüze mi?",
+            "answer": "Eğitim, canlı dersler ve sürekli geri bildirimle çevrimiçi yapılır."
           }
         ]
       }

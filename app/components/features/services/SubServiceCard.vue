@@ -8,7 +8,7 @@
         <h3 class="text-xl font-bold text-secondary mb-2">
           {{ name }}
         </h3>
-        <p class="text-gray-600 text-sm leading-relaxed">
+        <p class="text-gray-600 text-sm leading-relaxed whitespace-pre-line">
           {{ description }}
         </p>
       </div>
@@ -17,7 +17,7 @@
       <div class="mt-auto space-y-4">
         <div class="flex items-baseline justify-between">
           <span class="text-sm text-gray-500">{{ $t('services.common.price') }}</span>
-          <CurrencyPrice :pricing="pricing" :price-usd="priceUsd" size="lg" />
+          <ServicesCurrencyPrice :pricing="pricing" :price-usd="priceUsd" size="lg" />
         </div>
 
         <!-- Delivery timeframe -->

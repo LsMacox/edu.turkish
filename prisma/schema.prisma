@@ -739,6 +739,11 @@ enum ReviewType {
   parent
 }
 
+enum UserType {
+  student
+  parent
+}
+
 enum MediaReviewType {
   text
   video

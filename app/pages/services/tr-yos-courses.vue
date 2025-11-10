@@ -1,59 +1,44 @@
 <template>
-  <ServicePageLayout
-    :title="category?.title || t('services.tr-yos-courses.title')"
-    :subtitle="category?.subtitle || t('services.tr-yos-courses.subtitle')"
+  <ServicesPageLayout
+    :title="t('services.tr-yos-courses.title')"
+    :subtitle="t('services.tr-yos-courses.subtitle')"
   >
     <template #sub-services>
-      <SubServiceCard
-        v-for="subService in subServices"
-        :key="subService.id"
-        :sub-service-id="subService.id"
-        :name="subService.name"
-        :description="subService.description"
-        :price-usd="subService.priceUsd"
-        :delivery-time="subService.deliveryTime"
+      <ServicesSubServiceCard
+        v-for="sub in subServices"
+        :key="sub.id"
+        :sub-service-id="sub.id"
+        :name="sub.name"
+        :description="sub.description"
+        :price-usd="sub.priceUsd"
         @apply="handleApply"
       />
     </template>
 
     <template #course-goal>
-      <CourseGoalSection
-        key-prefix="services.tr-yos-courses.courseGoal"
-        :title="metadataPath('courseGoal.title')"
-      />
+      <ServicesCourseGoalSection key-prefix="services.tr-yos-courses.courseGoal" />
     </template>
 
     <template #program-content>
-      <ProgramContentSection
-        key-prefix="services.tr-yos-courses.programContent"
-        :title="metadataPath('programContent.title')"
-      />
+      <ServicesProgramContentSection key-prefix="services.tr-yos-courses.programContent" />
     </template>
 
     <template #format-schedule>
-      <FormatScheduleSection
-        key-prefix="services.tr-yos-courses.formatSchedule"
-        :title="metadataPath('formatSchedule.title')"
-      />
+      <ServicesFormatScheduleSection key-prefix="services.tr-yos-courses.formatSchedule" />
     </template>
 
     <template #student-results>
-      <StudentResultsSection
-        key-prefix="services.tr-yos-courses.studentResults"
-        :title="metadataPath('studentResults.title')"
-      />
+      <ServicesStudentResultsSection key-prefix="services.tr-yos-courses.studentResults" />
     </template>
 
     <template #faq>
-      <ServiceFAQSection
-        key-prefix="services.tr-yos-courses.faq"
-        :title="metadataPath('faq.title')"
-      />
+      <ServicesFAQSection key-prefix="services.tr-yos-courses.faq" />
     </template>
-  </ServicePageLayout>
+  </ServicesPageLayout>
 </template>
 
 <script setup lang="ts">
+import { useI18n } from 'vue-i18n'
 import type { SubServiceId } from '~/types/services'
 import type { ServiceCategoryDetail } from '~~/server/types/api/services'
 import { useApplicationModalStore } from '~/stores/applicationModal'
@@ -65,32 +50,23 @@ const modal = useApplicationModalStore()
 const exchangeRatesStore = useExchangeRatesStore()
 const { fetchCategory } = useServices()
 
-// Fetch category data from database
 const { data: category } = await useAsyncData<ServiceCategoryDetail>(
   'tr-yos-courses',
   () => fetchCategory('tr-yos-courses'),
-  {
-    lazy: false,
-  },
+  { lazy: false },
 )
 
-// Ensure exchange rates are fresh
 onMounted(async () => {
   await exchangeRatesStore.ensureFresh()
 })
 
-// Map database sub-services to component format
 const subServices = computed(() => {
   if (!category.value?.subServices) return []
-
-  return category.value.subServices.map((subService) => ({
-    id: subService.slug as SubServiceId,
-    name: subService.name,
-    description: subService.description,
-    priceUsd: subService.priceUsd,
-    deliveryTime: subService.deliveryTimeDays
-      ? `${subService.deliveryTimeDays} ${t('services.common.days')}`
-      : undefined,
+  return category.value.subServices.map((sub) => ({
+    id: sub.slug as SubServiceId,
+    name: sub.name,
+    description: sub.description,
+    priceUsd: sub.priceUsd,
   }))
 })
 
@@ -105,22 +81,6 @@ const handleApply = ({ subServiceId, name }: { subServiceId: SubServiceId; name:
       sourceDescription: name,
     },
   })
-}
-
-// Helper to safely read structured metadata
-function metadataPath<T = any>(path: string): T | undefined {
-  const meta = category.value?.metadata as Record<string, unknown> | undefined | null
-  if (!meta) return undefined
-  const parts = path.split('.')
-  let node: any = meta
-  for (const part of parts) {
-    if (node && typeof node === 'object' && part in node) {
-      node = (node as any)[part]
-    } else {
-      return undefined
-    }
-  }
-  return node as T
 }
 
 useHead({
