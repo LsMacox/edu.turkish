@@ -1,5 +1,5 @@
 import type { UniversityStudyDirection } from '~~/server/types/api/universities'
-import type { DegreeType } from '~/types/domain'
+import type { DegreeType } from '@prisma/client'
 
 export interface UniversityProgram {
   name: string
@@ -54,7 +54,6 @@ export interface UniversityDetailFrontend {
       title?: string
     }>
     facilities: Array<{
-      id: number
       name: string
       description: string
       type: string
@@ -64,27 +63,23 @@ export interface UniversityDetailFrontend {
   }
   admission?: {
     requirements: Array<{
-      id: number
       category: string
       requirement: string
       is_mandatory: boolean
       details?: string
     }>
     documents: Array<{
-      id: number
       name: string
       description: string
       is_mandatory: boolean
       format_requirements?: string[]
     }>
     deadlines: Array<{
-      id: number
       event: string
       date: string
       deadline_type: 'application' | 'document' | 'exam' | 'notification'
     }>
     scholarships: Array<{
-      id: number
       name: string
       type: 'government' | 'university' | 'private'
       coverage_percentage: number

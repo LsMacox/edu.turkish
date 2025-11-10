@@ -1,5 +1,4 @@
-import type { Prisma, PrismaClient } from '@prisma/client'
-import type { DegreeType, UniversityType } from '~/types/domain'
+import type { Prisma, PrismaClient, DegreeType, UniversityType } from '@prisma/client'
 import type {
   University,
   UniversityDetail,

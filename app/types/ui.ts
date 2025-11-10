@@ -15,7 +15,6 @@ export interface BaseButtonProps {
   type?: 'button' | 'submit' | 'reset'
   href?: string
   to?: string | object
-  // Enhanced accessibility
   ariaLabel?: string
   ariaDescribedBy?: string
   ariaPressed?: boolean
@@ -23,7 +22,6 @@ export interface BaseButtonProps {
   ariaHaspopup?: boolean | 'false' | 'true' | 'menu' | 'listbox' | 'tree' | 'grid' | 'dialog'
   ariaControls?: string
   tabIndex?: number
-  // Enhanced interaction
   preventDefault?: boolean
   stopPropagation?: boolean
   loadingText?: string
@@ -36,7 +34,6 @@ export interface BaseBadgeProps {
   icon?: string
   removable?: boolean
   removeLabel?: string
-  // Enhanced properties
   dot?: boolean
   pulse?: boolean
   outlined?: boolean
@@ -52,7 +49,6 @@ export interface BaseCardProps {
   clickable?: boolean
   href?: string
   to?: string | object
-  // Enhanced accessibility
   ariaLabel?: string
   ariaDescribedBy?: string
   ariaPressed?: boolean
@@ -151,20 +147,16 @@ export interface BaseTextFieldProps {
   readonly?: boolean
   icon?: string
   iconPosition?: 'left' | 'right'
-  // Enhanced validation
   validation?: FormFieldValidation
-  // Enhanced accessibility
   ariaLabel?: string
   ariaDescribedBy?: string
   ariaRequired?: boolean
   ariaInvalid?: boolean
-  // Input constraints
   min?: string | number
   max?: string | number
   step?: string | number
   maxlength?: number | string
   autocomplete?: string
-  // Enhanced styling
   clearable?: boolean
   rounded?: 'sm' | 'md' | 'lg' | 'xl' | '2xl'
   size?: Size

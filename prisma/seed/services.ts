@@ -79,24 +79,21 @@ const SERVICES_SEED: Record<(typeof CATEGORY_SLUGS)[number], CategorySeed> = {
   },
   'tr-yos-courses': {
     title: 'Курсы TR-YÖS',
+    subtitle: 'Профессиональная подготовка к вступительным экзаменам в турецкие университеты',
     subServices: {
-      basic: {
+      'basic-package': {
         name: 'Базовый',
-        description: '8 недель, группа до 10 человек, пробные экзамены',
-        priceUsd: 299,
-        deliveryTimeDays: 56,
+        description:
+          'Длительность: 7+ месяцев\nГруппа: до 10 человек\nПрограмма: полная подготовка по всем темам\nГрафик: 3 занятия в неделю',
+        priceUsd: 300,
+        deliveryTimeDays: 210,
       },
-      standard: {
-        name: 'Стандарт',
-        description: 'Больше практики и разборов. Подготовка к 60–70 баллам',
-        priceUsd: 499,
-        deliveryTimeDays: 56,
-      },
-      premium: {
-        name: 'Премиум',
-        description: 'Индивидуальные занятия и план под вас. Цель 70+',
-        priceUsd: 799,
-        deliveryTimeDays: 56,
+      'individual-package': {
+        name: 'Индивидуальный',
+        description:
+          'Длительность: 7+ месяцев\nФормат: индивидуальные занятия\nПрограмма: та же база + адаптация под твой уровень\nГрафик: 3 занятия в неделю',
+        priceUsd: 700,
+        deliveryTimeDays: 210,
       },
     },
   },

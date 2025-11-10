@@ -15,6 +15,7 @@
       "week": "Week",
       "day": "Day",
       "days": "days",
+      "months": "months",
       "phase": "Phase",
       "documentType": "Document Type",
       "languagePair": "Language Pair",
@@ -157,83 +158,87 @@
       "subtitle": "Professional preparation for Turkish university entrance exams",
       "courseGoal": {
         "title": "Course Goal",
-        "description": "We'll prepare you for TR-YÖS to a score sufficient for admission to your target faculty.",
+        "description": "We prepare for TR-YÖS to achieve the highest possible score sufficient for admission to your chosen faculty — including the most competitive programs. Every student receives an equally strong curriculum, and the result depends on their preparation level and chosen learning format.",
         "packages": [
-          { "name": "Basic", "targetScore": "50-60" },
-          { "name": "Standard", "targetScore": "60-70" },
-          { "name": "Premium", "targetScore": "70+" }
+          { "name": "Basic", "targetScore": "300+" },
+          { "name": "Individual", "targetScore": "350+" }
         ]
       },
-
       "programContent": {
-        "title": "What's Inside the Program",
+        "title": "What's Included in the Program?",
         "items": [
           {
             "title": "Theory",
-            "description": "Mathematics, logic, and geometry fundamentals",
+            "description": "Fundamentals of mathematics, logic, and geometry",
             "icon": "mdi:book-open"
           },
           {
             "title": "Practice",
-            "description": "12 full mock exams with real exam conditions",
+            "description": "Many problems solved during theory sessions with detailed explanations",
             "icon": "mdi:pencil"
           },
           {
             "title": "Error Analysis",
-            "description": "Personalized feedback on every test you take",
+            "description": "Personal feedback on completed tests",
             "icon": "mdi:chart-line"
           },
           {
             "title": "Materials",
-            "description": "Task bank with 500+ problems and detailed notes",
+            "description": "Task bank with 500+ problems",
             "icon": "mdi:folder"
           }
         ]
       },
       "formatSchedule": {
-        "title": "Format & Schedule",
-        "format": "Online or in-person, group (up to 10) or individual",
-        "duration": "8 weeks (24 lessons)",
-        "homework": "Yes, with detailed review and feedback",
-        "support": "Between sessions via Telegram chat with instructors"
+        "title": "Format",
+        "labels": {
+          "format": "Format",
+          "recordings": "Recordings",
+          "platform": "Platform",
+          "support": "Support"
+        },
+        "format": "Lessons in Russian",
+        "recordings": "Lesson recordings available to our students",
+        "platform": "Online learning from any device",
+        "support": "24/7 support"
       },
       "studentResults": {
-        "title": "Student Results",
-        "labels": {
-          "before": "Before",
-          "after": "After",
-          "duration": "Duration",
-          "admittedTo": "Admitted to"
-        },
-        "cases": [
-          {
-            "before": 42,
-            "after": 68,
-            "duration": "8 weeks",
-            "proof": "/images/tr-yos-case-1.png"
-          },
-          {
-            "before": 55,
-            "after": 72,
-            "duration": "6 weeks",
-            "proof": "/images/tr-yos-case-2.png"
-          }
+        "title": "Maximum Results",
+        "maxResults": [
+          { "package": "Individual", "score": "424/500" },
+          { "package": "Group", "score": "372/500" }
         ]
       },
       "faq": {
         "title": "Frequently Asked Questions",
         "items": [
           {
-            "question": "How do I register for the TR-YÖS exam?",
-            "answer": "Registration opens in February on university websites. We'll guide you through the entire registration process."
+            "question": "What's the difference between 'Basic' and 'Individual' packages?",
+            "answer": "The curriculum is the same for everyone and aims for a high TR-YÖS score. The difference lies in the group size and level of instructor attention. 'Basic' has up to 10 people, while 'Individual' format involves personal lessons."
           },
           {
-            "question": "Can I retake the exam if I'm not satisfied with my score?",
-            "answer": "Yes, you can take TR-YÖS at multiple universities. Each university has its own exam, so you have multiple chances."
+            "question": "How long is the course?",
+            "answer": "More than 7+ months."
           },
           {
-            "question": "Can I reschedule lessons if I have a conflict?",
-            "answer": "Yes, with 24 hours notice. We'll find a makeup time that works for both you and the instructor."
+            "question": "Are trial lessons available?",
+            "answer": "Yes, if desired, you can attend a trial lesson and familiarize yourself with the instructor's approach."
+          },
+          {
+            "question": "What's included in the program?",
+            "answer": "Full TR-YÖS preparation course: mathematics, logic, geometry, problem solving, exam strategy, practice tests, etc."
+          },
+          {
+            "question": "What if I miss a lesson?",
+            "answer": "In groups, lesson recordings are provided. In individual format, it's possible to reschedule the lesson."
+          },
+          {
+            "question": "How many points can I realistically score after the course?",
+            "answer": "Everything depends on the student's level and effort. The program is designed for preparation to 350+ points with regular participation and homework completion!"
+          },
+          {
+            "question": "Is the learning format online or offline?",
+            "answer": "The training is conducted online, with live lessons and constant feedback."
           }
         ]
       }

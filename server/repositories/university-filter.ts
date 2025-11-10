@@ -1,5 +1,4 @@
-import type { Prisma } from '@prisma/client'
-import type { DegreeType, UniversityType } from '~/types/domain'
+import type { Prisma, DegreeType, UniversityType } from '@prisma/client'
 import { SUPPORTED_LOCALES } from '~~/lib/locales'
 import type { University } from '~~/server/types/api'
 import type { NormalizedLocale } from '../utils/locale'
