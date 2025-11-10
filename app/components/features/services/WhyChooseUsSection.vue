@@ -8,7 +8,7 @@
       />
 
       <div class="grid grid-cols-1 md:grid-cols-3 gap-6 sm:gap-8 max-w-5xl mx-auto">
-        <TrustFactor v-for="(factor, index) in factors" :key="index" :factor="factor" />
+        <ServicesTrustFactor v-for="(factor, index) in factors" :key="index" :factor="factor" />
       </div>
     </div>
   </section>

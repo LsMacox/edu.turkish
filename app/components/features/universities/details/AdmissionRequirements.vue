@@ -101,7 +101,7 @@
             <div class="space-y-3">
               <div
                 v-for="deadline in importantDates"
-                :key="deadline.id"
+                :key="deadline.key"
                 class="flex justify-between items-center p-3 border-l-4 border-red-500 bg-red-50 rounded-lg"
               >
                 <div>
@@ -123,26 +123,22 @@
 <script setup lang="ts">
 // Local minimal types to avoid cross-import issues
 interface ScholarshipItem {
-  id: number
   name: string
   type: string
   coverage_percentage: number
 }
 interface DocumentItem {
-  id: number
   name: string
   description?: string
   is_mandatory: boolean
   format_requirements?: string[]
 }
 interface RequirementItem {
-  id: number
   category: string
   requirement: string
   details?: string
 }
 interface DeadlineItem {
-  id: number
   event: string
   date: string
   deadline_type: 'application' | 'document' | 'exam' | 'notification'
@@ -169,9 +165,8 @@ const props = withDefaults(defineProps<Props>(), {
 
 // Transform API data for UI display
 const requiredDocuments = computed(() => {
-  return props.admission.documents.map((doc: DocumentItem) => ({
-    id: doc.id,
-    key: `doc_${doc.id}`,
+  return props.admission.documents.map((doc: DocumentItem, index: number) => ({
+    key: `doc_${index}`,
     title: doc.name,
     description: doc.description,
     isMandatory: doc.is_mandatory,
@@ -183,8 +178,7 @@ const examRequirements = computed(() => {
   return props.admission.requirements
     .filter((req: RequirementItem) => req.category === 'exam' || req.category === 'language')
     .map((req: RequirementItem, index: number) => ({
-      id: req.id,
-      key: `req_${req.id}`,
+      key: `req_${index}`,
       title: req.requirement,
       description: req.details || '',
       details: req.details || '',
@@ -215,8 +209,7 @@ const scholarships = computed(() => {
   })
 
   return props.admission.scholarships.map((scholarship: ScholarshipItem, index: number) => ({
-    id: scholarship.id,
-    key: `scholarship_${scholarship.id}`,
+    key: `scholarship_${index}`,
     name: scholarship.name,
     discount: `${upTo.value} ${scholarship.coverage_percentage}%`,
     type: scholarship.type,
@@ -225,8 +218,8 @@ const scholarships = computed(() => {
 })
 
 const importantDates = computed(() => {
-  return props.admission.deadlines.map((deadline: DeadlineItem) => ({
-    id: deadline.id,
+  return props.admission.deadlines.map((deadline: DeadlineItem, index: number) => ({
+    key: `deadline_${index}`,
     event: deadline.event,
     date: deadline.date,
     type: deadline.deadline_type,

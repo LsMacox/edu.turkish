@@ -1,12 +1,12 @@
 <template>
-  <ServicePageLayout
+  <ServicesPageLayout
     :title="category?.title || t('services.relocation-in-turkey.title')"
     :subtitle="category?.subtitle || t('services.relocation-in-turkey.subtitle')"
     sub-services-cols="md:grid-cols-2 lg:grid-cols-2"
   >
     <template #sub-services>
       <!-- Standard Package -->
-      <PackageCard
+      <ServicesPackageCard
         v-if="standardPackage"
         package-id="relocation-standard"
         :name="standardPackage.name"
@@ -18,7 +18,7 @@
       />
 
       <!-- VIP Package -->
-      <PackageCard
+      <ServicesPackageCard
         v-if="vipPackage"
         package-id="relocation-vip"
         :name="vipPackage.name"
@@ -33,15 +33,15 @@
     </template>
 
     <template #why-choose-us>
-      <SettlementBenefitsSection key-prefix="services.relocation-in-turkey.benefits" />
+      <ServicesSettlementBenefitsSection key-prefix="services.relocation-in-turkey.benefits" />
     </template>
 
     <template #faq>
-      <SettlementRisksSection key-prefix="services.relocation-in-turkey.risks" />
+      <ServicesSettlementRisksSection key-prefix="services.relocation-in-turkey.risks" />
 
-      <ServiceFAQSection key-prefix="services.relocation-in-turkey.faq" class="mt-16" />
+      <ServicesFAQSection key-prefix="services.relocation-in-turkey.faq" class="mt-16" />
     </template>
-  </ServicePageLayout>
+  </ServicesPageLayout>
 </template>
 
 <script setup lang="ts">

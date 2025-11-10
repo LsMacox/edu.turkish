@@ -2,7 +2,20 @@
   <div class="mt-16">
     <BaseSectionHeader :title="title" />
 
-    <div v-if="cases.length > 0" class="mt-8 grid gap-8 md:grid-cols-2">
+    <!-- Max Results style (for TR-YÖS) -->
+    <div v-if="maxResults.length > 0" class="mt-8 grid gap-6 md:grid-cols-2">
+      <div
+        v-for="(result, index) in maxResults"
+        :key="index"
+        class="bg-white border border-gray-200 rounded-lg p-6 hover:shadow-lg transition-shadow text-center"
+      >
+        <p class="text-lg text-gray-700 mb-2">{{ result.package }}</p>
+        <p class="text-4xl font-bold text-primary">{{ result.score }}</p>
+      </div>
+    </div>
+
+    <!-- Cases style (for before/after or score) -->
+    <div v-else-if="cases.length > 0" class="mt-8 grid gap-8 md:grid-cols-2">
       <div
         v-for="(caseStudy, index) in cases"
         :key="index"
@@ -68,7 +81,7 @@ const props = withDefaults(defineProps<StudentResultsSectionProps>(), {
   showProof: false,
 })
 
-const { t, tm } = useI18n()
+const { t, tm, locale: _locale, messages: _messages } = useI18n()
 
 const title = computed(() => props.title || t(`${props.keyPrefix}.title`))
 
@@ -79,13 +92,32 @@ const labels = computed(() => ({
   admittedTo: t(`${props.keyPrefix}.labels.admittedTo`),
 }))
 
+const maxResults = computed(() => {
+  const rawMaxResults = tm(`${props.keyPrefix}.maxResults`) as any
+
+  // Ensure rawMaxResults is an array
+  if (!rawMaxResults || !Array.isArray(rawMaxResults)) {
+    return []
+  }
+
+  return rawMaxResults.map((_: any, index: number) => ({
+    package: t(`${props.keyPrefix}.maxResults.${index}.package`),
+    score: t(`${props.keyPrefix}.maxResults.${index}.score`),
+  }))
+})
+
 const cases = computed(() => {
   // Use tm() to read the array of case objects directly. Using t() for numeric
   // fields like before/after returns the key string fallback, so we must read
   // structured values from the raw message instead.
-  const rawCases = (tm(`${props.keyPrefix}.cases`) || []) as Record<string, unknown>[]
+  const rawCases = tm(`${props.keyPrefix}.cases`) as any
 
-  return rawCases.map((item) => {
+  // Ensure rawCases is an array
+  if (!rawCases || !Array.isArray(rawCases)) {
+    return []
+  }
+
+  return (rawCases as Record<string, unknown>[]).map((item) => {
     const caseStudy: CaseStudy = {}
 
     const before = (item as any).before

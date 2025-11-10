@@ -6,7 +6,9 @@
           {{ t('services.sat-courses.title') }}
         </h1>
         <div class="bg-white rounded-lg shadow-md p-8 mt-8">
-          <p class="text-xl text-gray-600">{{ t('services.sat-courses.temporarilyUnavailable') }}</p>
+          <p class="text-xl text-gray-600">
+            {{ t('services.sat-courses.temporarilyUnavailable') }}
+          </p>
         </div>
       </div>
     </div>

@@ -1,5 +1,5 @@
 <template>
-  <ServicePageLayout
+  <ServicesPageLayout
     :title="category?.title || t('services.document-translations.title')"
     :subtitle="category?.subtitle || t('services.document-translations.subtitle')"
   >
@@ -8,7 +8,7 @@
         v-if="serviceCards && serviceCards.length > 0"
         class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6"
       >
-        <ServiceInfoCard
+        <ServicesInfoCard
           v-for="(card, index) in serviceCards"
           :key="index"
           :title="card.title"
@@ -19,7 +19,7 @@
     </template>
 
     <template #price-calculator>
-      <PriceCalculatorSection
+      <ServicesPriceCalculatorSection
         key-prefix="services.document-translations.calculator"
         :document-types-with-prices="metadataPath('calculator.documentTypes')"
         :language-pairs="metadataPath('calculator.languagePairs')"
@@ -29,7 +29,7 @@
     </template>
 
     <template #how-it-works>
-      <HowItWorksSection :steps="howItWorksSteps" />
+      <ServicesHowItWorksSection :steps="howItWorksSteps" />
     </template>
 
     <template #why-choose-us>
@@ -37,14 +37,14 @@
     </template>
 
     <template #final-cta>
-      <FinalCTASection
+      <ServicesFinalCTASection
         :title="t('services.document-translations.finalCTA.title')"
         :button-text="t('services.document-translations.finalCTA.button')"
         :icon="t('services.document-translations.finalCTA.icon')"
         :service-name="t('services.document-translations.shortTitle')"
       />
     </template>
-  </ServicePageLayout>
+  </ServicesPageLayout>
 </template>
 
 <script setup lang="ts">

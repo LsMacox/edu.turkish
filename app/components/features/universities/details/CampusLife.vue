@@ -31,8 +31,8 @@
           <template v-if="realFacilities.length > 0">
             <!-- Реальные объекты инфраструктуры из API -->
             <div
-              v-for="facility in realFacilities"
-              :key="facility.id"
+              v-for="(facility, index) in realFacilities"
+              :key="`facility-${index}`"
               class="bg-white rounded-xl shadow-custom p-6 text-center hover-lift"
             >
               <div
@@ -96,7 +96,6 @@ const props = defineProps<Props>()
 
 // Локальный UI-тип для объектов инфраструктуры (добавляем необязательное поле icon)
 type FacilityItemUI = {
-  id: number | string
   name: string
   description: string
   type?: string | null
