@@ -109,8 +109,8 @@ async function countRelated(universityId: number) {
     prisma.universityScholarship.count({ where: { universityId } }),
     prisma.universityScholarshipTranslation.count({ where: { scholarship: { universityId } } }),
     prisma.universityStudyDirection.count({ where: { universityId } }),
-    (prisma as any).universityMedia.count({ where: { universityId } }),
-    (prisma as any).universityMediaTranslation.count({ where: { media: { universityId } } }),
+    (prisma as any).universityMediaAsset.count({ where: { universityId } }),
+    (prisma as any).universityMediaAssetTranslation.count({ where: { media: { universityId } } }),
     prisma.universityReview.count({ where: { universityId } }),
     prisma.universityReviewTranslation.count({ where: { review: { universityId } } }),
   ])
