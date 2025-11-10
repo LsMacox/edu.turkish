@@ -34,6 +34,73 @@ function getLocaleFiles(localeCode: string): string[] {
   return files
 }
 
+function toPascalCase(str: string): string {
+  return str
+    .replace(/(^|[-_\s]+)([a-zA-Z0-9])/g, (_, __, c) => String(c).toUpperCase())
+    .replace(/[^a-zA-Z0-9]/g, '')
+}
+
+function getFeatureDirs(): string[] {
+  const base = path.join('app', 'components', 'features')
+  try {
+    return fs
+      .readdirSync(base, { withFileTypes: true })
+      .filter((d) => d.isDirectory())
+      .map((d) => d.name)
+  } catch {
+    return []
+  }
+}
+
+function hasVueFiles(dir: string): boolean {
+  try {
+    return fs.readdirSync(dir).some((f) => f.endsWith('.vue'))
+  } catch {
+    return false
+  }
+}
+
+const featureComponentGroups = getFeatureDirs().flatMap((feature) => {
+  const prefix = toPascalCase(feature)
+  const baseAbs = path.join('app', 'components', 'features', feature)
+
+  const entries: Array<{ path: string; prefix: string; pathPrefix: boolean }> = []
+
+  // Register immediate subdirectories individually (e.g., components, sections)
+  try {
+    const children = fs.readdirSync(baseAbs, { withFileTypes: true })
+    for (const child of children) {
+      if (child.isDirectory()) {
+        entries.push({
+          path: `~/components/features/${feature}/${child.name}`,
+          prefix,
+          pathPrefix: false,
+        })
+      }
+    }
+  } catch {}
+
+  // If the feature root contains .vue files directly, register it too
+  if (hasVueFiles(baseAbs)) {
+    entries.push({
+      path: `~/components/features/${feature}`,
+      prefix,
+      pathPrefix: false,
+    })
+  }
+
+  // Fallback: if no entries created (e.g., empty folders), still add base to avoid missing imports
+  if (entries.length === 0) {
+    entries.push({
+      path: `~/components/features/${feature}`,
+      prefix,
+      pathPrefix: false,
+    })
+  }
+
+  return entries
+})
+
 export default defineNuxtConfig({
   ssr: true,
   compatibilityDate: '2025-07-15',
@@ -121,14 +188,7 @@ export default defineNuxtConfig({
       path: '~/components/layout',
       global: true,
     },
-    {
-      path: '~/components/modals',
-      global: true,
-    },
-    {
-      path: '~/components/features',
-      pathPrefix: false,
-    },
+    ...featureComponentGroups,
     {
       path: '~/components/ui',
       prefix: 'Ui',
@@ -136,6 +196,7 @@ export default defineNuxtConfig({
     {
       path: '~/components/shared',
       global: true,
+      pathPrefix: false,
     },
   ],
   app: {
