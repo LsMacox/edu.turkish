@@ -44,6 +44,16 @@
               :loading="loading"
               @load-more="loadMoreArticles"
             />
+
+            <div class="mt-8">
+              <UiPagination
+                :page="currentPage"
+                :page-count="pagination?.totalPages || 1"
+                :disabled="loading"
+                :always-show="true"
+                @update:page="changePage"
+              />
+            </div>
           </div>
 
           <!-- Sidebar -->
@@ -90,6 +100,7 @@ const {
   searchQuery,
   currentPage,
   error,
+  pagination,
   popular,
   totalArticles,
   totalFAQs,
@@ -513,6 +524,20 @@ const loadMoreArticles = async () => {
   const response = await blogStore.loadMore()
   if (response && response.data.length > 0) {
     syncRoute({ page: currentPage.value })
+  }
+}
+
+const changePage = async (page: number) => {
+  if (page === currentPage.value || loading.value) {
+    return
+  }
+  blogStore.setPage(page)
+  const response = await blogStore.fetchArticles({ page })
+  if (response) {
+    syncRoute({ page })
+    if (typeof window !== 'undefined') {
+      window.scrollTo({ top: 0, behavior: 'smooth' })
+    }
   }
 }
 
