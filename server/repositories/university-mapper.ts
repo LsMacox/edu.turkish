@@ -21,6 +21,7 @@ import {
   selectTranslation,
   getSlugForLocale,
   decimalToNumber,
+  asRecord,
   extractStringRecord,
   extractStringArray,
   resolveSupportedLocale,
@@ -267,7 +268,7 @@ export const mapUniversityDetail = (
     badge: generateBadge(university),
   })
   const translation = selectTranslation(university.translations, locale)
-  const aboutRecord = (extractStringRecord(translation?.about) ?? {}) as Record<string, unknown>
+  const aboutRecord = (asRecord(translation?.about) ?? {}) as Record<string, unknown>
   const { categories: featuredProgramCategories, categoryNames } = buildFeaturedPrograms(
     university.featuredPrograms,
     locale,
