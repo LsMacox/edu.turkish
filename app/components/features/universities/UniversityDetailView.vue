@@ -273,19 +273,19 @@
     </section>
 
     <!-- Academic Programs Section -->
-    <AcademicPrograms :programs="university.academicPrograms" />
+    <UniversitiesAcademicPrograms :programs="university.academicPrograms" />
 
     <!-- Admission Requirements Section -->
-    <AdmissionRequirements :admission="university.admission" />
+    <UniversitiesAdmissionRequirements :admission="university.admission" />
 
     <!-- Campus Life Section -->
-    <CampusLife :university="university" />
+    <UniversitiesCampusLife :university="university" />
 
     <!-- FAQ Section -->
-    <FAQ :key="locale" />
+    <UniversitiesFAQ :key="locale" />
 
     <!-- Application CTA Section -->
-    <ApplicationCTA :university="university" />
+    <UniversitiesApplicationCTA :university="university" />
 
     <!-- Application Modal is mounted globally in default layout -->
   </div>

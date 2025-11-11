@@ -2,7 +2,7 @@
   <div>
     <!-- University details (Client-only to fully avoid SSR hydration mismatch) -->
     <ClientOnly>
-      <UniversityDetailView v-if="university" :university="university" />
+      <UniversitiesUniversityDetailView v-if="university" :university="university" />
       <template #fallback>
         <div class="bg-white" />
       </template>
