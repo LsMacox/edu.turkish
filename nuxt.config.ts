@@ -113,7 +113,9 @@ const STATIC_LOCALE_PAGES = [
 
 const localized = (paths: string[]) =>
   Object.fromEntries(
-    SUPPORTED_LOCALES.flatMap((l) => paths.map((p) => [`/${l}${p}`, { prerender: enablePrerender }])),
+    SUPPORTED_LOCALES.flatMap((l) =>
+      paths.map((p) => [`/${l}${p}`, { prerender: enablePrerender }]),
+    ),
   )
 
 const prerenderLocaleIndex = Object.fromEntries(
