@@ -25,7 +25,11 @@
     },
     "team": {
       "title": "Our team",
-      "subtitle": "Professionals who know everything about admission to Turkish universities"
+      "subtitle": "Professionals who know everything about admission to Turkish universities",
+      "links": {
+        "linkedin": "Open {name}'s LinkedIn profile",
+        "whatsapp": "Message {name} on WhatsApp"
+      }
     },
     "guarantees": {
       "title": "Our guarantees",

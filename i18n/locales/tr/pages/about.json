@@ -25,7 +25,11 @@
     },
     "team": {
       "title": "Ekibimiz",
-      "subtitle": "Türk üniversitelerine kabul hakkında her şeyi bilen profesyoneller"
+      "subtitle": "Türk üniversitelerine kabul hakkında her şeyi bilen profesyoneller",
+      "links": {
+        "linkedin": "{name}'in LinkedIn profilini aç",
+        "whatsapp": "{name} ile WhatsApp'ta sohbet başlat"
+      }
     },
     "guarantees": {
       "title": "Garantilerimiz",
