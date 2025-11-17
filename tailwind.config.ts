@@ -4,10 +4,7 @@ import animate from 'tailwindcss-animate'
 export default {
   content: [
     './app/**/*.{vue,js,ts}',
-    './components/**/*.{vue,js,ts}',
-    './pages/**/*.{vue,js,ts}',
-    './layouts/**/*.{vue,js,ts}',
-    './plugins/**/*.{js,ts}',
+    './server/**/*.{js,ts}',
   ],
   safelist: [
     // Typography classes

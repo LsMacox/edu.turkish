@@ -11,7 +11,6 @@ const siteUrl = (/^https?:\/\//i.test(rawSiteUrl) ? rawSiteUrl : `https://${rawS
 )
 
 const enablePrerender = process.env.NITRO_PRERENDER === 'true'
-const isProduction = process.env.NODE_ENV === 'production'
 
 function getLocaleFiles(localeCode: string): string[] {
   const localeDir = path.join('i18n/locales', localeCode)
@@ -37,7 +36,7 @@ function getLocaleFiles(localeCode: string): string[] {
 function toPascalCase(str: string): string {
   return str
     .replace(/(^|[-_\s]+)([a-zA-Z0-9])/g, (_, __, c) => String(c).toUpperCase())
-    .replace(/[^a-zA-Z0-9]/g, '')
+    .replace(/[^a-zA-Z0-9]/g, '');
 }
 
 function getFeatureDirs(): string[] {
@@ -128,7 +127,7 @@ const prerenderLocaleWildcards = localized(['/university/**', '/articles/**'])
 export default defineNuxtConfig({
   ssr: true,
   compatibilityDate: '2025-07-15',
-  devtools: { enabled: true },
+  devtools: { enabled: false },
   vite: {
     build: {
       cssCodeSplit: true,
@@ -158,8 +157,9 @@ export default defineNuxtConfig({
     [
       '@nuxt/fonts',
       {
-        provider: isProduction ? 'google' : 'local',
+        provider: 'local',
         defaults: {
+          display: 'swap',
           fallbacks: {
             'sans-serif': ['system-ui', 'Arial'],
           },
@@ -203,7 +203,6 @@ export default defineNuxtConfig({
         autoLastmod: true,
       },
     ],
-    ['nuxt-swiper', { bundled: true, enableComposables: true }],
   ],
   css: ['./app/assets/css/tailwind.css'],
   // Enhanced component auto-import configuration
