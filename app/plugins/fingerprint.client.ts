@@ -16,50 +16,60 @@ export default defineNuxtPlugin(() => {
     )}; Path=/; Max-Age=${maxAge}; SameSite=Lax${secure}`
   }
 
-  // If we already have fp, refresh cookie TTL and exit
-  const existing =
-    getCookie('fp') || (typeof localStorage !== 'undefined' ? localStorage.getItem('fp') : null)
-  if (existing) {
-    setCookie('fp', existing)
-    try {
-      localStorage.setItem('fp', existing)
-    } catch {
-      // Ignore localStorage errors
-    }
-    return
-  }
+  let inFlight: Promise<string | null> | null = null
 
-  const loadFingerprint = async () => {
-    try {
-      const FingerprintJS = (await import('@fingerprintjs/fingerprintjs')).default
-      const fpLib = await FingerprintJS.load()
-      const result = await fpLib.get()
-      const visitorId = result.visitorId
-      setCookie('fp', visitorId)
+  const ensureFingerprint = async (): Promise<string | null> => {
+    const existing =
+      getCookie('fp') || (typeof localStorage !== 'undefined' ? localStorage.getItem('fp') : null)
+    if (existing) {
+      setCookie('fp', existing)
       try {
-        localStorage.setItem('fp', visitorId)
+        localStorage.setItem('fp', existing)
       } catch {
         // Ignore localStorage errors
       }
-    } catch {
-      // Fingerprint library failed
-      // Fallback: random token to avoid empty value
-      const fallback = Math.random().toString(36).slice(2) + Date.now().toString(36)
-      setCookie('fp', fallback)
-      try {
-        localStorage.setItem('fp', fallback)
-      } catch {
-        // Ignore localStorage errors
-      }
+      return existing
     }
+
+    if (inFlight) {
+      return inFlight
+    }
+
+    inFlight = (async () => {
+      try {
+        const FingerprintJS = (await import('@fingerprintjs/fingerprintjs')).default
+        const fpLib = await FingerprintJS.load()
+        const result = await fpLib.get()
+        const visitorId = result.visitorId
+        setCookie('fp', visitorId)
+        try {
+          localStorage.setItem('fp', visitorId)
+        } catch {
+          // Ignore localStorage errors
+        }
+        return visitorId
+      } catch {
+        // Fingerprint library failed
+        // Fallback: random token to avoid empty value
+        const fallback = Math.random().toString(36).slice(2) + Date.now().toString(36)
+        setCookie('fp', fallback)
+        try {
+          localStorage.setItem('fp', fallback)
+        } catch {
+          // Ignore localStorage errors
+        }
+        return fallback
+      } finally {
+        inFlight = null
+      }
+    })()
+
+    return inFlight
   }
 
-  if (typeof window !== 'undefined' && 'requestIdleCallback' in window) {
-    ;(
-      window as typeof window & { requestIdleCallback: (cb: () => void) => number }
-    ).requestIdleCallback(loadFingerprint)
-    return
+  return {
+    provide: {
+      ensureFingerprint,
+    },
   }
-
-  setTimeout(loadFingerprint, 0)
 })

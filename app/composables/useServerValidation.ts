@@ -10,16 +10,31 @@ export const useServerValidation = () => {
   const { t } = useI18n()
 
   const translateErrorCode = (code: string, meta?: Record<string, any>, field?: string): string => {
+    // 1) Поле-специфичные ошибки: errors.json -> fields.{path}.{code}
     if (field) {
-      const fieldKey = `errors.fields.${field}.${code}`
-      const fieldMsg = meta ? t(fieldKey, meta) : t(fieldKey, code)
+      const fieldKey = `fields.${field}.${code}`
+      const fieldMsg = meta ? t(fieldKey, meta) : t(fieldKey)
       if (typeof fieldMsg === 'string' && fieldMsg !== fieldKey) {
         return fieldMsg
       }
     }
 
-    const key = `errors.${code}`
-    return meta ? t(key, meta) : t(key, code)
+    // 2) Общие ошибки по коду: errors.json -> {code}
+    const genericKey = code
+    const genericMsg = meta ? t(genericKey, meta) : t(genericKey)
+    if (typeof genericMsg === 'string' && genericMsg !== genericKey) {
+      return genericMsg
+    }
+
+    // 3) Fallback для возможных legacy-ключей вида errors.code
+    const legacyKey = `errors.${code}`
+    const legacyMsg = meta ? t(legacyKey, meta) : t(legacyKey)
+    if (typeof legacyMsg === 'string' && legacyMsg !== legacyKey) {
+      return legacyMsg
+    }
+
+    // 4) Сам код как крайний вариант (для отладки)
+    return code
   }
 
   const handleValidationError = (error: any) => {
