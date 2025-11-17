@@ -1,5 +1,5 @@
 <template>
-  <section id="hero" class="relative overflow-hidden section-py-lg">
+  <section id="hero" class="relative overflow-hidden pt-3 pb-10 md:py-20">
     <div class="absolute inset-0">
       <NuxtImg
         :src="cdnUrl('d837748f-0c70-4c7f-a6af-771cd41e8cfb.jpg')"
