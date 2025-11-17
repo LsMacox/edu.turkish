@@ -362,6 +362,13 @@ useSeoMeta({
   description: computed(
     () => article.value?.seoDescription ?? article.value?.excerpt ?? defaultDescription.value,
   ),
+  keywords: computed(() => {
+    const tags = article.value?.tags ?? []
+    if (!tags.length) {
+      return undefined
+    }
+    return tags.join(', ')
+  }),
   ogTitle: computed(() => article.value?.title ?? defaultTitle.value),
   ogDescription: computed(
     () => article.value?.seoDescription ?? article.value?.excerpt ?? defaultDescription.value,
