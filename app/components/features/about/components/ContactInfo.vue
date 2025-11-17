@@ -26,6 +26,7 @@
               :href="channels?.whatsapp?.href"
               target="_blank"
               class="bg-green-500 text-white px-6 py-3 rounded-xl font-semibold hover:bg-green-600 transition-colors"
+              @click.prevent="handleSocialClick(channels?.whatsapp?.href)"
             >
               {{ $t('about.contact.channels.whatsapp.button') }}
             </a>
@@ -45,6 +46,7 @@
               :href="channels?.telegramBot?.href"
               target="_blank"
               class="bg-blue-500 text-white px-6 py-3 rounded-xl font-semibold hover:bg-blue-600 transition-colors"
+              @click.prevent="handleSocialClick(channels?.telegramBot?.href)"
             >
               {{ $t('about.contact.channels.telegram.button') }}
             </a>
@@ -73,6 +75,15 @@
 
 <script setup lang="ts">
 import { useContactChannels } from '~/composables/useContactChannels'
+import { useFingerprint } from '~/composables/useFingerprint'
 
 const { channels } = useContactChannels()
+
+const { openWithFingerprint } = useFingerprint()
+
+const handleSocialClick = async (href?: string) => {
+  if (!href) return
+
+  await openWithFingerprint(href, '_blank')
+}
 </script>

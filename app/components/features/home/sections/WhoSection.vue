@@ -1,20 +1,31 @@
 <template>
-  <section id="who-are-you" class="section-py bg-background">
-    <div class="container">
-      <div class="max-w-4xl mx-auto">
+  <section
+    id="who-are-you"
+    :class="[!props.inModal ? 'section-py bg-background mt-10 md:mt-16' : '']"
+  >
+    <div :class="[props.inModal ? '' : 'container']">
+      <div :class="[props.inModal ? '' : 'max-w-4xl mx-auto']">
         <BaseSectionHeader
+          v-if="!props.inModal"
           :title="t('home.who.title')"
           :subtitle="t('home.who.subtitle')"
           align="center"
           margin-bottom="lg"
         />
-        <div class="card-surface space-y-5 md:space-y-8">
+        <div
+          :class="[
+            'space-y-5 md:space-y-8',
+            props.inModal ? 'flex flex-col min-h-[60vh]' : 'card-surface',
+          ]"
+        >
           <div class="space-y-4">
-            <h3 class="text-card-title hidden md:block">{{ t('home.who.title') }}</h3>
+            <h3 v-if="!props.inModal" class="text-card-title hidden md:block">
+              {{ t('home.who.title') }}
+            </h3>
             <div class="grid md:grid-cols-2 gap-2.5 md:gap-4">
               <button
                 :class="[
-                  'p-3 md:p-6 border-2 rounded-xl md:hover:scale-105 transition-all text-left min-h-touch-44 md:min-h-auto',
+                  'p-3 md:p-4 border-2 rounded-xl md:hover:scale-105 transition-all text-left min-h-touch-44 md:min-h-auto',
                   answers.userType === 'student'
                     ? 'border-primary bg-red-50'
                     : 'border-gray-200 hover:border-primary hover:bg-red-50',
@@ -31,7 +42,7 @@
               </button>
               <button
                 :class="[
-                  'p-3 md:p-6 border-2 rounded-xl md:hover:scale-105 transition-all text-left min-h-touch-44 md:min-h-auto',
+                  'p-3 md:p-4 border-2 rounded-xl md:hover:scale-105 transition-all text-left min-h-touch-44 md:min-h-auto',
                   answers.userType === 'parent'
                     ? 'border-primary bg-red-50'
                     : 'border-gray-200 hover:border-primary hover:bg-red-50',
@@ -56,7 +67,7 @@
             <div class="grid md:grid-cols-2 gap-2.5 md:gap-4">
               <button
                 :class="[
-                  'p-2.5 md:p-4 border-2 rounded-xl transition-all min-h-touch-44 md:min-h-auto text-sm md:text-base',
+                  'p-3 md:p-4 border-2 rounded-xl transition-all min-h-touch-44 md:min-h-auto text-sm md:text-base',
                   answers.universityChosen === 'yes'
                     ? 'border-primary bg-red-50'
                     : 'border-gray-200 hover:border-primary hover:bg-red-50',
@@ -67,7 +78,7 @@
               </button>
               <button
                 :class="[
-                  'p-2.5 md:p-4 border-2 rounded-xl transition-all min-h-touch-44 md:min-h-auto text-sm md:text-base',
+                  'p-3 md:p-4 border-2 rounded-xl transition-all min-h-touch-44 md:min-h-auto text-sm md:text-base',
                   answers.universityChosen === 'no'
                     ? 'border-primary bg-red-50'
                     : 'border-gray-200 hover:border-primary hover:bg-red-50',
@@ -86,7 +97,7 @@
             <div class="grid md:grid-cols-2 gap-2.5 md:gap-4">
               <button
                 :class="[
-                  'p-2.5 md:p-4 border-2 rounded-xl transition-all min-h-touch-44 md:min-h-auto text-sm md:text-base',
+                  'p-3 md:p-4 border-2 rounded-xl transition-all min-h-touch-44 md:min-h-auto text-sm md:text-base',
                   answers.language === 'turkish'
                     ? 'border-primary bg-red-50'
                     : 'border-gray-200 hover:border-primary hover:bg-red-50',
@@ -97,7 +108,7 @@
               </button>
               <button
                 :class="[
-                  'p-2.5 md:p-4 border-2 rounded-xl transition-all min-h-touch-44 md:min-h-auto text-sm md:text-base',
+                  'p-3 md:p-4 border-2 rounded-xl transition-all min-h-touch-44 md:min-h-auto text-sm md:text-base',
                   answers.language === 'english'
                     ? 'border-primary bg-red-50'
                     : 'border-gray-200 hover:border-primary hover:bg-red-50',
@@ -116,7 +127,7 @@
             <div class="grid md:grid-cols-2 gap-2.5 md:gap-4">
               <button
                 :class="[
-                  'p-2.5 md:p-4 border-2 rounded-xl transition-all min-h-touch-44 md:min-h-auto text-sm md:text-base',
+                  'p-3 md:p-4 border-2 rounded-xl transition-all min-h-touch-44 md:min-h-auto text-sm md:text-base',
                   answers.scholarship === 'yes'
                     ? 'border-primary bg-red-50'
                     : 'border-gray-200 hover:border-primary hover:bg-red-50',
@@ -127,7 +138,7 @@
               </button>
               <button
                 :class="[
-                  'p-2.5 md:p-4 border-2 rounded-xl transition-all min-h-touch-44 md:min-h-auto text-sm md:text-base',
+                  'p-3 md:p-4 border-2 rounded-xl transition-all min-h-touch-44 md:min-h-auto text-sm md:text-base',
                   answers.scholarship === 'no'
                     ? 'border-primary bg-red-50'
                     : 'border-gray-200 hover:border-primary hover:bg-red-50',
@@ -154,20 +165,34 @@
             </div>
           </div>
 
-          <div class="pt-6 flex flex-col sm:flex-row items-center justify-center gap-2 md:gap-3">
+          <div
+            :class="[
+              'flex flex-col sm:flex-row items-center justify-center gap-2 md:gap-2.5',
+              props.inModal ? 'mt-auto pt-3 md:pt-4' : 'pt-5',
+            ]"
+          >
             <button
               v-if="isFormComplete"
-              class="bg-primary text-white px-5 py-2.5 md:px-8 md:py-4 rounded-xl font-semibold text-sm md:text-lg hover:bg-red-600 transition-all shadow-lg w-full sm:w-auto min-h-touch-44 md:min-h-touch-48"
+              class="bg-primary text-white px-4 py-2 md:px-6 md:py-3 rounded-xl font-semibold text-sm md:text-lg hover:bg-red-600 transition-all shadow-lg w-full sm:w-auto min-h-touch-44 md:min-h-touch-48"
               @click="openApplicationForm"
             >
               {{ t('home.who.get_offer') }}
             </button>
             <NuxtLink
+              v-if="!props.inModal"
               to="#universities"
-              class="bg-white border-2 border-primary text-primary px-5 py-2.5 md:px-8 md:py-4 rounded-xl font-semibold text-sm md:text-lg hover:bg-primary hover:text-white transition-all w-full sm:w-auto min-h-touch-44 md:min-h-touch-48 text-center"
+              class="bg-white border-2 border-primary text-primary px-4 py-2 md:px-6 md:py-3 rounded-xl font-semibold text-sm md:text-lg hover:bg-primary hover:text-white transition-all w-full sm:w-auto min-h-touch-44 md:min-h-touch-48 text-center"
             >
               {{ t('home.who.view_universities') }}
             </NuxtLink>
+            <button
+              v-else
+              type="button"
+              class="bg-white border-2 border-primary text-primary px-4 py-2 md:px-6 md:py-3 rounded-xl font-semibold text-sm md:text-lg hover:bg-primary hover:text-white transition-all w-full sm:w-auto min-h-touch-44 md:min-h-touch-48 text-center"
+              @click="handleViewUniversitiesClick"
+            >
+              {{ t('home.who.view_universities') }}
+            </button>
           </div>
         </div>
       </div>
@@ -178,6 +203,19 @@
 <script setup lang="ts">
 // Step-by-step questionnaire section with logic
 import { useApplicationModalStore } from '~/stores/applicationModal'
+
+const props = withDefaults(
+  defineProps<{
+    inModal?: boolean
+  }>(),
+  {
+    inModal: false,
+  },
+)
+
+const emit = defineEmits<{
+  (e: 'view-universities-click'): void
+}>()
 
 const { t } = useI18n()
 
@@ -230,5 +268,9 @@ const openApplicationForm = () => {
   } as any
 
   modal.openModal(questionnairePreferences)
+}
+
+const handleViewUniversitiesClick = () => {
+  emit('view-universities-click')
 }
 </script>

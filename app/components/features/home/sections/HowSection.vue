@@ -1,5 +1,5 @@
 <template>
-  <section id="how-it-works" class="section-py">
+  <section id="how-it-works" v-scroll-reveal class="section-py bg-background">
     <div class="container">
       <BaseSectionHeader
         :title="t('home.how.title')"
@@ -7,45 +7,91 @@
         align="center"
         margin-bottom="lg"
       />
-      <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
-        <div class="text-center space-y-4 group hover:scale-105 transition-transform duration-300">
-          <div
-            class="w-16 h-16 bg-blue-100 rounded-2xl grid place-items-center mx-auto group-hover:bg-blue-200 transition-colors"
-          >
-            <Icon name="mdi:magnify" class="text-blue-600 text-2xl" />
+      <div class="relative grid md:grid-cols-2 lg:grid-cols-4 gap-10">
+        <div
+          class="pointer-events-none absolute top-16 left-0 right-0 hidden lg:block"
+        >
+          <div class="mx-16 border-t border-dashed border-gray-200" />
+        </div>
+
+        <div
+          v-scroll-reveal
+          class="flex flex-col items-center text-center space-y-4 group hover:scale-105 transition-transform duration-300"
+        >
+          <div class="flex flex-col items-center space-y-3">
+            <div
+              class="hidden md:flex items-center justify-center w-10 h-10 rounded-full bg-primary/10 text-primary font-semibold text-xl"
+            >
+              1
+            </div>
+            <div
+              class="w-16 h-16 rounded-full border border-blue-100 bg-blue-50 grid place-items-center mx-auto group-hover:bg-blue-100 transition-colors"
+            >
+              <Icon name="mdi:magnify" class="text-blue-600 text-2xl" />
+            </div>
           </div>
           <div class="space-y-2">
             <h3 class="text-card-title">{{ t('home.how.step1_title') }}</h3>
             <p class="text-card-body">{{ t('home.how.step1_desc') }}</p>
           </div>
         </div>
-        <div class="text-center space-y-4 group hover:scale-105 transition-transform duration-300">
-          <div
-            class="w-16 h-16 bg-green-100 rounded-2xl grid place-items-center mx-auto group-hover:bg-green-200 transition-colors"
-          >
-            <Icon name="mdi:pencil" class="text-green-600 text-2xl" />
+
+        <div
+          class="flex flex-col items-center text-center space-y-4 group hover:scale-105 transition-transform duration-300"
+        >
+          <div class="flex flex-col items-center space-y-3">
+            <div
+              class="hidden md:flex items-center justify-center w-10 h-10 rounded-full bg-primary/10 text-primary font-semibold text-xl"
+            >
+              2
+            </div>
+            <div
+              class="w-16 h-16 rounded-full border border-green-100 bg-green-50 grid place-items-center mx-auto group-hover:bg-green-100 transition-colors"
+            >
+              <Icon name="mdi:pencil" class="text-green-600 text-2xl" />
+            </div>
           </div>
           <div class="space-y-2">
             <h3 class="text-card-title">{{ t('home.how.step2_title') }}</h3>
             <p class="text-card-body">{{ t('home.how.step2_desc') }}</p>
           </div>
         </div>
-        <div class="text-center space-y-4 group hover:scale-105 transition-transform duration-300">
-          <div
-            class="w-16 h-16 bg-purple-100 rounded-2xl grid place-items-center mx-auto group-hover:bg-purple-200 transition-colors"
-          >
-            <Icon name="mdi:email" class="text-purple-600 text-2xl" />
+
+        <div
+          class="flex flex-col items-center text-center space-y-4 group hover:scale-105 transition-transform duration-300"
+        >
+          <div class="flex flex-col items-center space-y-3">
+            <div
+              class="hidden md:flex items-center justify-center w-10 h-10 rounded-full bg-primary/10 text-primary font-semibold text-xl"
+            >
+              3
+            </div>
+            <div
+              class="w-16 h-16 rounded-full border border-purple-100 bg-purple-50 grid place-items-center mx-auto group-hover:bg-purple-100 transition-colors"
+            >
+              <Icon name="mdi:email" class="text-purple-600 text-2xl" />
+            </div>
           </div>
           <div class="space-y-2">
             <h3 class="text-card-title">{{ t('home.how.step3_title') }}</h3>
             <p class="text-card-body">{{ t('home.how.step3_desc') }}</p>
           </div>
         </div>
-        <div class="text-center space-y-4 group hover:scale-105 transition-transform duration-300">
-          <div
-            class="w-16 h-16 bg-orange-100 rounded-2xl grid place-items-center mx-auto group-hover:bg-orange-200 transition-colors"
-          >
-            <Icon name="mdi:airplane" class="text-orange-600 text-2xl" />
+
+        <div
+          class="flex flex-col items-center text-center space-y-4 group hover:scale-105 transition-transform duration-300"
+        >
+          <div class="flex flex-col items-center space-y-3">
+            <div
+              class="hidden md:flex items-center justify-center w-10 h-10 rounded-full bg-primary/10 text-primary font-semibold text-xl"
+            >
+              4
+            </div>
+            <div
+              class="w-16 h-16 rounded-full border border-orange-100 bg-orange-50 grid place-items-center mx-auto group-hover:bg-orange-100 transition-colors"
+            >
+              <Icon name="mdi:airplane" class="text-orange-600 text-2xl" />
+            </div>
           </div>
           <div class="space-y-2">
             <h3 class="text-card-title">{{ t('home.how.step4_title') }}</h3>

@@ -13,10 +13,14 @@
 
         <div class="grid lg:grid-cols-2 gap-16 items-center">
           <div>
-            <img
+            <NuxtImg
               class="w-full h-80 object-cover rounded-2xl shadow-custom"
               :src="cdnUrl('0683f4da-e558-4c40-a747-a24f0fdbc535.png')"
               :alt="$t('about.story.imageAlt')"
+              loading="lazy"
+              decoding="async"
+              sizes="(max-width: 1024px) 100vw, 50vw"
+              format="webp"
             />
           </div>
           <div class="space-y-6">

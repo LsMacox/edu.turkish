@@ -39,7 +39,7 @@
     <template #faq>
       <ServicesSettlementRisksSection key-prefix="services.relocation-in-turkey.risks" />
 
-      <ServicesFAQSection key-prefix="services.relocation-in-turkey.faq" class="mt-16" />
+      <ServicesFAQSection key-prefix="services.relocation-in-turkey.faq" />
     </template>
   </ServicesPageLayout>
 </template>

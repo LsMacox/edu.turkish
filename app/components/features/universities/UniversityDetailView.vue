@@ -3,10 +3,13 @@
     <!-- Hero Section -->
     <section class="relative h-[600px] bg-gradient-to-br from-blue-50 to-purple-50">
       <div class="absolute inset-0">
-        <img
+        <NuxtImg
           class="w-full h-full object-cover opacity-20"
           :src="university.heroImage"
           :alt="`${university.name} campus`"
+          sizes="100vw"
+          decoding="async"
+          format="webp"
         />
       </div>
       <div class="relative z-10 container mx-auto px-4 lg:px-6 h-full flex items-center">
@@ -47,6 +50,7 @@
               :href="whatsappChannel.href"
               target="_blank"
               class="bg-green-500 text-white px-8 py-4 rounded-xl font-semibold text-lg hover:bg-green-600 transition-all shadow-lg flex items-center justify-center space-x-2"
+              @click.prevent="handleWhatsappClick"
             >
               <Icon name="ph:whatsapp-logo" />
               <span>{{ $t('universityDetail.whatsappButton') }}</span>
@@ -295,6 +299,7 @@
 import type { UniversityDetailFrontend } from '~/types/university-detail'
 import { useApplicationModalStore } from '~/stores/applicationModal'
 import { useContactChannels } from '~/composables/useContactChannels'
+import { useFingerprint } from '~/composables/useFingerprint'
 
 interface Props {
   university: UniversityDetailFrontend
@@ -309,4 +314,13 @@ const { openModal: openApplicationModal } = applicationModalStore
 
 const { getChannel } = useContactChannels()
 const whatsappChannel = getChannel('whatsapp')
+
+const { openWithFingerprint } = useFingerprint()
+
+const handleWhatsappClick = async () => {
+  const href = whatsappChannel.value?.href
+  if (!href) return
+
+  await openWithFingerprint(href, '_blank')
+}
 </script>

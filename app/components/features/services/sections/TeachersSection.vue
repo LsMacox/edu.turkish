@@ -13,10 +13,14 @@
         class="rounded-lg border border-gray-200 bg-white p-6 shadow-sm transition-shadow hover:shadow-md"
       >
         <div class="mb-4 flex justify-center">
-          <img
+          <NuxtImg
             :src="resolvePhoto(profile.photo)"
             :alt="profile.name"
             class="h-32 w-32 rounded-full object-cover"
+            loading="lazy"
+            decoding="async"
+            sizes="128px"
+            format="webp"
           />
         </div>
         <h3 class="mb-2 text-center text-xl font-semibold">{{ profile.name }}</h3>

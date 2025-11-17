@@ -179,6 +179,7 @@
 import type { ApplicationPreferences, QuestionnairePreferences } from '~/types/preferences'
 import { useReferral } from '~/composables/useReferral'
 import { useServerValidation } from '~/composables/useServerValidation'
+import { useFingerprint } from '~/composables/useFingerprint'
 
 interface Props {
   isOpen: boolean
@@ -193,6 +194,8 @@ interface Emits {
 const props = defineProps<Props>()
 const emit = defineEmits<Emits>()
 const { referralCode } = useReferral()
+
+const { ensureFingerprint } = useFingerprint()
 
 const form = ref({
   name: '',
@@ -280,6 +283,8 @@ const submitForm = async () => {
       user_preferences: props.userPreferences,
     }
 
+    await ensureFingerprint()
+
     // Отправляем данные на сервер
     const response = await $fetch('/api/v1/applications', {
       method: 'POST',
@@ -320,7 +325,7 @@ const submitForm = async () => {
       const errorMessage =
         (error?.data?.message as string) ||
         (error?.message as string) ||
-        ($t('errors.unknown_error') as string)
+        ($t('unknown_error') as string)
 
       show(errorMessage, {
         title: $t('modal.error_title'),

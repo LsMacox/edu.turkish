@@ -18,7 +18,15 @@
           class="aspect-square rounded-xl overflow-hidden hover-lift cursor-pointer"
           @click="openImageModal(image)"
         >
-          <img class="w-full h-full object-cover" :src="image.src" :alt="image.alt" />
+          <NuxtImg
+            class="w-full h-full object-cover"
+            :src="image.src"
+            :alt="image.alt"
+            loading="lazy"
+            decoding="async"
+            sizes="(max-width: 768px) 50vw, (max-width: 1024px) 33vw, 25vw"
+            format="webp"
+          />
         </div>
       </div>
 

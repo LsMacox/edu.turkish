@@ -14,6 +14,7 @@
             class="w-full h-64 object-cover"
             loading="lazy"
             decoding="async"
+            sizes="100vw"
             format="webp"
             @error="failedFeatured = true"
           />
@@ -59,6 +60,7 @@
             class="w-full h-48 object-cover"
             loading="lazy"
             decoding="async"
+            sizes="(max-width: 768px) 100vw, 50vw"
             format="webp"
             @error="failedCards[article.id] = true"
           />

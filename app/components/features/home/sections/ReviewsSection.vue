@@ -1,5 +1,5 @@
 <template>
-  <section id="reviews" class="section-py bg-background">
+  <section id="reviews" v-scroll-reveal class="section-py bg-background">
     <div class="container mx-auto container-padding-narrow">
       <BaseSectionHeader
         :title="t('home.reviews.title')"
@@ -18,7 +18,12 @@
         {{ t('home.reviews.empty') }}
       </div>
       <div v-else class="grid md:grid-cols-2 lg:grid-cols-3 gap-8 mb-12">
-        <div v-for="review in featuredReviews" :key="review.id" class="card-surface flex flex-col">
+        <div
+          v-for="(review, index) in featuredReviews"
+          :key="review.id"
+          v-scroll-reveal="index * 80"
+          class="card-surface flex flex-col"
+        >
           <div class="mb-6">
             <h3 class="font-semibold text-secondary">{{ review.name }}</h3>
             <p v-if="review.university" class="text-sm text-gray-500">{{ review.university }}</p>

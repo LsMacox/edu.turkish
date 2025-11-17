@@ -1,18 +1,20 @@
 <template>
   <header class="sticky top-0 z-40 bg-white/90 backdrop-blur border-b border-gray-100">
     <div class="container mx-auto container-padding-narrow">
-      <div class="flex items-center justify-between h-16 md:h-18">
+      <div class="flex items-center justify-between h-14 md:h-16">
         <!-- Logo -->
         <div class="flex items-center">
           <NuxtLink :to="localePath('/')" class="flex items-center space-x-2 cursor-pointer">
-            <img
+            <NuxtImg
               :src="cdnUrl('c905b440-9cea-4b23-8576-f1787a84d356.png')"
               alt="Edu.turkish"
               width="60"
               height="60"
               fetchpriority="high"
               decoding="async"
-              class="h-[60px] w-[60px]"
+              class="h-[52px] w-[52px]"
+              sizes="52px"
+              format="webp"
             />
           </NuxtLink>
         </div>
@@ -204,14 +206,6 @@
             </transition>
           </div>
 
-          <!-- CTA Button -->
-          <button
-            class="bg-primary text-white px-3 md:px-6 py-2 md:py-2 rounded-lg md:rounded-xl hover:bg-red-600 transition-colors shadow-lg text-btn"
-            @click="modal.openModal()"
-          >
-            {{ t('cta.apply') }}
-          </button>
-
           <!-- Mobile Menu Button -->
           <button
             class="lg:hidden flex items-center justify-center w-12 h-12 rounded-xl hover:bg-gray-100 transition-colors min-h-touch-44 min-w-touch-44"
@@ -238,7 +232,6 @@ import type { SupportedLocale } from '~~/lib/locales'
 import type { Currency } from '~/types/currency'
 
 // Site header with navigation and language switcher
-const modal = useApplicationModalStore()
 const route = useRoute()
 const { cdnUrl } = useCdn()
 

@@ -75,8 +75,8 @@
       }
     },
     "relocation-in-turkey": {
-      "title": "Türkiye'ye Taşınma",
-      "subtitle": "Türkiye'ye yerleşme için kapsamlı destek - vizeden ikamet iznine",
+      "title": "Refakat ve taşınma",
+      "subtitle": "Sahada tam destek: sizi karşılıyor, vize, oturma izni ve uyum sürecinde yanınızda oluyoruz.",
       "packages": {
         "standard": {
           "ctaButton": "Sipariş Ver",
@@ -154,8 +154,8 @@
       }
     },
     "tr-yos-courses": {
-      "title": "TR-YÖS Kursları",
-      "subtitle": "Türk üniversitelerine giriş sınavlarına profesyonel hazırlık",
+      "title": "TR-YÖS hazırlığı",
+      "subtitle": "Uzman kurslarımız ve kanıtlanmış metodlarımız yüksek puan almanıza yardımcı olur.",
       "courseGoal": {
         "title": "Kurs Hedefi",
         "description": "Seçtiğiniz fakülteye kabul için yeterli olacak en yüksek puana TR-YÖS'te ulaşmanız için hazırlarız — en rekabetçi programlar dahil. Her öğrenci eşit derecede güçlü bir müfredat alır ve sonuç hazırlık düzeyine ve seçilen öğrenme formatına bağlıdır.",
@@ -244,8 +244,8 @@
       }
     },
     "sat-courses": {
-      "title": "SAT Kursları",
-      "subtitle": "Uluslararası üniversitelere kabul için uzman SAT hazırlığı",
+      "title": "SAT hazırlığı",
+      "subtitle": "Dünyanın en iyi okulları seviyesinde hazırlıyor, sizi önde gelen üniversitelere taşıyoruz.",
       "temporarilyUnavailable": "Hizmet geçici olarak kullanılamıyor",
       "courseGoal": {
         "title": "Kurs Hedefi",
@@ -342,8 +342,8 @@
       }
     },
     "turkish-english-course": {
-      "title": "Türkçe ve İngilizce Kursları",
-      "subtitle": "Öğrenciler ve profesyoneller için dil kursları",
+      "title": "Dil kursları (TR/EN)",
+      "subtitle": "Kendinize güvenerek konuşun! TÖMER/IELTS sınavlarını geçmenize ve ülkede kendinizi rahat hissetmenize yardımcı oluyoruz.",
       "temporarilyUnavailable": "Hizmet geçici olarak kullanılamıyor",
       "levelProgression": {
         "title": "Seviye İlerlemeniz",
@@ -433,8 +433,8 @@
       }
     },
     "document-translations": {
-      "title": "Türkiye'de Noterli Belge Çevirileri",
-      "subtitle": "Öğrencilere ve müşterilere Türkiye'deki üniversitelere başvuru ve ikamet izni başvuruları için gerekli tüm belgelerin çevirisinde yardımcı oluyoruz. Çevirilerimiz lisanslı tercümanlar (yeminli tercüman) tarafından yapılmaktadır ve tüm devlet kurumları tarafından kabul edilmektedir.",
+      "title": "Çeviri ve tasdik",
+      "subtitle": "%100 garanti: belgeleriniz çevrilir, onaylanır (yeminli tercüman) ve her üniversite tarafından kabul edilir.",
       "shortTitle": "Belge Çevirisi",
       "calculator": {
         "title": "Fiyat Hesaplayıcı",

@@ -13,6 +13,8 @@
       @submit="modal.submitApplication"
     />
 
+    <ExitIntentWhoModal :is-open="showExitIntentModal" @close="showExitIntentModal = false" />
+
     <!-- Global Toasts -->
     <UiFeedbackToast />
 
@@ -29,6 +31,42 @@ const { locale } = useI18n()
 const config = useRuntimeConfig()
 const route = useRoute()
 const localeHead = useLocaleHead({ dir: true, seo: true })
+
+const showExitIntentModal = ref(false)
+
+const EXIT_INTENT_STORAGE_KEY = 'exit_intent_who_shown'
+
+const handleExitIntent = (event: MouseEvent) => {
+  if (event.clientY > 0) return
+
+  if (typeof window === 'undefined') return
+
+  try {
+    if (window.localStorage.getItem(EXIT_INTENT_STORAGE_KEY) === '1') return
+  } catch {
+    // ignore storage errors
+  }
+
+  try {
+    window.localStorage.setItem(EXIT_INTENT_STORAGE_KEY, '1')
+  } catch {
+    // ignore storage errors
+  }
+
+  showExitIntentModal.value = true
+}
+
+onMounted(() => {
+  if (!import.meta.client) return
+
+  document.addEventListener('mouseleave', handleExitIntent)
+})
+
+onBeforeUnmount(() => {
+  if (!import.meta.client) return
+
+  document.removeEventListener('mouseleave', handleExitIntent)
+})
 
 useHead(() => {
   const headFromLocale = localeHead.value

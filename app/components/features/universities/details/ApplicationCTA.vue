@@ -158,6 +158,7 @@
 <script setup lang="ts">
 import { useReferral } from '~/composables/useReferral'
 import { useServerValidation } from '~/composables/useServerValidation'
+import { useFingerprint } from '~/composables/useFingerprint'
 import type { DegreeType } from '@prisma/client'
 
 const { show } = useToast()
@@ -185,6 +186,8 @@ interface Props {
 const props = defineProps<Props>()
 
 const { referralCode, setReferralCode } = useReferral()
+
+const { ensureFingerprint } = useFingerprint()
 
 onMounted(() => {
   const referralCookie = useCookie<string | null>('ref')
@@ -268,6 +271,8 @@ const submitApplication = async () => {
       source: 'university_detail',
       ref: referralCode.value,
     }
+
+    await ensureFingerprint()
 
     // Отправляем данные на сервер
     const response = await $fetch('/api/v1/applications', {

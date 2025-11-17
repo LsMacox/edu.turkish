@@ -67,9 +67,6 @@
               >
                 <h5 class="font-semibold text-secondary">{{ requirement.title }}</h5>
                 <p class="text-sm text-gray-600">{{ requirement.description }}</p>
-                <p v-if="requirement.details" class="text-xs text-gray-500 mt-1">
-                  {{ requirement.details }}
-                </p>
               </div>
             </div>
           </div>

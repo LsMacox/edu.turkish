@@ -120,6 +120,7 @@
                 target="_blank"
                 class="w-10 h-10 bg-green-500 rounded-xl flex items-center justify-center text-white hover:bg-green-600 transition-colors"
                 aria-label="WhatsApp"
+                @click.prevent="handleSocialClick(channels?.whatsapp?.href, '_blank')"
               >
                 <Icon name="mdi:whatsapp" />
               </a>
@@ -128,6 +129,7 @@
                 target="_blank"
                 class="w-10 h-10 bg-blue-500 rounded-xl flex items-center justify-center text-white hover:bg-blue-600 transition-colors"
                 aria-label="Telegram"
+                @click.prevent="handleSocialClick(channels?.telegramBot?.href, '_blank')"
               >
                 <Icon name="mdi:telegram" />
               </a>
@@ -136,6 +138,7 @@
                 target="_blank"
                 class="w-10 h-10 bg-pink-500 rounded-xl flex items-center justify-center text-white hover:bg-pink-600 transition-colors"
                 aria-label="Instagram"
+                @click.prevent="handleSocialClick(instagramChannel.href, '_blank')"
               >
                 <Icon name="mdi:instagram" />
               </a>
@@ -148,7 +151,7 @@
       <div class="border-t border-gray-300 pt-8">
         <div class="flex flex-col md:flex-row justify-between items-center">
           <div class="flex items-center mb-4 md:mb-0">
-            <img
+            <NuxtImg
               :src="cdnUrl('c905b440-9cea-4b23-8576-f1787a84d356.png')"
               alt="Edu.turkish"
               width="60"
@@ -156,6 +159,8 @@
               loading="lazy"
               decoding="async"
               class="h-[60px] w-[60px] mr-3"
+              sizes="60px"
+              format="webp"
             />
             <span class="text-xl font-bold text-secondary">Edu.turkish</span>
           </div>
@@ -173,6 +178,7 @@
 <script setup lang="ts">
 import { useContactChannels } from '~/composables/useContactChannels'
 import { useUniversitiesStore } from '~/stores/universities'
+import { useFingerprint } from '~/composables/useFingerprint'
 
 const route = useRoute()
 const router = useRouter()
@@ -180,6 +186,8 @@ const localePath = useLocalePath()
 const { channels, getChannel } = useContactChannels()
 const instagramChannel = getChannel('instagram')
 const { cdnUrl } = useCdn()
+
+const { openWithFingerprint } = useFingerprint()
 
 // Use universities store only if on universities page (locale-aware)
 const isUniversitiesPage = computed(() => route.path.startsWith(localePath('/universities')))
@@ -204,5 +212,11 @@ const handleAllUniversitiesClick = async () => {
     // Navigate to universities page and scroll to top
     await router.push(localePath('/universities'))
   }
+}
+
+const handleSocialClick = async (href?: string, target: string = '_blank') => {
+  if (!href) return
+
+  await openWithFingerprint(href, target as '_blank' | '_self')
 }
 </script>

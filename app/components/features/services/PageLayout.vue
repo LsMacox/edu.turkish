@@ -9,8 +9,7 @@
     </div>
 
     <!-- Service Cards Section (for document-translations) -->
-    <div v-if="$slots['service-cards']" class="mt-16">
-      <BaseSectionHeader title="Наши услуги" />
+    <div v-if="$slots['service-cards']">
       <div class="mt-8">
         <slot name="service-cards" />
       </div>

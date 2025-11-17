@@ -75,8 +75,8 @@
       }
     },
     "relocation-in-turkey": {
-      "title": "Relocation in Turkey",
-      "subtitle": "Comprehensive support for settling in Turkey - from visa to residence permit",
+      "title": "Relocation & support",
+      "subtitle": "Full on-the-ground support: we meet you, help with visa, residence permit and adaptation.",
       "packages": {
         "standard": {
           "ctaButton": "Order",
@@ -154,8 +154,8 @@
       }
     },
     "tr-yos-courses": {
-      "title": "TR-YÖS Courses",
-      "subtitle": "Professional preparation for Turkish university entrance exams",
+      "title": "TR-YÖS preparation",
+      "subtitle": "Our expert courses and proven methods help you achieve a high score.",
       "courseGoal": {
         "title": "Course Goal",
         "description": "We prepare for TR-YÖS to achieve the highest possible score sufficient for admission to your chosen faculty — including the most competitive programs. Every student receives an equally strong curriculum, and the result depends on their preparation level and chosen learning format.",
@@ -244,8 +244,8 @@
       }
     },
     "sat-courses": {
-      "title": "SAT Courses",
-      "subtitle": "Expert SAT preparation for international university admissions",
+      "title": "SAT preparation",
+      "subtitle": "We train at the level of top international schools, opening doors to leading universities.",
       "temporarilyUnavailable": "Service temporarily unavailable",
       "courseGoal": {
         "title": "Target Results",
@@ -342,8 +342,8 @@
       }
     },
     "turkish-english-course": {
-      "title": "Turkish & English Courses",
-      "subtitle": "Language courses for students and professionals",
+      "title": "Language courses (TR/EN)",
+      "subtitle": "Speak with confidence! We help you pass TÖMER/IELTS and feel at home in Turkey.",
       "temporarilyUnavailable": "Service temporarily unavailable",
       "levelProgression": {
         "title": "Your Level Progression",
@@ -433,8 +433,8 @@
       }
     },
     "document-translations": {
-      "title": "Notarized Document Translations in Turkey",
-      "subtitle": "We help students and clients translate all necessary documents for university admission in Turkey and residence permit applications. Our translations are done by licensed translators (yeminli tercüman) and are accepted by all government institutions.",
+      "title": "Translation & legalization",
+      "subtitle": "100% guarantee: your documents will be translated, certified (yeminli tercüman) and accepted by any university.",
       "shortTitle": "Document Translation",
       "calculator": {
         "title": "Price Calculator",

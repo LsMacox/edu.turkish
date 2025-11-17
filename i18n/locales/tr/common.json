@@ -5,7 +5,9 @@
     "from": "itibaren"
   },
   "cta": {
-    "apply": "Başvuru yap"
+    "apply": "Başvuru yap",
+    "consultation": "Ücretsiz danışmanlık alın",
+    "apply_note": "Bu sizi hiçbir şeyle yükümlü kılmaz ve yaklaşık 15 dakikanızı alır."
   },
   "academicPrograms": {
     "title": "Akademik Programlar",

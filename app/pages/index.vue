@@ -1,13 +1,12 @@
 <template>
   <div>
     <HomeHeroSection />
-    <HomeWhoSection />
+    <LazyReviewsMediaReviewsSection />
+    <HomeFearsSection />
+    <HomeServicesSection />
     <HomeHowSection />
     <HomeUniversitiesSection />
-    <HomeServicesSection />
-    <HomeReviewsSection />
-    <HomeFearsSection />
-    <HomeBlogSection />
+    <HomeFaqSection />
     <HomeFinalCtaSection :deadline="applicationDeadline" />
   </div>
 </template>
@@ -15,7 +14,7 @@
 <script setup lang="ts">
 // Настраиваемая дата дедлайна для обратного счетчика
 // Можно изменить эту дату в зависимости от текущих дедлайнов университетов
-const applicationDeadline = '2025-11-01T23:59:59'
+const applicationDeadline = '2026-11-01T23:59:59'
 
 const { t } = useI18n()
 

@@ -28,7 +28,7 @@
       <div class="container mx-auto container-padding-narrow">
         <div class="grid lg:grid-cols-3 gap-section">
           <div class="lg:col-span-2">
-            <BlogArticleListSection
+            <LazyBlogArticleListSection
               :title="t('blog.articles.title')"
               :read-more-label="t('blog.articles.readMore')"
               :load-more-label="t('blog.articles.loadMore')"
@@ -58,7 +58,7 @@
 
           <!-- Sidebar -->
           <div class="lg:col-span-1">
-            <BlogSidebarSection
+            <LazyBlogSidebarSection
               :popular="sidebarPopular"
               :quick-links="quickLinks"
               @quick-link="handleQuickLinkClick"

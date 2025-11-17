@@ -57,6 +57,7 @@
               class="w-full h-96 object-cover rounded-2xl"
               loading="lazy"
               decoding="async"
+              sizes="(max-width: 1024px) 100vw, 50vw"
               format="webp"
             />
           </div>

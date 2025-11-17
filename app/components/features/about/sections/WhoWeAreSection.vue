@@ -11,12 +11,14 @@
 
         <div class="grid lg:grid-cols-2 gap-16 items-center mb-16">
           <div>
-            <img
+            <NuxtImg
               class="w-full object-cover rounded-2xl shadow-custom"
               :src="cdnUrl('f6893c58-7e43-4518-a403-139b942125f2.jpg')"
               alt="Modern education consultancy office"
               loading="lazy"
               decoding="async"
+              sizes="(max-width: 1024px) 100vw, 50vw"
+              format="webp"
             />
           </div>
           <div class="space-y-8">

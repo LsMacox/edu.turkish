@@ -1,5 +1,5 @@
 <template>
-  <section id="universities" class="section-py bg-gray-50">
+  <section id="universities" v-scroll-reveal class="section-py bg-gray-50">
     <div class="container">
       <BaseSectionHeader
         :title="t('home.universities.title')"
@@ -59,8 +59,9 @@
 
       <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
         <UniversitiesUniversityCard
-          v-for="university in displayedUniversities"
+          v-for="(university, index) in displayedUniversities"
           :key="university.id"
+          v-scroll-reveal="index * 80"
           :title="university.title"
           :city="university.city"
           :languages="university.languages"

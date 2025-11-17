@@ -22,7 +22,7 @@
         <!-- Header -->
         <div class="flex items-center justify-between p-5 md:p-6 border-b border-gray-100">
           <div class="flex items-center space-x-2">
-            <img
+            <NuxtImg
               :src="cdnUrl('c905b440-9cea-4b23-8576-f1787a84d356.png')"
               alt="Edu.turkish"
               width="60"
@@ -30,6 +30,8 @@
               loading="lazy"
               decoding="async"
               class="h-[60px] w-[60px]"
+              sizes="60px"
+              format="webp"
             />
             <span class="text-lg md:text-xl font-bold text-secondary">Edu.turkish</span>
           </div>
@@ -184,48 +186,7 @@
           </div>
         </div>
 
-        <!-- Social Links -->
-        <div class="px-5 md:px-6 pb-5 md:pb-6">
-          <div class="border-t border-gray-100 pt-6">
-            <h3 class="text-sm font-semibold text-gray-700 mb-4">{{ t('nav.social') }}</h3>
-            <div class="flex gap-3">
-              <a
-                :href="channels?.whatsapp?.href"
-                target="_blank"
-                class="w-12 h-12 bg-green-500 rounded-xl flex items-center justify-center text-white hover:bg-green-600 transition-colors min-h-touch-44 min-w-touch-44"
-                aria-label="WhatsApp"
-              >
-                <Icon name="mdi:whatsapp" class="text-lg" />
-              </a>
-              <a
-                :href="channels?.telegramBot?.href"
-                target="_blank"
-                class="w-12 h-12 bg-blue-500 rounded-xl flex items-center justify-center text-white hover:bg-blue-600 transition-colors min-h-touch-44 min-w-touch-44"
-                aria-label="Telegram"
-              >
-                <Icon name="mdi:telegram" class="text-lg" />
-              </a>
-              <a
-                :href="instagramChannel.href"
-                target="_blank"
-                class="w-12 h-12 bg-pink-500 rounded-xl flex items-center justify-center text-white hover:bg-pink-600 transition-colors min-h-touch-44 min-w-touch-44"
-                aria-label="Instagram"
-              >
-                <Icon name="mdi:instagram" class="text-lg" />
-              </a>
-            </div>
-          </div>
-        </div>
-
-        <!-- CTA Button -->
-        <div class="px-5 md:px-6 pb-8 md:pb-6">
-          <button
-            class="w-full bg-primary text-white py-4 rounded-xl font-semibold text-lg hover:bg-red-600 active:bg-red-700 transition-colors min-h-[52px] shadow-lg active:shadow-md"
-            @click="handleCTAClick"
-          >
-            {{ t('cta.apply') }}
-          </button>
-        </div>
+        
       </div>
     </div>
   </Teleport>
@@ -245,11 +206,8 @@ interface Emits {
 const props = defineProps<Props>()
 const emit = defineEmits<Emits>()
 
-const modal = useApplicationModalStore()
 const route = useRoute()
 const { t } = useI18n()
-const { channels, getChannel } = useContactChannels()
-const instagramChannel = getChannel('instagram')
 const { cdnUrl } = useCdn()
 
 const i18n = useI18n<{ messages: Record<string, any> }, SupportedLocale>()
@@ -361,11 +319,6 @@ function toggleServicesOpen() {
 
 function closeDrawer() {
   emit('close')
-}
-
-function handleCTAClick() {
-  modal.openModal()
-  closeDrawer()
 }
 
 // Active state for nav links (supports hash sections on home and full paths)

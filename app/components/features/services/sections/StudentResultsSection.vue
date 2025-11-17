@@ -49,11 +49,15 @@
           {{ labels.duration }}: {{ caseStudy.duration }}
         </div>
 
-        <img
+        <NuxtImg
           v-if="showProof && caseStudy.proof"
           :src="caseStudy.proof"
           :alt="`Case study ${index + 1} proof`"
           class="mt-4 rounded-lg w-full object-cover"
+          loading="lazy"
+          decoding="async"
+          sizes="(max-width: 768px) 100vw, 50vw"
+          format="webp"
         />
       </div>
     </div>
