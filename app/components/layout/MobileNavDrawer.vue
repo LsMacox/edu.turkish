@@ -21,7 +21,11 @@
       >
         <!-- Header -->
         <div class="flex items-center justify-between p-5 md:p-6 border-b border-gray-100">
-          <div class="flex items-center space-x-2">
+          <NuxtLink
+            :to="localePath('/')"
+            class="flex items-center space-x-2 cursor-pointer hover:opacity-80 transition-opacity"
+            @click="closeDrawer"
+          >
             <NuxtImg
               :src="cdnUrl('c905b440-9cea-4b23-8576-f1787a84d356.png')"
               alt="Edu.turkish"
@@ -34,7 +38,7 @@
               format="webp"
             />
             <span class="text-lg md:text-xl font-bold text-secondary">Edu.turkish</span>
-          </div>
+          </NuxtLink>
           <button
             class="w-11 h-11 flex items-center justify-center rounded-xl hover:bg-gray-100 active:bg-gray-200 transition-colors flex-shrink-0"
             aria-label="Close navigation"
