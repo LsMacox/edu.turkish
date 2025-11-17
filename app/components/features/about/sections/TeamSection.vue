@@ -44,6 +44,7 @@
                   target="_blank"
                   rel="noopener noreferrer"
                   class="w-8 h-8 bg-blue-100 rounded-lg flex items-center justify-center cursor-pointer"
+                  :aria-label="t('about.team.links.linkedin', { name: member.name })"
                 >
                   <Icon name="mdi:linkedin" class="text-blue-600" />
                 </a>
@@ -53,6 +54,7 @@
                   target="_blank"
                   rel="noopener noreferrer"
                   class="w-8 h-8 bg-green-100 rounded-lg flex items-center justify-center cursor-pointer"
+                  :aria-label="t('about.team.links.whatsapp', { name: member.name })"
                 >
                   <Icon name="mdi:whatsapp" class="text-green-600" />
                 </a>

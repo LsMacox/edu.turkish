@@ -7,7 +7,7 @@
     :tabindex="tabIndex"
     :aria-label="ariaLabel"
     :aria-describedby="ariaDescribedBy"
-    :aria-pressed="ariaPressed"
+    :aria-pressed="ariaPressedAttr"
     :class="[
       'bg-white overflow-hidden',
       borderRadiusClasses,
@@ -82,6 +82,13 @@ const role = computed(() => {
   if (props.clickable && tag.value === 'div') return 'button'
   if (props.href || props.to) return 'link'
   return props.role || undefined
+})
+
+// Only expose aria-pressed when card behaves like a button
+const ariaPressedAttr = computed(() => {
+  if (props.ariaPressed === undefined) return undefined
+  if (tag.value === 'button' || role.value === 'button') return props.ariaPressed
+  return undefined
 })
 
 // Tab index for keyboard navigation
