@@ -78,7 +78,6 @@
     <UniversitiesPopularProgramsSection />
     <UniversitiesScholarshipsSection />
     <UniversitiesNotFoundSection />
-    <UniversitiesCTASection />
 
     <!-- Application Modal is mounted globally in default layout -->
   </main>

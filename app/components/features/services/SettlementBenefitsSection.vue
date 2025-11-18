@@ -1,36 +1,38 @@
 <template>
-  <section class="settlement-benefits-section bg-gray-50 rounded-lg p-8 md:p-12">
-    <div class="max-w-4xl mx-auto">
-      <div class="md:flex md:items-center md:space-x-8">
-        <!-- Icon/Illustration (left side on desktop) -->
-        <div class="flex-shrink-0 mb-6 md:mb-0">
-          <div
-            class="w-16 h-16 md:w-20 md:h-20 bg-gradient-to-br from-green-400 to-green-600 rounded-full flex items-center justify-center shadow-lg"
-          >
-            <svg
-              class="w-8 h-8 md:w-10 md:h-10 text-white"
-              fill="none"
-              stroke="currentColor"
-              viewBox="0 0 24 24"
+  <section class="settlement-benefits-section">
+    <div class="bg-white rounded-2xl p-8 md:p-12 shadow-card border border-gray-100">
+      <div class="max-w-4xl mx-auto">
+        <div class="md:flex md:items-start md:space-x-8">
+          <!-- Icon/Illustration -->
+          <div class="flex-shrink-0 mb-6 md:mb-0">
+            <div
+              class="w-16 h-16 md:w-20 md:h-20 bg-success-light/50 rounded-2xl flex items-center justify-center"
             >
-              <path
-                stroke-linecap="round"
-                stroke-linejoin="round"
-                stroke-width="2"
-                d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"
-              />
-            </svg>
+              <svg
+                class="w-8 h-8 md:w-10 md:h-10 text-success"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="2"
+                  d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"
+                />
+              </svg>
+            </div>
           </div>
-        </div>
 
-        <!-- Content (right side on desktop) -->
-        <div class="flex-grow">
-          <h2 class="text-2xl md:text-3xl font-bold text-secondary mb-4">
-            {{ displayTitle }}
-          </h2>
-          <p class="text-gray-700 leading-relaxed text-lg">
-            {{ displayContent }}
-          </p>
+          <!-- Content -->
+          <div class="flex-grow">
+            <h2 class="text-section-title mb-4 text-left">
+              {{ displayTitle }}
+            </h2>
+            <p class="text-body text-gray-600">
+              {{ displayContent }}
+            </p>
+          </div>
         </div>
       </div>
     </div>

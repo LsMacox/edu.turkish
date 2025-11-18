@@ -108,7 +108,6 @@ const isOpen = (index: number) => openFaqs.value.includes(index)
 const isStringAnswer = (answer: FaqAnswer): answer is string => typeof answer === 'string'
 
 const sectionClasses = computed(() => [
-  'py-16',
   props.background ? 'bg-background' : 'bg-transparent',
 ])
 </script>

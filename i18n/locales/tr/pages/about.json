@@ -9,7 +9,8 @@
       "subtitle": "Edu.turkish, öğrencilerin Türkiye'deki üniversitelere kabul edilmelerine yardımcı olan bir ekiptir",
       "experienced_team": "Deneyimli ekip",
       "students_enrolled": "500+ öğrenci kabul edildi",
-      "official_contracts": "Sözleşmeli resmi çalışma"
+      "official_contracts": "Sözleşmeli resmi çalışma",
+      "cta": "Ücretsiz Danışmanlık"
     },
     "who_we_are": {
       "title": "Biz kimiz",
@@ -30,22 +31,6 @@
         "linkedin": "{name}'in LinkedIn profilini aç",
         "whatsapp": "{name} ile WhatsApp'ta sohbet başlat"
       }
-    },
-    "guarantees": {
-      "title": "Garantilerimiz",
-      "subtitle": "Sonuç için sorumluluk alıyor ve hizmetlerimizin kalitesini garanti ediyoruz",
-      "contract_work": "Sözleşmeli çalışıyoruz",
-      "contract_work_desc": "Tüm hizmetler net koşullar ve garantiler içeren resmi sözleşme temelinde sağlanır",
-      "transparent_terms": "Şeffaf koşullar",
-      "transparent_terms_desc": "Gizli ödeme yok. Tüm masraflar önceden görüşülür ve sözleşmede sabitleştirilir",
-      "full_support": "Tüm aşamalarda destek",
-      "full_support_desc": "İlk danışmanlıktan vize alımına ve üniversitede adaptasyona kadar",
-      "fast_response": "Hızlı ve Türkçe yanıt veriyoruz",
-      "fast_response_desc": "WhatsApp ve Telegram'da 7/24 destek. Çalışma saatlerinde 30 dakika içinde yanıt",
-      "admission_guarantee": "Kabul garantisi",
-      "admission_guarantee_desc": "Bizim hatamızdan dolayı seçtiğiniz üniversiteye girmekte size yardımcı olamazsak, hizmet ücretinin %100'ünü iade ederiz",
-      "success_rate": "%98 başarılı kabul",
-      "money_back": "Başarısızlık durumunda iade"
     },
     "story": {
       "title": "Hikayemiz",
@@ -73,7 +58,8 @@
         "students": "Öğrenci kaydoldu",
         "universities": "Partner üniversite",
         "success": "Başarı oranı"
-      }
+      },
+      "read_reviews": "Öğrenci yorumlarını oku"
     },
     "whyChooseUs": {
       "title": "Neden Bizi Seçiyorlar",
@@ -95,16 +81,6 @@
         "support": {
           "title": "Tüm aşamalarda destek",
           "description": "Tam yerleşimden sonra da, ilk 6 ay boyunca öğrencilerimizin uyum sağlamasına yardımcı oluyoruz."
-        }
-      },
-      "database": {
-        "title": "Eşsiz Veritabanı",
-        "description": "Yıllar boyunca tüm Türk üniversitelerinin gereksinimlerini, başvuru tarihlerini, kabul özelliklerini ve başarılı kayıt sırlarını içeren eşsiz bir veritabanı oluşturduk.",
-        "exclusive": "Halka açık olmayan özel bilgiler",
-        "features": {
-          "universities": "Veritabanında 20+ üniversite",
-          "programs": "30+ eğitim programı",
-          "scholarships": "Güncel burs bilgileri"
         }
       }
     },

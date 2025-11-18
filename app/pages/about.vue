@@ -2,10 +2,9 @@
   <div>
     <AboutHeroSection />
     <AboutWhoWeAreSection />
-    <AboutTeamSection />
-    <AboutGuaranteesSection />
-    <AboutStorySection />
     <AboutWhyChooseUsSection />
+    <AboutStorySection />
+    <AboutTeamSection />
     <AboutContactInfo />
   </div>
 </template>

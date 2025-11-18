@@ -176,19 +176,6 @@
         "quick_response": "Response within 24 hours"
       },
       "button": "Get selection"
-    },
-    "final_cta": {
-      "title": "Ready to apply?",
-      "subtitle": "Don't postpone your dream of education in Turkey. We'll contact you within 24 hours and tell you everything.",
-      "benefits_title": "What you'll get:",
-      "benefits": {
-        "consultation": "Free consultation",
-        "university_selection": "University selection",
-        "cost_calculation": "Cost calculation",
-        "admission_plan": "Admission plan"
-      },
-      "button": "Fill out form",
-      "guarantee": "Free consultation • No obligations • Response within 24 hours"
     }
   }
 }

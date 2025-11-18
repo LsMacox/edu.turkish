@@ -176,19 +176,6 @@
         "quick_response": "24 saat içinde yanıt"
       },
       "button": "Seçim al"
-    },
-    "final_cta": {
-      "title": "Başvuru yapmaya hazır mısınız?",
-      "subtitle": "Türkiye'de eğitim hayalinizi ertelemeyin. 24 saat içinde iletişime geçip her şeyi anlatacağız.",
-      "benefits_title": "Neler alacaksınız:",
-      "benefits": {
-        "consultation": "Ücretsiz danışmanlık",
-        "university_selection": "Üniversite seçimi",
-        "cost_calculation": "Maliyet hesaplama",
-        "admission_plan": "Kabul planı"
-      },
-      "button": "Formu doldur",
-      "guarantee": "Ücretsiz danışmanlık • Yükümlülük yok • 24 saat içinde yanıt"
     }
   }
 }

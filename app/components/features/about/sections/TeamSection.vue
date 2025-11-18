@@ -1,5 +1,5 @@
 <template>
-  <section id="team" class="section-py-lg">
+  <section id="team" class="section-py-lg bg-background">
     <div class="container mx-auto container-padding-narrow">
       <div class="max-w-6xl mx-auto">
         <div class="text-center mb-16">

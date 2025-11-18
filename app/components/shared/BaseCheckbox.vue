@@ -1,5 +1,5 @@
 <template>
-  <label class="flex items-center cursor-pointer py-1 min-h-touch-44 md:min-h-auto">
+  <label class="flex items-center cursor-pointer py-1 min-h-touch-24 md:min-h-auto">
     <input
       :id="checkboxId"
       :name="checkboxName"

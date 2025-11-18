@@ -1,5 +1,5 @@
 <template>
-  <UiDisplayFAQ :items="faqs" :title="title" :subtitle="subtitleText" :background="false" />
+  <UiDisplayFAQ class="py-8" :items="faqs" :title="title" :subtitle="subtitleText" :background="false" />
 </template>
 
 <script setup lang="ts">

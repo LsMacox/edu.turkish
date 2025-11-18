@@ -1,5 +1,5 @@
 <template>
-  <section class="section-py-lg bg-background">
+  <section class="section-py-lg">
     <div class="container mx-auto container-padding-narrow">
       <div class="max-w-6xl mx-auto">
         <div class="text-center mb-16">
@@ -98,6 +98,15 @@
                 </div>
               </div>
             </div>
+            <div class="text-center">
+              <NuxtLink
+                :to="localePath('ReviewsPage')"
+                class="text-primary font-medium hover:text-red-700 transition-colors inline-flex items-center"
+              >
+                {{ $t('about.story.read_reviews') }}
+                <Icon name="mdi:arrow-right" class="ml-1" />
+              </NuxtLink>
+            </div>
           </div>
         </div>
       </div>
@@ -107,4 +116,5 @@
 
 <script setup lang="ts">
 const { cdnUrl } = useCdn()
+const localePath = useLocalePath()
 </script>

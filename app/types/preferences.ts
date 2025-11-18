@@ -36,6 +36,7 @@ export const FORM_SOURCES = {
   home_faq: 'Заявка из блока FAQ на главной странице',
   university_detail: 'Заявка с детальной страницы университета',
   service_page: 'Заявка со страницы услуг',
+  about_hero: 'Заявка из Hero-секции страницы О нас',
 } as const
 
 export type FormSource = keyof typeof FORM_SOURCES

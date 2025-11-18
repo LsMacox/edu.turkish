@@ -9,7 +9,8 @@
       "subtitle": "Edu.turkish is a team that helps students get admitted to universities in Turkey",
       "experienced_team": "Experienced team",
       "students_enrolled": "500+ students enrolled",
-      "official_contracts": "Official work under contracts"
+      "official_contracts": "Official work under contracts",
+      "cta": "Free Consultation"
     },
     "who_we_are": {
       "title": "Who we are",
@@ -30,22 +31,6 @@
         "linkedin": "Open {name}'s LinkedIn profile",
         "whatsapp": "Message {name} on WhatsApp"
       }
-    },
-    "guarantees": {
-      "title": "Our guarantees",
-      "subtitle": "We take responsibility for the result and guarantee the quality of our services",
-      "contract_work": "We work under contract",
-      "contract_work_desc": "All services are provided on the basis of an official contract with clear conditions and guarantees",
-      "transparent_terms": "Transparent terms",
-      "transparent_terms_desc": "No hidden fees. All expenses are discussed in advance and fixed in the contract",
-      "full_support": "Support at all stages",
-      "full_support_desc": "From the first consultation to obtaining a visa and adaptation at the university",
-      "fast_response": "We respond quickly and in English",
-      "fast_response_desc": "24/7 support in WhatsApp and Telegram. Response within 30 minutes during business hours",
-      "admission_guarantee": "Admission guarantee",
-      "admission_guarantee_desc": "If we cannot help you get into your chosen university due to our fault, we will refund 100% of the service cost",
-      "success_rate": "98% successful admissions",
-      "money_back": "Refund on failure"
     },
     "story": {
       "title": "Our Story",
@@ -73,7 +58,8 @@
         "students": "Students enrolled",
         "universities": "Partner universities",
         "success": "Success rate"
-      }
+      },
+      "read_reviews": "Read student reviews"
     },
     "whyChooseUs": {
       "title": "Why Choose Us",
@@ -95,16 +81,6 @@
         "support": {
           "title": "Support at all stages",
           "description": "After full settling-in, we help our students adapt during the first 6 months."
-        }
-      },
-      "database": {
-        "title": "Unique Database",
-        "description": "Over the years, we have compiled a unique database of requirements for all Turkish universities, application deadlines, admission features and secrets of successful enrollment.",
-        "exclusive": "Exclusive information not available in public access",
-        "features": {
-          "universities": "20+ universities in database",
-          "programs": "30+ study programs",
-          "scholarships": "Up-to-date scholarship information"
         }
       }
     },

@@ -1,28 +1,38 @@
 <template>
   <section class="settlement-risks-section mb-16">
     <div
-      class="bg-gradient-to-r from-gray-800 to-gray-900 rounded-lg p-8 md:p-12 text-white shadow-xl"
+      class="bg-white rounded-2xl p-8 md:p-12 shadow-card border border-gray-100 border-l-4 border-l-warning"
     >
-      <div class="max-w-4xl mx-auto text-center">
-        <div class="mb-4">
-          <svg
-            class="w-12 h-12 md:w-16 md:h-16 mx-auto text-yellow-400"
-            fill="currentColor"
-            viewBox="0 0 20 20"
-          >
-            <path
-              fill-rule="evenodd"
-              d="M8.257 3.099c.765-1.36 2.722-1.36 3.486 0l5.58 9.92c.75 1.334-.213 2.98-1.742 2.98H4.42c-1.53 0-2.493-1.646-1.743-2.98l5.58-9.92zM11 13a1 1 0 11-2 0 1 1 0 012 0zm-1-8a1 1 0 00-1 1v3a1 1 0 002 0V6a1 1 0 00-1-1z"
-              clip-rule="evenodd"
-            />
-          </svg>
+      <div class="max-w-4xl mx-auto">
+        <div class="md:flex md:items-start md:space-x-8">
+          <div class="flex-shrink-0 mb-6 md:mb-0">
+            <div
+              class="w-16 h-16 md:w-20 md:h-20 bg-warning-light/50 rounded-2xl flex items-center justify-center"
+            >
+              <svg
+                class="w-8 h-8 md:w-10 md:h-10 text-warning-dark"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke="currentColor"
+              >
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="2"
+                  d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"
+                />
+              </svg>
+            </div>
+          </div>
+          <div class="flex-grow">
+            <h2 class="text-section-title mb-4 text-left">
+              {{ displayTitle }}
+            </h2>
+            <p class="text-body text-gray-600">
+              {{ displayContent }}
+            </p>
+          </div>
         </div>
-        <h2 class="text-2xl md:text-3xl font-bold mb-4">
-          {{ displayTitle }}
-        </h2>
-        <p class="text-gray-200 leading-relaxed text-lg">
-          {{ displayContent }}
-        </p>
       </div>
     </div>
   </section>
