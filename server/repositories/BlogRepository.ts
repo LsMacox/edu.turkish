@@ -164,6 +164,13 @@ export class BlogRepository {
     const translation = pickTranslation(article.translations, locale)
     const metadata = this.extractTranslationMetadata(translation)
 
+    const alternates: Record<string, string> = {}
+    for (const t of article.translations) {
+      if (t.slug && t.locale) {
+        alternates[t.locale] = t.slug
+      }
+    }
+
     return {
       ...base,
       heroImage: article.heroImage ?? base.image,
@@ -175,6 +182,7 @@ export class BlogRepository {
       content: this.normalizeContent(translation?.content),
       quickFacts: metadata.quickFacts,
       tags: metadata.tags,
+      alternates,
     }
   }
 

@@ -332,20 +332,81 @@ const route = useRoute()
 const localePath = useLocalePath()
 const requestUrl = useRequestURL()
 const { locale, t } = useI18n()
+const setI18nParams = useSetI18nParams()
 const { show: showToast } = useToast()
 
 const slug = computed(() => String(route.params.slug ?? ''))
 
-const { data, pending, error } = await useAsyncData<{ data: BlogArticleDetail } | null>(
+const { data, pending, error } = await useAsyncData<{
+  data: BlogArticleDetail
+  related: BlogArticleListItem[]
+} | null>(
   'article-detail',
   async () => {
     if (!slug.value) {
       return null
     }
 
-    return $fetch<{ data: BlogArticleDetail }>(`/api/v1/blog/articles/${slug.value}` as const, {
-      query: { lang: locale.value },
-    })
+    const [articleResponse] = await Promise.all([
+      $fetch<{ data: BlogArticleDetail }>(`/api/v1/blog/articles/${slug.value}` as const, {
+        query: { lang: locale.value },
+      }),
+    ])
+
+    const articleData = articleResponse?.data
+    if (!articleData) {
+      return null
+    }
+    
+    // Set i18n params for alternate routes
+    if (articleData.alternates) {
+      const params: Record<string, { slug: string }> = {}
+      for (const [altLocale, altSlug] of Object.entries(articleData.alternates)) {
+        params[altLocale] = { slug: altSlug }
+      }
+      setI18nParams(params)
+    }
+
+    // Helper to fetch related
+    const fetchRelated = (query: BlogArticleQueryParams = {}) => {
+      const baseQuery = {
+        page: 1,
+        limit: 4,
+        lang: locale.value,
+        ...query,
+      }
+      const sanitizedQuery = Object.fromEntries(
+        Object.entries(baseQuery).filter(([, value]) => value !== undefined && value !== null),
+      )
+      return $fetch<BlogArticlesResponse>('/api/v1/blog/articles', {
+        query: sanitizedQuery,
+      })
+    }
+
+    let related: BlogArticleListItem[] = []
+    try {
+      const categoryKey = articleData.category?.key
+      const primaryResponse = await fetchRelated({ category: categoryKey })
+
+      let candidates = primaryResponse.data
+        .filter((item) => item.slug !== articleData.slug)
+        .slice(0, 3)
+
+      if (candidates.length === 0) {
+        const fallbackResponse = await fetchRelated()
+        candidates = fallbackResponse.data
+          .filter((item) => item.slug !== articleData.slug)
+          .slice(0, 3)
+      }
+      related = candidates
+    } catch (e) {
+      console.error('Failed to fetch related articles', e)
+    }
+
+    return {
+      data: articleData,
+      related,
+    }
   },
   {
     watch: [slug, () => locale.value],
@@ -353,6 +414,7 @@ const { data, pending, error } = await useAsyncData<{ data: BlogArticleDetail } 
 )
 
 const article = computed<BlogArticleDetail | null>(() => data.value?.data ?? null)
+const relatedArticles = computed<BlogArticleListItem[]>(() => data.value?.related ?? [])
 
 const defaultTitle = computed(() => t('blog.meta.title'))
 const defaultDescription = computed(() => t('blog.meta.description'))
@@ -573,68 +635,6 @@ const copyShareLink = async () => {
     showToast(t('article.share.copyError'), { type: 'error' })
   }
 }
-
-const relatedArticles = ref<BlogArticleListItem[]>([])
-
-const fetchArticles = (query: BlogArticleQueryParams = {}) => {
-  const baseQuery = {
-    page: 1,
-    limit: 4,
-    lang: locale.value,
-    ...query,
-  }
-
-  const sanitizedQuery = Object.fromEntries(
-    Object.entries(baseQuery).filter(([, value]) => value !== undefined && value !== null),
-  )
-
-  return $fetch<BlogArticlesResponse>('/api/v1/blog/articles', {
-    query: sanitizedQuery,
-  })
-}
-
-const loadRelatedArticles = async () => {
-  if (!article.value) {
-    relatedArticles.value = []
-    return
-  }
-
-  try {
-    const categoryKey = article.value.category?.key
-    const primaryResponse = await fetchArticles({ category: categoryKey })
-
-    let candidates = primaryResponse.data
-      .filter((item) => item.slug !== article.value?.slug)
-      .slice(0, 3)
-
-    if (candidates.length === 0) {
-      const fallbackResponse = await fetchArticles()
-      candidates = fallbackResponse.data
-        .filter((item) => item.slug !== article.value?.slug)
-        .slice(0, 3)
-    }
-
-    relatedArticles.value = candidates
-  } catch (err) {
-    if (import.meta.client) {
-      console.error('[article] Failed to load related articles', err)
-    }
-    relatedArticles.value = []
-  }
-}
-
-watch(
-  () => [article.value?.id, locale.value],
-  async () => {
-    if (!article.value) {
-      relatedArticles.value = []
-      return
-    }
-
-    await loadRelatedArticles()
-  },
-  { immediate: true },
-)
 
 const headingTag = (level: number) => {
   if (level <= 2) {

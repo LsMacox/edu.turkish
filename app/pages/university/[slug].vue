@@ -42,6 +42,7 @@ const localePath = useLocalePath()
 const route = useRoute()
 const universityDetailStore = useUniversityDetailStore()
 const { locale, t } = useI18n()
+const setI18nParams = useSetI18nParams()
 
 // Get university by slug from API (reactive)
 const slug = computed(() => route.params.slug as string)
@@ -87,6 +88,22 @@ if (import.meta.client) {
 const university = computed(() => universityDetailStore.currentUniversity)
 const loading = computed(() => universityDetailStore.loading)
 const error = computed(() => universityDetailStore.error)
+
+// Set i18n params for alternate routes
+watch(
+  university,
+  (newVal) => {
+    const alternates = (newVal as any)?.alternates as Record<string, string> | undefined
+    if (!alternates) return
+
+    const params: Record<string, { slug: string }> = {}
+    for (const [altLocale, altSlug] of Object.entries(alternates)) {
+      params[altLocale] = { slug: String(altSlug) }
+    }
+    setI18nParams(params)
+  },
+  { immediate: true },
+)
 
 // Debug information in development
 // dev logging removed

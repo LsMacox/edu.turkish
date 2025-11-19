@@ -74,6 +74,12 @@ export const mapUniversityListItem = (
     image: university.image ?? '',
     heroImage: university.heroImage ?? university.image ?? '',
     badge: options.badge,
+    alternates: university.translations.reduce((acc, t) => {
+      if (t.slug && t.locale) {
+        acc[t.locale] = t.slug
+      }
+      return acc
+    }, {} as Record<string, string>),
   }
 }
 

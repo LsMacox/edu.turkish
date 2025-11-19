@@ -83,7 +83,7 @@ const handleApply = ({ subServiceId, name }: { subServiceId: SubServiceId; name:
   })
 }
 
-useHead({
+useHead(() => ({
   title: category.value?.title || t('services.tr-yos-courses.title'),
   meta: [
     {
@@ -91,5 +91,21 @@ useHead({
       content: category.value?.subtitle || t('services.tr-yos-courses.subtitle'),
     },
   ],
-})
+  script: [
+    {
+      type: 'application/ld+json',
+      children: JSON.stringify({
+        '@context': 'https://schema.org',
+        '@type': 'Course',
+        name: category.value?.title || t('services.tr-yos-courses.title'),
+        description: category.value?.subtitle || t('services.tr-yos-courses.subtitle'),
+        provider: {
+          '@type': 'Organization',
+          name: 'Edu.turkish',
+          sameAs: 'https://edu-turkish.com',
+        },
+      }),
+    },
+  ],
+}))
 </script>

@@ -275,7 +275,6 @@ export const useFAQSearch = (options: SearchOptions = {}) => {
   // Initialize on mount
   onMounted(() => {
     loadSearchHistory()
-    initializeFromURL()
   })
 
   // When locale changes, refresh categories/items for the new language
@@ -290,10 +289,28 @@ export const useFAQSearch = (options: SearchOptions = {}) => {
   // Watch for external URL changes
   watch(
     () => route.query,
-    () => {
-      initializeFromURL()
+    (newQuery, oldQuery) => {
+      // Only initialize if query actually changed to avoid loops
+      if (JSON.stringify(newQuery) !== JSON.stringify(oldQuery)) {
+        initializeFromURL()
+      }
     },
   )
+
+  // Initialize state from URL immediately (for SSR and Client navigation)
+  // This ensures useAsyncData in the page component fetches with correct params
+  if (route.query.q !== undefined || route.query.category !== undefined) {
+    if (route.query.q !== undefined) searchQuery.value = route.query.q as string
+    if (route.query.category !== undefined) activeCategory.value = route.query.category as string
+  } else if (import.meta.client) {
+    // On client-side navigation to /faq without params, reset state
+    // Check if we are not just hydrating (hydration should keep server state)
+    const isHydrating = useNuxtApp().isHydrating
+    if (!isHydrating) {
+      searchQuery.value = ''
+      activeCategory.value = 'all'
+    }
+  }
 
   return {
     // State
@@ -316,5 +333,6 @@ export const useFAQSearch = (options: SearchOptions = {}) => {
     resetFilters,
     highlightSearchTerms,
     clearSearchHistory,
+    refresh: fetchFAQData,
   }
 }

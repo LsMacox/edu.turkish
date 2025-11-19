@@ -50,4 +50,6 @@ const faqs = computed(() => {
     answer: resolveAnswer(`${props.keyPrefix}.items.${index}.answer`),
   })) as Array<{ question: string; answer: FaqAnswer }>
 })
+
+useFAQSchema(faqs)
 </script>

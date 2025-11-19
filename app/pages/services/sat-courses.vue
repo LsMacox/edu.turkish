@@ -74,18 +74,20 @@
 // import { useExchangeRatesStore } from '~/stores/exchangeRates'
 // import { useServices } from '~/composables/useServices'
 
+import { useServices } from '~/composables/useServices'
+
 const { t } = useI18n()
 // const modal = useApplicationModalStore()
 // const exchangeRatesStore = useExchangeRatesStore()
-// const { fetchCategory } = useServices()
+const { fetchCategory } = useServices()
 
-// const { data: category } = await useAsyncData<ServiceCategoryDetail>(
-//   'sat-courses',
-//   () => fetchCategory('sat-courses'),
-//   {
-//     lazy: false,
-//   },
-// )
+const { data: category } = await useAsyncData(
+  'sat-courses',
+  () => fetchCategory('sat-courses'),
+  {
+    lazy: false,
+  },
+)
 
 // onMounted(async () => {
 //   await exchangeRatesStore.ensureFresh()
@@ -132,7 +134,7 @@ const { t } = useI18n()
 //   return node as T
 // }
 
-useHead({
+useHead(() => ({
   title: t('services.sat-courses.title'),
   // meta: [
   //   {
@@ -140,5 +142,21 @@ useHead({
   //     content: category.value?.subtitle || t('services.sat-courses.subtitle'),
   //   },
   // ],
-})
+  script: [
+    {
+      type: 'application/ld+json',
+      children: JSON.stringify({
+        '@context': 'https://schema.org',
+        '@type': 'Course',
+        name: category.value?.title || t('services.sat-courses.title'),
+        description: category.value?.subtitle || t('services.sat-courses.subtitle'),
+        provider: {
+          '@type': 'Organization',
+          name: 'Edu.turkish',
+          sameAs: 'https://edu-turkish.com',
+        },
+      }),
+    },
+  ],
+}))
 </script>

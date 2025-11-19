@@ -54,7 +54,7 @@ import { useApplicationModalStore } from '~/stores/applicationModal'
 import { useExchangeRatesStore } from '~/stores/exchangeRates'
 import { useServices } from '~/composables/useServices'
 
-const { t, tm } = useI18n()
+const { t, tm, locale } = useI18n()
 const modal = useApplicationModalStore()
 const exchangeRatesStore = useExchangeRatesStore()
 const { fetchCategory } = useServices()
@@ -65,6 +65,7 @@ const { data: category } = await useAsyncData<ServiceCategoryDetail>(
   () => fetchCategory('document-translations'),
   {
     lazy: false,
+    watch: [locale],
   },
 )
 
@@ -135,7 +136,7 @@ function metadataPath<T = any>(path: string): T | undefined {
   return node as T
 }
 
-useHead({
+useHead(() => ({
   title: category.value?.title || t('services.document-translations.title'),
   meta: [
     {
@@ -143,5 +144,21 @@ useHead({
       content: category.value?.subtitle || t('services.document-translations.subtitle'),
     },
   ],
-})
+  script: [
+    {
+      type: 'application/ld+json',
+      children: JSON.stringify({
+        '@context': 'https://schema.org',
+        '@type': ['Product', 'Service'],
+        name: category.value?.title || t('services.document-translations.title'),
+        description: category.value?.subtitle || t('services.document-translations.subtitle'),
+        provider: {
+          '@type': 'Organization',
+          name: 'Edu.turkish',
+          sameAs: 'https://edu-turkish.com',
+        },
+      }),
+    },
+  ],
+}))
 </script>

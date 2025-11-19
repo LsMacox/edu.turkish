@@ -31,6 +31,7 @@ export interface University {
   image: string
   heroImage?: string
   badge?: { label?: string; labelKey?: string; color: string }
+  alternates?: Record<string, string>
 }
 
 export interface UniversityCampusFacility {

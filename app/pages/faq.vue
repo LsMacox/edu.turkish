@@ -243,7 +243,34 @@ const {
   resetFilters,
   highlightSearchTerms,
   clearSearchHistory,
+  refresh,
 } = useFAQSearch()
+
+// Server-side data fetching for SEO
+await useAsyncData('faq-data', () => refresh())
+
+// Schema.org Structured Data
+useHead({
+  script: [
+    {
+      type: 'application/ld+json',
+      innerHTML: computed(() =>
+        JSON.stringify({
+          '@context': 'https://schema.org',
+          '@type': 'FAQPage',
+          mainEntity: filteredFAQItems.value.map((item: any) => ({
+            '@type': 'Question',
+            name: item.question,
+            acceptedAnswer: {
+              '@type': 'Answer',
+              text: item.answer,
+            },
+          })),
+        }),
+      ),
+    },
+  ],
+})
 
 // Local state for UI interactions
 const openItems = ref<Record<string, boolean>>({})

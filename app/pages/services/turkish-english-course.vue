@@ -126,7 +126,7 @@ const { t } = useI18n()
 //   return node as T
 // }
 
-useHead({
+useHead(() => ({
   title: t('services.turkish-english-course.title'),
   // meta: [
   //   {
@@ -134,5 +134,21 @@ useHead({
   //     content: category.value?.subtitle || t('services.turkish-english-course.subtitle'),
   //   },
   // ],
-})
+  script: [
+    {
+      type: 'application/ld+json',
+      children: JSON.stringify({
+        '@context': 'https://schema.org',
+        '@type': 'Course',
+        name: t('services.turkish-english-course.title'),
+        description: t('services.turkish-english-course.subtitle'),
+        provider: {
+          '@type': 'Organization',
+          name: 'Edu.turkish',
+          sameAs: 'https://edu-turkish.com',
+        },
+      }),
+    },
+  ],
+}))
 </script>

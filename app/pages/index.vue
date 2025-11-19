@@ -34,6 +34,37 @@ useHead(() => ({
       content: t('home.seo.description'),
     },
   ],
+  script: [
+    {
+      type: 'application/ld+json',
+      children: JSON.stringify({
+        '@context': 'https://schema.org',
+        '@type': 'Organization',
+        name: 'Edu.turkish',
+        url: 'https://edu-turkish.com',
+        logo: 'https://edu-turkish.com/android-chrome-512x512.png',
+        contactPoint: [
+          {
+            '@type': 'ContactPoint',
+            contactType: 'customer service',
+            url: 'https://t.me/Hakim7292',
+            availableLanguage: ['Russian', 'Turkish', 'English'],
+          },
+          {
+            '@type': 'ContactPoint',
+            contactType: 'customer service',
+            telephone: '+90-543-867-99-50',
+            availableLanguage: ['Russian', 'Turkish', 'English'],
+          },
+        ],
+        sameAs: [
+          'https://www.instagram.com/edu.turkish/',
+          'https://t.me/Hakim7292',
+          'https://wa.me/905438679950',
+        ],
+      }),
+    },
+  ],
 }))
 
 // Ensure universities are fetched on the home page reload (limit to 6)

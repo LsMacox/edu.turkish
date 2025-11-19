@@ -76,4 +76,6 @@ const faqs = computed(() => [
     answer: resolveAnswer('universityDetail.faq.a9'),
   },
 ])
+
+useFAQSchema(faqs)
 </script>

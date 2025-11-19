@@ -42,6 +42,7 @@ export interface BlogArticleDetail extends BlogArticleListItem {
   content: BlogArticleContentBlock[]
   quickFacts: BlogArticleQuickFact[]
   tags: string[]
+  alternates?: Record<string, string>
 }
 
 export interface BlogPopularArticle {

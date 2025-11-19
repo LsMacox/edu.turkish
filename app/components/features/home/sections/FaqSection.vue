@@ -32,4 +32,6 @@ const faqs = computed(() => [
     answer: t('home.faq.answer6'),
   },
 ])
+
+useFAQSchema(faqs)
 </script>

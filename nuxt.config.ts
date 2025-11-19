@@ -1,6 +1,7 @@
 import { defineNuxtConfig } from 'nuxt/config'
 import fs from 'node:fs'
 import path from 'node:path'
+import { PrismaClient } from '@prisma/client'
 import { SUPPORTED_LOCALES, DEFAULT_LOCALE } from './lib/locales'
 
 const rawSiteUrl =
@@ -201,6 +202,7 @@ export default defineNuxtConfig({
       '@nuxtjs/sitemap',
       {
         autoLastmod: true,
+        sources: ['/api/sitemap-routes'],
       },
     ],
   ],
@@ -280,6 +282,53 @@ export default defineNuxtConfig({
       directusUrl: process.env.NUXT_PUBLIC_DIRECTUS_URL || 'http://localhost:8055',
       yandexMetrikaId: process.env.NUXT_PUBLIC_YANDEX_METRIKA_ID || '',
       cdnUrl: process.env.NUXT_PUBLIC_CDN_URL || '',
+    },
+  },
+  hooks: {
+    async 'nitro:config'(nitroConfig) {
+      if (enablePrerender) {
+        const prisma = new PrismaClient()
+        try {
+          const [articles, universities] = await Promise.all([
+            prisma.blogArticleTranslation.findMany({
+              where: {
+                article: {
+                  status: 'published',
+                  publishedAt: {
+                    lte: new Date(),
+                  },
+                },
+              },
+              select: {
+                slug: true,
+                locale: true,
+              },
+            }),
+            prisma.universityTranslation.findMany({
+              select: {
+                slug: true,
+                locale: true,
+              },
+            }),
+          ])
+
+          const articleRoutes = articles.map((a) => `/${a.locale}/articles/${a.slug}`)
+          const universityRoutes = universities.map((u) => `/${u.locale}/university/${u.slug}`)
+          const routes = [...articleRoutes, ...universityRoutes]
+
+          if (!nitroConfig.prerender) {
+            nitroConfig.prerender = {}
+          }
+          if (!nitroConfig.prerender.routes) {
+            nitroConfig.prerender.routes = []
+          }
+          nitroConfig.prerender.routes.push(...routes)
+        } catch (error) {
+          console.error('Failed to fetch routes for prerender:', error)
+        } finally {
+          await prisma.$disconnect()
+        }
+      }
     },
   },
   nitro: {

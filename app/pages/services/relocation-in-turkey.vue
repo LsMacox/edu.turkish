@@ -130,7 +130,7 @@ const handlePackageApply = ({
   })
 }
 
-useHead({
+useHead(() => ({
   title: category.value?.title || t('services.relocation-in-turkey.title'),
   meta: [
     {
@@ -138,5 +138,21 @@ useHead({
       content: category.value?.subtitle || t('services.relocation-in-turkey.subtitle'),
     },
   ],
-})
+  script: [
+    {
+      type: 'application/ld+json',
+      children: JSON.stringify({
+        '@context': 'https://schema.org',
+        '@type': ['Product', 'Service'],
+        name: category.value?.title || t('services.relocation-in-turkey.title'),
+        description: category.value?.subtitle || t('services.relocation-in-turkey.subtitle'),
+        provider: {
+          '@type': 'Organization',
+          name: 'Edu.turkish',
+          sameAs: 'https://edu-turkish.com',
+        },
+      }),
+    },
+  ],
+}))
 </script>
