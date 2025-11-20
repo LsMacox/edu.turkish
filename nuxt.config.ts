@@ -286,6 +286,7 @@ export default defineNuxtConfig({
   hooks: {
     async 'nitro:config'(nitroConfig) {
       if (enablePrerender) {
+        const { PrismaClient } = await import('@prisma/client')
         const prisma = new PrismaClient()
         try {
           const [articles, universities] = await Promise.all([
