@@ -202,7 +202,6 @@ export default defineNuxtConfig({
       '@nuxtjs/sitemap',
       {
         autoLastmod: true,
-        sources: ['/api/sitemap-routes'],
       },
     ],
   ],
