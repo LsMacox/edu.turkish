@@ -49,12 +49,12 @@
           </div>
         </div>
 
-        <div class="relative">
-          <div class="bg-white rounded-3xl shadow-custom p-8">
+        <div class="relative hidden md:block">
+          <div class="rounded-3xl shadow-custom overflow-hidden">
             <NuxtImg
               :src="heroImage"
               :alt="hero.imageAlt"
-              class="w-full h-96 object-cover rounded-2xl"
+              class="w-full h-96 object-cover"
               loading="lazy"
               decoding="async"
               sizes="(max-width: 1024px) 100vw, 50vw"

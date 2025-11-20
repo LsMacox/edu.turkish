@@ -37,14 +37,16 @@
           </div>
 
           <!-- Hero Image -->
-          <div class="relative">
-            <div class="bg-white rounded-3xl shadow-custom p-8">
-              <img
-                class="w-full h-96 object-cover rounded-2xl"
+          <div class="relative hidden md:block">
+            <div class="rounded-3xl shadow-custom overflow-hidden">
+              <NuxtImg
                 :src="reviewHero"
                 alt="happy diverse students celebrating university acceptance letters, group photo with Turkish university campus background, bright natural lighting"
+                class="w-full h-96 object-cover"
                 loading="lazy"
                 decoding="async"
+                sizes="(max-width: 1024px) 100vw, 50vw"
+                format="webp"
               />
             </div>
           </div>

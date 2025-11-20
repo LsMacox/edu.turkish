@@ -3,13 +3,12 @@
     <!-- Hero Section -->
     <section class="relative h-[600px] bg-gradient-to-br from-blue-50 to-purple-50">
       <div class="absolute inset-0">
-        <NuxtImg
+        <img
           class="w-full h-full object-cover opacity-20"
-          :src="university.heroImage"
+          :src="heroImageSrc"
           :alt="`${university.name} campus`"
-          sizes="100vw"
+          loading="eager"
           decoding="async"
-          format="webp"
         />
       </div>
       <div class="relative z-10 container mx-auto px-4 lg:px-6 h-full flex items-center">
@@ -305,7 +304,10 @@ interface Props {
   university: UniversityDetailFrontend
 }
 
-defineProps<Props>()
+const props = defineProps<Props>()
+
+const { cdnUrl } = useCdn()
+const heroImageSrc = computed(() => cdnUrl(props.university.heroImage))
 
 const { locale } = useI18n()
 
