@@ -9,12 +9,14 @@
       @click="handlePlayVideo"
     >
       <div class="relative aspect-square bg-gray-200">
-        <img
+        <NuxtImg
           v-if="displayThumb"
           :src="displayThumb"
           :alt="review.name"
           class="w-full h-full object-cover"
           loading="lazy"
+          format="webp"
+          sizes="300px"
         />
         <div
           v-else
@@ -47,12 +49,14 @@
     <!-- Image Review -->
     <div v-else-if="review.mediaType === 'image'" class="relative group cursor-zoom-in">
       <div class="aspect-square bg-gray-200" @click="handleOpenImage">
-        <img
+        <NuxtImg
           v-if="review.imageUrl"
           :src="review.imageUrl"
           :alt="review.name"
           class="w-full h-full object-cover"
           loading="lazy"
+          format="webp"
+          sizes="300px"
         />
         <div
           v-else
@@ -96,7 +100,15 @@
       <div class="mt-auto">
         <div class="flex items-center gap-3">
           <div v-if="review.avatar" class="w-10 h-10 rounded-full overflow-hidden flex-shrink-0">
-            <img :src="review.avatar" :alt="review.name" class="w-full h-full object-cover" />
+            <NuxtImg
+              :src="review.avatar"
+              :alt="review.name"
+              class="w-full h-full object-cover"
+              loading="lazy"
+              format="webp"
+              width="40"
+              height="40"
+            />
           </div>
           <div
             v-else

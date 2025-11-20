@@ -6,6 +6,8 @@
         alt=""
         class="w-full h-full object-cover"
         decoding="async"
+        loading="eager"
+        fetchpriority="high"
         sizes="100vw"
         format="webp"
       />
@@ -75,12 +77,12 @@
               sizes="(max-width: 1024px) 100vw, 50vw"
               format="webp"
             />
-            <video
-              v-if="shouldLoadVideo && !videoError"
-              ref="videoRef"
-              class="absolute inset-0 w-full h-full object-cover rounded-xl md:rounded-2xl"
-              :poster="cdnUrl('8ec3658d-c21c-4843-bacf-f5ae1f830173.png')"
-              autoplay
+      <video
+        v-if="shouldLoadVideo && !videoError"
+        ref="videoRef"
+        class="absolute inset-0 w-full h-full object-cover rounded-xl md:rounded-2xl"
+        :poster="posterUrl"
+        autoplay
               loop
               muted
               playsinline
@@ -103,6 +105,26 @@ import { useApplicationModalStore } from '~/stores/applicationModal'
 const modal = useApplicationModalStore()
 const { t } = useI18n()
 const { cdnUrl } = useCdn()
+const img = useImage()
+
+const posterUrl = computed(() => {
+  return img(cdnUrl('8ec3658d-c21c-4843-bacf-f5ae1f830173.png'), {
+    width: 1280,
+    quality: 70,
+    format: 'webp'
+  })
+})
+
+useHead({
+  link: [
+    {
+      rel: 'preload',
+      as: 'image',
+      href: posterUrl,
+      fetchpriority: 'high'
+    }
+  ]
+})
 
  const heroMediaRef = ref<HTMLElement | null>(null)
  const videoRef = ref<HTMLVideoElement | null>(null)

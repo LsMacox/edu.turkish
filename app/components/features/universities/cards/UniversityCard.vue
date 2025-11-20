@@ -9,12 +9,15 @@
         :src="image"
         :alt="title + ' campus'"
         class="w-full h-48 object-cover"
-        sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 25vw"
+        width="600"
+        height="400"
+        sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
         loading="lazy"
         decoding="async"
         :placeholder="true"
-        :quality="78"
+        :quality="80"
         format="webp"
+        densities="x1 x2"
       />
 
       <div v-else class="w-full h-48 bg-gray-200 flex items-center justify-center">

@@ -86,10 +86,13 @@
             </div>
           </div>
           <div>
-            <img
+            <NuxtImg
               class="w-full h-96 object-cover rounded-2xl shadow-custom"
               :src="cdnUrl('23fe23b3-7b1b-4241-8c01-da4fa809a81a.jpg')"
               :alt="$t('about.whyChooseUs.imageAlt')"
+              loading="lazy"
+              format="webp"
+              sizes="(max-width: 1024px) 100vw, 50vw"
             />
           </div>
         </div>

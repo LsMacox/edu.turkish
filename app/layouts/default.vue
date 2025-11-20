@@ -6,14 +6,19 @@
     </main>
     <SiteFooter />
 
-    <ApplicationModal
+    <LazyApplicationModal
+      v-if="modal.isOpen"
       :is-open="modal.isOpen"
       :user-preferences="modal.userPreferences"
       @close="modal.closeModal"
       @submit="modal.submitApplication"
     />
 
-    <ExitIntentWhoModal :is-open="showExitIntentModal" @close="showExitIntentModal = false" />
+    <LazyExitIntentWhoModal
+      v-if="showExitIntentModal"
+      :is-open="showExitIntentModal"
+      @close="showExitIntentModal = false"
+    />
 
     <!-- Global Toasts -->
     <UiFeedbackToast />

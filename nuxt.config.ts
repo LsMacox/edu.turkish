@@ -12,6 +12,7 @@ const siteUrl = (/^https?:\/\//i.test(rawSiteUrl) ? rawSiteUrl : `https://${rawS
 )
 
 const enablePrerender = process.env.NITRO_PRERENDER === 'true'
+const enableRemoteImages = process.env.NUXT_ENABLE_REMOTE_IMAGES === 'true'
 
 function getLocaleFiles(localeCode: string): string[] {
   const localeDir = path.join('i18n/locales', localeCode)
@@ -173,6 +174,7 @@ export default defineNuxtConfig({
       {
         quality: 78,
         format: ['avif', 'webp', 'auto'],
+        domains: enableRemoteImages ? ['cdn.edu-turkish.com', 'edu-turkish.com'] : [],
         screens: {
           xs: 360,
           sm: 640,
