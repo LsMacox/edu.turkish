@@ -79,7 +79,7 @@ const featureComponentGroups = getFeatureDirs().flatMap((feature) => {
         })
       }
     }
-  } catch {}
+  } catch { }
 
   // If the feature root contains .vue files directly, register it too
   if (hasVueFiles(baseAbs)) {
@@ -159,7 +159,6 @@ export default defineNuxtConfig({
     [
       '@nuxt/fonts',
       {
-        provider: 'local',
         defaults: {
           display: 'swap',
           fallbacks: {

@@ -1,11 +1,12 @@
 <template>
   <div
+    ref="cardRef"
     class="bg-white rounded-2xl shadow-lg overflow-hidden hover:-translate-y-1 hover:shadow-xl transition-all duration-300 ease-out flex flex-col h-full university-card"
     :aria-label="`University card for ${title}`"
   >
     <div class="relative overflow-hidden">
       <NuxtImg
-        v-if="image"
+        v-if="image && isVisible"
         :src="image"
         :alt="title + ' campus'"
         class="w-full h-48 object-cover"
@@ -76,7 +77,39 @@ const props = withDefaults(defineProps<Props>(), {
 
 const { t } = useI18n()
 
-// Removed unused image computed helpers
+// Lazy loading logic
+const cardRef = ref<HTMLElement | null>(null)
+const isVisible = ref(false)
+
+onMounted(() => {
+  if (!('IntersectionObserver' in window)) {
+    isVisible.value = true
+    return
+  }
+
+  const observer = new IntersectionObserver(
+    (entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          isVisible.value = true
+          observer.disconnect()
+        }
+      })
+    },
+    {
+      rootMargin: '50px',
+      threshold: 0.1,
+    },
+  )
+
+  if (cardRef.value) {
+    observer.observe(cardRef.value)
+  }
+
+  onUnmounted(() => {
+    observer.disconnect()
+  })
+})
 
 const typeLabel = computed(() => {
   switch (props.type) {

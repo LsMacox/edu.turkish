@@ -1,5 +1,6 @@
 <template>
   <UiDisplayFAQ
+    class="py-16"
     :items="faqs"
     :title="t('universityDetail.faq.title')"
     :subtitle="t('universityDetail.faq.subtitle')"

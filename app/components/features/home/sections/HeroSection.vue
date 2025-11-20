@@ -80,14 +80,15 @@
       <video
         v-if="shouldLoadVideo && !videoError"
         ref="videoRef"
-        class="absolute inset-0 w-full h-full object-cover rounded-xl md:rounded-2xl"
-        :poster="posterUrl"
+        class="absolute inset-0 w-full h-full object-cover rounded-xl md:rounded-2xl transition-opacity duration-700"
+        :class="[isVideoLoaded ? 'opacity-100' : 'opacity-0']"
         autoplay
               loop
               muted
               playsinline
               preload="metadata"
               @error="handleVideoError"
+              @canplay="handleVideoLoaded"
             >
               <source :src="cdnUrl('88212a29-9f40-4c01-89d0-7a522c61b8c5.mp4')" type="video/mp4" />
             </video>
@@ -105,80 +106,63 @@ import { useApplicationModalStore } from '~/stores/applicationModal'
 const modal = useApplicationModalStore()
 const { t } = useI18n()
 const { cdnUrl } = useCdn()
-const img = useImage()
 
-const posterUrl = computed(() => {
-  return img(cdnUrl('8ec3658d-c21c-4843-bacf-f5ae1f830173.png'), {
-    width: 1280,
-    quality: 70,
-    format: 'webp'
-  })
+const heroMediaRef = ref<HTMLElement | null>(null)
+const videoRef = ref<HTMLVideoElement | null>(null)
+const shouldLoadVideo = ref(false)
+const videoError = ref(false)
+const isVideoLoaded = ref(false)
+
+let observer: IntersectionObserver | null = null
+
+onMounted(() => {
+  if (heroMediaRef.value && 'IntersectionObserver' in window) {
+    observer = new IntersectionObserver((entries) => {
+      for (const entry of entries) {
+        if (entry.isIntersecting) {
+          shouldLoadVideo.value = true
+          if (heroMediaRef.value && observer) {
+            observer.unobserve(heroMediaRef.value)
+          }
+          observer = null
+          break
+        }
+      }
+    })
+
+    observer.observe(heroMediaRef.value)
+  } else {
+    shouldLoadVideo.value = true
+  }
 })
 
-useHead({
-  link: [
-    {
-      rel: 'preload',
-      as: 'image',
-      href: posterUrl,
-      fetchpriority: 'high'
-    }
-  ]
+onBeforeUnmount(() => {
+  if (heroMediaRef.value && observer) {
+    observer.unobserve(heroMediaRef.value)
+  }
+  observer = null
 })
 
- const heroMediaRef = ref<HTMLElement | null>(null)
- const videoRef = ref<HTMLVideoElement | null>(null)
- const shouldLoadVideo = ref(false)
- const videoError = ref(false)
+const handleMouseEnter = () => {
+  if (videoRef.value) {
+    videoRef.value.muted = false
+  }
+}
 
- let observer: IntersectionObserver | null = null
+const handleMouseLeave = () => {
+  if (videoRef.value) {
+    videoRef.value.muted = true
+  }
+}
 
- onMounted(() => {
-   if (heroMediaRef.value && 'IntersectionObserver' in window) {
-     observer = new IntersectionObserver((entries) => {
-       for (const entry of entries) {
-         if (entry.isIntersecting) {
-           shouldLoadVideo.value = true
-           if (heroMediaRef.value && observer) {
-             observer.unobserve(heroMediaRef.value)
-           }
-           observer = null
-           break
-         }
-       }
-     })
+const handleVideoError = () => {
+  videoError.value = true
+  if (videoRef.value) {
+    videoRef.value.pause()
+  }
+}
 
-     observer.observe(heroMediaRef.value)
-   } else {
-     shouldLoadVideo.value = true
-   }
- })
-
- onBeforeUnmount(() => {
-   if (heroMediaRef.value && observer) {
-     observer.unobserve(heroMediaRef.value)
-   }
-   observer = null
- })
-
- const handleMouseEnter = () => {
-   if (videoRef.value) {
-     videoRef.value.muted = false
-   }
- }
-
- const handleMouseLeave = () => {
-   if (videoRef.value) {
-     videoRef.value.muted = true
-   }
- }
-
- const handleVideoError = () => {
-   videoError.value = true
-   if (videoRef.value) {
-     videoRef.value.pause()
-   }
- }
-
-// no manual preload to avoid mismatch with Nuxt Image/IPX
+const handleVideoLoaded = () => {
+  isVideoLoaded.value = true
+}
 </script>
