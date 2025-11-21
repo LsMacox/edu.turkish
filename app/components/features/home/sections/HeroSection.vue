@@ -1,13 +1,14 @@
 <template>
   <section id="hero" class="relative overflow-hidden pt-3 pb-10 md:py-20">
     <div class="absolute inset-0">
-      <img
+      <NuxtImg
         :src="cdnUrl('d837748f-0c70-4c7f-a6af-771cd41e8cfb.jpg')"
         alt=""
         class="w-full h-full object-cover"
-        decoding="async"
         loading="eager"
         fetchpriority="high"
+        sizes="100vw"
+        format="webp"
       />
       <div class="absolute inset-0 bg-white/90" />
     </div>

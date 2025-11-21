@@ -3,12 +3,13 @@
     <!-- Hero Section -->
     <section class="relative h-[600px] bg-gradient-to-br from-blue-50 to-purple-50">
       <div class="absolute inset-0">
-        <img
+        <NuxtImg
           class="w-full h-full object-cover opacity-20"
           :src="heroImageSrc"
           :alt="`${university.name} campus`"
           loading="eager"
           decoding="async"
+          format="webp"
         />
       </div>
       <div class="relative z-10 container mx-auto px-4 lg:px-6 h-full flex items-center">
