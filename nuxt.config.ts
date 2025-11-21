@@ -183,6 +183,9 @@ export default defineNuxtConfig({
           '2xl': 1536,
         },
         placeholder: true,
+        ipx: {
+          maxInputSize: 10000000, // 10MB
+        },
       },
     ],
     [
