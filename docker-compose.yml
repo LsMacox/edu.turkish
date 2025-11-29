@@ -165,7 +165,7 @@ services:
     restart: unless-stopped
     ports:
       - '8090:80'
-    environment:
+    environment: &espocrm_env
       ESPOCRM_DATABASE_HOST: mysql
       ESPOCRM_DATABASE_NAME: ${ESPOCRM_DB_NAME}
       ESPOCRM_DATABASE_USER: ${ESPOCRM_DB_USER}
@@ -187,6 +187,21 @@ services:
       timeout: 10s
       retries: 5
       start_period: 60s
+
+  espocrm-daemon:
+    image: espocrm/espocrm:latest
+    container_name: edu_turkish_espocrm_daemon
+    restart: unless-stopped
+    entrypoint: docker-php-entrypoint
+    command: ["php", "-d", "memory_limit=1024M", "-d", "max_execution_time=0", "daemon.php"]
+    environment:
+      <<: *espocrm_env 
+    volumes:
+      - espocrm_data:/var/www/html
+    depends_on:
+      - espocrm
+    networks:
+      - edu_turkish_network
 
   redis:
     image: redis:7-alpine
