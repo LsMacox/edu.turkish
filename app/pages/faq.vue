@@ -245,8 +245,12 @@ const {
   refresh,
 } = useFAQSearch()
 
+const { locale } = useI18n()
+
 // Server-side data fetching for SEO
-await useAsyncData('faq-data', () => refresh())
+await useAsyncData(`faq-data-${locale.value}`, () => refresh(), {
+  watch: [locale],
+})
 
 // Schema.org Structured Data
 useHead({

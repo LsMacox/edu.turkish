@@ -61,7 +61,7 @@ const { fetchCategory } = useServices()
 
 // Fetch category data from database
 const { data: category } = await useAsyncData<ServiceCategoryDetail>(
-  'document-translations',
+  `document-translations-${locale.value}`,
   () => fetchCategory('document-translations'),
   {
     lazy: false,

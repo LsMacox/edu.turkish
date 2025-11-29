@@ -64,16 +64,17 @@ import { useApplicationModalStore } from '~/stores/applicationModal'
 import { useExchangeRatesStore } from '~/stores/exchangeRates'
 import { useServices } from '~/composables/useServices'
 
-const { t, tm } = useI18n()
+const { t, tm, locale } = useI18n()
 const modal = useApplicationModalStore()
 const exchangeRatesStore = useExchangeRatesStore()
 const { fetchCategory } = useServices()
 
 // Fetch category data from database
 const { data: category } = await useAsyncData<ServiceCategoryDetail>(
-  'relocation-in-turkey',
+  `relocation-in-turkey-${locale.value}`,
   () => fetchCategory('relocation-in-turkey'),
   {
+    watch: [locale],
     lazy: false,
   },
 )

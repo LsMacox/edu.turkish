@@ -76,16 +76,17 @@
 
 import { useServices } from '~/composables/useServices'
 
-const { t } = useI18n()
+const { t, locale } = useI18n()
 // const modal = useApplicationModalStore()
 // const exchangeRatesStore = useExchangeRatesStore()
 const { fetchCategory } = useServices()
 
 const { data: category } = await useAsyncData(
-  'sat-courses',
+  `sat-courses-${locale.value}`,
   () => fetchCategory('sat-courses'),
   {
     lazy: false,
+    watch: [locale],
   },
 )
 

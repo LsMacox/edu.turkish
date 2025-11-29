@@ -359,7 +359,7 @@ const { data, pending, error } = await useAsyncData<{
   data: BlogArticleDetail
   related: BlogArticleListItem[]
 } | null>(
-  'article-detail',
+  `article-detail-${slug.value}-${locale.value}`,
   async () => {
     if (!slug.value) {
       return null

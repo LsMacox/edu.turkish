@@ -45,15 +45,15 @@ import { useApplicationModalStore } from '~/stores/applicationModal'
 import { useExchangeRatesStore } from '~/stores/exchangeRates'
 import { useServices } from '~/composables/useServices'
 
-const { t } = useI18n()
+const { t, locale } = useI18n()
 const modal = useApplicationModalStore()
 const exchangeRatesStore = useExchangeRatesStore()
 const { fetchCategory } = useServices()
 
 const { data: category } = await useAsyncData<ServiceCategoryDetail>(
-  'tr-yos-courses',
+  `tr-yos-courses-${locale.value}`,
   () => fetchCategory('tr-yos-courses'),
-  { lazy: false },
+  { lazy: false, watch: [locale] },
 )
 
 onMounted(async () => {
