@@ -174,6 +174,7 @@ services:
       ESPOCRM_ADMIN_USERNAME: ${ESPOCRM_ADMIN_USERNAME}
       ESPOCRM_ADMIN_PASSWORD: ${ESPOCRM_ADMIN_PASSWORD}
       ESPOCRM_SITE_URL: ${ESPOCRM_SITE_URL:-http://localhost:8090}
+      TZ: Europe/Istanbul
     volumes:
       - espocrm_data:/var/www/html
     depends_on:
