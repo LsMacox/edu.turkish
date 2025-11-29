@@ -6,6 +6,8 @@ services:
     build:
       context: .
       dockerfile: Dockerfile
+      args:
+        NUXT_PUBLIC_CDN_URL: ${NUXT_PUBLIC_CDN_URL}
     container_name: edu_turkish_app
     restart: unless-stopped
     env_file:
