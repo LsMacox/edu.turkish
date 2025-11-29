@@ -59,8 +59,6 @@ export function createMockPrisma(overrides?: Partial<MockPrismaClient>): MockPri
     university: createMockModel(),
     universityTranslation: createMockModel(),
     universityProgram: createMockModel(),
-    universityFeaturedProgram: createMockModel(),
-    universityFeaturedProgramTranslation: createMockModel(),
     application: createMockModel(),
     faq: createMockModel(),
     faqTranslation: createMockModel(),

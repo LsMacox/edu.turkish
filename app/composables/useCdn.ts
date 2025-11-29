@@ -1,36 +1,20 @@
-import { toCdnUrl } from '~/utils/cdn'
-
-/**
- * CDN transformation composable
- *
- * Provides a reactive function to transform asset paths to CDN URLs
- * using the runtime configuration.
- *
- * @returns Object with cdnUrl transformation function
- *
- * @example
- * ```vue
- * <script setup>
- * const { cdnUrl } = useCdn()
- * const logoUrl = cdnUrl('/images/universities/logo.png')
- * </script>
- *
- * <template>
- *   <img :src="cdnUrl('/images/universities/logo.png')" />
- *   <NuxtImg :src="cdnUrl('/images/reviews/photo.jpg')" />
- * </template>
- * ```
- */
-export function useCdn() {
+export const useCdn = () => {
   const config = useRuntimeConfig()
+  const cdnUrl = config.public.cdnUrl as string
+
+  const getCdnUrl = (path: string) => {
+    if (!path) return ''
+    if (path.startsWith('http') || path.startsWith('blob:')) return path
+    
+    const cleanPath = path.startsWith('/') ? path.slice(1) : path
+    const cleanBase = cdnUrl.endsWith('/') ? cdnUrl.slice(0, -1) : cdnUrl
+    
+    if (!cleanBase) return `/${cleanPath}`
+
+    return `${cleanBase}/${cleanPath}`
+  }
 
   return {
-    /**
-     * Transform asset path to CDN URL
-     *
-     * @param path - Asset path (absolute or relative)
-     * @returns CDN URL or original path if CDN is disabled
-     */
-    cdnUrl: (path: string) => toCdnUrl(path, config.public.cdnUrl as string),
+    getCdnUrl
   }
 }
