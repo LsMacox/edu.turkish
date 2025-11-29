@@ -2,7 +2,7 @@
   <section id="hero" class="relative overflow-hidden pt-3 pb-10 md:py-20">
     <div class="absolute inset-0">
       <NuxtImg
-        :src="cdnUrl('d837748f-0c70-4c7f-a6af-771cd41e8cfb.jpg')"
+        :src="'d837748f-0c70-4c7f-a6af-771cd41e8cfb.jpg'"
         alt=""
         class="w-full h-full object-cover"
         loading="eager"
@@ -68,7 +68,7 @@
             @mouseleave="handleMouseLeave"
           >
             <NuxtImg
-              :src="cdnUrl('8ec3658d-c21c-4843-bacf-f5ae1f830173.png')"
+              :src="'8ec3658d-c21c-4843-bacf-f5ae1f830173.png'"
               alt="Group of happy international students"
               class="w-full h-64 xs:h-72 md:h-80 object-cover rounded-xl md:rounded-2xl"
               fetchpriority="high"
@@ -89,7 +89,7 @@
               @error="handleVideoError"
               @canplay="handleVideoLoaded"
             >
-              <source :src="cdnUrl('88212a29-9f40-4c01-89d0-7a522c61b8c5.mp4')" type="video/mp4" />
+              <source :src="getCdnUrl('88212a29-9f40-4c01-89d0-7a522c61b8c5.mp4')" type="video/mp4" />
             </video>
           </div>
         </div>
@@ -104,7 +104,7 @@ import { useApplicationModalStore } from '~/stores/applicationModal'
 // Hero section
 const modal = useApplicationModalStore()
 const { t } = useI18n()
-const { cdnUrl } = useCdn()
+const { getCdnUrl } = useCdn()
 
 const heroMediaRef = ref<HTMLElement | null>(null)
 const videoRef = ref<HTMLVideoElement | null>(null)

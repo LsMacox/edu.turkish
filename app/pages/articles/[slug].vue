@@ -75,7 +75,7 @@
         <div class="container mx-auto px-4 lg:px-6">
           <div class="grid gap-12 lg:grid-cols-[minmax(0,2.2fr)_minmax(0,1fr)]">
             <article class="rounded-3xl bg-white p-6 shadow-custom ring-1 ring-gray-100/60 lg:p-10">
-              <div class="space-y-10">
+              <div class="space-y-6">
                 <!-- eslint-disable vue/no-v-html -->
                 <div
                   v-for="(block, index) in normalizedContent"
@@ -130,26 +130,44 @@
                     <NuxtImg
                       :src="block.url"
                       :alt="block.alt || article.title"
-                      class="w-full rounded-2xl object-cover"
+                      class="object-cover"
+                      :class="[
+                        block.width === 'full'
+                          ? '-mx-6 w-[calc(100%+3rem)] max-w-none rounded-none lg:-mx-10 lg:w-[calc(100%+5rem)]'
+                          : 'w-full rounded-2xl',
+                      ]"
                       format="webp"
                     />
                     <figcaption
                       v-if="block.caption"
                       class="text-sm text-gray-500"
+                      :class="{ 'px-6 lg:px-10': block.width === 'full' }"
                       v-html="block.caption"
                     />
                   </figure>
 
                   <blockquote
                     v-else-if="block.type === 'quote'"
-                    class="space-y-3 rounded-2xl bg-gradient-to-br from-primary/5 via-white to-secondary/5 p-6 shadow-inner"
+                    class="space-y-2 rounded-xl bg-gradient-to-br from-primary/5 via-white to-secondary/5 p-5 shadow-sm"
                   >
-                    <Icon name="mdi:format-quote-open" class="text-3xl text-primary" />
-                    <p class="text-lg font-medium text-secondary" v-html="block.text"></p>
+                    <Icon name="mdi:format-quote-open" class="text-2xl text-primary" />
+                    <p class="font-medium text-secondary" v-html="block.text"></p>
                     <cite v-if="block.author" class="block text-sm text-gray-500">{{
                       block.author
                     }}</cite>
                   </blockquote>
+
+                  <div
+                    v-else-if="block.type === 'spacer'"
+                    :class="{
+                      'h-4': block.size === 'sm',
+                      'h-8': block.size === 'md',
+                      'h-12': block.size === 'lg',
+                      'h-16': block.size === 'xl',
+                    }"
+                  />
+
+                  <hr v-else-if="block.type === 'divider'" class="border-gray-100 my-4" />
                 </div>
                 <!-- eslint-enable vue/no-v-html -->
               </div>
@@ -171,7 +189,7 @@
                     class="flex items-center gap-3 rounded-xl px-3 py-2 transition hover:bg-background hover:text-secondary"
                   >
                     <span
-                      class="flex h-8 w-8 items-center justify-center rounded-full bg-primary/10 text-primary"
+                      class="flex h-8 w-8 min-h-8 min-w-8 shrink-0 items-center justify-center rounded-full bg-primary/10 text-primary"
                     >
                       {{ section.order }}
                     </span>
@@ -444,9 +462,11 @@ type ParagraphBlock = Extract<BlogArticleContentBlock, { type: 'paragraph' }>
 type ListBlock = Extract<BlogArticleContentBlock, { type: 'list' }>
 type QuoteBlock = Extract<BlogArticleContentBlock, { type: 'quote' }>
 type ImageBlock = Extract<BlogArticleContentBlock, { type: 'image' }>
+type SpacerBlock = Extract<BlogArticleContentBlock, { type: 'spacer' }>
+type DividerBlock = Extract<BlogArticleContentBlock, { type: 'divider' }>
 
 type HeadingBlockWithId = HeadingBlock & { id: string }
-type NormalizedBlock = HeadingBlockWithId | ParagraphBlock | ListBlock | QuoteBlock | ImageBlock
+type NormalizedBlock = HeadingBlockWithId | ParagraphBlock | ListBlock | QuoteBlock | ImageBlock | SpacerBlock | DividerBlock
 
 const stripTags = (html: string): string => html.replace(/<[^>]*>/g, '')
 

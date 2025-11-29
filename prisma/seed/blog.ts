@@ -65,17 +65,17 @@ const categories = [
 ]
 
 const sharedImages = {
-  visa: 'https://storage.googleapis.com/uxpilot-auth.appspot.com/4d45d15c4c-2f7df3cd5c6d26f67f4d.png',
+  visa: 'f5f5af68-1fa8-470f-b9db-12531649dc04.png',
   exams:
-    'https://storage.googleapis.com/uxpilot-auth.appspot.com/e66dae170a-2ce9fb303ed0b339b596.png',
+    '36f63960-1f6d-41d0-9fde-02fc2df6c1f2.png',
   applications:
-    'https://storage.googleapis.com/uxpilot-auth.appspot.com/0dd499ea10-24904ac07ef05238b5a7.png',
+    '324bcce7-e79d-45f7-a633-b0e1a7eedbf6.png',
   scholarships:
-    'https://storage.googleapis.com/uxpilot-auth.appspot.com/e3901b0bf7-9a8ad8119465cdbbdbe0.png',
-  cost: 'https://storage.googleapis.com/uxpilot-auth.appspot.com/af90cf6ff7-bebc6b59bbc09cfdceda.png',
-  life: 'https://storage.googleapis.com/uxpilot-auth.appspot.com/87e795516e-e01ab643ecae05c53996.png',
+    '3e53786b-5ff0-4804-9634-34f8962ffdcb.png',
+  cost: '4ddc34d2-9398-4899-a8ba-f6a54900fdae.png',
+  life: '1b6fcd79-1a7f-42a8-b66e-ae31a2501ced.png',
   rankings:
-    'https://storage.googleapis.com/uxpilot-auth.appspot.com/57489031df-a0c5d805a5c769e79e85.png',
+    'bdb607d2-5777-49ef-859f-04be43a14ea8.png',
 }
 
 const articles: SeedArticle[] = [
@@ -84,7 +84,7 @@ const articles: SeedArticle[] = [
     isFeatured: true,
     publishedAt: '2025-01-15T08:00:00Z',
     coverImage: sharedImages.visa,
-    heroImage: 'https://storage.googleapis.com/edu-turkish/article-hero-visa.jpg',
+    heroImage: sharedImages.visa,
     readingTimeMinutes: 8,
     translations: [
       {
@@ -152,7 +152,7 @@ const articles: SeedArticle[] = [
     categoryCode: 'applications',
     publishedAt: '2025-01-12T08:00:00Z',
     coverImage: sharedImages.applications,
-    heroImage: 'https://storage.googleapis.com/edu-turkish/article-hero-application.jpg',
+    heroImage: sharedImages.applications,
     readingTimeMinutes: 7,
     translations: [
       {
@@ -215,7 +215,7 @@ const articles: SeedArticle[] = [
     categoryCode: 'scholarships',
     publishedAt: '2025-01-10T08:00:00Z',
     coverImage: sharedImages.scholarships,
-    heroImage: 'https://storage.googleapis.com/edu-turkish/article-hero-scholarship.jpg',
+    heroImage: sharedImages.scholarships,
     readingTimeMinutes: 9,
     translations: [
       {
@@ -278,7 +278,7 @@ const articles: SeedArticle[] = [
     categoryCode: 'cost',
     publishedAt: '2025-01-08T08:00:00Z',
     coverImage: sharedImages.cost,
-    heroImage: 'https://storage.googleapis.com/edu-turkish/article-hero-cost.jpg',
+    heroImage: sharedImages.cost,
     readingTimeMinutes: 6,
     translations: [
       {
@@ -340,7 +340,7 @@ const articles: SeedArticle[] = [
     categoryCode: 'life',
     publishedAt: '2025-01-05T08:00:00Z',
     coverImage: sharedImages.life,
-    heroImage: 'https://storage.googleapis.com/edu-turkish/article-hero-life.jpg',
+    heroImage: sharedImages.life,
     readingTimeMinutes: 8,
     translations: [
       {
@@ -404,7 +404,7 @@ const articles: SeedArticle[] = [
     categoryCode: 'exams',
     publishedAt: '2024-12-28T08:00:00Z',
     coverImage: sharedImages.exams,
-    heroImage: 'https://storage.googleapis.com/edu-turkish/article-hero-exam.jpg',
+    heroImage: sharedImages.exams,
     readingTimeMinutes: 5,
     translations: [
       {
@@ -449,7 +449,7 @@ const articles: SeedArticle[] = [
     categoryCode: 'applications',
     publishedAt: '2024-12-20T08:00:00Z',
     coverImage: sharedImages.rankings,
-    heroImage: 'https://storage.googleapis.com/edu-turkish/article-hero-deadlines.jpg',
+    heroImage: sharedImages.rankings,
     readingTimeMinutes: 4,
     translations: [
       {

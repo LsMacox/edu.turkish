@@ -13,6 +13,7 @@ export interface ServiceCategory {
 
 export type SubServiceId =
   // Relocation
+  | 'university-admission'
   | 'relocation-standard'
   | 'relocation-vip'
   // TR-YÖS Courses
@@ -32,7 +33,7 @@ export type SubServiceId =
   | 'apostille-translation'
   | 'consular-legalization'
 
-export type PackageId = 'relocation-standard' | 'relocation-vip'
+export type PackageId = 'university-admission' | 'relocation-standard' | 'relocation-vip'
 
 export interface SubService {
   id: SubServiceId

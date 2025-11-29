@@ -152,7 +152,7 @@
         <div class="flex flex-col md:flex-row justify-between items-center">
           <div class="flex items-center mb-4 md:mb-0">
             <NuxtImg
-              :src="cdnUrl('c905b440-9cea-4b23-8576-f1787a84d356.png')"
+              :src="'c905b440-9cea-4b23-8576-f1787a84d356.png'"
               alt="Edu.turkish"
               width="60"
               height="60"
@@ -185,7 +185,6 @@ const router = useRouter()
 const localePath = useLocalePath()
 const { channels, getChannel } = useContactChannels()
 const instagramChannel = getChannel('instagram')
-const { cdnUrl } = useCdn()
 
 const { openWithFingerprint } = useFingerprint()
 

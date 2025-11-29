@@ -11,9 +11,9 @@
             {{ t('faq.subtitle') }}
           </p>
           <div class="hidden md:flex justify-center">
-            <img
+            <NuxtImg
               class="w-64 h-64 object-contain"
-              :src="cdnUrl('a87cb155-2db1-4c53-b15c-0cb8ddbe949e.png')"
+              :src="'a87cb155-2db1-4c53-b15c-0cb8ddbe949e.png'"
               :alt="t('faq.heroImageAlt')"
               width="256"
               height="256"
@@ -222,7 +222,6 @@ definePageMeta({
 })
 
 const { t, te } = useI18n()
-const { cdnUrl } = useCdn()
 
 const searchInputId = useId()
 

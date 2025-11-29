@@ -59,11 +59,10 @@ const profiles = computed(() => {
   }))
 })
 
-const { cdnUrl } = useCdn()
 
 const resolvePhoto = (photo: string): string => {
   if (!photo || photo.includes('teacher-placeholder.jpg')) {
-    return cdnUrl('c905b440-9cea-4b23-8576-f1787a84d356.png')
+    return 'c905b440-9cea-4b23-8576-f1787a84d356.png'
   }
   return photo
 }

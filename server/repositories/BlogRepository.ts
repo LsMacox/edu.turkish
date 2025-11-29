@@ -105,8 +105,22 @@ export class BlogRepository {
             const caption = rawBlock.caption
               ? sanitizeRichText(String(rawBlock.caption))
               : undefined
-            blocks.push({ type: 'image', url, alt, caption })
+            const width = ['standard', 'wide', 'full'].includes(String(rawBlock.width))
+              ? (String(rawBlock.width) as 'standard' | 'wide' | 'full')
+              : undefined
+            blocks.push({ type: 'image', url, alt, caption, width })
           }
+          break
+        }
+        case 'spacer': {
+          const size = ['sm', 'md', 'lg', 'xl'].includes(String(rawBlock.size))
+            ? (String(rawBlock.size) as 'sm' | 'md' | 'lg' | 'xl')
+            : 'md'
+          blocks.push({ type: 'spacer', size })
+          break
+        }
+        case 'divider': {
+          blocks.push({ type: 'divider' })
           break
         }
         default:
@@ -376,14 +390,7 @@ export class BlogRepository {
     ])
 
     const mappedArticles = rows.map((row) => this.mapArticleToListItem(row, locale))
-    let mappedFeatured = featured ? this.mapArticleToListItem(featured, locale) : null
-    if (mappedFeatured && featured) {
-      const translation = pickTranslation(featured.translations, locale)
-      const heroImg = featured.heroImage ?? featured.coverImage ?? null
-      const heroAlt =
-        translation?.heroImageAlt ?? translation?.imageAlt ?? translation?.title ?? undefined
-      mappedFeatured = { ...mappedFeatured, image: heroImg, imageAlt: heroAlt }
-    }
+    const mappedFeatured = featured ? this.mapArticleToListItem(featured, locale) : null
     const mappedCategories = categories.map((category) => {
       const translation = pickTranslation(category.translations, locale)
       return {

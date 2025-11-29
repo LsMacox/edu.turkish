@@ -10,7 +10,9 @@ export type BlogArticleContentBlock =
   | { type: 'paragraph'; text: string }
   | { type: 'list'; ordered: boolean; items: string[] }
   | { type: 'quote'; text: string; author?: string }
-  | { type: 'image'; url: string; alt: string; caption?: string }
+  | { type: 'image'; url: string; alt: string; caption?: string; width?: 'standard' | 'wide' | 'full' }
+  | { type: 'spacer'; size: 'sm' | 'md' | 'lg' | 'xl' }
+  | { type: 'divider' }
 
 export interface BlogArticleQuickFact {
   title: string

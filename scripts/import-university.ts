@@ -142,11 +142,6 @@ const AboutBlock = z.object({
     .default([]),
 })
 
-const StrongProgramCategory = z.object({
-  category: z.string(),
-  programs: z.array(z.string()),
-})
-
 const MediaItem = z.object({
   kind: z.enum(['image', 'video']).default('image'),
   url: z.string(),
@@ -199,7 +194,6 @@ const UniversityInput = z.object({
   heroImage: z.string().optional(),
   image: z.string().optional(),
   about: AboutBlock,
-  strong_programs: z.array(StrongProgramCategory).optional().default([]),
   key_info_texts: z.record(z.string(), z.unknown()).optional(),
   campus_life: CampusLife,
   admission: AdmissionSection,
@@ -213,7 +207,6 @@ const UniversityInput = z.object({
       description: z.string().optional(),
       slug: z.string().optional(),
       about: AboutBlock.partial().optional(),
-      strong_programs: z.array(StrongProgramCategory).optional(),
       key_info_texts: z.record(z.string(), z.unknown()).optional(),
     })
     .optional(),
@@ -243,7 +236,6 @@ async function main(): Promise<void> {
 
   // Replace related entities with provided payload (simple and deterministic)
   await replacePrograms(universityId, data.locale, data.programs)
-  await replaceFeaturedPrograms(universityId, data.locale, data.strong_programs ?? [])
   // Link study directions based on explicit list or program-level hints
   await linkDirectionsForUniversity(universityId, data.locale, data)
   await replaceFacilities(universityId, data.locale, data.campus_life?.facilities ?? [])
@@ -417,86 +409,6 @@ async function replacePrograms(
           name: p.translation.name,
         },
       })
-    }
-  }
-}
-
-async function replaceFeaturedPrograms(
-  universityId: number,
-  baseLocale: string,
-  categories: Array<z.infer<typeof StrongProgramCategory>>,
-): Promise<void> {
-  await (prisma as any).UniversityFeaturedProgram.deleteMany({ where: { universityId } })
-
-  if (!categories || categories.length === 0) return
-
-  const programTranslations = await (prisma as any).UniversityProgramTranslation.findMany({
-    where: { program: { universityId } },
-    include: { program: true },
-  })
-
-  const normalizeKey = (locale: string, value: string | null | undefined): string =>
-    `${locale.toLowerCase()}|${(value || '').trim().toLowerCase()}`
-
-  const programIndex = new Map<string, number>()
-  for (const pt of programTranslations) {
-    if (!pt.name) continue
-    programIndex.set(normalizeKey(pt.locale, pt.name), pt.programId)
-  }
-
-  let orderCounter = 0
-  // Avoid duplicate featured entries for the same program within one university
-  const usedProgramIds = new Set<number>()
-
-  for (let categoryIndex = 0; categoryIndex < categories.length; categoryIndex++) {
-    const category = categories[categoryIndex]
-    const programs = Array.isArray(category?.programs) ? category.programs : []
-
-    for (const programNameRaw of programs) {
-      const nameTrimmed = (programNameRaw || '').trim()
-      if (!nameTrimmed) continue
-
-      let programId = programIndex.get(normalizeKey(baseLocale, nameTrimmed))
-      if (!programId) {
-        const fallback = programTranslations.find(
-          (pt: any) => (pt.name ?? '').trim().toLowerCase() === nameTrimmed.toLowerCase(),
-        )
-        if (fallback) {
-          programId = fallback.programId
-        }
-      }
-
-      // Fuzzy search: find by partial match (program name starts with the search term)
-      if (!programId) {
-        const fuzzyMatch = programTranslations.find(
-          (pt: any) =>
-            pt.locale === baseLocale &&
-            (pt.name || '').trim().toLowerCase().startsWith(nameTrimmed.toLowerCase()),
-        )
-        if (fuzzyMatch) {
-          programId = fuzzyMatch.programId
-        }
-      }
-
-      if (!programId) {
-        console.warn(`⚠️ Program not found for featured list: ${programNameRaw}`)
-        continue
-      }
-
-      // Skip duplicates to satisfy unique constraint [universityId, programId]
-      if (usedProgramIds.has(programId)) {
-        continue
-      }
-
-      await (prisma as any).UniversityFeaturedProgram.create({
-        data: {
-          universityId,
-          programId,
-          displayOrder: orderCounter++,
-        },
-      })
-
-      usedProgramIds.add(programId)
     }
   }
 }

@@ -27,7 +27,7 @@
             @click="closeDrawer"
           >
             <NuxtImg
-              :src="cdnUrl('c905b440-9cea-4b23-8576-f1787a84d356.png')"
+              :src="'c905b440-9cea-4b23-8576-f1787a84d356.png'"
               alt="Edu.turkish"
               width="60"
               height="60"
@@ -212,7 +212,6 @@ const emit = defineEmits<Emits>()
 
 const route = useRoute()
 const { t } = useI18n()
-const { cdnUrl } = useCdn()
 
 const i18n = useI18n<{ messages: Record<string, any> }, SupportedLocale>()
 const localePath = useLocalePath()

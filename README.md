@@ -137,22 +137,6 @@ npm run db:studio
    NUXT_PUBLIC_CDN_URL=https://cdn.edu-turkish.com
    ```
 
-2. Используйте composable `useCdn()` в компонентах:
-
-   ```vue
-   <script setup>
-   const { cdnUrl } = useCdn()
-   </script>
-
-   <template>
-     <img :src="cdnUrl('/images/universities/logo.png')" alt="Logo" />
-     <NuxtImg :src="cdnUrl('/images/reviews/photo.jpg')" alt="Review" />
-   </template>
-   ```
-
-3. Подробные примеры использования: `specs/007-cdn-replacement-for/EXAMPLES.md`
-4. Руководство по настройке: `specs/007-cdn-replacement-for/quickstart.md`
-
 **Примечание**: Оставьте `NUXT_PUBLIC_CDN_URL` пустым для отключения CDN (ресурсы будут загружаться из `/public/`)
 
 ## Документация

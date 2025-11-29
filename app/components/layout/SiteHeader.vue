@@ -6,7 +6,7 @@
         <div class="flex items-center">
           <NuxtLink :to="localePath('/')" class="flex items-center space-x-2 cursor-pointer">
             <NuxtImg
-              :src="cdnUrl('c905b440-9cea-4b23-8576-f1787a84d356.png')"
+              :src="'c905b440-9cea-4b23-8576-f1787a84d356.png'"
               alt="Edu.turkish"
               width="60"
               height="60"
@@ -233,7 +233,6 @@ import type { Currency } from '~/types/currency'
 
 // Site header with navigation and language switcher
 const route = useRoute()
-const { cdnUrl } = useCdn()
 
 const i18n = useI18n()
 const { t } = i18n

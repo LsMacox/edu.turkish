@@ -13,7 +13,7 @@
           <div>
             <NuxtImg
               class="w-full object-cover rounded-2xl shadow-custom"
-              :src="cdnUrl('f6893c58-7e43-4518-a403-139b942125f2.jpg')"
+              :src="'f6893c58-7e43-4518-a403-139b942125f2.jpg'"
               alt="Modern education consultancy office"
               loading="lazy"
               decoding="async"
@@ -96,5 +96,4 @@
 
 <script setup lang="ts">
 const { t } = useI18n()
-const { cdnUrl } = useCdn()
 </script>

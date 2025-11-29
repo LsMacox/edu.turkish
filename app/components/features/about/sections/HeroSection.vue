@@ -1,7 +1,7 @@
 <template>
   <section class="relative bg-gradient-to-br from-blue-50 to-purple-50 section-py-lg h-[500px]">
     <NuxtImg
-      :src="cdnUrl('17a859b6-2e09-4e15-9dd8-b40c50a7bbd6.png')"
+      src="17a859b6-2e09-4e15-9dd8-b40c50a7bbd6.png"
       alt=""
       class="absolute inset-0 w-full h-full object-cover object-center opacity-30"
       format="webp"
@@ -53,7 +53,6 @@
 
 <script setup lang="ts">
 const { t } = useI18n()
-const { cdnUrl } = useCdn()
 const applicationModalStore = useApplicationModalStore()
 
 const handleCtaClick = () => {

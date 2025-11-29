@@ -2,9 +2,21 @@
   <ServicesPageLayout
     :title="category?.title || t('services.relocation-in-turkey.title')"
     :subtitle="category?.subtitle || t('services.relocation-in-turkey.subtitle')"
-    sub-services-cols="md:grid-cols-2 lg:grid-cols-2"
+    sub-services-cols="md:grid-cols-2 lg:grid-cols-3"
   >
     <template #sub-services>
+      <!-- Admission Package -->
+      <ServicesPackageCard
+        v-if="admissionPackage"
+        package-id="university-admission"
+        :name="admissionPackage.name"
+        :price="admissionPackage.priceUsd"
+        :services="admissionServices"
+        :cta-text="t('services.relocation-in-turkey.packages.admission.ctaButton')"
+        :is-mobile-accordion="isMobile"
+        @apply="handlePackageApply"
+      />
+
       <!-- Standard Package -->
       <ServicesPackageCard
         v-if="standardPackage"
@@ -13,6 +25,7 @@
         :price="standardPackage.priceUsd"
         :services="standardServices"
         :cta-text="t('services.relocation-in-turkey.packages.standard.ctaButton')"
+        :includes-text="t('services.relocation-in-turkey.packages.standard.includes')"
         :is-mobile-accordion="isMobile"
         @apply="handlePackageApply"
       />
@@ -77,17 +90,31 @@ const getListStrings = (key: string): string[] => {
   return raw.map((_, idx) => t(`${key}[${idx}]`))
 }
 
-const standardServices = computed<string[]>(() =>
-  getListStrings('services.relocation-in-turkey.packages.standard.services'),
+const admissionServices = computed<string[]>(() =>
+  getListStrings('services.relocation-in-turkey.packages.admission.services'),
 )
 
+const standardServices = computed<string[]>(() => {
+  const admission = admissionServices.value
+  const additional = getListStrings(
+    'services.relocation-in-turkey.packages.standard.additionalServices',
+  )
+  return [...admission, ...additional]
+})
+
 const vipServices = computed<string[]>(() => {
-  const standard = getListStrings('services.relocation-in-turkey.packages.standard.services')
-  const additional = getListStrings('services.relocation-in-turkey.packages.vip.additionalServices')
+  const standard = standardServices.value
+  const additional = getListStrings(
+    'services.relocation-in-turkey.packages.vip.additionalServices',
+  )
   return [...standard, ...additional]
 })
 
 // Find packages from database
+const admissionPackage = computed(() =>
+  category.value?.subServices?.find((s) => s.slug === 'university-admission'),
+)
+
 const standardPackage = computed(() =>
   category.value?.subServices?.find((s) => s.slug === 'relocation-standard'),
 )

@@ -39,13 +39,14 @@
           <div class="max-w-6xl w-full">
             <div class="bg-black rounded-lg overflow-hidden flex items-center justify-center">
               <!-- Image -->
-              <img
+              <NuxtImg
                 v-if="current?.mediaType === 'image' && current?.imageUrl"
                 :src="current.imageUrl"
                 :alt="current?.name || 'Image'"
                 class="max-h-[80vh] w-auto h-auto object-contain"
                 loading="eager"
-                decoding="async"
+                format="webp"
+                quality="90"
               />
 
               <!-- Video -->
@@ -80,6 +81,8 @@
 </template>
 
 <script setup lang="ts">
+const { getCdnUrl } = useCdn()
+
 interface MediaReview {
   id: number
   type: string
@@ -164,64 +167,15 @@ const videoSource = computed(() => {
   if (!v || v.mediaType !== 'video' || !v.videoUrl) return null
   if (v.videoUrl.startsWith('youtube:')) return null
   if (v.videoUrl.startsWith('vimeo:')) return null
-  return v.videoUrl
+  return getCdnUrl(v.videoUrl)
 })
 
-const localPoster = ref<string | null>(null)
-const displayPoster = computed(() => current.value?.videoThumb || localPoster.value || undefined)
-
-async function generateVideoThumbnail(url: string): Promise<string | null> {
-  try {
-    const isAbsolute = /^(https?:)?\/\//i.test(url)
-    if (isAbsolute) return null
-    const video = document.createElement('video')
-    video.src = url
-    video.muted = true
-    video.crossOrigin = 'anonymous'
-    video.playsInline = true
-    await new Promise<void>((resolve, reject) => {
-      const onError = () => reject(new Error('video error'))
-      video.addEventListener('error', onError, { once: true })
-      video.addEventListener(
-        'loadeddata',
-        () => {
-          try {
-            video.currentTime = 0
-          } catch (error) {
-            if (import.meta.dev) {
-              console.debug('Failed to initialize video current time', error)
-            }
-          }
-        },
-        { once: true },
-      )
-      video.addEventListener('seeked', () => resolve(), { once: true })
-    })
-    const canvas = document.createElement('canvas')
-    canvas.width = video.videoWidth
-    canvas.height = video.videoHeight
-    const ctx = canvas.getContext('2d')
-    if (!ctx) return null
-    ctx.drawImage(video, 0, 0, canvas.width, canvas.height)
-    return canvas.toDataURL('image/jpeg', 0.8)
-  } catch {
-    return null
-  }
-}
+const displayPoster = computed(() => current.value?.videoThumb || undefined)
 
 watch(
   current,
-  async (val) => {
-    localPoster.value = null
-    if (
-      val?.mediaType === 'video' &&
-      !val.videoThumb &&
-      val.videoUrl &&
-      !val.videoUrl.startsWith('youtube:') &&
-      !val.videoUrl.startsWith('vimeo:')
-    ) {
-      localPoster.value = await generateVideoThumbnail(val.videoUrl)
-    }
+  async (_) => {
+    // Reset state if needed when current item changes
   },
   { immediate: true },
 )

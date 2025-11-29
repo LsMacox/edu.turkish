@@ -15,7 +15,7 @@
           <div>
             <NuxtImg
               class="w-full h-80 object-cover rounded-2xl shadow-custom"
-              :src="cdnUrl('0683f4da-e558-4c40-a747-a24f0fdbc535.png')"
+              src="0683f4da-e558-4c40-a747-a24f0fdbc535.png"
               :alt="$t('about.story.imageAlt')"
               loading="lazy"
               decoding="async"
@@ -115,6 +115,5 @@
 </template>
 
 <script setup lang="ts">
-const { cdnUrl } = useCdn()
 const localePath = useLocalePath()
 </script>

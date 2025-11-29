@@ -183,8 +183,9 @@ export default defineNuxtConfig({
           '2xl': 1536,
         },
         placeholder: true,
-        ipx: {
-          maxInputSize: 10000000, // 10MB
+        provider: 'bunny',
+        bunny: {
+          baseURL: process.env.NUXT_PUBLIC_CDN_URL,
         },
       },
     ],
@@ -282,9 +283,9 @@ export default defineNuxtConfig({
     telegramCallsChannelId: process.env.NUXT_TELEGRAM_CALLS_CHANNEL_ID || '',
     public: {
       siteUrl,
+      cdnUrl: process.env.NUXT_PUBLIC_CDN_URL || '',
       directusUrl: process.env.NUXT_PUBLIC_DIRECTUS_URL || 'http://localhost:8055',
       yandexMetrikaId: process.env.NUXT_PUBLIC_YANDEX_METRIKA_ID || '',
-      cdnUrl: process.env.NUXT_PUBLIC_CDN_URL || '',
     },
   },
   hooks: {

@@ -21,6 +21,8 @@ type EntityType =
   | 'directions'
   | 'scholarships'
   | 'articles'
+  | 'blog_categories'
+  | 'faq_categories'
   | 'all'
 
 interface CliOptions {
@@ -68,6 +70,8 @@ function parseArgs(argv: string[]): CliOptions {
     'directions',
     'scholarships',
     'articles',
+    'blog_categories',
+    'faq_categories',
     'all',
   ]
   if (!entityRaw || !allowed.includes(entityRaw as EntityType)) {
@@ -759,6 +763,78 @@ async function translateScholarships(opts: CliOptions): Promise<void> {
   await runWithConcurrency(jobs, concurrency)
 }
 
+async function translateBlogCategories(opts: CliOptions): Promise<void> {
+  const { sourceLocale, targetLocales, limit, dryRun, concurrency } = opts
+  const rows = await prisma.blogCategory.findMany({
+    include: { translations: true },
+    take: limit,
+  })
+  const jobs: Array<() => Promise<void>> = []
+  for (const rec of rows as any[]) {
+    const existing = new Set(rec.translations.map((t: any) => t.locale))
+    const missing = targetLocales.filter((l) => !existing.has(l))
+    if (missing.length === 0) continue
+    const by = rec.translations.find((t: any) => t.locale === sourceLocale) || rec.translations[0]
+    const base = { title: by?.title || '' }
+    for (const target of missing) {
+      jobs.push(async () => {
+        const input = { title: base.title }
+        const ctx = 'Blog category title.'
+        const out = await translateWithDryRun(input, sourceLocale, target, ctx, dryRun)
+        if (dryRun) {
+          console.log(`[DryRun][BlogCategory ${rec.id}] => ${target}`, out)
+          return
+        }
+        await prisma.blogCategoryTranslation.create({
+          data: {
+            categoryId: rec.id,
+            locale: target,
+            title: out.title || '',
+          },
+        })
+        console.log(`[Created] blog_category_translation id=${rec.id} ${sourceLocale}->${target}`)
+      })
+    }
+  }
+  await runWithConcurrency(jobs, concurrency)
+}
+
+async function translateFaqCategories(opts: CliOptions): Promise<void> {
+  const { sourceLocale, targetLocales, limit, dryRun, concurrency } = opts
+  const rows = await prisma.faqCategory.findMany({
+    include: { translations: true },
+    take: limit,
+  })
+  const jobs: Array<() => Promise<void>> = []
+  for (const rec of rows as any[]) {
+    const existing = new Set(rec.translations.map((t: any) => t.locale))
+    const missing = targetLocales.filter((l) => !existing.has(l))
+    if (missing.length === 0) continue
+    const by = rec.translations.find((t: any) => t.locale === sourceLocale) || rec.translations[0]
+    const base = { name: by?.name || '' }
+    for (const target of missing) {
+      jobs.push(async () => {
+        const input = { name: base.name }
+        const ctx = 'FAQ category name.'
+        const out = await translateWithDryRun(input, sourceLocale, target, ctx, dryRun)
+        if (dryRun) {
+          console.log(`[DryRun][FaqCategory ${rec.id}] => ${target}`, out)
+          return
+        }
+        await prisma.faqCategoryTranslation.create({
+          data: {
+            categoryId: rec.id,
+            locale: target,
+            name: out.name || '',
+          },
+        })
+        console.log(`[Created] faq_category_translation id=${rec.id} ${sourceLocale}->${target}`)
+      })
+    }
+  }
+  await runWithConcurrency(jobs, concurrency)
+}
+
 function tryParseJson(s: string | undefined): any {
   if (!s) return null
   try {
@@ -834,6 +910,12 @@ async function main() {
       case 'articles':
         await translateArticles(opts)
         break
+      case 'blog_categories':
+        await translateBlogCategories(opts)
+        break
+      case 'faq_categories':
+        await translateFaqCategories(opts)
+        break
       case 'all':
         await translateUniversities(opts)
         await translateReviews(opts)
@@ -846,6 +928,8 @@ async function main() {
         await translateDirections(opts)
         await translateScholarships(opts)
         await translateArticles(opts)
+        await translateBlogCategories(opts)
+        await translateFaqCategories(opts)
         break
     }
   } finally {

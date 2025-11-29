@@ -235,20 +235,6 @@
 
             <div class="bg-white rounded-2xl shadow-custom p-8">
               <h3 class="text-2xl font-semibold text-secondary mb-4">
-                {{ $t('universityDetail.aboutUniversity.strongPrograms') }}
-              </h3>
-              <div class="grid md:grid-cols-2 gap-6">
-                <div v-for="category in university.strongPrograms" :key="category.category">
-                  <h4 class="text-card-title mb-3">{{ category.category }}</h4>
-                  <ul class="text-gray-600 space-y-1">
-                    <li v-for="program in category.programs" :key="program">• {{ program }}</li>
-                  </ul>
-                </div>
-              </div>
-            </div>
-
-            <div class="bg-white rounded-2xl shadow-custom p-8">
-              <h3 class="text-2xl font-semibold text-secondary mb-4">
                 {{ $t('universityDetail.aboutUniversity.advantages') }}
               </h3>
               <div class="grid md:grid-cols-2 gap-6">
@@ -307,8 +293,7 @@ interface Props {
 
 const props = defineProps<Props>()
 
-const { cdnUrl } = useCdn()
-const heroImageSrc = computed(() => cdnUrl(props.university.heroImage))
+const heroImageSrc = computed(() => props.university.heroImage)
 
 const { locale } = useI18n()
 

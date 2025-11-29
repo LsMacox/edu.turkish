@@ -75,8 +75,7 @@ import { storeToRefs } from 'pinia'
 import { useApplicationModalStore } from '~/stores/applicationModal'
 import { useBlogStore } from '~/stores/blog'
 
-const { cdnUrl } = useCdn()
-const heroImage = cdnUrl('9ab6702d-df12-4b23-879a-e03b83151f1a.png')
+const heroImage = '9ab6702d-df12-4b23-879a-e03b83151f1a.png'
 
 definePageMeta({
   layout: 'default',

@@ -206,8 +206,7 @@
 </template>
 
 <script setup lang="ts">
-const { cdnUrl } = useCdn()
-const reviewHero = cdnUrl('d418281e-28c7-460e-a9b7-a636922849ba.png')
+const reviewHero = 'd418281e-28c7-460e-a9b7-a636922849ba.png'
 
 // Reviews page meta
 definePageMeta({

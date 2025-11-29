@@ -63,16 +63,22 @@ const SERVICES_SEED: Record<(typeof CATEGORY_SLUGS)[number], CategorySeed> = {
   'relocation-in-turkey': {
     title: 'Переезд в Турцию',
     subServices: {
+      'university-admission': {
+        name: 'University Admission',
+        description: 'Basic admission package',
+        priceUsd: 200,
+        deliveryTimeDays: null,
+      },
       'relocation-standard': {
         name: 'Settlement in Turkey',
-        description: 'Standard package',
+        description: 'Standard package including admission',
         priceUsd: 1500,
         deliveryTimeDays: null,
       },
       'relocation-vip': {
         name: 'VIP Settlement in Turkey',
-        description: 'Premium package',
-        priceUsd: 2000,
+        description: 'Premium package including admission and settlement',
+        priceUsd: 2500,
         deliveryTimeDays: null,
       },
     },
@@ -520,6 +526,12 @@ export async function seedServices(prisma: PrismaClient) {
         // Upsert translations for all locales (fallback to provided name)
         const defaultName = subServiceData.name || subSlug
         const specialNames: Record<string, Record<string, string>> = {
+          'university-admission': {
+            en: 'University Admission',
+            ru: 'Поступление в университет',
+            kk: 'Университетке түсу',
+            tr: 'Üniversiteye Giriş',
+          },
           'relocation-standard': {
             en: 'Settlement in Turkey',
             ru: 'Обустройство по Турции',

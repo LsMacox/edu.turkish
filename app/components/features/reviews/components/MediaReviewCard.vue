@@ -173,71 +173,7 @@ function handleOpenImage() {
 }
 
 // Fallback: generate first-frame thumbnail for videos without videoThumb
-const localThumb = ref<string | null>(null)
-
-const displayThumb = computed(() => localThumb.value || props.review.videoThumb || null)
-
-async function generateVideoThumbnail(url: string): Promise<string | null> {
-  try {
-    // Only attempt for same-origin or relative URLs
-    const isAbsolute = /^(https?:)?\/\//i.test(url)
-    if (isAbsolute) return null
-
-    const video = document.createElement('video')
-    video.src = url
-    video.muted = true
-    video.crossOrigin = 'anonymous'
-    video.playsInline = true
-
-    await new Promise<void>((resolve, reject) => {
-      const onError = () => reject(new Error('video error'))
-      video.addEventListener('error', onError, { once: true })
-      video.addEventListener(
-        'loadeddata',
-        () => {
-          try {
-            video.currentTime = 0
-          } catch {
-            // ignore
-          }
-        },
-        { once: true },
-      )
-      video.addEventListener('seeked', () => resolve(), { once: true })
-    })
-
-    const canvas = document.createElement('canvas')
-    canvas.width = video.videoWidth
-    canvas.height = video.videoHeight
-    const ctx = canvas.getContext('2d')
-    if (!ctx) return null
-    ctx.drawImage(video, 0, 0, canvas.width, canvas.height)
-    const dataUrl = canvas.toDataURL('image/jpeg', 0.8)
-    return dataUrl
-  } catch {
-    return null
-  }
-}
-
-onMounted(async () => {
-  if (typeof window === 'undefined') return
-  if (props.review.mediaType === 'video' && !props.review.videoThumb && props.review.videoUrl) {
-    localThumb.value = await generateVideoThumbnail(props.review.videoUrl)
-  }
-})
-
-watch(
-  () => props.review,
-  async (val) => {
-    if (typeof window === 'undefined') return
-    if (val.mediaType === 'video' && !val.videoThumb && val.videoUrl) {
-      localThumb.value = await generateVideoThumbnail(val.videoUrl)
-    } else {
-      localThumb.value = null
-    }
-  },
-  { deep: true },
-)
+const displayThumb = computed(() => props.review.videoThumb || null)
 
 function getInitials(name: string): string {
   return name

@@ -71,8 +71,11 @@ export const useFAQSearch = (options: SearchOptions = {}) => {
       if (searchQuery.value.trim() && searchQuery.value.length > 2) {
         addToSearchHistory(searchQuery.value.trim())
       }
+
+      return faqData.value
     } catch (error) {
       console.error('Failed to fetch FAQ data:', error)
+      return null
     } finally {
       isSearching.value = false
     }

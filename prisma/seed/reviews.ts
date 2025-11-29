@@ -34,9 +34,9 @@ const studentReviews: SeedReview[] = [
     name: 'Студент 1',
     university: 'İstanbul University',
     quote: 'Видео отзыв о поступлении и обучении',
-    videoUrl: 'https://cdn.edu-turkish.com/videos/reviews/video_2025-09-28_17-31-55.mp4',
+    videoUrl: '3629fa59-1d7c-426d-b037-d7f80abb6835.png',
     videoThumb:
-      'https://cdn.edu-turkish.com/images/reviews/thumbnails/video_2025-09-28_17-31-55.png',
+      '3629fa59-1d7c-426d-b037-d7f80abb6835.png',
   },
   {
     type: 'student',
@@ -46,9 +46,9 @@ const studentReviews: SeedReview[] = [
     name: 'Студент 2',
     university: 'Marmara University',
     quote: 'Отзыв о процессе поступления',
-    videoUrl: 'https://cdn.edu-turkish.com/videos/reviews/video_2025-09-28_17-31-59.mp4',
+    videoUrl: '4364b897-252c-4884-8c67-66b1c747fa15.mp4',
     videoThumb:
-      'https://cdn.edu-turkish.com/images/reviews/thumbnails/video_2025-09-28_17-31-59.png',
+      '2c10c078-3aea-4ad4-8cc7-34cbb63b86b2.png',
   },
   {
     type: 'student',
@@ -58,8 +58,8 @@ const studentReviews: SeedReview[] = [
     name: 'Студент 3',
     university: 'Bahçeşehir University',
     quote: 'Видео отзыв родителя о поступлении ребенка',
-    videoUrl: 'https://cdn.edu-turkish.com/videos/reviews/IMG_9552.MP4',
-    videoThumb: 'https://cdn.edu-turkish.com/images/reviews/thumbnails/IMG_9552.png',
+    videoUrl: '4299609a-2d16-46ec-924b-a3408d8a7243.mp4',
+    videoThumb: '7d87526f-4983-4dac-9d29-75977b1c7b05.png',
   },
   {
     type: 'student',
@@ -69,7 +69,7 @@ const studentReviews: SeedReview[] = [
     name: 'Студент 2',
     university: 'Beykent University',
     quote: 'Фото с университетского кампуса',
-    imageUrl: 'https://cdn.edu-turkish.com/images/reviews/photo_2025-09-28_17-32-20.jpg',
+    imageUrl: '78d2bf2e-f301-4640-be3e-11c42b3d65e8.jpg',
   },
   {
     type: 'student',
@@ -79,7 +79,7 @@ const studentReviews: SeedReview[] = [
     name: 'Студент 4',
     university: 'Bahçeşehir University',
     quote: 'Момент из студенческой жизни',
-    imageUrl: 'https://cdn.edu-turkish.com/images/reviews/photo_2025-09-28_17-32-26.jpg',
+    imageUrl: '08873ba1-8f4f-4f35-b397-5799bcffb044.jpg',
   },
   {
     type: 'student',
@@ -89,7 +89,7 @@ const studentReviews: SeedReview[] = [
     name: 'Студент 5',
     university: 'İstanbul Kultur University',
     quote: 'Фото с мероприятия в университете',
-    imageUrl: 'https://cdn.edu-turkish.com/images/reviews/photo_2025-09-28_17-32-30.jpg',
+    imageUrl: '902e1c44-1c43-47c9-8317-753edd76a823.jpg',
   },
   // {
   //   type: 'student',
@@ -131,7 +131,7 @@ const parentReviews: SeedReview[] = [
     name: 'Родитель 2',
     university: 'İstanbul University',
     quote: 'Благодарность за помощь в поступлении',
-    imageUrl: 'https://cdn.edu-turkish.com/images/reviews/photo_2025-09-28_17-32-48.jpg',
+    imageUrl: '65123ff9-b53a-4076-99e7-b4f6f08efc17.jpg',
   },
   {
     type: 'parent',
@@ -141,7 +141,7 @@ const parentReviews: SeedReview[] = [
     name: 'Родитель 4',
     university: 'Beykent University',
     quote: 'Рекомендация агентства',
-    imageUrl: 'https://cdn.edu-turkish.com/images/reviews/photo_2025-09-28_17-32-56.jpg',
+    imageUrl: '2af15187-ccc0-4d7d-b1e1-d33e57d4174f.jpg',
   },
   {
     type: 'parent',
@@ -151,7 +151,7 @@ const parentReviews: SeedReview[] = [
     name: 'Родитель 5',
     university: 'Tekirdağ Namik Kemal University',
     quote: 'Спасибо за профессиональную работу',
-    imageUrl: 'https://cdn.edu-turkish.com/images/reviews/photo_2025-09-28_17-32-58.jpg',
+    imageUrl: 'd43ab506-7697-4be5-8305-37dd8b305aed.jpg',
   },
   {
     type: 'parent',
