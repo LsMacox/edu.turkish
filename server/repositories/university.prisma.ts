@@ -10,26 +10,10 @@ export const universityListInclude = Prisma.validator<Prisma.UniversityDefaultAr
 
 export type UniversityListItem = Prisma.UniversityGetPayload<typeof universityListInclude>
 
-export const featuredProgramInclude =
-  Prisma.validator<Prisma.UniversityFeaturedProgramDefaultArgs>()({
-    include: {
-      program: { include: { translations: true } },
-    },
-  })
-
-export type FeaturedProgramWithRelations = Prisma.UniversityFeaturedProgramGetPayload<
-  typeof featuredProgramInclude
->
-
 export const universityDetailInclude = Prisma.validator<Prisma.UniversityDefaultArgs>()({
   include: {
     translations: true,
     academicPrograms: { include: { translations: true } },
-    featuredPrograms: {
-      include: {
-        program: { include: { translations: true } },
-      },
-    },
     campusFacilities: { include: { translations: true } },
     admissionRequirements: { include: { translations: true } },
     requiredDocuments: { include: { translations: true } },

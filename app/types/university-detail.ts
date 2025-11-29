@@ -35,10 +35,6 @@ export interface UniversityDetailFrontend {
       description: string
     }>
   }
-  strongPrograms: Array<{
-    category: string
-    programs: string[]
-  }>
   academicPrograms: UniversityProgram[]
   slugs: {
     ru: string

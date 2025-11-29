@@ -106,11 +106,6 @@ export interface UniversityStudyDirection {
   languages: string[]
 }
 
-export interface StrongProgramCategory {
-  category: string
-  programs: string[]
-}
-
 export interface UniversityCampusGalleryItem {
   url: string
   alt: string
@@ -135,7 +130,6 @@ export interface UniversityDetail extends University {
     history: string
     mission: string
     campus_features: string[]
-    strong_programs: string[]
     advantages: Array<{ title: string; description: string }>
   }
   campus_life: {
@@ -143,7 +137,6 @@ export interface UniversityDetail extends University {
     gallery: UniversityCampusGalleryItem[]
     activities: string[]
   }
-  strong_programs: StrongProgramCategory[]
   directions: UniversityStudyDirection[]
   admission: {
     requirements: UniversityAdmissionRequirement[]

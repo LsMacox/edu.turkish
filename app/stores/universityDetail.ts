@@ -148,7 +148,6 @@ export const useUniversityDetailStore = defineStore('universityDetail', () => {
         campus: apiUniversity.about.mission, // используем mission как описание кампуса
         advantages: extractAdvantagesFromApiData(apiUniversity),
       },
-      strongPrograms: apiUniversity.strong_programs || [],
       academicPrograms: transformAcademicPrograms(apiUniversity.programs),
       slugs: extractSlugsFromApi(apiUniversity),
       // Новые поля

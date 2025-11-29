@@ -45,14 +45,6 @@ export interface AdvantageItem {
   description?: string
 }
 
-/** Сильные направления/категории с примерами программ */
-export interface StrongProgramCategory {
-  /** Название категории, например: "Медицина и здоровье" */
-  category: string
-  /** Список программ внутри категории (только названия) */
-  programs: string[]
-}
-
 /** Тексты для блока "Ключевая информация" на странице университета */
 export interface KeyInfoTexts {
   /** Про город */
@@ -292,9 +284,6 @@ export interface UniversityJson {
 
   /** Блок "О университете" */
   about: AboutBlock
-
-  /** Сильные направления обучения (категории) */
-  strong_programs?: StrongProgramCategory[]
 
   /** Тексты для ключевой информации (свободная структура) */
   key_info_texts?: KeyInfoTexts

@@ -6,7 +6,6 @@ import type {
   UniversityImportantDate,
   UniversityRequiredDocument,
   UniversityScholarship,
-  StrongProgramCategory,
   UniversityStudyDirection,
   University,
   UniversityDetail,
@@ -14,7 +13,6 @@ import type {
 import type {
   UniversityListItem,
   UniversityDetailWithRelations,
-  FeaturedProgramWithRelations,
 } from './university.prisma'
 import type { NormalizedLocale } from '../utils/locale'
 import {
@@ -24,9 +22,8 @@ import {
   asRecord,
   extractStringRecord,
   extractStringArray,
-  resolveSupportedLocale,
 } from '../utils/university-locale'
-import { FEATURED_PROGRAM_CATEGORY, IMPORTANT_DATE_TYPE_MAP } from './university.constants'
+import { IMPORTANT_DATE_TYPE_MAP } from './university.constants'
 
 type Badge = { label?: string; labelKey?: string; color: string } | undefined
 
@@ -81,62 +78,6 @@ export const mapUniversityListItem = (
       return acc
     }, {} as Record<string, string>),
   }
-}
-
-const buildFeaturedPrograms = (
-  featuredPrograms: FeaturedProgramWithRelations[],
-  locale: NormalizedLocale,
-): { categories: StrongProgramCategory[]; categoryNames: string[] } => {
-  const supported = resolveSupportedLocale(locale)
-  const defaultCategory = supported ? (FEATURED_PROGRAM_CATEGORY[supported] ?? '') : ''
-  const groups = new Map<
-    string,
-    {
-      order: number
-      programs: Array<{ order: number; name: string }>
-    }
-  >()
-
-  for (const fp of featuredPrograms) {
-    const order = typeof fp.displayOrder === 'number' ? fp.displayOrder : Number.MAX_SAFE_INTEGER
-    const programTranslation = selectTranslation(fp.program?.translations || [], locale)
-    const programName = (programTranslation?.name ?? '').trim()
-    if (!programName) continue
-
-    const category = defaultCategory
-
-    const current = groups.get(category)
-    if (!current) {
-      groups.set(category, {
-        order,
-        programs: [{ order, name: programName }],
-      })
-    } else {
-      current.order = Math.min(current.order, order)
-      current.programs.push({ order, name: programName })
-    }
-  }
-
-  const categories = Array.from(groups.entries())
-    .sort((a, b) => {
-      if (a[1].order !== b[1].order) return a[1].order - b[1].order
-      return a[0].localeCompare(b[0])
-    })
-    .map(([category, data]) => {
-      const programsSorted = data.programs
-        .slice()
-        .sort((a, b) => {
-          if (a.order !== b.order) return a.order - b.order
-          return a.name.localeCompare(b.name)
-        })
-        .map((p) => p.name)
-
-      return { category, programs: programsSorted }
-    })
-
-  const categoryNames = categories.map((c) => c.category)
-
-  return { categories, categoryNames }
 }
 
 const mapCampusFacilities = (
@@ -275,10 +216,6 @@ export const mapUniversityDetail = (
   })
   const translation = selectTranslation(university.translations, locale)
   const aboutRecord = (asRecord(translation?.about) ?? {}) as Record<string, unknown>
-  const { categories: featuredProgramCategories, categoryNames } = buildFeaturedPrograms(
-    university.featuredPrograms,
-    locale,
-  )
 
   const keyInfoTexts = extractStringRecord(translation?.keyInfoTexts)
 
@@ -333,7 +270,6 @@ export const mapUniversityDetail = (
             (item): item is string => typeof item === 'string',
           )
         : [],
-      strong_programs: categoryNames,
       advantages,
     },
     campus_life: {
@@ -341,7 +277,6 @@ export const mapUniversityDetail = (
       gallery: mapGallery(university.media, locale),
       activities,
     },
-    strong_programs: featuredProgramCategories,
     directions: mapDirections(university.universityDirections, locale),
     admission: {
       requirements: mapAdmissionRequirements(university.admissionRequirements, locale),

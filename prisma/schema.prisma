@@ -62,7 +62,6 @@ model University {
   // Relations
   translations        UniversityTranslation[]
   academicPrograms    UniversityProgram[]
-  featuredPrograms    UniversityFeaturedProgram[]
   reviews             UniversityReview[]
   campusFacilities    UniversityCampusFacility[]
   admissionRequirements UniversityAdmissionRequirement[]
@@ -238,7 +237,6 @@ model UniversityProgram {
   // Relations
   university      University @relation(fields: [universityId], references: [id], onDelete: Cascade)
   translations    UniversityProgramTranslation[]
-  featuredIn      UniversityFeaturedProgram[]
 
   @@map("university_programs")
   // Индексы для фильтров
@@ -784,24 +782,6 @@ enum BlogArticleStatus {
 enum SubServiceType {
   offering
   calculator
-}
-
-model UniversityFeaturedProgram {
-  id            Int        @id @default(autoincrement())
-  universityId  Int        @map("university_id")
-  programId     Int        @map("university_program_id")
-  displayOrder  Int        @default(0) @map("display_order")
-  createdAt     DateTime   @default(now()) @map("created_at")
-  updatedAt     DateTime   @updatedAt @map("updated_at")
-
-  // Relations
-  university     University @relation(fields: [universityId], references: [id], onDelete: Cascade)
-  program        UniversityProgram @relation(fields: [programId], references: [id], onDelete: Cascade)
-  @@map("university_pivot_featured_programs")
-  @@index([universityId], map: "idx_featured_program_university")
-  @@index([programId], map: "idx_featured_program_program")
-  @@unique([universityId, programId], map: "uniq_featured_program_per_university")
-  @@index([displayOrder], map: "idx_featured_program_order")
 }
 
 // ==========================================
