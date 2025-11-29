@@ -34,7 +34,6 @@ npx tsx scripts/import-university.ts ./app/assets/json/universities/atlas.json -
 | `title`, `description`, `slug`, `city`, `foundedYear`, `type`                                   | Базовые поля университета                                                                        |
 | `tuitionRange`, `totalStudents`, `internationalStudents`, `hasAccommodation`, `hasScholarships` | Числовые и булевые атрибуты                                                                      |
 | `about`                                                                                         | Объект с разделами `history`, `mission`, `advantages`                                            |
-| `strong_programs`                                                                               | Категории и списки программ, используемые для витрины                                            |
 | `key_info_texts`                                                                                | Текстовые блоки (в том числе `ranking_text`)                                                     |
 | `campus_life`                                                                                   | Галерея (`gallery`) и инфраструктура (`facilities`) с переводами                                 |
 | `admission`                                                                                     | Требования (`requirements`), документы (`documents`), даты (`dates`), стипендии (`scholarships`) |

@@ -17,8 +17,8 @@
   "internationalStudents": 8000,
   "hasAccommodation": true,
   "hasScholarships": true,
-  "heroImage": "https://cdn.edu-turkish.com/images/universities/bahcesehir-bg.jpg",
-  "image": "https://cdn.edu-turkish.com/images/universities/bahcesehir-preview.png",
+  "heroImage": "ce017539-0a0c-45fa-a575-19d8836c5dfa.jpg",
+  "image": "9ee6f3d8-7eee-4f55-9f9b-5e8ff7d4d229.png",
   "about": {
     "history": "Bahçeşehir University основан в 1998 году Фондом образования Uğur. Университет входит в сеть BAU Global, соединяющую кампусы в США, Германии, Италии и других странах.",
     "mission": "Предоставлять образование мирового уровня, готовить специалистов для глобальной конкуренции и соединять науку с практикой.",
@@ -31,45 +31,6 @@
       "Локация в центре Стамбула на берегу Босфора (Beşiktaş)"
     ]
   },
-  "strong_programs": [
-    {
-      "category": "Медицина и здоровье",
-      "programs": [
-        "Медицина",
-        "Стоматология",
-        "Фармация",
-        "Сестринское дело",
-        "Физиотерапия и реабилитация"
-      ]
-    },
-    {
-      "category": "Инженерия и компьютерные науки",
-      "programs": [
-        "Компьютерная инженерия",
-        "Инженерия искусственного интеллекта",
-        "Электротехника и электроника",
-        "Мехатроника"
-      ]
-    },
-    {
-      "category": "Архитектура и дизайн",
-      "programs": [
-        "Архитектура",
-        "Дизайн интерьера",
-        "Визуальная коммуникация и дизайн",
-        "Дизайн цифровых игр"
-      ]
-    },
-    {
-      "category": "Бизнес и экономика",
-      "programs": [
-        "Бизнес-администрирование",
-        "Экономика",
-        "Экономика и финансы",
-        "Международная торговля и бизнес"
-      ]
-    }
-  ],
   "key_info_texts": {
     "city_label": "Город",
     "city_note": "Стамбул",
@@ -165,12 +126,16 @@
       {
         "name": "Аттестат/диплом",
         "description": "Апостиль и нотариальный перевод",
-        "format_requirements": ["PDF"]
+        "format_requirements": [
+          "PDF"
+        ]
       },
       {
         "name": "Загранпаспорт",
         "description": "Срок действия не менее 2 лет",
-        "format_requirements": ["PDF"]
+        "format_requirements": [
+          "PDF"
+        ]
       },
       {
         "name": "Фото",
@@ -182,7 +147,9 @@
         "name": "Скидка на обучение",
         "type": "university",
         "coverage_percentage": 25,
-        "eligibility_criteria": ["Размер скидки зависит от выбранного направления"]
+        "eligibility_criteria": [
+          "Размер скидки зависит от выбранного направления"
+        ]
       }
     ]
   },

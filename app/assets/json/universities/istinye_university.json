@@ -15,8 +15,8 @@
   },
   "hasAccommodation": true,
   "hasScholarships": true,
-  "heroImage": "https://cdn.edu-turkish.com/images/universities/istinye-bg.webp",
-  "image": "https://cdn.edu-turkish.com/images/universities/istinye-preview.jpg",
+  "heroImage": "0930555c-7214-4785-adc1-5165074bdfd7.webp",
+  "image": "031c8a46-fbf3-413b-98ab-12f1f8ea3fcc.jpg",
   "about": {
     "history": "История университета",
     "mission": "Миссия университета",
@@ -27,7 +27,6 @@
       "Карьерные возможности"
     ]
   },
-  "strong_programs": [],
   "key_info_texts": {
     "city_label": "Город",
     "founded_year_label": "Год основания",

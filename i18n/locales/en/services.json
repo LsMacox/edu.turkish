@@ -79,28 +79,41 @@
       "title": "Relocation & support",
       "subtitle": "Full on-the-ground support: we meet you, help with visa, residence permit and adaptation.",
       "packages": {
-        "standard": {
+        "admission": {
           "ctaButton": "Order",
           "services": [
-            "Document translation and legalization",
-            "University enrollment guarantee",
-            "Accommodation search and contract signing",
-            "Airport transfer and city orientation",
-            "Final registration with the university",
-            "Student pass issuance assistance",
-            "Residence permit application support",
-            "Denklik belgesi (diploma recognition)",
-            "Tax number (vergi numarası) registration"
+            "Initial consultation",
+            "Selection of universities and programs",
+            "Consultation on collecting necessary documents for admission",
+            "Assistance with translation and notarization of documents",
+            "Guarantee of university admission for the student",
+            "Assistance with tuition fee payment"
+          ]
+        },
+        "standard": {
+          "ctaButton": "Order",
+          "includes": "Includes 'University Admission' package plus:",
+          "additionalServices": [
+            "Airport transfer",
+            "Final registration at the university",
+            "Issuance of university student card",
+            "Dormitory search and registration",
+            "Student travel card processing",
+            "Obtaining a tax number",
+            "Preparation and collection of all necessary documents for Residence Permit",
+            "Consultation and processing of Denklik belgesi",
+            "Personal accompaniment at all stages",
+            "Assistance with purchasing a SIM card"
           ]
         },
         "vip": {
           "ctaButton": "Order",
-          "includes": "All 'Standard' services plus:",
+          "includes": "Includes 'Admission and Settlement' packages plus:",
           "additionalServices": [
-            "Apartment search and rental contract support",
-            "Utilities setup (internet, electricity, water)",
-            "Address registration (adres kayit) assistance",
-            "Bank account opening with personal accompaniment"
+            "Apartment search and assistance with notarized rental agreement",
+            "Utility services registration",
+            "Residence registration (address registration)",
+            "Opening a bank account"
           ]
         }
       },

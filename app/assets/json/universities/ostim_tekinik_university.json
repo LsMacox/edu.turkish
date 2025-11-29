@@ -18,8 +18,8 @@
   "internationalStudents": 450,
   "hasAccommodation": true,
   "hasScholarships": true,
-  "heroImage": "https://cdn.edu-turkish.com/images/universities/ostim-tekinik-bg.jpg",
-  "image": "https://cdn.edu-turkish.com/images/universities/ostim-tekinik-preview.jpg",
+  "heroImage": "d7c62f54-ed52-4fc4-8c4a-6a0c1ec79ea5.jpg",
+  "image": "f5aed638-d1bd-4906-92d8-2167026c024f.jpg",
   "about": {
     "history": "Университет официально открылся в 2020 году как продолжение OSTİM Akademi, чтобы готовить инженеров и предпринимателей для промышленного кластера OSTİM.",
     "mission": "Интегрировать образование, исследования и промышленность, развивать инженеров, готовых к цифровой трансформации производства.",
@@ -31,24 +31,6 @@
       "Международные программы обмена и Erasmus+"
     ]
   },
-  "strong_programs": [
-    {
-      "category": "Инженерия и робототехника",
-      "programs": ["Электроника и встраиваемые системы", "Аэрокосмическая инженерия"]
-    },
-    {
-      "category": "Индустрия 4.0 и производство",
-      "programs": ["Инженерия промышленных систем"]
-    },
-    {
-      "category": "ИТ и программная инженерия",
-      "programs": ["Компьютерная инженерия", "Программная инженерия", "Кибербезопасность"]
-    },
-    {
-      "category": "Бизнес и предпринимательство",
-      "programs": ["Международная торговля и финансы", "Бизнес-администрирование", "Логистика"]
-    }
-  ],
   "key_info_texts": {
     "city_label": "Город",
     "city_note": "Анкара (OSTİM, Yenimahalle)",
@@ -155,7 +137,9 @@
         "name": "Скидка на обучение",
         "type": "university",
         "coverage_percentage": 80,
-        "eligibility_criteria": ["Максимальная скидка до 80% действует на все направления обучения"]
+        "eligibility_criteria": [
+          "Максимальная скидка до 80% действует на все направления обучения"
+        ]
       }
     ]
   },

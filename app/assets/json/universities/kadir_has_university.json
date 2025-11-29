@@ -17,8 +17,8 @@
   "internationalStudents": 800,
   "hasAccommodation": true,
   "hasScholarships": true,
-  "heroImage": "https://cdn.edu-turkish.com/images/universities/kadir-has-bg.jpg",
-  "image": "https://cdn.edu-turkish.com/images/universities/kadir-has-preview.jpg",
+  "heroImage": "a03857aa-5a88-4ea6-a8d0-a285d59dd1cc.jpg",
+  "image": "e183d34c-5306-47bf-8cb3-2487e7628691.jpg",
   "about": {
     "history": "Kadir Has University основан в 1997 году в честь филантропа и промышленника Кадира Хаса.",
     "mission": "Развитие креативных, исследовательски-ориентированных профессионалов, способных работать в глобальной среде.",
@@ -30,24 +30,6 @@
       "Глобальные партнёрства и мультикультурная среда"
     ]
   },
-  "strong_programs": [
-    {
-      "category": "Инженерия и технологии",
-      "programs": [
-        "Компьютерная инженерия",
-        "Электротехника и электроника",
-        "Промышленная инженерия"
-      ]
-    },
-    {
-      "category": "Экономика и управление",
-      "programs": [
-        "Политология и международные отношения",
-        "Менеджмент",
-        "Международная торговля и финансы"
-      ]
-    }
-  ],
   "key_info_texts": {
     "city_label": "Город",
     "city_note": "Стамбул",
@@ -130,12 +112,16 @@
       {
         "name": "Аттестат о среднем образовании",
         "description": "Апостиль и нотариальный перевод на турецкий",
-        "format_requirements": ["PDF"]
+        "format_requirements": [
+          "PDF"
+        ]
       },
       {
         "name": "Загранпаспорт",
         "description": "Срок действия — не менее 2 лет",
-        "format_requirements": ["PDF"]
+        "format_requirements": [
+          "PDF"
+        ]
       },
       {
         "name": "Фотографии",
@@ -144,7 +130,9 @@
       {
         "name": "Denklik belgesi",
         "description": "На турецком, оценивание по 100-балльной шкале",
-        "format_requirements": ["PDF"]
+        "format_requirements": [
+          "PDF"
+        ]
       }
     ],
     "scholarships": [
@@ -152,7 +140,9 @@
         "name": "Скидка на обучение",
         "type": "university",
         "coverage_percentage": 71,
-        "eligibility_criteria": ["Максимальная скидка до 71% доступна на всех направлениях"]
+        "eligibility_criteria": [
+          "Максимальная скидка до 71% доступна на всех направлениях"
+        ]
       }
     ],
     "dates": [

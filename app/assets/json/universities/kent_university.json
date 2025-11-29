@@ -15,8 +15,8 @@
   "totalStudents": 6500,
   "internationalStudents": 3900,
   "hasAccommodation": true,
-  "heroImage": "https://cdn.edu-turkish.com/images/universities/kent-bg.jpg",
-  "image": "https://cdn.edu-turkish.com/images/universities/kent-preview.png",
+  "heroImage": "b09f1b29-c37b-487d-940f-abc98957e453.jpg",
+  "image": "94087457-c192-4ea0-b0ff-2cf1f75fb37e.png",
   "about": {
     "history": "Kent University — частный университет, основанный в 2016 году в Стамбуле. Университет динамично развивается и ориентирован на подготовку востребованных специалистов, соответствующих требованиям современного рынка труда.",
     "mission": "Подготовка высококвалифицированных специалистов с международным мышлением через практико-ориентированные программы и современную образовательную среду.",
@@ -29,20 +29,6 @@
       "Активная студенческая жизнь: клубы, спорт и культурные мероприятия"
     ]
   },
-  "strong_programs": [
-    {
-      "category": "Медицина и здоровье",
-      "programs": ["Стоматология", "Фармация", "Диетология", "Физиотерапия", "Психология"]
-    },
-    {
-      "category": "Искусство и дизайн",
-      "programs": ["Гастрономия", "Внутренний дизайн"]
-    },
-    {
-      "category": "Экономика и управление",
-      "programs": ["Международная торговля", "Экономика", "Международные отношения"]
-    }
-  ],
   "key_info_texts": {
     "city_label": "Город",
     "city_note": "Стамбул",
@@ -127,12 +113,16 @@
       {
         "name": "Аттестат о среднем образовании",
         "description": "Апостиль и нотариальный перевод",
-        "format_requirements": ["PDF"]
+        "format_requirements": [
+          "PDF"
+        ]
       },
       {
         "name": "Загранпаспорт",
         "description": "Срок действия — не менее 2 лет",
-        "format_requirements": ["PDF"]
+        "format_requirements": [
+          "PDF"
+        ]
       },
       {
         "name": "Фотографии",
@@ -141,7 +131,9 @@
       {
         "name": "Denklik belgesi",
         "description": "На турецком, оценивание по 100-балльной шкале",
-        "format_requirements": ["PDF"]
+        "format_requirements": [
+          "PDF"
+        ]
       }
     ],
     "scholarships": [

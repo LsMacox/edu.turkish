@@ -79,28 +79,41 @@
       "title": "Refakat ve taşınma",
       "subtitle": "Sahada tam destek: sizi karşılıyor, vize, oturma izni ve uyum sürecinde yanınızda oluyoruz.",
       "packages": {
-        "standard": {
+        "admission": {
           "ctaButton": "Sipariş Ver",
           "services": [
-            "Belge çevirisi ve tasdiki",
-            "Üniversite kayıt garantisi",
-            "Konut arama ve sözleşme imzalama",
-            "Havalimanı transferi ve şehir oryantasyonu",
-            "Üniversite ile nihai kayıt",
-            "Öğrenci karthi hazırlanması yardımı",
-            "İkamet izni başvurusu desteği",
-            "Denklik belgesi (diploma tanıma)",
-            "Vergi numarası kaydı"
+            "İlk danışmanlık",
+            "Üniversite ve bölüm seçimi",
+            "Başvuru için gerekli belgelerin toplanması konusunda danışmanlık",
+            "Belgelerin çevirisi ve noter onayı konusunda yardım",
+            "Öğrenci adına üniversiteye kabul garantisi",
+            "Öğrenim ücreti ödeme konusunda yardım"
+          ]
+        },
+        "standard": {
+          "ctaButton": "Sipariş Ver",
+          "includes": "'Üniversiteye Giriş' paketini içerir, ayrıca:",
+          "additionalServices": [
+            "Havalimanı transferi",
+            "Üniversiteye kesin kayıt",
+            "Üniversite öğrenci kartının çıkarılması",
+            "Yurt arama ve kayıt",
+            "Öğrenci seyahat kartının çıkarılması",
+            "Vergi numarası alma",
+            "İkamet İzni için gerekli tüm belgelerin toplanması ve düzenlenmesi",
+            "Denklik belgesi danışmanlığı ve düzenlenmesi",
+            "Tüm aşamalarda kişisel refakat",
+            "SIM kart satın alma yardımı"
           ]
         },
         "vip": {
           "ctaButton": "Sipariş Ver",
-          "includes": "Tüm 'Standart' hizmetler artı:",
+          "includes": "'Giriş ve Yerleşim' paketlerini içerir, ayrıca:",
           "additionalServices": [
-            "Daire arama ve kira sözleşmesi desteği",
-            "Altyapı kurulumu (internet, elektrik, su)",
-            "Adres kaydı (adres kayit) yardımı",
-            "Banka hesabı açma kişisel eşlik ile"
+            "Daire arama ve noter onaylı kira sözleşmesi düzenleme desteği",
+            "Aboneliklerin (elektrik, su, doğalgaz) açılması",
+            "İkametgah kaydı (adres kaydı)",
+            "Banka hesabı açma"
           ]
         }
       },

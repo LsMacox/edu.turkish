@@ -17,8 +17,8 @@
   "internationalStudents": 2000,
   "hasAccommodation": true,
   "hasScholarships": true,
-  "heroImage": "https://cdn.edu-turkish.com/images/universities/beykoz-bg.jpg",
-  "image": "https://cdn.edu-turkish.com/images/universities/beykoz-preview.jpg",
+  "heroImage": "5e609a97-4739-4b6f-8743-803038a4d5cf.jpg",
+  "image": "43da6be4-f1f4-458f-a3ee-70315717e97d.jpg",
   "about": {
     "history": "Университет создан фондом TÜRLEV (Turkish Logistics Research & Education Foundation) и вырос из Beykoz Lojistik Meslek Yüksekokulu. В 2016 году получил статус университета.",
     "mission": "Готовить специалистов, соединяющих академические знания с практическими навыками, с акцентом на логистику, бизнес, дизайн, ИТ и инженерные направления.",
@@ -32,38 +32,6 @@
       "Международный диплом и англоязычные программы"
     ]
   },
-  "strong_programs": [
-    {
-      "category": "Логистика и управление цепями поставок",
-      "programs": ["Международная торговля и логистика"]
-    },
-    {
-      "category": "Бизнес и экономика",
-      "programs": [
-        "Бизнес-администрирование",
-        "Международная торговля и финансы",
-        "Маркетинг и бренд-менеджмент"
-      ]
-    },
-    {
-      "category": "Инженерия и компьютерные науки",
-      "programs": ["Компьютерная инженерия", "Программная инженерия", "Искусственный интеллект"]
-    },
-    {
-      "category": "Дизайн и медиа",
-      "programs": [
-        "Коммуникации и дизайн",
-        "Графический дизайн",
-        "Анимация",
-        "Радио, телевидение и кино",
-        "Дизайн цифровых игр"
-      ]
-    },
-    {
-      "category": "Психология и социальные науки",
-      "programs": ["Психология", "Политология и международные отношения"]
-    }
-  ],
   "key_info_texts": {
     "city_label": "Город",
     "city_note": "Стамбул (Beykoz / Kavacık)",
@@ -163,12 +131,16 @@
       {
         "name": "Аттестат/диплом",
         "description": "Апостиль и нотариальный перевод",
-        "format_requirements": ["PDF"]
+        "format_requirements": [
+          "PDF"
+        ]
       },
       {
         "name": "Загранпаспорт",
         "description": "Срок действия не менее 18 месяцев",
-        "format_requirements": ["PDF"]
+        "format_requirements": [
+          "PDF"
+        ]
       },
       {
         "name": "Фото",
@@ -184,7 +156,9 @@
         "name": "Скидка на обучение",
         "type": "university",
         "coverage_percentage": 50,
-        "eligibility_criteria": ["Скидка действует на все направления обучения"]
+        "eligibility_criteria": [
+          "Скидка действует на все направления обучения"
+        ]
       }
     ]
   },
