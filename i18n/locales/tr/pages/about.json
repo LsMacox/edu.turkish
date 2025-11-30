@@ -30,6 +30,26 @@
       "links": {
         "linkedin": "{name}'in LinkedIn profilini aç",
         "whatsapp": "{name} ile WhatsApp'ta sohbet başlat"
+      },
+      "members": {
+        "hakim": {
+          "name": "Hakim Nagaev",
+          "position": "Edu.turkish Ajansı Kurucusu",
+          "role": "Kurucu",
+          "description": "Uluslararası öğrencilerin Türkiye'deki üniversitelere kayıt olmalarına ve yeni bir ülkedeki yaşama uyum sağlamalarına yardımcı olan ajansın kurucusuyum. 2017'den beri İstanbul'da yaşıyorum ve yerel eğitim sisteminin ve öğrenci hayatının özelliklerini iyi biliyorum.\n\nŞu anda İstanbul Sabahattin Zaim Üniversitesi'nde İslami İlimler bölümünde son sınıf öğrencisiyim. Kişisel öğrencilik deneyimim ve Türkiye'de uzun yıllar süren yaşamım, uluslararası öğrencilerin ihtiyaçlarını ve zorluklarını daha iyi anlamama yardımcı oluyor.\n\nAmacım, kabul ve tam yerleşim sürecini mümkün olduğunca kolay ve basit hale getirmektir: Üniversite seçiminden gerekli tüm belgelerin düzenlenmesine ve Türkiye'de adaptasyona kadar. Sadece güncel bilgiler sağlamaya ve öğrencilere yolculuklarının her aşamasında eşlik etmeye çalışıyorum."
+        },
+        "nazrin": {
+          "name": "Nazrin Imanova",
+          "position": "Danışman ve Öğrenci Küratörü",
+          "role": "Danışman",
+          "description": "Ben Nazrin Imanova, ajansın danışmanı ve öğrenci küratörüyüm. 2022'den beri İstanbul'da yaşıyorum ve İstanbul Aydın Üniversitesi'nde İşletme Yönetimi alanında yüksek lisans yapıyorum. Ben de uluslararası bir öğrenci yolundan geçtiğim için, gençlerin taşınırken ne tür zorluklarla karşılaştığını çok iyi anlıyorum ve bu süreci nasıl daha kolay ve konforlu hale getirebileceğimi biliyorum. Çalışmalarımda sorumluluğa, ayrıntılara dikkate ve kaliteli desteğe odaklanıyorum, böylece her öğrenci yeni bir ülkede destek ve güven hisseder. Danışmanlık faaliyetlerinin yanı sıra, kültürlerarası uyum ve uluslararası eğitim konularıyla aktif olarak ilgileniyorum, bu da öğrencilerin ihtiyaçlarını daha iyi anlamama ve onlar için doğru çözümleri bulmama yardımcı oluyor."
+        },
+        "adam": {
+          "name": "Adam Zugiraev",
+          "position": "Platform Baş Geliştiricisi",
+          "role": "Geliştirici",
+          "description": "Ben Adam, çevrimiçi platformumuzun hızlı, net ve hatasız çalışmasını sağlamaktan sorumlu geliştiriciyim. Tüm formlar, düğmeler, kişisel hesaplar, testler — tüm bunlar rahat ve anlaşılır çalışmalı ve ben bunun böyle olduğundan emin oluyorum.\n\nGörevim, öğrencinin kolayca başvuru yapabilmesini, gerekli bilgileri alabilmesini ve teknik zorluklarla sinirlerini harcamamasını sağlamaktır. Ekip üniversite seçimi ve adaptasyon konusunda yardımcı olurken, ben sitenin \"içindeki\" her şeyin olması gerektiği gibi çalışmasını sağlayarak yardımcı oluyorum.\n\nİyi bir sistemin, sadece çalıştığı için hakkında düşünmediğiniz bir sistem olduğuna inanıyorum. Her gün bunun için çabalıyorum."
+        }
       }
     },
     "story": {

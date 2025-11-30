@@ -59,9 +59,9 @@
               <Icon name="mdi:email" class="text-red-600 text-2xl" />
             </div>
             <h3 class="text-card-title mb-4">Email</h3>
-            <p class="text-gray-600 mb-4">edu.turkish2018@gmail.com</p>
+            <p class="text-gray-600 mb-4">info@edu-turkish.com</p>
             <a
-              href="mailto:edu.turkish2018@gmail.com"
+              href="mailto:info@edu-turkish.com"
               class="bg-primary text-white px-6 py-3 rounded-xl font-semibold hover:bg-red-600 transition-colors"
             >
               {{ $t('about.contact.channels.email.button') }}

@@ -30,6 +30,26 @@
       "links": {
         "linkedin": "Open {name}'s LinkedIn profile",
         "whatsapp": "Message {name} on WhatsApp"
+      },
+      "members": {
+        "hakim": {
+          "name": "Hakim Nagaev",
+          "position": "Founder of Edu.turkish Agency",
+          "role": "Founder",
+          "description": "I am the founder of the agency that helps international students enroll in Turkish universities and adapt to life in a new country. I have been living in Istanbul since 2017 and I am well acquainted with the peculiarities of the local educational system and student life.\n\nCurrently, I am a senior student at İstanbul Sabahattin Zaim Üniversitesi majoring in Islamic Sciences. My personal experience as a student and many years of living in Turkey help me better understand the needs and difficulties of international students.\n\nMy goal is to make the process of admission and full settlement as easy and simple as possible: From choosing a university to processing all necessary documents and adapting in Turkey. I strive to provide only up-to-date information and accompany students at every stage of their journey."
+        },
+        "nazrin": {
+          "name": "Nazrin Imanova",
+          "position": "Consultant and Student Curator",
+          "role": "Consultant",
+          "description": "I am Nazrin Imanova, a consultant and student curator at the agency. Since 2022, I have been living in Istanbul and studying for a Master's degree at İstanbul Aydın University in Business Administration. As I myself have gone through the path of an international student, I understand perfectly well what difficulties guys face when moving, and I know how to make this process easier and more comfortable. In my work, I focus on responsibility, attention to detail, and high-quality support so that every student feels support and confidence in a new country. In addition to consulting activities, I am actively interested in issues of intercultural adaptation and international education, which helps me even better understand the needs of students and find the right solutions for them."
+        },
+        "adam": {
+          "name": "Adam Zugiraev",
+          "position": "Lead Platform Developer",
+          "role": "Developer",
+          "description": "I am Adam, the developer responsible for ensuring that our online platform works quickly, clearly, and without failures. All forms, buttons, personal accounts, tests — all this should work conveniently and clearly, and I make sure that it is so.\n\nMy task is to make sure that the student can easily submit an application, get the necessary information, and not waste nerves on technical difficulties. While the team helps with the choice of university and adaptation, I help by ensuring that everything \"inside\" the site works as it should.\n\nI believe that a good system is one that you don't even think about because it just works. That's what I strive for every day."
+        }
       }
     },
     "story": {

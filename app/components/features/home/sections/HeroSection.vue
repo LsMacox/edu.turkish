@@ -54,9 +54,6 @@
             >
               {{ t('cta.consultation') }}
             </button>
-            <p class="text-xs md:text-sm text-gray-500 max-w-xs">
-              {{ t('cta.apply_note') }}
-            </p>
           </div>
         </div>
 
