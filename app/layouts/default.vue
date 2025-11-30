@@ -23,6 +23,9 @@
     <!-- Global Toasts -->
     <UiFeedbackToast />
 
+    <!-- Floating Action Button -->
+    <FloatingWhatsApp />
+
     <!-- Page loading overlay -->
     <UiFeedbackPageLoadingOverlay />
   </div>
