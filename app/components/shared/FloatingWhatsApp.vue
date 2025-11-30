@@ -13,7 +13,7 @@
       target="_blank"
       rel="noopener noreferrer"
       aria-label="Написать в WhatsApp"
-      class="fixed bottom-6 right-6 md:bottom-10 md:right-10 z-50 group flex items-center justify-center w-14 h-14 bg-[#25D366] rounded-full shadow-[0_4px_12px_rgba(0,0,0,0.15)] hover:shadow-[0_6px_16px_rgba(37,211,102,0.4)] hover:-translate-y-1 transition-all duration-300 ease-out print:hidden"
+      class="floating-whatsapp fixed bottom-6 right-6 md:bottom-10 md:right-10 z-50 group flex items-center justify-center w-14 h-14 bg-[#25D366] rounded-full shadow-[0_4px_12px_rgba(0,0,0,0.15)] hover:shadow-[0_6px_16px_rgba(37,211,102,0.4)] hover:-translate-y-1 transition-all duration-300 ease-out print:hidden"
       @click="trackClick"
     >
       <!-- Pulse Animation Ring -->
@@ -66,3 +66,12 @@ const trackClick = () => {
   // e.g. gtag('event', 'contact_whatsapp', { ... })
 }
 </script>
+
+<style>
+@media (max-width: 768px) {
+  body.has-sticky-cta .floating-whatsapp {
+    bottom: 130px !important;
+    transition: bottom 0.3s ease-out;
+  }
+}
+</style>

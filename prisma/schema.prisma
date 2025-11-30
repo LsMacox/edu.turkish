@@ -671,6 +671,7 @@ model BlogArticle {
   categoryId         Int                @map("category_id")
   status             BlogArticleStatus  @default(published)
   isFeatured         Boolean            @default(false) @map("is_featured")
+  isPowerPage        Boolean            @default(false) @map("is_power_page")
   publishedAt        DateTime           @map("published_at")
   coverImage         String?            @map("cover_image") @db.VarChar(500)
   heroImage          String?            @map("hero_image") @db.VarChar(500)

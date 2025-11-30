@@ -1,0 +1,22 @@
+{
+  "power_page": {
+    "cta": {
+      "consult": "Ücretsiz Danışmanlık",
+      "universities": "Üniversiteleri Gör"
+    },
+    "stats": {
+      "guarantee": "Kabul Garantisi",
+      "exams": "Giriş Sınavları",
+      "support": "Öğrenci Desteği",
+      "universities": "Partner Üniversiteler"
+    },
+    "price": {
+      "title": "Eğitim Ücreti",
+      "year": "yıl"
+    },
+    "universities": {
+      "title": "Önerilen Üniversiteler",
+      "view_all": "Hepsini Gör"
+    }
+  }
+}

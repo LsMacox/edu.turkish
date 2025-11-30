@@ -86,7 +86,10 @@ export class BlogRepository {
                 .filter((item: string) => !!item)
             : []
           if (items.length > 0) {
-            blocks.push({ type: 'list', ordered: Boolean(rawBlock.ordered), items })
+            const style = ['standard', 'checklist', 'steps'].includes(String(rawBlock.style))
+              ? (String(rawBlock.style) as 'standard' | 'checklist' | 'steps')
+              : undefined
+            blocks.push({ type: 'list', ordered: Boolean(rawBlock.ordered), items, style })
           }
           break
         }
@@ -123,6 +126,19 @@ export class BlogRepository {
           blocks.push({ type: 'divider' })
           break
         }
+        case 'faq': {
+          const items = Array.isArray(rawBlock.items)
+            ? rawBlock.items.map((item: any) => ({
+                question: sanitizeRichText(String(item.question || '')),
+                answer: sanitizeRichText(String(item.answer || '')),
+              }))
+            : []
+          
+          if (items.length > 0) {
+            blocks.push({ type: 'faq', items })
+          }
+          break
+        }
         default:
           break
       }
@@ -155,6 +171,7 @@ export class BlogRepository {
         key: article.category.code,
         label: categoryTranslation?.title ?? article.category.code,
       },
+      isPowerPage: article.isPowerPage ?? false,
     }
   }
 
@@ -279,6 +296,7 @@ export class BlogRepository {
 
     const baseWhere: Prisma.BlogArticleWhereInput = {
       status: 'published',
+      isPowerPage: false,
       publishedAt: {
         lte: new Date(),
       },

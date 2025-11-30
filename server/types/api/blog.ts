@@ -8,11 +8,12 @@ export interface BlogCategory {
 export type BlogArticleContentBlock =
   | { type: 'heading'; level: number; text: string }
   | { type: 'paragraph'; text: string }
-  | { type: 'list'; ordered: boolean; items: string[] }
+  | { type: 'list'; ordered: boolean; items: string[]; style?: 'standard' | 'checklist' | 'steps' }
   | { type: 'quote'; text: string; author?: string }
   | { type: 'image'; url: string; alt: string; caption?: string; width?: 'standard' | 'wide' | 'full' }
   | { type: 'spacer'; size: 'sm' | 'md' | 'lg' | 'xl' }
   | { type: 'divider' }
+  | { type: 'faq'; items: Array<{ question: string; answer: string }> }
 
 export interface BlogArticleQuickFact {
   title: string
@@ -32,6 +33,7 @@ export interface BlogArticleListItem {
   readingTimeMinutes?: number | null
   readingTimeLabel?: string
   category: BlogCategory
+  isPowerPage: boolean
 }
 
 export interface BlogArticleDetail extends BlogArticleListItem {

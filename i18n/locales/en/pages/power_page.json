@@ -1,0 +1,24 @@
+{
+  "power_page": {
+    "cta": {
+      "consult": "Free Consultation",
+      "universities": "View Universities",
+      "mobile_label": "Have questions?",
+      "mobile_title": "Get free consultation"
+    },
+    "stats": {
+      "guarantee": "Admission Guarantee",
+      "exams": "Entrance Exams",
+      "support": "Student Support",
+      "universities": "Partner Universities"
+    },
+    "price": {
+      "title": "Tuition Fees",
+      "year": "year"
+    },
+    "universities": {
+      "title": "Recommended Universities",
+      "view_all": "View All"
+    }
+  }
+}
