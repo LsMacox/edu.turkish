@@ -659,8 +659,8 @@ const articles: SeedArticle[] = [
     isFeatured: false,
     isPowerPage: true,
     publishedAt: '2025-02-20T10:00:00Z',
-    coverImage: 'med-cover-placeholder.webp',
-    heroImage: 'med-cover-placeholder.webp',
+    coverImage: '4c4cae13-7cbd-43a6-8e26-b0dc588532bf.png',
+    heroImage: '4c4cae13-7cbd-43a6-8e26-b0dc588532bf.png',
     readingTimeMinutes: 9,
     translations: [
       {
