@@ -10,7 +10,7 @@
     >
       <div class="relative aspect-square bg-gray-200">
         <NuxtImg
-          v-if="displayThumb"
+          v-if="isPageLoaded && displayThumb"
           :src="displayThumb"
           :alt="review.name"
           class="w-full h-full object-cover"
@@ -50,7 +50,7 @@
     <div v-else-if="review.mediaType === 'image'" class="relative group cursor-zoom-in">
       <div class="aspect-square bg-gray-200" @click="handleOpenImage">
         <NuxtImg
-          v-if="review.imageUrl"
+          v-if="isPageLoaded && review.imageUrl"
           :src="review.imageUrl"
           :alt="review.name"
           class="w-full h-full object-cover"
@@ -101,6 +101,7 @@
         <div class="flex items-center gap-3">
           <div v-if="review.avatar" class="w-10 h-10 rounded-full overflow-hidden flex-shrink-0">
             <NuxtImg
+              v-if="isPageLoaded"
               :src="review.avatar"
               :alt="review.name"
               class="w-full h-full object-cover"
@@ -154,6 +155,24 @@ interface Props {
 }
 
 const props = defineProps<Props>()
+
+const isPageLoaded = ref(false)
+
+if (import.meta.client) {
+  onMounted(() => {
+    if (document.readyState === 'complete') {
+      isPageLoaded.value = true
+    } else {
+      window.addEventListener(
+        'load',
+        () => {
+          isPageLoaded.value = true
+        },
+        { once: true },
+      )
+    }
+  })
+}
 
 const emit = defineEmits<{
   playVideo: [review: MediaReview]
