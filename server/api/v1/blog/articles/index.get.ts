@@ -23,7 +23,7 @@ export default defineEventHandler(async (event): Promise<BlogArticlesResponse> =
 
     const faqRepository = new FAQRepository(prisma)
     const faqResult = await faqRepository.findAll({ limit: 1 }, locale)
-    const totalFAQs = faqResult.meta.total
+    const totalFAQs = faqResult.meta.count
 
     return {
       data: result.articles,

@@ -1,6 +1,5 @@
 import type { SupportedCurrency } from '~~/lib/currency'
 
-// Fallback rates in case API fails
 const FALLBACK_RATES: Record<SupportedCurrency, number> = {
   KZT: 450.0,
   TRY: 32.0,
@@ -16,10 +15,6 @@ interface ExchangeRateApiResponse {
 export class ExchangeRateService {
   private apiUrl = 'https://open.er-api.com/v6/latest/USD'
 
-  /**
-   * Fetch exchange rates from external API
-   * Returns fallback rates on error
-   */
   async fetchRates(): Promise<Record<SupportedCurrency, number>> {
     try {
       const response = await fetch(this.apiUrl, {
@@ -37,7 +32,6 @@ export class ExchangeRateService {
 
       const data = (await response.json()) as ExchangeRateApiResponse
 
-      // Extract rates for our supported currencies
       const rates: Record<SupportedCurrency, number> = {
         KZT: data.rates.KZT ?? FALLBACK_RATES.KZT,
         TRY: data.rates.TRY ?? FALLBACK_RATES.TRY,
@@ -45,7 +39,6 @@ export class ExchangeRateService {
         USD: 1.0,
       }
 
-      // Validate rates are positive numbers
       for (const [currency, rate] of Object.entries(rates)) {
         if (typeof rate !== 'number' || rate <= 0) {
           console.error(`Invalid rate for ${currency}: ${rate}, using fallback`)

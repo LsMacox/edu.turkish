@@ -4,20 +4,15 @@ export default defineNuxtPlugin(() => {
   const nuxtApp = useNuxtApp()
   const metrikaId = config.public.yandexMetrikaId
 
-  // Не загружаем в development без явного указания ID
   if (import.meta.dev && !metrikaId) {
-    // Metrika disabled in development without ID
     return
   }
 
-  // Не загружаем если нет ID
   if (!metrikaId) {
     return
   }
 
-  // Инициализация Яндекс.Метрики
   const initYandexMetrika = () => {
-    // Создаем функцию ym если её нет
     ;(window as any).ym =
       (window as any).ym ||
       function (...args: unknown[]) {
@@ -25,11 +20,9 @@ export default defineNuxtPlugin(() => {
       }
     ;(window as any).ym.l = 1 * +new Date()
 
-    // Проверяем, не загружен ли уже скрипт
     const existingScript = document.querySelector(`script[src*="mc.yandex.ru/metrika/tag.js"]`)
     if (existingScript) return
 
-    // Создаем и загружаем скрипт
     const script = document.createElement('script')
     const firstScript = document.getElementsByTagName('script')[0]
 
@@ -40,7 +33,6 @@ export default defineNuxtPlugin(() => {
       firstScript.parentNode.insertBefore(script, firstScript)
     }
 
-    // Инициализируем счетчик
     ;(window as any).ym(metrikaId, 'init', {
       ssr: true,
       webvisor: true,
@@ -51,7 +43,6 @@ export default defineNuxtPlugin(() => {
     })
   }
 
-  // Отслеживание переходов между страницами
   router.afterEach((to) => {
     nextTick(() => {
       if ((window as any).ym && metrikaId) {
@@ -60,7 +51,6 @@ export default defineNuxtPlugin(() => {
     })
   })
 
-  // Инициализируем при загрузке страницы
   nuxtApp.hook('app:mounted', () => {
     initYandexMetrika()
   })

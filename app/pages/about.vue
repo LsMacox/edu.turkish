@@ -10,7 +10,6 @@
 </template>
 
 <script setup lang="ts">
-// About us page with all sections
 definePageMeta({
   title: 'О нас - Edu.turkish',
   description:
@@ -19,7 +18,6 @@ definePageMeta({
 
 const { t } = useI18n()
 
-// SEO meta
 useHead({
   title: () => t('about.meta.title'),
   meta: [

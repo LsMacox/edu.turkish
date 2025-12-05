@@ -11,9 +11,6 @@ export interface FAQItem {
   question: string
   answer: string
   category: string
-  featured: boolean
-  order: number
-  relevance_score?: number
 }
 
 export interface FAQCategory {
@@ -26,8 +23,7 @@ export interface FAQResponse {
   data: FAQItem[]
   categories: FAQCategory[]
   meta: {
-    total: number
-    filtered: number
+    count: number
     query?: string | null
   }
 }

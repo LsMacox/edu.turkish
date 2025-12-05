@@ -1,15 +1,26 @@
-import { ZodError } from 'zod'
+import { z, ZodError } from 'zod'
 import { prisma } from '~~/lib/prisma'
 import { ReviewRepository } from '~~/server/repositories'
 import type { CreateReviewResponse } from '~~/server/types/api'
 import { SUPPORTED_LOCALES } from '~~/lib/locales'
 import { parsePositiveInt } from '~~/lib/number'
-import { ReviewSchema } from '~~/server/utils/validation/schemas'
-import { formatZodError } from '~~/server/utils/validation/formatters'
+import { formatZodError } from '~~/server/utils/zod'
+
+const ReviewSchema = z.object({
+  name: z.string().min(2, 'min_length').max(100, 'max_length'),
+  university: z.string().min(1, 'required').max(200, 'max_length'),
+  faculty: z.string().max(200, 'max_length').optional(),
+  year: z.string().regex(/^\d{4}$/, 'invalid_year').optional().or(z.literal('')),
+  rating: z.number().min(1, 'min_value').max(5, 'max_value'),
+  contact: z.string().max(200, 'max_length').optional(),
+  review: z.string().min(10, 'min_length').max(2000, 'max_length'),
+  helpfulAspects: z.array(z.string()).optional(),
+  recommendation: z.string().max(500, 'max_length').optional(),
+  type: z.enum(['student', 'parent']).optional(),
+})
 
 export default defineEventHandler(async (event): Promise<CreateReviewResponse> => {
   try {
-    // Only allow POST method
     assertMethod(event, 'POST')
 
     const locale = event.context.locale || 'ru'
@@ -31,10 +42,8 @@ export default defineEventHandler(async (event): Promise<CreateReviewResponse> =
       throw error
     }
 
-    // Initialize repository
     const reviewRepository = new ReviewRepository(prisma)
 
-    // Find university by name (case-insensitive search)
     let universityId: number | undefined
     const titleSearch = {
       contains: data.university,
@@ -63,7 +72,6 @@ export default defineEventHandler(async (event): Promise<CreateReviewResponse> =
       universityId = matchedTranslation.universityId
     }
 
-    // Prepare review data for all supported locales
     const translations = [
       {
         locale: translationLocale,
@@ -73,7 +81,6 @@ export default defineEventHandler(async (event): Promise<CreateReviewResponse> =
       },
     ]
 
-    // Create additional metadata
     const achievements: any = {}
     if (data.helpfulAspects && data.helpfulAspects.length > 0) {
       achievements.helpful_aspects = data.helpfulAspects
@@ -88,13 +95,11 @@ export default defineEventHandler(async (event): Promise<CreateReviewResponse> =
       achievements.contact = data.contact
     }
 
-    // Normalize year to a valid 4-digit number if provided, otherwise omit
     const parsedYear =
       typeof data.year === 'string' && /^\d{4}$/.test(data.year)
         ? parsePositiveInt(data.year)
         : undefined
 
-    // Create review
     const review = await reviewRepository.create({
       type: data.type,
       name: data.name,

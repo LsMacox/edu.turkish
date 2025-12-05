@@ -14,10 +14,8 @@ export default defineEventHandler(async (event): Promise<UniversityDetail | null
       })
     }
 
-    // Initialize repository
     const universityRepository = new UniversityRepository(prisma)
 
-    // Try to find by ID first (if it's a number)
     if (!isNaN(Number(id))) {
       const university = await universityRepository.findById(Number(id), locale)
       if (university) {
@@ -25,7 +23,6 @@ export default defineEventHandler(async (event): Promise<UniversityDetail | null
       }
     }
 
-    // If not found by ID or ID is not a number, try to find by slug
     const university = await universityRepository.findBySlug(id, locale)
 
     if (!university) {

@@ -1,7 +1,7 @@
 import { prisma } from '~~/lib/prisma'
 import { UniversityRepository } from '~~/server/repositories'
 import { calculatePagination } from '~~/server/utils/api/pagination'
-import { parseUniversityFilters } from '~~/server/utils/api/universities'
+import { parseUniversityFilters } from '~~/server/utils/api/filters'
 import type { UniversityResponse } from '~~/server/types/api'
 
 export default defineEventHandler(async (event): Promise<UniversityResponse> => {
@@ -10,10 +10,8 @@ export default defineEventHandler(async (event): Promise<UniversityResponse> => 
     const query = getQuery(event)
     const filters = parseUniversityFilters(query)
 
-    // Initialize repository
     const universityRepository = new UniversityRepository(prisma)
 
-    // Get universities from database
     const result = await universityRepository.findAll(filters, locale)
 
     return {

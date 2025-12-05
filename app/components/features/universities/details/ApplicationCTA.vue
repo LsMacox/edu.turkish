@@ -4,7 +4,7 @@
       <div class="max-w-4xl mx-auto">
         <div class="text-center mb-12 text-white">
           <h2 class="text-4xl lg:text-5xl font-bold mb-6">
-            {{ $t('applicationCTA.title', { universityName: university.name }) }}
+            {{ $t('applicationCTA.title', { universityName: university.title }) }}
           </h2>
           <p class="text-xl opacity-90">
             {{ $t('applicationCTA.subtitle') }}
@@ -159,7 +159,7 @@
 import { useReferral } from '~/composables/useReferral'
 import { useServerValidation } from '~/composables/useServerValidation'
 import { useFingerprint } from '~/composables/useFingerprint'
-import type { DegreeType } from '@prisma/client'
+import type { UniversityDetail } from '~~/server/types/api/universities'
 
 const { show } = useToast()
 
@@ -171,16 +171,7 @@ const levelFieldId = useId()
 const commentFieldId = useId()
 
 interface Props {
-  university: {
-    name: string
-    academicPrograms?: Array<{
-      name: string
-      level: DegreeType
-      language: string
-      duration: string
-      price: number
-    }>
-  }
+  university: UniversityDetail
 }
 
 const props = defineProps<Props>()
@@ -229,11 +220,11 @@ const { sanitizePhone, onPhoneInput, onPhoneKeydown } = useInternationalPhone(ph
 
 // Get available programs based on university data
 const availablePrograms = computed(() => {
-  const programs = props.university.academicPrograms
+  const programs = props.university.programs
   if (!programs) return []
 
   const level = form.value.level
-  return programs.filter((program) => program.level === level).map((program) => program.name)
+  return programs.filter((program) => program.degreeType === level).map((program) => program.name)
 })
 
 const submitApplication = async () => {
@@ -262,7 +253,7 @@ const submitApplication = async () => {
         field: form.value.program || 'Не указано',
       },
       preferences: {
-        universities: [props.university.name],
+        universities: [props.university.title],
         programs: form.value.program ? [form.value.program] : [],
         budget: 'Не указан',
         start_date: new Date().getFullYear().toString(),

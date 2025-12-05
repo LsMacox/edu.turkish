@@ -6,7 +6,7 @@
         <NuxtImg
           class="w-full h-full object-cover opacity-20"
           :src="heroImageSrc"
-          :alt="`${university.name} campus`"
+          :alt="`${university.title} campus`"
           loading="eager"
           decoding="async"
           format="webp"
@@ -21,12 +21,12 @@
               <div class="w-8 h-8 bg-blue-600 rounded-full flex items-center justify-center">
                 <Icon name="ph:building" class="text-white text-sm" />
               </div>
-              <span class="text-sm font-medium text-secondary">{{ university.type }}</span>
+              <span class="text-sm font-medium text-secondary">{{ typeText }}</span>
             </div>
           </div>
 
           <h1 class="text-4xl lg:text-6xl font-bold text-secondary mb-6">
-            {{ university.name }}
+            {{ university.title }}
           </h1>
 
           <p class="text-xl lg:text-2xl text-gray-600 mb-8 max-w-2xl">
@@ -39,15 +39,15 @@
               @click="
                 openApplicationModal({
                   source: 'university_detail',
-                  description: `Заявка с детальной страницы университета: ${university.name}`,
-                  universityName: university.name,
+                  description: `Заявка с детальной страницы университета: ${university.title}`,
+                  universityName: university.title,
                 })
               "
             >
               {{ $t('universityDetail.applyButton') }}
             </button>
             <a
-              :href="whatsappChannel.href"
+              :href="whatsapp.href"
               target="_blank"
               class="bg-green-500 text-white px-8 py-4 rounded-xl font-semibold text-lg hover:bg-green-600 transition-all shadow-lg flex items-center justify-center space-x-2"
               @click.prevent="handleWhatsappClick"
@@ -82,7 +82,7 @@
             <h3 class="text-card-title mb-1 md:mb-2">
               {{ $t('universityDetail.keyInformation.city') }}
             </h3>
-            <p class="text-gray-600 text-sm md:text-base">{{ university.keyInfo.city }}</p>
+            <p class="text-gray-600 text-sm md:text-base">{{ university.city }}</p>
           </div>
 
           <div
@@ -96,7 +96,7 @@
             <h3 class="text-card-title mb-1 md:mb-2">
               {{ $t('universityDetail.keyInformation.foundedYear') }}
             </h3>
-            <p class="text-gray-600 text-sm md:text-base">{{ university.keyInfo.foundedYear }}</p>
+            <p class="text-gray-600 text-sm md:text-base">{{ university.foundedYear }}</p>
           </div>
 
           <div
@@ -111,15 +111,7 @@
               {{ $t('universityDetail.keyInformation.cost') }}
             </h3>
             <p class="text-gray-600 text-sm md:text-base">
-              {{
-                $t('universityDetail.keyInformation.costFrom', {
-                  cost:
-                    '$' +
-                    (university.keyInfo.priceFrom || 0)
-                      .toString()
-                      .replace(/\B(?=(\d{3})+(?!\d))/g, ' '),
-                })
-              }}
+              {{ $t('universityDetail.keyInformation.costFrom', { cost: '$' + formatNumber(university.tuitionMin) }) }}
             </p>
           </div>
 
@@ -135,7 +127,7 @@
               {{ $t('universityDetail.keyInformation.languages') }}
             </h3>
             <p class="text-gray-600 text-sm md:text-base">
-              {{ university.keyInfo.languages.join(', ') }}
+              {{ university.languages.join(', ') }}
             </p>
           </div>
 
@@ -151,9 +143,7 @@
               {{ $t('universityDetail.keyInformation.students') }}
             </h3>
             <p class="text-gray-600 text-sm md:text-base">
-              {{
-                university.keyInfo.studentsCount.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ' ')
-              }}
+              {{ formatNumber(university.totalStudents) }}
             </p>
           </div>
 
@@ -168,7 +158,7 @@
             <h3 class="text-card-title mb-1 md:mb-2">
               {{ $t('universityDetail.keyInformation.accommodation') }}
             </h3>
-            <p class="text-gray-600 text-sm md:text-base">{{ university.keyInfo.accommodation }}</p>
+            <p class="text-gray-600 text-sm md:text-base">{{ accommodationText }}</p>
           </div>
 
           <div
@@ -182,7 +172,7 @@
             <h3 class="text-card-title mb-1 md:mb-2">
               {{ $t('universityDetail.keyInformation.ranking') }}
             </h3>
-            <p class="text-gray-600 text-sm md:text-base">{{ university.keyInfo.ranking }}</p>
+            <p class="text-gray-600 text-sm md:text-base">{{ rankingText }}</p>
           </div>
 
           <div
@@ -196,9 +186,7 @@
             <h3 class="text-card-title mb-1 md:mb-2">
               {{ $t('universityDetail.keyInformation.internationalStudents') }}
             </h3>
-            <p class="text-gray-600 text-sm md:text-base">
-              {{ university.keyInfo.internationalStudents }}
-            </p>
+            <p class="text-gray-600 text-sm md:text-base">{{ internationalStudentsText }}</p>
           </div>
         </div>
       </div>
@@ -229,7 +217,7 @@
                 {{ $t('universityDetail.aboutUniversity.campus') }}
               </h3>
               <p class="text-card-body">
-                {{ university.about.campus }}
+                {{ university.about.mission }}
               </p>
             </div>
 
@@ -263,7 +251,7 @@
     </section>
 
     <!-- Academic Programs Section -->
-    <UniversitiesAcademicPrograms :programs="university.academicPrograms" />
+    <UniversitiesAcademicPrograms :programs="university.programs" />
 
     <!-- Admission Requirements Section -->
     <UniversitiesAdmissionRequirements :admission="university.admission" />
@@ -282,18 +270,40 @@
 </template>
 
 <script setup lang="ts">
-import type { UniversityDetailFrontend } from '~/types/university-detail'
+import type { UniversityDetail } from '~~/server/types/api/universities'
 import { useApplicationModalStore } from '~/stores/applicationModal'
 import { useContactChannels } from '~/composables/useContactChannels'
 import { useFingerprint } from '~/composables/useFingerprint'
 
 interface Props {
-  university: UniversityDetailFrontend
+  university: UniversityDetail
 }
 
 const props = defineProps<Props>()
+const { t } = useI18n()
 
-const heroImageSrc = computed(() => props.university.heroImage)
+const heroImageSrc = computed(() => props.university.heroImage || props.university.image)
+
+// Computed форматированные значения
+const accommodationText = computed(() =>
+  props.university.hasAccommodation
+    ? t('universityDetail.accommodationValue.has')
+    : t('universityDetail.accommodationValue.none')
+)
+
+const rankingText = computed(() =>
+  props.university.rankingText || t('universityDetail.rankingNotSpecified')
+)
+
+const internationalStudentsText = computed(() =>
+  t('universityDetail.internationalCount', { count: props.university.internationalStudents })
+)
+
+const typeText = computed(() =>
+  t(`universityDetail.universityType.${props.university.type}`) || props.university.type
+)
+
+const formatNumber = (num: number) => num.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ' ')
 
 const { locale } = useI18n()
 
@@ -301,14 +311,9 @@ const applicationModalStore = useApplicationModalStore()
 const { openModal: openApplicationModal } = applicationModalStore
 
 const { getChannel } = useContactChannels()
-const whatsappChannel = getChannel('whatsapp')
+const whatsapp = getChannel('whatsapp')
 
 const { openWithFingerprint } = useFingerprint()
 
-const handleWhatsappClick = async () => {
-  const href = whatsappChannel.value?.href
-  if (!href) return
-
-  await openWithFingerprint(href, '_blank')
-}
+const handleWhatsappClick = () => openWithFingerprint(whatsapp.value.href, '_blank')
 </script>

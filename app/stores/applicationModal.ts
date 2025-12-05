@@ -1,19 +1,16 @@
 import { defineStore } from 'pinia'
-import type { ApplicationPreferences, FormSubmissionData } from '~/types/preferences'
+import type { ApplicationPreferences } from '~/types/preferences'
 import type { SubServiceId, ServiceApplicationContext } from '~/types/services'
 
 export const useApplicationModalStore = defineStore('applicationModal', () => {
-  // State
   const isOpen = ref<boolean>(false)
   const userPreferences = ref<ApplicationPreferences | null>(null)
   const previousOverflow = ref<string | null>(null)
 
-  // Actions
   const openModal = (preferences: ApplicationPreferences | null = null) => {
     userPreferences.value = preferences
     isOpen.value = true
 
-    // Отслеживание открытия модала
     if (import.meta.client && (window as any).ym) {
       const config = useRuntimeConfig()
       ;(window as any).ym(config.public.yandexMetrikaId, 'reachGoal', 'modal_open', {
@@ -22,7 +19,6 @@ export const useApplicationModalStore = defineStore('applicationModal', () => {
     }
 
     if (typeof document !== 'undefined') {
-      // Предотвратить скролл страницы когда модал открыт
       previousOverflow.value = document.body.style.overflow || null
       document.body.style.overflow = 'hidden'
     }
@@ -57,20 +53,17 @@ export const useApplicationModalStore = defineStore('applicationModal', () => {
     })
   }
 
-  const submitApplication = (formData: FormSubmissionData) => {
-    // Отслеживание отправки заявки
+  const submitApplication = () => {
     if (import.meta.client && (window as any).ym) {
       const config = useRuntimeConfig()
       ;(window as any).ym(config.public.yandexMetrikaId, 'reachGoal', 'application_submitted', {
-        hasPreferences: !!formData.preferences,
+        hasPreferences: !!userPreferences.value,
       })
     }
 
-    // Здесь будет логика отправки данных
     closeModal()
   }
 
-  // Cleanup function to ensure body overflow is reset
   const cleanup = () => {
     if (typeof document !== 'undefined') {
       if (previousOverflow.value) {

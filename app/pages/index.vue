@@ -71,7 +71,7 @@ useHead(() => ({
 const universitiesStore = useUniversitiesStore()
 
 if (import.meta.server) {
-  await universitiesStore.initAndFetchSSR({ limit: 6 })
+  await universitiesStore.initializeFilters({ limit: 6, ssr: true })
 }
 
 onMounted(async () => {

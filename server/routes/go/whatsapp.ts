@@ -1,13 +1,12 @@
 import { getCookie } from 'h3'
 import { contactChannels } from '~~/lib/contact/channels'
-import { CRMFactory } from '~~/server/services/crm/CRMFactory'
+import { formatMessengerTouchNotification } from '~~/server/utils/telegram-formatter'
+import { getTelegramQueue } from '~~/server/utils/telegram-queue'
 import { extractUtmFromQuery } from '~~/server/utils/utm'
 
 export default defineEventHandler(async (event) => {
   const query = getQuery(event)
-  const referralFromQuery = typeof query.ref === 'string' ? query.ref : ''
-  const referralFromCookie = getCookie(event, 'referral_code') || ''
-  const referralCode = referralFromQuery || referralFromCookie
+  const referralCode = getCookie(event, 'referral_code') || ''
   const hasReferralCode = referralCode.length > 0
 
   const cookieFp = getCookie(event, 'fp')
@@ -16,25 +15,24 @@ export default defineEventHandler(async (event) => {
 
   if (hasReferralCode) {
     try {
-      await $fetch('/api/v1/messenger-events', {
-        method: 'POST',
-        body: {
-          channel: 'whatsapp',
-          ref: referralCode,
-          session: sessionId,
-          utm,
-        },
-      })
-
-      const crm = CRMFactory.createFromEnv()
-      await crm.createMinimalLeadFromActivity({
+      const config = useRuntimeConfig()
+      const queue = getTelegramQueue()
+      const message = formatMessengerTouchNotification({
         channel: 'whatsapp',
         referralCode,
-        session: sessionId,
-        utm: utm as any,
-      } as any)
+        sessionId,
+        utm,
+        timestamp: new Date().toISOString(),
+      })
+
+      await queue.add('sendNotification', {
+        channelId: config.telegramCallsChannelId,
+        message,
+        parseMode: 'HTML',
+        disableWebPagePreview: true,
+      })
     } catch (error) {
-      console.error('[go/whatsapp] Failed to process messenger event and create lead', error)
+      console.error('[go/whatsapp] Failed to enqueue telegram notification', error)
     }
   }
 

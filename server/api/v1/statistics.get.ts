@@ -1,16 +1,11 @@
 import { prisma } from '~~/lib/prisma'
-import { ReviewRepository } from '~~/server/repositories'
+import { StatisticsRepository } from '~~/server/repositories'
 import type { ReviewStatistics } from '~~/server/types/api'
 
 export default defineEventHandler(async (_event): Promise<ReviewStatistics> => {
   try {
-    // Initialize repository
-    const reviewRepository = new ReviewRepository(prisma)
-
-    // Get comprehensive statistics from database
-    const statistics = await reviewRepository.getStatistics()
-
-    return statistics
+    const repo = new StatisticsRepository(prisma)
+    return await repo.getStatistics()
   } catch (error) {
     console.error('Error fetching general statistics:', error)
     throw createError({

@@ -96,15 +96,7 @@ const emit = defineEmits<{
 
 const { t } = useI18n()
 const { currencyRef } = useCurrency()
-
-// Access Pinia store lazily with a safe fallback for test environments
-const getExchangeRatesStore = () => {
-  try {
-    return useExchangeRatesStore()
-  } catch {
-    return { convertPrice: (v: number) => v } as unknown as ReturnType<typeof useExchangeRatesStore>
-  }
-}
+const exchangeRatesStore = useExchangeRatesStore()
 
 // Detect which structure is being used
 const isNewStructure = computed(() => {
@@ -236,7 +228,7 @@ const calculatedPrice = computed(() => {
   }
 
   const currency = currencyRef.value
-  const converted = getExchangeRatesStore().convertPrice(priceUsd, currency as any)
+  const converted = exchangeRatesStore.convertPrice(priceUsd, currency)
   const rounded = Math.round(converted)
 
   // Add "от" (from) prefix for Russian locale or similar

@@ -1,4 +1,4 @@
-import type { EspoCRMLead, EspoCRMCall } from '~~/server/types/espocrm-webhook'
+import type { EspoCRMLead } from '~~/server/types/espocrm-webhook'
 
 /**
  * Telegram Message Formatter
@@ -50,32 +50,6 @@ export function truncateText(text: string, maxLength: number): string {
   return text.substring(0, maxLength) + '...'
 }
 
-/**
- * Translate call status to Russian
- */
-export function translateStatus(status: string): string {
-  const translations: Record<string, string> = {
-    Planned: 'Запланирован',
-    Held: 'Состоялся',
-    'Not Held': 'Не состоялся',
-  }
-  return translations[status] || status
-}
-
-/**
- * Translate call direction to Russian
- */
-export function translateDirection(direction: string): string {
-  const translations: Record<string, string> = {
-    Outbound: 'Исходящий',
-    Inbound: 'Входящий',
-  }
-  return translations[direction] || direction
-}
-
-/**
- * Format lead notification message for Telegram
- */
 export function formatLeadNotification(lead: EspoCRMLead): string {
   const lines: string[] = ['🆕 <b>Новый лид</b>', '']
 
@@ -131,54 +105,51 @@ export function formatLeadNotification(lead: EspoCRMLead): string {
   return lines.join('\n')
 }
 
-/**
- * Format call activity notification message for Telegram
- */
-export function formatCallNotification(call: EspoCRMCall): string {
-  const lines: string[] = ['📞 <b>Новый звонок</b>', '']
+type MessengerChannel = 'whatsapp' | 'telegramBot' | 'instagram'
 
-  // Contact name (prefer contactName, fallback to parentName)
-  const contactName = call.contactName || call.parentName
-  if (contactName) {
-    lines.push(`👤 <b>Контакт:</b> ${escapeHtml(contactName)}`)
+interface MessengerTouchPayload {
+  channel: MessengerChannel
+  referralCode?: string
+  sessionId?: string
+  utm?: Record<string, any> | undefined
+  timestamp?: string
+}
+
+const messengerChannelLabels: Record<MessengerChannel, string> = {
+  whatsapp: 'WhatsApp',
+  telegramBot: 'Telegram',
+  instagram: 'Instagram',
+}
+
+export function formatMessengerTouchNotification(payload: MessengerTouchPayload): string {
+  const lines: string[] = ['📨 <b>Новый контакт</b>', '']
+
+  const channelLabel = messengerChannelLabels[payload.channel] || payload.channel
+  lines.push(`📡 <b>Канал:</b> ${escapeHtml(channelLabel)}`)
+
+  if (payload.referralCode) {
+    lines.push(`🏷 <b>Реферал:</b> ${escapeHtml(payload.referralCode)}`)
   }
 
-  // Phone
-  if (call.phoneNumber) {
-    lines.push(`📱 <b>Телефон:</b> ${escapeHtml(call.phoneNumber)}`)
+  if (payload.sessionId) {
+    lines.push(`🆔 <b>Сессия:</b> ${escapeHtml(payload.sessionId)}`)
   }
 
-  // Status (translated)
-  if (call.status) {
-    lines.push(`📊 <b>Статус:</b> ${translateStatus(call.status)}`)
+  if (payload.utm && Object.keys(payload.utm).length > 0) {
+    const utmParts: string[] = []
+    for (const key of ['source', 'medium', 'campaign', 'term', 'content']) {
+      const value = (payload.utm as Record<string, any>)[key]
+      if (typeof value === 'string' && value.trim().length > 0) {
+        utmParts.push(`${key}=${escapeHtml(value)}`)
+      }
+    }
+    if (utmParts.length > 0) {
+      lines.push(`🌐 <b>UTM:</b> ${utmParts.join(', ')}`)
+    }
   }
 
-  // Direction (translated)
-  if (call.direction) {
-    lines.push(`↔️ <b>Направление:</b> ${translateDirection(call.direction)}`)
-  }
-
-  // Duration (formatted as MM:SS)
-  if (call.duration !== undefined) {
-    lines.push(`⏱ <b>Длительность:</b> ${formatDuration(call.duration)}`)
-  }
-
-  // Description (truncated to 300 chars)
-  if (call.description) {
-    const truncated = truncateText(call.description, 300)
-    lines.push(`📝 <b>Заметки:</b> ${escapeHtml(truncated)}`)
-  }
-
-  // Assigned user
-  if (call.assignedUserName) {
-    lines.push(`👨‍💼 <b>Ответственный:</b> ${escapeHtml(call.assignedUserName)}`)
-  }
-
-  // Timestamp (use dateStart if available, otherwise createdAt)
-  const timestamp = call.dateStart || call.createdAt
-  if (timestamp) {
-    lines.push(`⏰ <b>Время:</b> ${formatDateTime(timestamp)}`)
-  }
+  const ts = payload.timestamp || new Date().toISOString()
+  lines.push(`⏰ <b>Время:</b> ${formatDateTime(ts)}`)
 
   return lines.join('\n')
 }

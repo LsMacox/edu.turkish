@@ -59,9 +59,9 @@
                     {{ program.language }}
                   </span>
                 </td>
-                <td class="px-6 py-4 text-center text-gray-600">{{ program.duration }}</td>
+                <td class="px-6 py-4 text-center text-gray-600">{{ formatDuration(program.durationYears) }}</td>
                 <td class="px-6 py-4 text-center font-semibold text-primary">
-                  ${{ program.price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ' ') }}
+                  {{ formatPrice(program.tuitionPerYear) }}
                 </td>
               </tr>
             </tbody>
@@ -86,25 +86,31 @@
 </template>
 
 <script setup lang="ts">
-import { useUniversityDetailStore } from '~/stores/universityDetail'
-import type { UniversityProgram } from '~/types/university-detail'
+import type { UniversityProgram } from '~~/server/types/api/universities'
 
 interface Props {
   programs: UniversityProgram[]
 }
 
 const props = defineProps<Props>()
-const universityDetailStore = useUniversityDetailStore()
-const { getProgramsByLevel } = universityDetailStore
+const { t } = useI18n()
 
 const activeTab = ref<'bachelor' | 'master'>('bachelor')
 
 const tabs = [
-  { key: 'bachelor' as const, label: 'Бакалавриат' },
-  { key: 'master' as const, label: 'Магистратура' },
+  { key: 'bachelor' as const },
+  { key: 'master' as const },
 ]
 
-const filteredPrograms = computed(() => getProgramsByLevel(props.programs, activeTab.value))
+const filteredPrograms = computed(() =>
+  props.programs.filter((p) => p.degreeType === activeTab.value)
+)
+
+const formatDuration = (years: number) =>
+  t('universityDetail.programDuration.durationYears', { count: years })
+
+const formatPrice = (price: number) =>
+  '$' + price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ' ')
 
 const getLanguageBadgeClass = (language: string) => {
   const baseClasses = 'px-2 py-1 rounded-lg text-sm'

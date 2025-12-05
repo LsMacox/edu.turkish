@@ -1,5 +1,4 @@
 export default defineNuxtPlugin(() => {
-  // Read cookie helper
   const getCookie = (name: string): string | null => {
     const re = new RegExp('(?:^|; )' + name.replace(/([.$?*|{}()[\]\\/+^])/g, '\\$1') + '=([^;]*)')
     const match = document.cookie.match(re)
@@ -7,7 +6,6 @@ export default defineNuxtPlugin(() => {
     return decodeURIComponent(match[1])
   }
 
-  // Write cookie helper (1 year)
   const setCookie = (name: string, value: string, days = 365) => {
     const maxAge = days * 24 * 60 * 60
     const secure = location.protocol === 'https:' ? '; Secure' : ''
@@ -49,8 +47,6 @@ export default defineNuxtPlugin(() => {
         }
         return visitorId
       } catch {
-        // Fingerprint library failed
-        // Fallback: random token to avoid empty value
         const fallback = Math.random().toString(36).slice(2) + Date.now().toString(36)
         setCookie('fp', fallback)
         try {

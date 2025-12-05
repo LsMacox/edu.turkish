@@ -94,10 +94,10 @@
 </template>
 
 <script setup lang="ts">
-import type { UniversityDetailFrontend } from '~/types/university-detail'
+import type { UniversityDetail } from '~~/server/types/api/universities'
 
 interface Props {
-  university?: UniversityDetailFrontend
+  university?: UniversityDetail
 }
 
 const props = defineProps<Props>()
@@ -114,7 +114,7 @@ type FacilityItemUI = {
 
 // Получаем реальные объекты инфраструктуры из API
 const realFacilities = computed<FacilityItemUI[]>(() => {
-  const facilities = props.university?.campus_life?.facilities
+  const facilities = props.university?.campusLife?.facilities
   if (!Array.isArray(facilities)) {
     return []
   }
@@ -133,7 +133,7 @@ type CampusImage = {
 }
 
 const campusImages = computed<CampusImage[]>(() => {
-  const apiImages = (props.university?.campus_life?.gallery ?? []) as CampusGalleryItem[]
+  const apiImages = (props.university?.campusLife?.gallery ?? []) as CampusGalleryItem[]
   return apiImages
     .filter(
       (item): item is CampusGalleryItem & { url: string } =>

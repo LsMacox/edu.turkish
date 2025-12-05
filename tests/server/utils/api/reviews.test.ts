@@ -1,6 +1,6 @@
 import { describe, expect, it } from 'vitest'
 
-import { parseReviewFilters } from '~~/server/utils/api/reviews'
+import { parseReviewFilters } from '~~/server/utils/api/filters'
 
 describe('parseReviewFilters', () => {
   it('returns defaults for invalid pagination values', () => {

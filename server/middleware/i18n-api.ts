@@ -1,47 +1,29 @@
 import { SUPPORTED_LOCALES, DEFAULT_LOCALE, type SupportedLocale } from '~~/lib/locales'
 
-export default defineEventHandler(async (event) => {
-  if (!event.node.req.url?.startsWith('/api/')) {
-    return
-  }
+const isLocale = (v: string): v is SupportedLocale => SUPPORTED_LOCALES.includes(v as SupportedLocale)
+
+export default defineEventHandler((event) => {
+  if (!event.node.req.url?.startsWith('/api/')) return
 
   const locale = detectLanguage(event)
-
   event.context.locale = locale
-
   setHeader(event, 'Content-Language', locale)
   setHeader(event, 'Vary', 'Accept-Language')
 })
 
-function detectLanguage(event: any): SupportedLocale {
-  const queryLang = getQuery(event).lang as string
-  if (queryLang && SUPPORTED_LOCALES.includes(queryLang as SupportedLocale)) {
-    return queryLang as SupportedLocale
-  }
+function detectLanguage(event: Parameters<typeof defineEventHandler>[0] extends (e: infer E) => any ? E : never): SupportedLocale {
+  const queryLang = getQuery(event).lang
+  if (typeof queryLang === 'string' && isLocale(queryLang)) return queryLang
 
   const acceptLang = getHeader(event, 'Accept-Language')
   if (acceptLang) {
-    const preferred = parseAcceptLanguageSimple(acceptLang)
-    for (const lang of preferred) {
-      const baseCode = lang.split('-')[0]
-      if (SUPPORTED_LOCALES.includes(lang as SupportedLocale)) {
-        return lang as SupportedLocale
-      }
-      if (SUPPORTED_LOCALES.includes(baseCode as SupportedLocale)) {
-        return baseCode as SupportedLocale
-      }
+    for (const part of acceptLang.split(',')) {
+      const code = part.split(';')[0]?.trim().toLowerCase()
+      const base = code?.split('-')[0]
+      if (code && isLocale(code)) return code
+      if (base && isLocale(base)) return base
     }
   }
 
   return DEFAULT_LOCALE
-}
-
-function parseAcceptLanguageSimple(acceptLang: string): string[] {
-  return acceptLang
-    .split(',')
-    .map((lang) => {
-      const [code] = lang.trim().split(';')
-      return code?.toLowerCase()
-    })
-    .filter((code): code is string => Boolean(code))
 }

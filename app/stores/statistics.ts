@@ -12,12 +12,10 @@ interface ReviewStatistics {
 }
 
 export const useStatisticsStore = defineStore('statistics', () => {
-  // State
   const statistics = ref<ReviewStatistics | null>(null)
   const loading = ref(false)
   const error = ref<string | null>(null)
 
-  // Getters
   const universitiesCount = computed(() => {
     return statistics.value?.universities_count ?? 0
   })
@@ -42,32 +40,21 @@ export const useStatisticsStore = defineStore('statistics', () => {
 
   const formattedCostFrom = computed(() => '')
 
-  // Actions
   const fetchStatistics = async () => {
-    if (import.meta.client) {
-      /* debug removed */
-    }
     loading.value = true
     error.value = null
 
     try {
       const response = await $fetch<ReviewStatistics>('/api/v1/statistics')
       statistics.value = response
-      if (import.meta.client) {
-        /* debug removed */
-      }
     } catch (err: any) {
       error.value = err.message || 'Failed to fetch statistics'
       if (import.meta.client) console.error('[statistics] fetch error', err)
     } finally {
       loading.value = false
-      if (import.meta.client) {
-        /* debug removed */
-      }
     }
   }
 
-  // Reset function
   const reset = () => {
     statistics.value = null
     loading.value = false
@@ -75,12 +62,10 @@ export const useStatisticsStore = defineStore('statistics', () => {
   }
 
   return {
-    // State
     statistics,
     loading,
     error,
 
-    // Getters
     universitiesCount,
     citiesCount,
     programsCount,
@@ -90,7 +75,6 @@ export const useStatisticsStore = defineStore('statistics', () => {
     formattedPrograms,
     formattedCostFrom,
 
-    // Actions
     fetchStatistics,
     reset,
   }

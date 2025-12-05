@@ -1,6 +1,5 @@
 <template>
   <div>
-    <!-- University details (Client-only to fully avoid SSR hydration mismatch) -->
     <ClientOnly>
       <UniversitiesUniversityDetailView v-if="university" :university="university" />
       <template #fallback>
@@ -8,7 +7,6 @@
       </template>
     </ClientOnly>
 
-    <!-- Loading/Not found (Client-only to avoid SSR hydration mismatch) -->
     <ClientOnly>
       <div v-if="loading" class="min-h-screen bg-white flex items-center justify-center">
         <div class="text-center">
@@ -44,19 +42,15 @@ const universityDetailStore = useUniversityDetailStore()
 const { locale, t } = useI18n()
 const setI18nParams = useSetI18nParams()
 
-// Get university by slug from API (reactive)
 const slug = computed(() => route.params.slug as string)
 
-// Load on server for SSR hydration
 await callOnce(async () => {
   if (!universityDetailStore.isUniversityLoaded(slug.value)) {
     await universityDetailStore.loadUniversityBySlug(slug.value)
   }
 })
 
-// Client-side: react to slug changes during navigation and refetch
 if (import.meta.client) {
-  // Force load on client if not loaded (fallback for SSR issues)
   onMounted(async () => {
     if (!universityDetailStore.isUniversityLoaded(slug.value) && !universityDetailStore.loading) {
       await universityDetailStore.loadUniversityBySlug(slug.value)
@@ -72,12 +66,10 @@ if (import.meta.client) {
     },
   )
 
-  // Watch for locale changes and reload university data
   watch(
     () => locale.value,
     async (newLocale, oldLocale) => {
       if (!newLocale || newLocale === oldLocale) return
-      // Reload university data with new locale
       if (slug.value && universityDetailStore.isUniversityLoaded(slug.value)) {
         await universityDetailStore.loadUniversityBySlug(slug.value)
       }
@@ -89,7 +81,6 @@ const university = computed(() => universityDetailStore.currentUniversity)
 const loading = computed(() => universityDetailStore.loading)
 const error = computed(() => universityDetailStore.error)
 
-// Set i18n params for alternate routes
 watch(
   university,
   (newVal) => {
@@ -105,15 +96,11 @@ watch(
   { immediate: true },
 )
 
-// Debug information in development
-// dev logging removed
-
-// SEO and meta tags setup
 const headData = computed(() => {
-  if (university.value && university.value.name) {
-    const defaultTitle = `${university.value.name} - Edu.turkish`
+  if (university.value && university.value.title) {
+    const defaultTitle = `${university.value.title} - Edu.turkish`
     const metaTitleFromI18n = t('universityDetail.metaTitleTemplate', {
-      name: university.value.name,
+      name: university.value.title,
     })
     const metaTitle =
       metaTitleFromI18n && metaTitleFromI18n !== 'universityDetail.metaTitleTemplate'
@@ -154,7 +141,6 @@ const headData = computed(() => {
   }
 })
 
-// Safe head usage with null check
 watchEffect(() => {
   if (headData.value) {
     useHead(headData.value)

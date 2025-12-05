@@ -8,7 +8,7 @@ import type {
   BlogPopularArticle,
   BlogArticleQuickFact,
 } from '~~/server/types/api'
-import { pickTranslation, resolveLocaleTag } from '~~/server/utils/locale'
+import { pickTranslation, resolveLocaleTag, extractStringArray } from '~~/server/utils/locale'
 import { sanitizeRichText } from '~~/server/utils/sanitize'
 
 type ArticleWithRelations = Prisma.BlogArticleGetPayload<{
@@ -29,21 +29,12 @@ export class BlogRepository {
 
   private formatDate(date: Date, locale: string): string {
     try {
-      const formatter = new Intl.DateTimeFormat(resolveLocaleTag(locale as any), {
+      return new Intl.DateTimeFormat(resolveLocaleTag(locale as any), {
         day: '2-digit',
         month: 'short',
         year: 'numeric',
-      })
-
-      const parts = formatter.formatToParts(date)
-      return parts
-        .map((part) => part.value)
-        .join('')
-        .replace(/\s+/g, ' ')
-        .replace(', ', ' ')
-        .trim()
-    } catch (error) {
-      console.warn('[BlogRepository] Failed to format date', error)
+      }).format(date)
+    } catch {
       return date.toISOString().split('T')[0]!
     }
   }
@@ -175,21 +166,6 @@ export class BlogRepository {
     }
   }
 
-  private mapArticleToPopularItem(
-    article: ArticleWithRelations,
-    locale: string,
-  ): BlogPopularArticle {
-    const base = this.mapArticleToListItem(article, locale)
-
-    return {
-      id: base.id,
-      slug: base.slug,
-      title: base.title,
-      publishedAt: base.publishedAt,
-      publishedAtLabel: base.publishedAtLabel,
-    }
-  }
-
   private mapArticleToDetail(article: ArticleWithRelations, locale: string): BlogArticleDetail {
     const base = this.mapArticleToListItem(article, locale)
     const translation = pickTranslation(article.translations, locale)
@@ -241,23 +217,13 @@ export class BlogRepository {
       .filter((fact): fact is BlogArticleQuickFact => fact !== null)
   }
 
-  private parseStringArrayValue(value: unknown): string[] {
-    if (!Array.isArray(value)) {
-      return []
-    }
-
-    return (value as unknown[])
-      .map((item) => (typeof item === 'string' ? item.trim() : ''))
-      .filter((item): item is string => item.length > 0)
-  }
-
   private extractTranslationMetadata(translation?: ArticleTranslation | null): {
     quickFacts: BlogArticleQuickFact[]
     tags: string[]
   } {
     return {
       quickFacts: this.parseQuickFactsValue(translation?.quickFacts ?? null),
-      tags: this.parseStringArrayValue(translation?.tags ?? null),
+      tags: extractStringArray(translation?.tags),
     }
   }
 
@@ -372,7 +338,7 @@ export class BlogRepository {
       }
     }
 
-    const [total, rows, categories, potentialPopular] = await this.prisma.$transaction([
+    const [total, rows, categories, popularRows] = await this.prisma.$transaction([
       this.prisma.blogArticle.count({ where: listWhere }),
       this.prisma.blogArticle.findMany({
         where: listWhere,
@@ -381,11 +347,7 @@ export class BlogRepository {
         take: limit,
         include: {
           translations: true,
-          category: {
-            include: {
-              translations: true,
-            },
-          },
+          category: { include: { translations: true } },
         },
       }),
       this.prisma.blogCategory.findMany({
@@ -395,46 +357,32 @@ export class BlogRepository {
       this.prisma.blogArticle.findMany({
         where: baseWhere,
         orderBy: { publishedAt: 'desc' },
-        take: Math.max(limit * 2, 12),
-        include: {
-          translations: true,
-          category: {
-            include: {
-              translations: true,
-            },
-          },
+        take: 4,
+        select: {
+          id: true,
+          publishedAt: true,
+          translations: { select: { locale: true, slug: true, title: true } },
         },
       }),
     ])
 
     const mappedArticles = rows.map((row) => this.mapArticleToListItem(row, locale))
     const mappedFeatured = featured ? this.mapArticleToListItem(featured, locale) : null
-    const mappedCategories = categories.map((category) => {
-      const translation = pickTranslation(category.translations, locale)
-      return {
-        key: category.code,
-        label: translation?.title ?? category.code,
-      }
+    const mappedCategories = categories.map((cat) => {
+      const t = pickTranslation(cat.translations, locale)
+      return { key: cat.code, label: t?.title ?? cat.code }
     })
 
-    const popularCandidates = potentialPopular.sort(
-      (a, b) => b.publishedAt.getTime() - a.publishedAt.getTime(),
-    )
-    const seenPopularIds = new Set<number>()
-    const mappedPopular: BlogPopularArticle[] = []
-
-    for (const article of popularCandidates) {
-      if (seenPopularIds.has(article.id)) {
-        continue
+    const mappedPopular = popularRows.map((row) => {
+      const t = pickTranslation(row.translations, locale)
+      return {
+        id: row.id,
+        slug: t?.slug ?? String(row.id),
+        title: t?.title ?? '',
+        publishedAt: row.publishedAt.toISOString(),
+        publishedAtLabel: this.formatDate(row.publishedAt, locale),
       }
-
-      seenPopularIds.add(article.id)
-      mappedPopular.push(this.mapArticleToPopularItem(article, locale))
-
-      if (mappedPopular.length >= 4) {
-        break
-      }
-    }
+    })
 
     return {
       articles: mappedArticles,

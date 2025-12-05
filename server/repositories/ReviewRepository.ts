@@ -1,253 +1,65 @@
 import type { Prisma, PrismaClient, UserType } from '@prisma/client'
 import type { Review, ReviewQueryParams } from '~~/server/types/api'
-import { normalizeLocale, findTranslation, type NormalizedLocale } from '~~/server/utils/locale'
+import { normalizeLocale, asRecord, type NormalizedLocale } from '~~/server/utils/locale'
 
-const REVIEW_INCLUDE = {
+const INCLUDE = {
   translations: true,
-  university: {
-    include: {
-      translations: true,
-    },
-  },
+  university: { include: { translations: true } },
 } satisfies Prisma.UniversityReviewInclude
 
-type ReviewWithRelations = Prisma.UniversityReviewGetPayload<{
-  include: typeof REVIEW_INCLUDE
-}>
+type DbReview = Prisma.UniversityReviewGetPayload<{ include: typeof INCLUDE }>
 
-type ReviewAchievements = NonNullable<Review['achievements']>
+const DEFAULT_LOCALE = 'ru'
 
 export class ReviewRepository {
-  private static readonly DEFAULT_LOCALE = 'ru'
-
   constructor(private prisma: PrismaClient) {}
 
-  /**
-   * Find all reviews with filtering and pagination
-   */
   async findAll(
     params: ReviewQueryParams,
-    locale: string = ReviewRepository.DEFAULT_LOCALE,
-  ): Promise<{
-    data: Review[]
-    total: number
-  }> {
-    const localeInfo = normalizeLocale(locale)
+    locale = DEFAULT_LOCALE,
+  ): Promise<{ data: Review[]; total: number }> {
+    const loc = normalizeLocale(locale)
     const { type, featured, mediaType, page = 1, limit = 10 } = params
 
-    const where: Prisma.UniversityReviewWhereInput = {}
-
-    if (type && type !== 'all') {
-      where.type = type
+    const where: Prisma.UniversityReviewWhereInput = {
+      ...(type && type !== 'all' && { type }),
+      ...(featured && { featured: true }),
+      ...(mediaType && { mediaType }),
     }
-
-    if (featured) {
-      where.featured = true
-    }
-
-    if (mediaType) {
-      where.mediaType = mediaType
-    }
-
-    const safePage = Math.max(page, 1)
-    const safeLimit = Math.max(limit, 1)
 
     const [reviews, total] = await this.prisma.$transaction([
       this.prisma.universityReview.findMany({
         where,
-        include: REVIEW_INCLUDE,
+        include: INCLUDE,
         orderBy: [{ featured: 'desc' }, { rating: 'desc' }, { createdAt: 'desc' }],
-        skip: (safePage - 1) * safeLimit,
-        take: safeLimit,
+        skip: (page - 1) * limit,
+        take: limit,
       }),
       this.prisma.universityReview.count({ where }),
     ])
 
-    return {
-      data: reviews.map((review) => this.mapReview(review, localeInfo)),
-      total,
-    }
+    return { data: reviews.map((r) => this.toReview(r, loc)), total }
   }
 
-  /**
-   * Get review statistics
-   */
-  async getStatistics(): Promise<{
-    total_students: number
-    average_rating: number
-    success_rate: number
-    universities_count: number
-    scholarships_provided: number
-    cities_covered: number
-    languages_supported: number
-    specialties_available: number
-  }> {
-    const [
-      reviewStats,
-      universityCount,
-      universitiesWithCity,
-      programCount,
-      scholarshipsCount,
-      applicationsTotal,
-      applicationsApprovedCount,
-      universityLocales,
-      programLocales,
-      reviewLocales,
-      faqLocales,
-    ] = await this.prisma.$transaction([
-      this.prisma.universityReview.aggregate({
-        _count: { id: true },
-        _avg: { rating: true },
-      }),
-      this.prisma.university.count(),
-      this.prisma.university.findMany({
-        where: { cityId: { not: null } },
-        select: { cityId: true },
-        distinct: ['cityId'],
-      }),
-      this.prisma.universityProgram.count(),
-      this.prisma.universityScholarship.count(),
-      this.prisma.application.count(),
-      this.prisma.application.count({
-        where: { status: 'approved' },
-      }),
-      this.prisma.universityTranslation.findMany({
-        distinct: ['locale'],
-        select: { locale: true },
-      }),
-      this.prisma.universityProgramTranslation.findMany({
-        distinct: ['locale'],
-        select: { locale: true },
-      }),
-      this.prisma.universityReviewTranslation.findMany({
-        distinct: ['locale'],
-        select: { locale: true },
-      }),
-      this.prisma.faqTranslation.findMany({
-        distinct: ['locale'],
-        select: { locale: true },
-      }),
-    ])
-
-    const languages = new Set<string>()
-
-    for (const locales of [universityLocales, programLocales, reviewLocales, faqLocales]) {
-      for (const { locale } of locales) {
-        if (locale) {
-          languages.add(locale)
-        }
-      }
-    }
-
-    const approvedCount = applicationsApprovedCount ?? 0
-    const successRate =
-      applicationsTotal > 0 ? Math.round((approvedCount / applicationsTotal) * 100) : 0
-    const avgRatingRaw = reviewStats._avg.rating
-    const avgRating = avgRatingRaw === null ? 0 : Number(avgRatingRaw.toFixed(1))
-
-    return {
-      total_students: reviewStats._count.id,
-      average_rating: avgRating,
-      success_rate: successRate,
-      universities_count: universityCount,
-      scholarships_provided: scholarshipsCount,
-      cities_covered: universitiesWithCity.length,
-      languages_supported: languages.size,
-      specialties_available: programCount,
-    }
-  }
-
-  /**
-   * Find featured reviews
-   */
-  async findFeatured(
-    locale: string = ReviewRepository.DEFAULT_LOCALE,
-    limit: number = 3,
-  ): Promise<Review[]> {
-    const localeInfo = normalizeLocale(locale)
-    const safeLimit = Math.max(limit, 1)
-
-    const reviews = await this.prisma.universityReview.findMany({
-      where: { featured: true },
-      include: REVIEW_INCLUDE,
-      orderBy: [{ rating: 'desc' }, { createdAt: 'desc' }],
-      take: safeLimit,
-    })
-
-    return reviews.map((review) => this.mapReview(review, localeInfo))
-  }
-
-  /**
-   * Get media reviews (video and image reviews)
-   */
   async getMediaReviews(options: {
     featured?: boolean
     limit?: number
     mediaType?: 'video' | 'image'
     locale: string
   }) {
-    const { featured, limit = 12, mediaType, locale } = options
-    const localeInfo = normalizeLocale(locale)
-
-    const where: Prisma.UniversityReviewWhereInput = {
-      featured: featured ?? true,
-      mediaType: mediaType ? mediaType : { in: ['video', 'image'] },
-    }
+    const { featured = true, limit = 12, mediaType, locale } = options
+    const loc = normalizeLocale(locale)
 
     const reviews = await this.prisma.universityReview.findMany({
-      where,
+      where: { featured, mediaType: mediaType ?? { in: ['video', 'image'] } },
       take: limit,
-      include: {
-        // include all translations to allow proper locale fallback
-        translations: true,
-        university: {
-          include: {
-            translations: true,
-          },
-        },
-      },
-      orderBy: {
-        createdAt: 'desc',
-      },
+      include: INCLUDE,
+      orderBy: { createdAt: 'desc' },
     })
 
-    return reviews.map((review) => {
-      const translations = review.translations ?? []
-      const uniTranslations = review.university?.translations ?? []
-
-      const fallbackLocale = normalizeLocale(ReviewRepository.DEFAULT_LOCALE)
-      const tLoc =
-        findTranslation(translations, localeInfo) ||
-        findTranslation(translations, fallbackLocale) ||
-        translations[0]
-      const uLoc =
-        findTranslation(uniTranslations, localeInfo) ||
-        findTranslation(uniTranslations, fallbackLocale) ||
-        uniTranslations[0]
-
-      const universityName = uLoc?.title ?? tLoc?.universityName ?? undefined
-
-      return {
-        id: review.id,
-        type: review.type,
-        mediaType: review.mediaType,
-        name: tLoc?.name || '',
-        quote: tLoc?.quote || '',
-        university: universityName || '',
-        rating: review.rating,
-        year: review.year,
-        avatar: review.avatar,
-        videoUrl: review.videoUrl,
-        videoThumb: review.videoThumb,
-        videoDuration: review.videoDuration,
-        imageUrl: review.imageUrl,
-      }
-    })
+    return reviews.map((r) => this.toMediaReview(r, loc))
   }
 
-  /**
-   * Create a new review
-   */
   async create(data: {
     type: UserType
     name: string
@@ -266,121 +78,92 @@ export class ReviewRepository {
       achievements?: Review['achievements']
     }>
   }): Promise<Review> {
-    const { translations, achievements, name, quote, ...reviewData } = data
-
-    const translationPayloads = translations.map((translation) => {
-      const resolvedAchievements =
-        translation.achievements ??
-        (translation.locale === ReviewRepository.DEFAULT_LOCALE ? achievements : undefined)
-
-      return {
-        locale: translation.locale,
-        name: translation.name ?? name,
-        quote: translation.quote ?? quote,
-        universityName: translation.universityName,
-        ...(resolvedAchievements ? { achievements: resolvedAchievements } : {}),
-      }
-    })
+    const { translations, achievements, name, quote, ...rest } = data
 
     const review = await this.prisma.universityReview.create({
       data: {
-        ...reviewData,
+        ...rest,
         translations: {
-          create: translationPayloads,
+          create: translations.map((t) => ({
+            locale: t.locale,
+            name: t.name ?? name,
+            quote: t.quote ?? quote,
+            universityName: t.universityName,
+            ...(t.achievements ?? (t.locale === DEFAULT_LOCALE ? achievements : null)
+              ? { achievements: t.achievements ?? achievements }
+              : {}),
+          })),
         },
       },
-      include: REVIEW_INCLUDE,
+      include: INCLUDE,
     })
 
-    return this.mapReview(review, normalizeLocale(ReviewRepository.DEFAULT_LOCALE))
+    return this.toReview(review, normalizeLocale(DEFAULT_LOCALE))
   }
 
-  private mapReview(review: ReviewWithRelations, locale: NormalizedLocale): Review {
-    const translations = review.translations ?? []
-    const localizedTranslation = findTranslation(translations, locale)
-    const fallbackLocale = normalizeLocale(ReviewRepository.DEFAULT_LOCALE)
-    const fallbackTranslation = findTranslation(translations, fallbackLocale) ?? translations[0]
-    const translation = localizedTranslation ?? fallbackTranslation
+  private pick<T extends { locale: string | null }>(list: T[], loc: NormalizedLocale): T | undefined {
+    return list.find((t) => t.locale === loc.normalized) ?? list.find((t) => t.locale === DEFAULT_LOCALE) ?? list[0]
+  }
 
-    const universityTranslations = review.university?.translations ?? []
-    const localizedUniversityTranslation = findTranslation(universityTranslations, locale)
-    const fallbackUniversityTranslation =
-      findTranslation(universityTranslations, fallbackLocale) ?? universityTranslations[0]
-
-    const achievements = this.parseAchievements(
-      localizedTranslation?.achievements ?? fallbackTranslation?.achievements,
-    )
-
-    const universityName =
-      translation?.universityName ??
-      fallbackTranslation?.universityName ??
-      localizedUniversityTranslation?.title ??
-      fallbackUniversityTranslation?.title ??
-      undefined
-
+  private toReview(r: DbReview, loc: NormalizedLocale): Review {
+    const t = this.pick(r.translations, loc)
+    const u = this.pick(r.university?.translations ?? [], loc)
     return {
-      id: review.id,
-      type: review.type as UserType,
-      name: translation?.name ?? fallbackTranslation?.name ?? '',
-      university: universityName,
-      year: review.year ?? undefined,
-      quote: translation?.quote ?? fallbackTranslation?.quote ?? '',
-      rating: review.rating ?? 5,
-      avatar: review.avatar ?? '',
-      featured: review.featured,
-      achievements,
+      id: r.id,
+      type: r.type as UserType,
+      name: t?.name ?? '',
+      university: t?.universityName ?? u?.title ?? undefined,
+      year: r.year ?? undefined,
+      quote: t?.quote ?? '',
+      rating: r.rating ?? 5,
+      avatar: r.avatar ?? '',
+      featured: r.featured,
+      achievements: this.parseAchievements(t?.achievements),
     }
   }
 
-  private parseAchievements(value: Prisma.JsonValue | null | undefined): Review['achievements'] {
-    if (!value || typeof value !== 'object' || Array.isArray(value)) {
-      return undefined
+  private toMediaReview(r: DbReview, loc: NormalizedLocale) {
+    const t = this.pick(r.translations, loc)
+    const u = this.pick(r.university?.translations ?? [], loc)
+    return {
+      id: r.id,
+      type: r.type,
+      mediaType: r.mediaType,
+      name: t?.name ?? '',
+      quote: t?.quote ?? '',
+      university: u?.title ?? t?.universityName ?? '',
+      rating: r.rating,
+      year: r.year,
+      avatar: r.avatar,
+      videoUrl: r.videoUrl,
+      videoThumb: r.videoThumb,
+      videoDuration: r.videoDuration,
+      imageUrl: r.imageUrl,
+    }
+  }
+
+  private parseAchievements(val: Prisma.JsonValue | null | undefined): Review['achievements'] {
+    const raw = asRecord(val)
+    if (!raw) return undefined
+
+    const str = (k: string) => (typeof raw[k] === 'string' && raw[k].trim() ? raw[k].trim() : undefined)
+    const num = (k: string) => (typeof raw[k] === 'number' ? raw[k] : undefined)
+    const arr = Array.isArray(raw.helpful_aspects)
+      ? raw.helpful_aspects.filter((x): x is string => typeof x === 'string')
+      : undefined
+
+    const result: NonNullable<Review['achievements']> = {
+      ...(num('yos_score') !== undefined && { yos_score: num('yos_score') }),
+      ...(num('scholarship_percentage') !== undefined && { scholarship_percentage: num('scholarship_percentage') }),
+      ...(num('sat_score') !== undefined && { sat_score: num('sat_score') }),
+      ...(str('turkish_level') && { turkish_level: str('turkish_level') }),
+      ...(str('english_level') && { english_level: str('english_level') }),
+      ...(arr?.length && { helpful_aspects: arr }),
+      ...(str('recommendation') && { recommendation: str('recommendation') }),
+      ...(str('faculty') && { faculty: str('faculty') }),
+      ...(str('contact') && { contact: str('contact') }),
     }
 
-    const raw = value as Record<string, unknown>
-    const achievements: ReviewAchievements = {}
-
-    if (typeof raw.yos_score === 'number') {
-      achievements.yos_score = raw.yos_score
-    }
-
-    if (typeof raw.scholarship_percentage === 'number') {
-      achievements.scholarship_percentage = raw.scholarship_percentage
-    }
-
-    if (typeof raw.turkish_level === 'string') {
-      achievements.turkish_level = raw.turkish_level
-    }
-
-    if (typeof raw.sat_score === 'number') {
-      achievements.sat_score = raw.sat_score
-    }
-
-    if (typeof raw.english_level === 'string') {
-      achievements.english_level = raw.english_level
-    }
-
-    if (Array.isArray(raw.helpful_aspects)) {
-      const helpfulAspects = raw.helpful_aspects.filter(
-        (item): item is string => typeof item === 'string',
-      )
-      if (helpfulAspects.length > 0) {
-        achievements.helpful_aspects = helpfulAspects
-      }
-    }
-
-    if (typeof raw.recommendation === 'string' && raw.recommendation.trim().length > 0) {
-      achievements.recommendation = raw.recommendation.trim()
-    }
-
-    if (typeof raw.faculty === 'string' && raw.faculty.trim().length > 0) {
-      achievements.faculty = raw.faculty.trim()
-    }
-
-    if (typeof raw.contact === 'string' && raw.contact.trim().length > 0) {
-      achievements.contact = raw.contact.trim()
-    }
-
-    return Object.keys(achievements).length > 0 ? achievements : undefined
+    return Object.keys(result).length ? result : undefined
   }
 }

@@ -1,74 +1,52 @@
-import type { SearchOptions } from '~/types/preferences'
+const HIGHLIGHT_OPEN = '<mark class="bg-yellow-200 font-medium">'
+const HIGHLIGHT_CLOSE = '</mark>'
+const DEBOUNCE_MS = 300
+const MAX_HISTORY = 10
 
-/**
- * FAQ Search Composable - Simplified version
- * Provides search functionality for FAQ items with debouncing, filtering, and URL synchronization
- * Now uses API endpoints instead of complex answer processing
- */
-export const useFAQSearch = (options: SearchOptions = {}) => {
+export const useFAQSearch = () => {
   const { locale } = useI18n()
   const router = useRouter()
   const route = useRoute()
 
-  const {
-    debounceMs = 300,
-    maxHistory = 10,
-    highlightTags = { open: '<mark class="bg-yellow-200 font-medium">', close: '</mark>' },
-  } = options
-
-  // Reactive state using Nuxt's useState for SSR compatibility
-  const searchQuery = useState<string>('faqSearch:query', () => '')
-  const activeCategory = useState<string>('faqSearch:category', () => 'all')
-  const isSearching = useState<boolean>('faqSearch:isSearching', () => false)
+  const searchQuery = useState('faqSearch:query', () => '')
+  const activeCategory = useState('faqSearch:category', () => 'all')
+  const isSearching = useState('faqSearch:isSearching', () => false)
   const searchHistory = useState<string[]>('faqSearch:history', () => [])
-  const faqData = useState<any>('faqSearch:data', () => ({
-    data: [],
-    categories: [],
-    meta: { total: 0, filtered: 0 },
+  const faqData = useState('faqSearch:data', () => ({
+    data: [] as any[],
+    categories: [] as any[],
+    meta: { count: 0 },
   }))
-  const categoriesLocale = useState<string>('faqSearch:categoriesLocale', () => '')
-
-  // Flag to prevent infinite loops during URL sync
+  const categoriesLocale = useState('faqSearch:categoriesLocale', () => '')
   const isUpdatingFromURL = ref(false)
 
-  // Fetch FAQ data from API
+  let debounceTimer: ReturnType<typeof setTimeout> | null = null
+
   const fetchFAQData = async () => {
     try {
       isSearching.value = true
-      const query: Record<string, any> = {}
+      const query: Record<string, string> = { lang: locale.value }
 
-      if (searchQuery.value.trim()) {
-        query.q = searchQuery.value.trim()
-      }
-
-      if (activeCategory.value !== 'all') {
-        query.category = activeCategory.value
-      }
-      // Pass current locale explicitly for API localization
-      query.lang = locale.value
+      if (searchQuery.value.trim()) query.q = searchQuery.value.trim()
+      if (activeCategory.value !== 'all') query.category = activeCategory.value
 
       const response = await $fetch('/api/v1/content/faq', {
         query,
         headers: { 'Accept-Language': locale.value },
       })
-      // Always update items/meta
+
       faqData.value = {
         ...faqData.value,
         data: response?.data || [],
         meta: response?.meta || { total: 0, filtered: 0 },
       }
-      // Update categories only on first load or when locale actually changed
-      if (
-        !Array.isArray(faqData.value.categories) ||
-        faqData.value.categories.length === 0 ||
-        categoriesLocale.value !== locale.value
-      ) {
+
+      if (!faqData.value.categories.length || categoriesLocale.value !== locale.value) {
         faqData.value.categories = response?.categories || []
         categoriesLocale.value = locale.value
       }
 
-      // Update search history
-      if (searchQuery.value.trim() && searchQuery.value.length > 2) {
+      if (searchQuery.value.trim().length > 2) {
         addToSearchHistory(searchQuery.value.trim())
       }
 
@@ -81,52 +59,37 @@ export const useFAQSearch = (options: SearchOptions = {}) => {
     }
   }
 
-  // Debounced search function
-  let debounceTimer: NodeJS.Timeout | null = null
-  let urlUpdateTimer: NodeJS.Timeout | null = null
+  const updateURL = () => {
+    if (isUpdatingFromURL.value) return
 
-  const debouncedSearch = () => {
-    if (debounceTimer) {
-      clearTimeout(debounceTimer)
-    }
-    // Source of truth is the URL watcher; only update URL here
-    debounceTimer = setTimeout(() => {
-      debouncedUpdateURL()
-    }, debounceMs)
+    const query: Record<string, string> = {}
+    if (searchQuery.value.trim()) query.q = searchQuery.value.trim()
+    if (activeCategory.value !== 'all') query.category = activeCategory.value
+
+    const scrollY = typeof window !== 'undefined' ? window.scrollY : 0
+
+    router.replace({ query: Object.keys(query).length ? query : undefined }).then(() => {
+      if (typeof window !== 'undefined') {
+        requestAnimationFrame(() => window.scrollTo(0, scrollY))
+      }
+    })
   }
 
-  // Debounced URL update to prevent scroll on every keystroke
   const debouncedUpdateURL = () => {
-    if (urlUpdateTimer) {
-      clearTimeout(urlUpdateTimer)
-    }
-
-    urlUpdateTimer = setTimeout(() => {
-      updateURL()
-    }, 500) // Update URL after user stops typing for 500ms
+    if (debounceTimer) clearTimeout(debounceTimer)
+    debounceTimer = setTimeout(updateURL, DEBOUNCE_MS)
   }
 
-  // Search history management
   const addToSearchHistory = (query: string) => {
-    const history = [...searchHistory.value]
-    const existingIndex = history.indexOf(query)
-
-    if (existingIndex > -1) {
-      history.splice(existingIndex, 1)
-    }
-
+    const history = searchHistory.value.filter((h) => h !== query)
     history.unshift(query)
-    if (history.length > maxHistory) {
-      history.splice(maxHistory)
-    }
-
-    searchHistory.value = history
+    searchHistory.value = history.slice(0, MAX_HISTORY)
 
     if (import.meta.client) {
       try {
-        localStorage.setItem('faq-search-history', JSON.stringify(history))
-      } catch (e) {
-        console.warn('Failed to save search history to localStorage:', e)
+        localStorage.setItem('faq-search-history', JSON.stringify(searchHistory.value))
+      } catch {
+        // ignore storage errors
       }
     }
   }
@@ -136,114 +99,58 @@ export const useFAQSearch = (options: SearchOptions = {}) => {
     if (import.meta.client) {
       try {
         localStorage.removeItem('faq-search-history')
-      } catch (e) {
-        console.warn('Failed to clear search history from localStorage:', e)
+      } catch {
+        // ignore storage errors
       }
     }
   }
 
-  // Load search history from localStorage on client side
   const loadSearchHistory = () => {
-    if (import.meta.client) {
-      try {
-        const saved = localStorage.getItem('faq-search-history')
-        if (saved) {
-          const parsed = JSON.parse(saved)
-          if (Array.isArray(parsed)) {
-            searchHistory.value = parsed.slice(0, maxHistory)
-          }
-        }
-      } catch (e) {
-        console.warn('Failed to load search history from localStorage:', e)
+    if (!import.meta.client) return
+    try {
+      const saved = localStorage.getItem('faq-search-history')
+      if (saved) {
+        const parsed = JSON.parse(saved)
+        if (Array.isArray(parsed)) searchHistory.value = parsed.slice(0, MAX_HISTORY)
       }
+    } catch {
+      // ignore storage errors
     }
   }
 
-  // Computed properties for results
   const faqCategories = computed(() => faqData.value.categories)
   const filteredFAQItems = computed(() => faqData.value.data)
   const resultCount = computed(() => filteredFAQItems.value.length)
   const hasResults = computed(() => resultCount.value > 0)
   const isActiveSearch = computed(() => searchQuery.value.trim().length > 0)
 
-  // Search term highlighting
+  const escapeRegex = (str: string) => str.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')
+
   const highlightSearchTerms = (text: string, query: string): string => {
     if (!query.trim()) return text
 
-    const normalizedQuery = query.toLowerCase().trim()
-    const queryWords = normalizedQuery.split(/\s+/).filter((word) => word.length > 1)
+    const normalized = query.toLowerCase().trim()
+    const words = normalized.split(/\s+/).filter((w) => w.length > 1)
 
-    let highlightedText = text
-
-    // First try exact phrase match
-    const exactRegex = new RegExp(
-      `(${normalizedQuery.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')})`,
-      'gi',
-    )
-    highlightedText = highlightedText.replace(
-      exactRegex,
-      `${highlightTags.open}$1${highlightTags.close}`,
+    let result = text.replace(
+      new RegExp(`(${escapeRegex(normalized)})`, 'gi'),
+      `${HIGHLIGHT_OPEN}$1${HIGHLIGHT_CLOSE}`,
     )
 
-    // Then highlight individual words (if not already highlighted)
-    queryWords.forEach((word) => {
-      const wordRegex = new RegExp(
-        `(?!<mark[^>]*>)(${word.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')})(?![^<]*</mark>)`,
-        'gi',
-      )
-      highlightedText = highlightedText.replace(
-        wordRegex,
-        `${highlightTags.open}$1${highlightTags.close}`,
+    words.forEach((word) => {
+      result = result.replace(
+        new RegExp(`(?!<mark[^>]*>)(${escapeRegex(word)})(?![^<]*</mark>)`, 'gi'),
+        `${HIGHLIGHT_OPEN}$1${HIGHLIGHT_CLOSE}`,
       )
     })
 
-    return highlightedText
-  }
-
-  // URL synchronization with scroll position preservation
-  const updateURL = (_immediate: boolean = false) => {
-    if (isUpdatingFromURL.value) return
-
-    const query: Record<string, string> = {}
-
-    if (searchQuery.value.trim()) {
-      query.q = searchQuery.value.trim()
-    }
-
-    if (activeCategory.value !== 'all') {
-      query.category = activeCategory.value
-    }
-
-    // Save current scroll position to restore after URL update
-    const currentScrollY = typeof window !== 'undefined' ? window.scrollY : 0
-
-    // Use replace to avoid creating history entries for each search
-    router
-      .replace({
-        query: Object.keys(query).length > 0 ? query : undefined,
-      })
-      .then(() => {
-        if (typeof window !== 'undefined') {
-          // Restore scroll position after route update completes
-          requestAnimationFrame(() => {
-            window.scrollTo(0, currentScrollY)
-          })
-        }
-      })
+    return result
   }
 
   const initializeFromURL = () => {
     isUpdatingFromURL.value = true
-    const urlQuery = route.query.q as string
-    const urlCategory = route.query.category as string
-
-    if (urlQuery) {
-      searchQuery.value = urlQuery
-    }
-
-    if (urlCategory) {
-      activeCategory.value = urlCategory
-    }
+    if (route.query.q) searchQuery.value = route.query.q as string
+    if (route.query.category) activeCategory.value = route.query.category as string
 
     nextTick(() => {
       isUpdatingFromURL.value = false
@@ -251,15 +158,14 @@ export const useFAQSearch = (options: SearchOptions = {}) => {
     })
   }
 
-  // Public interface methods
   const setSearchQuery = (query: string) => {
     searchQuery.value = query
-    debouncedSearch()
+    debouncedUpdateURL()
   }
 
   const setActiveCategory = (category: string) => {
     activeCategory.value = category
-    updateURL() // Let route watcher trigger a single fetch
+    updateURL()
   }
 
   const clearSearch = () => {
@@ -275,61 +181,35 @@ export const useFAQSearch = (options: SearchOptions = {}) => {
     updateURL()
   }
 
-  // Initialize on mount
-  onMounted(() => {
-    loadSearchHistory()
-  })
+  onMounted(loadSearchHistory)
 
-  // When locale changes, refresh categories/items for the new language
-  watch(
-    () => locale.value,
-    () => {
-      // Force refresh; categories will be replaced because categoriesLocale differs
-      fetchFAQData()
-    },
-  )
+  watch(() => locale.value, fetchFAQData)
 
-  // Watch for external URL changes
   watch(
     () => route.query,
     (newQuery, oldQuery) => {
-      // Only initialize if query actually changed to avoid loops
-      if (JSON.stringify(newQuery) !== JSON.stringify(oldQuery)) {
-        initializeFromURL()
-      }
+      if (JSON.stringify(newQuery) !== JSON.stringify(oldQuery)) initializeFromURL()
     },
   )
 
-  // Initialize state from URL immediately (for SSR and Client navigation)
-  // This ensures useAsyncData in the page component fetches with correct params
   if (route.query.q !== undefined || route.query.category !== undefined) {
     if (route.query.q !== undefined) searchQuery.value = route.query.q as string
     if (route.query.category !== undefined) activeCategory.value = route.query.category as string
-  } else if (import.meta.client) {
-    // On client-side navigation to /faq without params, reset state
-    // Check if we are not just hydrating (hydration should keep server state)
-    const isHydrating = useNuxtApp().isHydrating
-    if (!isHydrating) {
-      searchQuery.value = ''
-      activeCategory.value = 'all'
-    }
+  } else if (import.meta.client && !useNuxtApp().isHydrating) {
+    searchQuery.value = ''
+    activeCategory.value = 'all'
   }
 
   return {
-    // State
     searchQuery: readonly(searchQuery),
     activeCategory: readonly(activeCategory),
     isSearching: readonly(isSearching),
     searchHistory: readonly(searchHistory),
-
-    // Computed
     faqCategories: readonly(faqCategories),
     filteredFAQItems: readonly(filteredFAQItems),
     resultCount: readonly(resultCount),
     hasResults: readonly(hasResults),
     isActiveSearch: readonly(isActiveSearch),
-
-    // Methods
     setSearchQuery,
     setActiveCategory,
     clearSearch,

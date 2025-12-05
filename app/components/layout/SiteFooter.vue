@@ -116,20 +116,20 @@
             <p class="text-sm text-gray-700 mb-3">{{ $t('footer.social_networks') }}</p>
             <div class="flex space-x-3">
               <a
-                :href="channels?.whatsapp?.href"
+                :href="channels.whatsapp.href"
                 target="_blank"
                 class="w-10 h-10 bg-green-500 rounded-xl flex items-center justify-center text-white hover:bg-green-600 transition-colors"
                 aria-label="WhatsApp"
-                @click.prevent="handleSocialClick(channels?.whatsapp?.href, '_blank')"
+                @click.prevent="handleSocialClick(channels.whatsapp.href)"
               >
                 <Icon name="mdi:whatsapp" />
               </a>
               <a
-                :href="channels?.telegramBot?.href"
+                :href="channels.telegramBot.href"
                 target="_blank"
                 class="w-10 h-10 bg-blue-500 rounded-xl flex items-center justify-center text-white hover:bg-blue-600 transition-colors"
                 aria-label="Telegram"
-                @click.prevent="handleSocialClick(channels?.telegramBot?.href, '_blank')"
+                @click.prevent="handleSocialClick(channels.telegramBot.href)"
               >
                 <Icon name="mdi:telegram" />
               </a>
@@ -138,7 +138,7 @@
                 target="_blank"
                 class="w-10 h-10 bg-pink-500 rounded-xl flex items-center justify-center text-white hover:bg-pink-600 transition-colors"
                 aria-label="Instagram"
-                @click.prevent="handleSocialClick(instagramChannel.href, '_blank')"
+                @click.prevent="handleSocialClick(instagramChannel.href)"
               >
                 <Icon name="mdi:instagram" />
               </a>
@@ -188,34 +188,25 @@ const instagramChannel = getChannel('instagram')
 
 const { openWithFingerprint } = useFingerprint()
 
-// Use universities store only if on universities page (locale-aware)
 const isUniversitiesPage = computed(() => route.path.startsWith(localePath('/universities')))
 
 const handleCityClick = async (city: string) => {
   if (isUniversitiesPage.value) {
-    // If already on universities page, use store method with scroll
     const universitiesStore = useUniversitiesStore()
-    universitiesStore.setCityFilterFromFooter(city)
+    universitiesStore.setCityFilter(city, { scrollToTop: true })
   } else {
-    // Navigate to universities page with city filter and scroll to top
     await router.push(localePath({ path: '/universities', query: { city } }))
   }
 }
 
 const handleAllUniversitiesClick = async () => {
   if (isUniversitiesPage.value) {
-    // If already on universities page, reset filters with scroll
     const universitiesStore = useUniversitiesStore()
-    universitiesStore.resetFiltersFromFooter()
+    universitiesStore.resetFilters({ scrollToTop: true })
   } else {
-    // Navigate to universities page and scroll to top
     await router.push(localePath('/universities'))
   }
 }
 
-const handleSocialClick = async (href?: string, target: string = '_blank') => {
-  if (!href) return
-
-  await openWithFingerprint(href, target as '_blank' | '_self')
-}
+const handleSocialClick = (href: string) => openWithFingerprint(href, '_blank')
 </script>

@@ -79,9 +79,6 @@ export class TelegramNotificationService {
   }
 }
 
-/**
- * Create TelegramNotificationService instance from runtime config
- */
 export function createTelegramNotificationService(): TelegramNotificationService {
   const config = useRuntimeConfig()
   return new TelegramNotificationService(config.telegramBotToken)

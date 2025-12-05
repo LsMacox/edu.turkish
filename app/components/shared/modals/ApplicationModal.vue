@@ -136,19 +136,19 @@
               {{ $t('modal.preferences_title') }}
             </h4>
             <div class="text-sm md:text-xs text-blue-700 space-y-1.5">
-              <p>
+              <p v-if="userPreferences.userType">
                 • {{ $t('modal.preference_labels.user_type') }}
                 {{ getUserTypeText(userPreferences.userType) }}
               </p>
-              <p>
+              <p v-if="userPreferences.universityChosen">
                 • {{ $t('modal.preference_labels.university') }}
                 {{ getUniversityText(userPreferences.universityChosen) }}
               </p>
-              <p>
+              <p v-if="userPreferences.language">
                 • {{ $t('modal.preference_labels.language') }}
                 {{ getLanguageText(userPreferences.language) }}
               </p>
-              <p>
+              <p v-if="userPreferences.scholarship">
                 • {{ $t('modal.preference_labels.scholarship') }}
                 {{ getScholarshipText(userPreferences.scholarship) }}
               </p>
@@ -176,7 +176,7 @@
 </template>
 
 <script setup lang="ts">
-import type { ApplicationPreferences, QuestionnairePreferences } from '~/types/preferences'
+import type { ApplicationPreferences } from '~/types/preferences'
 import { useReferral } from '~/composables/useReferral'
 import { useServerValidation } from '~/composables/useServerValidation'
 import { useFingerprint } from '~/composables/useFingerprint'
@@ -248,7 +248,6 @@ const submitForm = async () => {
   isSubmitting.value = true
 
   try {
-    // Подготавливаем данные в формате API
     const nameParts = form.value.name.trim().split(' ')
     const firstName = nameParts[0] || ''
     const lastName = nameParts.slice(1).join(' ') || ''
@@ -256,7 +255,6 @@ const submitForm = async () => {
     const ctaSource = props.userPreferences?.source || 'website'
     let ctaDescription = props.userPreferences?.description
 
-    // Include sub-service name in source_description if available
     if (props.userPreferences?.serviceContext) {
       ctaDescription = props.userPreferences.serviceContext.subServiceName
     }
@@ -285,7 +283,6 @@ const submitForm = async () => {
 
     await ensureFingerprint()
 
-    // Отправляем данные на сервер
     const response = await $fetch('/api/v1/applications', {
       method: 'POST',
       body: applicationData,
@@ -293,14 +290,12 @@ const submitForm = async () => {
 
     emit('submit', response)
 
-    // Показать сообщение об успехе
     show($t('modal.success_message'), {
       title: $t('modal.success_title'),
       type: 'success',
       duration: 5000,
     })
 
-    // Закрыть модал и очистить форму
     closeModal()
     form.value = {
       name: '',
@@ -339,35 +334,37 @@ const submitForm = async () => {
 }
 
 // Helper functions for preferences display
-const isQuestionnaire = (prefs: ApplicationPreferences): prefs is QuestionnairePreferences => {
+const isQuestionnaire = (prefs: ApplicationPreferences): boolean => {
   return prefs.source === 'home_questionnaire' && 'userType' in prefs
 }
 
-const getUserTypeText = (userType: string): string => {
+const getUserTypeText = (userType: string | undefined): string => {
+  if (!userType) return ''
   return userType === 'student'
     ? ($t('modal.user_types.student') as string)
     : ($t('modal.user_types.parent') as string)
 }
 
-const getUniversityText = (chosen: string): string => {
+const getUniversityText = (chosen: string | undefined): string => {
+  if (!chosen) return ''
   return chosen === 'yes'
     ? ($t('modal.university_chosen.yes') as string)
     : ($t('modal.university_chosen.no') as string)
 }
 
-const getLanguageText = (language: string): string => {
+const getLanguageText = (language: string | undefined): string => {
+  if (!language) return ''
   if (language === 'turkish') {
     return $t('modal.languages.turkish') as string
   }
-
   if (language === 'english') {
     return $t('modal.languages.english') as string
   }
-
   return $t('modal.languages.both') as string
 }
 
-const getScholarshipText = (scholarship: string): string => {
+const getScholarshipText = (scholarship: string | undefined): string => {
+  if (!scholarship) return ''
   return scholarship === 'yes'
     ? ($t('modal.scholarship.yes') as string)
     : ($t('modal.scholarship.no') as string)
@@ -460,7 +457,6 @@ watch(
 </script>
 
 <style>
-/* Анимация появления */
 .application-modal-overlay {
   animation: fadeIn 0.25s ease-out;
 }
@@ -490,7 +486,6 @@ watch(
   }
 }
 
-/* На десктопе используем другую анимацию */
 @media (min-width: 768px) {
   @keyframes slideIn {
     from {
@@ -504,12 +499,10 @@ watch(
   }
 }
 
-/* Улучшенный скролл на iOS */
 .overflow-y-auto {
   -webkit-overflow-scrolling: touch;
 }
 
-/* Оптимизация для мобильных */
 @media (max-width: 767px) {
   .modal-content {
     touch-action: pan-y;

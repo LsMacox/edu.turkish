@@ -1,8 +1,8 @@
 import type { LeadData } from '~~/server/types/crm'
 
-let applicationIdCounter = 1
-
 export type ApplicationFixture = LeadData
+
+let applicationIdCounter = 1
 
 export function createApplication(overrides?: Partial<ApplicationFixture>): ApplicationFixture {
   const id = applicationIdCounter++
@@ -18,16 +18,7 @@ export function createApplication(overrides?: Partial<ApplicationFixture>): Appl
     language: 'english',
     universities: [],
     scholarship: 'no',
-    utm: {
-      source: 'organic',
-      medium: 'none',
-      campaign: '',
-    },
   }
 
-  return {
-    ...defaults,
-    ...overrides,
-    utm: overrides?.utm ? { ...defaults.utm, ...overrides.utm } : defaults.utm,
-  }
+  return { ...defaults, ...overrides }
 }

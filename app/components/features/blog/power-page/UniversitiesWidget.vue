@@ -20,7 +20,7 @@
         :title="u.title"
         :city="u.city"
         :languages="u.languages"
-        :tuition="u.tuitionRange?.min"
+        :tuition="u.tuitionMin"
         :badge="u.badge"
         :image="u.image"
         :type="u.type"

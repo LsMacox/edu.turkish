@@ -9,13 +9,9 @@ export async function popularProgramsHandler(event: H3Event) {
   const { normalized: locale } = normalizeLocale(langInput as string | undefined)
 
   try {
-    // Получаем статистику по каждому направлению
     const popularPrograms = await Promise.all([
-      // ИТ направления
       getDirectionStats(['it', 'computer-science', 'software-engineering'], locale),
-      // Медицинские направления
       getDirectionStats(['medicine'], locale),
-      // Инженерные направления (конкретные слаги)
       getDirectionStats(
         [
           'mechanical-engineering',
@@ -29,7 +25,6 @@ export async function popularProgramsHandler(event: H3Event) {
         ],
         locale,
       ),
-      // Бизнес и экономика
       getDirectionStats(
         [
           'business',
@@ -43,9 +38,7 @@ export async function popularProgramsHandler(event: H3Event) {
         ],
         locale,
       ),
-      // Дизайн и архитектура
       getDirectionStats(['design', 'architecture', 'fine-arts'], locale),
-      // Международные отношения и гуманитарные науки
       getDirectionStats(['international-relations', 'political-science'], locale),
     ])
 
@@ -160,5 +153,4 @@ export async function getDirectionStats(
   }
 }
 
-// Expose handler for unit tests that call it directly without import
 ;(globalThis as any).popularProgramsHandler = popularProgramsHandler

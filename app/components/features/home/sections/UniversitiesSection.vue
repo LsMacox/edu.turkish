@@ -65,7 +65,7 @@
           :title="university.title"
           :city="university.city"
           :languages="university.languages"
-          :tuition="university.tuitionRange?.min"
+          :tuition="university.tuitionMin"
           :badge="university.badge"
           :image="university.image"
           :type="university.type"
@@ -96,7 +96,7 @@ const localePath = useLocalePath()
 
 // SSR: fetch on every request (limit to 6 for home)
 if (import.meta.server) {
-  await universitiesStore.initAndFetchSSR({ limit: 6, overrides: {} })
+  await universitiesStore.initializeFilters({ limit: 6, ssr: true })
 }
 
 // CSR fallback: in case SSR state wasn't hydrated

@@ -8,6 +8,5 @@ export * from './applications'
 export * from './content'
 export * from './errors'
 
-// Provide ApplicationStatus type for consumers that relied on it here.
-// It comes from Prisma schema, but many parts import it through server/types/api.
-export { ApplicationStatus } from '@prisma/client'
+// Re-export ApplicationStatus from Prisma for consumers importing from server/types/api
+export type { ApplicationStatus } from '@prisma/client'

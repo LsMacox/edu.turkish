@@ -1,5 +1,6 @@
 export { UniversityRepository } from './UniversityRepository'
 export { ReviewRepository } from './ReviewRepository'
+export { StatisticsRepository } from './StatisticsRepository'
 export { FAQRepository } from './FAQRepository'
 export { ApplicationRepository } from './ApplicationRepository'
 export { BlogRepository } from './BlogRepository'

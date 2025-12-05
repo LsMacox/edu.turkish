@@ -1,7 +1,6 @@
 export const useReferral = () => {
   const referralCode = ref<string>('')
 
-  // Get referral code from cookies on client side
   onMounted(() => {
     const cookies = document.cookie.split('; ').map((row) => {
       const [key, ...valueParts] = row.split('=')

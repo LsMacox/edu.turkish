@@ -11,10 +11,6 @@ import { SUPPORTED_LOCALES, type SupportedLocale } from '~~/lib/locales'
 export class ServiceRepository {
   constructor(private prisma: PrismaClient) {}
 
-  /**
-   * Get all active service categories with translations
-   * Falls back to English if translation missing
-   */
   async findAllCategories(locale: SupportedLocale): Promise<ServiceCategoryListItem[]> {
     const categories = await this.prisma.serviceCategory.findMany({
       where: { isActive: true },
@@ -44,10 +40,6 @@ export class ServiceRepository {
     })
   }
 
-  /**
-   * Get category details with sub-services by slug
-   * Returns null if category not found or inactive
-   */
   async findCategoryBySlug(
     slug: string,
     locale: SupportedLocale,
@@ -82,7 +74,6 @@ export class ServiceRepository {
       category.translations.find((t) => t.locale === locale) ||
       category.translations.find((t) => t.locale === 'en')
 
-    // Separate calculator entries (type = 'calculator') from regular offerings
     const calculatorEntries = category.subServices.filter((sub: any) => sub.type === 'calculator')
 
     const offeringEntries = category.subServices.filter((sub: any) => sub.type !== 'calculator')
@@ -109,7 +100,6 @@ export class ServiceRepository {
       }
     })
 
-    // Map calculator pricing from dedicated sub-services by slug
     const standardCalc = calculatorEntries.find((s) => s.slug === 'calculator-standard')
     const expressCalc = calculatorEntries.find((s) => s.slug === 'calculator-express')
     const rushCalc = calculatorEntries.find((s) => s.slug === 'calculator-rush')
@@ -122,7 +112,6 @@ export class ServiceRepository {
         }
       : undefined
 
-    // Urgency multipliers from category (Decimal -> number)
     const expressMultiplier = (category as any).expressMultiplier
     const rushMultiplier = (category as any).rushMultiplier
 
@@ -153,11 +142,7 @@ export class ServiceRepository {
     }
   }
 
-  /**
-   * Create a new sub-service with translations (Admin only - Future)
-   */
   async createSubService(input: CreateSubServiceInput): Promise<{ id: number; slug: string }> {
-    // Validate slug uniqueness within category
     const existing = await this.prisma.subService.findUnique({
       where: {
         serviceCategoryId_slug: {
@@ -171,7 +156,6 @@ export class ServiceRepository {
       throw new Error('Slug already exists in this category')
     }
 
-    // Validate all 4 locales have translations
     const locales = input.translations.map((t) => t.locale)
     const missingLocales = SUPPORTED_LOCALES.filter((l) => !locales.includes(l))
 
@@ -179,12 +163,10 @@ export class ServiceRepository {
       throw new Error(`Missing translations for locales: ${missingLocales.join(', ')}`)
     }
 
-    // Validate priceUsd >= 0
     if (input.priceUsd < 0) {
       throw new Error('Price must be non-negative')
     }
 
-    // Create sub-service and translations in transaction
     const subService = await this.prisma.$transaction(async (tx) => {
       const created = await tx.subService.create({
         data: {
@@ -214,9 +196,6 @@ export class ServiceRepository {
     }
   }
 
-  /**
-   * Update sub-service details (Admin only - Future)
-   */
   async updateSubService(id: number, input: UpdateSubServiceInput): Promise<{ id: number }> {
     // Validate priceUsd >= 0 if provided
     if (input.priceUsd !== undefined && input.priceUsd < 0) {

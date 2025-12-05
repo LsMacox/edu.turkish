@@ -47,7 +47,7 @@
             :title="u.title"
             :city="u.city"
             :languages="u.languages"
-            :tuition="u.tuitionRange?.min"
+            :tuition="u.tuitionMin"
             :badge="u.badge"
             :image="u.image"
             :type="u.type"
@@ -78,56 +78,43 @@
     <UniversitiesPopularProgramsSection />
     <UniversitiesScholarshipsSection />
     <UniversitiesNotFoundSection />
-
-    <!-- Application Modal is mounted globally in default layout -->
   </main>
 </template>
 
 <script setup lang="ts">
 import { storeToRefs } from 'pinia'
 
-// Application modal is mounted globally in layout; no local store used here
-
-// Get route and router for watching URL changes and syncing state
 const route = useRoute()
 
-// Use the universities store
 const universitiesStore = useUniversitiesStore()
 
-const page = ref(1) // Always start from page 1, ignore URL page parameter
+const page = ref(1)
 const pageSize = 6
 const isLoadingMore = ref(false)
 
-// SSR prefetch: initialize and fetch on server for every request
 if (import.meta.server) {
-  await universitiesStore.initAndFetchSSR({ limit: pageSize, page: page.value })
+  await universitiesStore.initializeFilters({ limit: pageSize, page: page.value, ssr: true })
 }
 onMounted(() => {
   universitiesStore.initializeFilters()
 })
 
-// Watch for route changes to reinitialize filters (all changes now trigger reset)
 watch(
   () => route.query,
   () => {
-    // Reset page state when filters change
     page.value = 1
     universitiesStore.initializeFilters()
   },
   { deep: true },
 )
 
-const sorted = computed(() => universitiesStore.filteredUniversities)
+const sorted = computed(() => universitiesStore.universities)
 
-// Show all universities that have been loaded so far
 const paged = computed(() => sorted.value)
 
-// Check if there are more universities to load from the server
 const hasMore = computed(() => {
-  // Hide button if we're currently loading more
   if (isLoadingMore.value) return false
 
-  // Use pagination metadata from server response
   const totalPages = Math.ceil(totalUniversities.value / pageSize)
   return page.value < totalPages
 })
@@ -135,7 +122,6 @@ const hasMore = computed(() => {
 async function loadMore() {
   if (isLoadingMore.value) return
 
-  // Check if there are more pages using server metadata
   const totalPages = Math.ceil(totalUniversities.value / pageSize)
   if (page.value >= totalPages) {
     return
@@ -146,13 +132,11 @@ async function loadMore() {
   try {
     const nextPage = page.value + 1
 
-    // Fetch more universities from the server with the new page
     const result = await fetchUniversities({
       limit: pageSize,
       page: nextPage,
     })
 
-    // Only update page state if we got results
     if (result && result.data && result.data.length > 0) {
       page.value = nextPage
     }

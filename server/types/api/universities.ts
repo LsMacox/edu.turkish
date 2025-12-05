@@ -16,20 +16,22 @@ export interface UniversityQueryParams {
 
 export interface University {
   id: number
+  slug: string
   title: string
   description: string
-  city: string
-  foundedYear: number
-  type: UniversityType
-  tuitionRange: { min: number; max: number; currency: string }
-  totalStudents: number
-  internationalStudents: number
-  ranking: { text?: string }
-  hasAccommodation: boolean
-  languages: string[]
-  slug: string
   image: string
   heroImage?: string
+  city: string
+  type: UniversityType
+  foundedYear: number
+  totalStudents: number
+  internationalStudents: number
+  hasAccommodation: boolean
+  tuitionMin: number
+  tuitionMax: number
+  currency: string
+  languages: string[]
+  rankingText?: string
   badge?: { label?: string; labelKey?: string; color: string }
   alternates?: Record<string, string>
 }
@@ -39,21 +41,6 @@ export interface UniversityCampusFacility {
   name: string
   description: string
   image?: string
-  type:
-    | 'academic'
-    | 'recreational'
-    | 'accommodation'
-    | 'dining'
-    | 'sports'
-    | 'medical'
-    | 'transport'
-    | 'technology'
-    | 'support'
-  isActive: boolean
-  order?: number
-  capacity?: number
-  area?: number
-  features?: Record<string, any>
 }
 
 export interface UniversityAdmissionRequirement {
@@ -91,12 +78,10 @@ export interface UniversityScholarship {
 export interface UniversityProgram {
   id: number
   name: string
-  degree_type: DegreeType
+  degreeType: DegreeType
   language: string
-  duration_years: number
-  tuition_per_year: number
-  description?: string
-  specializations?: string[]
+  durationYears: number
+  tuitionPerYear: number
 }
 
 export interface UniversityStudyDirection {
@@ -112,27 +97,14 @@ export interface UniversityCampusGalleryItem {
   title: string
 }
 
-export interface UniversityKeyInfo {
-  city: string
-  foundedYear: number
-  tuitionRange: { min: number; max: number; currency: string }
-  languages: string[]
-  totalStudents: number
-  internationalStudents: number
-  hasAccommodation: boolean
-  texts?: Record<string, string>
-  ranking: { text?: string }
-}
-
 export interface UniversityDetail extends University {
-  keyInfo: UniversityKeyInfo
   about: {
     history: string
     mission: string
-    campus_features: string[]
+    campusFeatures: string[]
     advantages: Array<{ title: string; description: string }>
   }
-  campus_life: {
+  campusLife: {
     facilities: UniversityCampusFacility[]
     gallery: UniversityCampusGalleryItem[]
     activities: string[]

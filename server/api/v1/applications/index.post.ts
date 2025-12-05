@@ -1,13 +1,40 @@
 import { getCookie } from 'h3'
-import { ZodError } from 'zod'
+import { z, ZodError } from 'zod'
 import { prisma } from '~~/lib/prisma'
 import { ApplicationRepository } from '~~/server/repositories'
-import { ApplicationSchema } from '~~/server/utils/validation/schemas'
-import { formatZodError } from '~~/server/utils/validation/formatters'
+import { formatZodError } from '~~/server/utils/zod'
 import { CRMFactory } from '~~/server/services/crm/CRMFactory'
 import { RedisQueue } from '~~/server/services/queue/RedisQueue'
 import type { ApplicationRequest, ApplicationResponse } from '~~/server/types/api'
 import type { LeadData } from '~~/server/types/crm'
+
+const ApplicationSchema = z.object({
+  personal_info: z.object({
+    first_name: z.string().min(2, 'min_length').max(50, 'max_length'),
+    last_name: z.string().max(50, 'max_length').optional(),
+    email: z.string().email('invalid_email').max(255, 'max_length').optional().or(z.literal('')),
+    phone: z
+      .string()
+      .min(1, 'required')
+      .refine(
+        (val) => val.replace(/\D/g, '').length >= 10,
+        { message: 'invalid_phone' },
+      ),
+  }),
+  preferences: z
+    .object({
+      universities: z.array(z.string()).optional(),
+      programs: z.array(z.string()).optional(),
+      budget: z.string().optional(),
+      start_date: z.string().optional(),
+    })
+    .optional(),
+  additional_info: z.string().max(500, 'max_length').optional(),
+  source: z.string().optional(),
+  source_description: z.string().optional(),
+  ref: z.string().optional(),
+  user_preferences: z.any().optional(),
+})
 
 export default defineEventHandler(async (event): Promise<ApplicationResponse> => {
   const _locale = event.context.locale || 'ru'
@@ -33,13 +60,10 @@ export default defineEventHandler(async (event): Promise<ApplicationResponse> =>
       throw error
     }
 
-    // Initialize repository
     const applicationRepository = new ApplicationRepository(prisma)
 
-    // Create application in database
     const application = await applicationRepository.create(body)
 
-    // Extract identifiers to build CRM deduplication key (email + phone only)
     const fingerprintCookie = getCookie(event, 'fp')?.trim()
     const normalizedEmail = body.personal_info.email?.trim().toLowerCase() || undefined
     const normalizedPhone = body.personal_info.phone?.replace(/\D/g, '') || undefined
@@ -54,7 +78,6 @@ export default defineEventHandler(async (event): Promise<ApplicationResponse> =>
     let crmProvider: string | null = null
 
     try {
-      // Transform application data to LeadData format
       const leadData: LeadData = {
         firstName: body.personal_info.first_name,
         lastName: body.personal_info.last_name?.trim()
@@ -76,7 +99,6 @@ export default defineEventHandler(async (event): Promise<ApplicationResponse> =>
         fingerprintKey,
       }
 
-      // Get CRM provider and attempt to create lead
       const crmService = CRMFactory.createFromEnv()
       crmProvider = crmService.providerName
 
@@ -103,13 +125,12 @@ export default defineEventHandler(async (event): Promise<ApplicationResponse> =>
           },
         })
       } else {
-        // Non-validation CRM failure, queue for retry
         crmError = crmResult.error || 'Unknown CRM error'
         console.error(`✗ CRM lead creation failed (${crmProvider}):`, crmError)
 
         try {
           const queue = new RedisQueue()
-          await queue.addJob('createLead', crmProvider as 'bitrix' | 'espocrm', leadData)
+          await queue.addJob('createLead', 'espocrm', leadData)
           console.log('→ CRM operation queued for retry')
         } catch (queueErr: any) {
           console.error('Failed to enqueue CRM retry job:', queueErr?.message || queueErr)
@@ -139,18 +160,15 @@ export default defineEventHandler(async (event): Promise<ApplicationResponse> =>
           fingerprintKey,
         }
         const queue = new RedisQueue()
-        const provider = CRMFactory.getCurrentProvider()
-        await queue.addJob('createLead', provider, leadData)
+        await queue.addJob('createLead', 'espocrm', leadData)
         console.log('→ CRM operation queued for retry after exception')
       } catch (queueError: any) {
         console.error('Failed to queue CRM operation:', queueError)
       }
     }
 
-    // Set success status
     setResponseStatus(event, 201)
 
-    // Return application with CRM info
     return {
       ...application,
       crm: {

@@ -8,17 +8,14 @@ export default defineEventHandler(async (_event): Promise<ExchangeRatesResponse>
     const repository = new ExchangeRateRepository(prisma)
     const service = new ExchangeRateService()
 
-    // Get current rates from cache
     const rateDetails = await repository.getRateDetails()
 
-    // If rates are expired, fetch fresh rates and update cache
     if (rateDetails.isExpired) {
       console.log('Exchange rates expired, fetching fresh rates...')
 
       const freshRates = await service.fetchRates()
       await repository.updateRates(freshRates)
 
-      // Get updated details
       const updatedDetails = await repository.getRateDetails()
 
       return {
@@ -30,7 +27,6 @@ export default defineEventHandler(async (_event): Promise<ExchangeRatesResponse>
       }
     }
 
-    // Return cached rates
     return {
       rates: rateDetails.rates,
       baseCurrency: 'USD',
@@ -41,7 +37,6 @@ export default defineEventHandler(async (_event): Promise<ExchangeRatesResponse>
   } catch (error) {
     console.error('Failed to fetch exchange rates:', error)
 
-    // Return fallback rates on error
     const fallbackRates = {
       KZT: 450.0,
       TRY: 32.0,

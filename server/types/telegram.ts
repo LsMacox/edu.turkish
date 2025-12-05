@@ -1,12 +1,3 @@
-/**
- * Telegram Notification Type Definitions
- *
- * Types for Telegram Bot API and notification queue jobs
- */
-
-/**
- * Telegram notification job data
- */
 export interface TelegramNotificationJob {
   channelId: string
   message: string
@@ -15,9 +6,6 @@ export interface TelegramNotificationJob {
   disableNotification?: boolean
 }
 
-/**
- * Telegram API sendMessage request
- */
 export interface TelegramSendMessageRequest {
   chat_id: string | number
   text: string
@@ -26,9 +14,6 @@ export interface TelegramSendMessageRequest {
   disable_notification?: boolean
 }
 
-/**
- * Telegram API response
- */
 export interface TelegramAPIResponse<T = any> {
   ok: boolean
   result?: T
@@ -36,9 +21,6 @@ export interface TelegramAPIResponse<T = any> {
   error_code?: number
 }
 
-/**
- * Telegram message result
- */
 export interface TelegramMessage {
   message_id: number
   date: number
@@ -50,9 +32,6 @@ export interface TelegramMessage {
   text?: string
 }
 
-/**
- * Notification result
- */
 export interface TelegramNotificationResult {
   success: boolean
   messageId?: number

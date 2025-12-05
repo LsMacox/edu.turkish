@@ -1,12 +1,3 @@
-/**
- * Custom Error Types
- *
- * Structured error classes for better error handling and logging
- */
-
-/**
- * Webhook validation error
- */
 export class WebhookValidationError extends Error {
   constructor(
     message: string,
@@ -17,9 +8,6 @@ export class WebhookValidationError extends Error {
   }
 }
 
-/**
- * Telegram API error
- */
 export class TelegramAPIError extends Error {
   constructor(
     message: string,
@@ -31,9 +19,6 @@ export class TelegramAPIError extends Error {
   }
 }
 
-/**
- * Team filter error
- */
 export class TeamFilterError extends Error {
   constructor(message: string) {
     super(message)

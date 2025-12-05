@@ -1,4 +1,3 @@
-// Environment-agnostic UTM utilities (usable in both app and server)
 export type UtmParams = {
   utm_source?: string
   utm_medium?: string
@@ -7,32 +6,23 @@ export type UtmParams = {
   utm_term?: string
 }
 
-function coerce(value: unknown, maxLen = 200): string | undefined {
-  if (Array.isArray(value)) {
-    for (const item of value) {
-      const coerced = coerce(item, maxLen)
-      if (coerced) {
-        return coerced
-      }
-    }
-    return undefined
-  }
+const UTM_KEYS: (keyof UtmParams)[] = [
+  'utm_source',
+  'utm_medium',
+  'utm_campaign',
+  'utm_content',
+  'utm_term',
+]
 
-  if (typeof value === 'number' && Number.isFinite(value)) {
-    return coerce(String(value), maxLen)
-  }
-
-  if (typeof value !== 'string') return undefined
-  const v = value.trim()
-  if (!v || v.length > maxLen) return undefined
-  return v
+function coerceString(value: unknown, maxLen = 200): string | undefined {
+  const raw = Array.isArray(value) ? value.find((v) => typeof v === 'string' && v.trim()) : value
+  if (typeof raw !== 'string') return undefined
+  const trimmed = raw.trim()
+  return trimmed && trimmed.length <= maxLen ? trimmed : undefined
 }
 
 export function hasUtmValues(utm?: UtmParams): utm is UtmParams {
-  if (!utm) return false
-  return Boolean(
-    utm.utm_source || utm.utm_medium || utm.utm_campaign || utm.utm_content || utm.utm_term,
-  )
+  return !!utm && UTM_KEYS.some((k) => utm[k])
 }
 
 export function sanitizeUtm(input: unknown): UtmParams | undefined {
@@ -40,28 +30,19 @@ export function sanitizeUtm(input: unknown): UtmParams | undefined {
   const obj = input as Record<string, unknown>
 
   const utm: UtmParams = {}
-  const source = coerce(obj.utm_source)
-  const medium = coerce(obj.utm_medium)
-  const campaign = coerce(obj.utm_campaign)
-  const content = coerce(obj.utm_content)
-  const term = coerce(obj.utm_term)
-
-  if (source) utm.utm_source = source
-  if (medium) utm.utm_medium = medium
-  if (campaign) utm.utm_campaign = campaign
-  if (content) utm.utm_content = content
-  if (term) utm.utm_term = term
+  for (const key of UTM_KEYS) {
+    const val = coerceString(obj[key])
+    if (val) utm[key] = val
+  }
 
   return hasUtmValues(utm) ? utm : undefined
 }
 
-export function extractUtmFromQuery(query: Record<string, any>): UtmParams | undefined {
+export function extractUtmFromQuery(query: Record<string, unknown>): UtmParams | undefined {
   if (!query || typeof query !== 'object') return undefined
   const collected: Record<string, unknown> = {}
-  for (const [key, value] of Object.entries(query)) {
-    if (key.startsWith('utm_')) {
-      collected[key] = value
-    }
+  for (const key of UTM_KEYS) {
+    if (key in query) collected[key] = query[key]
   }
   return sanitizeUtm(collected)
 }

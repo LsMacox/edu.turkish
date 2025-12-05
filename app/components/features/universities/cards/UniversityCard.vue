@@ -153,12 +153,6 @@ const openApplicationModal = () => {
     universityName: props.title,
     universityCity: props.city,
     universityTuition: typeof props.tuition === 'number' ? props.tuition : undefined,
-    timestamp: new Date(),
-    metadata: {
-      type: props.type,
-      languages: props.languages,
-      featured: props.featured,
-    },
   })
 }
 </script>

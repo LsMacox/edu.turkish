@@ -1,10 +1,4 @@
-export interface UserPreferencesDTO {
-  source?: string
-  userType?: 'student' | 'parent'
-  universityChosen?: 'yes' | 'no'
-  language?: 'turkish' | 'english' | 'both'
-  scholarship?: 'yes' | 'no'
-}
+import type { ApplicationStatus } from '@prisma/client'
 
 export interface ApplicationRequest {
   personal_info: {
@@ -33,7 +27,7 @@ export interface ApplicationRequest {
 
 export interface ApplicationResponse {
   id: string
-  status: 'submitted' | 'processing' | 'approved' | 'rejected'
+  status: ApplicationStatus
   submitted_at: string
   tracking_code: string
   crm?: {

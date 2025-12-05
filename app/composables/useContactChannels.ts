@@ -1,31 +1,9 @@
 import { withQuery } from 'ufo'
-import {
-  contactChannels,
-  type ContactChannelDefinition,
-  type ContactChannelKey,
-} from '~~/lib/contact/channels'
+import { contactChannels, type ContactChannelKey } from '~~/lib/contact/channels'
 import { useReferral } from './useReferral'
 import { extractUtmFromQuery } from '~~/lib/utm'
 
-export interface ContactChannelInstance extends ContactChannelDefinition {
-  href: string
-  cta: string
-  message?: string
-}
-
-const REFERRAL_PLACEHOLDER = /\{\{\s*referral\s*\}\}/gi
-
-const sanitizeMessage = (template: string | undefined, referral: string): string | undefined => {
-  if (!template) {
-    return undefined
-  }
-
-  const replaced = template.replace(REFERRAL_PLACEHOLDER, referral || '').trim()
-  return replaced.length > 0 ? replaced : undefined
-}
-
-// Map of channel keys to their redirect route paths
-const channelRoutePaths: Record<ContactChannelKey, string> = {
+const routePaths: Record<ContactChannelKey, string> = {
   telegramBot: '/go/telegram',
   whatsapp: '/go/whatsapp',
   instagram: '/go/instagram',
@@ -35,58 +13,29 @@ export const useContactChannels = () => {
   const { referralCode } = useReferral()
   const route = useRoute()
 
-  const channels = computed<Record<ContactChannelKey, ContactChannelInstance>>(() => {
-    const referral = referralCode.value || ''
-    const utm = extractUtmFromQuery(route.query as Record<string, any>)
+  const channels = computed(() => {
+    const ref = referralCode.value || ''
+    const utm = extractUtmFromQuery(route.query as Record<string, string>)
+    const hasTracking = ref || utm
 
-    const hasTrackingParams = Boolean(referral || utm)
+    const result = {} as Record<ContactChannelKey, { href: string; cta: string }>
 
-    return Object.entries(contactChannels).reduce<
-      Record<ContactChannelKey, ContactChannelInstance>
-    >(
-      (acc, [key, definition]) => {
-        const typedKey = key as ContactChannelKey
-        const message = sanitizeMessage(definition.defaultMessage, referral)
-        let href = definition.baseUrl
+    for (const [key, def] of Object.entries(contactChannels)) {
+      let href = def.baseUrl
 
-        // Use redirect route if tracking params are present
-        if (hasTrackingParams) {
-          const routePath = channelRoutePaths[typedKey]
-          const query: Record<string, string> = { ref: referral }
+      if (hasTracking) {
+        const query: Record<string, string> = { ref }
+        if (utm) Object.assign(query, utm)
+        href = withQuery(routePaths[key as ContactChannelKey], query)
+      }
 
-          if (utm) {
-            for (const [key, value] of Object.entries(utm)) {
-              if (value) {
-                query[key] = value
-              }
-            }
-          }
-          href = Object.keys(query).length > 0 ? withQuery(routePath, query) : routePath
-        } else if (definition.queryParam && message) {
-          // Fallback to direct link with message if no tracking params
-          href = withQuery(definition.baseUrl, { [definition.queryParam]: message })
-        }
+      result[key as ContactChannelKey] = { ...def, href, cta: def.defaultCta }
+    }
 
-        acc[typedKey] = {
-          ...definition,
-          href,
-          cta: definition.defaultCta,
-          message,
-        }
-
-        return acc
-      },
-      {} as Record<ContactChannelKey, ContactChannelInstance>,
-    )
+    return result
   })
-
-  const channelList = computed(() => Object.values(channels.value))
 
   const getChannel = (key: ContactChannelKey) => computed(() => channels.value[key])
 
-  return {
-    channels,
-    channelList,
-    getChannel,
-  }
+  return { channels, getChannel }
 }

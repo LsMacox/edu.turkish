@@ -4,17 +4,8 @@ import type { TelegramNotificationJob } from '~~/server/types/telegram'
 import { getRedisClient } from '~~/server/utils/redis'
 import { createTelegramNotificationService } from '~~/server/services/telegram/TelegramNotificationService'
 
-/**
- * Telegram Queue Worker
- *
- * Processes Telegram notification jobs from the queue
- */
-
 let worker: Worker | null = null
 
-/**
- * Get or create Telegram queue worker singleton
- */
 export function getTelegramQueueWorker(): Worker {
   if (!worker) {
     const connection = getRedisClient()
@@ -29,27 +20,25 @@ export function getTelegramQueueWorker(): Worker {
           const result = await service.sendNotification(job.data)
 
           if (!result.success) {
-            // Throw error to trigger retry
             throw new Error(result.error || 'Failed to send Telegram notification')
           }
 
           return result
         } catch (error: any) {
           console.error(`Telegram notification job ${job.id} failed:`, error)
-          throw error // Re-throw to trigger BullMQ retry logic
+          throw error
         }
       },
       {
         connection,
-        concurrency: 5, // Process 5 jobs concurrently
+        concurrency: 5,
         limiter: {
-          max: 10, // Max 10 jobs
-          duration: 1000, // Per second
+          max: 10,
+          duration: 1000,
         },
       },
     )
 
-    // Event handlers
     worker.on('completed', (job) => {
       console.log(`Telegram notification job ${job.id} completed successfully`)
     })
@@ -73,9 +62,6 @@ export function getTelegramQueueWorker(): Worker {
   return worker
 }
 
-/**
- * Close Telegram queue worker
- */
 export async function closeTelegramQueueWorker(): Promise<void> {
   if (worker) {
     await worker.close()

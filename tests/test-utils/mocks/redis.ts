@@ -2,8 +2,8 @@ import { vi, type Mock } from 'vitest'
 
 export interface Job {
   id: string
-  operation: 'createLead' | 'logActivity'
-  provider: 'bitrix' | 'espocrm'
+  operation: 'createLead'
+  provider: 'espocrm'
   data: any
   status: 'pending' | 'processing' | 'completed' | 'failed'
   attempts: number
