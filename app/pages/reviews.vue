@@ -191,12 +191,6 @@
       </div>
     </section>
 
-    <!-- Student Stories -->
-    <LazyReviewsStudentSection />
-
-    <!-- Parent Reviews -->
-    <LazyReviewsParentSection />
-
     <!-- Share Experience Form -->
     <LazyReviewsShareExperienceForm />
   </div>

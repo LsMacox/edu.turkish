@@ -38,12 +38,15 @@
     </template>
 
     <template #why-choose-us>
-      <ServicesAlertCard key-prefix="services.relocation-in-turkey.benefits" variant="success" />
+      <div class="bg-white rounded-2xl p-6 md:p-8 shadow-card border border-gray-100">
+        <div class="grid md:grid-cols-2 gap-6 md:gap-8">
+          <ServicesAlertCard key-prefix="services.relocation-in-turkey.benefits" variant="success" />
+          <ServicesAlertCard key-prefix="services.relocation-in-turkey.risks" variant="warning" />
+        </div>
+      </div>
     </template>
 
     <template #faq>
-      <ServicesAlertCard key-prefix="services.relocation-in-turkey.risks" variant="warning" />
-
       <ServicesFAQ key-prefix="services.relocation-in-turkey.faq" />
     </template>
   </ServicesPageLayout>

@@ -1,44 +1,28 @@
 <template>
-  <section :class="['mb-16', variant === 'warning' ? '' : '']">
+  <div class="flex items-start gap-4">
+    <!-- Icon -->
     <div
       :class="[
-        'bg-white rounded-2xl p-8 md:p-12 shadow-card border border-gray-100',
-        variant === 'warning' ? 'border-l-4 border-l-warning' : '',
+        'flex-shrink-0 w-10 h-10 rounded-full flex items-center justify-center',
+        variant === 'success' ? 'bg-success/10' : 'bg-warning/10',
       ]"
     >
-      <div class="max-w-4xl mx-auto">
-        <div class="md:flex md:items-start md:space-x-8">
-          <!-- Icon -->
-          <div class="flex-shrink-0 mb-6 md:mb-0">
-            <div
-              :class="[
-                'w-16 h-16 md:w-20 md:h-20 rounded-2xl flex items-center justify-center',
-                variant === 'success' ? 'bg-success-light/50' : 'bg-warning-light/50',
-              ]"
-            >
-              <Icon
-                :name="iconName"
-                :class="[
-                  'w-8 h-8 md:w-10 md:h-10',
-                  variant === 'success' ? 'text-success' : 'text-warning-dark',
-                ]"
-              />
-            </div>
-          </div>
-
-          <!-- Content -->
-          <div class="flex-grow">
-            <h2 class="text-section-title mb-4 text-left">
-              {{ displayTitle }}
-            </h2>
-            <p class="text-body text-gray-600">
-              {{ displayContent }}
-            </p>
-          </div>
-        </div>
-      </div>
+      <Icon
+        :name="iconName"
+        :class="['w-5 h-5', variant === 'success' ? 'text-success' : 'text-warning-dark']"
+      />
     </div>
-  </section>
+
+    <!-- Content -->
+    <div class="flex-grow min-w-0">
+      <h3 class="font-semibold text-secondary text-base mb-1">
+        {{ displayTitle }}
+      </h3>
+      <p class="text-sm text-gray-600 leading-relaxed">
+        {{ displayContent }}
+      </p>
+    </div>
+  </div>
 </template>
 
 <script setup lang="ts">

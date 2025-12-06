@@ -1,10 +1,5 @@
 {
   "reviews": {
-    "labels": {
-      "studentExperience": "Student experience",
-      "parent": "Parent",
-      "yearSuffix": ""
-    },
     "hero": {
       "title": "Reviews from our students",
       "titleAccent": "and parents",
@@ -56,17 +51,6 @@
         "title": "Recommend us",
         "description": "Students and parents"
       }
-    },
-    "studentStories": {
-      "title": "Stories of our",
-      "titleAccent": "students",
-      "description": "Every success is a unique story. Meet our graduates who are already studying at leading Turkish universities.",
-      "ctaButton": "Become the next success"
-    },
-    "parentReviews": {
-      "title": "Parents trust",
-      "titleAccent": "our experience",
-      "description": "Opinions of parents who chose Edu.turkish for their children's education in Turkey"
     },
     "shareExperience": {
       "title": "Share your",

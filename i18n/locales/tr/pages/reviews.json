@@ -1,10 +1,5 @@
 {
   "reviews": {
-    "labels": {
-      "studentExperience": "Öğrenci deneyimi",
-      "parent": "Veli",
-      "yearSuffix": ""
-    },
     "hero": {
       "title": "Öğrencilerimizin yorumları",
       "titleAccent": "ve velilerinin",
@@ -56,17 +51,6 @@
         "title": "Bizi tavsiye ediyor",
         "description": "Öğrenci ve veliler"
       }
-    },
-    "studentStories": {
-      "title": "Öğrencilerimizin",
-      "titleAccent": "hikayeleri",
-      "description": "Her başarı benzersiz bir hikayedir. Türkiye'nin önde gelen üniversitelerinde okuyan mezunlarımızla tanışın.",
-      "ctaButton": "Bir sonraki başarı ol"
-    },
-    "parentReviews": {
-      "title": "Ebeveynler güveniyor",
-      "titleAccent": "deneyimimize",
-      "description": "Çocuklarının Türkiye'deki eğitimi için Edu.turkish'i seçen ebeveynlerin görüşleri"
     },
     "shareExperience": {
       "title": "Deneyiminizi",
