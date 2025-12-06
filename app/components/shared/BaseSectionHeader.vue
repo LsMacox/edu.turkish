@@ -30,9 +30,11 @@ const props = withDefaults(defineProps<BaseSectionHeaderProps>(), {
   size: 'lg',
   align: 'center',
   marginBottom: 'lg',
-  maxWidth: '2xl',
-  balanced: true,
 })
+
+// Hardcoded defaults (previously props)
+const maxWidth = '2xl'
+const balanced = true
 
 const slots = useSlots()
 
@@ -56,7 +58,7 @@ const containerClasses = computed(() => {
   return [
     alignMap[props.align] || alignMap.center,
     props.align === 'center' ? 'mx-auto' : '',
-    maxWidthMap[props.maxWidth] || maxWidthMap['2xl'],
+    maxWidthMap[maxWidth] || maxWidthMap['2xl'],
   ]
     .filter(Boolean)
     .join(' ')
@@ -94,7 +96,7 @@ const preTitleClasses = computed(() => {
 const titleClasses = computed(() => {
   return [
     'text-section-title',
-    props.balanced ? 'text-balance' : '',
+    balanced ? 'text-balance' : '',
     props.subtitle || slots.subtitle ? 'mb-4' : '',
   ]
     .filter(Boolean)
@@ -103,7 +105,7 @@ const titleClasses = computed(() => {
 
 // Subtitle classes
 const subtitleClasses = computed(() => {
-  return ['text-section-subtitle', props.balanced ? 'text-balance' : ''].filter(Boolean).join(' ')
+  return ['text-section-subtitle', balanced ? 'text-balance' : ''].filter(Boolean).join(' ')
 })
 
 // Action classes

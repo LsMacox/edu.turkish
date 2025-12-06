@@ -40,7 +40,7 @@
             class="flex items-center space-x-3 text-gray-600 hover:text-primary transition-colors w-full text-left"
             @click="$emit('quick-link', link.id)"
           >
-            <Icon :name="'' + quickLinkIcon(link.id)" class="w-5" />
+            <Icon :name="quickLinkIcon(link.id)" class="w-5" />
             <span class="text-sm font-medium">{{ link.label }}</span>
           </button>
         </div>
@@ -50,26 +50,15 @@
 </template>
 
 <script setup lang="ts">
-type SidebarPopularItem = {
-  id: string | number
-  slug: string | null
-  title: string
-  date: string
-}
-
-type SidebarPopular = {
-  title: string
-  items: SidebarPopularItem[]
-}
-
-type QuickLinksContent = {
-  title: string
-  items: { id: string; label: string }[]
-}
-
 defineProps<{
-  popular: SidebarPopular
-  quickLinks: QuickLinksContent
+  popular: {
+    title: string
+    items: Array<{ id: string | number; slug: string | null; title: string; date: string }>
+  }
+  quickLinks: {
+    title: string
+    items: Array<{ id: string; label: string }>
+  }
 }>()
 
 defineEmits<{

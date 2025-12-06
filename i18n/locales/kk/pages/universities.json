@@ -60,12 +60,6 @@
     },
     "loading": "Жүктелуде...",
     "card": {
-      "types": {
-        "state": "Мемлекеттік",
-        "private": "Жеке",
-        "tech": "Техникалық",
-        "elite": "Элиталық"
-      },
       "details_button": "Толығырақ",
       "apply_button": "Өтініш беру",
       "application_description": "Университет картасынан өтініш:"

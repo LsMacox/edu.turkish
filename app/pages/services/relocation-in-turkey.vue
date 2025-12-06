@@ -5,7 +5,6 @@
     sub-services-cols="md:grid-cols-2 lg:grid-cols-3"
   >
     <template #sub-services>
-      <!-- Admission Package -->
       <ServicesPackageCard
         v-if="admissionPackage"
         package-id="university-admission"
@@ -16,8 +15,6 @@
         :is-mobile-accordion="isMobile"
         @apply="handlePackageApply"
       />
-
-      <!-- Standard Package -->
       <ServicesPackageCard
         v-if="standardPackage"
         package-id="relocation-standard"
@@ -29,8 +26,6 @@
         :is-mobile-accordion="isMobile"
         @apply="handlePackageApply"
       />
-
-      <!-- VIP Package -->
       <ServicesPackageCard
         v-if="vipPackage"
         package-id="relocation-vip"
@@ -46,106 +41,59 @@
     </template>
 
     <template #why-choose-us>
-      <ServicesSettlementBenefitsSection key-prefix="services.relocation-in-turkey.benefits" />
+      <ServicesAlertCard key-prefix="services.relocation-in-turkey.benefits" variant="success" />
     </template>
 
     <template #faq>
-      <ServicesSettlementRisksSection key-prefix="services.relocation-in-turkey.risks" />
+      <ServicesAlertCard key-prefix="services.relocation-in-turkey.risks" variant="warning" />
 
-      <ServicesFAQSection key-prefix="services.relocation-in-turkey.faq" />
+      <ServicesFAQ key-prefix="services.relocation-in-turkey.faq" />
     </template>
   </ServicesPageLayout>
 </template>
 
 <script setup lang="ts">
 import type { PackageId } from '~/types/services'
-import type { ServiceCategoryDetail } from '~~/server/types/api/services'
 import { useApplicationModalStore } from '~/stores/applicationModal'
 import { useExchangeRatesStore } from '~/stores/exchangeRates'
-import { useServices } from '~/composables/useServices'
+import { useServiceCategory, useServiceHead, useI18nList } from '~/components/features/services/composables'
 
-const { t, tm, locale } = useI18n()
+const { t } = useI18n()
 const modal = useApplicationModalStore()
 const exchangeRatesStore = useExchangeRatesStore()
-const { fetchCategory } = useServices()
+const { category } = await useServiceCategory('relocation-in-turkey')
+const { getListStrings } = useI18nList()
 
-// Fetch category data from database
-const { data: category } = await useAsyncData<ServiceCategoryDetail>(
-  `relocation-in-turkey-${locale.value}`,
-  () => fetchCategory('relocation-in-turkey'),
-  {
-    watch: [locale],
-    lazy: false,
-  },
-)
-
-// Ensure exchange rates are fresh
-onMounted(async () => {
-  await exchangeRatesStore.ensureFresh()
-})
-
-// Get services from i18n as plain strings using index-based t(key[index])
-const getListStrings = (key: string): string[] => {
-  const raw = tm(key) as any
-  if (!Array.isArray(raw)) return []
-  return raw.map((_, idx) => t(`${key}[${idx}]`))
-}
-
-const admissionServices = computed<string[]>(() =>
-  getListStrings('services.relocation-in-turkey.packages.admission.services'),
-)
-
-const standardServices = computed<string[]>(() => {
-  const admission = admissionServices.value
-  const additional = getListStrings(
-    'services.relocation-in-turkey.packages.standard.additionalServices',
-  )
-  return [...admission, ...additional]
-})
-
-const vipServices = computed<string[]>(() => {
-  const standard = standardServices.value
-  const additional = getListStrings(
-    'services.relocation-in-turkey.packages.vip.additionalServices',
-  )
-  return [...standard, ...additional]
-})
-
-// Find packages from database
-const admissionPackage = computed(() =>
-  category.value?.subServices?.find((s) => s.slug === 'university-admission'),
-)
-
-const standardPackage = computed(() =>
-  category.value?.subServices?.find((s) => s.slug === 'relocation-standard'),
-)
-
-const vipPackage = computed(() =>
-  category.value?.subServices?.find((s) => s.slug === 'relocation-vip'),
-)
-
-// Mobile detection for accordion
 const isMobile = ref(false)
 onMounted(() => {
-  isMobile.value = window.innerWidth < 768
-  const handleResize = () => {
-    isMobile.value = window.innerWidth < 768
-  }
-  window.addEventListener('resize', handleResize)
-  onBeforeUnmount(() => {
-    window.removeEventListener('resize', handleResize)
-  })
+  const update = () => (isMobile.value = window.innerWidth < 768)
+  update()
+  window.addEventListener('resize', update)
+  onBeforeUnmount(() => window.removeEventListener('resize', update))
 })
 
-// Handle package application
-const handlePackageApply = ({
-  packageId,
-  name,
-}: {
-  packageId: PackageId
-  name: string
-  price: number
-}) => {
+onMounted(() => exchangeRatesStore.ensureFresh())
+
+const findPackage = (slug: string) =>
+  computed(() => category.value?.subServices?.find((s) => s.slug === slug))
+
+const admissionPackage = findPackage('university-admission')
+const standardPackage = findPackage('relocation-standard')
+const vipPackage = findPackage('relocation-vip')
+
+const admissionServices = computed(() =>
+  getListStrings('services.relocation-in-turkey.packages.admission.services'),
+)
+const standardServices = computed(() => [
+  ...admissionServices.value,
+  ...getListStrings('services.relocation-in-turkey.packages.standard.additionalServices'),
+])
+const vipServices = computed(() => [
+  ...standardServices.value,
+  ...getListStrings('services.relocation-in-turkey.packages.vip.additionalServices'),
+])
+
+const handlePackageApply = ({ packageId, name }: { packageId: PackageId; name: string }) => {
   modal.openModal({
     source: 'service_page',
     description: name,
@@ -158,29 +106,8 @@ const handlePackageApply = ({
   })
 }
 
-useHead(() => ({
-  title: category.value?.title || t('services.relocation-in-turkey.title'),
-  meta: [
-    {
-      name: 'description',
-      content: category.value?.subtitle || t('services.relocation-in-turkey.subtitle'),
-    },
-  ],
-  script: [
-    {
-      type: 'application/ld+json',
-      children: JSON.stringify({
-        '@context': 'https://schema.org',
-        '@type': ['Product', 'Service'],
-        name: category.value?.title || t('services.relocation-in-turkey.title'),
-        description: category.value?.subtitle || t('services.relocation-in-turkey.subtitle'),
-        provider: {
-          '@type': 'Organization',
-          name: 'Edu.turkish',
-          sameAs: 'https://edu-turkish.com',
-        },
-      }),
-    },
-  ],
-}))
+useServiceHead({
+  title: () => category.value?.title || t('services.relocation-in-turkey.title'),
+  description: () => category.value?.subtitle || t('services.relocation-in-turkey.subtitle'),
+})
 </script>

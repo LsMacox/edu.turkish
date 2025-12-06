@@ -14,7 +14,7 @@ const cookieOptions = () => ({
 })
 
 export default defineEventHandler(async (event) => {
-  const codeFromQuery = (getQuery(event).ref as string | undefined)?.trim()
+  const codeFromQuery = (getQuery(event).referral_code as string | undefined)?.trim()
   const codeFromCookie = getCookie(event, COOKIE_NAME)?.trim()
 
   const code = [codeFromQuery, codeFromCookie].find(isValidCode)
@@ -26,7 +26,7 @@ export default defineEventHandler(async (event) => {
 
   if (codeFromQuery && getMethod(event) === 'GET' && !event.path?.startsWith('/api/')) {
     const url = getRequestURL(event)
-    url.searchParams.delete('ref')
+    url.searchParams.delete('referral_code')
     await sendRedirect(event, url.pathname + url.search, 302)
   }
 })

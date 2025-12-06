@@ -60,12 +60,6 @@
     },
     "loading": "Yükleniyor...",
     "card": {
-      "types": {
-        "state": "Devlet",
-        "private": "Özel",
-        "tech": "Teknik",
-        "elite": "Elit"
-      },
       "details_button": "Detaylar",
       "apply_button": "Başvuru yap",
       "application_description": "Üniversite kartından başvuru:"

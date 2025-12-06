@@ -1,16 +1,12 @@
 import type { Ref } from 'vue'
-
-export interface FAQSchemaItem {
-  question: string
-  answer: string | { title?: string; items?: string[]; ordered?: boolean }
-}
+import type { FaqItem, FaqAnswer } from '~/types/faq'
 
 /**
  * Composable to inject Schema.org FAQPage structured data
  * @param items Array of FAQ items
  */
-export const useFAQSchema = (items: Ref<FAQSchemaItem[]> | FAQSchemaItem[]) => {
-  const resolveAnswerText = (answer: FAQSchemaItem['answer']): string => {
+export const useFAQSchema = (items: Ref<FaqItem[]> | FaqItem[]) => {
+  const resolveAnswerText = (answer: FaqAnswer): string => {
     if (typeof answer === 'string') return answer
     
     let html = ''

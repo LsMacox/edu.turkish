@@ -1,6 +1,5 @@
 <template>
   <div class="bg-white">
-    <!-- Hero Section -->
     <section class="bg-gradient-to-b from-gray-50 to-white pt-16">
       <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
         <div class="text-center">
@@ -25,7 +24,6 @@
       </div>
     </section>
 
-    <!-- Search Section -->
     <section class="section-py-sm bg-white">
       <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
         <div class="relative">
@@ -43,7 +41,6 @@
             class="absolute left-4 top-1/2 transform -translate-y-1/2 text-gray-400 w-5 h-5"
           />
 
-          <!-- Clear search button -->
           <button
             v-if="searchQuery"
             class="absolute right-4 top-1/2 transform -translate-y-1/2 text-gray-400 hover:text-gray-600 transition-colors p-1 min-w-touch-44 min-h-touch-44 flex items-center justify-center"
@@ -53,7 +50,6 @@
             <Icon name="mdi:close" class="w-5 h-5" />
           </button>
 
-          <!-- Search suggestions -->
           <div
             v-if="showSearchSuggestions && searchHistory.length > 0"
             class="absolute top-full left-0 right-0 mt-2 bg-white border border-gray-200 rounded-xl shadow-lg z-10"
@@ -74,7 +70,6 @@
           </div>
         </div>
 
-        <!-- Search status -->
         <div v-if="isActiveSearch" class="mt-4 flex items-center justify-between">
           <p class="text-sm text-gray-600">
             <span v-if="isSearching">{{ t('faq.searching') }}...</span>
@@ -95,7 +90,6 @@
       </div>
     </section>
 
-    <!-- FAQ Categories -->
     <section class="section-py-sm bg-gray-50">
       <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
         <div class="flex flex-wrap justify-center gap-3 sm:gap-4">
@@ -113,16 +107,14 @@
             @click="setActiveCategory(category.key)"
           >
             <Icon :name="category.icon" class="w-4 h-4 sm:w-5 sm:h-5" />
-            <span>{{ translateCategoryLabel(category.key, category.name) }}</span>
+            <span>{{ getCategoryLabel(category.key, category.name) }}</span>
           </button>
         </div>
       </div>
     </section>
 
-    <!-- Main FAQ Section -->
     <section class="section-py bg-white">
       <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
-        <!-- No results state -->
         <div v-if="isActiveSearch && !hasResults && !isSearching" class="text-center py-12">
           <Icon name="mdi:magnify-close" class="w-16 h-16 text-gray-300 mx-auto mb-4" />
           <h3 class="text-card-title mb-2">{{ t('faq.noResultsTitle') }}</h3>
@@ -149,9 +141,8 @@
           </div>
         </div>
 
-        <!-- FAQ Results -->
+        <!-- eslint-disable vue/no-v-html -->
         <div v-else-if="filteredFAQItems.length > 0" class="space-y-6">
-          <!-- eslint-disable vue/no-v-html -->
           <div
             v-for="item in filteredFAQItems"
             :key="item.id"
@@ -181,28 +172,25 @@
                   v-html="highlightSearchTerms(item.answer, searchQuery)"
                 />
 
-                <!-- Category badge -->
                 <div class="mt-4 pt-4 border-t border-gray-200">
                   <span
                     class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-gray-100 text-gray-800"
                   >
-                    <Icon :name="getCategoryIcon(item.category)" class="w-3 h-3 mr-1" />
-                    {{ labelForCategory(item.category) }}
+                    <Icon :name="categories.find(c => c.key === item.category)?.icon || 'mdi:help-circle'" class="w-3 h-3 mr-1" />
+                    {{ getCategoryLabel(item.category) }}
                   </span>
                 </div>
               </div>
             </div>
           </div>
-          <!-- eslint-enable vue/no-v-html -->
         </div>
+        <!-- eslint-enable vue/no-v-html -->
 
-        <!-- Loading state -->
         <div v-else-if="isSearching" class="text-center py-12">
           <Icon name="mdi:loading" class="w-8 h-8 text-primary animate-spin mx-auto mb-4" />
           <p class="text-gray-600">{{ t('faq.searching') }}...</p>
         </div>
 
-        <!-- Default state when no search -->
         <div v-else class="text-center py-12">
           <Icon
             name="mdi:frequently-asked-questions"
@@ -217,42 +205,57 @@
 </template>
 
 <script setup lang="ts">
-definePageMeta({
-  layout: 'default',
-})
+import { highlightSearchTerms } from '~~/lib/text'
+import { useFAQ } from '~/stores/faq'
 
-const { t, te } = useI18n()
+definePageMeta({ layout: 'default' })
 
+const { t, te, locale } = useI18n()
+const route = useRoute()
+const router = useRouter()
 const searchInputId = useId()
 
-// Initialize FAQ search composable
 const {
-  searchQuery,
-  activeCategory,
-  isSearching,
-  searchHistory,
-  faqCategories,
-  filteredFAQItems,
+  query: searchQuery,
+  category: activeCategory,
+  loading: isSearching,
+  history: searchHistory,
+  categories,
+  items: filteredFAQItems,
   resultCount,
   hasResults,
   isActiveSearch,
-  setSearchQuery,
-  setActiveCategory,
-  clearSearch,
-  resetFilters,
-  highlightSearchTerms,
-  clearSearchHistory,
-  refresh,
-} = useFAQSearch()
+  search,
+  setCategory,
+  reset,
+  fetch: fetchFAQ,
+  loadHistory,
+  clearHistory: clearSearchHistory,
+} = useFAQ()
 
-const { locale } = useI18n()
+const syncToURL = () => {
+  const q: Record<string, string> = {}
+  if (searchQuery.value.trim()) q.q = searchQuery.value.trim()
+  if (activeCategory.value !== 'all') q.category = activeCategory.value
+  router.replace({ query: Object.keys(q).length ? q : undefined })
+}
 
-// Server-side data fetching for SEO
-await useAsyncData(`faq-data-${locale.value}`, () => refresh(), {
-  watch: [locale],
+const setSearchQuery = (q: string) => { search(q); syncToURL() }
+const setActiveCategory = (c: string) => { setCategory(c); syncToURL() }
+const clearSearch = () => { search(''); syncToURL() }
+const resetFilters = () => { reset(); syncToURL() }
+
+if (route.query.q) searchQuery.value = route.query.q as string
+if (route.query.category) activeCategory.value = route.query.category as string
+
+await useAsyncData(`faq-${locale.value}`, fetchFAQ, { watch: [locale] })
+
+watch(() => route.query, () => {
+  searchQuery.value = (route.query.q as string) || ''
+  activeCategory.value = (route.query.category as string) || 'all'
+  fetchFAQ()
 })
 
-// Schema.org Structured Data
 useHead({
   script: [
     {
@@ -275,48 +278,14 @@ useHead({
   ],
 })
 
-// Local state for UI interactions
-const openItems = ref<Record<string, boolean>>({})
+const openItems = ref<Record<number, boolean>>({})
 const showSearchSuggestions = ref(false)
 
-// Categories with icons - dynamically from API with fallback
-const categories = computed(() => {
-  const apiCategories = faqCategories.value || []
-  const unique = new Map<string, { key: string; label: string; icon: string; name?: string }>()
-  for (const cat of apiCategories) {
-    if (!cat?.key) continue
-    if (!unique.has(cat.key)) {
-      unique.set(cat.key, {
-        key: cat.key,
-        label: `faq.categories.${cat.key}.title`,
-        icon: getCategoryIcon(cat.key),
-        name: cat.name,
-      })
-    }
-  }
-  return [
-    {
-      key: 'all',
-      label: 'faq.categories.all',
-      icon: 'mdi:view-grid',
-      name: t('faq.categories.all'),
-    },
-    ...Array.from(unique.values()),
-  ]
-})
-
-const translateCategoryLabel = (key: string, fallbackName?: string) => {
+const getCategoryLabel = (key: string, fallbackName?: string) => {
   const i18nKey = `faq.categories.${key}.title`
   return te(i18nKey) ? t(i18nKey) : fallbackName || key
 }
 
-// Label for badge inside item card, with API fallback like the chips above
-const labelForCategory = (key: string) => {
-  const i18nKey = `faq.categories.${key}.title`
-  return te(i18nKey) ? t(i18nKey) : faqCategories.value.find((c: any) => c.key === key)?.name || key
-}
-
-// Popular search suggestions
 const popularSearches = computed(() => [
   t('faq.popularSearches.documents'),
   t('faq.popularSearches.scholarships'),
@@ -324,73 +293,36 @@ const popularSearches = computed(() => [
   t('faq.popularSearches.language'),
 ])
 
-// Helper functions
-const toggleFAQ = (itemId: string) => {
+const toggleFAQ = (itemId: number) => {
   openItems.value[itemId] = !openItems.value[itemId]
 }
 
-const handleSearchInput = (event: Event) => {
-  const target = event.target as HTMLInputElement
-  setSearchQuery(target.value)
-  showSearchSuggestions.value = target.value.length === 0
+const handleSearchInput = (e: Event) => {
+  const val = (e.target as HTMLInputElement).value
+  setSearchQuery(val)
+  showSearchSuggestions.value = val.length === 0
 }
 
-const getCategoryIcon = (category: string): string => {
-  const iconMap: Record<string, string> = {
-    documents: 'mdi:file-document',
-    education: 'mdi:school-outline',
-    technology: 'mdi:cellphone-cog',
-    residence: 'mdi:home-city',
-    relocation: 'mdi:truck-fast',
-    insurance: 'mdi:shield-check',
-    transport: 'mdi:bus',
-    housing: 'mdi:home-outline',
-    exams: 'mdi:school',
-    admission: 'mdi:clock',
-    scholarships: 'mdi:trophy',
-    languages: 'mdi:earth',
+const onKeydown = (e: KeyboardEvent) => {
+  if ((e.ctrlKey || e.metaKey) && e.key === 'k') {
+    e.preventDefault()
+    document.querySelector<HTMLInputElement>('input[type="text"]')?.focus()
   }
-  return iconMap[category] || 'mdi:help-circle'
+  if (e.key === 'Escape' && searchQuery.value) clearSearch()
 }
 
-// Keyboard shortcuts
+const onClickOutside = (e: Event) => {
+  if (!(e.target as Element).closest('.relative')) showSearchSuggestions.value = false
+}
+
 onMounted(() => {
-  const handleKeydown = (event: KeyboardEvent) => {
-    // Ctrl/Cmd + K to focus search
-    if ((event.ctrlKey || event.metaKey) && event.key === 'k') {
-      event.preventDefault()
-      const searchInput = document.querySelector('input[type="text"]') as HTMLInputElement
-      if (searchInput) {
-        searchInput.focus()
-      }
-    }
-
-    // Escape to clear search
-    if (event.key === 'Escape' && searchQuery.value) {
-      clearSearch()
-    }
-  }
-
-  document.addEventListener('keydown', handleKeydown)
-
-  onUnmounted(() => {
-    document.removeEventListener('keydown', handleKeydown)
-  })
+  loadHistory()
+  document.addEventListener('keydown', onKeydown)
+  document.addEventListener('click', onClickOutside)
 })
 
-// Close suggestions when clicking outside
-onMounted(() => {
-  const handleClickOutside = (event: Event) => {
-    const target = event.target as Element
-    if (!target.closest('.relative')) {
-      showSearchSuggestions.value = false
-    }
-  }
-
-  document.addEventListener('click', handleClickOutside)
-
-  onUnmounted(() => {
-    document.removeEventListener('click', handleClickOutside)
-  })
+onBeforeUnmount(() => {
+  document.removeEventListener('keydown', onKeydown)
+  document.removeEventListener('click', onClickOutside)
 })
 </script>

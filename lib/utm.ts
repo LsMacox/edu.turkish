@@ -38,11 +38,3 @@ export function sanitizeUtm(input: unknown): UtmParams | undefined {
   return hasUtmValues(utm) ? utm : undefined
 }
 
-export function extractUtmFromQuery(query: Record<string, unknown>): UtmParams | undefined {
-  if (!query || typeof query !== 'object') return undefined
-  const collected: Record<string, unknown> = {}
-  for (const key of UTM_KEYS) {
-    if (key in query) collected[key] = query[key]
-  }
-  return sanitizeUtm(collected)
-}

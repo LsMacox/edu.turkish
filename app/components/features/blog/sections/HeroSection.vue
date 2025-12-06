@@ -79,20 +79,16 @@
 </template>
 
 <script setup lang="ts">
-type HeroHighlight = { title: string; subtitle: string }
-type HeroStat = { icon: string; label: string }
-type HeroContent = {
-  title: string
-  titleAccent: string
-  description: string
-  searchPlaceholder: string
-  imageAlt: string
-  highlight: HeroHighlight
-  stats: HeroStat[]
-}
-
 defineProps<{
-  hero: HeroContent
+  hero: {
+    title: string
+    titleAccent: string
+    description: string
+    searchPlaceholder: string
+    imageAlt: string
+    highlight: { title: string; subtitle: string }
+    stats: Array<{ icon: string; label: string }>
+  }
   heroImage: string
   modelValue: string
 }>()

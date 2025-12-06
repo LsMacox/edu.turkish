@@ -12,7 +12,7 @@
           </p>
 
           <div class="mt-6 md:mt-8">
-            <UniversitiesStatisticsCards />
+            <UniversitiesListStatisticsCards />
           </div>
         </div>
       </div>
@@ -21,14 +21,14 @@
     <!-- Filters Section -->
     <section id="filters" class="bg-white shadow-sm border-b border-gray-200">
       <div class="container mx-auto px-4 lg:px-6 py-4 md:py-6">
-        <UniversitiesFilterPanel />
+        <UniversitiesListFilterPanel />
       </div>
     </section>
 
     <!-- Sorting and Results -->
     <section id="sorting" class="py-4 md:py-6 bg-background">
       <div class="container mx-auto px-4 lg:px-6">
-        <UniversitiesSortBar
+        <UniversitiesListSortBar
           :total="totalUniversities"
           :displayed="sorted.length"
           :sort="sort"
@@ -41,7 +41,7 @@
     <section id="universities-grid" class="section-py-sm">
       <div class="container mx-auto container-padding-narrow">
         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-section">
-          <UniversitiesUniversityCard
+          <UniversitiesListCard
             v-for="u in paged"
             :key="u.id"
             :title="u.title"
@@ -74,10 +74,10 @@
       </div>
     </section>
 
-    <UniversitiesHowToChooseSection />
-    <UniversitiesPopularProgramsSection />
-    <UniversitiesScholarshipsSection />
-    <UniversitiesNotFoundSection />
+    <UniversitiesListHowToChooseSection />
+    <UniversitiesListPopularProgramsSection />
+    <UniversitiesListScholarshipsSection />
+    <UniversitiesListNotFoundSection />
   </main>
 </template>
 

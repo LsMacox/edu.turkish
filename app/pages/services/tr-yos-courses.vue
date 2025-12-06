@@ -4,7 +4,7 @@
     :subtitle="t('services.tr-yos-courses.subtitle')"
   >
     <template #sub-services>
-      <ServicesSubServiceCard
+      <ServicesServiceCard
         v-for="sub in subServices"
         :key="sub.id"
         :sub-service-id="sub.id"
@@ -16,59 +16,48 @@
     </template>
 
     <template #course-goal>
-      <ServicesCourseGoalSection key-prefix="services.tr-yos-courses.courseGoal" />
+      <ServicesCoursesGoalSection key-prefix="services.tr-yos-courses.courseGoal" />
     </template>
 
     <template #program-content>
-      <ServicesProgramContentSection key-prefix="services.tr-yos-courses.programContent" />
+      <ServicesCoursesContentSection key-prefix="services.tr-yos-courses.programContent" />
     </template>
 
     <template #format-schedule>
-      <ServicesFormatScheduleSection key-prefix="services.tr-yos-courses.formatSchedule" />
+      <ServicesCoursesFormatSection key-prefix="services.tr-yos-courses.formatSchedule" />
     </template>
 
     <template #student-results>
-      <ServicesStudentResultsSection key-prefix="services.tr-yos-courses.studentResults" />
+      <ServicesCoursesResultsSection key-prefix="services.tr-yos-courses.studentResults" />
     </template>
 
     <template #faq>
-      <ServicesFAQSection key-prefix="services.tr-yos-courses.faq" />
+      <ServicesFAQ key-prefix="services.tr-yos-courses.faq" />
     </template>
   </ServicesPageLayout>
 </template>
 
 <script setup lang="ts">
-import { useI18n } from 'vue-i18n'
 import type { SubServiceId } from '~/types/services'
-import type { ServiceCategoryDetail } from '~~/server/types/api/services'
 import { useApplicationModalStore } from '~/stores/applicationModal'
 import { useExchangeRatesStore } from '~/stores/exchangeRates'
-import { useServices } from '~/composables/useServices'
+import { useServiceCategory, useServiceHead } from '~/components/features/services/composables'
 
-const { t, locale } = useI18n()
+const { t } = useI18n()
 const modal = useApplicationModalStore()
 const exchangeRatesStore = useExchangeRatesStore()
-const { fetchCategory } = useServices()
+const { category } = await useServiceCategory('tr-yos-courses')
 
-const { data: category } = await useAsyncData<ServiceCategoryDetail>(
-  `tr-yos-courses-${locale.value}`,
-  () => fetchCategory('tr-yos-courses'),
-  { lazy: false, watch: [locale] },
-)
+onMounted(() => exchangeRatesStore.ensureFresh())
 
-onMounted(async () => {
-  await exchangeRatesStore.ensureFresh()
-})
-
-const subServices = computed(() => {
-  if (!category.value?.subServices) return []
-  return category.value.subServices.map((sub) => ({
+const subServices = computed(() =>
+  category.value?.subServices?.map((sub) => ({
     id: sub.slug as SubServiceId,
     name: sub.name,
     description: sub.description,
     priceUsd: sub.priceUsd,
-  }))
-})
+  })) ?? [],
+)
 
 const handleApply = ({ subServiceId, name }: { subServiceId: SubServiceId; name: string }) => {
   modal.openModal({
@@ -83,29 +72,9 @@ const handleApply = ({ subServiceId, name }: { subServiceId: SubServiceId; name:
   })
 }
 
-useHead(() => ({
-  title: category.value?.title || t('services.tr-yos-courses.title'),
-  meta: [
-    {
-      name: 'description',
-      content: category.value?.subtitle || t('services.tr-yos-courses.subtitle'),
-    },
-  ],
-  script: [
-    {
-      type: 'application/ld+json',
-      children: JSON.stringify({
-        '@context': 'https://schema.org',
-        '@type': 'Course',
-        name: category.value?.title || t('services.tr-yos-courses.title'),
-        description: category.value?.subtitle || t('services.tr-yos-courses.subtitle'),
-        provider: {
-          '@type': 'Organization',
-          name: 'Edu.turkish',
-          sameAs: 'https://edu-turkish.com',
-        },
-      }),
-    },
-  ],
-}))
+useServiceHead({
+  title: () => category.value?.title || t('services.tr-yos-courses.title'),
+  description: () => category.value?.subtitle || t('services.tr-yos-courses.subtitle'),
+  schemaType: ['Course'],
+})
 </script>

@@ -28,7 +28,7 @@
         v-if="article.isPowerPage"
         :article="article"
       />
-      <BlogStandardArticle
+      <BlogArticle
         v-else
         :article="article"
         :related-articles="relatedArticles"
@@ -38,16 +38,9 @@
 </template>
 
 <script setup lang="ts">
-import type {
-  BlogArticleDetail,
-  BlogArticleListItem,
-  BlogArticlesResponse,
-  BlogArticleQueryParams,
-} from '~~/server/types/api'
+import type { BlogArticleDetail, BlogArticleListItem, BlogArticlesResponse } from '~~/server/types/api'
 
-definePageMeta({
-  layout: 'default',
-})
+definePageMeta({ layout: 'default' })
 
 const route = useRoute()
 const localePath = useLocalePath()
@@ -56,132 +49,83 @@ const setI18nParams = useSetI18nParams()
 
 const slug = computed(() => String(route.params.slug ?? ''))
 
-const { data, pending, error } = await useAsyncData<{
-  data: BlogArticleDetail
-  related: BlogArticleListItem[]
-} | null>(
+async function fetchRelatedArticles(articleData: BlogArticleDetail): Promise<BlogArticleListItem[]> {
+  if (articleData.isPowerPage) return []
+
+  const fetchList = (category?: string) =>
+    $fetch<BlogArticlesResponse>('/api/v1/blog/articles', {
+      query: { page: 1, limit: 4, lang: locale.value, category },
+    })
+
+  try {
+    const filterOther = (items: BlogArticleListItem[]) =>
+      items.filter((item) => item.slug !== articleData.slug).slice(0, 3)
+
+    const primary = await fetchList(articleData.category?.key)
+    const candidates = filterOther(primary.data)
+
+    if (candidates.length > 0) return candidates
+
+    const fallback = await fetchList()
+    return filterOther(fallback.data)
+  } catch {
+    return []
+  }
+}
+
+const { data, pending, error } = await useAsyncData(
   `article-detail-${slug.value}-${locale.value}`,
   async () => {
-    if (!slug.value) {
-      return null
-    }
+    if (!slug.value) return null
 
-    const [articleResponse] = await Promise.all([
-      $fetch<{ data: BlogArticleDetail }>(`/api/v1/blog/articles/${slug.value}` as const, {
-        query: { lang: locale.value },
-      }),
-    ])
+    const response = await $fetch<{ data: BlogArticleDetail }>(
+      `/api/v1/blog/articles/${slug.value}`,
+      { query: { lang: locale.value } },
+    )
 
-    const articleData = articleResponse?.data
-    if (!articleData) {
-      return null
-    }
-    
-    // Set i18n params for alternate routes
+    const articleData = response?.data
+    if (!articleData) return null
+
     if (articleData.alternates) {
-      const params: Record<string, { slug: string }> = {}
-      for (const [altLocale, altSlug] of Object.entries(articleData.alternates)) {
-        params[altLocale] = { slug: altSlug }
-      }
-      setI18nParams(params)
-    }
-
-    // Helper to fetch related - only needed for standard articles
-    let related: BlogArticleListItem[] = []
-    
-    if (!articleData.isPowerPage) {
-      const fetchRelated = (query: BlogArticleQueryParams = {}) => {
-        const baseQuery = {
-          page: 1,
-          limit: 4,
-          lang: locale.value,
-          ...query,
-        }
-        const sanitizedQuery = Object.fromEntries(
-          Object.entries(baseQuery).filter(([, value]) => value !== undefined && value !== null),
-        )
-        return $fetch<BlogArticlesResponse>('/api/v1/blog/articles', {
-          query: sanitizedQuery,
-        })
-      }
-
-      try {
-        const categoryKey = articleData.category?.key
-        const primaryResponse = await fetchRelated({ category: categoryKey })
-
-        let candidates = primaryResponse.data
-          .filter((item) => item.slug !== articleData.slug)
-          .slice(0, 3)
-
-        if (candidates.length === 0) {
-          const fallbackResponse = await fetchRelated()
-          candidates = fallbackResponse.data
-            .filter((item) => item.slug !== articleData.slug)
-            .slice(0, 3)
-        }
-        related = candidates
-      } catch (e) {
-        console.error('Failed to fetch related articles', e)
-      }
+      setI18nParams(
+        Object.fromEntries(
+          Object.entries(articleData.alternates).map(([loc, s]) => [loc, { slug: s }]),
+        ),
+      )
     }
 
     return {
       data: articleData,
-      related,
+      related: await fetchRelatedArticles(articleData),
     }
   },
-  {
-    watch: [slug, () => locale.value],
-  },
+  { watch: [slug, locale] },
 )
 
-const article = computed<BlogArticleDetail | null>(() => data.value?.data ?? null)
-const relatedArticles = computed<BlogArticleListItem[]>(() => data.value?.related ?? [])
+const article = computed(() => data.value?.data ?? null)
+const relatedArticles = computed(() => data.value?.related ?? [])
 
-const defaultTitle = computed(() => t('blog.meta.title'))
-const defaultDescription = computed(() => t('blog.meta.description'))
+const seoTitle = computed(() => article.value?.title ?? t('blog.meta.title'))
+const seoDescription = computed(
+  () => article.value?.seoDescription ?? article.value?.excerpt ?? t('blog.meta.description'),
+)
 
 useSeoMeta({
-  title: computed(() => article.value?.title ?? defaultTitle.value),
-  description: computed(
-    () => article.value?.seoDescription ?? article.value?.excerpt ?? defaultDescription.value,
-  ),
-  keywords: computed(() => {
-    const tags = article.value?.tags ?? []
-    if (!tags.length) {
-      return undefined
-    }
-    return tags.join(', ')
-  }),
-  ogTitle: computed(() => article.value?.title ?? defaultTitle.value),
-  ogDescription: computed(
-    () => article.value?.seoDescription ?? article.value?.excerpt ?? defaultDescription.value,
-  ),
-  ogImage: computed(() => article.value?.heroImage ?? article.value?.image ?? undefined),
+  title: seoTitle,
+  description: seoDescription,
+  keywords: computed(() => article.value?.tags?.join(', ')),
+  ogTitle: seoTitle,
+  ogDescription: seoDescription,
+  ogImage: computed(() => article.value?.heroImage ?? article.value?.image),
   twitterCard: 'summary_large_image',
 })
 
-type ApiErrorLike = { status?: number; statusCode?: number; data?: { statusMessage?: string } }
-
-const fetchError = computed(() => error.value as ApiErrorLike | null)
-
 const errorMessage = computed(() => {
-  const err = fetchError.value
-  if (err) {
-    const status = (err as any).statusCode ?? err.status
-
-    if (status === 404) {
-      return t('article.notFound')
-    }
-
-    return err?.data?.statusMessage || t('article.error')
+  if (error.value) {
+    const status = (error.value as any).statusCode ?? (error.value as any).status
+    return status === 404 ? t('article.notFound') : t('article.error')
   }
-
-  if (!pending.value && !article.value) {
-    return t('article.notFound')
-  }
-
-  return ''
+  return !pending.value && !article.value ? t('article.notFound') : ''
 })
 </script>
 

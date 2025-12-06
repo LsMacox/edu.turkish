@@ -6,8 +6,6 @@
     :role="role"
     :tabindex="tabIndex"
     :aria-label="ariaLabel"
-    :aria-describedby="ariaDescribedBy"
-    :aria-pressed="ariaPressedAttr"
     :class="[
       'bg-white overflow-hidden',
       borderRadiusClasses,
@@ -30,24 +28,19 @@
     @mouseleave="handleMouseLeave"
   >
     <!-- Header slot -->
-    <div v-if="$slots.header" :class="headerClasses" :aria-label="headerAriaLabel">
+    <div v-if="$slots.header" :class="headerClasses">
       <slot name="header" />
     </div>
 
     <!-- Default content -->
-    <div v-if="$slots.default" :class="contentClasses" :aria-label="contentAriaLabel">
+    <div v-if="$slots.default" :class="contentClasses">
       <slot />
     </div>
 
     <!-- Footer slot -->
-    <div v-if="$slots.footer" :class="footerClasses" :aria-label="footerAriaLabel">
+    <div v-if="$slots.footer" :class="footerClasses">
       <slot name="footer" />
     </div>
-
-    <!-- Screen reader text for interactive cards -->
-    <span v-if="clickable && !ariaLabel" class="sr-only">
-      {{ clickableDescription || 'Interactive card - press Enter or Space to activate' }}
-    </span>
   </component>
 </template>
 
@@ -81,13 +74,6 @@ const tag = computed(() => {
 const role = computed(() => {
   if (props.clickable && tag.value === 'div') return 'button'
   if (props.href || props.to) return 'link'
-  return props.role || undefined
-})
-
-// Only expose aria-pressed when card behaves like a button
-const ariaPressedAttr = computed(() => {
-  if (props.ariaPressed === undefined) return undefined
-  if (tag.value === 'button' || role.value === 'button') return props.ariaPressed
   return undefined
 })
 

@@ -2,7 +2,7 @@ import { getCookie } from 'h3'
 import { contactChannels } from '~~/lib/contact/channels'
 import { formatMessengerTouchNotification } from '~~/server/utils/telegram-formatter'
 import { getTelegramQueue } from '~~/server/utils/telegram-queue'
-import { extractUtmFromQuery } from '~~/server/utils/utm'
+import { sanitizeUtm } from '~~/server/utils/utm'
 
 export default defineEventHandler(async (event) => {
   const query = getQuery(event)
@@ -11,7 +11,7 @@ export default defineEventHandler(async (event) => {
 
   const cookieFp = getCookie(event, 'fp')
   const sessionId = cookieFp && cookieFp.length > 0 ? cookieFp : undefined
-  const utm = extractUtmFromQuery(query as Record<string, any>)
+  const utm = sanitizeUtm(query as Record<string, any>)
 
   if (hasReferralCode) {
     try {

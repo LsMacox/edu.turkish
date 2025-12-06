@@ -66,21 +66,6 @@ export interface I18nKeyPrefix {
   keyPrefix: string
 }
 
-export interface TimelineWeek {
-  number: number
-  activities: string
-}
-
-export interface ResponsibilityItem {
-  title: string
-  items: string[]
-}
-
-export interface RiskItem {
-  risk: string
-  mitigation: string
-}
-
 export interface PackageTier {
   name: string
   targetScore: string

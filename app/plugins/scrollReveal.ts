@@ -1,67 +1,38 @@
-import type { DirectiveBinding } from 'vue'
-
-interface ScrollRevealOptions {
-  delay?: number
-}
-
-const prefersReducedMotion =
-  typeof window !== 'undefined' &&
-  window.matchMedia &&
-  window.matchMedia('(prefers-reduced-motion: reduce)').matches
-
-function createObserver(el: HTMLElement) {
-  const observer = new IntersectionObserver(
-    (entries) => {
-      for (const entry of entries) {
-        if (entry.isIntersecting) {
-          el.classList.add('in-view')
-          observer.unobserve(entry.target)
-        }
-      }
-    },
-    {
-      threshold: 0.15,
-    },
-  )
-
-  observer.observe(el)
-  ;(el as any)._scrollRevealObserver = observer
-}
+type RevealElement = HTMLElement & { _observer?: IntersectionObserver }
 
 export default defineNuxtPlugin((nuxtApp) => {
-  nuxtApp.vueApp.directive('scroll-reveal', {
-    mounted(el: HTMLElement, binding: DirectiveBinding<ScrollRevealOptions | number | undefined>) {
-      const value = binding.value
-      const delay =
-        typeof value === 'number' ? value : typeof value === 'object' && value?.delay ? value.delay : 0
+  const prefersReducedMotion =
+    import.meta.client && window.matchMedia('(prefers-reduced-motion: reduce)').matches
 
-      // Base animation class
+  nuxtApp.vueApp.directive('scroll-reveal', {
+    mounted(el: RevealElement, { value }: { value?: number | { delay?: number } }) {
+      const delay = typeof value === 'number' ? value : (value?.delay ?? 0)
+
       el.classList.add('animate-on-scroll')
 
-      if (delay && !prefersReducedMotion) {
-        el.style.transitionDelay = `${delay}ms`
-      }
-
-      if (prefersReducedMotion) {
-        // Пользователь просит уменьшить анимацию — сразу показываем контент без эффекта
+      if (prefersReducedMotion || typeof IntersectionObserver === 'undefined') {
         el.classList.add('in-view')
         return
       }
 
-      if (typeof IntersectionObserver === 'undefined') {
-        // Fallback: сразу показать контент
-        el.classList.add('in-view')
-        return
-      }
+      if (delay) el.style.transitionDelay = `${delay}ms`
 
-      createObserver(el)
+      const observer = new IntersectionObserver(
+        (entries) => {
+          if (entries[0]?.isIntersecting) {
+            el.classList.add('in-view')
+            observer.disconnect()
+          }
+        },
+        { threshold: 0.15 },
+      )
+
+      observer.observe(el)
+      el._observer = observer
     },
-    beforeUnmount(el: HTMLElement) {
-      const observer = (el as any)._scrollRevealObserver as IntersectionObserver | undefined
-      if (observer) {
-        observer.unobserve(el)
-      }
-      delete (el as any)._scrollRevealObserver
+
+    beforeUnmount(el: RevealElement) {
+      el._observer?.disconnect()
     },
   })
 })

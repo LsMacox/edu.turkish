@@ -60,12 +60,6 @@
     },
     "loading": "Loading...",
     "card": {
-      "types": {
-        "state": "State",
-        "private": "Private",
-        "tech": "Technical",
-        "elite": "Elite"
-      },
       "details_button": "Details",
       "apply_button": "Apply",
       "application_description": "Application from university card:"

@@ -54,18 +54,8 @@
 </template>
 
 <script setup lang="ts">
-interface FaqStructuredAnswer {
-  title?: string
-  items?: string[]
-  ordered?: boolean
-}
-
-type FaqAnswer = string | FaqStructuredAnswer
-
-interface FaqItem {
-  question: string
-  answer: FaqAnswer
-}
+import type { FaqItem } from '~/types/faq'
+import { isStringAnswer } from '~/types/faq'
 
 interface Props {
   items?: FaqItem[]
@@ -104,8 +94,6 @@ const toggle = (index: number) => {
 }
 
 const isOpen = (index: number) => openFaqs.value.includes(index)
-
-const isStringAnswer = (answer: FaqAnswer): answer is string => typeof answer === 'string'
 
 const sectionClasses = computed(() => [
   props.background ? 'bg-background' : 'bg-transparent',

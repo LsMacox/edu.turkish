@@ -1,6 +1,6 @@
 import { describe, expect, it } from 'vitest'
 
-import { extractUtmFromQuery, sanitizeUtm } from '~~/lib/utm'
+import { sanitizeUtm } from '~~/lib/utm'
 
 describe('UTM utilities', () => {
   it('coerces first non-empty string from array values', () => {
@@ -16,7 +16,7 @@ describe('UTM utilities', () => {
   })
 
   it('extracts utm params from query objects with array values', () => {
-    const utm = extractUtmFromQuery({
+    const utm = sanitizeUtm({
       utm_campaign: ['Spring', 'Fallback'],
       utm_term: [''],
       unrelated: 'value',

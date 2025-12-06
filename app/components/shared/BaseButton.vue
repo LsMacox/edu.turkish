@@ -1,56 +1,13 @@
-<!--
-/**
- * BaseButton Component
- * 
- * Versatile button component with multiple variants, sizes, and states.
- * Supports icons, loading states, and accessibility features.
- * 
- * @component BaseButton
- * @example
- * ```vue
- * <BaseButton variant="primary" @click="handleClick">
- *   Save Changes
- * </BaseButton>
- * ```
- * 
- * @example With icon and loading
- * ```vue
- * <BaseButton 
- *   variant="outline" 
- *   icon="mdi:download" 
- *   :loading="isDownloading"
- *   @click="downloadFile"
- * >
- *   Download File
- * </BaseButton>
- * ```
- * 
- * @example As link
- * ```vue
- * <BaseButton 
- *   variant="ghost" 
- *   to="/about"
- *   icon="mdi:information"
- * >
- *   Learn More
- * </BaseButton>
- * ```
- */
--->
 <template>
   <component
     :is="tag"
     ref="rootEl"
     :href="href"
     :to="to"
-    :type="type"
-    :disabled="disabled || loading"
+    :type="isButton ? type : undefined"
+    :disabled="isButton ? (disabled || loading) : undefined"
+    :aria-disabled="!isButton && (disabled || loading) ? 'true' : undefined"
     :aria-label="ariaLabel"
-    :aria-describedby="ariaDescribedBy"
-    :aria-pressed="ariaPressed"
-    :aria-expanded="ariaExpanded"
-    :aria-haspopup="ariaHaspopup"
-    :aria-controls="ariaControls"
     :tabindex="tabIndex"
     :class="[
       'active:bg-red-700  inline-flex items-center justify-center font-semibold transition-all duration-200 touch-manipulation',
@@ -142,9 +99,11 @@ const iconOnly = computed(() => {
 // Determine which component/tag to render
 const tag = computed(() => {
   if (props.href) return 'a'
-  if (props.to) return 'NuxtLink'
+  if (props.to) return resolveComponent('NuxtLink')
   return 'button'
 })
+
+const isButton = computed(() => tag.value === 'button')
 
 // Size-based classes
 const sizeClasses = computed(() => {

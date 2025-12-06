@@ -2,11 +2,6 @@ import type { ICRMProvider } from './CRMProvider.interface'
 import { EspoCRMProvider } from './EspoCRMProvider'
 import { getCRMConfig, validateCRMConfig } from '~~/server/utils/crm-config'
 
-/**
- * CRM Factory
- *
- * Factory for creating EspoCRM provider instance.
- */
 let providerInstance: ICRMProvider | null = null
 
 function create(_provider: 'espocrm' = 'espocrm'): ICRMProvider {

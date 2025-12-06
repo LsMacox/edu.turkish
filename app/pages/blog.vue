@@ -72,6 +72,7 @@
 
 <script setup lang="ts">
 import { storeToRefs } from 'pinia'
+import { useBlogRouteSync } from '~/components/features/blog/composables/useBlogRouteSync'
 import { useApplicationModalStore } from '~/stores/applicationModal'
 import { useBlogStore } from '~/stores/blog'
 
@@ -82,12 +83,13 @@ definePageMeta({
   name: 'BlogPage',
 })
 
-const { t, tm, te } = useI18n()
+const { t, te } = useI18n()
 const router = useRouter()
 const route = useRoute()
 const localePath = useLocalePath()
 const applicationModalStore = useApplicationModalStore()
 const blogStore = useBlogStore()
+const { parseRouteFilters, syncRoute, hasFiltersChanged, isUpdatingRoute } = useBlogRouteSync()
 
 const {
   articles,
@@ -106,65 +108,7 @@ const {
 } = storeToRefs(blogStore)
 
 const searchInput = ref('')
-const isUpdatingRoute = ref(false)
 let searchDebounce: ReturnType<typeof setTimeout> | null = null
-
-const resolveI18nValue = (input: unknown): string => {
-  if (input == null) {
-    return ''
-  }
-
-  if (typeof input === 'string') {
-    return input
-  }
-
-  if (typeof input === 'number' || typeof input === 'boolean') {
-    return String(input)
-  }
-
-  if (Array.isArray(input)) {
-    return input.map((item) => resolveI18nValue(item)).join('')
-  }
-
-  if (typeof input === 'object') {
-    const value = input as Record<string, unknown>
-
-    if (typeof value.source === 'string') {
-      return value.source
-    }
-
-    if (typeof value.static === 'string') {
-      return value.static
-    }
-
-    if (typeof value.value === 'string') {
-      return value.value
-    }
-
-    if (value.body && value.body !== input) {
-      const resolvedBody = resolveI18nValue(value.body)
-      if (resolvedBody) {
-        return resolvedBody
-      }
-    }
-
-    if (Array.isArray(value.items)) {
-      const resolvedItems = value.items.map((item) => resolveI18nValue(item)).join('')
-      if (resolvedItems) {
-        return resolvedItems
-      }
-    }
-
-    if (Array.isArray(value.children)) {
-      const resolvedChildren = value.children.map((child) => resolveI18nValue(child)).join('')
-      if (resolvedChildren) {
-        return resolvedChildren
-      }
-    }
-  }
-
-  return ''
-}
 
 useHead(() => ({
   title: t('blog.meta.title'),
@@ -175,21 +119,6 @@ useHead(() => ({
     { property: 'og:type', content: 'website' },
   ],
 }))
-
-const parseRouteFilters = () => {
-  const category =
-    typeof route.query.category === 'string' && route.query.category ? route.query.category : 'all'
-  const search = typeof route.query.q === 'string' ? route.query.q : ''
-  const rawPage = Array.isArray(route.query.page) ? route.query.page[0] : route.query.page
-  const pageValue = rawPage ? Number(rawPage) : 1
-  const page = Number.isFinite(pageValue) && pageValue > 0 ? Math.floor(pageValue) : 1
-
-  return {
-    category,
-    search,
-    page,
-  }
-}
 
 const applyRouteFilters = () => {
   const filters = parseRouteFilters()
@@ -218,48 +147,22 @@ onMounted(async () => {
   })
 })
 
-const syncRoute = (overrides: { category?: string; q?: string; page?: number } = {}) => {
-  const category = overrides.category ?? activeCategory.value
-  const q = overrides.q ?? searchQuery.value
-  const page = overrides.page ?? currentPage.value
-
-  const query: Record<string, string> = {}
-  if (q) {
-    query.q = q
-  }
-  if (category && category !== 'all') {
-    query.category = category
-  }
-  if (page > 1) {
-    query.page = String(page)
-  }
-
-  // Preserve scroll position during query updates to avoid jumping to top
-  const currentScrollY = typeof window !== 'undefined' ? window.scrollY : 0
-
-  isUpdatingRoute.value = true
-  router
-    .replace({ query })
-    .then(() => {
-      if (typeof window !== 'undefined') {
-        requestAnimationFrame(() => {
-          window.scrollTo(0, currentScrollY)
-        })
-      }
-    })
-    .finally(() => {
-      nextTick(() => {
-        isUpdatingRoute.value = false
-      })
-    })
+const doSyncRoute = (overrides: { category?: string; search?: string; page?: number } = {}) => {
+  syncRoute(overrides, {
+    category: activeCategory.value,
+    search: searchQuery.value,
+    page: currentPage.value,
+  })
 }
 
 const updateFromRoute = async () => {
   const filters = parseRouteFilters()
-  const changed =
-    filters.category !== activeCategory.value ||
-    filters.search !== searchQuery.value ||
-    filters.page !== currentPage.value
+  const changed = hasFiltersChanged(
+    filters,
+    activeCategory.value,
+    searchQuery.value,
+    currentPage.value,
+  )
 
   if (!changed) {
     if (searchInput.value !== filters.search) {
@@ -303,7 +206,7 @@ watch(searchInput, (value) => {
     blogStore.resetPagination()
     const response = await blogStore.fetchArticles({ page: 1, search: value })
     if (response) {
-      syncRoute({ q: value, page: 1 })
+      doSyncRoute({ search: value, page: 1 })
     }
   }, 400)
 })
@@ -314,16 +217,14 @@ onBeforeUnmount(() => {
   }
 })
 
-type HeroHighlight = { title: string; subtitle: string }
-type HeroStat = { icon: string; label: string }
 type HeroContent = {
   title: string
   titleAccent: string
   description: string
   searchPlaceholder: string
   imageAlt: string
-  highlight: HeroHighlight
-  stats: HeroStat[]
+  highlight: { title: string; subtitle: string }
+  stats: { icon: string; label: string }[]
 }
 
 type SidebarPopularItem = {
@@ -344,84 +245,46 @@ type QuickLinksContent = {
 }
 
 const hero = computed<HeroContent>(() => {
-  const value = tm('blog.hero') as Partial<HeroContent> | undefined
-  const rawStats = Array.isArray(value?.stats) ? (value.stats as HeroStat[]) : []
-  const highlight = value?.highlight as Partial<HeroHighlight> | undefined
-
-  const base = {
-    title: resolveI18nValue(value?.title),
-    titleAccent: resolveI18nValue(value?.titleAccent),
-    description: resolveI18nValue(value?.description),
-    searchPlaceholder: resolveI18nValue(value?.searchPlaceholder),
-    imageAlt: resolveI18nValue(value?.imageAlt),
-    highlight: {
-      title: resolveI18nValue(highlight?.title),
-      subtitle: resolveI18nValue(highlight?.subtitle),
-    },
-    stats: rawStats.map((stat) => ({
-      icon: resolveI18nValue(stat?.icon),
-      label: resolveI18nValue(stat?.label),
-    })),
-  }
-
-  // Dynamically update stats with real counts
   const articleCount = totalArticles.value >= 150 ? `${totalArticles.value}+` : totalArticles.value
   const faqCount = totalFAQs.value >= 100 ? `${totalFAQs.value}+` : totalFAQs.value
 
-  if (base.stats.length >= 2) {
-    base.stats[0]!.label = t('blog.hero.stats[0].label', { count: articleCount })
-    base.stats[1]!.label = t('blog.hero.stats[1].label', { count: faqCount })
+  return {
+    title: t('blog.hero.title'),
+    titleAccent: t('blog.hero.titleAccent'),
+    description: t('blog.hero.description'),
+    searchPlaceholder: t('blog.hero.searchPlaceholder'),
+    imageAlt: t('blog.hero.imageAlt'),
+    highlight: {
+      title: t('blog.hero.highlight.title'),
+      subtitle: t('blog.hero.highlight.subtitle'),
+    },
+    stats: [
+      { icon: t('blog.hero.stats[0].icon'), label: t('blog.hero.stats[0].label', { count: articleCount }) },
+      { icon: t('blog.hero.stats[1].icon'), label: t('blog.hero.stats[1].label', { count: faqCount }) },
+    ],
   }
-
-  return base
 })
 
-const categoryTranslations = computed(() => {
-  const raw = tm('blog.categories') as Record<string, { label?: unknown }> | undefined
-  const map = new Map<string, string>()
-  if (!raw) {
-    return map
+const getCategoryLabel = (key: string, fallback?: string): string => {
+  const translationKey = `blog.categories.${key}.label`
+  if (te(translationKey)) {
+    return t(translationKey)
   }
-  for (const [key, value] of Object.entries(raw)) {
-    const labelValue = value?.label
-    if (typeof labelValue === 'string') {
-      map.set(key, labelValue)
-      continue
-    }
-
-    const translationKey = `blog.categories.${key}.label`
-    if (te(translationKey)) {
-      const translated = t(translationKey)
-      if (translated && translated !== translationKey) {
-        map.set(key, translated)
-        continue
-      }
-    }
-
-    if (labelValue && typeof labelValue === 'object') {
-      const staticValue = (labelValue as { static?: unknown }).static
-      if (typeof staticValue === 'string') {
-        map.set(key, staticValue)
-      }
-    }
-  }
-  return map
-})
+  return fallback || key
+}
 
 const filterCategories = computed(() => {
-  const result: Array<{ key: string; label: string }> = []
-  const labelMap = categoryTranslations.value
-  result.push({ key: 'all', label: labelMap.get('all') ?? t('blog.categories.all.label') })
+  const result: Array<{ key: string; label: string }> = [
+    { key: 'all', label: getCategoryLabel('all') },
+  ]
   const added = new Set<string>(['all'])
 
   apiCategories.value.forEach((category) => {
-    if (added.has(category.key)) {
-      return
-    }
+    if (added.has(category.key)) return
     added.add(category.key)
     result.push({
       key: category.key,
-      label: category.label || labelMap.get(category.key) || category.key,
+      label: category.label || getCategoryLabel(category.key),
     })
   })
 
@@ -444,64 +307,25 @@ const shouldShowFeatured = computed(() => {
   return featuredArticle.value.category?.key === activeCategory.value
 })
 
-const sidebarPopular = computed<SidebarPopular>(() => {
-  const translation = tm('blog.sidebar.popular') as
-    | {
-        title?: unknown
-        items?: Array<{ title?: unknown; date?: unknown; slug?: unknown }>
-      }
-    | undefined
+const sidebarPopular = computed<SidebarPopular>(() => ({
+  title: t('blog.sidebar.popular.title'),
+  items: popular.value.map((item) => ({
+    id: item.id,
+    slug: item.slug,
+    title: item.title,
+    date: item.publishedAtLabel,
+  })),
+}))
 
-  const title = resolveI18nValue(translation?.title)
-
-  if (popular.value.length > 0) {
-    return {
-      title,
-      items: popular.value.map((item) => ({
-        id: item.id,
-        slug: item.slug,
-        title: item.title,
-        date: item.publishedAtLabel,
-      })),
-    }
-  }
-
-  const fallbackItems = Array.isArray(translation?.items) ? translation.items : []
-  const normalizedFallback = fallbackItems
-    .map((item, index) => ({
-      id: typeof item.slug === 'string' ? item.slug : index,
-      slug: typeof item.slug === 'string' ? item.slug : null,
-      title: resolveI18nValue(item?.title),
-      date: resolveI18nValue(item?.date),
-    }))
-    .filter((item) => item.title)
-
-  return {
-    title,
-    items: normalizedFallback,
-  }
-})
-
-const quickLinks = computed<QuickLinksContent>(() => {
-  const value = tm('blog.sidebar.quickLinks') as QuickLinksContent | undefined
-  return {
-    title: resolveI18nValue(value?.title),
-    items: Array.isArray(value?.items)
-      ? value.items
-          .map((item: any) => {
-            const resolvedId = resolveI18nValue(item?.id)
-            const fallbackId = typeof item?.id === 'string' ? item.id : ''
-            const id = resolvedId || fallbackId
-
-            return {
-              id,
-              label: resolveI18nValue(item?.label),
-            }
-          })
-          .filter((item) => item.id && item.label)
-      : [],
-  }
-})
+const quickLinks = computed<QuickLinksContent>(() => ({
+  title: t('blog.sidebar.quickLinks.title'),
+  items: [
+    { id: 'universities', label: t('blog.sidebar.quickLinks.items[0].label') },
+    { id: 'checklist', label: t('blog.sidebar.quickLinks.items[1].label') },
+    { id: 'reviews', label: t('blog.sidebar.quickLinks.items[2].label') },
+    { id: 'consultation', label: t('blog.sidebar.quickLinks.items[3].label') },
+  ],
+}))
 
 const setCategoryAndFetch = async (categoryKey: string) => {
   if (activeCategory.value === categoryKey) {
@@ -512,7 +336,7 @@ const setCategoryAndFetch = async (categoryKey: string) => {
   blogStore.resetPagination()
   const response = await blogStore.fetchArticles({ page: 1, category: categoryKey })
   if (response) {
-    syncRoute({ category: categoryKey, page: 1 })
+    doSyncRoute({ category: categoryKey, page: 1 })
   }
 }
 
@@ -522,7 +346,7 @@ const loadMoreArticles = async () => {
   }
   const response = await blogStore.loadMore()
   if (response && response.data.length > 0) {
-    syncRoute({ page: currentPage.value })
+    doSyncRoute({ page: currentPage.value })
   }
 }
 
@@ -533,7 +357,7 @@ const changePage = async (page: number) => {
   blogStore.setPage(page)
   const response = await blogStore.fetchArticles({ page })
   if (response) {
-    syncRoute({ page })
+    doSyncRoute({ page })
     if (typeof window !== 'undefined') {
       window.scrollTo({ top: 0, behavior: 'smooth' })
     }

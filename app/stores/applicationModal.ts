@@ -76,12 +76,10 @@ export const useApplicationModalStore = defineStore('applicationModal', () => {
   }
 
   return {
-    // State
     isOpen,
     userPreferences,
     previousOverflow,
 
-    // Actions
     openModal,
     closeModal,
     openModalForSubService,

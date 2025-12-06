@@ -33,11 +33,8 @@ export const useStatisticsStore = defineStore('statistics', () => {
   })
 
   const formattedUniversities = computed(() => `${universitiesCount.value}`)
-
   const formattedCities = computed(() => `${citiesCount.value}`)
-
   const formattedPrograms = computed(() => `${programsCount.value}`)
-
   const formattedCostFrom = computed(() => '')
 
   const fetchStatistics = async () => {

@@ -1,59 +1,42 @@
+const FP_KEY = 'fp'
+
+const getCookie = (name: string) => {
+  const match = document.cookie.match(new RegExp(`(?:^|; )${name}=([^;]*)`))
+  return match?.[1] ? decodeURIComponent(match[1]) : null
+}
+
+const setCookie = (name: string, value: string, days = 365) => {
+  const maxAge = days * 86400
+  const secure = location.protocol === 'https:' ? '; Secure' : ''
+  document.cookie = `${name}=${encodeURIComponent(value)}; Path=/; Max-Age=${maxAge}; SameSite=Lax${secure}`
+}
+
+const persist = (value: string) => {
+  setCookie(FP_KEY, value)
+  try { localStorage.setItem(FP_KEY, value) } catch {}
+}
+
 export default defineNuxtPlugin(() => {
-  const getCookie = (name: string): string | null => {
-    const re = new RegExp('(?:^|; )' + name.replace(/([.$?*|{}()[\]\\/+^])/g, '\\$1') + '=([^;]*)')
-    const match = document.cookie.match(re)
-    if (!match || typeof match[1] !== 'string') return null
-    return decodeURIComponent(match[1])
-  }
+  let inFlight: Promise<string> | null = null
 
-  const setCookie = (name: string, value: string, days = 365) => {
-    const maxAge = days * 24 * 60 * 60
-    const secure = location.protocol === 'https:' ? '; Secure' : ''
-    document.cookie = `${encodeURIComponent(name)}=${encodeURIComponent(
-      value,
-    )}; Path=/; Max-Age=${maxAge}; SameSite=Lax${secure}`
-  }
-
-  let inFlight: Promise<string | null> | null = null
-
-  const ensureFingerprint = async (): Promise<string | null> => {
-    const existing =
-      getCookie('fp') || (typeof localStorage !== 'undefined' ? localStorage.getItem('fp') : null)
+  const ensureFingerprint = async (): Promise<string> => {
+    const existing = getCookie(FP_KEY) || localStorage.getItem(FP_KEY)
     if (existing) {
-      setCookie('fp', existing)
-      try {
-        localStorage.setItem('fp', existing)
-      } catch {
-        // Ignore localStorage errors
-      }
+      persist(existing)
       return existing
     }
 
-    if (inFlight) {
-      return inFlight
-    }
+    if (inFlight) return inFlight
 
     inFlight = (async () => {
       try {
         const FingerprintJS = (await import('@fingerprintjs/fingerprintjs')).default
-        const fpLib = await FingerprintJS.load()
-        const result = await fpLib.get()
-        const visitorId = result.visitorId
-        setCookie('fp', visitorId)
-        try {
-          localStorage.setItem('fp', visitorId)
-        } catch {
-          // Ignore localStorage errors
-        }
+        const { visitorId } = await (await FingerprintJS.load()).get()
+        persist(visitorId)
         return visitorId
       } catch {
         const fallback = Math.random().toString(36).slice(2) + Date.now().toString(36)
-        setCookie('fp', fallback)
-        try {
-          localStorage.setItem('fp', fallback)
-        } catch {
-          // Ignore localStorage errors
-        }
+        persist(fallback)
         return fallback
       } finally {
         inFlight = null
@@ -63,9 +46,5 @@ export default defineNuxtPlugin(() => {
     return inFlight
   }
 
-  return {
-    provide: {
-      ensureFingerprint,
-    },
-  }
+  return { provide: { ensureFingerprint } }
 })

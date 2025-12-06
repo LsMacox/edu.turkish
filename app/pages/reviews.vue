@@ -54,7 +54,7 @@
       </div>
     </section>
 
-    <LazyReviewsMediaReviewsSection />
+    <LazyReviewsMediaSection />
 
     <!-- Review Stats Section - Наши достижения в цифрах -->
     <section id="achievements" class="section-py-lg bg-white hidden md:block">
@@ -192,16 +192,16 @@
     </section>
 
     <!-- Student Stories -->
-    <LazyReviewsStudentStoriesSection />
+    <LazyReviewsStudentSection />
 
     <!-- Parent Reviews -->
-    <LazyReviewsParentReviewsSection />
+    <LazyReviewsParentSection />
 
     <!-- Share Experience Form -->
-    <LazyReviewsShareExperience />
+    <LazyReviewsShareExperienceForm />
 
-    <!-- Next Review CTA -->
-    <LazyReviewsNextReviewCTA />
+    <!-- Call to Action -->
+    <LazyReviewsCallToAction />
   </div>
 </template>
 

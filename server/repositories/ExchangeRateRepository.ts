@@ -2,7 +2,7 @@ import type { PrismaClient } from '@prisma/client'
 import type { SupportedCurrency } from '~~/lib/currency'
 import type { ExchangeRateDetails } from '~~/server/types/api/exchange-rates'
 
-const FALLBACK_RATES: Record<SupportedCurrency, number> = {
+export const FALLBACK_RATES: Record<SupportedCurrency, number> = {
   KZT: 450.0,
   TRY: 32.0,
   RUB: 90.0,

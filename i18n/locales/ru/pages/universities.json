@@ -60,12 +60,6 @@
     },
     "loading": "Загрузка...",
     "card": {
-      "types": {
-        "state": "Государственный",
-        "private": "Частный",
-        "tech": "Технический",
-        "elite": "Элитный"
-      },
       "details_button": "Подробнее",
       "apply_button": "Подать заявку",
       "application_description": "Заявка с карточки университета:"

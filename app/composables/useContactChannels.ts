@@ -1,7 +1,7 @@
 import { withQuery } from 'ufo'
 import { contactChannels, type ContactChannelKey } from '~~/lib/contact/channels'
 import { useReferral } from './useReferral'
-import { extractUtmFromQuery } from '~~/lib/utm'
+import { sanitizeUtm } from '~~/lib/utm'
 
 const routePaths: Record<ContactChannelKey, string> = {
   telegramBot: '/go/telegram',
@@ -15,7 +15,7 @@ export const useContactChannels = () => {
 
   const channels = computed(() => {
     const ref = referralCode.value || ''
-    const utm = extractUtmFromQuery(route.query as Record<string, string>)
+    const utm = sanitizeUtm(route.query as Record<string, string>)
     const hasTracking = ref || utm
 
     const result = {} as Record<ContactChannelKey, { href: string; cta: string }>

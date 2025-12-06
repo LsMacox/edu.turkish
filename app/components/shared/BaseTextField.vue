@@ -1,37 +1,3 @@
-<!--
-/**
- * BaseTextField Component
- * 
- * Enhanced text input component with validation, accessibility, and responsive design.
- * Supports various input types, icons, validation states, and helper text.
- * 
- * @component BaseTextField
- * @example
- * ```vue
- * <BaseTextField
- *   v-model="email"
- *   type="email"
- *   label="Email Address"
- *   placeholder="Enter your email"
- *   required
- *   icon="mdi:email"
- *   helper-text="We'll never share your email"
- * />
- * ```
- * 
- * @example With validation
- * ```vue
- * <BaseTextField
- *   v-model="password"
- *   type="password"
- *   label="Password"
- *   required
- *   :error="passwordError"
- *   helper-text="Must be at least 8 characters"
- * />
- * ```
- */
--->
 <template>
   <div class="relative">
     <!-- Enhanced label with required indicator -->
@@ -65,10 +31,7 @@
         :autocorrect="autoCorrectAttr"
         :spellcheck="spellcheckAttr"
         :aria-label="ariaLabel || label"
-        :aria-describedby="
-          ariaDescribedBy ||
-          (error ? `${inputId}-error` : helperText ? `${inputId}-helper` : undefined)
-        "
+        :aria-describedby="error ? `${inputId}-error` : helperText ? `${inputId}-helper` : undefined"
         :aria-required="required"
         :aria-invalid="!!error"
         :class="[
@@ -176,18 +139,19 @@ const isFocused = ref(false)
  * @property {'left'|'right'} [iconPosition='left'] - Position of the icon
  * @property {boolean} [clearable=false] - Whether to show clear button
  * @property {'sm'|'md'|'lg'} [size='md'] - Input size
- * @property {'sm'|'md'|'lg'|'xl'|'2xl'} [rounded='xl'] - Border radius
  */
 const props = withDefaults(defineProps<BaseTextFieldProps>(), {
   type: 'text',
   iconPosition: 'left',
   size: 'md',
-  rounded: 'xl',
   clearable: false,
   readonly: false,
   required: false,
   disabled: false,
 })
+
+// Hardcoded default (previously prop)
+const rounded = 'xl'
 
 const inputId = computed(() => props.id ?? generatedId)
 const inputName = computed(() => props.name ?? props.id ?? generatedId)
@@ -225,14 +189,14 @@ const sizeClasses = computed(() => {
 })
 
 const roundedClasses = computed(() => {
-  const rounded = {
+  const roundedMap = {
     sm: 'rounded-md',
     md: 'rounded-lg',
     lg: 'rounded-xl',
     xl: 'rounded-xl',
     '2xl': 'rounded-2xl',
   }
-  return rounded[props.rounded] || rounded.xl
+  return roundedMap[rounded] || roundedMap.xl
 })
 
 const validationClasses = computed(() => {

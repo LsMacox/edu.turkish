@@ -3,17 +3,19 @@ import type {
   University,
   UniversityQueryParams,
   UniversityResponse,
-  UniversityFilters as ApiUniversityFilters,
+  UniversityFilters as ApiFilters,
 } from '~~/server/types/api'
 
-// Exported constants (used by FilterPanel)
-export const CITY_ALL_VALUE = '__all_cities__'
-export const TYPE_ALL_VALUE = '__all_types__'
-export const LEVEL_ALL_VALUE = 'all'
-export const SORT_OPTIONS = ['pop', 'price_asc', 'price_desc', 'alpha', 'lang_en'] as const
+// "All" sentinel values for select filters
+export const CITY_ALL = '__all__'
+export const TYPE_ALL = '__all__'
+export const LEVEL_ALL = 'all'
 
+export const SORT_OPTIONS = ['pop', 'price_asc', 'price_desc', 'alpha', 'lang_en'] as const
 export type SortOption = (typeof SORT_OPTIONS)[number]
-export interface UniversityFilters {
+
+/** Local filter state (mirrors URL query) */
+export interface Filters {
   q: string
   city: string
   langs: string[]
@@ -22,15 +24,16 @@ export interface UniversityFilters {
   price: [number, number]
 }
 
-export const useUniversitiesStore = defineStore('universities', () => {
-  const DEFAULT_SORT: SortOption = 'pop'
-  const VALID_LEVELS: readonly string[] = ['bachelor', 'master', 'phd']
+const VALID_LEVELS = ['bachelor', 'master', 'phd'] as const
+const DEFAULT_SORT: SortOption = 'pop'
 
+export const useUniversitiesStore = defineStore('universities', () => {
+  // --- State ---
   const universities = ref<University[]>([])
   const loading = ref(false)
   const error = ref<string | null>(null)
-  const totalUniversities = ref(0)
-  const availableFilters = ref<ApiUniversityFilters>({
+  const total = ref(0)
+  const available = ref<ApiFilters>({
     cities: [],
     types: [],
     levels: [],
@@ -38,183 +41,140 @@ export const useUniversitiesStore = defineStore('universities', () => {
     priceRange: [0, 20000],
   })
 
-  const { locale, t } = useI18n({ useScope: 'global' })
+  const { locale } = useI18n({ useScope: 'global' })
 
-  const normalizeFilterValue = (
-    value: string | null | undefined,
-    allValue: string,
-    allLabelKey?: string,
-  ): string => {
-    if (!value) return allValue
-    const trimmed = value.trim()
-    if (!trimmed || trimmed === allValue || trimmed.toLowerCase() === 'all') return allValue
-    if (allLabelKey && trimmed === t(allLabelKey)) return allValue
-    return trimmed
-  }
-
-  const normalizeCity = (city: string | null | undefined) =>
-    normalizeFilterValue(city, CITY_ALL_VALUE, 'universities_page.filters.all_cities')
-
-  const normalizeType = (type: string | null | undefined) =>
-    normalizeFilterValue(type, TYPE_ALL_VALUE, 'universities_page.filters.all_types')
-
-  const normalizeLevel = (level: string | null | undefined): string => {
-    const trimmed = level?.trim().toLowerCase()
-    if (!trimmed || trimmed === 'all') return LEVEL_ALL_VALUE
-    return VALID_LEVELS.includes(trimmed) ? trimmed : LEVEL_ALL_VALUE
-  }
-
-  const getDefaultFilters = (): UniversityFilters => ({
+  // --- Helpers ---
+  const defaultFilters = (): Filters => ({
     q: '',
-    city: CITY_ALL_VALUE,
+    city: CITY_ALL,
     langs: [],
-    type: TYPE_ALL_VALUE,
-    level: LEVEL_ALL_VALUE,
-    price: [availableFilters.value.priceRange[0], availableFilters.value.priceRange[1]] as [
-      number,
-      number,
-    ],
+    type: TYPE_ALL,
+    level: LEVEL_ALL,
+    price: [...available.value.priceRange] as [number, number],
   })
 
-  const getQueryString = (val: unknown): string | null =>
-    Array.isArray(val) ? (val[0] as string) ?? null : typeof val === 'string' ? val : null
+  const normalizeLevel = (v?: string | null): string => {
+    const l = v?.trim().toLowerCase()
+    return l && (VALID_LEVELS as readonly string[]).includes(l) ? l : LEVEL_ALL
+  }
 
-  const getQueryArray = (val: unknown): string[] =>
-    val ? (Array.isArray(val) ? (val as string[]) : [val as string]) : []
-
-  const initializeFiltersFromURL = (): UniversityFilters => {
+  const parseFiltersFromURL = (): Filters => {
     const { query } = useRoute()
-    if (Object.keys(query).length === 0) return getDefaultFilters()
+    if (!Object.keys(query).length) return defaultFilters()
 
-    const [defaultMin, defaultMax] = availableFilters.value.priceRange
+    const str = (v: unknown) => (Array.isArray(v) ? v[0] : v) as string | undefined
+    const arr = (v: unknown): string[] => (v ? (Array.isArray(v) ? v : [v]) : []) as string[]
+    const [minDef, maxDef] = available.value.priceRange
+
     return {
-      q: (query.q as string) || '',
-      city: normalizeCity(getQueryString(query.city)),
-      langs: getQueryArray(query.langs),
-      type: normalizeType(getQueryString(query.type)),
-      level: normalizeLevel(getQueryString(query.level)),
-      price: query.price_min || query.price_max
-        ? [Number(query.price_min) || defaultMin, Number(query.price_max) || defaultMax]
-        : [defaultMin, defaultMax],
+      q: str(query.q) || '',
+      city: str(query.city) || CITY_ALL,
+      langs: arr(query.langs),
+      type: str(query.type) || TYPE_ALL,
+      level: normalizeLevel(str(query.level)),
+      price:
+        query.price_min || query.price_max
+          ? [Number(query.price_min) || minDef, Number(query.price_max) || maxDef]
+          : [minDef, maxDef],
     }
   }
 
-  const filters = ref<UniversityFilters>(getDefaultFilters())
+  // --- Reactive state ---
+  const filters = ref<Filters>(defaultFilters())
   const sort = ref<SortOption>(DEFAULT_SORT)
-  const isUpdatingFromURL = ref(false)
-  const isFromFooter = ref(false)
+  const skipNextURLSync = ref(false)
+  const useRouterPush = ref(false) // true = push (scroll top), false = replace (keep scroll)
 
-  type FetchOverrides = Partial<UniversityFilters> & { sort?: SortOption }
-  const fetchUniversities = async (options?: {
+  // --- API ---
+  type FetchOpts = {
     limit?: number
     page?: number
-    overrides?: FetchOverrides
-  }) => {
+    overrides?: Partial<Filters> & { sort?: SortOption }
+  }
+
+  const fetchUniversities = async (opts?: FetchOpts) => {
     loading.value = true
     error.value = null
 
     try {
-      const effectiveFilters = { ...filters.value, ...(options?.overrides || {}) }
-      const defaults = getDefaultFilters()
+      const f = { ...filters.value, ...opts?.overrides }
+      const def = defaultFilters()
 
-      const queryParams: UniversityQueryParams = {
-        q: effectiveFilters.q || undefined,
-        city:
-          effectiveFilters.city && effectiveFilters.city !== CITY_ALL_VALUE
-            ? effectiveFilters.city
-            : undefined,
-        langs:
-          effectiveFilters.langs && effectiveFilters.langs.length > 0
-            ? effectiveFilters.langs
-            : undefined,
-        type:
-          effectiveFilters.type && effectiveFilters.type !== TYPE_ALL_VALUE
-            ? effectiveFilters.type
-            : undefined,
-        level: effectiveFilters.level !== LEVEL_ALL_VALUE ? effectiveFilters.level : undefined,
-        price_min:
-          effectiveFilters.price?.[0] !== undefined &&
-          effectiveFilters.price?.[0] !== defaults.price[0]
-            ? effectiveFilters.price[0]
-            : undefined,
-        price_max:
-          effectiveFilters.price?.[1] !== undefined &&
-          effectiveFilters.price?.[1] !== defaults.price[1]
-            ? effectiveFilters.price[1]
-            : undefined,
-        sort:
-          (options?.overrides?.sort || sort.value) !== DEFAULT_SORT
-            ? options?.overrides?.sort || sort.value
-            : undefined,
-        page: options?.page ?? 1,
-        limit: options?.limit ?? 6, // Default 6 universities per page
+      const params: UniversityQueryParams = {
+        q: f.q || undefined,
+        city: f.city !== CITY_ALL ? f.city : undefined,
+        langs: f.langs.length ? f.langs : undefined,
+        type: f.type !== TYPE_ALL ? f.type : undefined,
+        level: f.level !== LEVEL_ALL ? f.level : undefined,
+        price_min: f.price?.[0] !== def.price[0] ? f.price?.[0] : undefined,
+        price_max: f.price?.[1] !== def.price[1] ? f.price?.[1] : undefined,
+        sort: (opts?.overrides?.sort ?? sort.value) !== DEFAULT_SORT
+          ? (opts?.overrides?.sort ?? sort.value)
+          : undefined,
+        page: opts?.page ?? 1,
+        limit: opts?.limit ?? 6,
         lang: locale.value,
       }
 
-      const response = await $fetch<UniversityResponse>('/api/v1/universities', {
-        query: queryParams,
-      })
+      const res = await $fetch<UniversityResponse>('/api/v1/universities', { query: params })
 
-      // If this is page 1, replace universities. If page > 1, append new universities
-      if (options?.page && options.page > 1) {
-        // Avoid duplicates when loading more
-        const existingIds = new Set(universities.value.map((u) => u.id))
-        const newUniversities = response.data.filter((u) => !existingIds.has(u.id))
-        universities.value = [...universities.value, ...newUniversities]
+      // Append on pagination, replace otherwise
+      if (opts?.page && opts.page > 1) {
+        const ids = new Set(universities.value.map((u) => u.id))
+        universities.value = [...universities.value, ...res.data.filter((u) => !ids.has(u.id))]
       } else {
-        universities.value = response.data
+        universities.value = res.data
       }
 
-      totalUniversities.value = response.meta.total
-      availableFilters.value = response.filters
+      total.value = res.meta.total
+      available.value = res.filters
 
-      // Sync price filter with server range
-      const [minPrice, maxPrice] = response.filters.priceRange
+      const [min, max] = res.filters.priceRange
       const { query } = useRoute()
       if (!query.price_min && !query.price_max) {
-        filters.value.price = [minPrice, maxPrice]
+        filters.value.price = [min, max]
       } else {
-        const [curMin, curMax] = filters.value.price
         filters.value.price = [
-          Math.max(minPrice, Math.min(curMin, maxPrice)),
-          Math.min(maxPrice, Math.max(curMax, minPrice)),
+          Math.max(min, Math.min(filters.value.price[0], max)),
+          Math.min(max, Math.max(filters.value.price[1], min)),
         ]
       }
 
-      return response
-    } catch (err: any) {
-      error.value = err.message || 'Failed to fetch universities'
+      return res
+    } catch (e: unknown) {
+      error.value = e instanceof Error ? e.message : 'Failed to fetch universities'
       return null
     } finally {
       loading.value = false
     }
   }
 
-  const updateURL = () => {
-    if (isUpdatingFromURL.value) {
-      isUpdatingFromURL.value = false
+  // --- URL sync ---
+  const syncURL = () => {
+    if (skipNextURLSync.value) {
+      skipNextURLSync.value = false
       return
     }
 
     const router = useRouter()
-    const defaults = getDefaultFilters()
-    const query: Record<string, string | string[] | number | undefined> = {}
+    const def = defaultFilters()
+    const q: Record<string, string | string[] | number | undefined> = {}
 
-    if (filters.value.q) query.q = filters.value.q
-    if (filters.value.city !== CITY_ALL_VALUE) query.city = filters.value.city
-    if (filters.value.langs.length) query.langs = filters.value.langs
-    if (filters.value.type !== TYPE_ALL_VALUE) query.type = filters.value.type
-    if (filters.value.level !== LEVEL_ALL_VALUE) query.level = filters.value.level
-    if (filters.value.price[0] !== defaults.price[0]) query.price_min = filters.value.price[0]
-    if (filters.value.price[1] !== defaults.price[1]) query.price_max = filters.value.price[1]
-    if (sort.value !== DEFAULT_SORT) query.sort = sort.value
+    if (filters.value.q) q.q = filters.value.q
+    if (filters.value.city !== CITY_ALL) q.city = filters.value.city
+    if (filters.value.langs.length) q.langs = filters.value.langs
+    if (filters.value.type !== TYPE_ALL) q.type = filters.value.type
+    if (filters.value.level !== LEVEL_ALL) q.level = filters.value.level
+    if (filters.value.price[0] !== def.price[0]) q.price_min = filters.value.price[0]
+    if (filters.value.price[1] !== def.price[1]) q.price_max = filters.value.price[1]
+    if (sort.value !== DEFAULT_SORT) q.sort = sort.value
 
-    if (isFromFooter.value) {
-      router.push({ query })
-      isFromFooter.value = false
+    if (useRouterPush.value) {
+      router.push({ query: q })
+      useRouterPush.value = false
     } else {
       const scrollY = typeof window !== 'undefined' ? window.scrollY : 0
-      router.replace({ query }).then(() => {
+      router.replace({ query: q }).then(() => {
         if (typeof window !== 'undefined') {
           requestAnimationFrame(() => window.scrollTo(0, scrollY))
         }
@@ -224,53 +184,48 @@ export const useUniversitiesStore = defineStore('universities', () => {
     nextTick(() => fetchUniversities())
   }
 
-  function applyFilters(newFilters: Partial<UniversityFilters>, options?: { sort?: SortOption }) {
-    const { city, type, level, ...rest } = newFilters
-    Object.assign(filters.value, rest)
-    if (city !== undefined) filters.value.city = normalizeCity(city)
-    if (type !== undefined) filters.value.type = normalizeType(type)
-    if (level !== undefined) filters.value.level = normalizeLevel(level)
-    if (options?.sort) sort.value = options.sort
-    updateURL()
+  // --- Actions ---
+  const applyFilters = (patch: Partial<Filters>, opts?: { sort?: SortOption }) => {
+    Object.assign(filters.value, patch)
+    if (patch.level !== undefined) filters.value.level = normalizeLevel(patch.level)
+    if (opts?.sort) sort.value = opts.sort
+    syncURL()
   }
 
-  const setCityFilter = (city: string, options?: { scrollToTop?: boolean }) => {
-    if (options?.scrollToTop) isFromFooter.value = true
-    filters.value.city = normalizeCity(city)
-    updateURL()
+  const setCityFilter = (city: string, opts?: { scrollToTop?: boolean }) => {
+    if (opts?.scrollToTop) useRouterPush.value = true
+    filters.value.city = city || CITY_ALL
+    syncURL()
   }
 
-  const setSort = (sortValue: SortOption) => {
-    sort.value = sortValue
-    updateURL()
+  const setSort = (v: SortOption) => {
+    sort.value = v
+    syncURL()
   }
 
-  const resetFilters = (options?: { scrollToTop?: boolean }) => {
-    if (options?.scrollToTop) isFromFooter.value = true
-    filters.value = getDefaultFilters()
+  const resetFilters = (opts?: { scrollToTop?: boolean }) => {
+    if (opts?.scrollToTop) useRouterPush.value = true
+    filters.value = defaultFilters()
     sort.value = DEFAULT_SORT
-    updateURL()
+    syncURL()
   }
 
-  const initializeFilters = async (options?: {
-    limit?: number
-    page?: number
-    overrides?: FetchOverrides
-    ssr?: boolean
-  }) => {
-    const route = useRoute()
-    filters.value = initializeFiltersFromURL()
-    const rq = route.query as Partial<Record<string, unknown>>
-    const qSort = typeof rq.sort === 'string' ? (rq.sort as SortOption) : DEFAULT_SORT
-    sort.value = (SORT_OPTIONS as readonly string[]).includes(qSort) ? qSort : DEFAULT_SORT
+  const initializeFilters = async (opts?: { limit?: number; page?: number; ssr?: boolean }) => {
+    const { query } = useRoute()
+    filters.value = parseFiltersFromURL()
 
-    if (options?.ssr) {
-      await fetchUniversities(options)
+    const qSort = typeof query.sort === 'string' ? query.sort : ''
+    sort.value = (SORT_OPTIONS as readonly string[]).includes(qSort)
+      ? (qSort as SortOption)
+      : DEFAULT_SORT
+
+    if (opts?.ssr) {
+      await fetchUniversities(opts)
     } else {
-      isUpdatingFromURL.value = true
+      skipNextURLSync.value = true
       nextTick(() => {
-        isUpdatingFromURL.value = false
-        fetchUniversities(options)
+        skipNextURLSync.value = false
+        fetchUniversities(opts)
       })
     }
   }
@@ -281,13 +236,16 @@ export const useUniversitiesStore = defineStore('universities', () => {
     sort,
     loading,
     error,
-    totalUniversities,
-    availableFilters,
+    total,
+    available,
     applyFilters,
     setCityFilter,
     setSort,
     resetFilters,
     initializeFilters,
     fetchUniversities,
+    // Aliases for backwards compat
+    totalUniversities: total,
+    availableFilters: available,
   }
 })

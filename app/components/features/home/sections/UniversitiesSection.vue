@@ -58,7 +58,7 @@
       </div>
 
       <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-        <UniversitiesUniversityCard
+        <UniversitiesListCard
           v-for="(university, index) in displayedUniversities"
           :key="university.id"
           v-scroll-reveal="index * 80"

@@ -2,16 +2,9 @@ import { defineStore } from 'pinia'
 import type { Currency } from '~/types/currency'
 import type { ExchangeRatesResponse } from '~~/server/types/api/exchange-rates'
 
-const FALLBACK_RATES: Record<Currency, number> = {
-  KZT: 450.0,
-  TRY: 32.0,
-  RUB: 90.0,
-  USD: 1.0,
-}
-
 export const useExchangeRatesStore = defineStore('exchangeRates', {
   state: () => ({
-    rates: { ...FALLBACK_RATES } as Record<Currency, number>,
+    rates: null as Record<Currency, number> | null,
     expiresAt: null as string | null,
     isFallback: true,
     isLoading: false,
@@ -29,8 +22,7 @@ export const useExchangeRatesStore = defineStore('exchangeRates', {
         this.isFallback = response.isFallback ?? false
       } catch (error) {
         console.error('Failed to fetch exchange rates:', error)
-        this.rates = { ...FALLBACK_RATES }
-        this.isFallback = true
+        // Server always returns valid response, this is network-level failure only
       } finally {
         this.isLoading = false
       }
@@ -43,8 +35,9 @@ export const useExchangeRatesStore = defineStore('exchangeRates', {
       }
     },
 
-    convertPrice(priceUsd: number, currency: Currency): number {
-      return priceUsd * (this.rates[currency] ?? FALLBACK_RATES[currency])
+    convertPrice(priceUsd: number, currency: Currency): number | null {
+      if (!this.rates) return null
+      return priceUsd * this.rates[currency]
     },
   },
 })

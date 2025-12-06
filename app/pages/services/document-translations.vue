@@ -8,7 +8,7 @@
         v-if="serviceCards && serviceCards.length > 0"
         class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6"
       >
-        <ServicesInfoCard
+        <ServicesTranslationsFeatureCard
           v-for="(card, index) in serviceCards"
           :key="index"
           :title="card.title"
@@ -19,7 +19,7 @@
     </template>
 
     <template #price-calculator>
-      <ServicesPriceCalculatorSection
+      <ServicesTranslationsCalculatorSection
         key-prefix="services.document-translations.calculator"
         :document-types-with-prices="metadataPath('calculator.documentTypes')"
         :language-pairs="metadataPath('calculator.languagePairs')"
@@ -29,15 +29,15 @@
     </template>
 
     <template #how-it-works>
-      <ServicesHowItWorksSection :steps="howItWorksSteps" />
+      <ServicesTranslationsProcessSection :steps="howItWorksSteps" />
     </template>
 
     <template #why-choose-us>
-      <ServicesWhyChooseUsSection :factors="whyChooseUsFactors" />
+      <ServicesTranslationsBenefitsSection :factors="whyChooseUsFactors" />
     </template>
 
     <template #final-cta>
-      <ServicesFinalCTASection
+      <ServicesTranslationsCTASection
         :title="t('services.document-translations.finalCTA.title')"
         :button-text="t('services.document-translations.finalCTA.button')"
         :icon="t('services.document-translations.finalCTA.icon')"
@@ -49,59 +49,33 @@
 
 <script setup lang="ts">
 import type { CalculatorSubmitEvent, ServiceCard } from '~/types/services'
-import type { ServiceCategoryDetail } from '~~/server/types/api/services'
 import { useApplicationModalStore } from '~/stores/applicationModal'
 import { useExchangeRatesStore } from '~/stores/exchangeRates'
-import { useServices } from '~/composables/useServices'
+import { useServiceCategory, useServiceHead, useI18nList } from '~/components/features/services/composables'
 
-const { t, tm, locale } = useI18n()
+const { t } = useI18n()
 const modal = useApplicationModalStore()
 const exchangeRatesStore = useExchangeRatesStore()
-const { fetchCategory } = useServices()
+const { category, metadataPath } = await useServiceCategory('document-translations')
+const { getListObjects } = useI18nList()
 
-// Fetch category data from database
-const { data: category } = await useAsyncData<ServiceCategoryDetail>(
-  `document-translations-${locale.value}`,
-  () => fetchCategory('document-translations'),
-  {
-    lazy: false,
-    watch: [locale],
-  },
+onMounted(() => exchangeRatesStore.ensureFresh())
+
+const serviceCards = computed(() => metadataPath<ServiceCard[]>('serviceCards') || [])
+
+const howItWorksSteps = computed(() =>
+  getListObjects<{ title: string; description: string; icon: string }>(
+    'services.document-translations.howItWorks.steps',
+    ['title', 'description', 'icon'],
+  ),
 )
 
-// Ensure exchange rates are fresh
-onMounted(async () => {
-  await exchangeRatesStore.ensureFresh()
-})
-
-// Service cards from metadata
-const serviceCards = computed(() => {
-  return metadataPath<ServiceCard[]>('serviceCards') || []
-})
-
-const howItWorksSteps = computed(() => {
-  const raw = tm('services.document-translations.howItWorks.steps') as unknown
-  if (!Array.isArray(raw)) return []
-  return raw.map((_: unknown, index: number) => ({
-    title: t(`services.document-translations.howItWorks.steps.${index}.title`) as string,
-    description: t(
-      `services.document-translations.howItWorks.steps.${index}.description`,
-    ) as string,
-    icon: t(`services.document-translations.howItWorks.steps.${index}.icon`) as string,
-  }))
-})
-
-const whyChooseUsFactors = computed(() => {
-  const raw = tm('services.document-translations.whyChooseUs.factors') as unknown
-  if (!Array.isArray(raw)) return []
-  return raw.map((_: unknown, index: number) => ({
-    title: t(`services.document-translations.whyChooseUs.factors.${index}.title`) as string,
-    description: t(
-      `services.document-translations.whyChooseUs.factors.${index}.description`,
-    ) as string,
-    icon: t(`services.document-translations.whyChooseUs.factors.${index}.icon`) as string,
-  }))
-})
+const whyChooseUsFactors = computed(() =>
+  getListObjects<{ title: string; description: string; icon: string }>(
+    'services.document-translations.whyChooseUs.factors',
+    ['title', 'description', 'icon'],
+  ),
+)
 
 const handleCalculatorSubmit = (event: CalculatorSubmitEvent) => {
   const serviceName = `${event.selectedDocumentType.name} + ${event.selectedUrgency.name}`
@@ -120,45 +94,8 @@ const handleCalculatorSubmit = (event: CalculatorSubmitEvent) => {
   })
 }
 
-// Helper to safely read structured metadata with path (e.g., 'priceCalculator.documentTypes')
-function metadataPath<T = any>(path: string): T | undefined {
-  const meta = category.value?.metadata as Record<string, unknown> | undefined | null
-  if (!meta) return undefined
-  const parts = path.split('.')
-  let node: any = meta
-  for (const part of parts) {
-    if (node && typeof node === 'object' && part in node) {
-      node = (node as any)[part]
-    } else {
-      return undefined
-    }
-  }
-  return node as T
-}
-
-useHead(() => ({
-  title: category.value?.title || t('services.document-translations.title'),
-  meta: [
-    {
-      name: 'description',
-      content: category.value?.subtitle || t('services.document-translations.subtitle'),
-    },
-  ],
-  script: [
-    {
-      type: 'application/ld+json',
-      children: JSON.stringify({
-        '@context': 'https://schema.org',
-        '@type': ['Product', 'Service'],
-        name: category.value?.title || t('services.document-translations.title'),
-        description: category.value?.subtitle || t('services.document-translations.subtitle'),
-        provider: {
-          '@type': 'Organization',
-          name: 'Edu.turkish',
-          sameAs: 'https://edu-turkish.com',
-        },
-      }),
-    },
-  ],
-}))
+useServiceHead({
+  title: () => category.value?.title || t('services.document-translations.title'),
+  description: () => category.value?.subtitle || t('services.document-translations.subtitle'),
+})
 </script>

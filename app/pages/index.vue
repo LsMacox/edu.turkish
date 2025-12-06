@@ -1,7 +1,7 @@
 <template>
   <div>
     <HomeHeroSection />
-    <LazyReviewsMediaReviewsSection />
+    <LazyReviewsMediaSection />
     <HomeFearsSection />
     <HomeServicesSection />
     <HomeHowSection />
@@ -12,8 +12,6 @@
 </template>
 
 <script setup lang="ts">
-// Настраиваемая дата дедлайна для обратного счетчика
-// Можно изменить эту дату в зависимости от текущих дедлайнов университетов
 const applicationDeadline = '2026-11-01T23:59:59'
 
 const { t } = useI18n()
@@ -67,7 +65,6 @@ useHead(() => ({
   ],
 }))
 
-// Ensure universities are fetched on the home page reload (limit to 6)
 const universitiesStore = useUniversitiesStore()
 
 if (import.meta.server) {

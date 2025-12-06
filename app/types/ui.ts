@@ -1,8 +1,13 @@
 export type Size = 'sm' | 'md' | 'lg'
-export type Color = 'primary' | 'secondary' | 'success' | 'warning' | 'error' | 'info' | 'neutral'
-export type SemanticColor = Color | 'gray'
-export type Variant = 'solid' | 'soft' | 'outline'
-export type Alignment = 'left' | 'center' | 'right'
+export type SemanticColor =
+  | 'primary'
+  | 'secondary'
+  | 'success'
+  | 'warning'
+  | 'error'
+  | 'info'
+  | 'neutral'
+  | 'gray'
 
 export interface BaseButtonProps {
   variant?: 'primary' | 'secondary' | 'outline' | 'ghost'
@@ -16,11 +21,6 @@ export interface BaseButtonProps {
   href?: string
   to?: string | object
   ariaLabel?: string
-  ariaDescribedBy?: string
-  ariaPressed?: boolean
-  ariaExpanded?: boolean
-  ariaHaspopup?: boolean | 'false' | 'true' | 'menu' | 'listbox' | 'tree' | 'grid' | 'dialog'
-  ariaControls?: string
   tabIndex?: number
   preventDefault?: boolean
   stopPropagation?: boolean
@@ -30,7 +30,7 @@ export interface BaseButtonProps {
 export interface BaseBadgeProps {
   color?: SemanticColor
   size?: Size
-  variant?: Variant
+  variant?: 'solid' | 'soft' | 'outline'
   icon?: string
   removable?: boolean
   removeLabel?: string
@@ -50,13 +50,6 @@ export interface BaseCardProps {
   href?: string
   to?: string | object
   ariaLabel?: string
-  ariaDescribedBy?: string
-  ariaPressed?: boolean
-  headerAriaLabel?: string
-  contentAriaLabel?: string
-  footerAriaLabel?: string
-  clickableDescription?: string
-  role?: string
   tabIndex?: number
 }
 
@@ -64,8 +57,8 @@ export interface BaseIconTextProps {
   icon: string
   text?: string
   size?: Size
-  color?: Color | 'gray'
-  iconColor?: Color | 'gray' | 'inherit'
+  color?: SemanticColor
+  iconColor?: SemanticColor | 'inherit'
   align?: 'start' | 'center' | 'end'
   spacing?: Size
   truncate?: boolean
@@ -78,10 +71,8 @@ export interface BaseSectionHeaderProps {
   preTitle?: string
   titleTag?: 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6'
   size?: Size | 'xl'
-  align?: Alignment
+  align?: 'left' | 'center' | 'right'
   marginBottom?: Size | 'xl' | 'none'
-  maxWidth?: Size | 'xl' | '2xl' | 'full'
-  balanced?: boolean
 }
 
 export interface BaseIconBadgeProps {
@@ -102,14 +93,6 @@ export interface BaseFeatureCardProps {
   padding?: 'sm' | 'md' | 'lg' | 'xl'
   rounded?: 'none' | 'sm' | 'md' | 'lg' | 'xl' | '2xl'
   centered?: boolean
-}
-
-export interface BaseSocialLinkProps {
-  platform: 'whatsapp' | 'telegram' | 'instagram' | 'linkedin' | 'facebook' | 'youtube' | 'twitter'
-  href: string
-  size?: Size
-  variant?: 'filled' | 'outline'
-  ariaLabel?: string
 }
 
 export interface BaseStatBadgeProps {
@@ -147,27 +130,13 @@ export interface BaseTextFieldProps {
   readonly?: boolean
   icon?: string
   iconPosition?: 'left' | 'right'
-  validation?: FormFieldValidation
   ariaLabel?: string
-  ariaDescribedBy?: string
-  ariaRequired?: boolean
-  ariaInvalid?: boolean
   min?: string | number
   max?: string | number
   step?: string | number
   maxlength?: number | string
   autocomplete?: string
   clearable?: boolean
-  rounded?: 'sm' | 'md' | 'lg' | 'xl' | '2xl'
   size?: Size
 }
 
-export interface FormFieldValidation {
-  required?: boolean
-  pattern?: RegExp
-  minLength?: number
-  maxLength?: number
-  min?: number
-  max?: number
-  customValidator?: (value: any) => boolean | string
-}

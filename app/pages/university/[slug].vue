@@ -1,7 +1,7 @@
 <template>
   <div>
     <ClientOnly>
-      <UniversitiesUniversityDetailView v-if="university" :university="university" />
+      <UniversitiesDetailView v-if="university" :university="university" />
       <template #fallback>
         <div class="bg-white" />
       </template>
