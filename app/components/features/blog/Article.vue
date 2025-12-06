@@ -50,14 +50,18 @@
     <section class="py-16">
       <div class="container mx-auto px-4 lg:px-6">
         <div class="grid gap-12 lg:grid-cols-[minmax(0,2.2fr)_minmax(0,1fr)]">
-          <article class="rounded-3xl bg-white p-6 shadow-custom ring-1 ring-gray-100/60 lg:p-10">
-            <BlogContentRenderer
-              :content="article.content"
-              variant="article"
-              :fallback-alt="article.title"
-              enable-widgets
-            />
-          </article>
+          <div class="space-y-12">
+            <article class="rounded-3xl bg-white p-6 shadow-custom ring-1 ring-gray-100/60 lg:p-10">
+              <BlogContentRenderer
+                :content="article.content"
+                variant="article"
+                :fallback-alt="article.title"
+                enable-widgets
+              />
+            </article>
+
+            <LazyBlogUniversitiesGridWidget />
+          </div>
 
           <aside class="space-y-8">
             <div

@@ -5,94 +5,102 @@
     <div class="grid md:grid-cols-2 gap-8 mb-12">
       <article
         v-if="featured && showFeatured"
-        class="md:col-span-2 bg-white rounded-2xl shadow-custom overflow-hidden hover-lift"
+        class="md:col-span-2 h-full"
       >
-        <template v-if="featured.image && !failedFeatured">
-          <NuxtImg
-            :src="featured.image"
-            :alt="featured.imageAlt || featured.title"
-            class="w-full h-64 object-cover"
-            loading="lazy"
-            decoding="async"
-            sizes="100vw"
-            format="webp"
-            @error="failedFeatured = true"
-          />
-        </template>
-        <div
-          v-else
-          class="w-full h-64 bg-gradient-to-br from-blue-50 to-purple-50 flex items-center justify-center px-6 text-center"
+        <NuxtLink
+          :to="articleLink(featured.slug)"
+          class="block bg-white rounded-2xl shadow-custom overflow-hidden hover-lift h-full"
         >
-          <p class="text-secondary font-semibold text-lg">{{ featured.title }}</p>
-        </div>
-        <div class="p-8">
-          <div class="flex flex-wrap items-center gap-2 mb-4 text-sm text-gray-500">
-            <span
-              class="inline-flex items-center px-3 py-1 rounded-full text-xs font-medium"
-              :class="categoryBadgeClass(featured.category?.key)"
-            >
-              {{ featured.category?.label }}
-            </span>
-            <span>{{ featured.publishedAtLabel }}</span>
-            <span v-if="featured.readingTimeLabel">• {{ featured.readingTimeLabel }}</span>
-          </div>
-          <h3 class="text-section-title mb-4">{{ featured.title }}</h3>
-          <p class="text-gray-600 leading-relaxed mb-6">{{ featured.excerpt }}</p>
-          <NuxtLink
-            :to="articleLink(featured.slug)"
-            class="text-primary font-semibold hover:underline"
+          <template v-if="featured.image && !failedFeatured">
+            <NuxtImg
+              :src="featured.image"
+              :alt="featured.imageAlt || featured.title"
+              class="w-full h-64 object-cover"
+              loading="lazy"
+              decoding="async"
+              sizes="100vw"
+              format="webp"
+              @error="failedFeatured = true"
+            />
+          </template>
+          <div
+            v-else
+            class="w-full h-64 bg-gradient-to-br from-blue-50 to-purple-50 flex items-center justify-center px-6 text-center"
           >
-            {{ readMoreLabel }}
-          </NuxtLink>
-        </div>
+            <p class="text-secondary font-semibold text-lg">{{ featured.title }}</p>
+          </div>
+          <div class="p-8">
+            <div class="flex flex-wrap items-center gap-2 mb-4 text-sm text-gray-500">
+              <span
+                class="inline-flex items-center px-3 py-1 rounded-full text-xs font-medium"
+                :class="categoryBadgeClass(featured.category?.key)"
+              >
+                {{ featured.category?.label }}
+              </span>
+              <span>{{ featured.publishedAtLabel }}</span>
+              <span v-if="featured.readingTimeLabel">• {{ featured.readingTimeLabel }}</span>
+            </div>
+            <h3 class="text-section-title mb-4">{{ featured.title }}</h3>
+            <p class="text-gray-600 leading-relaxed mb-6">{{ featured.excerpt }}</p>
+            <span
+              class="text-primary font-semibold hover:underline"
+            >
+              {{ readMoreLabel }}
+            </span>
+          </div>
+        </NuxtLink>
       </article>
 
       <article
         v-for="article in items"
         :key="article.id"
-        class="bg-white rounded-2xl shadow-custom overflow-hidden hover-lift flex flex-col h-full"
+        class="h-full"
       >
-        <template v-if="article.image">
-          <NuxtImg
-            v-if="!failedCards[article.id]"
-            :src="article.image"
-            :alt="article.imageAlt || article.title"
-            class="w-full h-48 object-cover"
-            loading="lazy"
-            decoding="async"
-            sizes="(max-width: 768px) 100vw, 50vw"
-            format="webp"
-            @error="failedCards[article.id] = true"
-          />
-        </template>
-        <div
-          v-else
-          class="w-full h-48 bg-gray-100 flex items-center justify-center px-4 text-center"
+        <NuxtLink
+          :to="articleLink(article.slug)"
+          class="bg-white rounded-2xl shadow-custom overflow-hidden hover-lift flex flex-col h-full"
         >
-          <span class="text-secondary text-sm font-semibold">{{ article.title }}</span>
-        </div>
-        <div class="p-6 flex flex-col flex-1">
-          <div class="flex flex-wrap items-center gap-2 mb-3 text-sm text-gray-500">
-            <span
-              class="inline-flex items-center px-3 py-1 rounded-full text-xs font-medium"
-              :class="categoryBadgeClass(article.category?.key)"
-            >
-              {{ article.category?.label }}
-            </span>
-            <span>{{ article.publishedAtLabel }}</span>
+          <template v-if="article.image">
+            <NuxtImg
+              v-if="!failedCards[article.id]"
+              :src="article.image"
+              :alt="article.imageAlt || article.title"
+              class="w-full h-48 object-cover"
+              loading="lazy"
+              decoding="async"
+              sizes="(max-width: 768px) 100vw, 50vw"
+              format="webp"
+              @error="failedCards[article.id] = true"
+            />
+          </template>
+          <div
+            v-else
+            class="w-full h-48 bg-gray-100 flex items-center justify-center px-4 text-center"
+          >
+            <span class="text-secondary text-sm font-semibold">{{ article.title }}</span>
           </div>
-          <h3 class="text-card-title mb-3">{{ article.title }}</h3>
-          <p class="text-gray-600 text-sm mb-4">{{ article.excerpt }}</p>
-          <div class="mt-auto pt-2 flex items-center justify-between text-sm text-gray-500">
-            <span v-if="article.readingTimeLabel">{{ article.readingTimeLabel }}</span>
-            <NuxtLink
-              :to="articleLink(article.slug)"
-              class="text-primary font-semibold hover:underline"
-            >
-              {{ readMoreLabel }}
-            </NuxtLink>
+          <div class="p-6 flex flex-col flex-1">
+            <div class="flex flex-wrap items-center gap-2 mb-3 text-sm text-gray-500">
+              <span
+                class="inline-flex items-center px-3 py-1 rounded-full text-xs font-medium"
+                :class="categoryBadgeClass(article.category?.key)"
+              >
+                {{ article.category?.label }}
+              </span>
+              <span>{{ article.publishedAtLabel }}</span>
+            </div>
+            <h3 class="text-card-title mb-3">{{ article.title }}</h3>
+            <p class="text-gray-600 text-sm mb-4">{{ article.excerpt }}</p>
+            <div class="mt-auto pt-2 flex items-center justify-between text-sm text-gray-500">
+              <span v-if="article.readingTimeLabel">{{ article.readingTimeLabel }}</span>
+              <span
+                class="text-primary font-semibold hover:underline"
+              >
+                {{ readMoreLabel }}
+              </span>
+            </div>
           </div>
-        </div>
+        </NuxtLink>
       </article>
     </div>
 

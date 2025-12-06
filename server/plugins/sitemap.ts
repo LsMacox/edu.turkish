@@ -15,7 +15,7 @@ export default defineNitroPlugin((nitroApp) => {
             slug: true,
             locale: true,
             updatedAt: true,
-            article: { select: { updatedAt: true } },
+            article: { select: { updatedAt: true, isProgram: true, isPowerPage: true } },
           },
         }),
         prisma.universityTranslation.findMany({
@@ -24,7 +24,7 @@ export default defineNitroPlugin((nitroApp) => {
       ])
 
       const articleRoutes = articles.map((a: any) => ({
-        loc: `/${a.locale}/articles/${a.slug}`,
+        loc: `/${a.locale}/${a.article?.isProgram ? 'program' : a.article?.isPowerPage ? 'powerpage' : 'articles'}/${a.slug}`,
         lastmod: (a.updatedAt || a.article?.updatedAt)?.toISOString?.(),
       }))
       const universityRoutes = universities.map((u: any) => ({

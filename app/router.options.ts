@@ -19,7 +19,15 @@ export default <RouterConfig>{
       window.scrollTo({ left: 0, top: Math.max(0, top), behavior: 'smooth' })
     }
 
-    const el = document.querySelector(to.hash) as HTMLElement | null
+    const getEl = (hash: string) => {
+      try {
+        return document.querySelector(hash) as HTMLElement | null
+      } catch {
+        return document.getElementById(hash.slice(1)) as HTMLElement | null
+      }
+    }
+
+    const el = getEl(to.hash)
     if (el) {
       scrollToEl(el)
       return
@@ -28,7 +36,7 @@ export default <RouterConfig>{
     return new Promise((resolve) => {
       const start = performance.now()
       const check = () => {
-        const el = document.querySelector(to.hash) as HTMLElement | null
+        const el = getEl(to.hash)
         if (el) {
           scrollToEl(el)
           resolve(undefined)

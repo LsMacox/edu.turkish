@@ -286,6 +286,7 @@ export default defineNuxtConfig({
       cdnUrl: process.env.NUXT_PUBLIC_CDN_URL || '',
       directusUrl: process.env.NUXT_PUBLIC_DIRECTUS_URL || 'http://localhost:8055',
       yandexMetrikaId: process.env.NUXT_PUBLIC_YANDEX_METRIKA_ID || '',
+      googleAdsId: process.env.NUXT_PUBLIC_GOOGLE_ADS_ID || '',
     },
   },
   hooks: {
@@ -307,6 +308,7 @@ export default defineNuxtConfig({
               select: {
                 slug: true,
                 locale: true,
+                article: { select: { isProgram: true, isPowerPage: true } },
               },
             }),
             prisma.universityTranslation.findMany({
@@ -317,7 +319,7 @@ export default defineNuxtConfig({
             }),
           ])
 
-          const articleRoutes = articles.map((a) => `/${a.locale}/articles/${a.slug}`)
+          const articleRoutes = articles.map((a) => `/${a.locale}/${a.article?.isProgram ? 'program' : a.article?.isPowerPage ? 'powerpage' : 'articles'}/${a.slug}`)
           const universityRoutes = universities.map((u) => `/${u.locale}/university/${u.slug}`)
           const routes = [...articleRoutes, ...universityRoutes]
 
