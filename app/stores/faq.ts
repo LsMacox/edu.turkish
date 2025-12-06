@@ -92,7 +92,7 @@ export const useFAQStore = defineStore('faq', () => {
   const addToHistory = (q: string) => {
     history.value = [q, ...history.value.filter((h) => h !== q)].slice(0, MAX_HISTORY)
     if (import.meta.client) {
-      try { localStorage.setItem(HISTORY_KEY, JSON.stringify(history.value)) } catch {}
+      try { localStorage.setItem(HISTORY_KEY, JSON.stringify(history.value)) } catch { /* ignore storage errors */ }
     }
   }
 
@@ -101,13 +101,13 @@ export const useFAQStore = defineStore('faq', () => {
     try {
       const saved = localStorage.getItem(HISTORY_KEY)
       if (saved) history.value = JSON.parse(saved).slice(0, MAX_HISTORY)
-    } catch {}
+    } catch { /* ignore parse errors */ }
   }
 
   const clearHistory = () => {
     history.value = []
     if (import.meta.client) {
-      try { localStorage.removeItem(HISTORY_KEY) } catch {}
+      try { localStorage.removeItem(HISTORY_KEY) } catch { /* ignore storage errors */ }
     }
   }
 

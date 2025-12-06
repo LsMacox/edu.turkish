@@ -14,9 +14,11 @@ export const useFingerprint = () => {
     if (!href) return
     await ensureFingerprint()
     if (!import.meta.client) return
-    target === '_blank'
-      ? window.open(href, '_blank', 'noopener,noreferrer')
-      : (window.location.href = href)
+    if (target === '_blank') {
+      window.open(href, '_blank', 'noopener,noreferrer')
+    } else {
+      window.location.href = href
+    }
   }
 
   return { ensureFingerprint, openWithFingerprint }

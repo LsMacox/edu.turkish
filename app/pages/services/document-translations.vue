@@ -1,7 +1,7 @@
 <template>
   <ServicesPageLayout
-    :title="category?.title || t('services.document-translations.title')"
-    :subtitle="category?.subtitle || t('services.document-translations.subtitle')"
+    :title="t('services.document-translations.title')"
+    :subtitle="t('services.document-translations.subtitle')"
   >
     <template #service-cards>
       <div
@@ -21,9 +21,9 @@
     <template #price-calculator>
       <ServicesTranslationsCalculatorSection
         key-prefix="services.document-translations.calculator"
-        :document-types-with-prices="metadataPath('calculator.documentTypes')"
-        :language-pairs="metadataPath('calculator.languagePairs')"
-        :urgency-options="metadataPath('calculator.urgency')"
+        :document-types-with-prices="calculatorDocumentTypes"
+        :language-pairs="calculatorLanguagePairs"
+        :urgency-options="calculatorUrgency"
         @submit="handleCalculatorSubmit"
       />
     </template>
@@ -48,20 +48,47 @@
 </template>
 
 <script setup lang="ts">
-import type { CalculatorSubmitEvent, ServiceCard } from '~/types/services'
+import type { CalculatorSubmitEvent } from '~/types/services'
 import { useApplicationModalStore } from '~/stores/applicationModal'
 import { useExchangeRatesStore } from '~/stores/exchangeRates'
-import { useServiceCategory, useServiceHead, useI18nList } from '~/components/features/services/composables'
+import { useServiceHead, useI18nList } from '~/components/features/services/composables'
 
 const { t } = useI18n()
 const modal = useApplicationModalStore()
 const exchangeRatesStore = useExchangeRatesStore()
-const { category, metadataPath } = await useServiceCategory('document-translations')
 const { getListObjects } = useI18nList()
 
 onMounted(() => exchangeRatesStore.ensureFresh())
 
-const serviceCards = computed(() => metadataPath<ServiceCard[]>('serviceCards') || [])
+// Data from i18n
+const serviceCards = computed(() =>
+  getListObjects<{ title: string; description: string; icon: string }>(
+    'services.document-translations.serviceCards',
+    ['title', 'description', 'icon'],
+  ),
+)
+
+// Calculator data - prices are static, names are translated
+const documentTypePrices = [20, 30, 45, 40, 25, null] as const
+const calculatorDocumentTypes = computed(() =>
+  documentTypePrices.map((priceUsd, idx) => ({
+    name: t(`services.document-translations.calculatorData.documentTypes[${idx}].name`),
+    priceUsd,
+  })),
+)
+
+const calculatorLanguagePairs = computed(() => [
+  t('services.document-translations.calculatorData.languagePairs[0]'),
+  t('services.document-translations.calculatorData.languagePairs[1]'),
+])
+
+const urgencySurcharges = [0, 10] as const
+const calculatorUrgency = computed(() =>
+  urgencySurcharges.map((surcharge, idx) => ({
+    name: t(`services.document-translations.calculatorData.urgency[${idx}].name`),
+    surcharge,
+  })),
+)
 
 const howItWorksSteps = computed(() =>
   getListObjects<{ title: string; description: string; icon: string }>(
@@ -95,7 +122,7 @@ const handleCalculatorSubmit = (event: CalculatorSubmitEvent) => {
 }
 
 useServiceHead({
-  title: () => category.value?.title || t('services.document-translations.title'),
-  description: () => category.value?.subtitle || t('services.document-translations.subtitle'),
+  title: () => t('services.document-translations.title'),
+  description: () => t('services.document-translations.subtitle'),
 })
 </script>

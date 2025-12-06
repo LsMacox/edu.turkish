@@ -1,5 +1,6 @@
 export * from './common'
 export * from './blog'
+export * from './programs'
 export * from './universities'
 export * from './directions'
 export * from './reviews'

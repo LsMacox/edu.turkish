@@ -155,39 +155,6 @@
         "validation": "Please check the form fields for errors",
         "generic": "An error occurred while submitting your review. Please try again."
       }
-    },
-    "nextReviewCTA": {
-      "title": "Want your review to be",
-      "titleAccent": "next?",
-      "description": "Join over 500 students who have already achieved their dream of education in Turkey with Edu.turkish",
-      "steps": {
-        "consultation": {
-          "title": "Free consultation",
-          "description": "We'll discuss your goals and choose the optimal path for admission"
-        },
-        "plan": {
-          "title": "Personal plan",
-          "description": "We'll create an individual preparation and admission strategy"
-        },
-        "admission": {
-          "title": "Admission",
-          "description": "We support you at every stage until enrollment in university"
-        }
-      },
-      "stats": {
-        "students": "Successful students",
-        "admissions": "Admission rate",
-        "universities": "Partner universities",
-        "experience": "Years of experience"
-      },
-      "cta": {
-        "button": "Start your journey to dreams"
-      },
-      "features": {
-        "consultation": "Free consultation",
-        "noHiddenFees": "No hidden fees",
-        "guarantee": "Result guarantee"
-      }
     }
   }
 }

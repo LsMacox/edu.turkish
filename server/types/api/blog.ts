@@ -3,6 +3,7 @@ import type { ApiResponse } from './common'
 export interface BlogCategory {
   key: string
   label: string
+  isProgram?: boolean
 }
 
 export type BlogArticleContentBlock =

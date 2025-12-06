@@ -87,56 +87,6 @@
         }
       }
     },
-    "popular_programs": {
-      "title": "Popular Programs",
-      "subtitle": "Most in-demand specializations in Turkish universities",
-      "loading": "Loading data...",
-      "dynamic": {
-        "price_from": "from {price}/year",
-        "universities_count": {
-          "one": "{count} university",
-          "other": "{count} universities"
-        }
-      },
-      "programs": {
-        "it": {
-          "title": "Information Technology",
-          "description": "Programming, cybersecurity, artificial intelligence",
-          "universities_count": "42 universities",
-          "price_from": "from $3,500/year"
-        },
-        "medicine": {
-          "title": "Medicine",
-          "description": "General medicine, dentistry, pharmacy, veterinary",
-          "universities_count": "28 universities",
-          "price_from": "from $8,000/year"
-        },
-        "engineering": {
-          "title": "Engineering",
-          "description": "Mechanical engineering, electrical engineering, civil engineering",
-          "universities_count": "52 universities",
-          "price_from": "from $4,200/year"
-        },
-        "business": {
-          "title": "Business and Economics",
-          "description": "MBA, international business, finance, marketing",
-          "universities_count": "38 universities",
-          "price_from": "from $3,800/year"
-        },
-        "design": {
-          "title": "Design and Architecture",
-          "description": "Graphic design, architecture, industrial design",
-          "universities_count": "32 universities",
-          "price_from": "from $4,500/year"
-        },
-        "international": {
-          "title": "International Relations",
-          "description": "Diplomacy, political science, international law",
-          "universities_count": "25 universities",
-          "price_from": "from $4,000/year"
-        }
-      }
-    },
     "scholarships": {
       "title": "Scholarships and Grants",
       "subtitle": "Opportunities to receive financial support for education",
@@ -160,16 +110,6 @@
           }
         }
       }
-    },
-    "not_found": {
-      "title": "Didn't find a suitable university?",
-      "subtitle": "Submit an application — we'll select a university according to your criteria and preferences. Our experts know all the details of admission to Turkish universities.",
-      "features": {
-        "consultation": "Personal consultation",
-        "selection": "Selection based on your criteria",
-        "quick_response": "Response within 24 hours"
-      },
-      "button": "Get selection"
     }
   }
 }

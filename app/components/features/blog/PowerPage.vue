@@ -48,7 +48,12 @@
 
     <section class="py-12 md:py-20">
       <div class="container px-4 mx-auto max-w-4xl">
-        <BlogContentRenderer :content="article.content" />
+        <BlogContentRenderer 
+          :content="article.content" 
+          variant="powerpage"
+          :enable-widgets="true"
+          :fallback-alt="article.title"
+        />
       </div>
     </section>
 

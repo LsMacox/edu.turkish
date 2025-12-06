@@ -1,25 +1,23 @@
 <template>
   <ServicesPageLayout
-    :title="category?.title || t('services.relocation-in-turkey.title')"
-    :subtitle="category?.subtitle || t('services.relocation-in-turkey.subtitle')"
+    :title="t('services.relocation-in-turkey.title')"
+    :subtitle="t('services.relocation-in-turkey.subtitle')"
     sub-services-cols="md:grid-cols-2 lg:grid-cols-3"
   >
     <template #sub-services>
       <ServicesPackageCard
-        v-if="admissionPackage"
         package-id="university-admission"
-        :name="admissionPackage.name"
-        :price="admissionPackage.priceUsd"
+        :name="t('services.relocation-in-turkey.packages.admission.name')"
+        :price="admissionPrice"
         :services="admissionServices"
         :cta-text="t('services.relocation-in-turkey.packages.admission.ctaButton')"
         :is-mobile-accordion="isMobile"
         @apply="handlePackageApply"
       />
       <ServicesPackageCard
-        v-if="standardPackage"
         package-id="relocation-standard"
-        :name="standardPackage.name"
-        :price="standardPackage.priceUsd"
+        :name="t('services.relocation-in-turkey.packages.standard.name')"
+        :price="standardPrice"
         :services="standardServices"
         :cta-text="t('services.relocation-in-turkey.packages.standard.ctaButton')"
         :includes-text="t('services.relocation-in-turkey.packages.standard.includes')"
@@ -27,10 +25,9 @@
         @apply="handlePackageApply"
       />
       <ServicesPackageCard
-        v-if="vipPackage"
         package-id="relocation-vip"
-        :name="vipPackage.name"
-        :price="vipPackage.priceUsd"
+        :name="t('services.relocation-in-turkey.packages.vip.name')"
+        :price="vipPrice"
         :services="vipServices"
         :cta-text="t('services.relocation-in-turkey.packages.vip.ctaButton')"
         :includes-text="t('services.relocation-in-turkey.packages.vip.includes')"
@@ -56,12 +53,11 @@
 import type { PackageId } from '~/types/services'
 import { useApplicationModalStore } from '~/stores/applicationModal'
 import { useExchangeRatesStore } from '~/stores/exchangeRates'
-import { useServiceCategory, useServiceHead, useI18nList } from '~/components/features/services/composables'
+import { useServiceHead, useI18nList } from '~/components/features/services/composables'
 
-const { t } = useI18n()
+const { t, tm } = useI18n()
 const modal = useApplicationModalStore()
 const exchangeRatesStore = useExchangeRatesStore()
-const { category } = await useServiceCategory('relocation-in-turkey')
 const { getListStrings } = useI18nList()
 
 const isMobile = ref(false)
@@ -74,12 +70,19 @@ onMounted(() => {
 
 onMounted(() => exchangeRatesStore.ensureFresh())
 
-const findPackage = (slug: string) =>
-  computed(() => category.value?.subServices?.find((s) => s.slug === slug))
-
-const admissionPackage = findPackage('university-admission')
-const standardPackage = findPackage('relocation-standard')
-const vipPackage = findPackage('relocation-vip')
+// Prices from i18n (stored as numbers in JSON)
+const admissionPrice = computed(() => {
+  const val = tm('services.relocation-in-turkey.packages.admission.priceUsd') as unknown
+  return typeof val === 'number' ? val : 200
+})
+const standardPrice = computed(() => {
+  const val = tm('services.relocation-in-turkey.packages.standard.priceUsd') as unknown
+  return typeof val === 'number' ? val : 1500
+})
+const vipPrice = computed(() => {
+  const val = tm('services.relocation-in-turkey.packages.vip.priceUsd') as unknown
+  return typeof val === 'number' ? val : 2500
+})
 
 const admissionServices = computed(() =>
   getListStrings('services.relocation-in-turkey.packages.admission.services'),
@@ -107,7 +110,7 @@ const handlePackageApply = ({ packageId, name }: { packageId: PackageId; name: s
 }
 
 useServiceHead({
-  title: () => category.value?.title || t('services.relocation-in-turkey.title'),
-  description: () => category.value?.subtitle || t('services.relocation-in-turkey.subtitle'),
+  title: () => t('services.relocation-in-turkey.title'),
+  description: () => t('services.relocation-in-turkey.subtitle'),
 })
 </script>

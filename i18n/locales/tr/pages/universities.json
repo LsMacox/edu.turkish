@@ -87,56 +87,6 @@
         }
       }
     },
-    "popular_programs": {
-      "title": "Popüler Bölümler",
-      "subtitle": "Türk üniversitelerinde en çok tercih edilen uzmanlık alanları",
-      "loading": "Veriler yükleniyor...",
-      "dynamic": {
-        "price_from": "{price}/yıl'dan başlayarak",
-        "universities_count": {
-          "one": "{count} üniversite",
-          "other": "{count} üniversite"
-        }
-      },
-      "programs": {
-        "it": {
-          "title": "Bilişim Teknolojileri",
-          "description": "Programlama, siber güvenlik, yapay zeka",
-          "universities_count": "45+ üniversite",
-          "price_from": "$3,500/yıl'dan başlayarak"
-        },
-        "medicine": {
-          "title": "Tıp",
-          "description": "Genel tıp, diş hekimliği, eczacılık, veterinerlik",
-          "universities_count": "28+ üniversite",
-          "price_from": "$8,000/yıl'dan başlayarak"
-        },
-        "engineering": {
-          "title": "Mühendislik",
-          "description": "Makine mühendisliği, elektrik mühendisliği, inşaat mühendisliği",
-          "universities_count": "52+ üniversite",
-          "price_from": "$4,200/yıl'dan başlayarak"
-        },
-        "business": {
-          "title": "İşletme ve Ekonomi",
-          "description": "MBA, uluslararası işletme, finans, pazarlama",
-          "universities_count": "38+ üniversite",
-          "price_from": "$3,800/yıl'dan başlayarak"
-        },
-        "design": {
-          "title": "Tasarım ve Mimarlık",
-          "description": "Grafik tasarım, mimarlık, endüstriyel tasarım",
-          "universities_count": "32+ üniversite",
-          "price_from": "$5,500/yıl'dan başlayarak"
-        },
-        "international": {
-          "title": "Uluslararası İlişkiler",
-          "description": "Diplomasi, siyaset bilimi, uluslararası hukuk",
-          "universities_count": "25+ üniversite",
-          "price_from": "$4,000/yıl'dan başlayarak"
-        }
-      }
-    },
     "scholarships": {
       "title": "Burslar ve Hibeler",
       "subtitle": "Eğitim için finansal destek alma fırsatları",
@@ -160,16 +110,6 @@
           }
         }
       }
-    },
-    "not_found": {
-      "title": "Uygun üniversite bulamadınız mı?",
-      "subtitle": "Başvuru bırakın — kriterlerinize ve tercihlerinize göre üniversite seçelim. Uzmanlarımız Türk üniversitelerine kabul sürecinin tüm inceliklerini biliyor.",
-      "features": {
-        "consultation": "Kişisel danışmanlık",
-        "selection": "Kriterlerinize göre seçim",
-        "quick_response": "24 saat içinde yanıt"
-      },
-      "button": "Seçim al"
     }
   }
 }

@@ -25,7 +25,9 @@
     "emptyState": {
       "title": "Program bulunamadı",
       "description": "Seçilen eğitim seviyesi için program bulunamadı."
-    }
+    },
+    "showAll": "Tümünü göster",
+    "collapse": "Daralt"
   },
   "applicationCTA": {
     "title": "{universityName} üniversitesine bugün başvurun!",

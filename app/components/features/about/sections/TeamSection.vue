@@ -108,5 +108,13 @@ const teamMembers = computed<TeamMember[]>(() => [
     photo: '7384dd3b-1f0d-496a-8a4d-caeef897c56b.jpeg',
     linkedin: 'https://www.linkedin.com/in/adam-zugiraev/',
   },
+  {
+    id: 4,
+    name: t('about.team.members.nargiz.name'),
+    position: t('about.team.members.nargiz.position'),
+    role: t('about.team.members.nargiz.role'),
+    description: t('about.team.members.nargiz.description'),
+    photo: '8b3b75ba-2b1f-447e-a118-6c231505b888.JPG',
+  },
 ])
 </script>

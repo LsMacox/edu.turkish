@@ -91,6 +91,17 @@
             {{ t('nav.universities') }}
           </NuxtLink>
           <NuxtLink
+            :to="localePath('/programs')"
+            :class="[
+              'transition-colors font-medium cursor-pointer',
+              isActive('/programs')
+                ? 'text-primary border-b-2 border-primary pb-0.5'
+                : 'text-secondary hover:text-primary',
+            ]"
+          >
+            {{ t('nav.programs') }}
+          </NuxtLink>
+          <NuxtLink
             :to="localePath('/reviews')"
             :class="[
               'transition-colors font-medium cursor-pointer',

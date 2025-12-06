@@ -34,7 +34,7 @@
 const { t, locale } = useI18n()
 const localePath = useLocalePath()
 
-const { data, pending } = await useAsyncData('power-page-universities', () =>
+const { data, pending } = await useAsyncData('content-widget-universities', () =>
   $fetch('/api/v1/universities', {
     query: {
       limit: 3,
@@ -46,4 +46,3 @@ const { data, pending } = await useAsyncData('power-page-universities', () =>
 
 const universities = computed(() => data.value?.data ?? [])
 </script>
-

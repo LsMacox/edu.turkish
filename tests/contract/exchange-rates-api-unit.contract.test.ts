@@ -1,6 +1,6 @@
 // @vitest-environment node
 import { describe, it, expect } from 'vitest'
-import type { ExchangeRatesResponse } from '~~/server/types/api/services'
+import type { ExchangeRatesResponse } from '~~/server/types/api/exchange-rates'
 
 // Mock data for fast contract validation
 const mockExchangeRatesResponse: ExchangeRatesResponse = {

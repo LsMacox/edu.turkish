@@ -41,6 +41,10 @@
       "loading": "Loading...",
       "empty": "No articles match your filters yet"
     },
+    "pros_cons": {
+      "pros": "Pros",
+      "cons": "Cons"
+    },
     "sidebar": {
       "popular": {
         "title": "Popular articles"

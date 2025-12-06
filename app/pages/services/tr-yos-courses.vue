@@ -41,22 +41,27 @@
 import type { SubServiceId } from '~/types/services'
 import { useApplicationModalStore } from '~/stores/applicationModal'
 import { useExchangeRatesStore } from '~/stores/exchangeRates'
-import { useServiceCategory, useServiceHead } from '~/components/features/services/composables'
+import { useServiceHead } from '~/components/features/services/composables'
 
 const { t } = useI18n()
 const modal = useApplicationModalStore()
 const exchangeRatesStore = useExchangeRatesStore()
-const { category } = await useServiceCategory('tr-yos-courses')
 
 onMounted(() => exchangeRatesStore.ensureFresh())
 
+// Static data with translated strings
+const subServicesData = [
+  { id: 'basic-package', priceUsd: 300 },
+  { id: 'individual-package', priceUsd: 700 },
+] as const
+
 const subServices = computed(() =>
-  category.value?.subServices?.map((sub) => ({
-    id: sub.slug as SubServiceId,
-    name: sub.name,
-    description: sub.description,
+  subServicesData.map((sub, idx) => ({
+    id: sub.id as SubServiceId,
+    name: t(`services.tr-yos-courses.subServices[${idx}].name`),
+    description: t(`services.tr-yos-courses.subServices[${idx}].description`),
     priceUsd: sub.priceUsd,
-  })) ?? [],
+  })),
 )
 
 const handleApply = ({ subServiceId, name }: { subServiceId: SubServiceId; name: string }) => {
@@ -73,8 +78,8 @@ const handleApply = ({ subServiceId, name }: { subServiceId: SubServiceId; name:
 }
 
 useServiceHead({
-  title: () => category.value?.title || t('services.tr-yos-courses.title'),
-  description: () => category.value?.subtitle || t('services.tr-yos-courses.subtitle'),
+  title: () => t('services.tr-yos-courses.title'),
+  description: () => t('services.tr-yos-courses.subtitle'),
   schemaType: ['Course'],
 })
 </script>

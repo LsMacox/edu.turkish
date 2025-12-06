@@ -110,6 +110,20 @@
             </NuxtLink>
 
             <NuxtLink
+              :to="localePath('/programs')"
+              :class="[
+                'flex items-center px-4 py-4 rounded-xl transition-colors min-h-touch-48 text-base font-medium',
+                isActive('/programs')
+                  ? 'bg-primary/10 text-primary border-l-4 border-primary'
+                  : 'text-secondary hover:bg-gray-50',
+              ]"
+              @click="closeDrawer"
+            >
+              <Icon name="mdi:book-education" class="mr-3 text-lg" />
+              {{ t('nav.programs') }}
+            </NuxtLink>
+
+            <NuxtLink
               :to="localePath('/reviews')"
               :class="[
                 'flex items-center px-4 py-4 rounded-xl transition-colors min-h-touch-48 text-base font-medium',

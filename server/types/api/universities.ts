@@ -41,6 +41,7 @@ export interface UniversityCampusFacility {
   name: string
   description: string
   image?: string
+  icon?: string
 }
 
 export interface UniversityAdmissionRequirement {

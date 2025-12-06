@@ -46,10 +46,12 @@ export const FACILITY_STYLES: Record<string, IconStyle> = {
 }
 
 /**
- * Get facility style by type
+ * Get facility style with custom icon override
  */
-export function getFacilityStyle(type: string): IconStyle {
-  return FACILITY_STYLES[type] || FACILITY_STYLES.default!
+export function getFacilityStyleWithIcon(icon?: string): IconStyle {
+  const defaultStyle = FACILITY_STYLES.default!
+  if (!icon) return defaultStyle
+  return { ...defaultStyle, icon }
 }
 
 /**
@@ -79,16 +81,3 @@ export const SCHOLARSHIP_COLOR_SCHEMES = [
   { bgColor: 'bg-purple-50', badgeColor: 'bg-purple-200 text-purple-800' },
 ] as const
 
-/**
- * Program card icon styles
- */
-export const PROGRAM_STYLES = [
-  { key: 'it', icon: 'mdi:laptop', bgColor: 'bg-blue-100', iconColor: 'text-blue-600' },
-  { key: 'medicine', icon: 'mdi:medical-bag', bgColor: 'bg-green-100', iconColor: 'text-green-600' },
-  { key: 'engineering', icon: 'mdi:cog', bgColor: 'bg-purple-100', iconColor: 'text-purple-600' },
-  { key: 'business', icon: 'mdi:chart-line', bgColor: 'bg-orange-100', iconColor: 'text-orange-600' },
-  { key: 'design', icon: 'mdi:palette', bgColor: 'bg-teal-100', iconColor: 'text-teal-600' },
-  { key: 'international', icon: 'mdi:earth', bgColor: 'bg-pink-100', iconColor: 'text-pink-600' },
-] as const
-
-export type ProgramKey = (typeof PROGRAM_STYLES)[number]['key']

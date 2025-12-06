@@ -80,6 +80,8 @@
       "subtitle": "Sahada tam destek: sizi karşılıyor, vize, oturma izni ve uyum sürecinde yanınızda oluyoruz.",
       "packages": {
         "admission": {
+          "name": "Üniversiteye Giriş",
+          "priceUsd": 200,
           "ctaButton": "Sipariş Ver",
           "services": [
             "İlk danışmanlık",
@@ -91,6 +93,8 @@
           ]
         },
         "standard": {
+          "name": "Türkiye'de Yerleşim",
+          "priceUsd": 1500,
           "ctaButton": "Sipariş Ver",
           "includes": "'Üniversiteye Giriş' paketini içerir, ayrıca:",
           "additionalServices": [
@@ -107,6 +111,8 @@
           ]
         },
         "vip": {
+          "name": "VIP Türkiye'de Yerleşim",
+          "priceUsd": 2200,
           "ctaButton": "Sipariş Ver",
           "includes": "'Giriş ve Yerleşim' paketlerini içerir, ayrıca:",
           "additionalServices": [
@@ -170,6 +176,20 @@
     "tr-yos-courses": {
       "title": "TR-YÖS hazırlığı",
       "subtitle": "Uzman kurslarımız ve kanıtlanmış metodlarımız yüksek puan almanıza yardımcı olur.",
+      "subServices": [
+        {
+          "id": "basic-package",
+          "name": "Temel",
+          "description": "Süre: 7+ ay\nGrup: 10 kişiye kadar\nProgram: tüm konularda tam hazırlık\nProgram: haftada 3 ders",
+          "priceUsd": 300
+        },
+        {
+          "id": "individual-package",
+          "name": "Bireysel",
+          "description": "Süre: 7+ ay\nFormat: bireysel dersler\nProgram: aynı temel + seviyenize uyarlama\nProgram: haftada 3 ders",
+          "priceUsd": 700
+        }
+      ],
       "courseGoal": {
         "title": "Kurs Hedefi",
         "description": "Seçtiğiniz fakülteye kabul için yeterli olacak en yüksek puana TR-YÖS'te ulaşmanız için hazırlarız — en rekabetçi programlar dahil. Her öğrenci eşit derecede güçlü bir müfredat alır ve sonuç hazırlık düzeyine ve seçilen öğrenme formatına bağlıdır.",
@@ -450,6 +470,58 @@
       "title": "Çeviri ve tasdik",
       "subtitle": "%100 garanti: belgeleriniz çevrilir, onaylanır (yeminli tercüman) ve her üniversite tarafından kabul edilir.",
       "shortTitle": "Belge Çevirisi",
+      "serviceCards": [
+        {
+          "title": "Lise Diploması / Üniversite Diploması / Transkript",
+          "description": "Türk üniversitelerine başvuru için lise diplomaları, üniversite diplomaları ve transkriptlerin tercümesi ve noterce onayı",
+          "icon": "mdi:certificate"
+        },
+        {
+          "title": "Okul / Üniversite Belgeleri",
+          "description": "Akademik belgeler, not dökümü ve eğitim kurumlarından diğer belgeler",
+          "icon": "mdi:school"
+        },
+        {
+          "title": "Pasaport / Kimlik / Nüfus Belgeleri",
+          "description": "Pasaport, kimlik kartı, doğum belgesi, evlilik cüzdanı ve diğer kişisel belgelerin tercümesi",
+          "icon": "mdi:card-account-details"
+        },
+        {
+          "title": "Sabıka Kaydı / Sağlık Raporları",
+          "description": "Sabıka kaydı belgeleri, sağlık raporları ve diğer resmi belgeler",
+          "icon": "mdi:file-document-check"
+        },
+        {
+          "title": "Vekaletnameler/Muvafakatnameler",
+          "description": "Noterce onaylı vekaletnameler, veli muvafakatnameleri ve diğer hukuki belgeler",
+          "icon": "mdi:file-sign"
+        },
+        {
+          "title": "Mali Belgeler",
+          "description": "Banka hesap özetleri, gelir belgeleri, taahhütnameler ve mali belgeler",
+          "icon": "mdi:bank"
+        },
+        {
+          "title": "Diğer",
+          "description": "Noterce onaylı tercümesi gereken diğer belgeler - bireysel maliyet değerlendirmesi",
+          "icon": "mdi:file-question"
+        }
+      ],
+      "calculatorData": {
+        "documentTypes": [
+          { "name": "Pasaport", "priceUsd": 20 },
+          { "name": "Lise Diploması", "priceUsd": 30 },
+          { "name": "Diploma", "priceUsd": 45 },
+          { "name": "Vekaletname/Muvafakatname", "priceUsd": 40 },
+          { "name": "Mali Belgeler", "priceUsd": 25 },
+          { "name": "Diğer", "priceUsd": null }
+        ],
+        "languagePairs": ["Rusça – Türkçe", "Türkçe – Rusça"],
+        "urgency": [
+          { "name": "Standart (1-3 gün)", "surcharge": 0 },
+          { "name": "Acil (3 saate kadar)", "surcharge": 10 }
+        ]
+      },
       "calculator": {
         "title": "Fiyat Hesaplayıcı",
         "documentTypeLabel": "Belge Türü",

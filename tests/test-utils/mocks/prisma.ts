@@ -96,11 +96,7 @@ export function createMockPrisma(overrides?: Partial<MockPrismaClient>): MockPri
     universityImportantDate: createMockModel(),
     universityImportantDateTranslation: createMockModel(),
 
-    // Service models (Feature 013)
-    serviceCategory: createMockModel(),
-    serviceCategoryTranslation: createMockModel(),
-    subService: createMockModel(),
-    subServiceTranslation: createMockModel(),
+    // Exchange rates
     exchangeRate: createMockModel(),
 
     // Utility methods
@@ -110,10 +106,6 @@ export function createMockPrisma(overrides?: Partial<MockPrismaClient>): MockPri
       }
       // Provide a minimal transaction client exposing the same model mocks
       const tx = {
-        serviceCategory: (defaultMock as any).serviceCategory,
-        serviceCategoryTranslation: (defaultMock as any).serviceCategoryTranslation,
-        subService: (defaultMock as any).subService,
-        subServiceTranslation: (defaultMock as any).subServiceTranslation,
         exchangeRate: (defaultMock as any).exchangeRate,
       }
       return operations(tx)

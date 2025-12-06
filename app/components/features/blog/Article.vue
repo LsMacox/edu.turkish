@@ -51,84 +51,12 @@
       <div class="container mx-auto px-4 lg:px-6">
         <div class="grid gap-12 lg:grid-cols-[minmax(0,2.2fr)_minmax(0,1fr)]">
           <article class="rounded-3xl bg-white p-6 shadow-custom ring-1 ring-gray-100/60 lg:p-10">
-            <div class="space-y-6">
-              <!-- eslint-disable vue/no-v-html -->
-              <div
-                v-for="(block, index) in normalizedContent"
-                :key="`${block.type}-${index}`"
-                class="space-y-4"
-              >
-                <component
-                  :is="headingTag(block.level)"
-                  v-if="block.type === 'heading'"
-                  :id="block.id"
-                  class="scroll-mt-24 text-2xl font-semibold text-secondary lg:text-3xl"
-                  v-html="block.text"
-                />
-
-                <p
-                  v-else-if="block.type === 'paragraph'"
-                  class="leading-relaxed text-gray-600"
-                  v-html="block.text"
-                />
-
-                <LazyBlogContentContentList
-                  v-else-if="block.type === 'list'"
-                  :items="block.items"
-                  :ordered="block.ordered"
-                  :list-style="block.style"
-                />
-
-                <LazyBlogContentContentFaq
-                  v-else-if="block.type === 'faq'"
-                  :items="block.items"
-                />
-
-                <figure v-else-if="block.type === 'image'" class="space-y-3">
-                  <NuxtImg
-                    :src="block.url"
-                    :alt="block.alt || article.title"
-                    class="object-cover"
-                    :class="[
-                      block.width === 'full'
-                        ? '-mx-6 w-[calc(100%+3rem)] max-w-none rounded-none lg:-mx-10 lg:w-[calc(100%+5rem)]'
-                        : 'w-full rounded-2xl',
-                    ]"
-                    format="webp"
-                  />
-                  <figcaption
-                    v-if="block.caption"
-                    class="text-sm text-gray-500"
-                    :class="{ 'px-6 lg:px-10': block.width === 'full' }"
-                    v-html="block.caption"
-                  />
-                </figure>
-
-                <blockquote
-                  v-else-if="block.type === 'quote'"
-                  class="space-y-2 rounded-xl bg-gradient-to-br from-primary/5 via-white to-secondary/5 p-5 shadow-sm"
-                >
-                  <Icon name="mdi:format-quote-open" class="text-2xl text-primary" />
-                  <p class="font-medium text-secondary" v-html="block.text"></p>
-                  <cite v-if="block.author" class="block text-sm text-gray-500">{{
-                    block.author
-                  }}</cite>
-                </blockquote>
-
-                <div
-                  v-else-if="block.type === 'spacer'"
-                  :class="{
-                    'h-4': block.size === 'sm',
-                    'h-8': block.size === 'md',
-                    'h-12': block.size === 'lg',
-                    'h-16': block.size === 'xl',
-                  }"
-                />
-
-                <hr v-else-if="block.type === 'divider'" class="border-gray-100 my-4" />
-              </div>
-              <!-- eslint-enable vue/no-v-html -->
-            </div>
+            <BlogContentRenderer
+              :content="article.content"
+              variant="article"
+              :fallback-alt="article.title"
+              enable-widgets
+            />
           </article>
 
           <aside class="space-y-8">
@@ -290,12 +218,8 @@
 </template>
 
 <script setup lang="ts">
-import type {
-  BlogArticleContentBlock,
-  BlogArticleDetail,
-  BlogArticleListItem,
-  BlogArticleQuickFact,
-} from '~~/server/types/api'
+import type { BlogArticleDetail, BlogArticleListItem } from '~~/server/types/api'
+import { useDetailPage } from '~/components/features/blog/composables/useDetailPage'
 
 const props = defineProps<{
   article: BlogArticleDetail
@@ -304,211 +228,27 @@ const props = defineProps<{
 
 const { t } = useI18n()
 const localePath = useLocalePath()
-const { show: showToast } = useToast()
-const requestUrl = useRequestURL()
 
-type NormalizedBlock = 
-  | Exclude<BlogArticleContentBlock, { type: 'heading' }>
-  | (Extract<BlogArticleContentBlock, { type: 'heading' }> & { id: string })
-
-// Utilities
-const stripTags = (html: string): string => html.replace(/<[^>]*>/g, '')
-
-const createHeadingId = (text: string, counts: Map<string, number>): string => {
-  const sanitized =
-    stripTags(text)
-      .toLowerCase()
-      .trim()
-      .replace(/[^\p{L}\p{N}\s-]+/gu, '')
-      .replace(/\s+/g, '-')
-      .replace(/-+/g, '-')
-      .replace(/^-|-$/g, '') || 'section'
-
-  const count = counts.get(sanitized) ?? 0
-  counts.set(sanitized, count + 1)
-  return count === 0 ? sanitized : `${sanitized}-${count}`
-}
-
-// Computed Properties
-const normalizedContent = computed<NormalizedBlock[]>(() => {
-  if (!props.article) {
-    return []
-  }
-
-  const counts = new Map<string, number>()
-
-  return props.article.content.map((block: BlogArticleContentBlock) => {
-    if (block.type === 'heading') {
-      return {
-        ...block,
-        id: createHeadingId(block.text, counts),
-      }
-    }
-    return block
-  })
+// Use shared detail page composable
+const articleRef = computed(() => props.article)
+const {
+  tableOfContents,
+  resolvedHeroImage,
+  heroImageAlt,
+  heroSubtitle,
+  heroKicker,
+  heroMeta,
+  onHeroImageError,
+  quickFacts,
+  tags,
+  shareLinks,
+  copyShareLink,
+} = useDetailPage(articleRef, {
+  routeName: 'articles-slug',
+  i18nPrefix: 'article.quickFacts',
+  includeReadingTime: true,
+  includePublishedDate: true,
 })
-
-type HeadingBlockWithId = Extract<NormalizedBlock, { type: 'heading' }>
-
-const isHeadingBlock = (block: NormalizedBlock): block is HeadingBlockWithId =>
-  block.type === 'heading'
-
-const tableOfContents = computed(() => {
-  const headings = normalizedContent.value
-    .filter(isHeadingBlock)
-    .filter((block) => block.level <= 3)
-
-  return headings.map((block, index) => ({
-    id: block.id,
-    order: String(index + 1).padStart(2, '0'),
-    title: stripTags(block.text),
-  }))
-})
-
-const failedHero = ref(false)
-const heroImage = computed(() => props.article.heroImage ?? null)
-const resolvedHeroImage = computed(() => {
-  if (failedHero.value) {
-    return props.article.image ?? null
-  }
-  return heroImage.value ?? props.article.image ?? null
-})
-
-const heroImageAlt = computed(
-  () => props.article.heroImageAlt ?? props.article.imageAlt ?? props.article.title ?? '',
-)
-const heroSubtitle = computed(() => props.article.heroSubtitle ?? props.article.excerpt ?? '')
-const heroKicker = computed(() => props.article.heroKicker ?? props.article.category.label ?? '')
-
-const heroMeta = computed(() => {
-  const result: Array<{ icon: string; label: string }> = []
-
-  if (props.article.publishedAtLabel) {
-    result.push({ icon: 'mdi:calendar', label: props.article.publishedAtLabel })
-  }
-
-  if (props.article.readingTimeLabel) {
-    result.push({ icon: 'mdi:clock-outline', label: props.article.readingTimeLabel })
-  }
-
-  if (props.article.heroLocation) {
-    result.push({ icon: 'mdi:map-marker-radius-outline', label: props.article.heroLocation })
-  }
-
-  return result
-})
-
-const onHeroImageError = () => {
-  failedHero.value = true
-}
-
-const quickFacts = computed<BlogArticleQuickFact[]>(() => {
-  const result: BlogArticleQuickFact[] = []
-  const seen = new Set<string>()
-
-  const addFact = (fact: BlogArticleQuickFact) => {
-    const title = fact.title?.trim()
-    const value = fact.value?.trim()
-
-    if (!title || !value) {
-      return
-    }
-
-    const key = title.toLowerCase()
-    if (seen.has(key)) {
-      return
-    }
-
-    seen.add(key)
-    result.push({ title, value, icon: fact.icon })
-  }
-
-  addFact({
-    title: t('article.quickFacts.category'),
-    value: props.article.category.label,
-    icon: 'mdi:tag-outline',
-  })
-
-  if (props.article.publishedAtLabel) {
-    addFact({
-      title: t('article.quickFacts.published'),
-      value: props.article.publishedAtLabel,
-      icon: 'mdi:calendar',
-    })
-  }
-
-  if (props.article.readingTimeLabel) {
-    addFact({
-      title: t('article.quickFacts.readingTime'),
-      value: props.article.readingTimeLabel,
-      icon: 'mdi:clock-outline',
-    })
-  }
-
-  for (const fact of props.article.quickFacts) {
-    addFact(fact)
-  }
-
-  return result
-})
-
-const tags = computed(() => props.article.tags ?? [])
-
-const articlePath = computed(() =>
-  localePath({ name: 'articles-slug', params: { slug: props.article.slug } }),
-)
-
-const articleUrl = computed(() => {
-  const path = articlePath.value || '/'
-  if (import.meta.client) {
-    return new URL(path, window.location.origin).toString()
-  }
-  return new URL(path, requestUrl.origin).toString()
-})
-
-const shareLinks = computed(() => {
-  const url = articleUrl.value
-  const title = props.article.title ?? ''
-
-  return [
-    {
-      label: 'Telegram',
-      icon: 'mdi:telegram',
-      href: `https://t.me/share/url?url=${encodeURIComponent(url)}&text=${encodeURIComponent(title)}`,
-    },
-    {
-      label: 'WhatsApp',
-      icon: 'mdi:whatsapp',
-      href: `https://wa.me/?text=${encodeURIComponent(`${title}\n${url}`)}`,
-    },
-  ]
-})
-
-const copyShareLink = async () => {
-  try {
-    if (import.meta.client && navigator?.clipboard) {
-      await navigator.clipboard.writeText(articleUrl.value)
-      showToast(t('article.share.copySuccess'), { type: 'success' })
-    } else {
-      throw new Error('Clipboard API unavailable')
-    }
-  } catch {
-    showToast(t('article.share.copyError'), { type: 'error' })
-  }
-}
-
-const headingTag = (level: number) => {
-  if (level <= 2) {
-    return 'h2'
-  }
-  if (level === 3) {
-    return 'h3'
-  }
-  if (level === 4) {
-    return 'h4'
-  }
-  return 'h5'
-}
 </script>
 
 <style scoped>

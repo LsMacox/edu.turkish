@@ -1,0 +1,36 @@
+{
+  "programs": {
+    "meta": {
+      "title": "Türkiye'de Lisans Programları",
+      "description": "Türk üniversitelerindeki çeşitli lisans programları hakkında bilgi edinin. Tıp, işletme ve mühendislik uzmanlıkları."
+    },
+    "hero": {
+      "title": "Lisans Programları",
+      "description": "Türkiye'deki çeşitli lisans programları hakkında en önemli bilgileri keşfedin"
+    },
+    "learnMore": "Daha fazla bilgi",
+    "empty": "Program bulunamadı",
+    "error": "Programlar yüklenirken hata oluştu",
+    "detail": {
+      "loading": "Yükleniyor...",
+      "notFound": "Program bulunamadı",
+      "error": "Yükleme hatası",
+      "allPrograms": "Tüm programlar",
+      "backToPrograms": "Programlara dön",
+      "tableOfContents": "İçindekiler",
+      "quickFacts": "Hızlı Bilgiler",
+      "category": "Kategori",
+      "tags": "Etiketler",
+      "share": {
+        "title": "Paylaş",
+        "description": "Bu program hakkında arkadaşlarınıza anlatın",
+        "copyLink": "Bağlantıyı kopyala",
+        "copySuccess": "Bağlantı kopyalandı",
+        "copyError": "Kopyalama hatası"
+      },
+      "directions": {
+        "title": "Yönler"
+      }
+    }
+  }
+}

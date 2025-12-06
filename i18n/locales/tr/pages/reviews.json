@@ -155,39 +155,6 @@
         "validation": "Lütfen form alanlarını kontrol edin",
         "generic": "Yorumunuz gönderilirken bir hata oluştu. Lütfen tekrar deneyin."
       }
-    },
-    "nextReviewCTA": {
-      "title": "Yorumunuzun",
-      "titleAccent": "bir sonraki olmasını ister misiniz?",
-      "description": "Edu.turkish ile Türkiye'de eğitim hayallerini gerçekleştiren 500'den fazla öğrenciye katılın",
-      "steps": {
-        "consultation": {
-          "title": "Ücretsiz danışmanlık",
-          "description": "Hedeflerinizi tartışacak ve başvuru için en uygun yolu seçeceğiz"
-        },
-        "plan": {
-          "title": "Kişisel plan",
-          "description": "Bireysel hazırlık ve başvuru stratejisi oluşturacağız"
-        },
-        "admission": {
-          "title": "Başvuru",
-          "description": "Üniversiteye kaydoluncaya kadar her aşamada destek sağlıyoruz"
-        }
-      },
-      "stats": {
-        "students": "Başarılı öğrenci",
-        "admissions": "Kabul oranı",
-        "universities": "Partner üniversite",
-        "experience": "Yıl deneyim"
-      },
-      "cta": {
-        "button": "Hayallerinize giden yolculuğa başlayın"
-      },
-      "features": {
-        "consultation": "Ücretsiz danışmanlık",
-        "noHiddenFees": "Gizli ücret yok",
-        "guarantee": "Sonuç garantisi"
-      }
     }
   }
 }

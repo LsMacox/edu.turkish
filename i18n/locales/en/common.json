@@ -25,7 +25,9 @@
     "emptyState": {
       "title": "No programs found",
       "description": "No programs found for the selected education level."
-    }
+    },
+    "showAll": "Show all",
+    "collapse": "Collapse"
   },
   "footer": {
     "about_us": "About us",

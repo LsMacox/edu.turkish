@@ -186,7 +186,7 @@ function mapDetail(u: UniversityDetailRow, loc: NormalizedLocale): UniversityDet
     campusLife: {
       facilities: u.campusFacilities.filter((f) => f.isActive !== false).map((f): UniversityCampusFacility => {
         const ft = selectTranslation(f.translations, loc)
-        return { id: f.id, name: ft?.name ?? '', description: ft?.description ?? '', image: f.image ?? undefined }
+        return { id: f.id, name: ft?.name ?? '', description: ft?.description ?? '', image: f.image ?? undefined, icon: f.icon ?? undefined }
       }),
       gallery: u.media.filter((m) => m.kind === 'image').map((m): UniversityCampusGalleryItem => {
         const mt = selectTranslation(m.translations, loc)

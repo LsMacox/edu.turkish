@@ -28,44 +28,74 @@
       </div>
 
       <!-- Program Tables -->
-      <div v-if="filteredPrograms.length" class="bg-white rounded-2xl shadow-custom overflow-hidden">
-        <div class="overflow-x-auto">
-          <table class="w-full">
-            <thead class="bg-background">
-              <tr>
-                <th class="px-6 py-4 text-left font-semibold text-secondary">
-                  {{ $t('academicPrograms.table.programName') }}
-                </th>
-                <th class="px-6 py-4 text-center font-semibold text-secondary">
-                  {{ $t('academicPrograms.table.language') }}
-                </th>
-                <th class="px-6 py-4 text-center font-semibold text-secondary">
-                  {{ $t('academicPrograms.table.duration') }}
-                </th>
-                <th class="px-6 py-4 text-center font-semibold text-secondary">
-                  {{ $t('academicPrograms.table.costPerYear') }}
-                </th>
-              </tr>
-            </thead>
-            <tbody class="divide-y divide-gray-200">
-              <tr
-                v-for="(program, index) in filteredPrograms"
-                :key="index"
-                :class="[index % 2 === 1 ? 'bg-gray-50' : '']"
-              >
-                <td class="px-6 py-4 font-medium text-secondary">{{ program.name }}</td>
-                <td class="px-6 py-4 text-center">
-                  <span :class="getLanguageBadgeClass(program.language)">
-                    {{ program.language }}
-                  </span>
-                </td>
-                <td class="px-6 py-4 text-center text-gray-600">{{ formatDuration(program.durationYears) }}</td>
-                <td class="px-6 py-4 text-center font-semibold text-primary">
-                  {{ formatPrice(program.tuitionPerYear) }}
-                </td>
-              </tr>
-            </tbody>
-          </table>
+      <div v-if="filteredPrograms.length" class="relative">
+        <div 
+          class="bg-white rounded-2xl shadow-custom overflow-hidden"
+          :class="{ 'max-h-[400px] overflow-hidden': !isExpanded && shouldShowToggle }"
+        >
+          <div class="overflow-x-auto">
+            <table class="w-full">
+              <thead class="bg-background">
+                <tr>
+                  <th class="px-6 py-4 text-left font-semibold text-secondary">
+                    {{ $t('academicPrograms.table.programName') }}
+                  </th>
+                  <th class="px-6 py-4 text-center font-semibold text-secondary">
+                    {{ $t('academicPrograms.table.language') }}
+                  </th>
+                  <th class="px-6 py-4 text-center font-semibold text-secondary">
+                    {{ $t('academicPrograms.table.duration') }}
+                  </th>
+                  <th class="px-6 py-4 text-center font-semibold text-secondary">
+                    {{ $t('academicPrograms.table.costPerYear') }}
+                  </th>
+                </tr>
+              </thead>
+              <tbody class="divide-y divide-gray-200">
+                <tr
+                  v-for="(program, index) in filteredPrograms"
+                  :key="index"
+                  :class="[index % 2 === 1 ? 'bg-gray-50' : '']"
+                >
+                  <td class="px-6 py-4 font-medium text-secondary">{{ program.name }}</td>
+                  <td class="px-6 py-4 text-center">
+                    <span :class="getLanguageBadgeClass(program.language)">
+                      {{ program.language }}
+                    </span>
+                  </td>
+                  <td class="px-6 py-4 text-center text-gray-600">{{ formatDuration(program.durationYears) }}</td>
+                  <td class="px-6 py-4 text-center font-semibold text-primary">
+                    {{ formatPrice(program.tuitionPerYear) }}
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <!-- Show All Overlay -->
+        <div 
+          v-if="shouldShowToggle && !isExpanded"
+          class="absolute bottom-0 left-0 right-0 h-32 bg-gradient-to-t from-white via-white/90 to-transparent rounded-b-2xl flex items-end justify-center pb-4"
+        >
+          <button
+            class="bg-primary text-white px-6 py-3 rounded-xl font-semibold hover:bg-red-600 transition-colors shadow-lg flex items-center gap-2"
+            @click="isExpanded = true"
+          >
+            <span>{{ $t('academicPrograms.showAll') }}</span>
+            <Icon name="ph:caret-down" class="text-lg" />
+          </button>
+        </div>
+
+        <!-- Collapse Button -->
+        <div v-if="shouldShowToggle && isExpanded" class="flex justify-center mt-4">
+          <button
+            class="text-primary font-semibold hover:text-red-600 transition-colors flex items-center gap-2"
+            @click="isExpanded = false"
+          >
+            <span>{{ $t('academicPrograms.collapse') }}</span>
+            <Icon name="ph:caret-up" class="text-lg" />
+          </button>
         </div>
       </div>
 
@@ -98,6 +128,7 @@ const props = defineProps<Props>()
 const { formatDuration, formatPrice } = useUniversityFormatters()
 
 const activeTab = ref<'bachelor' | 'master'>('bachelor')
+const isExpanded = ref(false)
 
 const tabs = [
   { key: 'bachelor' as const },
@@ -107,4 +138,12 @@ const tabs = [
 const filteredPrograms = computed(() =>
   props.programs.filter((p) => p.degreeType === activeTab.value)
 )
+
+// Show toggle when more than 5 programs
+const shouldShowToggle = computed(() => filteredPrograms.value.length > 5)
+
+// Reset expanded state when tab changes
+watch(activeTab, () => {
+  isExpanded.value = false
+})
 </script>

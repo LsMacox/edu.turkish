@@ -1,0 +1,36 @@
+{
+  "programs": {
+    "meta": {
+      "title": "Bachelor's Programs in Turkey",
+      "description": "Learn about various bachelor's programs at Turkish universities. Medical, business, and engineering specializations."
+    },
+    "hero": {
+      "title": "Bachelor's Programs",
+      "description": "Discover everything about bachelor's programs in Turkey"
+    },
+    "learnMore": "Learn more",
+    "empty": "No programs found",
+    "error": "Error loading programs",
+    "detail": {
+      "loading": "Loading...",
+      "notFound": "Program not found",
+      "error": "Error loading",
+      "allPrograms": "All programs",
+      "backToPrograms": "Back to programs",
+      "tableOfContents": "Table of Contents",
+      "quickFacts": "Quick Facts",
+      "category": "Category",
+      "tags": "Tags",
+      "share": {
+        "title": "Share",
+        "description": "Tell your friends about this program",
+        "copyLink": "Copy link",
+        "copySuccess": "Link copied",
+        "copyError": "Copy error"
+      },
+      "directions": {
+        "title": "Directions"
+      }
+    }
+  }
+}

@@ -25,6 +25,7 @@ type SeedArticle = {
   categoryCode: string
   isFeatured?: boolean
   isPowerPage?: boolean
+  isProgram?: boolean
   publishedAt: string
   coverImage: string
   heroImage?: string
@@ -32,7 +33,15 @@ type SeedArticle = {
   translations: TranslationContent[]
 }
 
-const categories = [
+type CategorySeed = {
+  code: string
+  order: number
+  isProgram?: boolean
+  translations: Array<{ locale: string; title: string }>
+}
+
+const categories: CategorySeed[] = [
+  // Blog categories
   {
     code: 'visas',
     order: 1,
@@ -62,6 +71,84 @@ const categories = [
     code: 'exams',
     order: 6,
     translations: [{ locale: 'ru', title: 'Экзамены' }],
+  },
+  // Program categories (isProgram: true)
+  {
+    code: 'medical',
+    order: 10,
+    isProgram: true,
+    translations: [
+      { locale: 'ru', title: 'Медицинские специальности' },
+      { locale: 'en', title: 'Medical Specialties' },
+      { locale: 'kk', title: 'Медициналық мамандықтар' },
+      { locale: 'tr', title: 'Tıp Bölümleri' },
+    ],
+  },
+  {
+    code: 'business',
+    order: 11,
+    isProgram: true,
+    translations: [
+      { locale: 'ru', title: 'Бизнес специальности' },
+      { locale: 'en', title: 'Business Specialties' },
+      { locale: 'kk', title: 'Бизнес мамандықтары' },
+      { locale: 'tr', title: 'İşletme Bölümleri' },
+    ],
+  },
+  {
+    code: 'engineering',
+    order: 12,
+    isProgram: true,
+    translations: [
+      { locale: 'ru', title: 'Инженерные специальности' },
+      { locale: 'en', title: 'Engineering Specialties' },
+      { locale: 'kk', title: 'Инженерлік мамандықтар' },
+      { locale: 'tr', title: 'Mühendislik Bölümleri' },
+    ],
+  },
+  {
+    code: 'social',
+    order: 13,
+    isProgram: true,
+    translations: [
+      { locale: 'ru', title: 'Социальные науки' },
+      { locale: 'en', title: 'Social Sciences' },
+      { locale: 'kk', title: 'Әлеуметтік ғылымдар' },
+      { locale: 'tr', title: 'Sosyal Bilimler' },
+    ],
+  },
+  {
+    code: 'creative',
+    order: 14,
+    isProgram: true,
+    translations: [
+      { locale: 'ru', title: 'Творческие специальности' },
+      { locale: 'en', title: 'Creative Specialties' },
+      { locale: 'kk', title: 'Шығармашылық мамандықтар' },
+      { locale: 'tr', title: 'Yaratıcı Bölümler' },
+    ],
+  },
+  {
+    code: 'aviation',
+    order: 15,
+    isProgram: true,
+    translations: [
+      { locale: 'ru', title: 'Лётные специальности' },
+      { locale: 'en', title: 'Aviation Specialties' },
+      { locale: 'kk', title: 'Ұшу мамандықтары' },
+      { locale: 'tr', title: 'Havacılık Bölümleri' },
+    ],
+  },
+  {
+    code: 'applied',
+    order: 16,
+    isProgram: true,
+    translations: [
+      { locale: 'ru', title: 'Прикладные специальности' },
+      { locale: 'en', title: 'Applied Specialties' },
+      { locale: 'kk', title: 'Қолданбалы мамандықтар' },
+      { locale: 'tr', title: 'Uygulamalı Bölümler' },
+    ],
   },
 ]
 
@@ -757,6 +844,256 @@ const articles: SeedArticle[] = [
       },
     ],
   },
+  // Program articles (isProgram: true)
+  {
+    categoryCode: 'medical',
+    isProgram: true,
+    publishedAt: '2025-03-01T08:00:00Z',
+    coverImage: '43bc5d74-c679-4cd3-9336-a129fbb620e7.jpg',
+    heroImage: '43bc5d74-c679-4cd3-9336-a129fbb620e7.jpg',
+    readingTimeMinutes: 10,
+    translations: [
+      {
+        locale: 'ru',
+        slug: 'medicinskie-specialnosti',
+        title: 'Медицинские специальности в Турции',
+        excerpt: 'Полный обзор медицинских программ в турецких университетах: медицина, стоматология, фармация и сестринское дело.',
+        readingTime: '10 мин чтения',
+        heroKicker: 'Медицина',
+        heroSubtitle: 'Станьте врачом с дипломом международного образца в одном из лучших медицинских вузов Турции.',
+        heroLocation: 'Стамбул, Анкара',
+        quickFacts: [
+          { title: 'Срок обучения', value: '6 лет (медицина)', icon: 'mdi:calendar' },
+          { title: 'Язык', value: 'Английский / Турецкий', icon: 'mdi:translate' },
+          { title: 'Стоимость', value: 'от $8,000/год', icon: 'mdi:currency-usd' },
+        ],
+        tags: ['медицина', 'врач', 'стоматология'],
+        content: [
+          { type: 'heading', level: 2, text: 'Почему медицина в Турции?' },
+          { type: 'paragraph', text: 'Турция — один из мировых лидеров в области медицинского туризма и образования. Университеты оснащены современными симуляционными центрами и клиниками.' },
+          { type: 'heading', level: 2, text: 'Доступные программы' },
+          { type: 'list', ordered: false, items: ['Общая медицина (6 лет)', 'Стоматология (5 лет)', 'Фармация (5 лет)', 'Сестринское дело (4 года)'] },
+        ],
+      },
+    ],
+  },
+  {
+    categoryCode: 'business',
+    isProgram: true,
+    publishedAt: '2025-03-02T08:00:00Z',
+    coverImage: '43bc5d74-c679-4cd3-9336-a129fbb620e7.jpg',
+    heroImage: '43bc5d74-c679-4cd3-9336-a129fbb620e7.jpg',
+    readingTimeMinutes: 8,
+    translations: [
+      {
+        locale: 'ru',
+        slug: 'biznes-specialnosti',
+        title: 'Бизнес специальности в Турции',
+        excerpt: 'MBA, менеджмент, маркетинг, финансы и международный бизнес в ведущих бизнес-школах Турции.',
+        readingTime: '8 мин чтения',
+        heroKicker: 'Бизнес',
+        heroSubtitle: 'Получите бизнес-образование международного уровня в динамичной экономике на стыке Европы и Азии.',
+        heroLocation: 'Стамбул',
+        quickFacts: [
+          { title: 'Срок обучения', value: '4 года', icon: 'mdi:calendar' },
+          { title: 'Язык', value: 'Английский', icon: 'mdi:translate' },
+          { title: 'Стоимость', value: 'от $4,000/год', icon: 'mdi:currency-usd' },
+        ],
+        tags: ['бизнес', 'MBA', 'менеджмент'],
+        content: [
+          { type: 'heading', level: 2, text: 'Бизнес-образование в Турции' },
+          { type: 'paragraph', text: 'Стамбул — крупнейший бизнес-хаб региона. Здесь расположены штаб-квартиры международных компаний и стартап-экосистема.' },
+          { type: 'heading', level: 2, text: 'Популярные программы' },
+          { type: 'list', ordered: false, items: ['Международный бизнес', 'Маркетинг', 'Финансы и банковское дело', 'Управление человеческими ресурсами'] },
+        ],
+      },
+    ],
+  },
+  {
+    categoryCode: 'engineering',
+    isProgram: true,
+    publishedAt: '2025-03-03T08:00:00Z',
+    coverImage: '43bc5d74-c679-4cd3-9336-a129fbb620e7.jpg',
+    heroImage: '43bc5d74-c679-4cd3-9336-a129fbb620e7.jpg',
+    readingTimeMinutes: 9,
+    translations: [
+      {
+        locale: 'ru',
+        slug: 'inzhenernye-specialnosti',
+        title: 'Инженерные специальности в Турции',
+        excerpt: 'IT, машиностроение, электротехника, строительство и другие инженерные направления в технических вузах Турции.',
+        readingTime: '9 мин чтения',
+        heroKicker: 'Инженерия',
+        heroSubtitle: 'Освойте востребованную инженерную профессию в стране с развитой промышленностью.',
+        heroLocation: 'Стамбул, Анкара, Измир',
+        quickFacts: [
+          { title: 'Срок обучения', value: '4 года', icon: 'mdi:calendar' },
+          { title: 'Язык', value: 'Английский / Турецкий', icon: 'mdi:translate' },
+          { title: 'Стоимость', value: 'от $3,500/год', icon: 'mdi:currency-usd' },
+        ],
+        tags: ['инженерия', 'IT', 'программирование'],
+        content: [
+          { type: 'heading', level: 2, text: 'Инженерное образование' },
+          { type: 'paragraph', text: 'Турецкие инженерные вузы сотрудничают с мировыми технологическими компаниями и предлагают современные лаборатории.' },
+          { type: 'heading', level: 2, text: 'Направления' },
+          { type: 'list', ordered: false, items: ['Компьютерные науки и IT', 'Машиностроение', 'Электротехника', 'Гражданское строительство', 'Промышленная инженерия'] },
+        ],
+      },
+    ],
+  },
+  {
+    categoryCode: 'social',
+    isProgram: true,
+    publishedAt: '2025-03-04T08:00:00Z',
+    coverImage: '43bc5d74-c679-4cd3-9336-a129fbb620e7.jpg',
+    heroImage: '43bc5d74-c679-4cd3-9336-a129fbb620e7.jpg',
+    readingTimeMinutes: 7,
+    translations: [
+      {
+        locale: 'ru',
+        slug: 'socialnye-nauki',
+        title: 'Социальные науки в Турции',
+        excerpt: 'Психология, социология, политология, международные отношения и право в университетах Турции.',
+        readingTime: '7 мин чтения',
+        heroKicker: 'Социальные науки',
+        heroSubtitle: 'Изучайте общество и человеческое поведение в многокультурной среде на перекрёстке цивилизаций.',
+        heroLocation: 'Стамбул, Анкара',
+        quickFacts: [
+          { title: 'Срок обучения', value: '4 года', icon: 'mdi:calendar' },
+          { title: 'Язык', value: 'Английский', icon: 'mdi:translate' },
+          { title: 'Стоимость', value: 'от $3,000/год', icon: 'mdi:currency-usd' },
+        ],
+        tags: ['психология', 'социология', 'право'],
+        content: [
+          { type: 'heading', level: 2, text: 'Почему социальные науки в Турции?' },
+          { type: 'paragraph', text: '{{WIDGET:GALLERY:{"title":"Недостатки образования в Нидерландах","images":[{"url":"https://cdn.edu-turkish.com/43bc5d74-c679-4cd3-9336-a129fbb620e7.jpg"},{"url":"https://cdn.edu-turkish.com/43bc5d74-c679-4cd3-9336-a129fbb620e7.jpg"},{"url":"https://cdn.edu-turkish.com/43bc5d74-c679-4cd3-9336-a129fbb620e7.jpg"},{"url":"https://cdn.edu-turkish.com/43bc5d74-c679-4cd3-9336-a129fbb620e7.jpg"},{"url":"https://cdn.edu-turkish.com/43bc5d74-c679-4cd3-9336-a129fbb620e7.jpg"},{"url":"https://cdn.edu-turkish.com/43bc5d74-c679-4cd3-9336-a129fbb620e7.jpg"}]}}}' },
+          { type: 'paragraph', text: 'Уникальное географическое положение Турции на стыке Европы и Азии делает её идеальным местом для изучения международных отношений, культурологии и политических процессов. Здесь пересекаются различные культуры, религии и политические системы.' },
+          { type: 'list', ordered: false, style: 'checklist', items: [
+            '<b>Международное признание:</b> Дипломы турецких вузов признаются в Европе и СНГ.',
+            '<b>Мультикультурная среда:</b> Студенты из 150+ стран мира.',
+            '<b>Практика:</b> Стажировки в международных организациях и НКО.',
+            '<b>Доступная цена:</b> От $3,000 в год за качественное образование.'
+          ]},
+          { type: 'heading', level: 2, text: 'Доступные программы' },
+          { type: 'list', ordered: false, items: ['Психология', 'Социология', 'Политология', 'Международные отношения', 'Право', 'Государственное управление', 'Экономика'] },
+          { type: 'heading', level: 2, text: 'Государственное управление' },
+          { type: 'paragraph', text: '{{WIDGET:PROSCONS:{"title":"Специальность Государственное управление подойдёт если Вы:","pros":[{"title":"Увлечены государственной политикой","description":"Имеете большой интерес к работе на благо общества и улучшению социальных показателей."},{"title":"Обладаете аналитическим мышлением","description":"Преуспеваете в предметах, требующих аналитического и критического мышления."},{"title":"Ориентированы на детали","description":"Обращаете пристальное внимание на детали, что очень важно для разработки и реализации эффективной государственной политики."},{"title":"Любите решать проблемы","description":"Умеете находить решения сложных задач в области государственного управления."}],"cons":[{"title":"Бюрократия","description":"Работа в государственных структурах часто связана с медленными процессами и большим количеством документации."},{"title":"Политическое давление","description":"Решения могут зависеть от политической конъюнктуры, а не только от профессиональных соображений."},{"title":"Ограниченная гибкость","description":"Государственные структуры менее гибкие по сравнению с частным сектором."}]}}}' },
+          { type: 'heading', level: 2, text: 'Что изучают студенты' },
+          { type: 'paragraph', text: 'Студенты изучают основы государственного управления, публичную политику, административное право, экономику общественного сектора и методы анализа политических решений.' },
+          { type: 'heading', level: 2, text: 'Карьерные перспективы' },
+          { type: 'list', ordered: false, items: [
+            'Государственная служба и дипломатия',
+            'Международные организации (ООН, ОБСЕ, ЕС)',
+            'Аналитические центры и think tanks',
+            'HR и управление персоналом',
+            'Юридические фирмы и консалтинг'
+          ]},
+          { type: 'heading', level: 2, text: 'Часто задаваемые вопросы' },
+          { type: 'faq', items: [
+            { question: 'Нужно ли знать турецкий язык?', answer: 'Нет, многие программы преподаются полностью на английском языке. Турецкий можно изучить параллельно на бесплатных курсах при университете.' },
+            { question: 'Какие документы нужны для поступления?', answer: 'Аттестат/диплом, паспорт, мотивационное письмо. Для англоязычных программ — сертификат IELTS/TOEFL (от 5.5-6.0).' },
+            { question: 'Есть ли стипендии?', answer: 'Да, доступны стипендии Türkiye Bursları (полное покрытие) и внутренние стипендии университетов (скидки 25-100%).' }
+          ]},
+        ],
+      },
+    ],
+  },
+  {
+    categoryCode: 'creative',
+    isProgram: true,
+    publishedAt: '2025-03-05T08:00:00Z',
+    coverImage: '43bc5d74-c679-4cd3-9336-a129fbb620e7.jpg',
+    heroImage: '43bc5d74-c679-4cd3-9336-a129fbb620e7.jpg',
+    readingTimeMinutes: 7,
+    translations: [
+      {
+        locale: 'ru',
+        slug: 'tvorcheskie-specialnosti',
+        title: 'Творческие специальности в Турции',
+        excerpt: 'Дизайн, архитектура, кино, музыка и изобразительное искусство в творческих вузах Турции.',
+        readingTime: '7 мин чтения',
+        heroKicker: 'Творчество',
+        heroSubtitle: 'Развивайте свой талант в стране с богатым культурным наследием и современной арт-сценой.',
+        heroLocation: 'Стамбул',
+        quickFacts: [
+          { title: 'Срок обучения', value: '4 года', icon: 'mdi:calendar' },
+          { title: 'Язык', value: 'Английский / Турецкий', icon: 'mdi:translate' },
+          { title: 'Стоимость', value: 'от $4,000/год', icon: 'mdi:currency-usd' },
+        ],
+        tags: ['дизайн', 'архитектура', 'искусство'],
+        content: [
+          { type: 'heading', level: 2, text: 'Творческое образование' },
+          { type: 'paragraph', text: 'Стамбул — культурная столица региона с музеями мирового уровня, галереями и кинофестивалями.' },
+          { type: 'heading', level: 2, text: 'Направления' },
+          { type: 'list', ordered: false, items: ['Графический дизайн', 'Архитектура', 'Кино и телевидение', 'Музыка', 'Изобразительное искусство'] },
+        ],
+      },
+    ],
+  },
+  {
+    categoryCode: 'aviation',
+    isProgram: true,
+    publishedAt: '2025-03-06T08:00:00Z',
+    coverImage: '43bc5d74-c679-4cd3-9336-a129fbb620e7.jpg',
+    heroImage: '43bc5d74-c679-4cd3-9336-a129fbb620e7.jpg',
+    readingTimeMinutes: 8,
+    translations: [
+      {
+        locale: 'ru',
+        slug: 'lyotnye-specialnosti',
+        title: 'Лётные специальности в Турции',
+        excerpt: 'Пилотирование, авиационный менеджмент и техническое обслуживание воздушных судов в авиационных академиях Турции.',
+        readingTime: '8 мин чтения',
+        heroKicker: 'Авиация',
+        heroSubtitle: 'Станьте пилотом или авиационным специалистом в стране с одной из крупнейших авиакомпаний мира.',
+        heroLocation: 'Стамбул',
+        quickFacts: [
+          { title: 'Срок обучения', value: '4 года', icon: 'mdi:calendar' },
+          { title: 'Язык', value: 'Английский', icon: 'mdi:translate' },
+          { title: 'Стоимость', value: 'от $15,000/год', icon: 'mdi:currency-usd' },
+        ],
+        tags: ['авиация', 'пилот', 'Turkish Airlines'],
+        content: [
+          { type: 'heading', level: 2, text: 'Авиационное образование' },
+          { type: 'paragraph', text: 'Turkish Airlines — одна из крупнейших авиакомпаний мира, и Турция активно готовит кадры для авиационной отрасли.' },
+          { type: 'heading', level: 2, text: 'Программы' },
+          { type: 'list', ordered: false, items: ['Пилотирование (CPL/ATPL)', 'Авиационный менеджмент', 'Техническое обслуживание воздушных судов', 'Управление воздушным движением'] },
+        ],
+      },
+    ],
+  },
+  {
+    categoryCode: 'applied',
+    isProgram: true,
+    publishedAt: '2025-03-07T08:00:00Z',
+    coverImage: '43bc5d74-c679-4cd3-9336-a129fbb620e7.jpg',
+    heroImage: '43bc5d74-c679-4cd3-9336-a129fbb620e7.jpg',
+    readingTimeMinutes: 7,
+    translations: [
+      {
+        locale: 'ru',
+        slug: 'prikladnye-specialnosti',
+        title: 'Прикладные специальности в Турции',
+        excerpt: 'Туризм, гастрономия, спортивный менеджмент и другие практико-ориентированные программы.',
+        readingTime: '7 мин чтения',
+        heroKicker: 'Прикладные науки',
+        heroSubtitle: 'Получите практические навыки в быстрорастущих отраслях турецкой экономики.',
+        heroLocation: 'Стамбул, Анталья',
+        quickFacts: [
+          { title: 'Срок обучения', value: '4 года', icon: 'mdi:calendar' },
+          { title: 'Язык', value: 'Английский / Турецкий', icon: 'mdi:translate' },
+          { title: 'Стоимость', value: 'от $3,000/год', icon: 'mdi:currency-usd' },
+        ],
+        tags: ['туризм', 'гастрономия', 'спорт'],
+        content: [
+          { type: 'heading', level: 2, text: 'Прикладное образование' },
+          { type: 'paragraph', text: 'Турция — мировой лидер в туризме и гастрономии. Практико-ориентированные программы включают стажировки в отелях и ресторанах.' },
+          { type: 'heading', level: 2, text: 'Направления' },
+          { type: 'list', ordered: false, items: ['Туризм и гостиничный бизнес', 'Гастрономия и кулинарное искусство', 'Спортивный менеджмент', 'Физиотерапия и реабилитация'] },
+        ],
+      },
+    ],
+  },
 ]
 
 export async function seedBlog(prisma: PrismaClient) {
@@ -775,8 +1112,8 @@ export async function seedBlog(prisma: PrismaClient) {
   for (const category of categories) {
     const cat = await prisma.blogCategory.upsert({
       where: { code: category.code },
-      update: { order: category.order },
-      create: { code: category.code, order: category.order },
+      update: { order: category.order, isProgram: category.isProgram ?? false },
+      create: { code: category.code, order: category.order, isProgram: category.isProgram ?? false },
     })
 
     for (const trans of category.translations) {
@@ -812,6 +1149,7 @@ export async function seedBlog(prisma: PrismaClient) {
         status: 'published',
         isFeatured: article.isFeatured ?? false,
         isPowerPage: article.isPowerPage ?? false,
+        isProgram: article.isProgram ?? false,
         publishedAt: new Date(article.publishedAt),
         coverImage: article.coverImage,
         heroImage: article.heroImage ?? article.coverImage,

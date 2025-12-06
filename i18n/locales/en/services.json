@@ -80,6 +80,8 @@
       "subtitle": "Full on-the-ground support: we meet you, help with visa, residence permit and adaptation.",
       "packages": {
         "admission": {
+          "name": "University Admission",
+          "priceUsd": 200,
           "ctaButton": "Order",
           "services": [
             "Initial consultation",
@@ -91,6 +93,8 @@
           ]
         },
         "standard": {
+          "name": "Settlement in Turkey",
+          "priceUsd": 1500,
           "ctaButton": "Order",
           "includes": "Includes 'University Admission' package plus:",
           "additionalServices": [
@@ -107,6 +111,8 @@
           ]
         },
         "vip": {
+          "name": "VIP Settlement in Turkey",
+          "priceUsd": 2200,
           "ctaButton": "Order",
           "includes": "Includes 'Admission and Settlement' packages plus:",
           "additionalServices": [
@@ -170,6 +176,20 @@
     "tr-yos-courses": {
       "title": "TR-YÖS preparation",
       "subtitle": "Our expert courses and proven methods help you achieve a high score.",
+      "subServices": [
+        {
+          "id": "basic-package",
+          "name": "Basic",
+          "description": "Duration: 7+ months\nGroup: up to 10 people\nProgram: full preparation on all topics\nSchedule: 3 lessons per week",
+          "priceUsd": 300
+        },
+        {
+          "id": "individual-package",
+          "name": "Individual",
+          "description": "Duration: 7+ months\nFormat: individual lessons\nProgram: same base + adaptation to your level\nSchedule: 3 lessons per week",
+          "priceUsd": 700
+        }
+      ],
       "courseGoal": {
         "title": "Course Goal",
         "description": "We prepare for TR-YÖS to achieve the highest possible score sufficient for admission to your chosen faculty — including the most competitive programs. Every student receives an equally strong curriculum, and the result depends on their preparation level and chosen learning format.",
@@ -450,6 +470,58 @@
       "title": "Translation & legalization",
       "subtitle": "100% guarantee: your documents will be translated, certified (yeminli tercüman) and accepted by any university.",
       "shortTitle": "Document Translation",
+      "serviceCards": [
+        {
+          "title": "Certificate / Diploma / Transcript",
+          "description": "Translation and notarization of certificates, diplomas and transcripts for university admission in Turkey",
+          "icon": "mdi:certificate"
+        },
+        {
+          "title": "School / University Documents",
+          "description": "Academic certificates, grade transcripts and other documents from educational institutions",
+          "icon": "mdi:school"
+        },
+        {
+          "title": "Passport / ID / Certificates",
+          "description": "Translation of passports, identity cards, birth certificates, marriage certificates and other personal documents",
+          "icon": "mdi:card-account-details"
+        },
+        {
+          "title": "Criminal Record / Medical Certificates",
+          "description": "Criminal record checks, medical reports and other official certificates",
+          "icon": "mdi:file-document-check"
+        },
+        {
+          "title": "Power of Attorney/Consents",
+          "description": "Notarized powers of attorney, parental consents and other legal documents",
+          "icon": "mdi:file-sign"
+        },
+        {
+          "title": "Financial Documents",
+          "description": "Bank statements, income certificates, guarantee letters and financial documents",
+          "icon": "mdi:bank"
+        },
+        {
+          "title": "Other",
+          "description": "Any other documents requiring notarized translation - individual cost assessment",
+          "icon": "mdi:file-question"
+        }
+      ],
+      "calculatorData": {
+        "documentTypes": [
+          { "name": "Passport", "priceUsd": 20 },
+          { "name": "High School Certificate", "priceUsd": 30 },
+          { "name": "Diploma", "priceUsd": 45 },
+          { "name": "Power of Attorney/Consent", "priceUsd": 40 },
+          { "name": "Financial Statements", "priceUsd": 25 },
+          { "name": "Other", "priceUsd": null }
+        ],
+        "languagePairs": ["Russian – Turkish", "Turkish – Russian"],
+        "urgency": [
+          { "name": "Standard (1-3 days)", "surcharge": 0 },
+          { "name": "Rush (up to 3 hours)", "surcharge": 10 }
+        ]
+      },
       "calculator": {
         "title": "Price Calculator",
         "documentTypeLabel": "Document Type",

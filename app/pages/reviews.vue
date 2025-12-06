@@ -199,9 +199,6 @@
 
     <!-- Share Experience Form -->
     <LazyReviewsShareExperienceForm />
-
-    <!-- Call to Action -->
-    <LazyReviewsCallToAction />
   </div>
 </template>
 

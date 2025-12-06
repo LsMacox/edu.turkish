@@ -1,6 +1,10 @@
 <template>
   <div class="w-full">
-    <div v-if="listStyle === 'steps'" class="relative space-y-8 before:absolute before:inset-0 before:ml-5 before:-translate-x-px md:before:mx-auto md:before:translate-x-0 before:h-full before:w-0.5 before:bg-gradient-to-b before:from-transparent before:via-slate-300 before:to-transparent">
+    <!-- Steps style -->
+    <div 
+      v-if="listStyle === 'steps'" 
+      class="relative space-y-8 before:absolute before:inset-0 before:ml-5 before:-translate-x-px md:before:mx-auto md:before:translate-x-0 before:h-full before:w-0.5 before:bg-gradient-to-b before:from-transparent before:via-slate-300 before:to-transparent"
+    >
       <div 
         v-for="(item, index) in items" 
         :key="index"
@@ -16,6 +20,7 @@
       </div>
     </div>
 
+    <!-- Checklist style -->
     <ul v-else-if="listStyle === 'checklist'" class="space-y-3">
       <li 
         v-for="(item, index) in items" 
@@ -28,6 +33,7 @@
       </li>
     </ul>
 
+    <!-- Standard list -->
     <component
       :is="ordered ? 'ol' : 'ul'"
       v-else

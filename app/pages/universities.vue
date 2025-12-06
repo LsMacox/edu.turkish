@@ -75,9 +75,7 @@
     </section>
 
     <UniversitiesListHowToChooseSection />
-    <UniversitiesListPopularProgramsSection />
     <UniversitiesListScholarshipsSection />
-    <UniversitiesListNotFoundSection />
   </main>
 </template>
 

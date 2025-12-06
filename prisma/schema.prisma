@@ -642,6 +642,8 @@ model BlogCategory {
   id        Int       @id @default(autoincrement())
   code      String    @db.VarChar(64)
   order     Int?      @db.SmallInt
+  /// Флаг для категорий направлений (programs), отделяет их от обычных категорий блога
+  isProgram Boolean   @default(false) @map("is_program")
   createdAt DateTime  @default(now()) @map("created_at")
   updatedAt DateTime  @updatedAt @map("updated_at")
 
@@ -650,6 +652,7 @@ model BlogCategory {
   articles     BlogArticle[]
 
   @@unique([code])
+  @@index([isProgram], map: "idx_blog_category_is_program")
   @@map("blog_categories")
 }
 
@@ -672,6 +675,8 @@ model BlogArticle {
   status             BlogArticleStatus  @default(published)
   isFeatured         Boolean            @default(false) @map("is_featured")
   isPowerPage        Boolean            @default(false) @map("is_power_page")
+  /// Флаг для статей-направлений, отображаются по URL /program/[slug] вместо /articles/[slug]
+  isProgram          Boolean            @default(false) @map("is_program")
   publishedAt        DateTime           @map("published_at")
   coverImage         String?            @map("cover_image") @db.VarChar(500)
   heroImage          String?            @map("hero_image") @db.VarChar(500)
@@ -685,6 +690,7 @@ model BlogArticle {
 
   @@index([categoryId], map: "idx_blog_article_category")
   @@index([publishedAt], map: "idx_blog_article_published_at")
+  @@index([isProgram], map: "idx_blog_article_is_program")
   @@map("blog_articles")
 }
 
@@ -779,90 +785,6 @@ enum BlogArticleStatus {
   draft
   published
   archived
-}
-enum SubServiceType {
-  offering
-  calculator
-}
-
-// ==========================================
-// Service Management
-// ==========================================
-
-model ServiceCategory {
-  id           Int      @id @default(autoincrement())
-  slug         String   @unique @db.VarChar(100)
-  order        Int      @default(0)
-  isActive     Boolean  @default(true) @map("is_active")
-  expressMultiplier Decimal  @default(1.50) @map("express_multiplier") @db.Decimal(5, 2)
-  rushMultiplier    Decimal  @default(2.00) @map("rush_multiplier")    @db.Decimal(5, 2)
-  createdAt    DateTime @default(now()) @map("created_at")
-  updatedAt    DateTime @updatedAt @map("updated_at")
-  
-  // Relations
-  translations ServiceCategoryTranslation[]
-  subServices  SubService[]
-  
-  @@map("service_categories")
-  @@index([slug])
-  @@index([isActive, order])
-}
-
-model ServiceCategoryTranslation {
-  id                Int             @id @default(autoincrement())
-  serviceCategoryId Int             @map("service_category_id")
-  locale            String          @db.VarChar(5)
-  title             String          @db.VarChar(255)
-  subtitle          String?         @db.Text
-  slug              String          @db.VarChar(255)
-  metadata          Json?           // Page-specific content (FAQ, features, etc.)
-  createdAt         DateTime        @default(now()) @map("created_at")
-  updatedAt         DateTime        @updatedAt @map("updated_at")
-  
-  // Relations
-  serviceCategory   ServiceCategory @relation(fields: [serviceCategoryId], references: [id], onDelete: Cascade)
-  
-  @@unique([serviceCategoryId, locale])
-  @@map("service_category_translations")
-  @@index([locale])
-}
-
-model SubService {
-  id                Int             @id @default(autoincrement())
-  serviceCategoryId Int             @map("service_category_id")
-  slug              String          @db.VarChar(100)
-  type              SubServiceType  @default(offering)
-  priceUsd          Decimal         @map("price_usd") @db.Decimal(10, 2)
-  deliveryTimeDays  Int?            @map("delivery_time_days")
-  order             Int             @default(0)
-  isActive          Boolean         @default(true) @map("is_active")
-  createdAt         DateTime        @default(now()) @map("created_at")
-  updatedAt         DateTime        @updatedAt @map("updated_at")
-  
-  // Relations
-  serviceCategory   ServiceCategory @relation(fields: [serviceCategoryId], references: [id], onDelete: Cascade)
-  translations      SubServiceTranslation[]
-  
-  @@unique([serviceCategoryId, slug])
-  @@map("sub_services")
-  @@index([serviceCategoryId, isActive, order])
-}
-
-model SubServiceTranslation {
-  id           Int        @id @default(autoincrement())
-  subServiceId Int        @map("sub_service_id")
-  locale       String     @db.VarChar(5)
-  name         String     @db.VarChar(255)
-  description  String     @db.Text
-  createdAt    DateTime   @default(now()) @map("created_at")
-  updatedAt    DateTime   @updatedAt @map("updated_at")
-  
-  // Relations
-  subService   SubService @relation(fields: [subServiceId], references: [id], onDelete: Cascade)
-  
-  @@unique([subServiceId, locale])
-  @@map("sub_service_translations")
-  @@index([locale])
 }
 
 model ExchangeRate {

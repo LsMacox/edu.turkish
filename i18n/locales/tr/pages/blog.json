@@ -41,6 +41,10 @@
       "loading": "Yükleniyor...",
       "empty": "Filtrelerinize uygun makale bulunamadı"
     },
+    "pros_cons": {
+      "pros": "Artıları",
+      "cons": "Eksileri"
+    },
     "sidebar": {
       "popular": {
         "title": "Popüler makaleler"

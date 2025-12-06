@@ -227,8 +227,15 @@ export class BlogRepository {
     }
   }
 
-  async getCategories(locale: string): Promise<BlogCategory[]> {
+  async getCategories(locale: string, options?: { isProgram?: boolean }): Promise<BlogCategory[]> {
+    const where: Prisma.BlogCategoryWhereInput = {}
+    
+    if (options?.isProgram !== undefined) {
+      where.isProgram = options.isProgram
+    }
+
     const rows = await this.prisma.blogCategory.findMany({
+      where,
       orderBy: [{ order: 'asc' }, { id: 'asc' }],
       include: {
         translations: true,
@@ -240,8 +247,13 @@ export class BlogRepository {
       return {
         key: row.code,
         label: translation?.title ?? row.code,
+        isProgram: row.isProgram,
       }
     })
+  }
+
+  async getProgramCategories(locale: string): Promise<BlogCategory[]> {
+    return this.getCategories(locale, { isProgram: true })
   }
 
   async findArticles(
