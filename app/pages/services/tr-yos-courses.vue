@@ -39,12 +39,11 @@
 
 <script setup lang="ts">
 import type { SubServiceId } from '~/types/services'
-import { useApplicationModalStore } from '~/stores/applicationModal'
 import { useExchangeRatesStore } from '~/stores/exchangeRates'
-import { useServiceHead } from '~/components/features/services/composables'
+import { useServiceHead } from '~/composables/services/useServiceHead'
 
 const { t } = useI18n()
-const modal = useApplicationModalStore()
+const modal = useApplicationModal()
 const exchangeRatesStore = useExchangeRatesStore()
 
 onMounted(() => exchangeRatesStore.ensureFresh())
@@ -71,7 +70,7 @@ const handleApply = ({ subServiceId, name }: { subServiceId: SubServiceId; name:
     serviceContext: {
       subServiceId,
       subServiceName: name,
-      source: 'service-page',
+      source: 'service_page',
       sourceDescription: name,
     },
   })

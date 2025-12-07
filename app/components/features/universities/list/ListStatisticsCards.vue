@@ -14,7 +14,7 @@
           </ClientOnly>
         </p>
         <p class="text-xs md:text-sm text-gray-600">
-          {{ $t('universities_page.hero.stats.universities') }}
+          {{ t('universities_page.hero.stats.universities') }}
         </p>
       </div>
     </div>
@@ -33,7 +33,7 @@
           </ClientOnly>
         </p>
         <p class="text-xs md:text-sm text-gray-600">
-          {{ $t('universities_page.hero.stats.cities') }}
+          {{ t('universities_page.hero.stats.cities') }}
         </p>
       </div>
     </div>
@@ -52,7 +52,7 @@
           </ClientOnly>
         </p>
         <p class="text-xs md:text-sm text-gray-600">
-          {{ $t('universities_page.hero.stats.programs') }}
+          {{ t('universities_page.hero.stats.programs') }}
         </p>
       </div>
     </div>
@@ -62,6 +62,7 @@
 <script setup lang="ts">
 import { useStatisticsStore } from '~/stores/statistics'
 
+const { t } = useI18n()
 const statisticsStore = useStatisticsStore()
 
 await callOnce(async () => {

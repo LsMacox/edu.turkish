@@ -13,7 +13,11 @@ export default defineNuxtPlugin((nuxtApp) => {
   nuxtApp.hook('app:mounted', () => {
     if (document.querySelector('script[src*="mc.yandex.ru/metrika"]')) return
 
-    window.ym = window.ym || ((...args) => { (window.ym!.a ||= []).push(args) })
+    window.ym =
+      window.ym ||
+      ((...args) => {
+        ;(window.ym!.a ||= []).push(args)
+      })
     window.ym.l = Date.now()
 
     const script = document.createElement('script')

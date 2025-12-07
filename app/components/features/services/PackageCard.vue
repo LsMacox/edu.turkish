@@ -31,7 +31,7 @@
           class="w-full flex items-center justify-between text-left font-semibold text-gray-700 mb-2 md:hidden"
           @click="isExpanded = !isExpanded"
         >
-          <span>{{ $t('services.common.whatIncluded', "What's Included") }}</span>
+          <span>{{ t('services.common.whatIncluded') }}</span>
           <Icon
             name="mdi:chevron-down"
             :class="['w-5 h-5 transition-transform', isExpanded ? 'rotate-180' : '']"
@@ -39,7 +39,7 @@
         </button>
 
         <!-- Services list (collapsible on mobile if accordion enabled) -->
-        <div :class="{ 'hidden': isMobileAccordion && !isExpanded, 'md:block': isMobileAccordion }">
+        <div :class="{ hidden: isMobileAccordion && !isExpanded, 'md:block': isMobileAccordion }">
           <p v-if="includesText" class="text-sm font-medium text-gray-700 mb-2">
             {{ includesText }}
           </p>
@@ -49,7 +49,10 @@
               :key="index"
               class="flex items-start text-sm text-gray-600"
             >
-              <Icon name="mdi:check-circle" class="w-5 h-5 text-green-500 mr-2 flex-shrink-0 mt-0.5" />
+              <Icon
+                name="mdi:check-circle"
+                class="w-5 h-5 text-green-500 mr-2 flex-shrink-0 mt-0.5"
+              />
               <span>{{ service }}</span>
             </li>
           </ul>
@@ -94,6 +97,8 @@ const props = withDefaults(defineProps<Props>(), {
   isMobileAccordion: false,
   defaultExpanded: true,
 })
+
+const { t } = useI18n()
 
 const emit = defineEmits<{
   apply: [payload: { packageId: PackageId; name: string; price: number }]

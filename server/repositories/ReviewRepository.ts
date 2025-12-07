@@ -1,6 +1,7 @@
 import type { Prisma, PrismaClient, UserType } from '@prisma/client'
 import type { Review, ReviewQueryParams } from '~~/server/types/api'
 import { normalizeLocale, asRecord, type NormalizedLocale } from '~~/server/utils/locale'
+import { ReviewCreateSchema, type ReviewCreate } from '~~/server/schemas/review'
 
 const INCLUDE = {
   translations: true,
@@ -60,36 +61,22 @@ export class ReviewRepository {
     return reviews.map((r) => this.toMediaReview(r, loc))
   }
 
-  async create(data: {
-    type: UserType
-    name: string
-    universityId?: number
-    year?: number
-    quote: string
-    rating: number
-    avatar?: string
-    featured?: boolean
-    achievements?: Review['achievements']
-    translations: Array<{
-      locale: string
-      name?: string
-      quote?: string
-      universityName?: string
-      achievements?: Review['achievements']
-    }>
-  }): Promise<Review> {
-    const { translations, achievements, name, quote, ...rest } = data
+  async create(data: ReviewCreate): Promise<Review> {
+    const validated = ReviewCreateSchema.parse(data)
+    const { translations, achievements, name, quote, universityId, type, ...rest } = validated
 
     const review = await this.prisma.universityReview.create({
       data: {
         ...rest,
+        type: type as UserType,
+        ...(universityId ? { university: { connect: { id: universityId } } } : {}),
         translations: {
           create: translations.map((t) => ({
             locale: t.locale,
             name: t.name ?? name,
             quote: t.quote ?? quote,
             universityName: t.universityName,
-            ...(t.achievements ?? (t.locale === DEFAULT_LOCALE ? achievements : null)
+            ...((t.achievements ?? (t.locale === DEFAULT_LOCALE ? achievements : null))
               ? { achievements: t.achievements ?? achievements }
               : {}),
           })),
@@ -101,8 +88,15 @@ export class ReviewRepository {
     return this.toReview(review, normalizeLocale(DEFAULT_LOCALE))
   }
 
-  private pick<T extends { locale: string | null }>(list: T[], loc: NormalizedLocale): T | undefined {
-    return list.find((t) => t.locale === loc.normalized) ?? list.find((t) => t.locale === DEFAULT_LOCALE) ?? list[0]
+  private pick<T extends { locale: string | null }>(
+    list: T[],
+    loc: NormalizedLocale,
+  ): T | undefined {
+    return (
+      list.find((t) => t.locale === loc.normalized) ??
+      list.find((t) => t.locale === DEFAULT_LOCALE) ??
+      list[0]
+    )
   }
 
   private toReview(r: DbReview, loc: NormalizedLocale): Review {
@@ -146,7 +140,8 @@ export class ReviewRepository {
     const raw = asRecord(val)
     if (!raw) return undefined
 
-    const str = (k: string) => (typeof raw[k] === 'string' && raw[k].trim() ? raw[k].trim() : undefined)
+    const str = (k: string) =>
+      typeof raw[k] === 'string' && raw[k].trim() ? raw[k].trim() : undefined
     const num = (k: string) => (typeof raw[k] === 'number' ? raw[k] : undefined)
     const arr = Array.isArray(raw.helpful_aspects)
       ? raw.helpful_aspects.filter((x): x is string => typeof x === 'string')
@@ -154,7 +149,9 @@ export class ReviewRepository {
 
     const result: NonNullable<Review['achievements']> = {
       ...(num('yos_score') !== undefined && { yos_score: num('yos_score') }),
-      ...(num('scholarship_percentage') !== undefined && { scholarship_percentage: num('scholarship_percentage') }),
+      ...(num('scholarship_percentage') !== undefined && {
+        scholarship_percentage: num('scholarship_percentage'),
+      }),
       ...(num('sat_score') !== undefined && { sat_score: num('sat_score') }),
       ...(str('turkish_level') && { turkish_level: str('turkish_level') }),
       ...(str('english_level') && { english_level: str('english_level') }),

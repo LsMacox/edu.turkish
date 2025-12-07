@@ -7,9 +7,9 @@
     <SiteFooter />
 
     <LazyApplicationModal
-      v-if="modal.isOpen"
-      :is-open="modal.isOpen"
-      :user-preferences="modal.userPreferences"
+      v-if="modal.isOpen.value"
+      :is-open="modal.isOpen.value"
+      :user-preferences="modal.userPreferences.value"
       @close="modal.closeModal"
       @submit="modal.submitApplication"
     />
@@ -33,10 +33,17 @@
 
 <script setup lang="ts">
 // Default layout wrapper
-const modal = useApplicationModalStore()
+const modal = useApplicationModal()
 
-const { locale } = useI18n()
+const { locale, t } = useI18n()
 const config = useRuntimeConfig()
+
+// Set default site description from i18n (can be overridden by individual pages)
+useSeoMeta({
+  description: () => t('site.description'),
+  ogDescription: () => t('site.description'),
+  twitterDescription: () => t('site.description'),
+})
 const route = useRoute()
 const localeHead = useLocaleHead({ dir: true, seo: true })
 

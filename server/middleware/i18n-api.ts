@@ -1,6 +1,7 @@
 import { SUPPORTED_LOCALES, DEFAULT_LOCALE, type SupportedLocale } from '~~/lib/locales'
 
-const isLocale = (v: string): v is SupportedLocale => SUPPORTED_LOCALES.includes(v as SupportedLocale)
+const isLocale = (v: string): v is SupportedLocale =>
+  SUPPORTED_LOCALES.includes(v as SupportedLocale)
 
 export default defineEventHandler((event) => {
   if (!event.node.req.url?.startsWith('/api/')) return
@@ -11,7 +12,9 @@ export default defineEventHandler((event) => {
   setHeader(event, 'Vary', 'Accept-Language')
 })
 
-function detectLanguage(event: Parameters<typeof defineEventHandler>[0] extends (e: infer E) => any ? E : never): SupportedLocale {
+function detectLanguage(
+  event: Parameters<typeof defineEventHandler>[0] extends (e: infer E) => any ? E : never,
+): SupportedLocale {
   const queryLang = getQuery(event).lang
   if (typeof queryLang === 'string' && isLocale(queryLang)) return queryLang
 

@@ -1,4 +1,7 @@
 {
+  "site": {
+    "description": "Edu.turkish helps you enroll in Turkish universities: program selection, document preparation, scholarships, and support at every step."
+  },
   "common": {
     "clear": "Clear",
     "loading": "Loading...",

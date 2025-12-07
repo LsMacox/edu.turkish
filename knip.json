@@ -16,8 +16,7 @@
     "dist/**",
     ".output/**",
     "specs/**/contracts/**",
-    "tests/test-utils/mocks/**",
-    "tests/**/fixtures/**"
+    "tests/test-utils/**"
   ],
   "ignoreDependencies": [
     "@playwright/test",
@@ -25,8 +24,8 @@
     "eslint-config-prettier",
     "@iconify-json/mdi",
     "@iconify-json/ph",
-    "tsx",
     "ufo",
+    "vue-router",
     "h3",
     "@nuxt/schema"
   ],

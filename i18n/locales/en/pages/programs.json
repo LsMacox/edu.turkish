@@ -27,9 +27,6 @@
         "copyLink": "Copy link",
         "copySuccess": "Link copied",
         "copyError": "Copy error"
-      },
-      "directions": {
-        "title": "Directions"
       }
     }
   }

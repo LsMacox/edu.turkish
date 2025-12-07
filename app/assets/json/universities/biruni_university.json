@@ -126,9 +126,7 @@
       {
         "name": "Сертификат владения английским языком",
         "description": "TOEFL iBT ≥ 84 (для англоязычных программ)",
-        "format_requirements": [
-          "PDF"
-        ]
+        "format_requirements": ["PDF"]
       }
     ],
     "scholarships": [

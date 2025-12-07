@@ -17,7 +17,9 @@ export function parseReviewFilters(query: Record<string, unknown>) {
     page: toPositiveIntegerWithDefault(query.page, 1),
     limit: toPositiveIntegerWithDefault(query.limit, 50),
     ...(lang && { lang }),
-    ...(REVIEW_MEDIA_TYPES.includes(mediaType as (typeof REVIEW_MEDIA_TYPES)[number]) && { mediaType }),
+    ...(REVIEW_MEDIA_TYPES.includes(mediaType as (typeof REVIEW_MEDIA_TYPES)[number]) && {
+      mediaType,
+    }),
   }
 }
 
@@ -53,7 +55,9 @@ export function parseUniversityFilters(query: Record<string, unknown>): Universi
     langs,
     price_min: priceMin,
     price_max: priceMax,
-    sort: UNIVERSITY_SORTS.includes(sort as any) ? (sort as UniversityQueryParams['sort']) : undefined,
+    sort: UNIVERSITY_SORTS.includes(sort as any)
+      ? (sort as UniversityQueryParams['sort'])
+      : undefined,
     page: toPositiveInteger(query.page),
     limit: toPositiveInteger(query.limit),
   }

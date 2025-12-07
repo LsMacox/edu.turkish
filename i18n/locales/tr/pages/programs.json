@@ -27,9 +27,6 @@
         "copyLink": "Bağlantıyı kopyala",
         "copySuccess": "Bağlantı kopyalandı",
         "copyError": "Kopyalama hatası"
-      },
-      "directions": {
-        "title": "Yönler"
       }
     }
   }

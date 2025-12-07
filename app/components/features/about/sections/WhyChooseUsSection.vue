@@ -4,10 +4,10 @@
       <div class="max-w-6xl mx-auto">
         <div class="text-center mb-16">
           <h2 class="text-section-title mb-6">
-            {{ $t('about.whyChooseUs.title') }}
+            {{ t('about.whyChooseUs.title') }}
           </h2>
           <p class="text-section-subtitle max-w-3xl mx-auto">
-            {{ $t('about.whyChooseUs.subtitle') }}
+            {{ t('about.whyChooseUs.subtitle') }}
           </p>
         </div>
 
@@ -23,10 +23,10 @@
               />
               <div>
                 <h3 class="text-card-title mb-2">
-                  {{ $t('about.whyChooseUs.advantages.personal.title') }}
+                  {{ t('about.whyChooseUs.advantages.personal.title') }}
                 </h3>
                 <p class="text-gray-600">
-                  {{ $t('about.whyChooseUs.advantages.personal.description') }}
+                  {{ t('about.whyChooseUs.advantages.personal.description') }}
                 </p>
               </div>
             </div>
@@ -41,10 +41,10 @@
               />
               <div>
                 <h3 class="text-card-title mb-2">
-                  {{ $t('about.whyChooseUs.advantages.direct.title') }}
+                  {{ t('about.whyChooseUs.advantages.direct.title') }}
                 </h3>
                 <p class="text-gray-600">
-                  {{ $t('about.whyChooseUs.advantages.direct.description') }}
+                  {{ t('about.whyChooseUs.advantages.direct.description') }}
                 </p>
               </div>
             </div>
@@ -59,10 +59,10 @@
               />
               <div>
                 <h3 class="text-card-title mb-2">
-                  {{ $t('about.whyChooseUs.advantages.multilingual.title') }}
+                  {{ t('about.whyChooseUs.advantages.multilingual.title') }}
                 </h3>
                 <p class="text-gray-600">
-                  {{ $t('about.whyChooseUs.advantages.multilingual.description') }}
+                  {{ t('about.whyChooseUs.advantages.multilingual.description') }}
                 </p>
               </div>
             </div>
@@ -77,10 +77,10 @@
               />
               <div>
                 <h3 class="text-card-title mb-2">
-                  {{ $t('about.whyChooseUs.advantages.support.title') }}
+                  {{ t('about.whyChooseUs.advantages.support.title') }}
                 </h3>
                 <p class="text-gray-600">
-                  {{ $t('about.whyChooseUs.advantages.support.description') }}
+                  {{ t('about.whyChooseUs.advantages.support.description') }}
                 </p>
               </div>
             </div>
@@ -88,8 +88,8 @@
           <div>
             <NuxtImg
               class="w-full h-96 object-cover rounded-2xl shadow-custom"
-              :src="'23fe23b3-7b1b-4241-8c01-da4fa809a81a.jpg'"
-              :alt="$t('about.whyChooseUs.imageAlt')"
+              :src="ASSETS.about.whyChooseUsImage"
+              :alt="t('about.whyChooseUs.imageAlt')"
               loading="lazy"
               format="webp"
               sizes="(max-width: 1024px) 100vw, 50vw"
@@ -102,4 +102,7 @@
 </template>
 
 <script setup lang="ts">
+import { ASSETS } from '~~/lib/assets'
+
+const { t } = useI18n()
 </script>

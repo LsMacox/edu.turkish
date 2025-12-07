@@ -41,7 +41,11 @@ const setI18nParams = useSetI18nParams()
 
 const slug = computed(() => String(route.params.slug ?? ''))
 
-const { data: article, pending, error } = await useAsyncData(
+const {
+  data: article,
+  pending,
+  error,
+} = await useAsyncData(
   `powerpage-detail-${slug.value}-${locale.value}`,
   async () => {
     if (!slug.value) return null

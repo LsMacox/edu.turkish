@@ -31,7 +31,9 @@
         :autocorrect="autoCorrectAttr"
         :spellcheck="spellcheckAttr"
         :aria-label="ariaLabel || label"
-        :aria-describedby="error ? `${inputId}-error` : helperText ? `${inputId}-helper` : undefined"
+        :aria-describedby="
+          error ? `${inputId}-error` : helperText ? `${inputId}-helper` : undefined
+        "
         :aria-required="required"
         :aria-invalid="!!error"
         :class="[
@@ -85,7 +87,7 @@
         v-if="clearable && modelValue && !disabled && !inputReadonly"
         type="button"
         class="absolute inset-y-0 right-0 flex items-center pr-3 text-gray-400 hover:text-gray-600 transition-colors"
-        :aria-label="$t('common.clear') || 'Clear'"
+        :aria-label="t('common.clear')"
         @click="handleClear"
       >
         <Icon name="mdi:close" class="w-4 h-4 md:w-5 md:h-5" />
@@ -119,6 +121,7 @@
 import type { BaseTextFieldProps } from '~/types/ui'
 
 // Generate unique ID for the input
+const { t } = useI18n()
 const generatedId = useId()
 const isFocused = ref(false)
 

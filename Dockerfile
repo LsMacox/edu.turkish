@@ -37,6 +37,10 @@ ENV NUXT_ENABLE_REMOTE_IMAGES=${NUXT_ENABLE_REMOTE_IMAGES}
 ARG NUXT_PUBLIC_CDN_URL
 ENV NUXT_PUBLIC_CDN_URL=${NUXT_PUBLIC_CDN_URL}
 
+# Database URL for prerender route generation (only needed when NITRO_PRERENDER=true)
+ARG DATABASE_URL
+ENV DATABASE_URL=${DATABASE_URL}
+
 # Copy project sources
 COPY . .
 
@@ -45,6 +49,13 @@ RUN pnpm install --frozen-lockfile --offline
 
 # Prisma client generation (no DB connection needed)
 RUN pnpm exec prisma generate
+
+# Generate prerender routes if prerendering is enabled
+# This queries the database to get all article/university slugs
+RUN if [ "$NITRO_PRERENDER" = "true" ] && [ -n "$DATABASE_URL" ]; then \
+      echo "Generating prerender routes..." && \
+      pnpm exec tsx scripts/generate-prerender-routes.ts; \
+    fi
 
 # Build Nuxt into .output (Nitro node-server preset by default)
 RUN pnpm run build

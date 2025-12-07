@@ -95,7 +95,5 @@ const toggle = (index: number) => {
 
 const isOpen = (index: number) => openFaqs.value.includes(index)
 
-const sectionClasses = computed(() => [
-  props.background ? 'bg-background' : 'bg-transparent',
-])
+const sectionClasses = computed(() => [props.background ? 'bg-background' : 'bg-transparent'])
 </script>

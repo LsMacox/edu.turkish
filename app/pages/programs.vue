@@ -33,7 +33,10 @@
     <!-- Programs by Categories -->
     <section v-else class="section-py bg-background">
       <div class="container mx-auto container-padding-narrow">
-        <div v-if="categories.length === 0" class="rounded-3xl bg-white p-10 text-center shadow-custom">
+        <div
+          v-if="categories.length === 0"
+          class="rounded-3xl bg-white p-10 text-center shadow-custom"
+        >
           <p class="text-lg text-secondary">{{ t('programs.empty') }}</p>
         </div>
 
@@ -68,7 +71,9 @@
                   </div>
 
                   <!-- Gradient Overlay -->
-                  <div class="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent" />
+                  <div
+                    class="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent"
+                  />
 
                   <!-- Content Overlay -->
                   <div class="absolute bottom-0 left-0 right-0 p-4 text-white">
@@ -113,9 +118,10 @@ useHead(() => ({
 
 const { data, pending, error } = await useAsyncData(
   `programs-${locale.value}`,
-  () => $fetch<ProgramsResponse>('/api/v1/programs', {
-    query: { lang: locale.value },
-  }),
+  () =>
+    $fetch<ProgramsResponse>('/api/v1/programs', {
+      query: { lang: locale.value },
+    }),
   { watch: [locale] },
 )
 

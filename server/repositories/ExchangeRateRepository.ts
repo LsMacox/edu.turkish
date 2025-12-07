@@ -1,41 +1,14 @@
 import type { PrismaClient } from '@prisma/client'
-import type { SupportedCurrency } from '~~/lib/currency'
-import type { ExchangeRateDetails } from '~~/server/types/api/exchange-rates'
+import {
+  FALLBACK_RATES,
+  type SupportedCurrency,
+  type ExchangeRateDetails,
+} from '~~/server/schemas/exchange-rates'
 
-export const FALLBACK_RATES: Record<SupportedCurrency, number> = {
-  KZT: 450.0,
-  TRY: 32.0,
-  RUB: 90.0,
-  USD: 1.0,
-}
+export { FALLBACK_RATES }
 
 export class ExchangeRateRepository {
   constructor(private prisma: PrismaClient) {}
-
-  async getCurrentRates(): Promise<Record<SupportedCurrency, number>> {
-    const rates = await this.prisma.exchangeRate.findMany({
-      where: {
-        baseCurrency: 'USD',
-        expiresAt: { gte: new Date() },
-      },
-    })
-
-    if (rates.length === 0) {
-      return FALLBACK_RATES
-    }
-
-    const ratesMap: Partial<Record<SupportedCurrency, number>> = {}
-    for (const rate of rates) {
-      ratesMap[rate.targetCurrency as SupportedCurrency] = rate.rate.toNumber()
-    }
-
-    return {
-      KZT: ratesMap.KZT ?? FALLBACK_RATES.KZT,
-      TRY: ratesMap.TRY ?? FALLBACK_RATES.TRY,
-      RUB: ratesMap.RUB ?? FALLBACK_RATES.RUB,
-      USD: 1.0,
-    }
-  }
 
   async updateRates(rates: Record<SupportedCurrency, number>): Promise<void> {
     // Validate rates > 0

@@ -14,6 +14,10 @@ const UTM_KEYS: (keyof UtmParams)[] = [
   'utm_term',
 ]
 
+/**
+ * Coerces a value to a string, trimming whitespace and ensuring it's within a max length.
+ * Handles arrays by taking the first valid string element.
+ */
 function coerceString(value: unknown, maxLen = 200): string | undefined {
   const raw = Array.isArray(value) ? value.find((v) => typeof v === 'string' && v.trim()) : value
   if (typeof raw !== 'string') return undefined
@@ -37,4 +41,3 @@ export function sanitizeUtm(input: unknown): UtmParams | undefined {
 
   return hasUtmValues(utm) ? utm : undefined
 }
-

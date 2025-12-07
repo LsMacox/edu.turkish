@@ -122,42 +122,30 @@
       {
         "name": "Паспорт",
         "description": "Страница с данными",
-        "format_requirements": [
-          "скан PDF/JPEG"
-        ]
+        "format_requirements": ["скан PDF/JPEG"]
       },
       {
         "name": "Аттестат о среднем образовании",
         "description": "С переводом на турецкий или английский (при необходимости)",
-        "format_requirements": [
-          "PDF"
-        ]
+        "format_requirements": ["PDF"]
       },
       {
         "name": "Выписка оценок/транскрипт",
         "description": "За все годы обучения",
-        "format_requirements": [
-          "PDF"
-        ]
+        "format_requirements": ["PDF"]
       },
       {
         "name": "Сертификат владения языком",
         "description": "TOEFL/другой сертификат или справка об уровне",
-        "format_requirements": [
-          "PDF"
-        ]
+        "format_requirements": ["PDF"]
       },
       {
         "name": "Фотография 3×4",
-        "format_requirements": [
-          "JPEG/PNG"
-        ]
+        "format_requirements": ["JPEG/PNG"]
       },
       {
         "name": "Резюме (для магистратуры)",
-        "format_requirements": [
-          "PDF"
-        ]
+        "format_requirements": ["PDF"]
       }
     ],
     "scholarships": [
@@ -165,9 +153,7 @@
         "name": "Скидка на обучение",
         "type": "university",
         "coverage_percentage": 55,
-        "eligibility_criteria": [
-          "Скидка действует на все направления обучения"
-        ]
+        "eligibility_criteria": ["Скидка действует на все направления обучения"]
       }
     ]
   },

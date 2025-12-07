@@ -1,5 +1,5 @@
 <template>
-  <div 
+  <div
     class="fixed bottom-0 left-0 right-0 z-50 p-4 bg-white border-t border-gray-100 shadow-[0_-4px_20px_rgba(0,0,0,0.1)] md:hidden transform transition-transform duration-300"
     :class="{ 'translate-y-full': !isVisible }"
   >
@@ -12,7 +12,7 @@
           {{ t('power_page.cta.mobile_title') }}
         </p>
       </div>
-      <button 
+      <button
         class="px-6 py-3 text-sm font-bold text-white bg-primary rounded-full shadow-lg hover:bg-primary-dark whitespace-nowrap"
         @click="onCtaClick"
       >
@@ -36,10 +36,12 @@ const onScroll = () => {
     const currentScrollY = window.scrollY
     // Show only after scrolling down a bit (e.g. past hero)
     const heroHeight = window.innerHeight * 0.8
-    
+
     if (currentScrollY > heroHeight) {
       // Show when scrolling up or at the bottom, hide when scrolling down
-      const visible = currentScrollY < lastScrollY || (window.innerHeight + currentScrollY) >= document.body.offsetHeight - 100
+      const visible =
+        currentScrollY < lastScrollY ||
+        window.innerHeight + currentScrollY >= document.body.offsetHeight - 100
       isVisible.value = visible
       document.body.classList.toggle('has-sticky-cta', visible)
     } else {

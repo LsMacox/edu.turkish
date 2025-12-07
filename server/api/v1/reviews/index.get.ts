@@ -1,5 +1,4 @@
-import { prisma } from '~~/lib/prisma'
-import { ReviewRepository } from '~~/server/repositories'
+import { getReviewRepository } from '~~/server/repositories'
 import { calculatePagination } from '~~/server/utils/api/pagination'
 import { parseReviewFilters } from '~~/server/utils/api/filters'
 import type { ReviewResponse, ReviewQueryParams } from '~~/server/types/api'
@@ -12,7 +11,7 @@ export default defineEventHandler(async (event): Promise<ReviewResponse> => {
       typeof event.context?.locale === 'string' ? event.context.locale : undefined
     const locale = filters.lang?.trim() || contextLocale || 'ru'
 
-    const reviewRepository = new ReviewRepository(prisma)
+    const reviewRepository = getReviewRepository()
     const result = await reviewRepository.findAll(filters, locale)
 
     return {

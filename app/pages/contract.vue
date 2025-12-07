@@ -5,7 +5,7 @@
         <!-- Page Header -->
         <div class="text-center mb-8 sm:mb-10 lg:mb-12">
           <h1 class="text-hero mb-4 px-2 sm:px-0">
-            {{ $t('contract.title') }}
+            {{ t('contract.title') }}
           </h1>
         </div>
 
@@ -16,10 +16,10 @@
               <h2
                 class="text-lg sm:text-xl md:text-2xl font-semibold text-secondary mt-0 mb-3 sm:mb-4"
               >
-                {{ $t('contract.services_title') }}
+                {{ t('contract.services_title') }}
               </h2>
               <p class="text-sm sm:text-base text-gray-700 leading-relaxed sm:leading-loose">
-                {{ $t('contract.services') }}
+                {{ t('contract.services') }}
               </p>
             </section>
 
@@ -27,10 +27,10 @@
               <h2
                 class="text-lg sm:text-xl md:text-2xl font-semibold text-secondary mt-0 mb-3 sm:mb-4"
               >
-                {{ $t('contract.payment_title') }}
+                {{ t('contract.payment_title') }}
               </h2>
               <p class="text-sm sm:text-base text-gray-700 leading-relaxed sm:leading-loose">
-                {{ $t('contract.payment') }}
+                {{ t('contract.payment') }}
               </p>
             </section>
 
@@ -38,10 +38,10 @@
               <h2
                 class="text-lg sm:text-xl md:text-2xl font-semibold text-secondary mt-0 mb-3 sm:mb-4"
               >
-                {{ $t('contract.contact_title') }}
+                {{ t('contract.contact_title') }}
               </h2>
               <p class="text-sm sm:text-base text-gray-700 leading-relaxed sm:leading-loose">
-                {{ $t('contract.contact') }}
+                {{ t('contract.contact') }}
               </p>
             </section>
           </div>
@@ -55,7 +55,7 @@
             class="inline-flex items-center justify-center w-full sm:w-auto px-6 py-3 bg-primary text-white rounded-xl font-semibold hover:bg-red-600 transition-colors shadow-lg text-sm sm:text-base min-h-touch-48"
           >
             <Icon name="mdi:arrow-left" class="mr-2" />
-            {{ $t('back_to_home') }}
+            {{ t('back_to_home') }}
           </NuxtLink>
         </div>
       </div>

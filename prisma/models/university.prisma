@@ -1,0 +1,463 @@
+// Prisma Schema - University Domain
+// Core university model and related entities
+
+// import { Country, City } from "./location"
+// import { UniversityType, DegreeType, ScholarshipType, ImportantDateType, MediaKind } from "./base"
+
+model University {
+  // Базовые поля
+  id                    Int       @id @default(autoincrement())
+  
+  // Локация и основание
+  /// Ссылка на страну (нормализовано для фильтров и поиска)
+  countryId           Int?
+  /// Ссылка на город (нормализовано для фильтров и поиска)
+  cityId              Int?
+  foundedYear         Int?      @map("founded_year")
+  
+  // Тип и статус
+  type                UniversityType @default(state)
+  
+  // Стоимость обучения (нормализованная)
+  tuitionMin          Decimal?  @map("tuition_min") @db.Decimal(10, 2)
+  tuitionMax          Decimal?  @map("tuition_max") @db.Decimal(10, 2)
+  currency            String?   @db.VarChar(3) @default("USD")
+  
+  // Статистика студентов (нормализованная)
+  totalStudents       Int?      @map("total_students")
+  internationalStudents Int?    @map("international_students")
+  
+  // Рейтинг и признание (нормализованный)
+  /// Числовой балл для сортировки/фильтрации (если доступен)
+  rankingScore        Int?
+  
+  // Проживание и инфраструктура (нормализованные)
+  hasAccommodation    Boolean   @default(false) @map("has_accommodation")
+  /// Денормализованный флаг наличия стипендий для быстрых фильтров
+  hasScholarships     Boolean   @default(false) @map("has_scholarships")
+  
+  // Изображения
+  /// Обложка и основное изображение на уровне университета
+  heroImage           String?   @map("hero_image") @db.VarChar(500)
+  image               String?   @db.VarChar(500)
+  
+  // Метаданные
+  createdAt           DateTime  @default(now()) @map("created_at")
+  updatedAt           DateTime  @updatedAt @map("updated_at")
+
+  // Relations
+  translations        UniversityTranslation[]
+  academicPrograms    UniversityProgram[]
+  reviews             UniversityReview[]
+  campusFacilities    UniversityCampusFacility[]
+  admissionRequirements UniversityAdmissionRequirement[]
+  requiredDocuments   UniversityRequiredDocument[]
+  importantDates      UniversityImportantDate[]
+  scholarships        UniversityScholarship[]
+  universityDirections UniversityStudyDirection[]
+  media               UniversityMediaAsset[]
+  /// Нормализованные связи локации
+  country             Country?  @relation(fields: [countryId], references: [id], onDelete: SetNull)
+  city                City?     @relation(fields: [cityId], references: [id], onDelete: SetNull)
+
+  @@map("universities")
+  // Индексы для основных фильтров
+  @@index([type], map: "idx_university_type")
+  @@index([countryId], map: "idx_university_country")
+  @@index([cityId], map: "idx_university_city")
+  @@index([hasAccommodation], map: "idx_university_accommodation")
+  @@index([hasScholarships], map: "idx_university_scholarships")
+  @@index([foundedYear], map: "idx_university_founded_year")
+  @@index([tuitionMin, tuitionMax, currency], map: "idx_university_tuition")
+  @@index([totalStudents], map: "idx_university_total_students")
+  @@index([internationalStudents], map: "idx_university_international_students")
+  @@index([rankingScore], map: "idx_university_ranking_score")
+}
+
+model UniversityTranslation {
+  id               Int        @id @default(autoincrement())
+  universityId     Int        @map("university_id")
+  locale           String     @db.VarChar(5)
+  /// Заголовок и описание (локализованные)
+  title            String?    @db.VarChar(255)
+  description      String?    @db.Text
+  /// Локализованный slug для SEO и маршрутизации
+  slug             String     @db.VarChar(255)
+  /// Локализованные тексты о университете
+  about            Json?      // {history, mission, vision}
+  // Локализованные тексты для блока "Ключевая информация"
+  keyInfoTexts    Json?      @map("key_info_texts")
+  createdAt        DateTime   @default(now()) @map("created_at")
+  updatedAt        DateTime   @updatedAt @map("updated_at")
+
+  // Relations
+  university       University @relation(fields: [universityId], references: [id], onDelete: Cascade)
+
+  @@unique([universityId, locale], name: "unique_translation")
+  @@unique([locale, slug], name: "unique_university_slug_per_locale")
+  @@map("university_translations")
+}
+
+// ==========================================
+// University Media (gallery/video) with Translations
+// ==========================================
+
+model UniversityMediaAsset {
+  id            Int        @id @default(autoincrement())
+  universityId  Int        @map("university_id")
+  /// Тип медиа (изображение/видео)
+  kind          MediaKind  @map("kind")
+  url           String     @db.VarChar(500)
+  thumbnailUrl  String?    @map("thumbnail_url") @db.VarChar(500)
+  createdAt     DateTime   @default(now()) @map("created_at")
+  updatedAt     DateTime   @updatedAt @map("updated_at")
+
+  // Relations
+  university    University @relation(fields: [universityId], references: [id], onDelete: Cascade)
+  translations  UniversityMediaAssetTranslation[]
+
+  @@map("university_media_assets")
+  @@index([universityId], map: "idx_media_university")
+}
+
+model UniversityMediaAssetTranslation {
+  id          Int               @id @default(autoincrement())
+  mediaId     Int               @map("university_media_asset_id")
+  locale      String            @db.VarChar(5)
+  title       String?           @db.VarChar(255)
+  alt         String?           @db.VarChar(255)
+  caption     String?           @db.Text
+  createdAt   DateTime          @default(now()) @map("created_at")
+  updatedAt   DateTime          @updatedAt @map("updated_at")
+
+  // Relations
+  media       UniversityMediaAsset   @relation(fields: [mediaId], references: [id], onDelete: Cascade)
+
+  @@unique([mediaId, locale])
+  @@map("university_media_asset_translations")
+}
+
+// ==========================================
+// Academic Programs
+// ==========================================
+
+model UniversityProgram {
+  id              Int        @id @default(autoincrement())
+  universityId    Int        @map("university_id")
+  degreeType      DegreeType @map("degree_type")
+  languageCode    String     @db.VarChar(5)
+  durationYears   Int        @map("duration_years")
+  tuitionPerYear  Decimal    @map("tuition_per_year") @db.Decimal(10, 2)
+  createdAt       DateTime   @default(now()) @map("created_at")
+  updatedAt       DateTime   @updatedAt @map("updated_at")
+
+  // Relations
+  university      University @relation(fields: [universityId], references: [id], onDelete: Cascade)
+  translations    UniversityProgramTranslation[]
+
+  @@map("university_programs")
+  // Индексы для фильтров
+  @@index([universityId, degreeType], map: "idx_program_university_degree")
+  @@index([languageCode], map: "idx_program_language")
+  @@index([tuitionPerYear], map: "idx_program_tuition")
+}
+
+model UniversityProgramTranslation {
+  id          Int             @id @default(autoincrement())
+  programId   Int             @map("university_program_id")
+  locale      String          @db.VarChar(5)
+  name        String?         @db.VarChar(255)
+  createdAt   DateTime        @default(now()) @map("created_at")
+  updatedAt   DateTime        @updatedAt @map("updated_at")
+
+  // Relations
+  program     UniversityProgram @relation(fields: [programId], references: [id], onDelete: Cascade)
+
+  @@unique([programId, locale])
+  @@map("university_program_translations")
+}
+
+// ==========================================
+// Campus Facilities
+// ==========================================
+
+model UniversityCampusFacility {
+  id           Int        @id @default(autoincrement())
+  universityId Int        @map("university_id")
+  image        String?    @db.VarChar(500)
+  // Управление отображением
+  isActive     Boolean    @default(true) @map("is_active")
+  icon         String?    @db.VarChar(100)
+  
+  createdAt    DateTime   @default(now()) @map("created_at")
+  updatedAt    DateTime   @updatedAt @map("updated_at")
+
+  // Relations
+  university   University @relation(fields: [universityId], references: [id], onDelete: Cascade)
+  translations UniversityCampusFacilityTranslation[]
+
+  @@map("university_campus_facilities")
+  @@index([universityId, isActive], map: "idx_facility_filters")
+}
+
+model UniversityCampusFacilityTranslation {
+  id           Int            @id @default(autoincrement())
+  facilityId   Int            @map("university_campus_facility_id")
+  locale       String         @db.VarChar(5)
+  name         String?        @db.VarChar(255)
+  description  String?        @db.Text
+  createdAt    DateTime       @default(now()) @map("created_at")
+  updatedAt    DateTime       @updatedAt @map("updated_at")
+
+  // Relations
+  facility     UniversityCampusFacility @relation(fields: [facilityId], references: [id], onDelete: Cascade)
+
+  @@unique([facilityId, locale])
+  @@map("university_campus_facility_translations")
+}
+
+// ==========================================
+// Admission Requirements
+// ==========================================
+
+model UniversityAdmissionRequirement {
+  id           Int        @id @default(autoincrement())
+  universityId Int        @map("university_id")
+  createdAt    DateTime   @default(now()) @map("created_at")
+  updatedAt    DateTime   @updatedAt @map("updated_at")
+
+  // Relations
+  university   University @relation(fields: [universityId], references: [id], onDelete: Cascade)
+  translations UniversityAdmissionRequirementTranslation[]
+
+  @@map("university_admission_requirements")
+  @@index([universityId], map: "idx_requirement_university")
+}
+
+model UniversityAdmissionRequirementTranslation {
+  id            Int                  @id @default(autoincrement())
+  requirementId Int                  @map("university_admission_requirement_id")
+  locale        String               @db.VarChar(5)
+  category      String?              @db.VarChar(100)
+  requirement   String?              @db.VarChar(255)
+  details       String?              @db.Text
+  createdAt     DateTime             @default(now()) @map("created_at")
+  updatedAt     DateTime             @updatedAt @map("updated_at")
+
+  // Relations
+  admissionRequirement UniversityAdmissionRequirement @relation(fields: [requirementId], references: [id], onDelete: Cascade)
+
+  @@unique([requirementId, locale])
+  @@map("university_admission_requirement_translations")
+}
+
+// ==========================================
+// Required Documents
+// ==========================================
+
+model UniversityRequiredDocument {
+  id                 Int        @id @default(autoincrement())
+  universityId       Int        @map("university_id")
+  createdAt          DateTime   @default(now()) @map("created_at")
+  updatedAt          DateTime   @updatedAt @map("updated_at")
+
+  // Relations
+  university         University @relation(fields: [universityId], references: [id], onDelete: Cascade)
+  translations       UniversityRequiredDocumentTranslation[]
+
+  @@map("university_required_documents")
+  @@index([universityId], map: "idx_document_university")
+}
+
+model UniversityRequiredDocumentTranslation {
+  id                 Int              @id @default(autoincrement())
+  documentId         Int              @map("university_required_document_id")
+  locale             String           @db.VarChar(5)
+  name               String?          @db.VarChar(255)
+  description        String?          @db.Text
+  formatRequirements Json?            @map("format_requirements") // string[]
+  createdAt          DateTime         @default(now()) @map("created_at")
+  updatedAt          DateTime         @updatedAt @map("updated_at")
+
+  // Relations
+  document           UniversityRequiredDocument @relation(fields: [documentId], references: [id], onDelete: Cascade)
+
+  @@unique([documentId, locale])
+  @@map("university_required_document_translations")
+}
+
+// ==========================================
+// Important Dates
+// ==========================================
+
+model UniversityImportantDate {
+  id           Int        @id @default(autoincrement())
+  universityId Int        @map("university_id")
+  date         DateTime   @db.Date
+  type         ImportantDateType
+  createdAt    DateTime   @default(now()) @map("created_at")
+  updatedAt    DateTime   @updatedAt @map("updated_at")
+
+  // Relations
+  university   University @relation(fields: [universityId], references: [id], onDelete: Cascade)
+  translations UniversityImportantDateTranslation[]
+
+  @@map("university_important_dates")
+  @@index([universityId, type, date], map: "idx_date_filters")
+}
+
+model UniversityImportantDateTranslation {
+  id           Int           @id @default(autoincrement())
+  dateId       Int           @map("university_important_date_id")
+  locale       String        @db.VarChar(5)
+  event        String?       @db.VarChar(255)
+  createdAt    DateTime      @default(now()) @map("created_at")
+  updatedAt    DateTime      @updatedAt @map("updated_at")
+
+  // Relations
+  importantDate UniversityImportantDate @relation(fields: [dateId], references: [id], onDelete: Cascade)
+
+  @@unique([dateId, locale])
+  @@map("university_important_date_translations")
+}
+
+// ==========================================
+// Scholarships
+// ==========================================
+
+model UniversityScholarship {
+  id                  Int        @id @default(autoincrement())
+  universityId        Int        @map("university_id")
+  type                ScholarshipType
+  coveragePercentage  Int        @map("coverage_percentage")
+  applicationDeadline DateTime?  @map("application_deadline") @db.Date
+  createdAt           DateTime   @default(now()) @map("created_at")
+  updatedAt           DateTime   @updatedAt @map("updated_at")
+
+  // Relations
+  university          University @relation(fields: [universityId], references: [id], onDelete: Cascade)
+  translations        UniversityScholarshipTranslation[]
+
+  @@map("university_scholarships")
+  @@index([universityId, type], map: "idx_scholarship_type")
+  @@index([coveragePercentage], map: "idx_scholarship_coverage")
+  @@index([applicationDeadline], map: "idx_scholarship_deadline")
+}
+
+model UniversityScholarshipTranslation {
+  id                  Int         @id @default(autoincrement())
+  scholarshipId       Int         @map("university_scholarship_id")
+  locale              String      @db.VarChar(5)
+  name                String?     @db.VarChar(255)
+  eligibilityCriteria Json?       @map("eligibility_criteria")
+  createdAt           DateTime    @default(now()) @map("created_at")
+  updatedAt           DateTime    @updatedAt @map("updated_at")
+
+  // Relations
+  scholarship         UniversityScholarship @relation(fields: [scholarshipId], references: [id], onDelete: Cascade)
+
+  @@unique([scholarshipId, locale])
+  @@map("university_scholarship_translations")
+}
+
+// ==========================================
+// Study Directions
+// ==========================================
+
+model StudyDirection {
+  id                  Int       @id @default(autoincrement())
+  createdAt          DateTime  @default(now()) @map("created_at")
+  updatedAt          DateTime  @updatedAt @map("updated_at")
+
+  // Relations
+  universityDirections UniversityStudyDirection[]
+  translations        StudyDirectionTranslation[]
+
+  @@map("study_directions")
+}
+
+model UniversityStudyDirection {
+  id              Int       @id @default(autoincrement())
+  universityId    Int       @map("university_id")
+  directionId     Int       @map("study_direction_id")
+
+  createdAt       DateTime  @default(now()) @map("created_at")
+  updatedAt       DateTime  @updatedAt @map("updated_at")
+
+  // Relations
+  university      University    @relation(fields: [universityId], references: [id], onDelete: Cascade)
+  direction       StudyDirection @relation(fields: [directionId], references: [id], onDelete: Cascade)
+
+  @@unique([universityId, directionId])
+  @@map("university_pivot_study_directions")
+}
+
+model StudyDirectionTranslation {
+  id          Int             @id @default(autoincrement())
+  directionId Int             @map("study_direction_id")
+  locale      String          @db.VarChar(5)
+  name        String?         @db.VarChar(255)
+  /// Локализованный slug для SEO и маршрутизации
+  slug        String          @db.VarChar(255)
+  createdAt   DateTime        @default(now()) @map("created_at")
+  updatedAt   DateTime        @updatedAt @map("updated_at")
+
+  // Relations
+  direction   StudyDirection  @relation(fields: [directionId], references: [id], onDelete: Cascade)
+
+  @@unique([directionId, locale])
+  @@unique([locale, slug], name: "unique_direction_slug_per_locale")
+  @@map("study_direction_translations")
+}
+
+// ==========================================
+// Reviews System
+// ==========================================
+
+model UniversityReview {
+  id           Int          @id @default(autoincrement())
+  universityId Int?         @map("university_id")
+  type         ReviewType
+  mediaType    MediaReviewType @default(text) @map("media_type")
+  year         Int?
+  rating       Int?         @db.TinyInt
+  avatar       String?      @db.VarChar(500)
+  featured     Boolean      @default(false)
+  
+  // Media fields
+  videoUrl     String?      @map("video_url") @db.VarChar(500)
+  videoThumb   String?      @map("video_thumb") @db.VarChar(500)
+  videoDuration String?     @map("video_duration") @db.VarChar(10)
+  imageUrl     String?      @map("image_url") @db.VarChar(500)
+  
+  createdAt    DateTime     @default(now()) @map("created_at")
+  updatedAt    DateTime     @updatedAt @map("updated_at")
+
+  // Relations
+  university   University? @relation(fields: [universityId], references: [id], onDelete: SetNull)
+  translations UniversityReviewTranslation[]
+
+  @@map("university_reviews")
+  @@index([universityId, type], map: "idx_review_university_type")
+  @@index([featured], map: "idx_review_featured")
+  @@index([rating], map: "idx_review_rating")
+  @@index([mediaType], map: "idx_review_media_type")
+}
+
+model UniversityReviewTranslation {
+  id             Int      @id @default(autoincrement())
+  reviewId       Int      @map("university_review_id")
+  locale         String   @db.VarChar(5)
+  name           String?  @db.VarChar(255)
+  quote          String?  @db.Text
+  universityName String?  @map("university_name") @db.VarChar(255)
+  achievements   Json?
+  createdAt      DateTime @default(now()) @map("created_at")
+  updatedAt      DateTime @updatedAt @map("updated_at")
+
+  // Relations
+  review         UniversityReview   @relation(fields: [reviewId], references: [id], onDelete: Cascade)
+
+  @@unique([reviewId, locale])
+  @@map("university_review_translations")
+}

@@ -27,9 +27,6 @@
         "copyLink": "Сілтемені көшіру",
         "copySuccess": "Сілтеме көшірілді",
         "copyError": "Көшіру қатесі"
-      },
-      "directions": {
-        "title": "Бағыттар"
       }
     }
   }

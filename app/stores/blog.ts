@@ -1,5 +1,6 @@
 import { defineStore } from 'pinia'
 import type { BlogArticlesResponse } from '~~/server/types/api'
+import { useCachedFetch } from '~/composables/useCachedFetch'
 
 const CACHE_TTL = 60_000
 const CACHE_MAX = 50
@@ -22,8 +23,11 @@ export const useBlogStore = defineStore('blog', () => {
 
   const { locale } = useI18n()
 
-  const cache = new Map<string, { ts: number; data: BlogArticlesResponse }>()
-  const inflight = new Map<string, Promise<BlogArticlesResponse>>()
+  const cachedFetch = useCachedFetch(
+    (query: Record<string, unknown>) =>
+      $fetch<BlogArticlesResponse>('/api/v1/blog/articles', { query }),
+    { ttl: CACHE_TTL, maxEntries: CACHE_MAX },
+  )
 
   const hasMore = computed(() => !!pagination.value && page.value < pagination.value.totalPages)
 
@@ -51,37 +55,12 @@ export const useBlogStore = defineStore('blog', () => {
       q: searchFilter || undefined,
       lang: locale.value,
     }
-    const cacheKey = JSON.stringify(query)
 
     loading.value = true
     error.value = null
 
     try {
-      if (!append) {
-        const cached = cache.get(cacheKey)
-        if (cached && Date.now() - cached.ts < CACHE_TTL) {
-          applyResponse(cached.data, targetPage, append)
-          return cached.data
-        }
-      }
-
-      let promise = inflight.get(cacheKey)
-      if (!promise) {
-        promise = $fetch<BlogArticlesResponse>('/api/v1/blog/articles', { query })
-        inflight.set(cacheKey, promise)
-      }
-
-      const response = await promise
-      inflight.delete(cacheKey)
-
-      if (!append) {
-        cache.set(cacheKey, { ts: Date.now(), data: response })
-        if (cache.size > CACHE_MAX) {
-          const sorted = [...cache.entries()].sort((a, b) => a[1].ts - b[1].ts)
-          sorted.slice(0, Math.ceil(sorted.length / 2)).forEach(([k]) => cache.delete(k))
-        }
-      }
-
+      const response = await cachedFetch.execute(query)
       applyResponse(response, targetPage, append)
       return response
     } catch (err: unknown) {

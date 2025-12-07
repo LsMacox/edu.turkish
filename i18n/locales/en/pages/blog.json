@@ -39,7 +39,8 @@
       "readMore": "Read more →",
       "loadMore": "Load more articles",
       "loading": "Loading...",
-      "empty": "No articles match your filters yet"
+      "empty": "No articles match your filters yet",
+      "readingTime": "{minutes} min"
     },
     "pros_cons": {
       "pros": "Pros",

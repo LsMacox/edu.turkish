@@ -49,14 +49,12 @@
 
 <script setup lang="ts">
 import type { CalculatorSubmitEvent } from '~/types/services'
-import { useApplicationModalStore } from '~/stores/applicationModal'
 import { useExchangeRatesStore } from '~/stores/exchangeRates'
-import { useServiceHead, useI18nList } from '~/components/features/services/composables'
+import { useServiceHead } from '~/composables/services/useServiceHead'
 
-const { t } = useI18n()
-const modal = useApplicationModalStore()
+const { t, getListObjects } = useI18nHelpers()
+const modal = useApplicationModal()
 const exchangeRatesStore = useExchangeRatesStore()
-const { getListObjects } = useI18nList()
 
 onMounted(() => exchangeRatesStore.ensureFresh())
 
@@ -114,7 +112,7 @@ const handleCalculatorSubmit = (event: CalculatorSubmitEvent) => {
     description: serviceName,
     serviceContext: {
       subServiceName: serviceName,
-      source: 'service-page',
+      source: 'service_page',
       sourceDescription: `${t('services.document-translations.title')}: ${event.selectedDocumentType.name}`,
       price: priceDisplay,
     },

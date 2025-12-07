@@ -39,7 +39,8 @@
       "readMore": "Devamını oku →",
       "loadMore": "Daha fazla makale yükle",
       "loading": "Yükleniyor...",
-      "empty": "Filtrelerinize uygun makale bulunamadı"
+      "empty": "Filtrelerinize uygun makale bulunamadı",
+      "readingTime": "{minutes} dk"
     },
     "pros_cons": {
       "pros": "Artıları",

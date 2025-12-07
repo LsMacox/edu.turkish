@@ -1,4 +1,10 @@
-import type { UniversityType, DegreeType, UserType } from '@prisma/client'
+import type {
+  UniversityType,
+  DegreeType,
+  UserType,
+  ImportantDateType,
+  ScholarshipType,
+} from '@prisma/client'
 
 export interface PaginationMeta {
   total: number
@@ -13,4 +19,4 @@ export interface ApiResponse<T> {
 }
 
 // Re-export Prisma enums used across API types to simplify imports elsewhere
-export type { UniversityType, DegreeType, UserType }
+export type { UniversityType, DegreeType, UserType, ImportantDateType, ScholarshipType }

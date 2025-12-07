@@ -3,13 +3,13 @@
     <!-- Search -->
     <div class="md:col-span-2 lg:col-span-2">
       <label :for="searchFieldId" class="block text-sm font-medium text-secondary mb-2">{{
-        $t('universities_page.filters.search_label')
+        t('universities_page.filters.search_label')
       }}</label>
       <BaseTextField
         :id="searchFieldId"
         v-model="state.q"
         type="text"
-        :placeholder="$t('universities_page.filters.search_placeholder')"
+        :placeholder="t('universities_page.filters.search_placeholder')"
         icon="mdi:magnify"
       />
     </div>
@@ -17,10 +17,10 @@
     <!-- City -->
     <div class="md:col-span-1 lg:col-span-1">
       <label :for="cityFieldId" class="block text-sm font-medium text-secondary mb-2">{{
-        $t('universities_page.filters.city_label')
+        t('universities_page.filters.city_label')
       }}</label>
       <BaseSelect :id="cityFieldId" v-model="state.city">
-        <option :value="CITY_ALL">{{ $t('universities_page.filters.all_cities') }}</option>
+        <option :value="CITY_ALL">{{ t('universities_page.filters.all_cities') }}</option>
         <option v-for="city in availableFilters.cities" :key="city" :value="city">
           {{ city }}
         </option>
@@ -31,7 +31,7 @@
     <div class="md:col-span-1 lg:col-span-1">
       <fieldset class="p-0 m-0 border-0">
         <legend class="block text-sm font-medium text-secondary mb-2">
-          {{ $t('universities_page.filters.language_label') }}
+          {{ t('universities_page.filters.language_label') }}
         </legend>
         <div v-if="availableLanguageCodes.length" class="space-y-2">
           <BaseCheckbox
@@ -50,10 +50,10 @@
     <!-- Type -->
     <div class="md:col-span-1 lg:col-span-1">
       <label :for="typeFieldId" class="block text-sm font-medium text-secondary mb-2">{{
-        $t('universities_page.filters.type_label')
+        t('universities_page.filters.type_label')
       }}</label>
       <BaseSelect :id="typeFieldId" v-model="state.type">
-        <option :value="TYPE_ALL">{{ $t('universities_page.filters.all_types') }}</option>
+        <option :value="TYPE_ALL">{{ t('universities_page.filters.all_types') }}</option>
         <option v-for="typeOption in availableFilters.types" :key="typeOption" :value="typeOption">
           {{ getTypeLabel(typeOption) }}
         </option>
@@ -63,10 +63,10 @@
     <!-- Level -->
     <div class="md:col-span-1 lg:col-span-1">
       <label :for="levelFieldId" class="block text-sm font-medium text-secondary mb-2">{{
-        $t('universities_page.filters.level_label')
+        t('universities_page.filters.level_label')
       }}</label>
       <BaseSelect :id="levelFieldId" v-model="state.level">
-        <option :value="LEVEL_ALL">{{ $t('universities_page.filters.all_levels') }}</option>
+        <option :value="LEVEL_ALL">{{ t('universities_page.filters.all_levels') }}</option>
         <option v-for="level in levelOptions" :key="level.value" :value="level.value">
           {{ level.label }}
         </option>
@@ -80,7 +80,7 @@
         :min="priceRangeBounds[0]"
         :max="priceRangeBounds[1]"
         :step="500"
-        :label="$t('universities_page.filters.price_label')"
+        :label="t('universities_page.filters.price_label')"
       />
     </div>
 
@@ -91,14 +91,14 @@
         @click="reset"
       >
         <Icon name="mdi:refresh" class="w-4 h-4" />
-        {{ $t('universities_page.filters.reset_button') }}
+        {{ t('universities_page.filters.reset_button') }}
       </button>
       <button
         class="bg-primary text-white px-6 py-2.5 rounded-xl font-semibold hover:bg-red-600 transition-colors flex items-center justify-center gap-2 sm:w-auto"
         @click="apply"
       >
         <Icon name="mdi:filter" class="w-4 h-4" />
-        {{ $t('universities_page.filters.apply_button') }}
+        {{ t('universities_page.filters.apply_button') }}
       </button>
     </div>
   </div>
@@ -107,24 +107,27 @@
 <script setup lang="ts">
 import { storeToRefs } from 'pinia'
 import { CITY_ALL, LEVEL_ALL, TYPE_ALL, useUniversitiesStore } from '~/stores/universities'
-import { useUniversityLabels } from '../composables/useUniversityLabels'
+import { useUniversity } from '~/composables/universities/useUniversity'
 
 const emit = defineEmits<{
-  apply: [payload: {
-    q: string
-    city: string
-    langs: string[]
-    type: string
-    level: string
-    price: [number, number]
-  }]
+  apply: [
+    payload: {
+      q: string
+      city: string
+      langs: string[]
+      type: string
+      level: string
+      price: [number, number]
+    },
+  ]
 }>()
 
+const { t } = useI18n()
 const universitiesStore = useUniversitiesStore()
 const { filters, availableFilters } = storeToRefs(universitiesStore)
 const { applyFilters } = universitiesStore
 
-const { getTypeLabel, getLevelLabel, getLanguageLabel } = useUniversityLabels()
+const { getTypeLabel, getLevelLabel, getLanguageLabel } = useUniversity()
 
 const searchFieldId = useId()
 const cityFieldId = useId()

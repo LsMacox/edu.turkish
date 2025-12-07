@@ -111,11 +111,15 @@ beforeAll(() => {
     replace: vi.fn(() => Promise.resolve()),
   }))
 
-  // Mock Pinia stores
-  g.useApplicationModalStore = vi.fn(() => ({
+  // Mock composables
+  g.useApplicationModal = vi.fn(() => ({
     openModal: vi.fn(),
     closeModal: vi.fn(),
-    isOpen: false,
+    isOpen: ref(false),
+    userPreferences: ref(null),
+    openModalForSubService: vi.fn(),
+    submitApplication: vi.fn(),
+    cleanup: vi.fn(),
   }))
 
   // Configure Vue Test Utils global stubs

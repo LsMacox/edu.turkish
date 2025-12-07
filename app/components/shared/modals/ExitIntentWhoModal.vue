@@ -8,7 +8,9 @@
       <div
         class="bg-white rounded-2xl shadow-2xl w-full max-w-4xl mx-4 md:mx-6 max-h-[90vh] overflow-y-auto"
       >
-        <div class="flex items-start justify-between px-5 py-4 md:px-6 md:py-5 border-b border-gray-100">
+        <div
+          class="flex items-start justify-between px-5 py-4 md:px-6 md:py-5 border-b border-gray-100"
+        >
           <h2 class="text-lg md:text-2xl font-bold text-secondary pr-4">
             Подождите! Не уходите, не получив свой план поступления.
           </h2>

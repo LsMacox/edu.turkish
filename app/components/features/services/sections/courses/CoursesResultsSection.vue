@@ -85,7 +85,7 @@ const props = withDefaults(defineProps<StudentResultsSectionProps>(), {
   showProof: false,
 })
 
-const { t, tm, locale: _locale, messages: _messages } = useI18n()
+const { t, tm, getListObjects } = useI18nHelpers()
 
 const title = computed(() => props.title || t(`${props.keyPrefix}.title`))
 
@@ -96,63 +96,27 @@ const labels = computed(() => ({
   admittedTo: t(`${props.keyPrefix}.labels.admittedTo`),
 }))
 
-const maxResults = computed(() => {
-  const rawMaxResults = tm(`${props.keyPrefix}.maxResults`) as any
+const maxResults = computed(() =>
+  getListObjects<{ package: string; score: string }>(`${props.keyPrefix}.maxResults`, [
+    'package',
+    'score',
+  ]),
+)
 
-  // Ensure rawMaxResults is an array
-  if (!rawMaxResults || !Array.isArray(rawMaxResults)) {
-    return []
-  }
-
-  return rawMaxResults.map((_: any, index: number) => ({
-    package: t(`${props.keyPrefix}.maxResults.${index}.package`),
-    score: t(`${props.keyPrefix}.maxResults.${index}.score`),
-  }))
-})
-
+// Cases need special handling because they contain numeric values that must be read directly
 const cases = computed(() => {
-  // Use tm() to read the array of case objects directly. Using t() for numeric
-  // fields like before/after returns the key string fallback, so we must read
-  // structured values from the raw message instead.
-  const rawCases = tm(`${props.keyPrefix}.cases`) as any
-
-  // Ensure rawCases is an array
-  if (!rawCases || !Array.isArray(rawCases)) {
-    return []
-  }
+  const rawCases = tm(`${props.keyPrefix}.cases`) as unknown
+  if (!rawCases || !Array.isArray(rawCases)) return []
 
   return (rawCases as Record<string, unknown>[]).map((item) => {
     const caseStudy: CaseStudy = {}
 
-    const before = (item as any).before
-    if (typeof before === 'number') {
-      caseStudy.before = before
-    }
-
-    const after = (item as any).after
-    if (typeof after === 'number') {
-      caseStudy.after = after
-    }
-
-    const score = (item as any).score
-    if (typeof score === 'number') {
-      caseStudy.score = score
-    }
-
-    const duration = (item as any).duration
-    if (typeof duration === 'string') {
-      caseStudy.duration = duration
-    }
-
-    const proof = (item as any).proof
-    if (typeof proof === 'string') {
-      caseStudy.proof = proof
-    }
-
-    const admission = (item as any).admission
-    if (typeof admission === 'string') {
-      caseStudy.admission = admission
-    }
+    if (typeof item.before === 'number') caseStudy.before = item.before
+    if (typeof item.after === 'number') caseStudy.after = item.after
+    if (typeof item.score === 'number') caseStudy.score = item.score
+    if (typeof item.duration === 'string') caseStudy.duration = item.duration
+    if (typeof item.proof === 'string') caseStudy.proof = item.proof
+    if (typeof item.admission === 'string') caseStudy.admission = item.admission
 
     return caseStudy
   }) as CaseStudy[]

@@ -61,7 +61,7 @@ export const isHeadingBlock = (block: NormalizedBlock): block is HeadingBlockWit
  */
 export function useContentParser(
   content: Ref<BlogArticleContentBlock[]> | ComputedRef<BlogArticleContentBlock[]>,
-  options: ContentParserOptions = {}
+  options: ContentParserOptions = {},
 ) {
   const { maxTocLevel = 3 } = options
 

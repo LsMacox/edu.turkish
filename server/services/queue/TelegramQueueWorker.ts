@@ -1,14 +1,14 @@
 import { Worker } from 'bullmq'
 import type { Job } from 'bullmq'
 import type { TelegramNotificationJob } from '~~/server/types/telegram'
-import { getRedisClient } from '~~/server/utils/redis'
+import { createRedisClient } from '~~/server/utils/redis'
 import { createTelegramNotificationService } from '~~/server/services/telegram/TelegramNotificationService'
 
 let worker: Worker | null = null
 
 export function getTelegramQueueWorker(): Worker {
   if (!worker) {
-    const connection = getRedisClient()
+    const connection = createRedisClient()
 
     worker = new Worker(
       'telegram-notifications',

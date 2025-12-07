@@ -5,10 +5,10 @@
       <div class="container mx-auto container-padding-narrow">
         <div class="text-center max-w-4xl mx-auto">
           <h1 class="text-hero mb-4 md:mb-6">
-            {{ $t('universities_page.hero.title') }}
+            {{ t('universities_page.hero.title') }}
           </h1>
           <p class="text-hero-subtitle">
-            {{ $t('universities_page.hero.subtitle') }}
+            {{ t('universities_page.hero.subtitle') }}
           </p>
 
           <div class="mt-6 md:mt-8">
@@ -56,20 +56,16 @@
         </div>
 
         <div class="text-center mt-8 md:mt-12">
-          <button
+          <BaseButton
             v-if="hasMore"
-            class="bg-white border-2 border-primary text-primary px-6 md:px-8 py-3 rounded-xl font-semibold hover:bg-primary hover:text-white transition-all min-h-touch-48 disabled:opacity-50 disabled:cursor-not-allowed"
-            :disabled="isLoadingMore || !hasMore"
+            variant="outline"
+            size="lg"
+            :loading="isLoadingMore"
+            :disabled="!hasMore"
             @click="loadMore"
           >
-            <span v-if="isLoadingMore" class="flex items-center gap-2">
-              <Icon name="mdi:loading" class="w-4 h-4 animate-spin" />
-              {{ $t('universities_page.loading') }}
-            </span>
-            <span v-else>
-              {{ $t('universities_page.load_more') }}
-            </span>
-          </button>
+            {{ t('universities_page.load_more') }}
+          </BaseButton>
         </div>
       </div>
     </section>
@@ -82,6 +78,7 @@
 <script setup lang="ts">
 import { storeToRefs } from 'pinia'
 
+const { t } = useI18n()
 const route = useRoute()
 
 const universitiesStore = useUniversitiesStore()

@@ -1,6 +1,5 @@
 import { Queue } from 'bullmq'
 import type { TelegramNotificationJob } from '~~/server/types/telegram'
-import { getRedisClient } from '~~/server/utils/redis'
 
 /**
  * Telegram Notification Queue

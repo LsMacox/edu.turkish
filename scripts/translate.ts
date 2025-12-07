@@ -273,12 +273,18 @@ async function translateUniversities(opts: CliOptions): Promise<void> {
     const baseT = u.translations.find((t: any) => t.locale === sourceLocale) || u.translations[0]
     const base = { title: baseT?.title || '', description: baseT?.description || '' }
     const baseAbout = stringifyMaybeJson(baseT?.about)
+    const baseKeyInfoTexts = stringifyMaybeJson(baseT?.keyInfoTexts)
 
     for (const target of missing) {
       jobs.push(async () => {
-        const input = { title: base.title, description: base.description, about: baseAbout }
+        const input = {
+          title: base.title,
+          description: base.description,
+          about: baseAbout,
+          keyInfoTexts: baseKeyInfoTexts,
+        }
         const ctx =
-          'University translation fields. about is a JSON object with text fields. Translate values, keep JSON structure.'
+          'University translation fields. about is a JSON object with text fields. keyInfoTexts is a JSON object with localized key info texts. Translate values, keep JSON structure.'
         const out = await translateWithDryRun(input, sourceLocale, target, ctx, dryRun)
         if (dryRun) {
           console.log(`[DryRun][University ${u.id}] => ${target}`, out)
@@ -295,6 +301,7 @@ async function translateUniversities(opts: CliOptions): Promise<void> {
             title: titleOut,
             description: out.description || '',
             about: tryParseJson(out.about),
+            keyInfoTexts: tryParseJson(out.keyInfoTexts),
           },
         })
         console.log(`[Created] university_translation u=${u.id} ${sourceLocale}->${target}`)
@@ -303,9 +310,12 @@ async function translateUniversities(opts: CliOptions): Promise<void> {
 
     for (const target of incomplete) {
       jobs.push(async () => {
-        if (!baseAbout) return
-        const input = { about: baseAbout }
-        const ctx = 'Backfill university about (JSON object). Translate values and preserve JSON.'
+        if (!baseAbout && !baseKeyInfoTexts) return
+        const input: Record<string, string> = {}
+        if (baseAbout) input.about = baseAbout
+        if (baseKeyInfoTexts) input.keyInfoTexts = baseKeyInfoTexts
+        const ctx =
+          'Backfill university about and keyInfoTexts (JSON objects). Translate values and preserve JSON.'
         const out = await translateWithDryRun(input, sourceLocale, target, ctx, dryRun)
         if (dryRun) {
           console.log(`[DryRun][University-Backfill ${u.id}] => ${target}`, out)
@@ -313,6 +323,7 @@ async function translateUniversities(opts: CliOptions): Promise<void> {
         }
         const data: any = {}
         if (out.about != null) data.about = tryParseJson(out.about)
+        if (out.keyInfoTexts != null) data.keyInfoTexts = tryParseJson(out.keyInfoTexts)
         await (prisma as any).universityTranslation.updateMany({
           where: { universityId: u.id, locale: target },
           data,
@@ -342,11 +353,17 @@ async function translateReviews(opts: CliOptions): Promise<void> {
       name: by?.name || '',
       quote: by?.quote || '',
       universityName: by?.universityName || '',
+      achievements: stringifyMaybeJson(by?.achievements),
     }
     for (const target of missing) {
       jobs.push(async () => {
-        const input = { name: base.name, quote: base.quote, universityName: base.universityName }
-        const ctx = 'Review fields.'
+        const input = {
+          name: base.name,
+          quote: base.quote,
+          universityName: base.universityName,
+          achievements: base.achievements,
+        }
+        const ctx = 'Review fields. achievements is a JSON array of achievement strings.'
         const out = await translateWithDryRun(input, sourceLocale, target, ctx, dryRun)
         if (dryRun) {
           console.log(`[DryRun][Review ${r.id}] => ${target}`, out)
@@ -359,6 +376,7 @@ async function translateReviews(opts: CliOptions): Promise<void> {
             name: out.name || '',
             quote: out.quote || '',
             universityName: out.universityName || '',
+            achievements: tryParseJson(out.achievements),
           },
         })
         console.log(`[Created] review_translation r=${r.id} ${sourceLocale}->${target}`)

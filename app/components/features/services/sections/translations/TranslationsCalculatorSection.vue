@@ -108,7 +108,10 @@ const displayPrice = computed(() => {
 })
 
 const handleSubmit = () => {
-  const doc = props.documentTypesWithPrices?.[Number(selectedDocType.value)] || { name: '', priceUsd: null }
+  const doc = props.documentTypesWithPrices?.[Number(selectedDocType.value)] || {
+    name: '',
+    priceUsd: null,
+  }
   const lang = props.languagePairs?.[Number(selectedLang.value)] || ''
   const urg = props.urgencyOptions?.[Number(selectedUrg.value)] || { name: '', surcharge: 0 }
 

@@ -2,8 +2,8 @@
   <section class="py-16 bg-white">
     <div class="container mx-auto px-4 lg:px-6">
       <BaseSectionHeader
-        :title="$t('academicPrograms.title')"
-        :subtitle="$t('academicPrograms.subtitle')"
+        :title="t('academicPrograms.title')"
+        :subtitle="t('academicPrograms.subtitle')"
         align="center"
         margin-bottom="lg"
       />
@@ -22,14 +22,14 @@
             ]"
             @click="activeTab = tab.key"
           >
-            {{ $t(`academicPrograms.tabs.${tab.key}`) }}
+            {{ t(`academicPrograms.tabs.${tab.key}`) }}
           </button>
         </div>
       </div>
 
       <!-- Program Tables -->
       <div v-if="filteredPrograms.length" class="relative">
-        <div 
+        <div
           class="bg-white rounded-2xl shadow-custom overflow-hidden"
           :class="{ 'max-h-[400px] overflow-hidden': !isExpanded && shouldShowToggle }"
         >
@@ -38,16 +38,16 @@
               <thead class="bg-background">
                 <tr>
                   <th class="px-6 py-4 text-left font-semibold text-secondary">
-                    {{ $t('academicPrograms.table.programName') }}
+                    {{ t('academicPrograms.table.programName') }}
                   </th>
                   <th class="px-6 py-4 text-center font-semibold text-secondary">
-                    {{ $t('academicPrograms.table.language') }}
+                    {{ t('academicPrograms.table.language') }}
                   </th>
                   <th class="px-6 py-4 text-center font-semibold text-secondary">
-                    {{ $t('academicPrograms.table.duration') }}
+                    {{ t('academicPrograms.table.duration') }}
                   </th>
                   <th class="px-6 py-4 text-center font-semibold text-secondary">
-                    {{ $t('academicPrograms.table.costPerYear') }}
+                    {{ t('academicPrograms.table.costPerYear') }}
                   </th>
                 </tr>
               </thead>
@@ -63,7 +63,9 @@
                       {{ program.language }}
                     </span>
                   </td>
-                  <td class="px-6 py-4 text-center text-gray-600">{{ formatDuration(program.durationYears) }}</td>
+                  <td class="px-6 py-4 text-center text-gray-600">
+                    {{ formatDuration(program.durationYears) }}
+                  </td>
                   <td class="px-6 py-4 text-center font-semibold text-primary">
                     {{ formatPrice(program.tuitionPerYear) }}
                   </td>
@@ -74,7 +76,7 @@
         </div>
 
         <!-- Show All Overlay -->
-        <div 
+        <div
           v-if="shouldShowToggle && !isExpanded"
           class="absolute bottom-0 left-0 right-0 h-32 bg-gradient-to-t from-white via-white/90 to-transparent rounded-b-2xl flex items-end justify-center pb-4"
         >
@@ -82,7 +84,7 @@
             class="bg-primary text-white px-6 py-3 rounded-xl font-semibold hover:bg-red-600 transition-colors shadow-lg flex items-center gap-2"
             @click="isExpanded = true"
           >
-            <span>{{ $t('academicPrograms.showAll') }}</span>
+            <span>{{ t('academicPrograms.showAll') }}</span>
             <Icon name="ph:caret-down" class="text-lg" />
           </button>
         </div>
@@ -93,7 +95,7 @@
             class="text-primary font-semibold hover:text-red-600 transition-colors flex items-center gap-2"
             @click="isExpanded = false"
           >
-            <span>{{ $t('academicPrograms.collapse') }}</span>
+            <span>{{ t('academicPrograms.collapse') }}</span>
             <Icon name="ph:caret-up" class="text-lg" />
           </button>
         </div>
@@ -107,9 +109,9 @@
           <Icon name="ph:graduation-cap" class="text-gray-400 text-2xl" />
         </div>
         <h3 class="text-card-title mb-2">
-          {{ $t('academicPrograms.emptyState.title') }}
+          {{ t('academicPrograms.emptyState.title') }}
         </h3>
-        <p class="text-gray-600">{{ $t('academicPrograms.emptyState.description') }}</p>
+        <p class="text-gray-600">{{ t('academicPrograms.emptyState.description') }}</p>
       </div>
     </div>
   </section>
@@ -117,26 +119,24 @@
 
 <script setup lang="ts">
 import type { UniversityProgram } from '~~/server/types/api/universities'
-import { getLanguageBadgeClass } from '../../utils/styles'
-import { useUniversityFormatters } from '../../composables/useUniversityFormatters'
+import { getLanguageBadgeClass } from '~~/lib/universities/constants'
+import { useUniversity } from '~/composables/universities/useUniversity'
 
 interface Props {
   programs: UniversityProgram[]
 }
 
 const props = defineProps<Props>()
-const { formatDuration, formatPrice } = useUniversityFormatters()
+const { t } = useI18n()
+const { formatDuration, formatPrice } = useUniversity()
 
 const activeTab = ref<'bachelor' | 'master'>('bachelor')
 const isExpanded = ref(false)
 
-const tabs = [
-  { key: 'bachelor' as const },
-  { key: 'master' as const },
-]
+const tabs = [{ key: 'bachelor' as const }, { key: 'master' as const }]
 
 const filteredPrograms = computed(() =>
-  props.programs.filter((p) => p.degreeType === activeTab.value)
+  props.programs.filter((p) => p.degreeType === activeTab.value),
 )
 
 // Show toggle when more than 5 programs

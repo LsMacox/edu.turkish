@@ -1,172 +1,112 @@
 <template>
-  <ClientOnly>
-    <Teleport to="body">
-      <Transition name="fade">
-        <div
-          v-if="isOpen"
-          class="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/90 select-none"
-          @click.self="close"
-          @touchstart.passive="onTouchStart"
-          @touchend.passive="onTouchEnd"
-        >
-          <!-- Close Button -->
-          <button
-            class="absolute top-4 right-4 text-white hover:text-gray-300 transition-colors"
-            aria-label="Close"
-            @click="close"
-          >
-            <Icon name="mdi:close" class="text-3xl" />
-          </button>
+  <UiLightbox v-model="currentIndex" :items="safeItems" @update:model-value="onIndexChange">
+    <template #slide="{ item }">
+      <!-- Image -->
+      <NuxtImg
+        v-if="item.mediaType === 'image' && item.imageUrl"
+        :src="item.imageUrl"
+        :alt="item.name || 'Image'"
+        class="max-h-[80vh] max-w-full w-auto h-auto object-contain rounded-lg"
+        format="webp"
+        quality="90"
+      />
 
-          <!-- Prev Button -->
-          <button
-            class="hidden md:flex absolute left-4 top-1/2 -translate-y-1/2 w-11 h-11 rounded-full bg-white/90 hover:bg-white text-secondary items-center justify-center shadow"
-            aria-label="Previous"
-            @click.stop="prev"
-          >
-            <Icon name="mdi:chevron-left" />
-          </button>
+      <!-- Video -->
+      <video
+        v-else-if="item.mediaType === 'video' && getVideoSource(item)"
+        :ref="(el) => setVideoRef(el, item.id)"
+        :src="getVideoSource(item)!"
+        :poster="item.videoThumb || undefined"
+        controls
+        playsinline
+        class="max-h-[80vh] max-w-full w-auto h-auto rounded-lg"
+      />
 
-          <!-- Next Button -->
-          <button
-            class="hidden md:flex absolute right-4 top-1/2 -translate-y-1/2 w-11 h-11 rounded-full bg-white/90 hover:bg-white text-secondary items-center justify-center shadow"
-            aria-label="Next"
-            @click.stop="next"
-          >
-            <Icon name="mdi:chevron-right" />
-          </button>
+      <!-- Fallback -->
+      <div v-else class="h-[60vh] flex items-center justify-center text-white/70">
+        <Icon name="mdi:alert" class="text-2xl mr-2" />
+        <span>Media unavailable</span>
+      </div>
+    </template>
 
-          <div class="max-w-6xl w-full">
-            <div class="bg-black rounded-lg overflow-hidden flex items-center justify-center">
-              <!-- Image -->
-              <NuxtImg
-                v-if="current?.mediaType === 'image' && current?.imageUrl"
-                :src="current.imageUrl"
-                :alt="current?.name || 'Image'"
-                class="max-h-[80vh] w-auto h-auto object-contain"
-                loading="eager"
-                format="webp"
-                quality="90"
-              />
-
-              <!-- Video -->
-              <video
-                v-else-if="current?.mediaType === 'video' && videoSource"
-                :src="videoSource"
-                :poster="displayPoster"
-                controls
-                autoplay
-                class="max-h-[80vh] w-auto h-auto"
-              />
-
-              <!-- Fallback -->
-              <div v-else class="h-[60vh] flex items-center justify-center text-white/70">
-                <Icon name="mdi:alert" class="text-2xl mr-2" />
-                <span>Media unavailable</span>
-              </div>
-            </div>
-
-            <!-- Info -->
-            <div v-if="current" class="mt-4 text-white">
-              <h3 class="text-lg font-semibold">{{ current.name }}</h3>
-              <p v-if="current.university" class="text-sm text-gray-300">
-                {{ current.university }}
-              </p>
-            </div>
-          </div>
-        </div>
-      </Transition>
-    </Teleport>
-  </ClientOnly>
+    <template #caption="{ item }">
+      <template v-if="item">
+        <h3 class="text-xl font-semibold text-white">{{ item.name }}</h3>
+        <p v-if="item.university" class="text-sm text-gray-300 mt-1">
+          {{ item.university }}
+        </p>
+      </template>
+    </template>
+  </UiLightbox>
 </template>
 
 <script setup lang="ts">
-import type { MediaReview } from './types'
+import type { MediaReview } from '~~/server/types/api'
 
 const { getCdnUrl } = useCdn()
 
-interface Props {
+const props = defineProps<{
   items: MediaReview[]
   index: number | null
-}
+}>()
 
-const props = defineProps<Props>()
 const emit = defineEmits<{ close: [] }>()
 
-const isOpen = computed(() => props.index !== null)
-const currentIndex = ref<number>(props.index ?? 0)
+const currentIndex = ref<number | null>(props.index)
+const safeItems = computed(() => props.items || [])
 
+// Sync with parent
 watch(
   () => props.index,
   (val) => {
-    if (val === null || val === undefined) return
-    currentIndex.value = Math.min(Math.max(0, val), Math.max(0, (props.items?.length || 1) - 1))
+    currentIndex.value = val
+  },
+)
+
+function onIndexChange(val: number | null) {
+  if (val === null) {
+    emit('close')
+  }
+}
+
+// Video refs for auto-play
+const videoRefs = ref<Map<number, HTMLVideoElement>>(new Map())
+
+function setVideoRef(el: Element | ComponentPublicInstance | null, id: number) {
+  if (el && el instanceof HTMLVideoElement) {
+    videoRefs.value.set(id, el)
+  } else {
+    videoRefs.value.delete(id)
+  }
+}
+
+// Auto-play current video
+watch(
+  currentIndex,
+  (newIdx, oldIdx) => {
+    // Pause previous
+    if (typeof oldIdx === 'number' && safeItems.value[oldIdx]) {
+      const prevVideo = videoRefs.value.get(safeItems.value[oldIdx].id)
+      prevVideo?.pause()
+    }
+    // Play current
+    if (typeof newIdx === 'number' && safeItems.value[newIdx]) {
+      nextTick(() => {
+        const item = safeItems.value[newIdx]
+        if (item) {
+          const currentVideo = videoRefs.value.get(item.id)
+          currentVideo?.play().catch(() => {})
+        }
+      })
+    }
   },
   { immediate: true },
 )
 
-const safeItems = computed(() => props.items || [])
-const current = computed<MediaReview | null>(() => safeItems.value[currentIndex.value] || null)
-
-function next() {
-  if (!safeItems.value.length) return
-  currentIndex.value = (currentIndex.value + 1) % safeItems.value.length
+// Video source helper
+function getVideoSource(item: MediaReview): string | null {
+  if (!item || item.mediaType !== 'video' || !item.videoUrl) return null
+  if (item.videoUrl.startsWith('youtube:') || item.videoUrl.startsWith('vimeo:')) return null
+  return getCdnUrl(item.videoUrl)
 }
-
-function prev() {
-  if (!safeItems.value.length) return
-  currentIndex.value = (currentIndex.value - 1 + safeItems.value.length) % safeItems.value.length
-}
-
-function close() {
-  emit('close')
-}
-
-// Keyboard navigation
-onMounted(() => {
-  const onKey = (e: KeyboardEvent) => {
-    if (!isOpen.value) return
-    if (e.key === 'ArrowRight') next()
-    else if (e.key === 'ArrowLeft') prev()
-    else if (e.key === 'Escape') close()
-  }
-  window.addEventListener('keydown', onKey)
-  onUnmounted(() => window.removeEventListener('keydown', onKey))
-})
-
-// Touch swipe (mobile)
-let touchStartX = 0
-function onTouchStart(e: TouchEvent) {
-  touchStartX = e.changedTouches[0]?.clientX || 0
-}
-function onTouchEnd(e: TouchEvent) {
-  const dx = (e.changedTouches[0]?.clientX || 0) - touchStartX
-  if (Math.abs(dx) > 40) {
-    if (dx < 0) next()
-    else prev()
-  }
-}
-
-// Video helpers
-const videoSource = computed(() => {
-  const v = current.value
-  if (!v || v.mediaType !== 'video' || !v.videoUrl) return null
-  if (v.videoUrl.startsWith('youtube:')) return null
-  if (v.videoUrl.startsWith('vimeo:')) return null
-  return getCdnUrl(v.videoUrl)
-})
-
-const displayPoster = computed(() => current.value?.videoThumb || undefined)
-
 </script>
-
-<style scoped>
-.fade-enter-active,
-.fade-leave-active {
-  transition: opacity 0.2s ease;
-}
-.fade-enter-from,
-.fade-leave-to {
-  opacity: 0;
-}
-</style>

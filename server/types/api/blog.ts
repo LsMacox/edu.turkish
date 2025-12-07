@@ -11,7 +11,13 @@ export type BlogArticleContentBlock =
   | { type: 'paragraph'; text: string }
   | { type: 'list'; ordered: boolean; items: string[]; style?: 'standard' | 'checklist' | 'steps' }
   | { type: 'quote'; text: string; author?: string }
-  | { type: 'image'; url: string; alt: string; caption?: string; width?: 'standard' | 'wide' | 'full' }
+  | {
+      type: 'image'
+      url: string
+      alt: string
+      caption?: string
+      width?: 'standard' | 'wide' | 'full'
+    }
   | { type: 'spacer'; size: 'sm' | 'md' | 'lg' | 'xl' }
   | { type: 'divider' }
   | { type: 'faq'; items: Array<{ question: string; answer: string }> }
@@ -30,9 +36,7 @@ export interface BlogArticleListItem {
   image: string | null
   imageAlt?: string
   publishedAt: string
-  publishedAtLabel: string
   readingTimeMinutes?: number | null
-  readingTimeLabel?: string
   category: BlogCategory
   isPowerPage: boolean
 }
@@ -55,7 +59,6 @@ export interface BlogPopularArticle {
   slug: string
   title: string
   publishedAt: string
-  publishedAtLabel: string
 }
 
 export interface BlogArticlesResponse extends ApiResponse<BlogArticleListItem[]> {

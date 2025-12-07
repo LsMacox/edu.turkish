@@ -131,16 +131,12 @@
       {
         "name": "Аттестат/диплом",
         "description": "Апостиль и нотариальный перевод",
-        "format_requirements": [
-          "PDF"
-        ]
+        "format_requirements": ["PDF"]
       },
       {
         "name": "Загранпаспорт",
         "description": "Срок действия не менее 18 месяцев",
-        "format_requirements": [
-          "PDF"
-        ]
+        "format_requirements": ["PDF"]
       },
       {
         "name": "Фото",
@@ -156,9 +152,7 @@
         "name": "Скидка на обучение",
         "type": "university",
         "coverage_percentage": 50,
-        "eligibility_criteria": [
-          "Скидка действует на все направления обучения"
-        ]
+        "eligibility_criteria": ["Скидка действует на все направления обучения"]
       }
     ]
   },

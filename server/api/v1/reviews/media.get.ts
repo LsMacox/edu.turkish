@@ -1,5 +1,4 @@
-import { prisma } from '~~/lib/prisma'
-import { ReviewRepository } from '~~/server/repositories/ReviewRepository'
+import { getReviewRepository } from '~~/server/repositories'
 import type { SupportedLocale } from '~~/lib/locales'
 import { parsePositiveInt } from '~~/lib/number'
 
@@ -10,7 +9,7 @@ export default defineEventHandler(async (event: any) => {
   const { featured = true, limit = '12', type } = query
 
   try {
-    const repository = new ReviewRepository(prisma)
+    const repository = getReviewRepository()
     const reviews = await repository.getMediaReviews({
       featured: featured === 'true',
       limit: parsePositiveInt(limit as string) ?? 12,

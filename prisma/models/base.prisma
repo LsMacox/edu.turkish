@@ -1,0 +1,76 @@
+// Prisma Schema - Base Configuration
+// This file contains generator, datasource, and shared enums
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mysql"
+  url      = env("DATABASE_URL")
+  shadowDatabaseUrl = env("SHADOW_DATABASE_URL")
+}
+
+// ==========================================
+// Shared Enums
+// ==========================================
+
+enum UniversityType {
+  state
+  private
+  tech
+  elite
+}
+
+enum DegreeType {
+  bachelor
+  master
+  phd
+}
+
+enum ReviewType {
+  student
+  parent
+}
+
+enum UserType {
+  student
+  parent
+}
+
+enum MediaReviewType {
+  text
+  video
+  image
+}
+
+enum ApplicationStatus {
+  submitted
+  processing
+  approved
+  rejected
+}
+
+enum ScholarshipType {
+  government
+  university
+  private
+}
+
+enum ImportantDateType {
+  deadline
+  event
+  exam
+  notification
+}
+
+enum MediaKind {
+  image
+  video
+}
+
+enum BlogArticleStatus {
+  draft
+  published
+  archived
+}

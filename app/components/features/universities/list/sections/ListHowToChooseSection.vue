@@ -2,8 +2,8 @@
   <section id="how-to-choose" class="section-py bg-background">
     <div class="container">
       <BaseSectionHeader
-        :title="$t('universities_page.how_to_choose.title')"
-        :subtitle="$t('universities_page.how_to_choose.subtitle')"
+        :title="t('universities_page.how_to_choose.title')"
+        :subtitle="t('universities_page.how_to_choose.subtitle')"
         align="center"
         margin-bottom="lg"
       />
@@ -21,10 +21,10 @@
             <Icon :name="tip.icon" class="text-2xl" :class="tip.iconColor" />
           </div>
           <h3 class="text-card-title mb-4">
-            {{ $t(`universities_page.how_to_choose.tips.${tip.key}.title`) }}
+            {{ t(`universities_page.how_to_choose.tips.${tip.key}.title`) }}
           </h3>
           <p class="text-card-body">
-            {{ $t(`universities_page.how_to_choose.tips.${tip.key}.description`) }}
+            {{ t(`universities_page.how_to_choose.tips.${tip.key}.description`) }}
           </p>
         </div>
       </div>
@@ -33,6 +33,8 @@
 </template>
 
 <script setup lang="ts">
+const { t } = useI18n()
+
 const tips = [
   { key: 'location', icon: 'mdi:map-marker', bgColor: 'bg-blue-100', iconColor: 'text-blue-600' },
   { key: 'language', icon: 'mdi:translate', bgColor: 'bg-green-100', iconColor: 'text-green-600' },

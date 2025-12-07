@@ -4,74 +4,28 @@
       <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8 mb-8">
         <!-- About Us -->
         <div>
-          <h3 class="text-xl font-semibold text-secondary mb-6">{{ $t('footer.about_us') }}</h3>
+          <h3 class="text-xl font-semibold text-secondary mb-6">{{ t('footer.about_us') }}</h3>
           <ul class="space-y-3">
-            <li>
-              <NuxtLink
-                :to="localePath('/about') + '#who-we-are'"
-                class="text-gray-700 hover:text-primary transition-colors"
-                >{{ $t('footer.who_we_are') }}</NuxtLink
-              >
-            </li>
-            <li>
-              <NuxtLink
-                :to="localePath('/about') + '#team'"
-                class="text-gray-700 hover:text-primary transition-colors"
-                >{{ $t('footer.our_team') }}</NuxtLink
-              >
-            </li>
-            <li>
-              <NuxtLink
-                :to="localePath('/about') + '#contacts'"
-                class="text-gray-700 hover:text-primary transition-colors"
-                >{{ $t('footer.contacts') }}</NuxtLink
-              >
+            <li v-for="link in aboutLinks" :key="link.hash">
+              <NuxtLink :to="localePath('/about') + link.hash" class="footer-link">
+                {{ t(link.label) }}
+              </NuxtLink>
             </li>
           </ul>
         </div>
 
         <!-- Universities -->
         <div>
-          <h3 class="text-xl font-semibold text-secondary mb-6">{{ $t('footer.universities') }}</h3>
+          <h3 class="text-xl font-semibold text-secondary mb-6">{{ t('footer.universities') }}</h3>
           <ul class="space-y-3">
-            <li>
-              <button
-                class="text-gray-700 hover:text-primary transition-colors"
-                @click="handleCityClick('Стамбул')"
-              >
-                {{ $t('footer.istanbul') }}
+            <li v-for="city in cities" :key="city.value">
+              <button class="footer-link" @click="handleCityClick(city.value)">
+                {{ t(city.label) }}
               </button>
             </li>
             <li>
-              <button
-                class="text-gray-700 hover:text-primary transition-colors"
-                @click="handleCityClick('Анкара')"
-              >
-                {{ $t('footer.ankara') }}
-              </button>
-            </li>
-            <li>
-              <button
-                class="text-gray-700 hover:text-primary transition-colors"
-                @click="handleCityClick('Измир')"
-              >
-                {{ $t('footer.izmir') }}
-              </button>
-            </li>
-            <li>
-              <button
-                class="text-gray-700 hover:text-primary transition-colors"
-                @click="handleCityClick('Анталия')"
-              >
-                {{ $t('footer.antalya') }}
-              </button>
-            </li>
-            <li>
-              <button
-                class="text-gray-700 hover:text-primary transition-colors"
-                @click="handleAllUniversitiesClick"
-              >
-                {{ $t('footer.all_universities') }}
+              <button class="footer-link" @click="handleAllUniversitiesClick">
+                {{ t('footer.all_universities') }}
               </button>
             </li>
           </ul>
@@ -79,68 +33,32 @@
 
         <!-- Support -->
         <div>
-          <h3 class="text-xl font-semibold text-secondary mb-6">{{ $t('footer.support') }}</h3>
+          <h3 class="text-xl font-semibold text-secondary mb-6">{{ t('footer.support') }}</h3>
           <ul class="space-y-3">
-            <li>
-              <NuxtLink
-                :to="localePath('/faq')"
-                class="text-gray-700 hover:text-primary transition-colors"
-                >{{ $t('footer.faq') }}</NuxtLink
-              >
-            </li>
-            <li>
-              <NuxtLink
-                :to="localePath('/reviews')"
-                class="text-gray-700 hover:text-primary transition-colors"
-                >{{ $t('footer.reviews') }}</NuxtLink
-              >
-            </li>
-            <li>
-              <NuxtLink
-                :to="localePath('/contract')"
-                class="text-gray-700 hover:text-primary transition-colors"
-                >{{ $t('footer.contract') }}</NuxtLink
-              >
-            </li>
-            <li>
-              <NuxtLink
-                :to="localePath('/privacy-policy')"
-                class="text-gray-700 hover:text-primary transition-colors"
-                >{{ $t('footer.privacy_policy') }}</NuxtLink
-              >
+            <li v-for="link in supportLinks" :key="link.to">
+              <NuxtLink :to="localePath(link.to)" class="footer-link">
+                {{ t(link.label) }}
+              </NuxtLink>
             </li>
           </ul>
 
           <!-- Social Links -->
           <div class="mt-6">
-            <p class="text-sm text-gray-700 mb-3">{{ $t('footer.social_networks') }}</p>
+            <p class="text-sm text-gray-700 mb-3">{{ t('footer.social_networks') }}</p>
             <div class="flex space-x-3">
               <a
-                :href="channels.whatsapp.href"
+                v-for="social in socialLinks"
+                :key="social.name"
+                :href="social.href"
                 target="_blank"
-                class="w-10 h-10 bg-green-500 rounded-xl flex items-center justify-center text-white hover:bg-green-600 transition-colors"
-                aria-label="WhatsApp"
-                @click.prevent="handleSocialClick(channels.whatsapp.href)"
+                :class="[
+                  'w-10 h-10 rounded-xl flex items-center justify-center text-white transition-colors',
+                  social.bg,
+                ]"
+                :aria-label="social.name"
+                @click.prevent="handleSocialClick(social.href)"
               >
-                <Icon name="mdi:whatsapp" />
-              </a>
-              <a
-                :href="channels.telegramBot.href"
-                target="_blank"
-                class="w-10 h-10 bg-blue-500 rounded-xl flex items-center justify-center text-white hover:bg-blue-600 transition-colors"
-                aria-label="Telegram"
-                @click.prevent="handleSocialClick(channels.telegramBot.href)"
-              >
-                <Icon name="mdi:telegram" />
-              </a>
-              <a
-                :href="instagramChannel.href"
-                target="_blank"
-                class="w-10 h-10 bg-pink-500 rounded-xl flex items-center justify-center text-white hover:bg-pink-600 transition-colors"
-                aria-label="Instagram"
-                @click.prevent="handleSocialClick(instagramChannel.href)"
-              >
-                <Icon name="mdi:instagram" />
+                <Icon :name="social.icon" />
               </a>
             </div>
           </div>
@@ -152,7 +70,7 @@
         <div class="flex flex-col md:flex-row justify-between items-center">
           <div class="flex items-center mb-4 md:mb-0">
             <NuxtImg
-              :src="'c905b440-9cea-4b23-8576-f1787a84d356.png'"
+              :src="ASSETS.logo"
               alt="Edu.turkish"
               width="60"
               height="60"
@@ -164,10 +82,9 @@
             />
             <span class="text-xl font-bold text-secondary">Edu.turkish</span>
           </div>
-
           <div class="text-center md:text-right">
-            <p class="text-gray-700">{{ $t('footer.copyright') }}</p>
-            <p class="text-sm text-gray-600 mt-1">{{ $t('footer.licensed_agency') }}</p>
+            <p class="text-gray-700">{{ t('footer.copyright') }}</p>
+            <p class="text-sm text-gray-600 mt-1">{{ t('footer.licensed_agency') }}</p>
           </div>
         </div>
       </div>
@@ -179,21 +96,61 @@
 import { useContactChannels } from '~/composables/useContactChannels'
 import { useUniversitiesStore } from '~/stores/universities'
 import { useFingerprint } from '~/composables/useFingerprint'
+import { ASSETS } from '~~/lib/assets'
 
+const { t } = useI18n()
 const route = useRoute()
 const router = useRouter()
 const localePath = useLocalePath()
-const { channels, getChannel } = useContactChannels()
-const instagramChannel = getChannel('instagram')
-
+const { channels } = useContactChannels()
 const { openWithFingerprint } = useFingerprint()
+
+const aboutLinks = [
+  { hash: '#who-we-are', label: 'footer.who_we_are' },
+  { hash: '#team', label: 'footer.our_team' },
+  { hash: '#contacts', label: 'footer.contacts' },
+]
+
+const cities = [
+  { value: 'Стамбул', label: 'footer.istanbul' },
+  { value: 'Анкара', label: 'footer.ankara' },
+  { value: 'Измир', label: 'footer.izmir' },
+  { value: 'Анталия', label: 'footer.antalya' },
+]
+
+const supportLinks = [
+  { to: '/faq', label: 'footer.faq' },
+  { to: '/reviews', label: 'footer.reviews' },
+  { to: '/contract', label: 'footer.contract' },
+  { to: '/privacy-policy', label: 'footer.privacy_policy' },
+]
+
+const socialLinks = computed(() => [
+  {
+    name: 'WhatsApp',
+    href: channels.value.whatsapp.href,
+    icon: 'mdi:whatsapp',
+    bg: 'bg-green-500 hover:bg-green-600',
+  },
+  {
+    name: 'Telegram',
+    href: channels.value.telegramBot.href,
+    icon: 'mdi:telegram',
+    bg: 'bg-blue-500 hover:bg-blue-600',
+  },
+  {
+    name: 'Instagram',
+    href: channels.value.instagram.href,
+    icon: 'mdi:instagram',
+    bg: 'bg-pink-500 hover:bg-pink-600',
+  },
+])
 
 const isUniversitiesPage = computed(() => route.path.startsWith(localePath('/universities')))
 
 const handleCityClick = async (city: string) => {
   if (isUniversitiesPage.value) {
-    const universitiesStore = useUniversitiesStore()
-    universitiesStore.setCityFilter(city, { scrollToTop: true })
+    useUniversitiesStore().setCityFilter(city, { scrollToTop: true })
   } else {
     await router.push(localePath({ path: '/universities', query: { city } }))
   }
@@ -201,8 +158,7 @@ const handleCityClick = async (city: string) => {
 
 const handleAllUniversitiesClick = async () => {
   if (isUniversitiesPage.value) {
-    const universitiesStore = useUniversitiesStore()
-    universitiesStore.resetFilters({ scrollToTop: true })
+    useUniversitiesStore().resetFilters({ scrollToTop: true })
   } else {
     await router.push(localePath('/universities'))
   }
@@ -210,3 +166,9 @@ const handleAllUniversitiesClick = async () => {
 
 const handleSocialClick = (href: string) => openWithFingerprint(href, '_blank')
 </script>
+
+<style scoped>
+.footer-link {
+  @apply text-gray-700 hover:text-primary transition-colors;
+}
+</style>

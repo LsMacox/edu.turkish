@@ -37,6 +37,29 @@ export interface ReviewResponse {
   meta: PaginationMeta
 }
 
+/**
+ * Media review (video/image) for carousel display
+ */
+export interface MediaReview {
+  id: number
+  type: string
+  mediaType: 'video' | 'image' | 'text'
+  name: string
+  quote: string
+  university: string
+  rating: number | null
+  year: number | null
+  avatar: string | null
+  videoUrl: string | null
+  videoThumb: string | null
+  videoDuration: string | null
+  imageUrl: string | null
+}
+
+export interface MediaReviewResponse {
+  data: MediaReview[]
+}
+
 export interface ReviewStatistics {
   total_students: number
   average_rating: number

@@ -24,13 +24,13 @@
     </section>
 
     <template v-else-if="program">
-      <ProgramsDetail :program="program" :all-programs="allPrograms" />
+      <ProgramsDetail :program="program" />
     </template>
   </div>
 </template>
 
 <script setup lang="ts">
-import type { ProgramDetailResponse, ProgramsResponse, ProgramListItem } from '~~/server/types/api'
+import type { ProgramDetailResponse } from '~~/server/types/api'
 
 definePageMeta({ layout: 'default' })
 
@@ -41,30 +41,14 @@ const setI18nParams = useSetI18nParams()
 
 const slug = computed(() => String(route.params.slug ?? ''))
 
-// Fetch all programs for sidebar navigation
-const { data: programsData } = await useAsyncData(
-  `programs-list-${locale.value}`,
-  () => $fetch<ProgramsResponse>('/api/v1/programs', {
-    query: { lang: locale.value },
-  }),
-  { watch: [locale] },
-)
-
-// Flatten programs from all categories for sidebar
-const allPrograms = computed<ProgramListItem[]>(() => {
-  const categories = programsData.value?.data ?? []
-  return categories.flatMap(cat => cat.programs)
-})
-
 const { data, pending, error } = await useAsyncData(
   `program-detail-${slug.value}-${locale.value}`,
   async () => {
     if (!slug.value) return null
 
-    const response = await $fetch<ProgramDetailResponse>(
-      `/api/v1/programs/${slug.value}`,
-      { query: { lang: locale.value } },
-    )
+    const response = await $fetch<ProgramDetailResponse>(`/api/v1/programs/${slug.value}`, {
+      query: { lang: locale.value },
+    })
 
     const programData = response?.data
     if (!programData) return null

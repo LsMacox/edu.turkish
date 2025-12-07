@@ -35,8 +35,7 @@ const studentReviews: SeedReview[] = [
     university: 'İstanbul University',
     quote: 'Видео отзыв о поступлении и обучении',
     videoUrl: '3629fa59-1d7c-426d-b037-d7f80abb6835.png',
-    videoThumb:
-      '3629fa59-1d7c-426d-b037-d7f80abb6835.png',
+    videoThumb: '3629fa59-1d7c-426d-b037-d7f80abb6835.png',
   },
   {
     type: 'student',
@@ -47,8 +46,7 @@ const studentReviews: SeedReview[] = [
     university: 'Marmara University',
     quote: 'Отзыв о процессе поступления',
     videoUrl: '4364b897-252c-4884-8c67-66b1c747fa15.mp4',
-    videoThumb:
-      '2c10c078-3aea-4ad4-8cc7-34cbb63b86b2.png',
+    videoThumb: '2c10c078-3aea-4ad4-8cc7-34cbb63b86b2.png',
   },
   {
     type: 'student',

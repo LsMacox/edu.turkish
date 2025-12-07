@@ -72,11 +72,12 @@
 
 <script setup lang="ts">
 import { storeToRefs } from 'pinia'
-import { useBlogRouteSync } from '~/components/features/blog/composables/useBlogRouteSync'
-import { useApplicationModalStore } from '~/stores/applicationModal'
+import type { HeroContent, SidebarPopular, QuickLinksContent } from '~~/app/types/blog'
 import { useBlogStore } from '~/stores/blog'
+import { useBlogFilters } from '~/composables/blog/useBlogFilters'
+import { ASSETS } from '~~/lib/assets'
 
-const heroImage = '9ab6702d-df12-4b23-879a-e03b83151f1a.png'
+const heroImage = ASSETS.blog.heroImage
 
 definePageMeta({
   layout: 'default',
@@ -85,11 +86,16 @@ definePageMeta({
 
 const { t, te } = useI18n()
 const router = useRouter()
-const route = useRoute()
 const localePath = useLocalePath()
-const applicationModalStore = useApplicationModalStore()
+const { openModal: openApplicationModal } = useApplicationModal()
 const blogStore = useBlogStore()
-const { parseRouteFilters, syncRoute, hasFiltersChanged, isUpdatingRoute } = useBlogRouteSync()
+const {
+  parseRouteFilters,
+  syncRoute,
+  hasFiltersChanged,
+  watchRouteChanges,
+  createDebouncedSearch,
+} = useBlogFilters()
 
 const {
   articles,
@@ -108,7 +114,6 @@ const {
 } = storeToRefs(blogStore)
 
 const searchInput = ref('')
-let searchDebounce: ReturnType<typeof setTimeout> | null = null
 
 useHead(() => ({
   title: t('blog.meta.title'),
@@ -129,6 +134,12 @@ const applyRouteFilters = () => {
   return filters
 }
 
+const currentState = () => ({
+  category: activeCategory.value,
+  search: searchQuery.value,
+  page: currentPage.value,
+})
+
 const initialFilters = applyRouteFilters()
 
 if (import.meta.server) {
@@ -147,27 +158,9 @@ onMounted(async () => {
   })
 })
 
-const doSyncRoute = (overrides: { category?: string; search?: string; page?: number } = {}) => {
-  syncRoute(overrides, {
-    category: activeCategory.value,
-    search: searchQuery.value,
-    page: currentPage.value,
-  })
-}
-
-const updateFromRoute = async () => {
-  const filters = parseRouteFilters()
-  const changed = hasFiltersChanged(
-    filters,
-    activeCategory.value,
-    searchQuery.value,
-    currentPage.value,
-  )
-
-  if (!changed) {
-    if (searchInput.value !== filters.search) {
-      searchInput.value = filters.search
-    }
+watchRouteChanges(async (filters: { category: string; search: string; page: number }) => {
+  if (!hasFiltersChanged(filters, currentState())) {
+    if (searchInput.value !== filters.search) searchInput.value = filters.search
     return
   }
 
@@ -180,69 +173,18 @@ const updateFromRoute = async () => {
     category: filters.category,
     search: filters.search,
   })
-}
-
-watch(
-  () => route.query,
-  async () => {
-    if (isUpdatingRoute.value) {
-      return
-    }
-    await updateFromRoute()
-  },
-)
-
-watch(searchInput, (value) => {
-  if (searchDebounce) {
-    clearTimeout(searchDebounce)
-  }
-
-  searchDebounce = setTimeout(async () => {
-    if (value === searchQuery.value) {
-      return
-    }
-
-    blogStore.setSearchQuery(value)
-    blogStore.resetPagination()
-    const response = await blogStore.fetchArticles({ page: 1, search: value })
-    if (response) {
-      doSyncRoute({ search: value, page: 1 })
-    }
-  }, 400)
 })
 
-onBeforeUnmount(() => {
-  if (searchDebounce) {
-    clearTimeout(searchDebounce)
-  }
-})
-
-type HeroContent = {
-  title: string
-  titleAccent: string
-  description: string
-  searchPlaceholder: string
-  imageAlt: string
-  highlight: { title: string; subtitle: string }
-  stats: { icon: string; label: string }[]
+const performSearch = async (value: string) => {
+  if (value === searchQuery.value) return
+  blogStore.setSearchQuery(value)
+  blogStore.resetPagination()
+  const response = await blogStore.fetchArticles({ page: 1, search: value })
+  if (response) syncRoute(currentState(), { search: value, page: 1 })
 }
 
-type SidebarPopularItem = {
-  id: number | string
-  slug: string | null
-  title: string
-  date: string
-}
-
-type SidebarPopular = {
-  title: string
-  items: SidebarPopularItem[]
-}
-
-type QuickLinksContent = {
-  title: string
-  items: { id: string; label: string }[]
-}
+const debouncedSearch = createDebouncedSearch(performSearch)
+watch(searchInput, debouncedSearch)
 
 const hero = computed<HeroContent>(() => {
   const articleCount = totalArticles.value >= 150 ? `${totalArticles.value}+` : totalArticles.value
@@ -259,8 +201,14 @@ const hero = computed<HeroContent>(() => {
       subtitle: t('blog.hero.highlight.subtitle'),
     },
     stats: [
-      { icon: t('blog.hero.stats[0].icon'), label: t('blog.hero.stats[0].label', { count: articleCount }) },
-      { icon: t('blog.hero.stats[1].icon'), label: t('blog.hero.stats[1].label', { count: faqCount }) },
+      {
+        icon: t('blog.hero.stats[0].icon'),
+        label: t('blog.hero.stats[0].label', { count: articleCount }),
+      },
+      {
+        icon: t('blog.hero.stats[1].icon'),
+        label: t('blog.hero.stats[1].label', { count: faqCount }),
+      },
     ],
   }
 })
@@ -307,13 +255,15 @@ const shouldShowFeatured = computed(() => {
   return featuredArticle.value.category?.key === activeCategory.value
 })
 
+const { formatDate } = useI18nHelpers()
+
 const sidebarPopular = computed<SidebarPopular>(() => ({
   title: t('blog.sidebar.popular.title'),
   items: popular.value.map((item) => ({
     id: item.id,
     slug: item.slug,
     title: item.title,
-    date: item.publishedAtLabel,
+    date: formatDate(item.publishedAt),
   })),
 }))
 
@@ -336,7 +286,7 @@ const setCategoryAndFetch = async (categoryKey: string) => {
   blogStore.resetPagination()
   const response = await blogStore.fetchArticles({ page: 1, category: categoryKey })
   if (response) {
-    doSyncRoute({ category: categoryKey, page: 1 })
+    syncRoute(currentState(), { category: categoryKey, page: 1 })
   }
 }
 
@@ -346,7 +296,7 @@ const loadMoreArticles = async () => {
   }
   const response = await blogStore.loadMore()
   if (response && response.data.length > 0) {
-    doSyncRoute({ page: currentPage.value })
+    syncRoute(currentState(), { page: currentPage.value })
   }
 }
 
@@ -357,7 +307,7 @@ const changePage = async (page: number) => {
   blogStore.setPage(page)
   const response = await blogStore.fetchArticles({ page })
   if (response) {
-    doSyncRoute({ page })
+    syncRoute(currentState(), { page })
     if (typeof window !== 'undefined') {
       window.scrollTo({ top: 0, behavior: 'smooth' })
     }
@@ -380,7 +330,7 @@ const handleQuickLinkClick = async (linkId: string) => {
       await router.push(localePath('/reviews'))
       break
     case 'consultation':
-      applicationModalStore.openModal()
+      openApplicationModal()
       break
     default:
       console.warn('Unhandled quick link click:', linkId)

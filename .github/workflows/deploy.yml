@@ -9,6 +9,10 @@ on:
         description: 'Run Prisma migrations on the production environment'
         type: boolean
         default: false
+      disable_prerender:
+        description: 'Disable prerendering of static pages (prerender is ON by default)'
+        type: boolean
+        default: false
 
 concurrency:
   group: deploy-${{ github.ref }}
@@ -77,11 +81,12 @@ jobs:
           SSH_USER: root
           SSH_PORT: ${{ secrets.SSH_PORT }}
           APP_TAG: ${{ env.APP_TAG }}
+          DISABLE_PRERENDER: ${{ github.event.inputs.disable_prerender || 'false' }}
         run: |
           set -euo pipefail
-          echo "Deploying commit $APP_TAG to $SSH_HOST"
+          echo "Deploying commit $APP_TAG to $SSH_HOST (disable_prerender: $DISABLE_PRERENDER)"
 
-          ssh -o StrictHostKeyChecking=no -p "${SSH_PORT:-22}" "${SSH_USER}@${SSH_HOST}" 'bash -s' << 'EOF'
+          ssh -o StrictHostKeyChecking=no -p "${SSH_PORT:-22}" "${SSH_USER}@${SSH_HOST}" "DISABLE_PRERENDER=${DISABLE_PRERENDER}" 'bash -s' << 'EOF'
           set -euo pipefail
 
           APP_DIR="/root/apps/edu.turkish"
@@ -93,11 +98,23 @@ jobs:
           git fetch origin main
           git reset --hard origin/main
 
+          # Source .env to get DATABASE_URL and NITRO_PRERENDER settings
+          if [ -f .env ]; then
+            set -a
+            source .env
+            set +a
+          fi
+
           echo "[CLEANUP] pruning old images"
           docker image prune -f --filter "until=168h" || true
           docker builder prune -f --filter "until=168h" || true
 
-          echo "[BUILD] building app image with tag ${APP_TAG}"
+          # NITRO_PRERENDER comes from .env; workflow input can override to disable
+          export NITRO_PRERENDER="${NITRO_PRERENDER:-false}"
+          [ "${DISABLE_PRERENDER}" = "true" ] && export NITRO_PRERENDER=false
+          echo "[PRERENDER] NITRO_PRERENDER=${NITRO_PRERENDER:-false}"
+
+          echo "[BUILD] building app image with tag ${APP_TAG} (prerender: ${NITRO_PRERENDER})"
           docker compose build --pull app
           docker compose up -d --remove-orphans app
 

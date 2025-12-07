@@ -14,7 +14,7 @@
     </div>
 
     <div v-else-if="universities.length" class="grid grid-cols-1 md:grid-cols-3 gap-6">
-      <UniversitiesCard
+      <UniversitiesListCard
         v-for="u in universities"
         :key="u.id"
         :title="u.title"

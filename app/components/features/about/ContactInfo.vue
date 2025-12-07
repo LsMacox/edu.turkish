@@ -4,10 +4,10 @@
       <div class="max-w-6xl mx-auto">
         <div class="text-center mb-16">
           <h2 class="text-section-title mb-6">
-            {{ $t('about.contact.title') }}
+            {{ t('about.contact.title') }}
           </h2>
           <p class="text-section-subtitle max-w-3xl mx-auto">
-            {{ $t('about.contact.subtitle') }}
+            {{ t('about.contact.subtitle') }}
           </p>
         </div>
 
@@ -20,7 +20,7 @@
             </div>
             <h3 class="text-card-title mb-4">WhatsApp</h3>
             <p class="text-gray-600 mb-4">
-              {{ $t('about.contact.channels.whatsapp.description') }}
+              {{ t('about.contact.channels.whatsapp.description') }}
             </p>
             <a
               :href="channels.whatsapp.href"
@@ -28,7 +28,7 @@
               class="bg-green-500 text-white px-6 py-3 rounded-xl font-semibold hover:bg-green-600 transition-colors"
               @click.prevent="handleSocialClick(channels.whatsapp.href)"
             >
-              {{ $t('about.contact.channels.whatsapp.button') }}
+              {{ t('about.contact.channels.whatsapp.button') }}
             </a>
           </div>
 
@@ -40,7 +40,7 @@
             </div>
             <h3 class="text-card-title mb-4">Telegram</h3>
             <p class="text-gray-600 mb-4">
-              {{ $t('about.contact.channels.telegram.description') }}
+              {{ t('about.contact.channels.telegram.description') }}
             </p>
             <a
               :href="channels.telegramBot.href"
@@ -48,7 +48,7 @@
               class="bg-blue-500 text-white px-6 py-3 rounded-xl font-semibold hover:bg-blue-600 transition-colors"
               @click.prevent="handleSocialClick(channels.telegramBot.href)"
             >
-              {{ $t('about.contact.channels.telegram.button') }}
+              {{ t('about.contact.channels.telegram.button') }}
             </a>
           </div>
 
@@ -64,7 +64,7 @@
               href="mailto:info@edu-turkish.com"
               class="bg-primary text-white px-6 py-3 rounded-xl font-semibold hover:bg-red-600 transition-colors"
             >
-              {{ $t('about.contact.channels.email.button') }}
+              {{ t('about.contact.channels.email.button') }}
             </a>
           </div>
         </div>
@@ -77,6 +77,7 @@
 import { useContactChannels } from '~/composables/useContactChannels'
 import { useFingerprint } from '~/composables/useFingerprint'
 
+const { t } = useI18n()
 const { channels } = useContactChannels()
 
 const { openWithFingerprint } = useFingerprint()

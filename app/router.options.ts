@@ -1,12 +1,18 @@
 import type { RouterConfig } from '@nuxt/schema'
 
 export default <RouterConfig>{
-  scrollBehavior(to, _from, savedPosition) {
+  scrollBehavior(to, from, savedPosition) {
     if (typeof window === 'undefined') {
       return savedPosition || { left: 0, top: 0 }
     }
 
     if (savedPosition) return savedPosition
+
+    // Preserve scroll when only query params change (e.g., filters, categories)
+    if (to.path === from.path && !to.hash) {
+      return false
+    }
+
     if (!to.hash) return { left: 0, top: 0 }
 
     const getOffset = () => {

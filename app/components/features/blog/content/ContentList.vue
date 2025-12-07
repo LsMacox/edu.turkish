@@ -1,35 +1,44 @@
 <template>
-  <div class="w-full">
+  <div class="w-full my-4">
     <!-- Steps style -->
-    <div 
-      v-if="listStyle === 'steps'" 
-      class="relative space-y-8 before:absolute before:inset-0 before:ml-5 before:-translate-x-px md:before:mx-auto md:before:translate-x-0 before:h-full before:w-0.5 before:bg-gradient-to-b before:from-transparent before:via-slate-300 before:to-transparent"
-    >
-      <div 
-        v-for="(item, index) in items" 
+    <div v-if="listStyle === 'steps'" class="relative space-y-6">
+      <!-- Vertical line -->
+      <div
+        class="absolute left-5 top-6 bottom-6 w-0.5 bg-gradient-to-b from-primary/30 via-primary/20 to-primary/10 rounded-full"
+      />
+      <div
+        v-for="(item, index) in items"
         :key="index"
-        class="relative flex items-center justify-between md:justify-normal md:odd:flex-row-reverse group is-active"
+        class="relative flex items-start gap-5 group"
       >
-        <div class="flex items-center justify-center w-10 h-10 rounded-full border border-white bg-slate-100 text-slate-500 shadow shrink-0 md:order-1 md:group-odd:-translate-x-1/2 md:group-even:translate-x-1/2 relative z-10">
-          <span class="text-sm font-bold">{{ index + 1 }}</span>
+        <div
+          class="relative z-10 flex items-center justify-center w-10 h-10 rounded-full bg-gradient-to-br from-primary to-primary/80 text-white font-bold text-sm shadow-lg shadow-primary/25 shrink-0 transition-transform group-hover:scale-110"
+        >
+          {{ index + 1 }}
         </div>
-        <div class="w-[calc(100%-4rem)] md:w-[calc(50%-2.5rem)] p-6 bg-white border border-gray-100 rounded-xl shadow-sm">
+        <div
+          class="flex-1 p-5 bg-white rounded-2xl border border-gray-100 shadow-sm hover:shadow-md hover:border-primary/20 transition-all duration-300"
+        >
           <!-- eslint-disable-next-line vue/no-v-html -->
-          <div class="font-medium text-gray-800" v-html="item" />
+          <div class="text-gray-700 leading-relaxed" v-html="item" />
         </div>
       </div>
     </div>
 
     <!-- Checklist style -->
     <ul v-else-if="listStyle === 'checklist'" class="space-y-3">
-      <li 
-        v-for="(item, index) in items" 
+      <li
+        v-for="(item, index) in items"
         :key="index"
-        class="flex items-start gap-3 p-4 bg-green-50/50 rounded-xl border border-green-100"
+        class="flex items-start gap-4 p-4 bg-gradient-to-r from-green-50 to-emerald-50/50 rounded-xl border border-green-100/80 hover:border-green-200 transition-colors"
       >
-        <Icon name="mdi:check-circle" class="text-xl text-green-500 shrink-0 mt-0.5" />
+        <span
+          class="flex items-center justify-center w-6 h-6 rounded-full bg-green-500 text-white shrink-0 mt-0.5"
+        >
+          <Icon name="mdi:check" class="text-sm" />
+        </span>
         <!-- eslint-disable-next-line vue/no-v-html -->
-        <span class="text-gray-700" v-html="item" />
+        <span class="text-gray-700 leading-relaxed" v-html="item" />
       </li>
     </ul>
 
@@ -37,11 +46,19 @@
     <component
       :is="ordered ? 'ol' : 'ul'"
       v-else
-      class="pl-6 space-y-3 text-gray-700"
-      :class="ordered ? 'list-decimal' : 'list-disc'"
+      class="space-y-3 text-gray-700"
+      :class="ordered ? 'list-decimal pl-6 marker:text-primary marker:font-semibold' : ''"
     >
-      <!-- eslint-disable-next-line vue/no-v-html -->
-      <li v-for="(item, i) in items" :key="i" v-html="item" />
+      <li
+        v-for="(item, i) in items"
+        :key="i"
+        class="leading-relaxed"
+        :class="!ordered ? 'flex items-start gap-3' : ''"
+      >
+        <span v-if="!ordered" class="w-2 h-2 rounded-full bg-primary/60 shrink-0 mt-2.5" />
+        <!-- eslint-disable-next-line vue/no-v-html -->
+        <span v-html="item" />
+      </li>
     </component>
   </div>
 </template>

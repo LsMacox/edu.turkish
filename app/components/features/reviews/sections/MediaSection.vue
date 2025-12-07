@@ -4,24 +4,24 @@
       <!-- Header -->
       <div class="text-center mb-8 md:mb-12">
         <h2 class="text-section-title mb-6">
-          {{ $t('reviews.mediaReviews.title') }}
-          <span class="text-primary">{{ $t('reviews.mediaReviews.titleAccent') }}</span>
+          {{ t('reviews.mediaReviews.title') }}
+          <span class="text-primary">{{ t('reviews.mediaReviews.titleAccent') }}</span>
         </h2>
         <p class="text-section-subtitle max-w-3xl mx-auto">
-          {{ $t('reviews.mediaReviews.description') }}
+          {{ t('reviews.mediaReviews.description') }}
         </p>
       </div>
 
       <!-- Loading State -->
       <div v-if="loading" class="text-center py-12">
         <div class="inline-block animate-spin rounded-full h-12 w-12 border-b-2 border-primary" />
-        <p class="text-gray-500 mt-4">{{ $t('common.loading') }}</p>
+        <p class="text-gray-500 mt-4">{{ t('common.loading') }}</p>
       </div>
 
       <!-- Error State -->
       <div v-else-if="error" class="text-center py-12">
         <Icon name="mdi:alert-circle" class="text-5xl text-red-500 mb-4" />
-        <p class="text-red-500">{{ $t('reviews.mediaReviews.error') }}</p>
+        <p class="text-red-500">{{ t('reviews.mediaReviews.error') }}</p>
       </div>
 
       <!-- Carousel -->
@@ -64,12 +64,12 @@
           </component>
         </component>
         <div v-else class="text-center py-12">
-          <p class="text-gray-500">{{ $t('common.loading') }}</p>
+          <p class="text-gray-500">{{ t('common.loading') }}</p>
         </div>
 
         <template #fallback>
           <div class="text-center py-12">
-            <p class="text-gray-500">{{ $t('common.loading') }}</p>
+            <p class="text-gray-500">{{ t('common.loading') }}</p>
           </div>
         </template>
       </ClientOnly>
@@ -77,7 +77,7 @@
       <!-- Empty State -->
       <div v-else class="text-center py-12">
         <Icon name="mdi:video-off" class="text-5xl text-gray-400 mb-4" />
-        <p class="text-gray-500">{{ $t('reviews.mediaReviews.empty') }}</p>
+        <p class="text-gray-500">{{ t('reviews.mediaReviews.empty') }}</p>
       </div>
     </div>
 
@@ -88,19 +88,18 @@
 
 <script setup lang="ts">
 import { useFetch } from '#app'
-import type { MediaReview } from '../types'
+import type { MediaReviewResponse } from '~~/server/types/api'
 
-const { locale } = useI18n()
+const { locale, t } = useI18n()
 
 const activeIndex = ref<number | null>(null)
 
-// Fetch media reviews from API
 const {
   data: mediaReviews,
   pending: loading,
   error,
   refresh,
-} = await useFetch<{ data?: MediaReview[] }>('/api/v1/reviews/media', {
+} = await useFetch<MediaReviewResponse>('/api/v1/reviews/media', {
   query: computed(() => ({
     featured: true,
     limit: 12,
@@ -114,7 +113,6 @@ const mediaReviewItems = computed(() => mediaReviews.value?.data ?? [])
 
 const { swiperComponent, swiperSlideComponent, swiperModules, isReady: isSwiperReady } = useSwiper()
 
-// Refresh on locale change
 watch(
   () => locale.value,
   () => {
@@ -122,7 +120,6 @@ watch(
   },
 )
 
-// Open/Close unified lightbox by index
 function openLightboxAt(idx: number) {
   activeIndex.value = idx
 }
@@ -132,13 +129,13 @@ function closeLightbox() {
 }
 </script>
 
-<style>
+<style scoped>
 .media-reviews-swiper {
   padding-bottom: 3rem !important;
 }
 
-.media-reviews-swiper .swiper-button-next,
-.media-reviews-swiper .swiper-button-prev {
+.media-reviews-swiper :deep(.swiper-button-next),
+.media-reviews-swiper :deep(.swiper-button-prev) {
   color: #c62828;
   background: white;
   width: 44px;
@@ -147,39 +144,39 @@ function closeLightbox() {
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
 }
 
-.media-reviews-swiper .swiper-navigation-icon {
+.media-reviews-swiper :deep(.swiper-navigation-icon) {
   height: 30px;
   padding-left: 3px;
 }
 
-.media-reviews-swiper .swiper-button-next:after,
-.media-reviews-swiper .swiper-button-prev:after {
+.media-reviews-swiper :deep(.swiper-button-next:after),
+.media-reviews-swiper :deep(.swiper-button-prev:after) {
   font-size: 20px;
   font-weight: bold;
 }
 
-.media-reviews-swiper .swiper-button-next:hover,
-.media-reviews-swiper .swiper-button-prev:hover {
+.media-reviews-swiper :deep(.swiper-button-next:hover),
+.media-reviews-swiper :deep(.swiper-button-prev:hover) {
   background: #c62828;
   color: white;
 }
 
-.media-reviews-swiper .swiper-pagination-bullet {
+.media-reviews-swiper :deep(.swiper-pagination-bullet) {
   width: 10px;
   height: 10px;
   background: #d1d5db;
   opacity: 1;
 }
 
-.media-reviews-swiper .swiper-pagination-bullet-active {
+.media-reviews-swiper :deep(.swiper-pagination-bullet-active) {
   background: #c62828;
   width: 24px;
   border-radius: 5px;
 }
 
 @media (max-width: 768px) {
-  .media-reviews-swiper .swiper-button-next,
-  .media-reviews-swiper .swiper-button-prev {
+  .media-reviews-swiper :deep(.swiper-button-next),
+  .media-reviews-swiper :deep(.swiper-button-prev) {
     display: none;
   }
 }

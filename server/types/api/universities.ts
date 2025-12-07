@@ -1,4 +1,4 @@
-import type { DegreeType, UniversityType } from './common'
+import type { DegreeType, UniversityType, ImportantDateType, ScholarshipType } from './common'
 
 export interface UniversityQueryParams {
   q?: string
@@ -48,7 +48,7 @@ export interface UniversityAdmissionRequirement {
   id: number
   category: string
   requirement: string
-  is_mandatory: boolean
+  isMandatory: boolean
   details?: string
 }
 
@@ -56,24 +56,24 @@ export interface UniversityRequiredDocument {
   id: number
   name: string
   description: string
-  is_mandatory: boolean
-  format_requirements?: string[]
+  isMandatory: boolean
+  formatRequirements?: string[]
 }
 
 export interface UniversityImportantDate {
   id: number
   event: string
   date: string
-  deadline_type: 'application' | 'document' | 'exam' | 'notification'
+  deadlineType: ImportantDateType
 }
 
 export interface UniversityScholarship {
   id: number
   name: string
-  type: 'government' | 'university' | 'private'
-  coverage_percentage: number
-  eligibility_criteria: string[]
-  application_deadline?: string
+  type: ScholarshipType
+  coveragePercentage: number
+  eligibilityCriteria: string[]
+  applicationDeadline?: string
 }
 
 export interface UniversityProgram {

@@ -24,21 +24,18 @@
     </section>
 
     <template v-else-if="article">
-      <LazyBlogPowerPage
-        v-if="article.isPowerPage"
-        :article="article"
-      />
-      <BlogArticle
-        v-else
-        :article="article"
-        :related-articles="relatedArticles"
-      />
+      <LazyBlogPowerPage v-if="article.isPowerPage" :article="article" />
+      <BlogArticle v-else :article="article" :related-articles="relatedArticles" />
     </template>
   </div>
 </template>
 
 <script setup lang="ts">
-import type { BlogArticleDetail, BlogArticleListItem, BlogArticlesResponse } from '~~/server/types/api'
+import type {
+  BlogArticleDetail,
+  BlogArticleListItem,
+  BlogArticlesResponse,
+} from '~~/server/types/api'
 
 definePageMeta({ layout: 'default' })
 
@@ -49,7 +46,9 @@ const setI18nParams = useSetI18nParams()
 
 const slug = computed(() => String(route.params.slug ?? ''))
 
-async function fetchRelatedArticles(articleData: BlogArticleDetail): Promise<BlogArticleListItem[]> {
+async function fetchRelatedArticles(
+  articleData: BlogArticleDetail,
+): Promise<BlogArticleListItem[]> {
   if (articleData.isPowerPage) return []
 
   const fetchList = (category?: string) =>

@@ -202,7 +202,6 @@
 
 <script setup lang="ts">
 // Step-by-step questionnaire section with logic
-import { useApplicationModalStore } from '~/stores/applicationModal'
 
 const props = withDefaults(
   defineProps<{
@@ -254,7 +253,7 @@ const getScholarshipText = computed(() => {
     : t('home.who.ready_pay_self')
 })
 
-const modal = useApplicationModalStore()
+const modal = useApplicationModal()
 
 const openApplicationForm = () => {
   // Создаем объект с данными анкеты в нужном формате

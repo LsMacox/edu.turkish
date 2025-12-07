@@ -45,7 +45,14 @@ export class EspoCRMProvider implements ICRMProvider {
           const existing = await response.json().catch(() => null)
           const id = Array.isArray(existing) ? existing[0]?.id : undefined
           if (id) {
-            return { success: true, id, provider: 'espocrm', operation: 'createLead', timestamp: new Date(), duplicate: true }
+            return {
+              success: true,
+              id,
+              provider: 'espocrm',
+              operation: 'createLead',
+              timestamp: new Date(),
+              duplicate: true,
+            }
           }
         }
 
@@ -68,7 +75,13 @@ export class EspoCRMProvider implements ICRMProvider {
       }
 
       const result = await response.json()
-      return { success: true, id: result.id, provider: 'espocrm', operation: 'createLead', timestamp: new Date() }
+      return {
+        success: true,
+        id: result.id,
+        provider: 'espocrm',
+        operation: 'createLead',
+        timestamp: new Date(),
+      }
     } catch (error: any) {
       console.error('EspoCRM postLead error:', error)
       return {

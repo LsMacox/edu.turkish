@@ -110,16 +110,12 @@
       {
         "name": "Аттестат/диплом",
         "description": "Апостиль и нотариальный перевод",
-        "format_requirements": [
-          "PDF"
-        ]
+        "format_requirements": ["PDF"]
       },
       {
         "name": "Загранпаспорт",
         "description": "Действителен на срок обучения",
-        "format_requirements": [
-          "PDF"
-        ]
+        "format_requirements": ["PDF"]
       },
       {
         "name": "Фото",

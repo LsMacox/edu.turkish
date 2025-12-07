@@ -1,57 +1,36 @@
-import { prisma } from '~~/lib/prisma'
-import { ExchangeRateRepository } from '~~/server/repositories/ExchangeRateRepository'
+import { getExchangeRateRepository } from '~~/server/repositories'
 import { ExchangeRateService } from '~~/server/services/ExchangeRateService'
+import { FALLBACK_RATES } from '~~/server/schemas/exchange-rates'
 import type { ExchangeRatesResponse } from '~~/server/types/api/exchange-rates'
 
-export default defineEventHandler(async (_event): Promise<ExchangeRatesResponse> => {
-  try {
-    const repository = new ExchangeRateRepository(prisma)
-    const service = new ExchangeRateService()
+function toResponse(
+  details: { rates: typeof FALLBACK_RATES; fetchedAt: Date; expiresAt: Date },
+  isFallback = false,
+): ExchangeRatesResponse {
+  return {
+    rates: details.rates,
+    baseCurrency: 'USD',
+    fetchedAt: details.fetchedAt.toISOString(),
+    expiresAt: details.expiresAt.toISOString(),
+    isFallback,
+  }
+}
 
+export default defineEventHandler(async (): Promise<ExchangeRatesResponse> => {
+  try {
+    const repository = getExchangeRateRepository()
     const rateDetails = await repository.getRateDetails()
 
     if (rateDetails.isExpired) {
-      console.log('Exchange rates expired, fetching fresh rates...')
-
-      const freshRates = await service.fetchRates()
+      const freshRates = await new ExchangeRateService().fetchRates()
       await repository.updateRates(freshRates)
-
-      const updatedDetails = await repository.getRateDetails()
-
-      return {
-        rates: updatedDetails.rates,
-        baseCurrency: 'USD',
-        fetchedAt: updatedDetails.fetchedAt.toISOString(),
-        expiresAt: updatedDetails.expiresAt.toISOString(),
-        isFallback: false,
-      }
+      return toResponse(await repository.getRateDetails())
     }
 
-    return {
-      rates: rateDetails.rates,
-      baseCurrency: 'USD',
-      fetchedAt: rateDetails.fetchedAt.toISOString(),
-      expiresAt: rateDetails.expiresAt.toISOString(),
-      isFallback: false,
-    }
+    return toResponse(rateDetails)
   } catch (error) {
     console.error('Failed to fetch exchange rates:', error)
-
-    const fallbackRates = {
-      KZT: 450.0,
-      TRY: 32.0,
-      RUB: 90.0,
-      USD: 1.0,
-    }
-
     const now = new Date()
-
-    return {
-      rates: fallbackRates,
-      baseCurrency: 'USD',
-      fetchedAt: now.toISOString(),
-      expiresAt: now.toISOString(),
-      isFallback: true,
-    }
+    return toResponse({ rates: FALLBACK_RATES, fetchedAt: now, expiresAt: now }, true)
   }
 })

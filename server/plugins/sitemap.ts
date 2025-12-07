@@ -1,3 +1,5 @@
+import { getArticleUrl } from '../../lib/blog/article-type'
+
 export default defineNitroPlugin((nitroApp) => {
   nitroApp.hooks.hook('sitemap:resolved', async (ctx: any) => {
     const { PrismaClient } = await import('@prisma/client')
@@ -24,7 +26,7 @@ export default defineNitroPlugin((nitroApp) => {
       ])
 
       const articleRoutes = articles.map((a: any) => ({
-        loc: `/${a.locale}/${a.article?.isProgram ? 'program' : a.article?.isPowerPage ? 'powerpage' : 'articles'}/${a.slug}`,
+        loc: `/${a.locale}${getArticleUrl(a.article ?? {}, a.slug)}`,
         lastmod: (a.updatedAt || a.article?.updatedAt)?.toISOString?.(),
       }))
       const universityRoutes = universities.map((u: any) => ({

@@ -4,10 +4,10 @@
       <div class="max-w-6xl mx-auto">
         <div class="text-center mb-16">
           <h2 class="text-section-title mb-6">
-            {{ $t('about.story.title') }}
+            {{ t('about.story.title') }}
           </h2>
           <p class="text-section-subtitle max-w-3xl mx-auto">
-            {{ $t('about.story.subtitle') }}
+            {{ t('about.story.subtitle') }}
           </p>
         </div>
 
@@ -15,8 +15,8 @@
           <div>
             <NuxtImg
               class="w-full h-80 object-cover rounded-2xl shadow-custom"
-              src="0683f4da-e558-4c40-a747-a24f0fdbc535.png"
-              :alt="$t('about.story.imageAlt')"
+              :src="ASSETS.about.storyImage"
+              :alt="t('about.story.imageAlt')"
               loading="lazy"
               decoding="async"
               sizes="(max-width: 1024px) 100vw, 50vw"
@@ -33,9 +33,9 @@
                 </div>
                 <div>
                   <h3 class="text-card-title mb-2">
-                    {{ $t('about.story.timeline.step1.title') }}
+                    {{ t('about.story.timeline.step1.title') }}
                   </h3>
-                  <p class="text-gray-600">{{ $t('about.story.timeline.step1.description') }}</p>
+                  <p class="text-gray-600">{{ t('about.story.timeline.step1.description') }}</p>
                 </div>
               </div>
 
@@ -47,9 +47,9 @@
                 </div>
                 <div>
                   <h3 class="text-card-title mb-2">
-                    {{ $t('about.story.timeline.step2.title') }}
+                    {{ t('about.story.timeline.step2.title') }}
                   </h3>
-                  <p class="text-gray-600">{{ $t('about.story.timeline.step2.description') }}</p>
+                  <p class="text-gray-600">{{ t('about.story.timeline.step2.description') }}</p>
                 </div>
               </div>
 
@@ -61,9 +61,9 @@
                 </div>
                 <div>
                   <h3 class="text-card-title mb-2">
-                    {{ $t('about.story.timeline.step3.title') }}
+                    {{ t('about.story.timeline.step3.title') }}
                   </h3>
-                  <p class="text-gray-600">{{ $t('about.story.timeline.step3.description') }}</p>
+                  <p class="text-gray-600">{{ t('about.story.timeline.step3.description') }}</p>
                 </div>
               </div>
 
@@ -75,9 +75,9 @@
                 </div>
                 <div>
                   <h3 class="text-card-title mb-2">
-                    {{ $t('about.story.timeline.step4.title') }}
+                    {{ t('about.story.timeline.step4.title') }}
                   </h3>
-                  <p class="text-gray-600">{{ $t('about.story.timeline.step4.description') }}</p>
+                  <p class="text-gray-600">{{ t('about.story.timeline.step4.description') }}</p>
                 </div>
               </div>
             </div>
@@ -86,15 +86,15 @@
               <div class="grid grid-cols-3 gap-4 text-center">
                 <div>
                   <p class="text-xl md:text-2xl font-bold text-primary">500+</p>
-                  <p class="text-sm text-gray-600">{{ $t('about.story.stats.students') }}</p>
+                  <p class="text-sm text-gray-600">{{ t('about.story.stats.students') }}</p>
                 </div>
                 <div>
                   <p class="text-xl md:text-2xl font-bold text-primary">20+</p>
-                  <p class="text-sm text-gray-600">{{ $t('about.story.stats.universities') }}</p>
+                  <p class="text-sm text-gray-600">{{ t('about.story.stats.universities') }}</p>
                 </div>
                 <div>
                   <p class="text-xl md:text-2xl font-bold text-primary">98%</p>
-                  <p class="text-sm text-gray-600">{{ $t('about.story.stats.success') }}</p>
+                  <p class="text-sm text-gray-600">{{ t('about.story.stats.success') }}</p>
                 </div>
               </div>
             </div>
@@ -103,7 +103,7 @@
                 :to="localePath('ReviewsPage')"
                 class="text-primary font-medium hover:text-red-700 transition-colors inline-flex items-center"
               >
-                {{ $t('about.story.read_reviews') }}
+                {{ t('about.story.read_reviews') }}
                 <Icon name="mdi:arrow-right" class="ml-1" />
               </NuxtLink>
             </div>
@@ -115,5 +115,8 @@
 </template>
 
 <script setup lang="ts">
+import { ASSETS } from '~~/lib/assets'
+
+const { t } = useI18n()
 const localePath = useLocalePath()
 </script>

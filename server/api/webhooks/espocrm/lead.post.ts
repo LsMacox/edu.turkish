@@ -14,7 +14,6 @@ const parseLeads = (body: unknown): EspoCRMLead[] => {
 const shouldNotify = (teamsIds: string[] | undefined, teamId: string): boolean =>
   !teamId || !teamsIds?.length || teamsIds.includes(teamId)
 
-
 export default defineEventHandler(async (event) => {
   const config = useRuntimeConfig()
   const token = getQuery(event).token as string | undefined

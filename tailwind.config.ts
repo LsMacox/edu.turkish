@@ -2,10 +2,7 @@ import typography from '@tailwindcss/typography'
 import animate from 'tailwindcss-animate'
 
 export default {
-  content: [
-    './app/**/*.{vue,js,ts}',
-    './server/**/*.{js,ts}',
-  ],
+  content: ['./app/**/*.{vue,js,ts}', './server/**/*.{js,ts}'],
   safelist: [
     // Typography classes
     'text-hero',

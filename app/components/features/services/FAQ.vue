@@ -1,5 +1,11 @@
 <template>
-  <UiDisplayFAQ class="py-8" :items="faqs" :title="title" :subtitle="subtitle" :background="false" />
+  <UiDisplayFAQ
+    class="py-8"
+    :items="faqs"
+    :title="title"
+    :subtitle="subtitle"
+    :background="false"
+  />
 </template>
 
 <script setup lang="ts">
@@ -8,13 +14,13 @@ const props = defineProps<{
   title?: string
 }>()
 
-const { getFaqItemsArray, getFaqMeta } = useFaqI18n()
+const { getFaqItems, getFaqMeta } = useI18nHelpers()
 
 const meta = computed(() => getFaqMeta(props.keyPrefix))
 const title = computed(() => props.title || meta.value.title)
 const subtitle = computed(() => meta.value.subtitle)
 
-const faqs = computed(() => getFaqItemsArray(props.keyPrefix))
+const faqs = computed(() => getFaqItems(props.keyPrefix))
 
 useFAQSchema(faqs)
 </script>

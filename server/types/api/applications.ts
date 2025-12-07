@@ -22,7 +22,7 @@ export interface ApplicationRequest {
   source?: string
   source_description?: string
   user_preferences?: any
-  ref?: string
+  referral_code?: string
 }
 
 export interface ApplicationResponse {

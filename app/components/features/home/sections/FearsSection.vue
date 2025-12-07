@@ -12,11 +12,7 @@
         <div v-scroll-reveal class="card-surface break-inside-avoid mb-8">
           <BaseIconBadge icon="mdi:alert-circle" color="red" size="md" class="mb-6" />
           <div class="space-y-3">
-            <button
-              type="button"
-              class="w-full text-left"
-              @click="toggleFear(1)"
-            >
+            <button type="button" class="w-full text-left" @click="toggleFear(1)">
               <p class="text-gray-600 text-sm">{{ t('home.fears.fear_label') }}</p>
               <div class="mt-1 flex items-center justify-between">
                 <span class="text-card-title">{{ t('home.fears.fear1_title') }}</span>
@@ -38,11 +34,7 @@
         <div v-scroll-reveal class="card-surface break-inside-avoid mb-8">
           <BaseIconBadge icon="mdi:translate" color="blue" size="md" class="mb-6" />
           <div class="space-y-3">
-            <button
-              type="button"
-              class="w-full text-left"
-              @click="toggleFear(2)"
-            >
+            <button type="button" class="w-full text-left" @click="toggleFear(2)">
               <p class="text-gray-600 text-sm">{{ t('home.fears.fear_label') }}</p>
               <div class="mt-1 flex items-center justify-between">
                 <span class="text-card-title">{{ t('home.fears.fear2_title') }}</span>
@@ -64,11 +56,7 @@
         <div class="card-surface break-inside-avoid mb-8">
           <BaseIconBadge icon="mdi:clock-alert" color="orange" size="md" class="mb-6" />
           <div class="space-y-3">
-            <button
-              type="button"
-              class="w-full text-left"
-              @click="toggleFear(3)"
-            >
+            <button type="button" class="w-full text-left" @click="toggleFear(3)">
               <p class="text-gray-600 text-sm">{{ t('home.fears.fear_label') }}</p>
               <div class="mt-1 flex items-center justify-between">
                 <span class="text-card-title">{{ t('home.fears.fear3_title') }}</span>
@@ -90,11 +78,7 @@
         <div class="card-surface break-inside-avoid mb-8">
           <BaseIconBadge icon="mdi:currency-usd" color="purple" size="md" class="mb-6" />
           <div class="space-y-3">
-            <button
-              type="button"
-              class="w-full text-left"
-              @click="toggleFear(4)"
-            >
+            <button type="button" class="w-full text-left" @click="toggleFear(4)">
               <p class="text-gray-600 text-sm">{{ t('home.fears.fear_label') }}</p>
               <div class="mt-1 flex items-center justify-between">
                 <span class="text-card-title">{{ t('home.fears.fear4_title') }}</span>
@@ -116,11 +100,7 @@
         <div class="card-surface break-inside-avoid mb-8">
           <BaseIconBadge icon="mdi:close-circle" color="green" size="md" class="mb-6" />
           <div class="space-y-3">
-            <button
-              type="button"
-              class="w-full text-left"
-              @click="toggleFear(5)"
-            >
+            <button type="button" class="w-full text-left" @click="toggleFear(5)">
               <p class="text-gray-600 text-sm">{{ t('home.fears.fear_label') }}</p>
               <div class="mt-1 flex items-center justify-between">
                 <span class="text-card-title">{{ t('home.fears.fear5_title') }}</span>
@@ -142,11 +122,7 @@
         <div class="card-surface break-inside-avoid mb-8">
           <BaseIconBadge icon="mdi:home" color="yellow" size="md" class="mb-6" />
           <div class="space-y-3">
-            <button
-              type="button"
-              class="w-full text-left"
-              @click="toggleFear(6)"
-            >
+            <button type="button" class="w-full text-left" @click="toggleFear(6)">
               <p class="text-gray-600 text-sm">{{ t('home.fears.fear_label') }}</p>
               <div class="mt-1 flex items-center justify-between">
                 <span class="text-card-title">{{ t('home.fears.fear6_title') }}</span>

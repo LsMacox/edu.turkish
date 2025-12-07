@@ -1,4 +1,5 @@
 import { defineStore } from 'pinia'
+import { useCachedFetch } from '~/composables/useCachedFetch'
 
 interface ReviewStatistics {
   total_students: number
@@ -15,6 +16,11 @@ export const useStatisticsStore = defineStore('statistics', () => {
   const statistics = ref<ReviewStatistics | null>(null)
   const loading = ref(false)
   const error = ref<string | null>(null)
+
+  const cachedFetch = useCachedFetch(
+    () => $fetch<ReviewStatistics>('/api/v1/statistics'),
+    { ttl: 300_000 }, // 5 min — stats change rarely
+  )
 
   const universitiesCount = computed(() => {
     return statistics.value?.universities_count ?? 0
@@ -42,8 +48,7 @@ export const useStatisticsStore = defineStore('statistics', () => {
     error.value = null
 
     try {
-      const response = await $fetch<ReviewStatistics>('/api/v1/statistics')
-      statistics.value = response
+      statistics.value = await cachedFetch.execute()
     } catch (err: any) {
       error.value = err.message || 'Failed to fetch statistics'
       if (import.meta.client) console.error('[statistics] fetch error', err)

@@ -1,5 +1,6 @@
-import { defineStore, storeToRefs } from 'pinia'
+import { defineStore } from 'pinia'
 import type { FAQItem, FAQCategory, FAQResponse } from '~~/server/types/api/faq'
+import { useCachedFetch } from '~/composables/useCachedFetch'
 
 const MAX_HISTORY = 10
 const HISTORY_KEY = 'faq-search-history'
@@ -34,6 +35,13 @@ export const useFAQStore = defineStore('faq', () => {
   const loading = ref(false)
   const history = ref<string[]>([])
 
+  const cachedFetch = useCachedFetch((params: Record<string, string>) =>
+    $fetch<FAQResponse>('/api/v1/content/faq', {
+      query: params,
+      headers: { 'Accept-Language': params.lang! },
+    }),
+  )
+
   const hasResults = computed(() => items.value.length > 0)
   const resultCount = computed(() => items.value.length)
   const isActiveSearch = computed(() => query.value.trim().length > 0)
@@ -47,21 +55,16 @@ export const useFAQStore = defineStore('faq', () => {
   ])
 
   const fetch = async () => {
+    const params: Record<string, string> = { lang: locale.value }
+    if (query.value.trim()) params.q = query.value.trim()
+    if (category.value !== 'all') params.category = category.value
+
     loading.value = true
     try {
-      const params: Record<string, string> = { lang: locale.value }
-      if (query.value.trim()) params.q = query.value.trim()
-      if (category.value !== 'all') params.category = category.value
-
-      const res = await $fetch<FAQResponse>('/api/v1/content/faq', {
-        query: params,
-        headers: { 'Accept-Language': locale.value },
-      })
-
+      const res = await cachedFetch.execute(params)
       items.value = res?.data ?? []
       if (res?.categories?.length) rawCategories.value = res.categories
       if (query.value.trim().length > 2) addToHistory(query.value.trim())
-
       return res
     } catch (e) {
       console.error('[faq] fetch failed', e)
@@ -92,7 +95,11 @@ export const useFAQStore = defineStore('faq', () => {
   const addToHistory = (q: string) => {
     history.value = [q, ...history.value.filter((h) => h !== q)].slice(0, MAX_HISTORY)
     if (import.meta.client) {
-      try { localStorage.setItem(HISTORY_KEY, JSON.stringify(history.value)) } catch { /* ignore storage errors */ }
+      try {
+        localStorage.setItem(HISTORY_KEY, JSON.stringify(history.value))
+      } catch {
+        /* ignore storage errors */
+      }
     }
   }
 
@@ -101,13 +108,19 @@ export const useFAQStore = defineStore('faq', () => {
     try {
       const saved = localStorage.getItem(HISTORY_KEY)
       if (saved) history.value = JSON.parse(saved).slice(0, MAX_HISTORY)
-    } catch { /* ignore parse errors */ }
+    } catch {
+      /* ignore parse errors */
+    }
   }
 
   const clearHistory = () => {
     history.value = []
     if (import.meta.client) {
-      try { localStorage.removeItem(HISTORY_KEY) } catch { /* ignore storage errors */ }
+      try {
+        localStorage.removeItem(HISTORY_KEY)
+      } catch {
+        /* ignore storage errors */
+      }
     }
   }
 
@@ -132,16 +145,3 @@ export const useFAQStore = defineStore('faq', () => {
     clearHistory,
   }
 })
-
-export const useFAQ = () => {
-  const store = useFAQStore()
-  return {
-    ...storeToRefs(store),
-    search: store.search,
-    setCategory: store.setCategory,
-    reset: store.reset,
-    fetch: store.fetch,
-    loadHistory: store.loadHistory,
-    clearHistory: store.clearHistory,
-  }
-}

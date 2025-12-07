@@ -31,5 +31,3 @@ export const contactChannels: Record<ContactChannelKey, ContactChannelDefinition
     defaultCta: 'Подписаться в Instagram',
   },
 }
-
-export const primaryTelegramKey: ContactChannelKey = 'telegramBot'

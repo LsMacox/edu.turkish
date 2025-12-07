@@ -12,6 +12,15 @@
       "support": "Student Support",
       "universities": "Partner Universities"
     },
+    "quickFacts": {
+      "category": "Category",
+      "published": "Published",
+      "readingTime": "Reading time"
+    },
+    "share": {
+      "copySuccess": "Link copied",
+      "copyError": "Copy failed"
+    },
     "price": {
       "title": "Tuition Fees",
       "year": "year"

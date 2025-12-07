@@ -5,6 +5,7 @@ import type {
   UniversityResponse,
   UniversityFilters as ApiFilters,
 } from '~~/server/types/api'
+import { useUrlFilters, defineFilterField, filterParsers } from '~/composables/useUrlFilters'
 
 // "All" sentinel values for select filters
 export const CITY_ALL = '__all__'
@@ -82,8 +83,32 @@ export const useUniversitiesStore = defineStore('universities', () => {
   // --- Reactive state ---
   const filters = ref<Filters>(defaultFilters())
   const sort = ref<SortOption>(DEFAULT_SORT)
-  const skipNextURLSync = ref(false)
-  const useRouterPush = ref(false) // true = push (scroll top), false = replace (keep scroll)
+
+  // URL filters composable for sync logic
+  interface UniversityUrlFilters {
+    q: string
+    city: string
+    langs: string[]
+    type: string
+    level: string
+    price_min: number
+    price_max: number
+    sort: SortOption
+  }
+
+  const urlFilters = useUrlFilters<UniversityUrlFilters>({
+    fields: {
+      q: defineFilterField('q', '', filterParsers.string('')),
+      city: defineFilterField('city', CITY_ALL, filterParsers.string(CITY_ALL)),
+      langs: defineFilterField('langs', [] as string[], filterParsers.stringArray()),
+      type: defineFilterField('type', TYPE_ALL, filterParsers.string(TYPE_ALL)),
+      level: defineFilterField('level', LEVEL_ALL, filterParsers.string(LEVEL_ALL)),
+      price_min: defineFilterField('price_min', 0, filterParsers.number(0)),
+      price_max: defineFilterField('price_max', 20000, filterParsers.number(20000)),
+      sort: defineFilterField('sort', DEFAULT_SORT, filterParsers.enum(SORT_OPTIONS, DEFAULT_SORT)),
+    },
+    preserveScroll: true,
+  })
 
   // --- API ---
   type FetchOpts = {
@@ -108,9 +133,10 @@ export const useUniversitiesStore = defineStore('universities', () => {
         level: f.level !== LEVEL_ALL ? f.level : undefined,
         price_min: f.price?.[0] !== def.price[0] ? f.price?.[0] : undefined,
         price_max: f.price?.[1] !== def.price[1] ? f.price?.[1] : undefined,
-        sort: (opts?.overrides?.sort ?? sort.value) !== DEFAULT_SORT
-          ? (opts?.overrides?.sort ?? sort.value)
-          : undefined,
+        sort:
+          (opts?.overrides?.sort ?? sort.value) !== DEFAULT_SORT
+            ? (opts?.overrides?.sort ?? sort.value)
+            : undefined,
         page: opts?.page ?? 1,
         limit: opts?.limit ?? 6,
         lang: locale.value,
@@ -150,37 +176,22 @@ export const useUniversitiesStore = defineStore('universities', () => {
   }
 
   // --- URL sync ---
-  const syncURL = () => {
-    if (skipNextURLSync.value) {
-      skipNextURLSync.value = false
-      return
-    }
-
-    const router = useRouter()
+  const filtersToUrlState = (): UniversityUrlFilters => {
     const def = defaultFilters()
-    const q: Record<string, string | string[] | number | undefined> = {}
-
-    if (filters.value.q) q.q = filters.value.q
-    if (filters.value.city !== CITY_ALL) q.city = filters.value.city
-    if (filters.value.langs.length) q.langs = filters.value.langs
-    if (filters.value.type !== TYPE_ALL) q.type = filters.value.type
-    if (filters.value.level !== LEVEL_ALL) q.level = filters.value.level
-    if (filters.value.price[0] !== def.price[0]) q.price_min = filters.value.price[0]
-    if (filters.value.price[1] !== def.price[1]) q.price_max = filters.value.price[1]
-    if (sort.value !== DEFAULT_SORT) q.sort = sort.value
-
-    if (useRouterPush.value) {
-      router.push({ query: q })
-      useRouterPush.value = false
-    } else {
-      const scrollY = typeof window !== 'undefined' ? window.scrollY : 0
-      router.replace({ query: q }).then(() => {
-        if (typeof window !== 'undefined') {
-          requestAnimationFrame(() => window.scrollTo(0, scrollY))
-        }
-      })
+    return {
+      q: filters.value.q,
+      city: filters.value.city,
+      langs: filters.value.langs,
+      type: filters.value.type,
+      level: filters.value.level,
+      price_min: filters.value.price[0] !== def.price[0] ? filters.value.price[0] : 0,
+      price_max: filters.value.price[1] !== def.price[1] ? filters.value.price[1] : 20000,
+      sort: sort.value,
     }
+  }
 
+  const syncURL = (opts?: { push?: boolean }) => {
+    urlFilters.syncToUrlWithSkip(filtersToUrlState(), {}, opts)
     nextTick(() => fetchUniversities())
   }
 
@@ -193,9 +204,8 @@ export const useUniversitiesStore = defineStore('universities', () => {
   }
 
   const setCityFilter = (city: string, opts?: { scrollToTop?: boolean }) => {
-    if (opts?.scrollToTop) useRouterPush.value = true
     filters.value.city = city || CITY_ALL
-    syncURL()
+    syncURL({ push: opts?.scrollToTop })
   }
 
   const setSort = (v: SortOption) => {
@@ -204,10 +214,9 @@ export const useUniversitiesStore = defineStore('universities', () => {
   }
 
   const resetFilters = (opts?: { scrollToTop?: boolean }) => {
-    if (opts?.scrollToTop) useRouterPush.value = true
     filters.value = defaultFilters()
     sort.value = DEFAULT_SORT
-    syncURL()
+    syncURL({ push: opts?.scrollToTop })
   }
 
   const initializeFilters = async (opts?: { limit?: number; page?: number; ssr?: boolean }) => {
@@ -222,9 +231,9 @@ export const useUniversitiesStore = defineStore('universities', () => {
     if (opts?.ssr) {
       await fetchUniversities(opts)
     } else {
-      skipNextURLSync.value = true
+      urlFilters.skipNextSync.value = true
       nextTick(() => {
-        skipNextURLSync.value = false
+        urlFilters.skipNextSync.value = false
         fetchUniversities(opts)
       })
     }

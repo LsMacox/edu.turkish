@@ -1,4 +1,7 @@
 {
+  "site": {
+    "description": "Edu.turkish Türk üniversitelerine kayıt olmanıza yardımcı olur: program seçimi, belge hazırlığı, burslar ve her aşamada destek."
+  },
   "common": {
     "clear": "Temizle",
     "loading": "Yükleniyor...",

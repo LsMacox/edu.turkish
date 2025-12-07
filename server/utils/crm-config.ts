@@ -16,7 +16,9 @@ export function getCRMConfig(): CRMProviderConfig {
   const espoAssignedTeamId = process.env.ESPOCRM_ASSIGNED_TEAM_ID
 
   if (!apiUrl || !apiKey) {
-    throw new Error('EspoCRM configuration incomplete: ESPOCRM_URL and ESPOCRM_API_KEY are required')
+    throw new Error(
+      'EspoCRM configuration incomplete: ESPOCRM_URL and ESPOCRM_API_KEY are required',
+    )
   }
 
   const normalizedBase = apiUrl.replace(/\/?api\/v\d+\/?$/, '')

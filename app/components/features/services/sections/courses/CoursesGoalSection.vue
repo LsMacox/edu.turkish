@@ -38,21 +38,13 @@ const props = withDefaults(defineProps<CourseGoalSectionProps>(), {
   layout: 'cards',
 })
 
-const { t, tm } = useI18n()
+const { t, getListObjects, getOptional } = useI18nHelpers()
 
 const title = computed(() => props.title || t(`${props.keyPrefix}.title`))
 
-const description = computed(() => {
-  const desc = t(`${props.keyPrefix}.description`)
-  return desc !== `${props.keyPrefix}.description` ? desc : ''
-})
+const description = computed(() => getOptional(`${props.keyPrefix}.description`))
 
-const packages = computed(() => {
-  const raw = tm(`${props.keyPrefix}.packages`) as unknown
-  if (!Array.isArray(raw)) return []
-  return raw.map((_: unknown, index: number) => ({
-    name: t(`${props.keyPrefix}.packages.${index}.name`) as string,
-    targetScore: t(`${props.keyPrefix}.packages.${index}.targetScore`) as string,
-  })) as PackageTier[]
-})
+const packages = computed(() =>
+  getListObjects<PackageTier>(`${props.keyPrefix}.packages`, ['name', 'targetScore']),
+)
 </script>

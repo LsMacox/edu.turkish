@@ -14,7 +14,7 @@
               <Icon name="mdi:arrow-left" class="text-base" />
               {{ t('programs.detail.backToPrograms') }}
             </NuxtLink>
-            
+
             <span
               v-if="heroKicker"
               class="inline-flex items-center rounded-full bg-primary/10 px-4 py-1 text-sm font-semibold text-primary"
@@ -57,63 +57,96 @@
     </section>
 
     <!-- Content Section -->
-    <section class="py-16">
+    <section class="py-12 lg:py-20">
       <div class="container mx-auto px-4 lg:px-6">
-        <div class="grid gap-12 lg:grid-cols-[minmax(0,2.2fr)_minmax(0,1fr)]">
-          <article class="rounded-3xl bg-white p-6 shadow-custom ring-1 ring-gray-100/60 lg:p-10">
-            <BlogContentRenderer
-              :content="program.content"
-              variant="article"
-              :fallback-alt="program.title"
-              enable-widgets
-            />
-          </article>
+        <div class="grid gap-8 lg:gap-12 lg:grid-cols-[minmax(0,2.4fr)_minmax(0,1fr)]">
+          <!-- Main content -->
+          <div>
+            <article
+              class="prose-article rounded-3xl bg-white p-6 shadow-lg ring-1 ring-gray-100/50 lg:p-10 xl:p-12"
+            >
+              <BlogContentRenderer
+                :content="program.content"
+                variant="article"
+                :fallback-alt="program.title"
+                enable-widgets
+              />
+            </article>
+          </div>
 
-          <!-- Sidebar -->
-          <aside class="space-y-8">
+          <!-- Sticky sidebar -->
+          <aside class="space-y-6 lg:sticky lg:top-24 lg:self-start">
             <!-- Table of Contents -->
             <div
               v-if="tableOfContents.length"
-              class="hidden md:block rounded-3xl bg-white p-6 shadow-custom"
+              class="hidden md:block rounded-2xl bg-white p-5 shadow-lg ring-1 ring-gray-100/50"
             >
-              <h3 class="text-card-title mb-2">
+              <h3
+                class="flex items-center gap-2 text-sm font-bold uppercase tracking-wide text-gray-400"
+              >
+                <Icon name="mdi:format-list-bulleted" class="text-lg" />
                 {{ t('programs.detail.tableOfContents') }}
               </h3>
-              <nav class="mt-4 space-y-2 text-sm text-gray-600">
-                <a
+              <nav class="mt-4 space-y-1">
+                <button
                   v-for="section in tableOfContents"
                   :key="section.id"
-                  :href="`#${section.id}`"
-                  class="flex items-center gap-3 rounded-xl px-3 py-2 transition hover:bg-background hover:text-secondary"
+                  type="button"
+                  class="group flex w-full items-center gap-3 rounded-xl px-3 py-2.5 text-sm text-left transition-all hover:bg-primary/5"
+                  :class="{ 'bg-primary/10': activeSectionId === section.id }"
+                  @click="scrollToSection(section.id)"
                 >
                   <span
-                    class="flex h-8 w-8 min-h-8 min-w-8 shrink-0 items-center justify-center rounded-full bg-primary/10 text-primary"
+                    class="flex h-7 w-7 shrink-0 items-center justify-center rounded-lg text-xs font-bold transition-colors"
+                    :class="
+                      activeSectionId === section.id
+                        ? 'bg-primary text-white'
+                        : 'bg-gray-100 text-gray-500 group-hover:bg-primary group-hover:text-white'
+                    "
                   >
                     {{ section.order }}
                   </span>
-                  <span>{{ section.title }}</span>
-                </a>
+                  <span
+                    class="line-clamp-2 transition-colors"
+                    :class="
+                      activeSectionId === section.id
+                        ? 'text-secondary font-medium'
+                        : 'text-gray-600 group-hover:text-secondary'
+                    "
+                  >
+                    {{ section.title }}
+                  </span>
+                </button>
               </nav>
             </div>
 
-            <!-- Quick Facts -->
+            <!-- Quick Facts / Краткая информация -->
             <div
               v-if="quickFacts.length"
-              class="rounded-3xl bg-gradient-to-br from-primary to-secondary p-[1px] shadow-lg"
+              class="overflow-hidden rounded-2xl bg-gradient-to-br from-primary to-secondary p-[2px] shadow-lg"
             >
-              <div class="rounded-3xl bg-white p-6">
-                <h3 class="text-card-title mb-2">
+              <div class="rounded-[14px] bg-white p-5">
+                <h3
+                  class="flex items-center gap-2 text-sm font-bold uppercase tracking-wide text-gray-400"
+                >
+                  <Icon name="mdi:lightning-bolt" class="text-lg text-primary" />
                   {{ t('programs.detail.quickFacts') }}
                 </h3>
-                <ul class="mt-4 space-y-3 text-sm text-gray-600">
+                <ul class="mt-4 space-y-4">
                   <li v-for="fact in quickFacts" :key="fact.title" class="flex gap-3">
-                    <Icon
-                      :name="fact.icon || 'mdi:information-outline'"
-                      class="mt-0.5 text-primary"
-                    />
-                    <div>
-                      <p class="font-medium text-secondary">{{ fact.title }}</p>
-                      <p>{{ fact.value }}</p>
+                    <span
+                      class="flex h-9 w-9 shrink-0 items-center justify-center rounded-xl bg-primary/10"
+                    >
+                      <Icon
+                        :name="fact.icon || 'mdi:information-outline'"
+                        class="text-lg text-primary"
+                      />
+                    </span>
+                    <div class="min-w-0">
+                      <p class="text-xs font-medium uppercase tracking-wide text-gray-400">
+                        {{ fact.title }}
+                      </p>
+                      <p class="text-sm font-semibold text-secondary truncate">{{ fact.value }}</p>
                     </div>
                   </li>
                 </ul>
@@ -121,63 +154,59 @@
             </div>
 
             <!-- Share -->
-            <div class="rounded-3xl bg-background p-6">
-              <h3 class="text-card-title mb-2">{{ t('programs.detail.share.title') }}</h3>
-              <p class="mt-2 text-sm text-gray-600">
+            <div class="rounded-2xl bg-gray-50 p-5">
+              <h3
+                class="flex items-center gap-2 text-sm font-bold uppercase tracking-wide text-gray-400"
+              >
+                <Icon name="mdi:share-variant" class="text-lg" />
+                {{ t('programs.detail.share.title') }}
+              </h3>
+              <p class="mt-2 text-sm text-gray-500">
                 {{ t('programs.detail.share.description') }}
               </p>
-              <div class="mt-4 flex flex-wrap gap-3">
+              <div class="mt-4 flex flex-wrap gap-2">
                 <a
                   v-for="link in shareLinks"
                   :key="link.label"
                   :href="link.href"
                   target="_blank"
                   rel="noopener noreferrer"
-                  class="inline-flex items-center gap-2 rounded-full border border-gray-200 bg-white px-4 py-2 text-sm font-medium text-secondary transition hover:border-primary hover:text-primary"
+                  class="inline-flex items-center gap-2 rounded-xl border border-gray-200 bg-white px-3 py-2 text-sm font-medium text-gray-600 shadow-sm transition-all hover:border-primary hover:text-primary hover:shadow-md"
                 >
-                  <Icon :name="link.icon" class="text-lg" />
+                  <Icon :name="link.icon" class="text-base" />
                   {{ link.label }}
                 </a>
                 <button
                   type="button"
-                  class="inline-flex items-center gap-2 rounded-full border border-gray-200 bg-white px-4 py-2 text-sm font-medium text-secondary transition hover:border-primary hover:text-primary"
+                  class="inline-flex items-center gap-2 rounded-xl border border-gray-200 bg-white px-3 py-2 text-sm font-medium text-gray-600 shadow-sm transition-all hover:border-primary hover:text-primary hover:shadow-md"
                   @click="copyShareLink"
                 >
-                  <Icon name="mdi:link-variant" class="text-lg" />
+                  <Icon name="mdi:link-variant" class="text-base" />
                   {{ t('programs.detail.share.copyLink') }}
                 </button>
               </div>
             </div>
 
             <!-- Tags -->
-            <div v-if="tags.length" class="rounded-3xl bg-white p-6 shadow-custom">
-              <h3 class="text-card-title mb-2">{{ t('programs.detail.tags') }}</h3>
-              <div class="mt-4 flex flex-wrap gap-2">
+            <div
+              v-if="tags.length"
+              class="rounded-2xl bg-white p-5 shadow-lg ring-1 ring-gray-100/50"
+            >
+              <h3
+                class="flex items-center gap-2 text-sm font-bold uppercase tracking-wide text-gray-400"
+              >
+                <Icon name="mdi:tag-multiple" class="text-lg" />
+                {{ t('programs.detail.tags') }}
+              </h3>
+              <div class="mt-3 flex flex-wrap gap-2">
                 <span
                   v-for="tag in tags"
                   :key="tag"
-                  class="inline-flex items-center rounded-full bg-primary/10 px-3 py-1 text-xs font-semibold text-primary"
+                  class="inline-flex items-center rounded-lg bg-primary/10 px-3 py-1.5 text-xs font-semibold text-primary transition-colors hover:bg-primary hover:text-white cursor-pointer"
                 >
                   #{{ tag }}
                 </span>
               </div>
-            </div>
-
-            <!-- All Programs / Directions -->
-            <div v-if="allPrograms.length" class="rounded-3xl bg-white p-6 shadow-custom">
-              <h3 class="text-card-title mb-2">{{ t('programs.detail.directions.title') }}</h3>
-              <nav class="mt-4 space-y-2">
-                <NuxtLink
-                  v-for="prog in allPrograms"
-                  :key="prog.id"
-                  :to="localePath('/programs')"
-                  class="flex items-center gap-3 rounded-xl px-3 py-2 text-sm text-gray-600 transition hover:bg-background hover:text-primary"
-                  :class="{ 'bg-primary/5 text-primary font-medium': prog.slug === program.slug }"
-                >
-                  <Icon name="mdi:school-outline" class="text-lg text-primary/70" />
-                  <span>{{ prog.title }}</span>
-                </NuxtLink>
-              </nav>
             </div>
           </aside>
         </div>
@@ -187,12 +216,12 @@
 </template>
 
 <script setup lang="ts">
-import type { ProgramDetail, ProgramListItem } from '~~/server/types/api'
-import { useDetailPage } from '~/components/features/blog/composables/useDetailPage'
+import type { ProgramDetail } from '~~/server/types/api'
+import { useDetailPage } from '~/composables/blog/useDetailPage'
+import { useTableOfContentsScrollspy } from '~/composables/blog/useTableOfContentsScrollspy'
 
 const props = defineProps<{
   program: ProgramDetail
-  allPrograms?: ProgramListItem[]
 }>()
 
 const { t } = useI18n()
@@ -217,8 +246,8 @@ const {
   i18nPrefix: 'programs.detail',
 })
 
-// All programs for sidebar navigation
-const allPrograms = computed(() => props.allPrograms ?? [])
+// Scrollspy
+const { activeSectionId, scrollToSection } = useTableOfContentsScrollspy(tableOfContents)
 </script>
 
 <style scoped>

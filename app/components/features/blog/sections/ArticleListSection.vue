@@ -3,10 +3,7 @@
     <BaseSectionHeader :title="title" align="left" margin-bottom="lg" />
 
     <div class="grid md:grid-cols-2 gap-8 mb-12">
-      <article
-        v-if="featured && showFeatured"
-        class="md:col-span-2 h-full"
-      >
+      <article v-if="featured && showFeatured" class="md:col-span-2 h-full">
         <NuxtLink
           :to="articleLink(featured.slug)"
           class="block bg-white rounded-2xl shadow-custom overflow-hidden hover-lift h-full"
@@ -37,25 +34,21 @@
               >
                 {{ featured.category?.label }}
               </span>
-              <span>{{ featured.publishedAtLabel }}</span>
-              <span v-if="featured.readingTimeLabel">• {{ featured.readingTimeLabel }}</span>
+              <span>{{ formatDate(featured.publishedAt) }}</span>
+              <span v-if="formatReadingTime(featured.readingTimeMinutes)"
+                >• {{ formatReadingTime(featured.readingTimeMinutes) }}</span
+              >
             </div>
             <h3 class="text-section-title mb-4">{{ featured.title }}</h3>
             <p class="text-gray-600 leading-relaxed mb-6">{{ featured.excerpt }}</p>
-            <span
-              class="text-primary font-semibold hover:underline"
-            >
+            <span class="text-primary font-semibold hover:underline">
               {{ readMoreLabel }}
             </span>
           </div>
         </NuxtLink>
       </article>
 
-      <article
-        v-for="article in items"
-        :key="article.id"
-        class="h-full"
-      >
+      <article v-for="article in items" :key="article.id" class="h-full">
         <NuxtLink
           :to="articleLink(article.slug)"
           class="bg-white rounded-2xl shadow-custom overflow-hidden hover-lift flex flex-col h-full"
@@ -87,15 +80,15 @@
               >
                 {{ article.category?.label }}
               </span>
-              <span>{{ article.publishedAtLabel }}</span>
+              <span>{{ formatDate(article.publishedAt) }}</span>
             </div>
             <h3 class="text-card-title mb-3">{{ article.title }}</h3>
             <p class="text-gray-600 text-sm mb-4">{{ article.excerpt }}</p>
             <div class="mt-auto pt-2 flex items-center justify-between text-sm text-gray-500">
-              <span v-if="article.readingTimeLabel">{{ article.readingTimeLabel }}</span>
-              <span
-                class="text-primary font-semibold hover:underline"
-              >
+              <span v-if="formatReadingTime(article.readingTimeMinutes)">{{
+                formatReadingTime(article.readingTimeMinutes)
+              }}</span>
+              <span class="text-primary font-semibold hover:underline">
                 {{ readMoreLabel }}
               </span>
             </div>
@@ -136,6 +129,11 @@
 
 <script setup lang="ts">
 import type { BlogArticleListItem } from '~~/server/types/api'
+
+const { formatDate, t } = useI18nHelpers()
+
+const formatReadingTime = (minutes?: number | null) =>
+  minutes ? t('blog.articles.readingTime', { minutes }) : null
 
 defineProps<{
   title: string

@@ -1,6 +1,10 @@
 import type { Prisma, PrismaClient } from '@prisma/client'
-import type { FAQCategory, FAQItem, FAQQueryParams, FAQResponse } from '~~/server/types/api'
+import type { z } from 'zod'
+import type { FAQCategory, FAQItem, FAQResponse } from '~~/server/types/api'
 import { normalizeLocale, pickTranslation } from '~~/server/utils/locale'
+import { FAQQueryParamsSchema } from '~~/server/schemas/faq'
+
+type FAQQueryParamsInput = z.input<typeof FAQQueryParamsSchema>
 
 type WithRelevance<T> = T & { _relevance?: number }
 
@@ -15,9 +19,10 @@ type CategoryWithRelations = Prisma.FaqCategoryGetPayload<{
 export class FAQRepository {
   constructor(private prisma: PrismaClient) {}
 
-  async findAll(params: FAQQueryParams, locale: string = 'ru'): Promise<FAQResponse> {
+  async findAll(params: FAQQueryParamsInput, locale: string = 'ru'): Promise<FAQResponse> {
+    const validated = FAQQueryParamsSchema.parse(params)
     const { normalized, fallbacks } = normalizeLocale(locale)
-    const { q, category, featured, limit = 50 } = params
+    const { q, category, featured, limit = 50 } = validated
 
     const where: Prisma.FaqWhereInput = {}
     if (category && category !== 'all') {
@@ -70,8 +75,9 @@ export class FAQRepository {
     let _relevance: number | undefined
     if (q && t) {
       const term = q.toLowerCase()
-      const score = (t.question?.toLowerCase().includes(term) ? 1 : 0) +
-                    (t.answer?.toLowerCase().includes(term) ? 0.5 : 0)
+      const score =
+        (t.question?.toLowerCase().includes(term) ? 1 : 0) +
+        (t.answer?.toLowerCase().includes(term) ? 0.5 : 0)
       if (score > 0) _relevance = score
     }
 

@@ -1,13 +1,17 @@
 <template>
   <section class="py-8 sm:py-12 px-4 sm:px-0">
     <BaseSectionHeader
-      :title="title || $t('services.common.howItWorks.title')"
+      :title="title || t('services.common.howItWorks.title')"
       align="center"
       margin-bottom="lg"
     />
 
     <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 sm:gap-8 max-w-6xl mx-auto">
-      <ServicesTranslationsStepCard v-for="step in stepsWithNumbers" :key="step.stepNumber" :step="step" />
+      <ServicesTranslationsStepCard
+        v-for="step in stepsWithNumbers"
+        :key="step.stepNumber"
+        :step="step"
+      />
     </div>
   </section>
 </template>
@@ -21,6 +25,7 @@ interface Props {
 }
 
 const props = defineProps<Props>()
+const { t } = useI18n()
 
 // Add step numbers to steps
 const stepsWithNumbers = computed(() => {

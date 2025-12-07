@@ -54,8 +54,6 @@
 </template>
 
 <script setup lang="ts">
-import { useApplicationModalStore } from '~/stores/applicationModal'
-
 interface Props {
   deadline?: string | Date
   fallbackDays?: number
@@ -71,7 +69,7 @@ const props = withDefaults(defineProps<Props>(), {
 })
 
 const { t } = useI18n()
-const modal = useApplicationModalStore()
+const modal = useApplicationModal()
 
 // Force reactivity update every minute
 const forceUpdate = ref(0)

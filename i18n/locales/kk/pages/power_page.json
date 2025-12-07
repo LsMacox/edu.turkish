@@ -10,6 +10,15 @@
       "support": "Студенттерді қолдау",
       "universities": "Серіктес ЖОО-лар"
     },
+    "quickFacts": {
+      "category": "Санат",
+      "published": "Жарияланды",
+      "readingTime": "Оқу уақыты"
+    },
+    "share": {
+      "copySuccess": "Сілтеме көшірілді",
+      "copyError": "Көшіру қатесі"
+    },
     "price": {
       "title": "Оқу ақысы",
       "year": "жылына"

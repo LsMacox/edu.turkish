@@ -10,6 +10,15 @@
       "support": "Öğrenci Desteği",
       "universities": "Partner Üniversiteler"
     },
+    "quickFacts": {
+      "category": "Kategori",
+      "published": "Yayınlandı",
+      "readingTime": "Okuma süresi"
+    },
+    "share": {
+      "copySuccess": "Bağlantı kopyalandı",
+      "copyError": "Kopyalama hatası"
+    },
     "price": {
       "title": "Eğitim Ücreti",
       "year": "yıl"

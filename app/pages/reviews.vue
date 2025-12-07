@@ -11,11 +11,11 @@
           <div class="space-y-8">
             <div class="space-y-6">
               <h1 class="text-hero">
-                {{ $t('reviews.hero.title') }}
-                <span class="text-primary">{{ $t('reviews.hero.titleAccent') }}</span>
+                {{ t('reviews.hero.title') }}
+                <span class="text-primary">{{ t('reviews.hero.titleAccent') }}</span>
               </h1>
               <p class="text-hero-subtitle">
-                {{ $t('reviews.hero.description') }}
+                {{ t('reviews.hero.description') }}
               </p>
             </div>
 
@@ -23,15 +23,15 @@
             <div class="grid grid-cols-3 gap-4 md:gap-6">
               <div class="text-center">
                 <div class="text-2xl md:text-3xl font-bold text-primary mb-2">500+</div>
-                <p class="text-sm text-gray-600">{{ $t('reviews.hero.stats.students') }}</p>
+                <p class="text-sm text-gray-600">{{ t('reviews.hero.stats.students') }}</p>
               </div>
               <div class="text-center">
                 <div class="text-2xl md:text-3xl font-bold text-primary mb-2">4.9/5</div>
-                <p class="text-sm text-gray-600">{{ $t('reviews.hero.stats.rating') }}</p>
+                <p class="text-sm text-gray-600">{{ t('reviews.hero.stats.rating') }}</p>
               </div>
               <div class="text-center">
                 <div class="text-2xl md:text-3xl font-bold text-primary mb-2">98%</div>
-                <p class="text-sm text-gray-600">{{ $t('reviews.hero.stats.success') }}</p>
+                <p class="text-sm text-gray-600">{{ t('reviews.hero.stats.success') }}</p>
               </div>
             </div>
           </div>
@@ -61,11 +61,11 @@
       <div class="container mx-auto container-padding-narrow">
         <div class="text-center mb-16">
           <h2 class="text-section-title mb-6">
-            {{ $t('reviews.achievements.title') }}
-            <span class="text-primary">{{ $t('reviews.achievements.titleAccent') }}</span>
+            {{ t('reviews.achievements.title') }}
+            <span class="text-primary">{{ t('reviews.achievements.titleAccent') }}</span>
           </h2>
           <p class="text-section-subtitle max-w-3xl mx-auto">
-            {{ $t('reviews.achievements.description') }}
+            {{ t('reviews.achievements.description') }}
           </p>
         </div>
 
@@ -81,10 +81,10 @@
             </div>
             <div class="text-2xl md:text-3xl font-bold text-primary mb-2">500+</div>
             <h3 class="text-card-title mb-1">
-              {{ $t('reviews.achievements.stats.students.title') }}
+              {{ t('reviews.achievements.stats.students.title') }}
             </h3>
             <p class="text-card-body">
-              {{ $t('reviews.achievements.stats.students.description') }}
+              {{ t('reviews.achievements.stats.students.description') }}
             </p>
           </div>
 
@@ -97,10 +97,10 @@
             </div>
             <div class="text-3xl font-bold text-green-500 mb-2">98%</div>
             <h3 class="text-card-title mb-1">
-              {{ $t('reviews.achievements.stats.success.title') }}
+              {{ t('reviews.achievements.stats.success.title') }}
             </h3>
             <p class="text-card-body">
-              {{ $t('reviews.achievements.stats.success.description') }}
+              {{ t('reviews.achievements.stats.success.description') }}
             </p>
           </div>
 
@@ -113,10 +113,10 @@
             </div>
             <div class="text-3xl font-bold text-blue-500 mb-2">20+</div>
             <h3 class="text-card-title mb-1">
-              {{ $t('reviews.achievements.stats.universities.title') }}
+              {{ t('reviews.achievements.stats.universities.title') }}
             </h3>
             <p class="text-card-body">
-              {{ $t('reviews.achievements.stats.universities.description') }}
+              {{ t('reviews.achievements.stats.universities.description') }}
             </p>
           </div>
 
@@ -129,10 +129,10 @@
             </div>
             <div class="text-3xl font-bold text-purple-500 mb-2">6</div>
             <h3 class="text-card-title mb-1">
-              {{ $t('reviews.achievements.stats.experience.title') }}
+              {{ t('reviews.achievements.stats.experience.title') }}
             </h3>
             <p class="text-card-body">
-              {{ $t('reviews.achievements.stats.experience.description') }}
+              {{ t('reviews.achievements.stats.experience.description') }}
             </p>
           </div>
         </div>
@@ -146,7 +146,7 @@
               <span class="text-3xl font-bold text-white">4.9</span>
             </div>
             <h3 class="text-card-title mb-2">
-              {{ $t('reviews.achievements.overallRating.title') }}
+              {{ t('reviews.achievements.overallRating.title') }}
             </h3>
             <div class="flex justify-center mb-4">
               <Icon name="mdi:star" class="text-yellow-400 text-xl" />
@@ -155,7 +155,7 @@
               <Icon name="mdi:star" class="text-yellow-400 text-xl" />
               <Icon name="mdi:star" class="text-yellow-400 text-xl" />
             </div>
-            <p class="text-card-body">{{ $t('reviews.achievements.overallRating.description') }}</p>
+            <p class="text-card-body">{{ t('reviews.achievements.overallRating.description') }}</p>
           </div>
 
           <!-- Support -->
@@ -166,10 +166,10 @@
               <Icon name="mdi:headset" class="text-3xl text-white" />
             </div>
             <h3 class="text-card-title mb-2">
-              {{ $t('reviews.achievements.support.title') }}
+              {{ t('reviews.achievements.support.title') }}
             </h3>
             <div class="text-4xl font-bold text-orange-500 mb-2">100%</div>
-            <p class="text-card-body">{{ $t('reviews.achievements.support.description') }}</p>
+            <p class="text-card-body">{{ t('reviews.achievements.support.description') }}</p>
           </div>
 
           <!-- Recommendation Rate -->
@@ -180,11 +180,11 @@
               <Icon name="mdi:thumb-up" class="text-3xl text-white" />
             </div>
             <h3 class="text-card-title mb-2">
-              {{ $t('reviews.achievements.recommendation.title') }}
+              {{ t('reviews.achievements.recommendation.title') }}
             </h3>
             <div class="text-4xl font-bold text-blue-500 mb-2">100%</div>
             <p class="text-card-body">
-              {{ $t('reviews.achievements.recommendation.description') }}
+              {{ t('reviews.achievements.recommendation.description') }}
             </p>
           </div>
         </div>
@@ -197,7 +197,10 @@
 </template>
 
 <script setup lang="ts">
-const reviewHero = 'd418281e-28c7-460e-a9b7-a636922849ba.png'
+import { ASSETS } from '~~/lib/assets'
+
+const { t } = useI18n()
+const reviewHero = ASSETS.reviews.heroImage
 
 // Reviews page meta
 definePageMeta({

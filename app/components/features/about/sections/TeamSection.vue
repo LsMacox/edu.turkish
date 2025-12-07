@@ -68,6 +68,8 @@
 </template>
 
 <script setup lang="ts">
+import { ASSETS } from '~~/lib/assets'
+
 const { t } = useI18n()
 
 interface TeamMember {
@@ -81,7 +83,6 @@ interface TeamMember {
   whatsapp?: string
 }
 
-
 const teamMembers = computed<TeamMember[]>(() => [
   {
     id: 1,
@@ -89,7 +90,7 @@ const teamMembers = computed<TeamMember[]>(() => [
     position: t('about.team.members.hakim.position'),
     role: t('about.team.members.hakim.role'),
     description: t('about.team.members.hakim.description'),
-    photo: '2cfed519-b904-4dfb-acd8-94b3cb7cb5b9.jpg',
+    photo: ASSETS.about.team.hakim,
   },
   {
     id: 2,
@@ -97,7 +98,7 @@ const teamMembers = computed<TeamMember[]>(() => [
     position: t('about.team.members.nazrin.position'),
     role: t('about.team.members.nazrin.role'),
     description: t('about.team.members.nazrin.description'),
-    photo: '4720b921-b08f-4b9b-918c-af4c95a347c0.jpg',
+    photo: ASSETS.about.team.nazrin,
   },
   {
     id: 3,
@@ -105,7 +106,7 @@ const teamMembers = computed<TeamMember[]>(() => [
     position: t('about.team.members.adam.position'),
     role: t('about.team.members.adam.role'),
     description: t('about.team.members.adam.description'),
-    photo: '7384dd3b-1f0d-496a-8a4d-caeef897c56b.jpeg',
+    photo: ASSETS.about.team.adam,
     linkedin: 'https://www.linkedin.com/in/adam-zugiraev/',
   },
   {
@@ -114,7 +115,7 @@ const teamMembers = computed<TeamMember[]>(() => [
     position: t('about.team.members.nargiz.position'),
     role: t('about.team.members.nargiz.role'),
     description: t('about.team.members.nargiz.description'),
-    photo: '8b3b75ba-2b1f-447e-a118-6c231505b888.JPG',
+    photo: ASSETS.about.team.nargiz,
   },
 ])
 </script>

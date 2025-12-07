@@ -8,7 +8,7 @@ export class StatisticsRepository {
     const [
       reviewStats,
       universityCount,
-      citiesCount,
+      cityGroups,
       programCount,
       scholarshipsCount,
       applicationsTotal,
@@ -19,8 +19,10 @@ export class StatisticsRepository {
         _avg: { rating: true },
       }),
       this.prisma.university.count(),
-      this.prisma.university.count({
+      this.prisma.university.groupBy({
+        by: ['cityId'],
         where: { cityId: { not: null } },
+        orderBy: { cityId: 'asc' },
       }),
       this.prisma.universityProgram.count(),
       this.prisma.universityScholarship.count(),
@@ -30,14 +32,12 @@ export class StatisticsRepository {
       }),
     ])
 
-    const successRate =
-      applicationsTotal > 0
-        ? Math.round((applicationsApprovedCount / applicationsTotal) * 100)
-        : 0
+    const citiesCount = cityGroups.length
 
-    const avgRating = reviewStats._avg.rating
-      ? Number(reviewStats._avg.rating.toFixed(1))
-      : 0
+    const successRate =
+      applicationsTotal > 0 ? Math.round((applicationsApprovedCount / applicationsTotal) * 100) : 0
+
+    const avgRating = reviewStats._avg.rating ? Number(reviewStats._avg.rating.toFixed(1)) : 0
 
     return {
       total_students: reviewStats._count.id,

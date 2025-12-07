@@ -1,6 +1,6 @@
 import { Queue } from 'bullmq'
 import type { LeadData } from '~~/server/types/crm'
-import { getRedisClient } from '~~/server/utils/redis'
+import { createRedisClient } from '~~/server/utils/redis'
 
 interface QueuedJob {
   id: string
@@ -13,7 +13,7 @@ export class RedisQueue {
 
   private ensureConnection(): void {
     if (!this.connection) {
-      this.connection = getRedisClient()
+      this.connection = createRedisClient()
       this.queue = new Queue('crm-operations', {
         connection: this.connection,
         defaultJobOptions: {
@@ -26,15 +26,15 @@ export class RedisQueue {
     }
   }
 
-  async addJob(
-    operation: 'createLead',
-    provider: 'espocrm',
-    data: LeadData,
-  ): Promise<QueuedJob> {
+  async addJob(operation: 'createLead', provider: 'espocrm', data: LeadData): Promise<QueuedJob> {
     this.ensureConnection()
-    const job = await this.queue!.add(operation, { operation, provider, data }, {
-      jobId: `${operation}-${Date.now()}-${Math.random().toString(36).slice(2, 11)}`,
-    })
+    const job = await this.queue!.add(
+      operation,
+      { operation, provider, data },
+      {
+        jobId: `${operation}-${Date.now()}-${Math.random().toString(36).slice(2, 11)}`,
+      },
+    )
     return { id: job.id!, data }
   }
 

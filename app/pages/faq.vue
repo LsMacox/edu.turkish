@@ -12,7 +12,7 @@
           <div class="hidden md:flex justify-center">
             <NuxtImg
               class="w-64 h-64 object-contain"
-              :src="'a87cb155-2db1-4c53-b15c-0cb8ddbe949e.png'"
+              :src="ASSETS.faq.heroImage"
               :alt="t('faq.heroImageAlt')"
               width="256"
               height="256"
@@ -90,7 +90,7 @@
       </div>
     </section>
 
-    <section class="section-py-sm bg-gray-50">
+    <section v-if="faqStatus === 'success'" class="section-py-sm bg-gray-50">
       <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
         <div class="flex flex-wrap justify-center gap-3 sm:gap-4">
           <button
@@ -176,7 +176,12 @@
                   <span
                     class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-gray-100 text-gray-800"
                   >
-                    <Icon :name="categories.find(c => c.key === item.category)?.icon || 'mdi:help-circle'" class="w-3 h-3 mr-1" />
+                    <Icon
+                      :name="
+                        categories.find((c) => c.key === item.category)?.icon || 'mdi:help-circle'
+                      "
+                      class="w-3 h-3 mr-1"
+                    />
                     {{ getCategoryLabel(item.category) }}
                   </span>
                 </div>
@@ -205,16 +210,18 @@
 </template>
 
 <script setup lang="ts">
+import { storeToRefs } from 'pinia'
 import { highlightSearchTerms } from '~~/lib/text'
-import { useFAQ } from '~/stores/faq'
+import { ASSETS } from '~~/lib/assets'
+import { useFAQStore } from '~/stores/faq'
+import { useFaqFilters } from '~/composables/faq/useFaqFilters'
 
 definePageMeta({ layout: 'default' })
 
 const { t, te, locale } = useI18n()
-const route = useRoute()
-const router = useRouter()
 const searchInputId = useId()
 
+const faqStore = useFAQStore()
 const {
   query: searchQuery,
   category: activeCategory,
@@ -225,34 +232,55 @@ const {
   resultCount,
   hasResults,
   isActiveSearch,
+} = storeToRefs(faqStore)
+const {
   search,
   setCategory,
   reset,
   fetch: fetchFAQ,
   loadHistory,
   clearHistory: clearSearchHistory,
-} = useFAQ()
+} = faqStore
 
-const syncToURL = () => {
-  const q: Record<string, string> = {}
-  if (searchQuery.value.trim()) q.q = searchQuery.value.trim()
-  if (activeCategory.value !== 'all') q.category = activeCategory.value
-  router.replace({ query: Object.keys(q).length ? q : undefined })
+const { syncRoute, applyInitialFilters, watchRouteChanges } = useFaqFilters()
+
+const currentState = () => ({
+  search: searchQuery.value,
+  category: activeCategory.value,
+})
+
+const setSearchQuery = (q: string) => {
+  search(q)
+  syncRoute(currentState())
 }
 
-const setSearchQuery = (q: string) => { search(q); syncToURL() }
-const setActiveCategory = (c: string) => { setCategory(c); syncToURL() }
-const clearSearch = () => { search(''); syncToURL() }
-const resetFilters = () => { reset(); syncToURL() }
+const setActiveCategory = (c: string) => {
+  setCategory(c)
+  syncRoute(currentState())
+}
 
-if (route.query.q) searchQuery.value = route.query.q as string
-if (route.query.category) activeCategory.value = route.query.category as string
+const clearSearch = () => {
+  search('')
+  syncRoute(currentState())
+}
 
-await useAsyncData(`faq-${locale.value}`, fetchFAQ, { watch: [locale] })
+const resetFilters = () => {
+  reset()
+  syncRoute(currentState())
+}
 
-watch(() => route.query, () => {
-  searchQuery.value = (route.query.q as string) || ''
-  activeCategory.value = (route.query.category as string) || 'all'
+applyInitialFilters({
+  setSearch: (v: string) => (searchQuery.value = v),
+  setCategory: (v: string) => (activeCategory.value = v),
+})
+
+const { status: faqStatus } = await useAsyncData(`faq-${locale.value}`, fetchFAQ, {
+  watch: [locale],
+})
+
+watchRouteChanges((filters: { search: string; category: string }) => {
+  searchQuery.value = filters.search
+  activeCategory.value = filters.category
   fetchFAQ()
 })
 

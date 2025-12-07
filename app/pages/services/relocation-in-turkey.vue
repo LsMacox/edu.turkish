@@ -40,7 +40,10 @@
     <template #why-choose-us>
       <div class="bg-white rounded-2xl p-6 md:p-8 shadow-card border border-gray-100">
         <div class="grid md:grid-cols-2 gap-6 md:gap-8">
-          <ServicesAlertCard key-prefix="services.relocation-in-turkey.benefits" variant="success" />
+          <ServicesAlertCard
+            key-prefix="services.relocation-in-turkey.benefits"
+            variant="success"
+          />
           <ServicesAlertCard key-prefix="services.relocation-in-turkey.risks" variant="warning" />
         </div>
       </div>
@@ -54,14 +57,12 @@
 
 <script setup lang="ts">
 import type { PackageId } from '~/types/services'
-import { useApplicationModalStore } from '~/stores/applicationModal'
 import { useExchangeRatesStore } from '~/stores/exchangeRates'
-import { useServiceHead, useI18nList } from '~/components/features/services/composables'
+import { useServiceHead } from '~/composables/services/useServiceHead'
 
-const { t, tm } = useI18n()
-const modal = useApplicationModalStore()
+const { t, getListStrings, getNumber } = useI18nHelpers()
+const modal = useApplicationModal()
 const exchangeRatesStore = useExchangeRatesStore()
-const { getListStrings } = useI18nList()
 
 const isMobile = ref(false)
 onMounted(() => {
@@ -74,18 +75,15 @@ onMounted(() => {
 onMounted(() => exchangeRatesStore.ensureFresh())
 
 // Prices from i18n (stored as numbers in JSON)
-const admissionPrice = computed(() => {
-  const val = tm('services.relocation-in-turkey.packages.admission.priceUsd') as unknown
-  return typeof val === 'number' ? val : 200
-})
-const standardPrice = computed(() => {
-  const val = tm('services.relocation-in-turkey.packages.standard.priceUsd') as unknown
-  return typeof val === 'number' ? val : 1500
-})
-const vipPrice = computed(() => {
-  const val = tm('services.relocation-in-turkey.packages.vip.priceUsd') as unknown
-  return typeof val === 'number' ? val : 2500
-})
+const admissionPrice = computed(() =>
+  getNumber('services.relocation-in-turkey.packages.admission.priceUsd', 200),
+)
+const standardPrice = computed(() =>
+  getNumber('services.relocation-in-turkey.packages.standard.priceUsd', 1500),
+)
+const vipPrice = computed(() =>
+  getNumber('services.relocation-in-turkey.packages.vip.priceUsd', 2500),
+)
 
 const admissionServices = computed(() =>
   getListStrings('services.relocation-in-turkey.packages.admission.services'),
@@ -106,7 +104,7 @@ const handlePackageApply = ({ packageId, name }: { packageId: PackageId; name: s
     serviceContext: {
       subServiceId: packageId as any,
       subServiceName: name,
-      source: 'service-page',
+      source: 'service_page',
       sourceDescription: name,
     },
   })

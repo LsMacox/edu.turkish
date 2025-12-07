@@ -5,7 +5,7 @@
     :href="href"
     :to="to"
     :type="isButton ? type : undefined"
-    :disabled="isButton ? (disabled || loading) : undefined"
+    :disabled="isButton ? disabled || loading : undefined"
     :aria-disabled="!isButton && (disabled || loading) ? 'true' : undefined"
     :aria-label="ariaLabel"
     :tabindex="tabIndex"

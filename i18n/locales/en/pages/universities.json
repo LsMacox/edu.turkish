@@ -110,6 +110,7 @@
           }
         }
       }
-    }
+    },
+    "tuitionFrom": "from ${price}/year"
   }
 }

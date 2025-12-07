@@ -38,7 +38,7 @@
               class="bg-primary text-white px-8 py-4 rounded-xl font-semibold text-lg hover:bg-red-600 transition-all shadow-lg hover-lift"
               @click="handleApplyClick"
             >
-              {{ $t('universityDetail.applyButton') }}
+              {{ t('universityDetail.applyButton') }}
             </button>
             <a
               :href="whatsapp.href"
@@ -47,7 +47,7 @@
               @click.prevent="handleWhatsappClick"
             >
               <Icon name="ph:whatsapp-logo" />
-              <span>{{ $t('universityDetail.whatsappButton') }}</span>
+              <span>{{ t('universityDetail.whatsappButton') }}</span>
             </a>
           </div>
         </div>
@@ -79,7 +79,6 @@
 
 <script setup lang="ts">
 import type { UniversityDetail } from '~~/server/types/api/universities'
-import { useApplicationModalStore } from '~/stores/applicationModal'
 import { useContactChannels } from '~/composables/useContactChannels'
 import { useFingerprint } from '~/composables/useFingerprint'
 
@@ -92,12 +91,11 @@ const { t, locale } = useI18n()
 
 const heroImageSrc = computed(() => props.university.heroImage || props.university.image)
 
-const typeText = computed(() =>
-  t(`universityDetail.universityType.${props.university.type}`) || props.university.type
+const typeText = computed(
+  () => t(`universityDetail.universityType.${props.university.type}`) || props.university.type,
 )
 
-const applicationModalStore = useApplicationModalStore()
-const { openModal: openApplicationModal } = applicationModalStore
+const { openModal: openApplicationModal } = useApplicationModal()
 
 const { getChannel } = useContactChannels()
 const whatsapp = getChannel('whatsapp')

@@ -2,8 +2,8 @@
   <section class="py-16 bg-background">
     <div class="container mx-auto px-4 lg:px-6">
       <BaseSectionHeader
-        :title="$t('admissionRequirements.title')"
-        :subtitle="$t('admissionRequirements.subtitle')"
+        :title="t('admissionRequirements.title')"
+        :subtitle="t('admissionRequirements.subtitle')"
         align="center"
         margin-bottom="lg"
       />
@@ -12,7 +12,7 @@
         <!-- Required Documents -->
         <div class="bg-white rounded-2xl shadow-custom p-8">
           <h3 class="text-2xl font-semibold text-secondary mb-6">
-            {{ $t('admissionRequirements.requiredDocuments.title') }}
+            {{ t('admissionRequirements.requiredDocuments.title') }}
           </h3>
           <div class="space-y-4">
             <div
@@ -41,18 +41,18 @@
         <div class="space-y-8">
           <div class="bg-white rounded-2xl shadow-custom p-8">
             <h3 class="text-2xl font-semibold text-secondary mb-6">
-              {{ $t('admissionRequirements.examsAndLanguage.title') }}
+              {{ t('admissionRequirements.examsAndLanguage.title') }}
             </h3>
 
             <div class="bg-green-50 border-l-4 border-green-500 p-4 mb-6">
               <div class="flex items-center">
                 <Icon name="ph:info" class="text-green-600 mr-2" />
                 <p class="text-green-800 font-semibold">
-                  {{ $t('admissionRequirements.examsAndLanguage.goodNews') }}
+                  {{ t('admissionRequirements.examsAndLanguage.goodNews') }}
                 </p>
               </div>
               <p class="text-green-700 mt-1">
-                {{ $t('admissionRequirements.examsAndLanguage.goodNewsText') }}
+                {{ t('admissionRequirements.examsAndLanguage.goodNewsText') }}
               </p>
             </div>
 
@@ -71,7 +71,7 @@
 
           <div v-if="scholarships.length" class="bg-white rounded-2xl shadow-custom p-8">
             <h3 class="text-card-title mb-4">
-              {{ $t('admissionRequirements.scholarships.title') }}
+              {{ t('admissionRequirements.scholarships.title') }}
             </h3>
             <div class="space-y-3">
               <div
@@ -91,7 +91,7 @@
           <!-- Important Dates -->
           <div v-if="importantDates.length" class="bg-white rounded-2xl shadow-custom p-8">
             <h3 class="text-card-title mb-4">
-              {{ $t('admissionRequirements.importantDates.title') }}
+              {{ t('admissionRequirements.importantDates.title') }}
             </h3>
             <div class="space-y-3">
               <div
@@ -117,7 +117,7 @@
 
 <script setup lang="ts">
 import type { UniversityDetail } from '~~/server/types/api/universities'
-import { BORDER_COLORS, SCHOLARSHIP_COLOR_SCHEMES } from '../../utils/styles'
+import { BORDER_COLORS, SCHOLARSHIP_COLOR_SCHEMES } from '~~/lib/universities/constants'
 
 interface Props {
   admission?: UniversityDetail['admission']
@@ -139,8 +139,8 @@ const requiredDocuments = computed(() =>
     key: `doc_${i}`,
     title: doc.name,
     description: doc.description,
-    formatRequirements: doc.format_requirements ?? [],
-  }))
+    formatRequirements: doc.formatRequirements ?? [],
+  })),
 )
 
 const examRequirements = computed(() =>
@@ -151,7 +151,7 @@ const examRequirements = computed(() =>
       title: r.requirement,
       description: r.details ?? '',
       borderColor: BORDER_COLORS[i % BORDER_COLORS.length],
-    }))
+    })),
 )
 
 const scholarships = computed(() =>
@@ -160,11 +160,11 @@ const scholarships = computed(() =>
     return {
       key: `scholarship_${i}`,
       name: s.name,
-      discount: `${t('range.to')} ${s.coverage_percentage}%`,
+      discount: `${t('range.to')} ${s.coveragePercentage}%`,
       bgColor: colorScheme.bgColor,
       badgeColor: colorScheme.badgeColor,
     }
-  })
+  }),
 )
 
 const importantDates = computed(() =>
@@ -172,7 +172,7 @@ const importantDates = computed(() =>
     key: `deadline_${i}`,
     event: d.event,
     date: d.date,
-    type: d.deadline_type,
-  }))
+    type: d.deadlineType,
+  })),
 )
 </script>

@@ -44,7 +44,9 @@ export function useSwiper() {
 
   const scheduleLoad = () => {
     if (typeof window !== 'undefined' && 'requestIdleCallback' in window) {
-      ;(window as typeof window & { requestIdleCallback: (cb: () => void) => number }).requestIdleCallback(() => {
+      ;(
+        window as typeof window & { requestIdleCallback: (cb: () => void) => number }
+      ).requestIdleCallback(() => {
         load()
       })
       return

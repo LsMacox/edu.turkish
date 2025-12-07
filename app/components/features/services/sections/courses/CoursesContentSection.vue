@@ -34,17 +34,11 @@ const props = withDefaults(defineProps<ProgramContentSectionProps>(), {
   columns: 2,
 })
 
-const { t, tm } = useI18n()
+const { t, getListObjects } = useI18nHelpers()
 
 const title = computed(() => props.title || t(`${props.keyPrefix}.title`))
 
-const items = computed(() => {
-  const raw = tm(`${props.keyPrefix}.items`) as unknown
-  const arrayItems = Array.isArray(raw) ? (raw as unknown[]) : []
-  return arrayItems.map((_, index) => ({
-    title: t(`${props.keyPrefix}.items.${index}.title`) as string,
-    description: t(`${props.keyPrefix}.items.${index}.description`) as string,
-    icon: t(`${props.keyPrefix}.items.${index}.icon`) as string,
-  })) as ProgramItem[]
-})
+const items = computed(() =>
+  getListObjects<ProgramItem>(`${props.keyPrefix}.items`, ['title', 'description', 'icon']),
+)
 </script>

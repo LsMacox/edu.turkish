@@ -2,7 +2,7 @@
   <section id="hero" class="relative overflow-hidden pt-3 pb-10 md:py-20">
     <div class="absolute inset-0">
       <NuxtImg
-        :src="'d837748f-0c70-4c7f-a6af-771cd41e8cfb.jpg'"
+        :src="ASSETS.home.heroBackground"
         alt=""
         class="w-full h-full object-cover"
         loading="eager"
@@ -16,7 +16,9 @@
       <div class="grid lg:grid-cols-2 gap-section-lg items-center">
         <div class="space-y-section-sm order-2 lg:order-1">
           <div class="space-y-3 md:space-y-4">
-            <h1 class="text-hero text-xl xs:text-2xl md:text-3xl lg:text-4xl leading-tight lg:leading-tight">
+            <h1
+              class="text-hero text-xl xs:text-2xl md:text-3xl lg:text-4xl leading-tight lg:leading-tight"
+            >
               <span class="block xs:inline">{{ t('home.hero.title') }}</span>
               <span class="text-primary ml-2 xs:ml-3">{{ t('home.hero.title_accent') }}</span>
             </h1>
@@ -48,12 +50,9 @@
           </div>
 
           <div class="flex flex-col gap-2 md:gap-3 pt-2 md:pt-4">
-            <button
-              class="inline-flex items-center justify-center bg-primary text-white px-4 md:px-8 py-3 md:py-4 rounded-xl hover:bg-red-600 transition-all shadow-lg text-btn-lg"
-              @click="modal.openModal()"
-            >
+            <BaseButton variant="primary" size="lg" class="shadow-lg" @click="modal.openModal()">
               {{ t('cta.consultation') }}
-            </button>
+            </BaseButton>
           </div>
         </div>
 
@@ -65,7 +64,7 @@
             @mouseleave="handleMouseLeave"
           >
             <NuxtImg
-              :src="'8ec3658d-c21c-4843-bacf-f5ae1f830173.png'"
+              :src="ASSETS.home.heroStudents"
               alt="Group of happy international students"
               class="w-full h-64 xs:h-72 md:h-80 object-cover rounded-xl md:rounded-2xl"
               fetchpriority="high"
@@ -73,12 +72,12 @@
               sizes="(max-width: 1024px) 100vw, 50vw"
               format="webp"
             />
-      <video
-        v-if="shouldLoadVideo && !videoError"
-        ref="videoRef"
-        class="absolute inset-0 w-full h-full object-cover rounded-xl md:rounded-2xl transition-opacity duration-700"
-        :class="[isVideoLoaded ? 'opacity-100' : 'opacity-0']"
-        autoplay
+            <video
+              v-if="shouldLoadVideo && !videoError"
+              ref="videoRef"
+              class="absolute inset-0 w-full h-full object-cover rounded-xl md:rounded-2xl transition-opacity duration-700"
+              :class="[isVideoLoaded ? 'opacity-100' : 'opacity-0']"
+              autoplay
               loop
               muted
               playsinline
@@ -86,7 +85,7 @@
               @error="handleVideoError"
               @canplay="handleVideoLoaded"
             >
-              <source :src="getCdnUrl('88212a29-9f40-4c01-89d0-7a522c61b8c5.mp4')" type="video/mp4" />
+              <source :src="getCdnUrl(ASSETS.home.heroVideo)" type="video/mp4" />
             </video>
           </div>
         </div>
@@ -96,10 +95,10 @@
 </template>
 
 <script setup lang="ts">
-import { useApplicationModalStore } from '~/stores/applicationModal'
+import { ASSETS } from '~~/lib/assets'
 
 // Hero section
-const modal = useApplicationModalStore()
+const modal = useApplicationModal()
 const { t } = useI18n()
 const { getCdnUrl } = useCdn()
 

@@ -19,8 +19,6 @@
 </template>
 
 <script setup lang="ts">
-import { useApplicationModalStore } from '~/stores/applicationModal'
-
 const props = defineProps<{
   title: string
   buttonText: string
@@ -29,7 +27,7 @@ const props = defineProps<{
 }>()
 
 const { t } = useI18n()
-const modal = useApplicationModalStore()
+const modal = useApplicationModal()
 
 const handleClick = () => {
   modal.openModal({
@@ -37,7 +35,7 @@ const handleClick = () => {
     description: props.buttonText,
     serviceContext: {
       subServiceName: props.serviceName || t('services.document-translations.title'),
-      source: 'service-page',
+      source: 'service_page',
       sourceDescription: props.buttonText,
     },
   })

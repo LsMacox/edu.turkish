@@ -2,7 +2,6 @@ import type { Job } from 'bullmq'
 import { Worker } from 'bullmq'
 import type { LeadData } from '~~/server/types/crm'
 import { CRMFactory } from '~~/server/services/crm/CRMFactory'
-import { getRedisClient } from '~~/server/utils/redis'
 import { parsePositiveInt } from '~~/lib/number'
 
 interface QueueJobData {

@@ -4,8 +4,8 @@
       <!-- Gallery Carousel -->
       <template v-if="galleryItems.length">
         <BaseSectionHeader
-          :title="$t('universityDetail.campusLife.title')"
-          :subtitle="$t('universityDetail.campusLife.subtitle')"
+          :title="t('universityDetail.campusLife.title')"
+          :subtitle="t('universityDetail.campusLife.subtitle')"
           align="center"
           margin-bottom="lg"
         />
@@ -35,10 +35,7 @@
               v-for="(item, index) in galleryItems"
               :key="index"
             >
-              <div
-                class="aspect-video rounded-xl overflow-hidden cursor-pointer relative group"
-                @click="openLightbox(index)"
-              >
+              <div class="aspect-video rounded-xl overflow-hidden relative group">
                 <!-- Video -->
                 <template v-if="item.type === 'video'">
                   <NuxtImg
@@ -51,8 +48,12 @@
                   <div v-else class="w-full h-full bg-gray-200 flex items-center justify-center">
                     <Icon name="ph:video" class="text-4xl text-gray-400" />
                   </div>
-                  <div class="absolute inset-0 flex items-center justify-center bg-black/30 group-hover:bg-black/40 transition-colors">
-                    <div class="w-16 h-16 rounded-full bg-white/90 flex items-center justify-center">
+                  <div
+                    class="absolute inset-0 flex items-center justify-center bg-black/30 group-hover:bg-black/40 transition-colors"
+                  >
+                    <div
+                      class="w-16 h-16 rounded-full bg-white/90 flex items-center justify-center"
+                    >
                       <Icon name="ph:play-fill" class="text-3xl text-primary ml-1" />
                     </div>
                   </div>
@@ -67,7 +68,9 @@
                     sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
                     format="webp"
                   />
-                  <div class="absolute inset-0 bg-black/0 group-hover:bg-black/20 transition-colors flex items-center justify-center opacity-0 group-hover:opacity-100">
+                  <div
+                    class="absolute inset-0 bg-black/0 group-hover:bg-black/20 transition-colors flex items-center justify-center opacity-0 group-hover:opacity-100"
+                  >
                     <Icon name="ph:magnifying-glass-plus" class="text-3xl text-white" />
                   </div>
                 </template>
@@ -76,7 +79,9 @@
           </component>
           <template #fallback>
             <div class="text-center py-8">
-              <div class="inline-block animate-spin rounded-full h-8 w-8 border-b-2 border-primary" />
+              <div
+                class="inline-block animate-spin rounded-full h-8 w-8 border-b-2 border-primary"
+              />
             </div>
           </template>
         </ClientOnly>
@@ -85,7 +90,7 @@
       <!-- Facilities Grid -->
       <div v-if="realFacilities.length" :class="{ 'mt-16': galleryItems.length }">
         <h3 class="text-2xl font-bold text-secondary text-center mb-8">
-          {{ $t('universityDetail.campusLife.infrastructure') }}
+          {{ t('universityDetail.campusLife.infrastructure') }}
         </h3>
         <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
           <div
@@ -113,11 +118,8 @@
 </template>
 
 <script setup lang="ts">
-import type {
-  UniversityDetail,
-  UniversityCampusFacility,
-} from '~~/server/types/api/universities'
-import { getFacilityStyleWithIcon } from '../../utils/styles'
+import type { UniversityDetail, UniversityCampusFacility } from '~~/server/types/api/universities'
+import { getFacilityStyleWithIcon } from '~~/lib/universities/constants'
 
 interface Props {
   university?: UniversityDetail
@@ -132,6 +134,7 @@ interface GalleryItem {
 }
 
 const props = defineProps<Props>()
+const { t } = useI18n()
 
 const realFacilities = computed(() => props.university?.campusLife?.facilities ?? [])
 
@@ -152,24 +155,17 @@ const getFacilityStyleForItem = (facility: UniversityCampusFacility) => {
   return getFacilityStyleWithIcon(facility.icon)
 }
 
-// Lightbox
-const lightboxIndex = ref<number | null>(null)
-
-function openLightbox(index: number) {
-  lightboxIndex.value = index
-}
-
 // Swiper
 const { swiperComponent, swiperSlideComponent, swiperModules, isReady: isSwiperReady } = useSwiper()
 </script>
 
-<style>
+<style scoped>
 .campus-gallery-swiper {
   padding-bottom: 3rem !important;
 }
 
-.campus-gallery-swiper .swiper-button-next,
-.campus-gallery-swiper .swiper-button-prev {
+.campus-gallery-swiper :deep(.swiper-button-next),
+.campus-gallery-swiper :deep(.swiper-button-prev) {
   color: #c62828;
   background: white;
   width: 44px;
@@ -178,34 +174,34 @@ const { swiperComponent, swiperSlideComponent, swiperModules, isReady: isSwiperR
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
 }
 
-.campus-gallery-swiper .swiper-button-next:after,
-.campus-gallery-swiper .swiper-button-prev:after {
+.campus-gallery-swiper :deep(.swiper-button-next:after),
+.campus-gallery-swiper :deep(.swiper-button-prev:after) {
   font-size: 20px;
   font-weight: bold;
 }
 
-.campus-gallery-swiper .swiper-button-next:hover,
-.campus-gallery-swiper .swiper-button-prev:hover {
+.campus-gallery-swiper :deep(.swiper-button-next:hover),
+.campus-gallery-swiper :deep(.swiper-button-prev:hover) {
   background: #c62828;
   color: white;
 }
 
-.campus-gallery-swiper .swiper-pagination-bullet {
+.campus-gallery-swiper :deep(.swiper-pagination-bullet) {
   width: 10px;
   height: 10px;
   background: #d1d5db;
   opacity: 1;
 }
 
-.campus-gallery-swiper .swiper-pagination-bullet-active {
+.campus-gallery-swiper :deep(.swiper-pagination-bullet-active) {
   background: #c62828;
   width: 24px;
   border-radius: 5px;
 }
 
 @media (max-width: 768px) {
-  .campus-gallery-swiper .swiper-button-next,
-  .campus-gallery-swiper .swiper-button-prev {
+  .campus-gallery-swiper :deep(.swiper-button-next),
+  .campus-gallery-swiper :deep(.swiper-button-prev) {
     display: none;
   }
 }

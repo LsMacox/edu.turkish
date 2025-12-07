@@ -8,6 +8,9 @@ services:
       dockerfile: Dockerfile
       args:
         NUXT_PUBLIC_CDN_URL: ${NUXT_PUBLIC_CDN_URL}
+        # Set NITRO_PRERENDER=true and provide DATABASE_URL to enable prerendering
+        NITRO_PRERENDER: ${NITRO_PRERENDER:-false}
+        DATABASE_URL: ${DATABASE_URL:-}
     container_name: edu_turkish_app
     restart: unless-stopped
     env_file:
@@ -194,9 +197,9 @@ services:
     container_name: edu_turkish_espocrm_daemon
     restart: unless-stopped
     entrypoint: docker-php-entrypoint
-    command: ["php", "-d", "memory_limit=1024M", "-d", "max_execution_time=0", "daemon.php"]
+    command: ['php', '-d', 'memory_limit=1024M', '-d', 'max_execution_time=0', 'daemon.php']
     environment:
-      <<: *espocrm_env 
+      <<: *espocrm_env
     volumes:
       - espocrm_data:/var/www/html
     depends_on:

@@ -8,10 +8,9 @@
 </template>
 
 <script setup lang="ts">
-const { t } = useI18n()
-const { getFaqItemsIndexed } = useFaqI18n()
+const { t, getFaqItems } = useI18nHelpers()
 
-const faqs = computed(() => getFaqItemsIndexed('universityDetail.faq', 9))
+const faqs = computed(() => getFaqItems('universityDetail.faq', { indexed: true, count: 9 }))
 
 useFAQSchema(faqs)
 </script>

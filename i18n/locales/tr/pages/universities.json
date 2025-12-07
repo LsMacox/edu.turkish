@@ -110,6 +110,7 @@
           }
         }
       }
-    }
+    },
+    "tuitionFrom": "${price}/yıldan itibaren"
   }
 }

@@ -1,6 +1,7 @@
 import { randomUUID } from 'node:crypto'
 import type { PrismaClient } from '@prisma/client'
-import type { ApplicationRequest, ApplicationResponse } from '~~/server/types/api'
+import type { ApplicationResponse } from '~~/server/types/api'
+import { ApplicationRequestSchema } from '~~/server/schemas/application'
 
 const generateTrackingCode = (): string => {
   const prefix = 'EDU'
@@ -12,29 +13,28 @@ const generateTrackingCode = (): string => {
 export class ApplicationRepository {
   constructor(private prisma: PrismaClient) {}
 
-  async create(data: ApplicationRequest): Promise<ApplicationResponse> {
+  /**
+   * Create a new application with validated data
+   * @throws {z.ZodError} if data validation fails
+   */
+  async create(rawData: unknown): Promise<ApplicationResponse> {
+    // Validate and transform input data using Zod schema
+    const data = ApplicationRequestSchema.parse(rawData)
     const trackingCode = generateTrackingCode()
-
-    const normalizedFirstName = data.personal_info.first_name?.trim() || ''
-    const normalizedLastName = data.personal_info.last_name?.trim() || null
-    const normalizedEmail = data.personal_info.email?.trim() || null
-    const normalizedPhone = data.personal_info.phone?.trim() || ''
-    const normalizedSource = data.source?.trim() || 'website'
-    const normalizedReferralCode = data.ref?.trim() || null
 
     const application = await this.prisma.application.create({
       data: {
         trackingCode,
         status: 'submitted',
-        firstName: normalizedFirstName,
-        lastName: normalizedLastName,
-        email: normalizedEmail,
-        phone: normalizedPhone,
-        source: normalizedSource,
-        referralCode: normalizedReferralCode,
+        firstName: data.personal_info.first_name,
+        lastName: data.personal_info.last_name ?? null,
+        email: data.personal_info.email ?? null,
+        phone: data.personal_info.phone,
+        source: data.source,
+        referralCode: data.ref ?? null,
         personalInfo: data.personal_info,
-        preferences: data.preferences || {},
-        additionalInfo: data.additional_info || {},
+        preferences: data.preferences ?? {},
+        additionalInfo: data.additional_info ?? {},
       },
     })
 

@@ -1,238 +1,156 @@
 <template>
   <!-- Mobile Navigation Overlay -->
   <Teleport to="body">
-    <div v-if="isVisible" class="fixed inset-0 z-[99999] lg:hidden">
-      <!-- Backdrop -->
-      <div
-        :class="['fixed inset-0 bg-black/50 backdrop-blur-sm z-[99998]', backdropAnimationClass]"
-        @click="closeDrawer"
-      />
+    <Transition name="drawer">
+      <div v-if="isOpen" class="fixed inset-0 z-[99999] lg:hidden">
+        <!-- Backdrop -->
+        <div class="fixed inset-0 bg-black/50 backdrop-blur-sm z-[99998]" @click="closeDrawer" />
 
-      <!-- Drawer -->
-      <div
-        :class="[
-          'fixed inset-0 md:inset-y-0 md:right-0 md:left-auto w-full md:w-80 md:max-w-[85vw] bg-white shadow-2xl overflow-y-auto z-[99999]',
-          drawerAnimationClass,
-        ]"
-        @touchstart.passive="onTouchStart"
-        @touchmove.passive="onTouchMove"
-        @touchend="onTouchEnd"
-        @touchcancel="onTouchCancel"
-      >
-        <!-- Header -->
-        <div class="flex items-center justify-between p-5 md:p-6 border-b border-gray-100">
-          <NuxtLink
-            :to="localePath('/')"
-            class="flex items-center space-x-2 cursor-pointer hover:opacity-80 transition-opacity"
-            @click="closeDrawer"
-          >
-            <NuxtImg
-              :src="'c905b440-9cea-4b23-8576-f1787a84d356.png'"
-              alt="Edu.turkish"
-              width="60"
-              height="60"
-              loading="lazy"
-              decoding="async"
-              class="h-[60px] w-[60px]"
-              sizes="60px"
-              format="webp"
-            />
-            <span class="text-lg md:text-xl font-bold text-secondary">Edu.turkish</span>
-          </NuxtLink>
-          <button
-            class="w-11 h-11 flex items-center justify-center rounded-xl hover:bg-gray-100 active:bg-gray-200 transition-colors flex-shrink-0"
-            aria-label="Close navigation"
-            @click="closeDrawer"
-          >
-            <Icon name="mdi:close" class="text-gray-500 text-2xl" />
-          </button>
-        </div>
+        <!-- Drawer -->
+        <div
+          class="fixed inset-0 md:inset-y-0 md:right-0 md:left-auto w-full md:w-80 md:max-w-[85vw] bg-white shadow-2xl overflow-y-auto z-[99999]"
+          @touchstart.passive="onTouchStart"
+          @touchmove.passive="onTouchMove"
+          @touchend="resetTouch"
+          @touchcancel="resetTouch"
+        >
+          <!-- Header -->
+          <div class="flex items-center justify-between p-5 md:p-6 border-b border-gray-100">
+            <NuxtLink
+              :to="localePath('/')"
+              class="flex items-center space-x-2 cursor-pointer hover:opacity-80 transition-opacity"
+              @click="closeDrawer"
+            >
+              <NuxtImg
+                :src="ASSETS.logo"
+                alt="Edu.turkish"
+                width="60"
+                height="60"
+                loading="lazy"
+                decoding="async"
+                class="h-[60px] w-[60px]"
+                sizes="60px"
+                format="webp"
+              />
+              <span class="text-lg md:text-xl font-bold text-secondary">Edu.turkish</span>
+            </NuxtLink>
+            <button
+              class="w-11 h-11 flex items-center justify-center rounded-xl hover:bg-gray-100 active:bg-gray-200 transition-colors flex-shrink-0"
+              aria-label="Close navigation"
+              @click="closeDrawer"
+            >
+              <Icon name="mdi:close" class="text-gray-500 text-2xl" />
+            </button>
+          </div>
 
-        <!-- Navigation Links -->
-        <nav class="px-5 md:px-6 py-6 md:py-8">
-          <div class="space-y-2">
-            <div class="rounded-xl overflow-hidden">
-              <button
-                type="button"
+          <!-- Navigation Links -->
+          <nav class="px-5 md:px-6 py-6 md:py-8">
+            <div class="space-y-2">
+              <div class="rounded-xl overflow-hidden">
+                <button
+                  type="button"
+                  :class="[
+                    'flex w-full items-center px-4 py-4 transition-colors min-h-touch-48 text-base font-medium border-l-4',
+                    servicesMenuOpen || isServiceRouteActive
+                      ? 'bg-primary/10 text-primary border-primary'
+                      : 'text-secondary hover:bg-gray-50 border-transparent',
+                  ]"
+                  :aria-expanded="servicesMenuOpen"
+                  aria-controls="mobile-services-menu"
+                  @click="toggleServicesOpen"
+                >
+                  <div class="flex items-center flex-1 text-left">
+                    <Icon name="mdi:cog" class="mr-3 text-lg" />
+                    <span>{{ t('nav.services') }}</span>
+                  </div>
+                  <Icon
+                    name="mdi:chevron-down"
+                    class="ml-2 text-lg transition-transform"
+                    :class="{ 'rotate-180': servicesMenuOpen }"
+                  />
+                </button>
+                <transition name="accordion">
+                  <div v-if="servicesMenuOpen" id="mobile-services-menu" class="bg-gray-50">
+                    <NuxtLink
+                      v-for="link in serviceLinks"
+                      :key="link.path"
+                      :to="link.path"
+                      class="flex items-center px-12 py-3 text-sm text-secondary border-l-4 border-transparent transition-colors"
+                      :class="
+                        isServiceLinkActive(link.path)
+                          ? 'border-primary text-primary bg-primary/5'
+                          : 'hover:bg-white'
+                      "
+                      @click="closeDrawer"
+                    >
+                      <span class="flex-1 text-left">{{ link.label }}</span>
+                      <Icon name="mdi:chevron-right" class="text-lg text-gray-400" />
+                    </NuxtLink>
+                  </div>
+                </transition>
+              </div>
+
+              <NuxtLink
+                v-for="link in navLinks"
+                :key="link.path"
+                :to="localePath(link.path)"
                 :class="[
-                  'flex w-full items-center px-4 py-4 transition-colors min-h-touch-48 text-base font-medium border-l-4',
-                  servicesMenuOpen || isServiceRouteActive
-                    ? 'bg-primary/10 text-primary border-primary'
-                    : 'text-secondary hover:bg-gray-50 border-transparent',
+                  'flex items-center px-4 py-4 rounded-xl transition-colors min-h-touch-48 text-base font-medium',
+                  isActive(link.path)
+                    ? 'bg-primary/10 text-primary border-l-4 border-primary'
+                    : 'text-secondary hover:bg-gray-50',
                 ]"
-                :aria-expanded="servicesMenuOpen"
-                aria-controls="mobile-services-menu"
-                @click="toggleServicesOpen"
+                @click="closeDrawer"
               >
-                <div class="flex items-center flex-1 text-left">
-                  <Icon name="mdi:cog" class="mr-3 text-lg" />
-                  <span>{{ t('nav.services') }}</span>
-                </div>
-                <Icon
-                  name="mdi:chevron-down"
-                  class="ml-2 text-lg transition-transform"
-                  :class="{ 'rotate-180': servicesMenuOpen }"
-                />
-              </button>
-              <transition name="accordion">
-                <div v-if="servicesMenuOpen" id="mobile-services-menu" class="bg-gray-50">
-                  <NuxtLink
-                    v-for="link in serviceLinks"
-                    :key="link.path"
-                    :to="link.path"
-                    class="flex items-center px-12 py-3 text-sm text-secondary border-l-4 border-transparent transition-colors"
-                    :class="
-                      isServiceLinkActive(link.path)
-                        ? 'border-primary text-primary bg-primary/5'
-                        : 'hover:bg-white'
-                    "
-                    @click="closeDrawer"
-                  >
-                    <span class="flex-1 text-left">{{ link.label }}</span>
-                    <Icon name="mdi:chevron-right" class="text-lg text-gray-400" />
-                  </NuxtLink>
-                </div>
-              </transition>
+                <Icon :name="link.icon" class="mr-3 text-lg" />
+                {{ t(link.labelKey) }}
+              </NuxtLink>
             </div>
+          </nav>
 
-            <NuxtLink
-              :to="localePath('/universities')"
-              :class="[
-                'flex items-center px-4 py-4 rounded-xl transition-colors min-h-touch-48 text-base font-medium',
-                isActive('/universities')
-                  ? 'bg-primary/10 text-primary border-l-4 border-primary'
-                  : 'text-secondary hover:bg-gray-50',
-              ]"
-              @click="closeDrawer"
-            >
-              <Icon name="mdi:school" class="mr-3 text-lg" />
-              {{ t('nav.universities') }}
-            </NuxtLink>
-
-            <NuxtLink
-              :to="localePath('/programs')"
-              :class="[
-                'flex items-center px-4 py-4 rounded-xl transition-colors min-h-touch-48 text-base font-medium',
-                isActive('/programs')
-                  ? 'bg-primary/10 text-primary border-l-4 border-primary'
-                  : 'text-secondary hover:bg-gray-50',
-              ]"
-              @click="closeDrawer"
-            >
-              <Icon name="mdi:book-education" class="mr-3 text-lg" />
-              {{ t('nav.programs') }}
-            </NuxtLink>
-
-            <NuxtLink
-              :to="localePath('/reviews')"
-              :class="[
-                'flex items-center px-4 py-4 rounded-xl transition-colors min-h-touch-48 text-base font-medium',
-                isActive('/reviews')
-                  ? 'bg-primary/10 text-primary border-l-4 border-primary'
-                  : 'text-secondary hover:bg-gray-50',
-              ]"
-              @click="closeDrawer"
-            >
-              <Icon name="mdi:star" class="mr-3 text-lg" />
-              {{ t('nav.reviews') }}
-            </NuxtLink>
-
-            <NuxtLink
-              :to="localePath('/blog')"
-              :class="[
-                'flex items-center px-4 py-4 rounded-xl transition-colors min-h-touch-48 text-base font-medium',
-                isActive('/blog')
-                  ? 'bg-primary/10 text-primary border-l-4 border-primary'
-                  : 'text-secondary hover:bg-gray-50',
-              ]"
-              @click="closeDrawer"
-            >
-              <Icon name="mdi:notebook-edit-outline" class="mr-3 text-lg" />
-              {{ t('nav.blog') }}
-            </NuxtLink>
-
-            <NuxtLink
-              :to="localePath('/about')"
-              :class="[
-                'flex items-center px-4 py-4 rounded-xl transition-colors min-h-touch-48 text-base font-medium',
-                isActive('/about')
-                  ? 'bg-primary/10 text-primary border-l-4 border-primary'
-                  : 'text-secondary hover:bg-gray-50',
-              ]"
-              @click="closeDrawer"
-            >
-              <Icon name="mdi:information" class="mr-3 text-lg" />
-              {{ t('nav.about') }}
-            </NuxtLink>
-
-            <NuxtLink
-              :to="localePath('/faq')"
-              :class="[
-                'flex items-center px-4 py-4 rounded-xl transition-colors min-h-touch-48 text-base font-medium',
-                isActive('/faq')
-                  ? 'bg-primary/10 text-primary border-l-4 border-primary'
-                  : 'text-secondary hover:bg-gray-50',
-              ]"
-              @click="closeDrawer"
-            >
-              <Icon name="mdi:help-circle" class="mr-3 text-lg" />
-              {{ t('nav.faq') }}
-            </NuxtLink>
-          </div>
-        </nav>
-
-        <!-- Language Switcher -->
-        <div class="px-5 md:px-6 pb-4">
-          <div class="border-t border-gray-100 pt-6">
-            <h3 class="text-sm font-semibold text-gray-700 mb-4">{{ t('nav.language') }}</h3>
-            <div class="grid grid-cols-2 gap-2">
-              <button
-                v-for="opt in options"
-                :key="opt.code"
-                type="button"
-                class="flex items-center justify-center px-4 py-3 rounded-xl transition-colors min-h-touch-44 text-sm font-medium"
-                :class="
-                  opt.code === currentLocale
-                    ? 'bg-primary text-white'
-                    : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
-                "
-                @click="changeLocale(opt.code)"
-              >
-                {{ opt.label }}
-              </button>
+          <!-- Language Switcher -->
+          <div class="px-5 md:px-6 pb-4">
+            <div class="border-t border-gray-100 pt-6">
+              <h3 class="text-sm font-semibold text-gray-700 mb-4">{{ t('nav.language') }}</h3>
+              <div class="grid grid-cols-2 gap-2">
+                <button
+                  v-for="opt in options"
+                  :key="opt.code"
+                  type="button"
+                  class="flex items-center justify-center px-4 py-3 rounded-xl transition-colors min-h-touch-44 text-sm font-medium"
+                  :class="
+                    opt.code === currentLocale
+                      ? 'bg-primary text-white'
+                      : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
+                  "
+                  @click="changeLocale(opt.code)"
+                >
+                  {{ opt.label }}
+                </button>
+              </div>
             </div>
           </div>
         </div>
-
-        
       </div>
-    </div>
+    </Transition>
   </Teleport>
 </template>
 
 <script setup lang="ts">
 import type { SupportedLocale } from '~~/lib/locales'
+import { ASSETS } from '~~/lib/assets'
 
-interface Props {
-  isOpen: boolean
-}
-
-interface Emits {
-  (e: 'close'): void
-}
-
-const props = defineProps<Props>()
-const emit = defineEmits<Emits>()
+const props = defineProps<{ isOpen: boolean }>()
+const emit = defineEmits<{ close: [] }>()
 
 const route = useRoute()
 const { t } = useI18n()
-
 const i18n = useI18n<{ messages: Record<string, any> }, SupportedLocale>()
 const localePath = useLocalePath()
 const switchLocalePath = useSwitchLocalePath()
 
-type Opt = { code: SupportedLocale; label: string }
-const options: Opt[] = [
+// Language options
+const options: { code: SupportedLocale; label: string }[] = [
   { code: 'ru', label: 'Русский' },
   { code: 'kk', label: 'Қазақ' },
   { code: 'en', label: 'English' },
@@ -240,19 +158,24 @@ const options: Opt[] = [
 ]
 
 const currentLocale = computed(() => i18n.locale.value)
+
+// Navigation links
+const navLinks = [
+  { path: '/universities', icon: 'mdi:school', labelKey: 'nav.universities' },
+  { path: '/programs', icon: 'mdi:book-education', labelKey: 'nav.programs' },
+  { path: '/reviews', icon: 'mdi:star', labelKey: 'nav.reviews' },
+  { path: '/blog', icon: 'mdi:notebook-edit-outline', labelKey: 'nav.blog' },
+  { path: '/about', icon: 'mdi:information', labelKey: 'nav.about' },
+  { path: '/faq', icon: 'mdi:help-circle', labelKey: 'nav.faq' },
+]
+
 const serviceLinks = computed(() => [
   {
     label: t('nav.servicesDropdown.relocation'),
     path: localePath('/services/relocation-in-turkey'),
   },
-  {
-    label: t('nav.servicesDropdown.trYosCourses'),
-    path: localePath('/services/tr-yos-courses'),
-  },
-  {
-    label: t('nav.servicesDropdown.satCourses'),
-    path: localePath('/services/sat-courses'),
-  },
+  { label: t('nav.servicesDropdown.trYosCourses'), path: localePath('/services/tr-yos-courses') },
+  { label: t('nav.servicesDropdown.satCourses'), path: localePath('/services/sat-courses') },
   {
     label: t('nav.servicesDropdown.languageCourse'),
     path: localePath('/services/turkish-english-course'),
@@ -264,58 +187,16 @@ const serviceLinks = computed(() => [
 ])
 
 const servicesMenuOpen = ref(false)
-const SERVICES_MENU_STORAGE_KEY = 'mobileServicesMenuOpen'
 const isServiceRouteActive = computed(
   () => serviceLinks.value.some((link) => link.path === route.path) || route.hash === '#services',
 )
 
-const closeAnimationDuration = 300
-const touchStartX = ref<number | null>(null)
-const touchDeltaX = ref(0)
-const SWIPE_THRESHOLD = 80
-const isVisible = ref(props.isOpen)
-const isClosing = ref(false)
+const closeDrawer = () => emit('close')
 
-const drawerAnimationClass = computed(() =>
-  isClosing.value ? 'animate-slide-out-left' : 'animate-slide-in-right',
-)
-const backdropAnimationClass = computed(() =>
-  isClosing.value ? 'animate-fade-out' : 'animate-fade-in',
-)
+// Swipe handling
+const { onTouchStart, onTouchMove, resetTouch } = useSwipeClose(closeDrawer)
 
-let closeTimer: ReturnType<typeof setTimeout> | null = null
-
-watch(
-  () => props.isOpen,
-  (value) => {
-    if (value) {
-      if (closeTimer) {
-        clearTimeout(closeTimer)
-        closeTimer = null
-      }
-      isVisible.value = true
-      requestAnimationFrame(() => {
-        isClosing.value = false
-      })
-    } else if (isVisible.value) {
-      isClosing.value = true
-      closeTimer = setTimeout(() => {
-        isVisible.value = false
-        isClosing.value = false
-        closeTimer = null
-      }, closeAnimationDuration)
-    }
-  },
-  { immediate: true },
-)
-
-onBeforeUnmount(() => {
-  if (closeTimer) {
-    clearTimeout(closeTimer)
-  }
-})
-
-function changeLocale(code: Opt['code']) {
+function changeLocale(code: SupportedLocale) {
   if (code !== currentLocale.value) {
     const path = switchLocalePath(code)
     if (path) navigateTo(path)
@@ -323,102 +204,49 @@ function changeLocale(code: Opt['code']) {
   }
 }
 
-function isServiceLinkActive(path: string) {
-  return route.path === path
-}
-
-function toggleServicesOpen() {
+const isServiceLinkActive = (path: string) => route.path === path
+const toggleServicesOpen = () => {
   servicesMenuOpen.value = !servicesMenuOpen.value
-  if (import.meta.client) {
-    localStorage.setItem(SERVICES_MENU_STORAGE_KEY, String(servicesMenuOpen.value))
-  }
 }
+const isActive = (to: string) => route.path === localePath(to)
 
-function closeDrawer() {
-  emit('close')
-}
-
-// Active state for nav links (supports hash sections on home and full paths)
-function isActive(to: string) {
-  if (to.startsWith('#')) {
-    return route.path === localePath('/') && route.hash === to
-  }
-  return route.path === localePath(to)
-}
-
-// Navigate to home page with specific section hash from any route
-function onTouchStart(event: TouchEvent) {
-  if (!props.isOpen) return
-
-  const touch = event.touches[0]
-  if (touch) {
-    touchStartX.value = touch.clientX
-    touchDeltaX.value = 0
-  }
-}
-
-function onTouchMove(event: TouchEvent) {
-  if (touchStartX.value === null) return
-
-  const touch = event.touches[0]
-  if (touch) {
-    touchDeltaX.value = touchStartX.value - touch.clientX
-  }
-}
-
-function onTouchEnd() {
-  if (touchStartX.value !== null && touchDeltaX.value >= SWIPE_THRESHOLD) {
-    closeDrawer()
-  }
-  resetTouch()
-}
-
-function onTouchCancel() {
-  resetTouch()
-}
-
-function resetTouch() {
-  touchStartX.value = null
-  touchDeltaX.value = 0
-}
-
-// Close drawer on escape key
+// Escape key & body scroll lock
 onMounted(() => {
-  // Initialize from saved state; if none, open by default on services routes
-  if (import.meta.client) {
-    const saved = localStorage.getItem(SERVICES_MENU_STORAGE_KEY)
-    if (saved === 'true' || saved === 'false') {
-      servicesMenuOpen.value = saved === 'true'
-    } else if (isServiceRouteActive.value) {
-      servicesMenuOpen.value = true
-    }
-  }
+  if (isServiceRouteActive.value) servicesMenuOpen.value = true
 
   const handleEscape = (e: KeyboardEvent) => {
-    if (e.key === 'Escape' && props.isOpen) {
-      closeDrawer()
-    }
+    if (e.key === 'Escape' && props.isOpen) closeDrawer()
   }
-
   document.addEventListener('keydown', handleEscape)
-
-  onUnmounted(() => {
-    document.removeEventListener('keydown', handleEscape)
-  })
+  onUnmounted(() => document.removeEventListener('keydown', handleEscape))
 })
 
-// Block body scroll when drawer is open
 watch(
   () => props.isOpen,
-  (isOpen) => {
-    if (import.meta.client) {
-      if (isOpen) {
-        document.body.style.overflow = 'hidden'
-      } else {
-        document.body.style.overflow = ''
-      }
-    }
+  (open) => {
+    if (import.meta.client) document.body.style.overflow = open ? 'hidden' : ''
   },
   { immediate: true },
 )
 </script>
+
+<style scoped>
+.drawer-enter-active,
+.drawer-leave-active {
+  transition: opacity 0.3s ease;
+}
+.drawer-enter-active > div:last-child,
+.drawer-leave-active > div:last-child {
+  transition: transform 0.3s ease;
+}
+.drawer-enter-from,
+.drawer-leave-to {
+  opacity: 0;
+}
+.drawer-enter-from > div:last-child {
+  transform: translateX(100%);
+}
+.drawer-leave-to > div:last-child {
+  transform: translateX(-100%);
+}
+</style>

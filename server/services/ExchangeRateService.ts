@@ -1,11 +1,5 @@
 import type { SupportedCurrency } from '~~/lib/currency'
-
-const FALLBACK_RATES: Record<SupportedCurrency, number> = {
-  KZT: 450.0,
-  TRY: 32.0,
-  RUB: 90.0,
-  USD: 1.0,
-}
+import { FALLBACK_RATES } from '~~/server/schemas/exchange-rates'
 
 interface ExchangeRateApiResponse {
   base: string

@@ -60,10 +60,10 @@
       <!-- Actions -->
       <div class="mt-auto pt-4 space-y-2">
         <BaseButton :to="detailHref" size="md" full-width>
-          {{ $t('universities_page.card.details_button') }}
+          {{ t('universities_page.card.details_button') }}
         </BaseButton>
         <BaseButton variant="outline" size="md" full-width @click="openApplicationModal">
-          {{ $t('universities_page.card.apply_button') }}
+          {{ t('universities_page.card.apply_button') }}
         </BaseButton>
       </div>
     </div>
@@ -71,8 +71,8 @@
 </template>
 
 <script setup lang="ts">
-import { TYPE_LABEL_KEYS, TYPE_BADGE_COLORS, BADGE_COLOR_MAP } from '../utils/constants'
-import { useUniversityFormatters } from '../composables/useUniversityFormatters'
+import { TYPE_BADGE_COLORS, BADGE_COLOR_MAP } from '~~/lib/universities/constants'
+import { useUniversity } from '~/composables/universities/useUniversity'
 import { slugify } from '~~/lib/text'
 import { toNonNegativeNumber } from '~~/lib/number'
 import type { SemanticColor } from '~/types/ui'
@@ -102,13 +102,10 @@ const props = withDefaults(defineProps<Props>(), {
 
 const { t, te } = useI18n()
 const localePath = useLocalePath()
-const { openModal } = useApplicationModalStore()
-const { formatNumber } = useUniversityFormatters()
+const { openModal } = useApplicationModal()
+const { formatNumber, getTypeLabel } = useUniversity()
 
-const typeLabel = computed(() => {
-  const key = TYPE_LABEL_KEYS[props.type]
-  return key ? t(key) : ''
-})
+const typeLabel = computed(() => (props.type ? getTypeLabel(props.type) : ''))
 
 const typeBadgeColor = computed<SemanticColor>(() => TYPE_BADGE_COLORS[props.type] ?? 'neutral')
 
@@ -119,17 +116,14 @@ const formattedTuition = computed(() =>
 
 const badgeData = computed(() => {
   if (!props.badge || typeof props.badge === 'string') return null
-  const label = props.badge.labelKey && te(props.badge.labelKey)
-    ? t(props.badge.labelKey)
-    : props.badge.label
+  const label =
+    props.badge.labelKey && te(props.badge.labelKey) ? t(props.badge.labelKey) : props.badge.label
   if (!label) return null
   const color: SemanticColor = BADGE_COLOR_MAP[props.badge.color ?? ''] ?? 'neutral'
   return { label, color }
 })
 
-const detailHref = computed(() =>
-  localePath(`/university/${props.slug || slugify(props.title)}`),
-)
+const detailHref = computed(() => localePath(`/university/${props.slug || slugify(props.title)}`))
 
 const openApplicationModal = () =>
   openModal({

@@ -3,7 +3,7 @@
     <div class="container mx-auto px-4 lg:px-6">
       <div class="max-w-4xl mx-auto">
         <BaseSectionHeader
-          :title="$t('universityDetail.aboutUniversity.title')"
+          :title="t('universityDetail.aboutUniversity.title')"
           align="center"
           margin-bottom="lg"
         />
@@ -11,7 +11,7 @@
         <div class="space-y-8">
           <div class="bg-white rounded-2xl shadow-custom p-8">
             <h3 class="text-2xl font-semibold text-secondary mb-4">
-              {{ $t('universityDetail.aboutUniversity.history') }}
+              {{ t('universityDetail.aboutUniversity.history') }}
             </h3>
             <p class="text-card-body">
               {{ university.about.history }}
@@ -20,16 +20,19 @@
 
           <div class="bg-white rounded-2xl shadow-custom p-8">
             <h3 class="text-2xl font-semibold text-secondary mb-4">
-              {{ $t('universityDetail.aboutUniversity.campus') }}
+              {{ t('universityDetail.aboutUniversity.campus') }}
             </h3>
             <p class="text-card-body">
               {{ university.about.mission }}
             </p>
           </div>
 
-          <div v-if="university.about.advantages?.length" class="bg-white rounded-2xl shadow-custom p-8">
+          <div
+            v-if="university.about.advantages?.length"
+            class="bg-white rounded-2xl shadow-custom p-8"
+          >
             <h3 class="text-2xl font-semibold text-secondary mb-4">
-              {{ $t('universityDetail.aboutUniversity.advantages') }}
+              {{ t('universityDetail.aboutUniversity.advantages') }}
             </h3>
             <div class="grid md:grid-cols-2 gap-6">
               <div
@@ -57,6 +60,8 @@
 
 <script setup lang="ts">
 import type { UniversityDetail } from '~~/server/types/api/universities'
+
+const { t } = useI18n()
 
 defineProps<{
   university: UniversityDetail

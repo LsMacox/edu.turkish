@@ -12,6 +12,15 @@
       "support": "Поддержка студентов",
       "universities": "ВУЗов-партнеров"
     },
+    "quickFacts": {
+      "category": "Категория",
+      "published": "Опубликовано",
+      "readingTime": "Время чтения"
+    },
+    "share": {
+      "copySuccess": "Ссылка скопирована",
+      "copyError": "Ошибка копирования"
+    },
     "price": {
       "title": "Стоимость обучения",
       "year": "год"

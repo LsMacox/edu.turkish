@@ -22,7 +22,9 @@
       "language": "Turkish language"
     },
     "categories": {
-      "all": "All Questions"
+      "all": {
+        "title": "All Questions"
+      }
     }
   }
 }

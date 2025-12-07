@@ -112,16 +112,12 @@
       {
         "name": "Аттестат о среднем образовании",
         "description": "Апостиль и нотариальный перевод на турецкий",
-        "format_requirements": [
-          "PDF"
-        ]
+        "format_requirements": ["PDF"]
       },
       {
         "name": "Загранпаспорт",
         "description": "Срок действия — не менее 2 лет",
-        "format_requirements": [
-          "PDF"
-        ]
+        "format_requirements": ["PDF"]
       },
       {
         "name": "Фотографии",
@@ -130,9 +126,7 @@
       {
         "name": "Denklik belgesi",
         "description": "На турецком, оценивание по 100-балльной шкале",
-        "format_requirements": [
-          "PDF"
-        ]
+        "format_requirements": ["PDF"]
       }
     ],
     "scholarships": [
@@ -140,9 +134,7 @@
         "name": "Скидка на обучение",
         "type": "university",
         "coverage_percentage": 71,
-        "eligibility_criteria": [
-          "Максимальная скидка до 71% доступна на всех направлениях"
-        ]
+        "eligibility_criteria": ["Максимальная скидка до 71% доступна на всех направлениях"]
       }
     ],
     "dates": [

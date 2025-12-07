@@ -22,7 +22,9 @@
       "language": "Türkçe dil"
     },
     "categories": {
-      "all": "Tüm Sorular"
+      "all": {
+        "title": "Tüm Sorular"
+      }
     }
   }
 }

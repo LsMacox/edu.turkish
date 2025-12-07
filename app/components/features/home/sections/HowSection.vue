@@ -8,9 +8,7 @@
         margin-bottom="lg"
       />
       <div class="relative grid md:grid-cols-2 lg:grid-cols-4 gap-10">
-        <div
-          class="pointer-events-none absolute top-16 left-0 right-0 hidden lg:block"
-        >
+        <div class="pointer-events-none absolute top-16 left-0 right-0 hidden lg:block">
           <div class="mx-16 border-t border-dashed border-gray-200" />
         </div>
 

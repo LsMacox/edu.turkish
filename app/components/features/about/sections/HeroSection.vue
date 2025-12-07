@@ -1,7 +1,7 @@
 <template>
   <section class="relative bg-gradient-to-br from-blue-50 to-purple-50 section-py-lg h-[500px]">
     <NuxtImg
-      src="17a859b6-2e09-4e15-9dd8-b40c50a7bbd6.png"
+      :src="ASSETS.about.heroBackground"
       alt=""
       class="absolute inset-0 w-full h-full object-cover object-center opacity-30"
       format="webp"
@@ -52,11 +52,13 @@
 </template>
 
 <script setup lang="ts">
+import { ASSETS } from '~~/lib/assets'
+
 const { t } = useI18n()
-const applicationModalStore = useApplicationModalStore()
+const { openModal } = useApplicationModal()
 
 const handleCtaClick = () => {
-  applicationModalStore.openModal({
+  openModal({
     source: 'about_hero',
     description: 'About Page Hero CTA',
   })

@@ -1,6 +1,6 @@
 import { z, ZodError } from 'zod'
 import { prisma } from '~~/lib/prisma'
-import { ReviewRepository } from '~~/server/repositories'
+import { getReviewRepository } from '~~/server/repositories'
 import type { CreateReviewResponse } from '~~/server/types/api'
 import { SUPPORTED_LOCALES } from '~~/lib/locales'
 import { parsePositiveInt } from '~~/lib/number'
@@ -10,7 +10,11 @@ const ReviewSchema = z.object({
   name: z.string().min(2, 'min_length').max(100, 'max_length'),
   university: z.string().min(1, 'required').max(200, 'max_length'),
   faculty: z.string().max(200, 'max_length').optional(),
-  year: z.string().regex(/^\d{4}$/, 'invalid_year').optional().or(z.literal('')),
+  year: z
+    .string()
+    .regex(/^\d{4}$/, 'invalid_year')
+    .optional()
+    .or(z.literal('')),
   rating: z.number().min(1, 'min_value').max(5, 'max_value'),
   contact: z.string().max(200, 'max_length').optional(),
   review: z.string().min(10, 'min_length').max(2000, 'max_length'),
@@ -42,7 +46,7 @@ export default defineEventHandler(async (event): Promise<CreateReviewResponse> =
       throw error
     }
 
-    const reviewRepository = new ReviewRepository(prisma)
+    const reviewRepository = getReviewRepository()
 
     let universityId: number | undefined
     const titleSearch = {

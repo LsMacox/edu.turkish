@@ -21,7 +21,7 @@
           class="sticky top-0 bg-white z-10 flex items-center justify-between px-5 pt-3 pb-5 md:p-6 border-b border-gray-100"
         >
           <h2 class="text-lg md:text-2xl font-bold text-secondary pr-2">
-            {{ $t('modal.consultation_title') }}
+            {{ t('modal.consultation_title') }}
           </h2>
           <button
             class="w-11 h-11 flex items-center justify-center rounded-full hover:bg-gray-100 active:bg-gray-200 transition-colors flex-shrink-0"
@@ -39,14 +39,14 @@
               class="block text-base md:text-sm font-medium text-gray-700 mb-2.5"
               :for="nameFieldId"
             >
-              {{ $t('modal.your_name') }} {{ $t('modal.required') }}
+              {{ t('modal.your_name') }} {{ t('modal.required') }}
             </label>
             <BaseTextField
               :id="nameFieldId"
               v-model="form.name"
               name="name"
               type="text"
-              :placeholder="$t('modal.name_placeholder')"
+              :placeholder="t('modal.name_placeholder')"
               :error="nameError"
             />
           </div>
@@ -56,7 +56,7 @@
               class="block text-base md:text-sm font-medium text-gray-700 mb-2.5"
               :for="phoneFieldId"
             >
-              {{ $t('modal.phone') }} {{ $t('modal.required') }}
+              {{ t('modal.phone') }} {{ t('modal.required') }}
             </label>
             <BaseTextField
               :id="phoneFieldId"
@@ -64,7 +64,7 @@
               name="phone"
               type="tel"
               required
-              :placeholder="$t('modal.phone_placeholder')"
+              :placeholder="t('modal.phone_placeholder')"
               autocomplete="tel"
               :maxlength="20"
               :error="phoneError"
@@ -78,14 +78,14 @@
               class="block text-base md:text-sm font-medium text-gray-700 mb-2.5"
               :for="emailFieldId"
             >
-              {{ $t('modal.email') }}
+              {{ t('modal.email') }}
             </label>
             <BaseTextField
               :id="emailFieldId"
               v-model="form.email"
               name="email"
               type="email"
-              :placeholder="$t('modal.email_placeholder')"
+              :placeholder="t('modal.email_placeholder')"
               :error="emailError"
             />
           </div>
@@ -95,13 +95,13 @@
               class="block text-base md:text-sm font-medium text-gray-700 mb-2.5"
               :for="messageFieldId"
             >
-              {{ $t('modal.additional_info') }}
+              {{ t('modal.additional_info') }}
             </label>
             <textarea
               :id="messageFieldId"
               v-model="form.message"
               name="message"
-              :placeholder="$t('modal.message_placeholder')"
+              :placeholder="t('modal.message_placeholder')"
               rows="3"
               :class="[
                 'w-full px-4 border rounded-xl focus:outline-none transition-all resize-none py-4 md:py-3 text-base md:text-sm min-h-[100px]',
@@ -114,49 +114,46 @@
             <p v-if="messageError" class="mt-2 text-sm text-red-600">{{ messageError }}</p>
           </div>
 
-          <!-- Service context display - for service pages -->
+          <!-- Service context display -->
           <div
             v-if="userPreferences?.serviceContext"
             class="bg-blue-50 border border-blue-200 rounded-xl p-4"
           >
             <h4 class="text-base md:text-sm font-semibold text-blue-800 mb-2.5">
-              {{ $t('modal.applying_for') }}
+              {{ t('modal.applying_for') }}
             </h4>
             <div class="text-sm md:text-xs text-blue-700">
               <p>• {{ userPreferences.serviceContext.subServiceName }}</p>
             </div>
           </div>
 
-          <!-- Preferences display - только для анкеты с главной страницы -->
-          <div
-            v-if="userPreferences && isQuestionnaire(userPreferences)"
-            class="bg-blue-50 border border-blue-200 rounded-xl p-4"
-          >
+          <!-- Questionnaire preferences display -->
+          <div v-if="isQuestionnaire" class="bg-blue-50 border border-blue-200 rounded-xl p-4">
             <h4 class="text-base md:text-sm font-semibold text-blue-800 mb-2.5">
-              {{ $t('modal.preferences_title') }}
+              {{ t('modal.preferences_title') }}
             </h4>
             <div class="text-sm md:text-xs text-blue-700 space-y-1.5">
-              <p v-if="userPreferences.userType">
-                • {{ $t('modal.preference_labels.user_type') }}
+              <p v-if="userPreferences?.userType">
+                • {{ t('modal.preference_labels.user_type') }}
                 {{ getUserTypeText(userPreferences.userType) }}
               </p>
-              <p v-if="userPreferences.universityChosen">
-                • {{ $t('modal.preference_labels.university') }}
+              <p v-if="userPreferences?.universityChosen !== undefined">
+                • {{ t('modal.preference_labels.university') }}
                 {{ getUniversityText(userPreferences.universityChosen) }}
               </p>
-              <p v-if="userPreferences.language">
-                • {{ $t('modal.preference_labels.language') }}
+              <p v-if="userPreferences?.language">
+                • {{ t('modal.preference_labels.language') }}
                 {{ getLanguageText(userPreferences.language) }}
               </p>
-              <p v-if="userPreferences.scholarship">
-                • {{ $t('modal.preference_labels.scholarship') }}
+              <p v-if="userPreferences?.scholarship !== undefined">
+                • {{ t('modal.preference_labels.scholarship') }}
                 {{ getScholarshipText(userPreferences.scholarship) }}
               </p>
             </div>
           </div>
 
           <BaseCheckbox :checked="form.agreement" @update:checked="form.agreement = $event">
-            {{ $t('modal.agreement') }}
+            {{ t('modal.agreement') }}
           </BaseCheckbox>
 
           <!-- Hidden referral source field for debugging -->
@@ -167,7 +164,7 @@
             :disabled="isSubmitting || !form.agreement"
             class="w-full bg-primary text-white rounded-xl font-semibold hover:bg-red-600 active:bg-red-700 transition-colors disabled:opacity-50 disabled:cursor-not-allowed py-4 text-lg md:text-lg min-h-[52px] shadow-lg active:shadow-md"
           >
-            {{ isSubmitting ? $t('modal.submitting') : $t('modal.submit_button') }}
+            {{ isSubmitting ? t('modal.submitting') : t('modal.submit_button') }}
           </button>
         </form>
       </div>
@@ -176,7 +173,7 @@
 </template>
 
 <script setup lang="ts">
-import type { ApplicationPreferences } from '~/types/preferences'
+import type { ApplicationPreferences } from '~/types/application'
 import { useReferral } from '~/composables/useReferral'
 import { useServerValidation } from '~/composables/useServerValidation'
 import { useFingerprint } from '~/composables/useFingerprint'
@@ -193,6 +190,7 @@ interface Emits {
 
 const props = defineProps<Props>()
 const emit = defineEmits<Emits>()
+const { t } = useI18n()
 const { referralCode } = useReferral()
 
 const { ensureFingerprint } = useFingerprint()
@@ -236,6 +234,9 @@ const phoneError = computed(() => getFieldError('personal_info.phone'))
 const emailError = computed(() => getFieldError('personal_info.email'))
 const messageError = computed(() => getFieldError('additional_info'))
 
+// Simple source-based checks
+const isQuestionnaire = computed(() => props.userPreferences?.source === 'home_questionnaire')
+
 const closeModal = () => {
   emit('close')
 }
@@ -259,6 +260,8 @@ const submitForm = async () => {
       ctaDescription = props.userPreferences.serviceContext.subServiceName
     }
 
+    const universityName = props.userPreferences?.universityName
+
     const applicationData = {
       personal_info: {
         first_name: firstName,
@@ -267,9 +270,7 @@ const submitForm = async () => {
         phone: sanitizePhone(form.value.phone),
       },
       preferences: {
-        universities: props.userPreferences?.universityName
-          ? [props.userPreferences.universityName]
-          : [],
+        universities: universityName ? [universityName] : [],
         programs: [],
         budget: 'Не указан',
         start_date: new Date().getFullYear().toString(),
@@ -277,7 +278,7 @@ const submitForm = async () => {
       additional_info: form.value.message || '',
       source: ctaSource,
       source_description: ctaDescription,
-      ref: referralCode.value || undefined,
+      referral_code: referralCode.value || undefined,
       user_preferences: props.userPreferences,
     }
 
@@ -290,8 +291,8 @@ const submitForm = async () => {
 
     emit('submit', response)
 
-    show($t('modal.success_message'), {
-      title: $t('modal.success_title'),
+    show(t('modal.success_message'), {
+      title: t('modal.success_title'),
       type: 'success',
       duration: 5000,
     })
@@ -311,7 +312,7 @@ const submitForm = async () => {
     if (handleValidationError(error)) {
       if (nonFieldErrors.value.length > 0) {
         show(nonFieldErrors.value.join('\n'), {
-          title: $t('modal.error_title'),
+          title: t('modal.error_title'),
           type: 'error',
           duration: 7000,
         })
@@ -320,10 +321,10 @@ const submitForm = async () => {
       const errorMessage =
         (error?.data?.message as string) ||
         (error?.message as string) ||
-        ($t('unknown_error') as string)
+        (t('unknown_error') as string)
 
       show(errorMessage, {
-        title: $t('modal.error_title'),
+        title: t('modal.error_title'),
         type: 'error',
         duration: 6000,
       })
@@ -334,40 +335,31 @@ const submitForm = async () => {
 }
 
 // Helper functions for preferences display
-const isQuestionnaire = (prefs: ApplicationPreferences): boolean => {
-  return prefs.source === 'home_questionnaire' && 'userType' in prefs
-}
-
-const getUserTypeText = (userType: string | undefined): string => {
-  if (!userType) return ''
+const getUserTypeText = (userType: string): string => {
   return userType === 'student'
-    ? ($t('modal.user_types.student') as string)
-    : ($t('modal.user_types.parent') as string)
+    ? (t('modal.user_types.student') as string)
+    : (t('modal.user_types.parent') as string)
 }
 
-const getUniversityText = (chosen: string | undefined): string => {
-  if (!chosen) return ''
-  return chosen === 'yes'
-    ? ($t('modal.university_chosen.yes') as string)
-    : ($t('modal.university_chosen.no') as string)
+const getUniversityText = (chosen: boolean): string => {
+  return chosen
+    ? (t('modal.university_chosen.yes') as string)
+    : (t('modal.university_chosen.no') as string)
 }
 
-const getLanguageText = (language: string | undefined): string => {
-  if (!language) return ''
-  if (language === 'turkish') {
-    return $t('modal.languages.turkish') as string
+const getLanguageText = (language: string): string => {
+  const languageMap: Record<string, string> = {
+    turkish: t('modal.languages.turkish') as string,
+    english: t('modal.languages.english') as string,
+    both: t('modal.languages.both') as string,
   }
-  if (language === 'english') {
-    return $t('modal.languages.english') as string
-  }
-  return $t('modal.languages.both') as string
+  return languageMap[language] || language
 }
 
-const getScholarshipText = (scholarship: string | undefined): string => {
-  if (!scholarship) return ''
-  return scholarship === 'yes'
-    ? ($t('modal.scholarship.yes') as string)
-    : ($t('modal.scholarship.no') as string)
+const getScholarshipText = (scholarship: boolean): string => {
+  return scholarship
+    ? (t('modal.scholarship.yes') as string)
+    : (t('modal.scholarship.no') as string)
 }
 
 // Touch gesture handlers

@@ -13,7 +13,11 @@ const setCookie = (name: string, value: string, days = 365) => {
 
 const persist = (value: string) => {
   setCookie(FP_KEY, value)
-  try { localStorage.setItem(FP_KEY, value) } catch { /* ignore storage errors */ }
+  try {
+    localStorage.setItem(FP_KEY, value)
+  } catch {
+    /* ignore storage errors */
+  }
 }
 
 export default defineNuxtPlugin(() => {
