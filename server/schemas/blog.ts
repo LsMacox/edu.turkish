@@ -6,7 +6,7 @@ import { z } from 'zod'
 
 const HeadingBlockSchema = z.object({
   type: z.literal('heading'),
-  level: z.number().min(1).max(6),
+  level: z.coerce.number().min(1).max(6),
   text: z.string(),
 })
 
@@ -66,14 +66,24 @@ const BlogContentBlockSchema = z.discriminatedUnion('type', [
   FaqBlockSchema,
 ])
 
-const BlogContentSchema = z.array(BlogContentBlockSchema)
-
 export type BlogContentBlock = z.infer<typeof BlogContentBlockSchema>
 
 /**
  * Safely parse BlogArticleTranslation.content JSON field
  */
 export function parseBlogContent(data: unknown): BlogContentBlock[] {
-  const result = BlogContentSchema.safeParse(data)
-  return result.success ? result.data : []
+  if (!Array.isArray(data)) {
+    return []
+  }
+
+  return data
+    .map((item) => {
+      const result = BlogContentBlockSchema.safeParse(item)
+      if (!result.success) {
+        console.warn('Invalid blog content block:', JSON.stringify(item), result.error.message)
+        return null
+      }
+      return result.data
+    })
+    .filter((block): block is BlogContentBlock => block !== null)
 }

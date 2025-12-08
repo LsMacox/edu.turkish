@@ -163,6 +163,6 @@ export class EspoCRMProvider implements ICRMProvider {
   }
 
   private mapSource(source: string): string {
-    return source === 'partner' ? 'Partner' : 'Web Site'
+    return source === 'partner' ? 'Partner' : 'Website'
   }
 }

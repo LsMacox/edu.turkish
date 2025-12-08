@@ -72,12 +72,13 @@
         <p v-if="variant === 'powerpage'" class="text-xl font-medium text-secondary italic mb-4">
           "{{ block.text }}"
         </p>
-        <!-- eslint-disable-next-line vue/no-v-html -->
+        <!-- eslint-disable vue/no-v-html -->
         <p
           v-else
           class="text-lg font-medium text-secondary italic leading-relaxed"
           v-html="block.text"
         />
+        <!-- eslint-enable vue/no-v-html -->
         <cite v-if="block.author" :class="styles.cite">
           <template v-if="variant === 'powerpage'">— </template>
           <template v-else>— </template>
