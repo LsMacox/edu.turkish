@@ -162,7 +162,7 @@ export class EspoCRMProvider implements ICRMProvider {
     return parts.length ? parts.join('\n') : undefined
   }
 
-  private mapSource(source: string): string {
-    return source === 'partner' ? 'Partner' : 'Website'
+  private mapSource(_source: string): string {
+    return 'Sait_SEO'
   }
 }
