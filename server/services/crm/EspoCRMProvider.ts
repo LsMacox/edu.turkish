@@ -150,14 +150,13 @@ export class EspoCRMProvider implements ICRMProvider {
   private buildDescription(data: LeadData): string | undefined {
     const parts: string[] = []
 
-    if (data.sourceDescription) parts.push(data.sourceDescription)
-    if (data.additionalInfo) parts.push(data.additionalInfo)
-    if (data.userType) parts.push(`UserType: ${data.userType}`)
-    if (data.language) parts.push(`Language: ${data.language}`)
-    if (data.universityChosen) parts.push(`UniversityChosen: ${data.universityChosen}`)
-    if (data.session) parts.push(`Session: ${data.session}`)
-    if (data.programs?.length) parts.push(`Programs: ${data.programs.join(', ')}`)
-    if (data.scholarship) parts.push(`Scholarship: ${data.scholarship}`)
+    if (data.sourceDescription) parts.push(`Источник: ${data.sourceDescription}`)
+    if (data.additionalInfo) parts.push(`Комментарий: ${data.additionalInfo}`)
+    if (data.userType) parts.push(`Тип пользователя: ${data.userType}`)
+    if (data.language) parts.push(`Язык: ${data.language}`)
+    if (data.universityChosen) parts.push(`Выбранный университет: ${data.universityChosen}`)
+    if (data.programs?.length) parts.push(`Программы: ${data.programs.join(', ')}`)
+    if (data.scholarship) parts.push(`Стипендия: ${data.scholarship}`)
 
     return parts.length ? parts.join('\n') : undefined
   }

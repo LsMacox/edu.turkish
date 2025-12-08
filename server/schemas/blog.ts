@@ -17,7 +17,7 @@ const ParagraphBlockSchema = z.object({
 
 const ListBlockSchema = z.object({
   type: z.literal('list'),
-  ordered: z.boolean(),
+  ordered: z.boolean().default(false),
   items: z.array(z.string()),
   style: z.enum(['standard', 'checklist', 'steps']).optional(),
 })
