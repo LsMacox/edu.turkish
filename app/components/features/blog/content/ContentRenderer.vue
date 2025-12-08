@@ -2,15 +2,16 @@
   <div :class="styles.container">
     <template v-for="(block, index) in normalizedContent" :key="`${block.type}-${index}`">
       <!-- Heading -->
-      <!-- eslint-disable vue/no-v-html, vue/no-v-text-v-html-on-component -->
-      <component
-        :is="getHeadingTag(block.level)"
-        v-if="block.type === 'heading'"
-        :id="block.id"
-        :class="styles.heading(block.level)"
-        v-html="block.text"
-      />
-      <!-- eslint-enable vue/no-v-html, vue/no-v-text-v-html-on-component -->
+      <template v-if="block.type === 'heading'">
+        <!-- eslint-disable vue/no-v-html, vue/no-v-text-v-html-on-component -->
+        <component
+          :is="getHeadingTag(block.level)"
+          :id="block.id"
+          :class="styles.heading(block.level)"
+          v-html="block.text"
+        />
+        <!-- eslint-enable vue/no-v-html, vue/no-v-text-v-html-on-component -->
+      </template>
 
       <!-- Paragraph with widget support -->
       <template v-else-if="block.type === 'paragraph'">
