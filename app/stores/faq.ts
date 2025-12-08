@@ -6,19 +6,19 @@ const MAX_HISTORY = 10
 const HISTORY_KEY = 'faq-search-history'
 
 const CATEGORY_ICONS: Record<string, string> = {
-  all: 'mdi:view-grid',
-  documents: 'mdi:file-document',
-  education: 'mdi:school-outline',
-  technology: 'mdi:cellphone-cog',
-  residence: 'mdi:home-city',
-  relocation: 'mdi:truck-fast',
-  insurance: 'mdi:shield-check',
-  transport: 'mdi:bus',
-  housing: 'mdi:home-outline',
-  exams: 'mdi:school',
-  admission: 'mdi:clock',
-  scholarships: 'mdi:trophy',
-  languages: 'mdi:earth',
+  all: 'ph:squares-four',
+  documents: 'ph:file-text',
+  education: 'ph:graduation-cap',
+  technology: 'ph:device-mobile',
+  residence: 'ph:identification-card',
+  relocation: 'ph:airplane-takeoff',
+  insurance: 'ph:shield-check',
+  transport: 'ph:bus',
+  housing: 'ph:house',
+  exams: 'ph:exam',
+  admission: 'ph:clock',
+  scholarships: 'ph:trophy',
+  languages: 'ph:globe',
 }
 
 export interface CategoryWithIcon extends FAQCategory {
@@ -50,7 +50,7 @@ export const useFAQStore = defineStore('faq', () => {
     { key: 'all', name: '', count: 0, icon: CATEGORY_ICONS.all! },
     ...rawCategories.value.map((c) => ({
       ...c,
-      icon: CATEGORY_ICONS[c.key] ?? 'mdi:help-circle',
+      icon: CATEGORY_ICONS[c.key] ?? 'ph:question',
     })),
   ])
 

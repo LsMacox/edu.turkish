@@ -21,7 +21,9 @@
       "all_levels": "All levels",
       "price_label": "Cost per year (USD)",
       "reset_button": "Reset",
-      "apply_button": "Apply",
+      "apply_button": "Search",
+      "more_filters": "More filters",
+      "hide_filters": "Hide",
       "cities": {
         "istanbul": "Istanbul",
         "ankara": "Ankara",
@@ -62,7 +64,9 @@
     "card": {
       "details_button": "Details",
       "apply_button": "Apply",
-      "application_description": "Application from university card:"
+      "application_description": "Application from university card:",
+      "year": "year",
+      "price_on_request": "Price on request"
     },
     "load_more": "Load more",
     "how_to_choose": {
@@ -93,6 +97,7 @@
       "types": {
         "government": {
           "title": "Türkiye Scholarships",
+          "badge": "Government",
           "description": "Government scholarship covers 100% tuition + accommodation",
           "benefits": {
             "full_tuition": "Full tuition coverage",
@@ -102,6 +107,7 @@
         },
         "university": {
           "title": "University Scholarships",
+          "badge": "University",
           "description": "Partial discounts from 25% to 75% on tuition",
           "benefits": {
             "tuition_discount": "Tuition discount",

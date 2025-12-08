@@ -5,12 +5,34 @@
       "description": "Learn about various bachelor's programs at Turkish universities. Medical, business, and engineering specializations."
     },
     "hero": {
-      "title": "Bachelor's Programs",
-      "description": "Discover everything about bachelor's programs in Turkey"
+      "title": "Study ",
+      "titleAccent": "Programs",
+      "description": "Discover everything about bachelor's programs in Turkey",
+      "badge": "Education in Turkey",
+      "stats": {
+        "programs": "Programs",
+        "categories": "Categories",
+        "support": "Support"
+      },
+      "card": {
+        "title": "Your Program",
+        "subtitle": "We'll find the perfect fit"
+      }
     },
     "learnMore": "Learn more",
+    "loading": "Loading programs...",
     "empty": "No programs found",
-    "error": "Error loading programs",
+    "emptyTitle": "No programs yet",
+    "error": "Failed to load programs. Please try again later.",
+    "errorTitle": "Loading Error",
+    "retry": "Try again",
+    "categorySubtitle": "Choose from {count} available programs",
+    "cta": {
+      "title": "Ready to start studying?",
+      "description": "Contact us for a free consultation on admission to Turkish universities",
+      "universities": "View universities",
+      "contact": "Contact us"
+    },
     "detail": {
       "loading": "Loading...",
       "notFound": "Program not found",

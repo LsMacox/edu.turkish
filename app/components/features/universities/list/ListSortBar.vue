@@ -1,18 +1,23 @@
 <template>
-  <div class="flex flex-col md:flex-row justify-between items-center gap-4">
-    <p class="text-secondary font-medium">
-      {{ t('universities_page.sort.showing_text') }}
-      <span class="text-primary font-bold">{{ displayed }}</span>
-      {{ t('universities_page.sort.of_text') }}
-      <span class="text-primary font-bold">{{ total }}</span>
-      {{ t('universities_page.sort.universities_text') }}
-    </p>
+  <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-3">
+    <div class="flex items-center gap-2">
+      <div class="w-8 h-8 rounded-lg bg-primary/10 flex items-center justify-center">
+        <Icon name="mdi:school" class="w-4 h-4 text-primary" />
+      </div>
+      <p class="text-sm text-gray-600">
+        {{ t('universities_page.sort.showing_text') }}
+        <span class="font-semibold text-secondary">{{ displayed }}</span>
+        {{ t('universities_page.sort.of_text') }}
+        <span class="font-semibold text-secondary">{{ total }}</span>
+        {{ t('universities_page.sort.universities_text') }}
+      </p>
+    </div>
 
-    <div class="flex items-center gap-4">
-      <label :for="sortFieldId" class="text-sm font-medium text-secondary">{{
-        t('universities_page.sort.sort_label')
-      }}</label>
-      <BaseSelect :id="sortFieldId" :model-value="sort" @update:model-value="onUpdateSort">
+    <div class="flex items-center gap-2">
+      <label :for="sortFieldId" class="text-xs font-medium text-gray-500 whitespace-nowrap">
+        {{ t('universities_page.sort.sort_label') }}
+      </label>
+      <BaseSelect :id="sortFieldId" :model-value="sort" class="min-w-[160px]" @update:model-value="onUpdateSort">
         <option value="pop">{{ t('universities_page.sort.options.popularity') }}</option>
         <option value="price_asc">{{ t('universities_page.sort.options.price_asc') }}</option>
         <option value="price_desc">{{ t('universities_page.sort.options.price_desc') }}</option>

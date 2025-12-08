@@ -83,29 +83,46 @@
         <!-- Right Section -->
         <div class="flex items-center space-x-3 md:space-x-4">
           <!-- Desktop Language Switcher -->
-          <div
-            class="relative hidden md:flex items-center bg-background rounded-lg h-9 min-w-[200px] overflow-hidden p-1"
-          >
-            <div
-              class="absolute top-1 bottom-1 left-1 rounded-md bg-white shadow-sm transition-transform duration-300 ease-out pointer-events-none z-0"
-              :style="sliderStyle"
-            />
-            <div class="grid grid-cols-4 w-full relative">
-              <button
-                v-for="opt in localeOptions"
-                :key="opt.code"
-                type="button"
-                class="relative z-10 text-sm font-medium h-7 flex items-center justify-center rounded-md transition-colors min-h-touch-44"
-                :class="
-                  opt.code === currentLocale
-                    ? 'text-secondary'
-                    : 'text-gray-500 hover:text-secondary'
-                "
-                @click="changeLocale(opt.code)"
-              >
-                {{ opt.label }}
-              </button>
-            </div>
+          <div ref="localeElRef" class="relative hidden md:block">
+            <button
+              type="button"
+              class="flex items-center gap-2 px-3 py-2 rounded-lg bg-background hover:bg-gray-100 transition-colors text-sm font-medium text-secondary min-h-touch-44"
+              @click="localeDropdown.toggle"
+            >
+              <Icon name="mdi:web" class="text-base" />
+              {{ currentLocaleLabel }}
+              <Icon
+                :name="localeDropdown.isOpen.value ? 'mdi:chevron-up' : 'mdi:chevron-down'"
+                class="text-base text-gray-400"
+              />
+            </button>
+
+            <Transition name="fade">
+              <div v-if="localeDropdown.isOpen.value" class="absolute right-0 top-full z-50 pt-2">
+                <div class="min-w-[140px] rounded-xl border border-gray-100 bg-white shadow-xl py-1">
+                  <button
+                    v-for="opt in localeOptions"
+                    :key="opt.code"
+                    type="button"
+                    class="w-full flex items-center gap-3 px-4 py-2.5 text-sm transition-colors"
+                    :class="
+                      opt.code === currentLocale
+                        ? 'text-primary bg-primary/5 font-medium'
+                        : 'text-secondary hover:bg-gray-50'
+                    "
+                    @click="changeLocale(opt.code)"
+                  >
+                    <span class="w-5 text-center text-xs text-gray-400">{{ opt.code.toUpperCase() }}</span>
+                    <span>{{ opt.fullLabel }}</span>
+                    <Icon
+                      v-if="opt.code === currentLocale"
+                      name="mdi:check"
+                      class="ml-auto text-primary"
+                    />
+                  </button>
+                </div>
+              </div>
+            </Transition>
           </div>
 
           <!-- Currency Selector -->
@@ -177,6 +194,7 @@ const { currencyRef: currency, setCurrency, getCurrencySymbol } = useCurrency()
 // Refs for click-outside detection
 const servicesRef = ref<HTMLElement | null>(null)
 const currencyElRef = ref<HTMLElement | null>(null)
+const localeElRef = ref<HTMLElement | null>(null)
 
 // Dropdown helper
 function useDropdown(containerRef: Ref<HTMLElement | null>) {
@@ -220,6 +238,7 @@ function useDropdown(containerRef: Ref<HTMLElement | null>) {
 
 const servicesDropdown = useDropdown(servicesRef)
 const currencyDropdown = useDropdown(currencyElRef)
+const localeDropdown = useDropdown(localeElRef)
 
 // Navigation links
 const navLinks = [
@@ -253,25 +272,24 @@ const isServiceRouteActive = computed(
 )
 
 // Locale switcher
-const localeOptions: { code: SupportedLocale; label: string }[] = [
-  { code: 'ru', label: 'RU' },
-  { code: 'kk', label: 'KZ' },
-  { code: 'en', label: 'EN' },
-  { code: 'tr', label: 'TR' },
+const localeOptions: { code: SupportedLocale; label: string; fullLabel: string }[] = [
+  { code: 'ru', label: 'RU', fullLabel: 'Русский' },
+  { code: 'kk', label: 'KZ', fullLabel: 'Қазақша' },
+  { code: 'en', label: 'EN', fullLabel: 'English' },
+  { code: 'tr', label: 'TR', fullLabel: 'Türkçe' },
 ]
 
 const currentLocale = computed(() => useI18n().locale.value)
-const activeIndex = computed(() => localeOptions.findIndex((o) => o.code === currentLocale.value))
-const sliderStyle = computed(() => ({
-  width: 'calc((100% - 0.5rem) / 4)',
-  transform: `translateX(${Math.max(0, activeIndex.value) * 100}%)`,
-}))
+const currentLocaleLabel = computed(
+  () => localeOptions.find((o) => o.code === currentLocale.value)?.label ?? 'RU',
+)
 
 function changeLocale(code: SupportedLocale) {
   if (code !== currentLocale.value) {
     const path = switchLocalePath(code)
     if (path) navigateTo(path)
   }
+  localeDropdown.close()
 }
 
 // Currency

@@ -1,195 +1,61 @@
 <!-- eslint-disable vue/multi-word-component-names -->
 <template>
   <div>
-    <!-- Hero Section -->
-    <section
-      id="hero"
-      class="relative bg-gradient-to-br from-blue-50 via-purple-50 to-pink-50 section-py-lg"
-    >
-      <div class="container mx-auto container-padding-narrow">
-        <div class="grid lg:grid-cols-2 gap-12 items-center">
-          <div class="space-y-8">
-            <div class="space-y-6">
-              <h1 class="text-hero">
-                {{ t('reviews.hero.title') }}
-                <span class="text-primary">{{ t('reviews.hero.titleAccent') }}</span>
-              </h1>
-              <p class="text-hero-subtitle">
-                {{ t('reviews.hero.description') }}
-              </p>
-            </div>
-
-            <!-- Stats -->
-            <div class="grid grid-cols-3 gap-4 md:gap-6">
-              <div class="text-center">
-                <div class="text-2xl md:text-3xl font-bold text-primary mb-2">500+</div>
-                <p class="text-sm text-gray-600">{{ t('reviews.hero.stats.students') }}</p>
-              </div>
-              <div class="text-center">
-                <div class="text-2xl md:text-3xl font-bold text-primary mb-2">4.9/5</div>
-                <p class="text-sm text-gray-600">{{ t('reviews.hero.stats.rating') }}</p>
-              </div>
-              <div class="text-center">
-                <div class="text-2xl md:text-3xl font-bold text-primary mb-2">98%</div>
-                <p class="text-sm text-gray-600">{{ t('reviews.hero.stats.success') }}</p>
-              </div>
-            </div>
-          </div>
-
-          <!-- Hero Image -->
-          <div class="relative hidden md:block">
-            <div class="rounded-3xl shadow-custom overflow-hidden">
-              <NuxtImg
-                :src="reviewHero"
-                alt="happy diverse students celebrating university acceptance letters, group photo with Turkish university campus background, bright natural lighting"
-                class="w-full h-96 object-cover"
-                loading="lazy"
-                decoding="async"
-                sizes="(max-width: 1024px) 100vw, 50vw"
-                format="webp"
-              />
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <LazyReviewsMediaSection />
-
-    <!-- Review Stats Section - Наши достижения в цифрах -->
-    <section id="achievements" class="section-py-lg bg-white hidden md:block">
-      <div class="container mx-auto container-padding-narrow">
-        <div class="text-center mb-16">
-          <h2 class="text-section-title mb-6">
+    <!-- Achievements Section - Наши достижения в цифрах -->
+    <section id="achievements" class="relative overflow-hidden">
+      <div class="absolute inset-0 bg-gradient-to-br from-slate-50 via-blue-50/50 to-violet-50/30" />
+      <div class="absolute inset-0 bg-[radial-gradient(ellipse_at_top_right,_var(--tw-gradient-stops))] from-primary/5 via-transparent to-transparent" />
+      
+      <div class="relative container mx-auto container-padding-narrow pt-6 md:pt-8 pb-4">
+        <div class="text-center max-w-2xl mx-auto mb-6">
+          <h1 class="text-section-title mb-2">
             {{ t('reviews.achievements.title') }}
             <span class="text-primary">{{ t('reviews.achievements.titleAccent') }}</span>
-          </h2>
-          <p class="text-section-subtitle max-w-3xl mx-auto">
+          </h1>
+          <p class="text-section-subtitle">
             {{ t('reviews.achievements.description') }}
           </p>
         </div>
 
-        <div
-          class="grid grid-cols-2 md:grid-cols-2 lg:grid-cols-4 gap-4 md:gap-6 lg:gap-8 mb-4 md:mb-6 lg:mb-8"
-        >
-          <!-- Students count -->
-          <div class="bg-white rounded-2xl shadow-custom p-4 md:p-6 text-center">
-            <div
-              class="w-16 h-16 bg-primary rounded-full flex items-center justify-center mx-auto mb-4"
-            >
-              <Icon name="mdi:account-group" class="text-2xl text-white" />
+        <!-- Stats Grid -->
+        <div class="grid grid-cols-2 md:grid-cols-4 gap-3 md:gap-4">
+          <div class="bg-white/80 backdrop-blur-sm rounded-xl border border-gray-100 p-4 text-center">
+            <div class="w-10 h-10 rounded-full bg-gradient-to-br from-primary to-red-600 flex items-center justify-center mx-auto mb-2">
+              <Icon name="mdi:account-group" class="text-lg text-white" />
             </div>
-            <div class="text-2xl md:text-3xl font-bold text-primary mb-2">500+</div>
-            <h3 class="text-card-title mb-1">
-              {{ t('reviews.achievements.stats.students.title') }}
-            </h3>
-            <p class="text-card-body">
-              {{ t('reviews.achievements.stats.students.description') }}
-            </p>
+            <div class="text-xl md:text-2xl font-bold text-primary">500+</div>
+            <p class="text-xs text-gray-600">{{ t('reviews.achievements.stats.students.title') }}</p>
           </div>
 
-          <!-- Success Rate -->
-          <div class="bg-white rounded-2xl shadow-custom p-4 md:p-6 text-center">
-            <div
-              class="w-16 h-16 bg-green-500 rounded-full flex items-center justify-center mx-auto mb-4"
-            >
-              <Icon name="mdi:check-circle" class="text-2xl text-white" />
+          <div class="bg-white/80 backdrop-blur-sm rounded-xl border border-gray-100 p-4 text-center">
+            <div class="w-10 h-10 rounded-full bg-gradient-to-br from-emerald-500 to-emerald-600 flex items-center justify-center mx-auto mb-2">
+              <Icon name="mdi:check-circle" class="text-lg text-white" />
             </div>
-            <div class="text-3xl font-bold text-green-500 mb-2">98%</div>
-            <h3 class="text-card-title mb-1">
-              {{ t('reviews.achievements.stats.success.title') }}
-            </h3>
-            <p class="text-card-body">
-              {{ t('reviews.achievements.stats.success.description') }}
-            </p>
+            <div class="text-xl md:text-2xl font-bold text-emerald-500">98%</div>
+            <p class="text-xs text-gray-600">{{ t('reviews.achievements.stats.success.title') }}</p>
           </div>
 
-          <!-- Universities -->
-          <div class="bg-white rounded-2xl shadow-custom p-4 md:p-6 text-center">
-            <div
-              class="w-16 h-16 bg-blue-500 rounded-full flex items-center justify-center mx-auto mb-4"
-            >
-              <Icon name="mdi:school" class="text-2xl text-white" />
+          <div class="bg-white/80 backdrop-blur-sm rounded-xl border border-gray-100 p-4 text-center">
+            <div class="w-10 h-10 rounded-full bg-gradient-to-br from-blue-500 to-blue-600 flex items-center justify-center mx-auto mb-2">
+              <Icon name="mdi:school" class="text-lg text-white" />
             </div>
-            <div class="text-3xl font-bold text-blue-500 mb-2">20+</div>
-            <h3 class="text-card-title mb-1">
-              {{ t('reviews.achievements.stats.universities.title') }}
-            </h3>
-            <p class="text-card-body">
-              {{ t('reviews.achievements.stats.universities.description') }}
-            </p>
+            <div class="text-xl md:text-2xl font-bold text-blue-500">20+</div>
+            <p class="text-xs text-gray-600">{{ t('reviews.achievements.stats.universities.title') }}</p>
           </div>
 
-          <!-- Experience -->
-          <div class="bg-white rounded-2xl shadow-custom p-4 md:p-6 text-center">
-            <div
-              class="w-16 h-16 bg-purple-500 rounded-full flex items-center justify-center mx-auto mb-4"
-            >
-              <Icon name="mdi:trophy" class="text-2xl text-white" />
+          <div class="bg-white/80 backdrop-blur-sm rounded-xl border border-gray-100 p-4 text-center">
+            <div class="w-10 h-10 rounded-full bg-gradient-to-br from-yellow-400 to-orange-500 flex items-center justify-center mx-auto mb-2">
+              <Icon name="mdi:star" class="text-lg text-white" />
             </div>
-            <div class="text-3xl font-bold text-purple-500 mb-2">6</div>
-            <h3 class="text-card-title mb-1">
-              {{ t('reviews.achievements.stats.experience.title') }}
-            </h3>
-            <p class="text-card-body">
-              {{ t('reviews.achievements.stats.experience.description') }}
-            </p>
-          </div>
-        </div>
-
-        <div class="grid grid-cols-2 md:grid-cols-3 gap-4 md:gap-6 lg:gap-8 mb-16">
-          <!-- Overall Rating -->
-          <div class="bg-white rounded-2xl shadow-custom p-6 md:p-8 text-center">
-            <div
-              class="w-20 h-20 bg-primary rounded-full flex items-center justify-center mx-auto mb-4"
-            >
-              <span class="text-3xl font-bold text-white">4.9</span>
-            </div>
-            <h3 class="text-card-title mb-2">
-              {{ t('reviews.achievements.overallRating.title') }}
-            </h3>
-            <div class="flex justify-center mb-4">
-              <Icon name="mdi:star" class="text-yellow-400 text-xl" />
-              <Icon name="mdi:star" class="text-yellow-400 text-xl" />
-              <Icon name="mdi:star" class="text-yellow-400 text-xl" />
-              <Icon name="mdi:star" class="text-yellow-400 text-xl" />
-              <Icon name="mdi:star" class="text-yellow-400 text-xl" />
-            </div>
-            <p class="text-card-body">{{ t('reviews.achievements.overallRating.description') }}</p>
-          </div>
-
-          <!-- Support -->
-          <div class="bg-white rounded-2xl shadow-custom p-6 md:p-8 text-center">
-            <div
-              class="w-20 h-20 bg-orange-500 rounded-full flex items-center justify-center mx-auto mb-4"
-            >
-              <Icon name="mdi:headset" class="text-3xl text-white" />
-            </div>
-            <h3 class="text-card-title mb-2">
-              {{ t('reviews.achievements.support.title') }}
-            </h3>
-            <div class="text-4xl font-bold text-orange-500 mb-2">100%</div>
-            <p class="text-card-body">{{ t('reviews.achievements.support.description') }}</p>
-          </div>
-
-          <!-- Recommendation Rate -->
-          <div class="bg-white rounded-2xl shadow-custom p-6 md:p-8 text-center">
-            <div
-              class="w-20 h-20 bg-blue-500 rounded-full flex items-center justify-center mx-auto mb-4"
-            >
-              <Icon name="mdi:thumb-up" class="text-3xl text-white" />
-            </div>
-            <h3 class="text-card-title mb-2">
-              {{ t('reviews.achievements.recommendation.title') }}
-            </h3>
-            <div class="text-4xl font-bold text-blue-500 mb-2">100%</div>
-            <p class="text-card-body">
-              {{ t('reviews.achievements.recommendation.description') }}
-            </p>
+            <div class="text-xl md:text-2xl font-bold text-orange-500">4.9</div>
+            <p class="text-xs text-gray-600">{{ t('reviews.achievements.overallRating.title') }}</p>
           </div>
         </div>
       </div>
     </section>
+
+    <!-- Media Reviews Section -->
+    <LazyReviewsMediaSection />
 
     <!-- Share Experience Form -->
     <LazyReviewsShareExperienceForm />
@@ -197,10 +63,7 @@
 </template>
 
 <script setup lang="ts">
-import { ASSETS } from '~~/lib/assets'
-
 const { t } = useI18n()
-const reviewHero = ASSETS.reviews.heroImage
 
 // Reviews page meta
 definePageMeta({
@@ -211,8 +74,3 @@ definePageMeta({
 })
 </script>
 
-<style scoped>
-.shadow-custom {
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
-}
-</style>

@@ -1,46 +1,46 @@
 <template>
   <main>
-    <!-- Page Title Section -->
-    <section id="page-title" class="section-py bg-gradient-to-br from-blue-50 to-purple-50">
-      <div class="container mx-auto container-padding-narrow">
-        <div class="text-center max-w-4xl mx-auto">
-          <h1 class="text-hero mb-4 md:mb-6">
+    <!-- Hero Section with gradient background -->
+    <section id="page-title" class="relative overflow-hidden">
+      <!-- Background with subtle pattern -->
+      <div class="absolute inset-0 bg-gradient-to-br from-slate-50 via-blue-50/50 to-violet-50/30"></div>
+      <div class="absolute inset-0 bg-[radial-gradient(ellipse_at_top_right,_var(--tw-gradient-stops))] from-primary/5 via-transparent to-transparent"></div>
+      
+      <div class="relative container mx-auto container-padding-narrow pt-6 md:pt-8 pb-4">
+        <div class="text-center max-w-2xl mx-auto">
+          <h1 class="text-section-title mb-2">
             {{ t('universities_page.hero.title') }}
           </h1>
-          <p class="text-hero-subtitle">
+          <p class="text-section-subtitle mb-4">
             {{ t('universities_page.hero.subtitle') }}
           </p>
-
-          <div class="mt-6 md:mt-8">
-            <UniversitiesListStatisticsCards />
-          </div>
+          <UniversitiesListStatisticsCards />
         </div>
       </div>
     </section>
 
     <!-- Filters Section -->
-    <section id="filters" class="bg-white shadow-sm border-b border-gray-200">
-      <div class="container mx-auto px-4 lg:px-6 py-4 md:py-6">
+    <section id="filters" class="bg-white border-b border-gray-200">
+      <div class="container mx-auto px-4 lg:px-6 py-4">
         <UniversitiesListFilterPanel />
       </div>
     </section>
 
-    <!-- Sorting and Results -->
-    <section id="sorting" class="py-4 md:py-6 bg-background">
-      <div class="container mx-auto px-4 lg:px-6">
-        <UniversitiesListSortBar
-          :total="totalUniversities"
-          :displayed="sorted.length"
-          :sort="sort"
-          @update:sort="setSort"
-        />
-      </div>
-    </section>
+    <!-- Results Section -->
+    <section id="universities-results" class="bg-gray-50/50">
+      <div class="container mx-auto container-padding-narrow py-6 md:py-8">
+        <!-- Sort Bar -->
+        <div class="mb-6">
+          <UniversitiesListSortBar
+            :total="totalUniversities"
+            :displayed="sorted.length"
+            :sort="sort"
+            @update:sort="setSort"
+          />
+        </div>
 
-    <!-- Universities Grid -->
-    <section id="universities-grid" class="section-py-sm">
-      <div class="container mx-auto container-padding-narrow">
-        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-section">
+        <!-- Universities Grid -->
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-6">
           <UniversitiesListCard
             v-for="u in paged"
             :key="u.id"

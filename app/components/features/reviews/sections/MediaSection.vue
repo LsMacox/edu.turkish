@@ -1,13 +1,13 @@
 <template>
-  <section id="media-reviews" class="section-py-lg bg-gray-50">
+  <section id="media-reviews" class="py-8 md:py-10 bg-white">
     <div class="container mx-auto container-padding-narrow">
       <!-- Header -->
-      <div class="text-center mb-8 md:mb-12">
-        <h2 class="text-section-title mb-6">
+      <div class="text-center mb-6 md:mb-8">
+        <h2 class="text-xl md:text-2xl font-bold text-secondary mb-2">
           {{ t('reviews.mediaReviews.title') }}
           <span class="text-primary">{{ t('reviews.mediaReviews.titleAccent') }}</span>
         </h2>
-        <p class="text-section-subtitle max-w-3xl mx-auto">
+        <p class="text-sm md:text-base text-gray-600 max-w-2xl mx-auto">
           {{ t('reviews.mediaReviews.description') }}
         </p>
       </div>

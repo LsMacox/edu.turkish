@@ -92,24 +92,24 @@
         <h3 class="text-2xl font-bold text-secondary text-center mb-8">
           {{ t('universityDetail.campusLife.infrastructure') }}
         </h3>
-        <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+        <div class="grid grid-cols-2 md:grid-cols-2 lg:grid-cols-3 gap-3 md:gap-6">
           <div
             v-for="(facility, i) in realFacilities"
             :key="`facility-${i}`"
-            class="bg-white rounded-xl shadow-custom p-6 text-center hover-lift"
+            class="bg-white rounded-xl shadow-custom p-3 md:p-6 text-center hover-lift"
           >
             <div
-              class="w-16 h-16 rounded-2xl flex items-center justify-center mx-auto mb-4"
+              class="w-10 h-10 md:w-16 md:h-16 rounded-xl md:rounded-2xl flex items-center justify-center mx-auto mb-2 md:mb-4"
               :class="getFacilityStyleForItem(facility).bg"
             >
               <Icon
                 :name="getFacilityStyleForItem(facility).icon"
-                class="text-2xl"
+                class="text-lg md:text-2xl"
                 :class="getFacilityStyleForItem(facility).color"
               />
             </div>
-            <h4 class="font-semibold text-secondary mb-2">{{ facility.name }}</h4>
-            <p class="text-gray-600 text-sm">{{ facility.description }}</p>
+            <h4 class="font-semibold text-secondary text-sm md:text-base mb-1 md:mb-2 line-clamp-2">{{ facility.name }}</h4>
+            <p class="text-gray-600 text-xs md:text-sm line-clamp-2 md:line-clamp-none">{{ facility.description }}</p>
           </div>
         </div>
       </div>

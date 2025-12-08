@@ -21,7 +21,9 @@
       "all_levels": "Барлық деңгейлер",
       "price_label": "Жылдық құны (USD)",
       "reset_button": "Тастау",
-      "apply_button": "Қолдану",
+      "apply_button": "Іздеу",
+      "more_filters": "Қосымша сүзгілер",
+      "hide_filters": "Жасыру",
       "cities": {
         "istanbul": "Стамбул",
         "ankara": "Анкара",
@@ -62,7 +64,9 @@
     "card": {
       "details_button": "Толығырақ",
       "apply_button": "Өтініш беру",
-      "application_description": "Университет картасынан өтініш:"
+      "application_description": "Университет картасынан өтініш:",
+      "year": "жыл",
+      "price_on_request": "Бағасы сұраныс бойынша"
     },
     "load_more": "Тағы көрсету",
     "how_to_choose": {
@@ -93,6 +97,7 @@
       "types": {
         "government": {
           "title": "Türkiye Scholarships",
+          "badge": "Мемлекеттік",
           "description": "Мемлекеттік стипендия 100% оқу ақысын + тұрғын үйді қамтиды",
           "benefits": {
             "full_tuition": "Оқу ақысын толық жабу",
@@ -102,6 +107,7 @@
         },
         "university": {
           "title": "Университет стипендиялары",
+          "badge": "Университеттен",
           "description": "Оқу ақысына 25% дан 75% дейін жеңілдіктер",
           "benefits": {
             "tuition_discount": "Оқу ақысына жеңілдік",

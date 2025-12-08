@@ -108,22 +108,6 @@
       {{ error }}
     </p>
 
-    <div v-if="hasMore" class="text-center">
-      <button
-        type="button"
-        class="bg-white border-2 border-primary text-primary px-8 py-3 rounded-xl font-semibold hover:bg-primary hover:text-white transition-all disabled:opacity-60 disabled:cursor-not-allowed"
-        :disabled="isLoadingMore"
-        @click="$emit('loadMore')"
-      >
-        <span v-if="isLoadingMore" class="flex items-center justify-center gap-2">
-          <Icon name="mdi:loading" class="w-4 h-4 animate-spin" />
-          {{ loadingLabel }}
-        </span>
-        <span v-else>
-          {{ loadMoreLabel }}
-        </span>
-      </button>
-    </div>
   </div>
 </template>
 
@@ -138,22 +122,15 @@ const formatReadingTime = (minutes?: number | null) =>
 defineProps<{
   title: string
   readMoreLabel: string
-  loadMoreLabel: string
-  loadingLabel: string
   emptyLabel: string
   items: BlogArticleListItem[]
   featured: BlogArticleListItem | null
   showFeatured: boolean
-  hasMore: boolean
-  isLoadingMore: boolean
   error: string | null
   activeCategory: string
   loading: boolean
 }>()
 
-defineEmits<{
-  (e: 'loadMore'): void
-}>()
 
 const localePath = useLocalePath()
 const articleLink = (slug: string) => localePath({ name: 'articles-slug', params: { slug } })

@@ -5,12 +5,34 @@
       "description": "Türk üniversitelerindeki çeşitli lisans programları hakkında bilgi edinin. Tıp, işletme ve mühendislik uzmanlıkları."
     },
     "hero": {
-      "title": "Lisans Programları",
-      "description": "Türkiye'deki çeşitli lisans programları hakkında en önemli bilgileri keşfedin"
+      "title": "Eğitim ",
+      "titleAccent": "Programları",
+      "description": "Türkiye'deki çeşitli lisans programları hakkında en önemli bilgileri keşfedin",
+      "badge": "Türkiye'de Eğitim",
+      "stats": {
+        "programs": "Program",
+        "categories": "Kategori",
+        "support": "Destek"
+      },
+      "card": {
+        "title": "Programınız",
+        "subtitle": "Mükemmel eşleşmeyi bulacağız"
+      }
     },
     "learnMore": "Daha fazla bilgi",
+    "loading": "Programlar yükleniyor...",
     "empty": "Program bulunamadı",
-    "error": "Programlar yüklenirken hata oluştu",
+    "emptyTitle": "Henüz program yok",
+    "error": "Programlar yüklenemedi. Lütfen daha sonra tekrar deneyin.",
+    "errorTitle": "Yükleme Hatası",
+    "retry": "Tekrar dene",
+    "categorySubtitle": "{count} mevcut programdan seçin",
+    "cta": {
+      "title": "Eğitime başlamaya hazır mısınız?",
+      "description": "Türk üniversitelerine kabul için ücretsiz danışmanlık almak için bizimle iletişime geçin",
+      "universities": "Üniversiteleri görüntüle",
+      "contact": "Bize ulaşın"
+    },
     "detail": {
       "loading": "Yükleniyor...",
       "notFound": "Program bulunamadı",

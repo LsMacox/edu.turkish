@@ -327,7 +327,12 @@
 import { parsePositiveInt } from '~~/lib/number'
 import type { UserType } from '@prisma/client'
 import { useServerValidation } from '~/composables/useServerValidation'
+import { storeToRefs } from 'pinia'
+import { useUniversitiesStore } from '~/stores/universities'
+
 const { t } = useI18n()
+const universitiesStore = useUniversitiesStore()
+const { universities: storeUniversities, loading: storeLoading } = storeToRefs(universitiesStore)
 
 const nameFieldId = useId()
 const reviewerTypeFieldId = useId()
@@ -349,11 +354,6 @@ interface ReviewForm {
   helpfulAspects: string[]
   recommendation: string
   reviewerType: UserType | ''
-}
-
-interface University {
-  id: number
-  title: string
 }
 
 const form = reactive<ReviewForm>({
@@ -380,8 +380,15 @@ const reviewError = computed(() => getFieldError('review'))
 const isSubmitting = ref(false)
 const submitted = ref(false)
 const submissionError = ref('')
-const universities = ref<University[]>([])
-const isLoadingUniversities = ref(true)
+
+// Use store universities with computed for reactivity
+const universities = computed(() =>
+  storeUniversities.value.map((uni) => ({
+    id: uni.id,
+    title: uni.title,
+  })),
+)
+const isLoadingUniversities = computed(() => storeLoading.value)
 
 const helpfulAspects = [
   'documents',
@@ -403,20 +410,10 @@ function toggleHelpful(value: string) {
   }
 }
 
+// Load universities for the dropdown - always fetch all sorted alphabetically
+// We need all universities for the dropdown, not just the filtered subset
 onMounted(async () => {
-  try {
-    const { data } = await $fetch('/api/v1/universities', {
-      query: { limit: 100, sort: 'alpha' },
-    })
-    universities.value = data.map((uni: any) => ({
-      id: uni.id,
-      title: uni.title,
-    }))
-  } catch (error) {
-    console.error('Failed to load universities:', error)
-  } finally {
-    isLoadingUniversities.value = false
-  }
+  await universitiesStore.fetchUniversities({ limit: 100, overrides: { sort: 'alpha' } as any })
 })
 
 async function submitReview() {

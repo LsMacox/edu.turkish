@@ -1,105 +1,132 @@
 <template>
-  <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-6 gap-4 lg:gap-6 items-start">
-    <!-- Search -->
-    <div class="md:col-span-2 lg:col-span-2">
-      <label :for="searchFieldId" class="block text-sm font-medium text-secondary mb-2">{{
-        t('universities_page.filters.search_label')
-      }}</label>
-      <BaseTextField
-        :id="searchFieldId"
-        v-model="state.q"
-        type="text"
-        :placeholder="t('universities_page.filters.search_placeholder')"
-        icon="mdi:magnify"
-      />
+  <div class="space-y-4">
+    <!-- Main Filters Row -->
+    <div class="flex flex-wrap items-end gap-3 md:gap-4">
+      <!-- Search -->
+      <div class="flex-1 min-w-[200px] md:min-w-[280px]">
+        <label :for="searchFieldId" class="block text-xs font-medium text-gray-500 mb-1.5">{{
+          t('universities_page.filters.search_label')
+        }}</label>
+        <BaseTextField
+          :id="searchFieldId"
+          v-model="state.q"
+          type="text"
+          :placeholder="t('universities_page.filters.search_placeholder')"
+          icon="mdi:magnify"
+        />
+      </div>
+
+      <!-- City -->
+      <div class="w-full sm:w-auto sm:min-w-[160px]">
+        <label :for="cityFieldId" class="block text-xs font-medium text-gray-500 mb-1.5">{{
+          t('universities_page.filters.city_label')
+        }}</label>
+        <BaseSelect :id="cityFieldId" v-model="state.city">
+          <option :value="CITY_ALL">{{ t('universities_page.filters.all_cities') }}</option>
+          <option v-for="city in availableFilters.cities" :key="city" :value="city">
+            {{ city }}
+          </option>
+        </BaseSelect>
+      </div>
+
+      <!-- Type -->
+      <div class="w-full sm:w-auto sm:min-w-[140px]">
+        <label :for="typeFieldId" class="block text-xs font-medium text-gray-500 mb-1.5">{{
+          t('universities_page.filters.type_label')
+        }}</label>
+        <BaseSelect :id="typeFieldId" v-model="state.type">
+          <option :value="TYPE_ALL">{{ t('universities_page.filters.all_types') }}</option>
+          <option v-for="typeOption in availableFilters.types" :key="typeOption" :value="typeOption">
+            {{ getTypeLabel(typeOption) }}
+          </option>
+        </BaseSelect>
+      </div>
+
+      <!-- Level -->
+      <div class="w-full sm:w-auto sm:min-w-[140px]">
+        <label :for="levelFieldId" class="block text-xs font-medium text-gray-500 mb-1.5">{{
+          t('universities_page.filters.level_label')
+        }}</label>
+        <BaseSelect :id="levelFieldId" v-model="state.level">
+          <option :value="LEVEL_ALL">{{ t('universities_page.filters.all_levels') }}</option>
+          <option v-for="level in levelOptions" :key="level.value" :value="level.value">
+            {{ level.label }}
+          </option>
+        </BaseSelect>
+      </div>
+
+      <!-- Toggle Advanced Filters -->
+      <button
+        type="button"
+        class="flex items-center gap-1.5 px-3 py-2.5 text-sm font-medium text-gray-600 hover:text-primary transition-colors"
+        @click="showAdvanced = !showAdvanced"
+      >
+        <Icon :name="showAdvanced ? 'mdi:chevron-up' : 'mdi:tune-variant'" class="w-4 h-4" />
+        <span class="hidden sm:inline">{{ showAdvanced ? t('universities_page.filters.hide_filters') : t('universities_page.filters.more_filters') }}</span>
+      </button>
     </div>
 
-    <!-- City -->
-    <div class="md:col-span-1 lg:col-span-1">
-      <label :for="cityFieldId" class="block text-sm font-medium text-secondary mb-2">{{
-        t('universities_page.filters.city_label')
-      }}</label>
-      <BaseSelect :id="cityFieldId" v-model="state.city">
-        <option :value="CITY_ALL">{{ t('universities_page.filters.all_cities') }}</option>
-        <option v-for="city in availableFilters.cities" :key="city" :value="city">
-          {{ city }}
-        </option>
-      </BaseSelect>
-    </div>
+    <!-- Advanced Filters (Collapsible) -->
+    <Transition
+      enter-active-class="transition-all duration-300 ease-out"
+      enter-from-class="opacity-0 -translate-y-2 max-h-0"
+      enter-to-class="opacity-100 translate-y-0 max-h-96"
+      leave-active-class="transition-all duration-200 ease-in"
+      leave-from-class="opacity-100 translate-y-0 max-h-96"
+      leave-to-class="opacity-0 -translate-y-2 max-h-0"
+    >
+      <div v-show="showAdvanced" class="overflow-hidden">
+        <div class="pt-4 border-t border-gray-100 space-y-4">
+          <!-- Language Chips -->
+          <div>
+            <p class="text-xs font-medium text-gray-500 mb-2">
+              {{ t('universities_page.filters.language_label') }}
+            </p>
+            <div v-if="availableLanguageCodes.length" class="flex flex-wrap gap-2">
+              <button
+                v-for="lang in availableLanguageCodes"
+                :key="lang"
+                type="button"
+                :class="[
+                  'px-3 py-1.5 rounded-full text-sm font-medium transition-all duration-200',
+                  state.langs.includes(lang)
+                    ? 'bg-primary text-white shadow-sm'
+                    : 'bg-gray-100 text-gray-600 hover:bg-gray-200'
+                ]"
+                @click="toggleLang(lang, !state.langs.includes(lang))"
+              >
+                {{ getLanguageLabel(lang) }}
+              </button>
+            </div>
+          </div>
 
-    <!-- Language -->
-    <div class="md:col-span-1 lg:col-span-1">
-      <fieldset class="p-0 m-0 border-0">
-        <legend class="block text-sm font-medium text-secondary mb-2">
-          {{ t('universities_page.filters.language_label') }}
-        </legend>
-        <div v-if="availableLanguageCodes.length" class="space-y-2">
-          <BaseCheckbox
-            v-for="lang in availableLanguageCodes"
-            :key="lang"
-            :checked="state.langs.includes(lang)"
-            :value="lang"
-            @update:checked="toggleLang(lang, $event)"
-          >
-            {{ getLanguageLabel(lang) }}
-          </BaseCheckbox>
+          <!-- Price Range -->
+          <div class="max-w-xl">
+            <BaseRangeSlider
+              v-model="priceRange"
+              :min="priceRangeBounds[0]"
+              :max="priceRangeBounds[1]"
+              :step="500"
+              :label="t('universities_page.filters.price_label')"
+            />
+          </div>
         </div>
-      </fieldset>
-    </div>
-
-    <!-- Type -->
-    <div class="md:col-span-1 lg:col-span-1">
-      <label :for="typeFieldId" class="block text-sm font-medium text-secondary mb-2">{{
-        t('universities_page.filters.type_label')
-      }}</label>
-      <BaseSelect :id="typeFieldId" v-model="state.type">
-        <option :value="TYPE_ALL">{{ t('universities_page.filters.all_types') }}</option>
-        <option v-for="typeOption in availableFilters.types" :key="typeOption" :value="typeOption">
-          {{ getTypeLabel(typeOption) }}
-        </option>
-      </BaseSelect>
-    </div>
-
-    <!-- Level -->
-    <div class="md:col-span-1 lg:col-span-1">
-      <label :for="levelFieldId" class="block text-sm font-medium text-secondary mb-2">{{
-        t('universities_page.filters.level_label')
-      }}</label>
-      <BaseSelect :id="levelFieldId" v-model="state.level">
-        <option :value="LEVEL_ALL">{{ t('universities_page.filters.all_levels') }}</option>
-        <option v-for="level in levelOptions" :key="level.value" :value="level.value">
-          {{ level.label }}
-        </option>
-      </BaseSelect>
-    </div>
-
-    <!-- Price Range -->
-    <div class="md:col-span-2 lg:col-span-6">
-      <BaseRangeSlider
-        v-model="priceRange"
-        :min="priceRangeBounds[0]"
-        :max="priceRangeBounds[1]"
-        :step="500"
-        :label="t('universities_page.filters.price_label')"
-      />
-    </div>
+      </div>
+    </Transition>
 
     <!-- Actions -->
-    <div class="md:col-span-2 lg:col-span-6 flex flex-col sm:flex-row justify-end gap-3 pt-4">
+    <div class="flex items-center justify-between pt-2">
       <button
-        class="bg-gray-100 text-secondary px-6 py-2.5 rounded-xl font-medium hover:bg-gray-200 transition-colors flex items-center justify-center gap-2 sm:w-auto"
+        type="button"
+        class="text-sm text-gray-500 hover:text-gray-700 transition-colors flex items-center gap-1.5"
         @click="reset"
       >
         <Icon name="mdi:refresh" class="w-4 h-4" />
         {{ t('universities_page.filters.reset_button') }}
       </button>
-      <button
-        class="bg-primary text-white px-6 py-2.5 rounded-xl font-semibold hover:bg-red-600 transition-colors flex items-center justify-center gap-2 sm:w-auto"
-        @click="apply"
-      >
-        <Icon name="mdi:filter" class="w-4 h-4" />
+      <BaseButton variant="primary" size="md" icon="mdi:magnify" @click="apply">
         {{ t('universities_page.filters.apply_button') }}
-      </button>
+      </BaseButton>
     </div>
   </div>
 </template>
@@ -133,6 +160,8 @@ const searchFieldId = useId()
 const cityFieldId = useId()
 const typeFieldId = useId()
 const levelFieldId = useId()
+
+const showAdvanced = ref(false)
 
 const state = reactive({
   q: '',

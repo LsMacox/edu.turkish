@@ -181,7 +181,7 @@ export default {
 
         // Animation utilities
         '.animate-on-scroll': {
-          '@apply opacity-0 translate-y-4 transition-all duration-700 ease-out': {},
+          '@apply opacity-0 translate-y-4 transition-all duration-300 ease-out': {},
         },
         '.animate-on-scroll.in-view': {
           '@apply opacity-100 translate-y-0': {},
@@ -242,13 +242,13 @@ export default {
 
         // Spacing patterns - Section vertical
         '.section-py': {
-          '@apply py-8 md:py-16': {},
+          '@apply py-8 md:py-10': {},
         },
         '.section-py-sm': {
-          '@apply py-6 md:py-12': {},
+          '@apply py-6 md:py-8': {},
         },
         '.section-py-lg': {
-          '@apply py-10 md:py-20': {},
+          '@apply py-8 md:py-12': {},
         },
 
         // Spacing patterns - Card padding

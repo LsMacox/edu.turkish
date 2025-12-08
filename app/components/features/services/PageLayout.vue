@@ -1,5 +1,5 @@
 <template>
-  <div class="container section-py">
+  <div class="container pt-6 md:pt-8 pb-8 md:pb-10">
     <!-- Page Header -->
     <BaseSectionHeader :title="title" :subtitle="subtitle" />
 

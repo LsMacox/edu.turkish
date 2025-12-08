@@ -21,7 +21,9 @@
       "all_levels": "Все уровни",
       "price_label": "Стоимость в год (USD)",
       "reset_button": "Сбросить",
-      "apply_button": "Применить",
+      "apply_button": "Найти",
+      "more_filters": "Ещё фильтры",
+      "hide_filters": "Скрыть",
       "cities": {
         "istanbul": "Стамбул",
         "ankara": "Анкара",
@@ -62,7 +64,9 @@
     "card": {
       "details_button": "Подробнее",
       "apply_button": "Подать заявку",
-      "application_description": "Заявка с карточки университета:"
+      "application_description": "Заявка с карточки университета:",
+      "year": "год",
+      "price_on_request": "Цена по запросу"
     },
     "load_more": "Показать ещё",
     "how_to_choose": {
@@ -93,6 +97,7 @@
       "types": {
         "government": {
           "title": "Türkiye Scholarships",
+          "badge": "Государственная",
           "description": "Государственная стипендия покрывает 100% обучения + проживание",
           "benefits": {
             "full_tuition": "Полное покрытие обучения",
@@ -102,6 +107,7 @@
         },
         "university": {
           "title": "Университетские стипендии",
+          "badge": "От университета",
           "description": "Частичные скидки от 25% до 75% на обучение",
           "benefits": {
             "tuition_discount": "Скидка на обучение",

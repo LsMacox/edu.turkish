@@ -1,31 +1,17 @@
 <template>
   <div class="bg-white">
-    <section class="bg-gradient-to-b from-gray-50 to-white pt-16">
-      <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div class="text-center">
-          <h1 class="text-hero mb-6">
-            {{ t('faq.title') }}
-          </h1>
-          <p class="text-hero-subtitle mb-8 max-w-3xl mx-auto">
-            {{ t('faq.subtitle') }}
-          </p>
-          <div class="hidden md:flex justify-center">
-            <NuxtImg
-              class="w-64 h-64 object-contain"
-              :src="ASSETS.faq.heroImage"
-              :alt="t('faq.heroImageAlt')"
-              width="256"
-              height="256"
-              loading="lazy"
-              decoding="async"
-            />
+    <section class="bg-gradient-to-b from-gray-50 to-white pt-6 md:pt-8 pb-4">
+      <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 mb-5">
+          <div>
+            <h1 class="text-section-title">
+              {{ t('faq.title') }}
+            </h1>
+            <p class="text-section-subtitle mt-1">
+              {{ t('faq.subtitle') }}
+            </p>
           </div>
         </div>
-      </div>
-    </section>
-
-    <section class="section-py-sm bg-white">
-      <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
         <div class="relative">
           <input
             :id="searchInputId"
@@ -33,12 +19,12 @@
             :value="searchQuery"
             type="text"
             :placeholder="t('faq.searchPlaceholder')"
-            class="w-full px-6 py-4 pl-12 pr-12 border border-gray-200 rounded-2xl text-lg focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent shadow-sm transition-all min-h-touch-44"
+            class="w-full px-4 py-3 pl-10 pr-10 border border-gray-200 rounded-xl text-base focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent shadow-sm transition-all min-h-touch-44"
             @input="handleSearchInput"
           />
           <Icon
             name="mdi:magnify"
-            class="absolute left-4 top-1/2 transform -translate-y-1/2 text-gray-400 w-5 h-5"
+            class="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 w-4 h-4"
           />
 
           <button
@@ -87,33 +73,28 @@
             {{ t('faq.clearHistory') }}
           </button>
         </div>
-      </div>
-    </section>
 
-    <section v-if="faqStatus === 'success'" class="section-py-sm bg-gray-50">
-      <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div class="flex flex-wrap justify-center gap-3 sm:gap-4">
+        <div v-if="faqStatus === 'success'" class="flex flex-wrap gap-2 mt-5">
           <button
-            v-for="category in categories"
+            v-for="category in ssrCategories"
             :key="category.key"
             :class="[
-              'px-4 py-2 text-sm rounded-full font-medium transition-all min-h-touch-44 flex items-center space-x-1.5',
-              'sm:px-6 sm:py-3 sm:text-base sm:space-x-2',
+              'px-3 py-1.5 text-sm rounded-full font-medium transition-all min-h-touch-44 flex items-center gap-1.5',
               activeCategory === category.key
-                ? 'bg-primary text-white shadow-md'
-                : 'bg-white text-gray-700 hover:bg-gray-50 border border-gray-200',
+                ? 'bg-primary text-white shadow-sm'
+                : 'bg-white text-gray-600 hover:bg-gray-100 border border-gray-200',
             ]"
             :aria-pressed="activeCategory === category.key"
             @click="setActiveCategory(category.key)"
           >
-            <Icon :name="category.icon" class="w-4 h-4 sm:w-5 sm:h-5" />
+            <Icon :name="category.icon" class="w-4 h-4" />
             <span>{{ getCategoryLabel(category.key, category.name) }}</span>
           </button>
         </div>
       </div>
     </section>
 
-    <section class="section-py bg-white">
+    <section class="py-6 bg-white">
       <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
         <div v-if="isActiveSearch && !hasResults && !isSearching" class="text-center py-12">
           <Icon name="mdi:magnify-close" class="w-16 h-16 text-gray-300 mx-auto mb-4" />
@@ -142,18 +123,18 @@
         </div>
 
         <!-- eslint-disable vue/no-v-html -->
-        <div v-else-if="filteredFAQItems.length > 0" class="space-y-6">
+        <div v-else-if="filteredFAQItems.length > 0" class="space-y-3 sm:space-y-6">
           <div
             v-for="item in filteredFAQItems"
             :key="item.id"
-            class="bg-white border border-gray-200 rounded-2xl shadow-sm hover:shadow-md transition-shadow"
+            class="bg-white border border-gray-200 rounded-xl sm:rounded-2xl shadow-sm hover:shadow-md transition-shadow"
           >
             <button
-              class="w-full px-6 py-5 text-left flex items-center justify-between focus:outline-none focus:ring-2 focus:ring-primary focus:ring-inset rounded-2xl min-h-touch-44"
+              class="w-full px-4 py-3 sm:px-6 sm:py-5 text-left flex items-center justify-between focus:outline-none focus:ring-2 focus:ring-primary focus:ring-inset rounded-xl sm:rounded-2xl min-h-touch-44"
               @click="toggleFAQ(item.id)"
             >
               <span
-                class="text-lg font-medium text-secondary pr-4"
+                class="text-base sm:text-lg font-medium text-secondary pr-4"
                 v-html="highlightSearchTerms(item.question, searchQuery)"
               />
               <Icon
@@ -165,8 +146,8 @@
               />
             </button>
 
-            <div v-if="openItems[item.id]" class="px-6 pb-6">
-              <div class="bg-gray-50 rounded-xl p-6">
+            <div v-if="openItems[item.id]" class="px-4 pb-4 sm:px-6 sm:pb-6">
+              <div class="bg-gray-50 rounded-lg sm:rounded-xl p-4 sm:p-6">
                 <div
                   class="faq-content prose prose-gray max-w-none"
                   v-html="highlightSearchTerms(item.answer, searchQuery)"
@@ -178,7 +159,7 @@
                   >
                     <Icon
                       :name="
-                        categories.find((c) => c.key === item.category)?.icon || 'mdi:help-circle'
+                        categories.find((c) => c.key === item.category)?.icon || 'ph:question'
                       "
                       class="w-3 h-3 mr-1"
                     />
@@ -212,7 +193,6 @@
 <script setup lang="ts">
 import { storeToRefs } from 'pinia'
 import { highlightSearchTerms } from '~~/lib/text'
-import { ASSETS } from '~~/lib/assets'
 import { useFAQStore } from '~/stores/faq'
 import { useFaqFilters } from '~/composables/faq/useFaqFilters'
 
@@ -274,8 +254,35 @@ applyInitialFilters({
   setCategory: (v: string) => (activeCategory.value = v),
 })
 
-const { status: faqStatus } = await useAsyncData(`faq-${locale.value}`, fetchFAQ, {
+const { status: faqStatus, data: faqData } = await useAsyncData(`faq-${locale.value}`, fetchFAQ, {
   watch: [locale],
+})
+
+// Use categories from async data to ensure SSR/client consistency
+const ssrCategories = computed(() => {
+  if (!faqData.value?.categories) return categories.value
+  const CATEGORY_ICONS: Record<string, string> = {
+    all: 'ph:squares-four',
+    documents: 'ph:file-text',
+    education: 'ph:graduation-cap',
+    technology: 'ph:device-mobile',
+    residence: 'ph:identification-card',
+    relocation: 'ph:airplane-takeoff',
+    insurance: 'ph:shield-check',
+    transport: 'ph:bus',
+    housing: 'ph:house',
+    exams: 'ph:exam',
+    admission: 'ph:clock',
+    scholarships: 'ph:trophy',
+    languages: 'ph:globe',
+  }
+  return [
+    { key: 'all', name: '', count: 0, icon: CATEGORY_ICONS.all! },
+    ...faqData.value.categories.map((c: any) => ({
+      ...c,
+      icon: CATEGORY_ICONS[c.key] ?? 'ph:question',
+    })),
+  ]
 })
 
 watchRouteChanges((filters: { search: string; category: string }) => {

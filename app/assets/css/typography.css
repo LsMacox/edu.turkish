@@ -23,12 +23,12 @@
      ======================================== */
 
   .text-section-title {
-    @apply text-3xl md:text-3xl lg:text-4xl;
+    @apply text-xl md:text-2xl;
     @apply font-bold text-secondary leading-tight;
   }
 
   .text-section-subtitle {
-    @apply text-lg md:text-lg;
+    @apply text-sm md:text-base;
     @apply text-gray-600 leading-relaxed;
   }
 

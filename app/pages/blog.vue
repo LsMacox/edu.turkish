@@ -1,19 +1,17 @@
 <template>
   <div class="bg-white">
-    <BlogHeroSection v-model="searchInput" :hero="hero" :hero-image="heroImage" />
-
-    <section class="section-py-sm bg-white border-b border-gray-100">
-      <div class="container mx-auto container-padding-narrow">
-        <div class="flex flex-wrap justify-center gap-3">
+    <BlogHeroSection v-model="searchInput" :hero="hero">
+      <template #categories>
+        <div class="flex flex-wrap justify-center gap-2">
           <button
             v-for="category in filterCategories"
             :key="category.key"
             type="button"
-            class="px-6 py-2 rounded-full border font-medium transition-all min-h-touch-44"
+            class="px-3 py-1.5 text-sm rounded-full font-medium transition-all min-h-touch-44 flex items-center"
             :class="
               activeCategory === category.key
-                ? 'bg-primary text-white border-primary shadow-sm'
-                : 'border-gray-300 text-secondary hover:border-primary hover:text-primary'
+                ? 'bg-primary text-white shadow-sm'
+                : 'bg-white/80 text-secondary border border-gray-200 hover:border-primary hover:text-primary'
             "
             :aria-pressed="activeCategory === category.key"
             @click="setCategoryAndFetch(category.key)"
@@ -21,8 +19,8 @@
             {{ category.label }}
           </button>
         </div>
-      </div>
-    </section>
+      </template>
+    </BlogHeroSection>
 
     <section class="section-py bg-background">
       <div class="container mx-auto container-padding-narrow">
@@ -31,18 +29,13 @@
             <LazyBlogArticleListSection
               :title="t('blog.articles.title')"
               :read-more-label="t('blog.articles.readMore')"
-              :load-more-label="t('blog.articles.loadMore')"
-              :loading-label="t('blog.articles.loading', 'Загрузка...')"
               :empty-label="t('blog.articles.empty', 'Нет статей для отображения')"
               :items="articles"
               :featured="featuredArticle"
               :show-featured="shouldShowFeatured"
-              :has-more="hasMore"
-              :is-loading-more="isLoadingMore"
               :error="error"
               :active-category="activeCategory"
               :loading="loading"
-              @load-more="loadMoreArticles"
             />
 
             <div class="mt-8">
@@ -75,10 +68,6 @@ import { storeToRefs } from 'pinia'
 import type { HeroContent, SidebarPopular, QuickLinksContent } from '~~/app/types/blog'
 import { useBlogStore } from '~/stores/blog'
 import { useBlogFilters } from '~/composables/blog/useBlogFilters'
-import { ASSETS } from '~~/lib/assets'
-
-const heroImage = ASSETS.blog.heroImage
-
 definePageMeta({
   layout: 'default',
   name: 'BlogPage',
@@ -101,7 +90,6 @@ const {
   articles,
   featuredArticle,
   categories: apiCategories,
-  hasMore,
   loading,
   activeCategory,
   searchQuery,
@@ -290,16 +278,6 @@ const setCategoryAndFetch = async (categoryKey: string) => {
   }
 }
 
-const loadMoreArticles = async () => {
-  if (loading.value) {
-    return
-  }
-  const response = await blogStore.loadMore()
-  if (response && response.data.length > 0) {
-    syncRoute(currentState(), { page: currentPage.value })
-  }
-}
-
 const changePage = async (page: number) => {
   if (page === currentPage.value || loading.value) {
     return
@@ -313,8 +291,6 @@ const changePage = async (page: number) => {
     }
   }
 }
-
-const isLoadingMore = computed(() => loading.value && currentPage.value > 1)
 
 const handleQuickLinkClick = async (linkId: string) => {
   switch (linkId) {

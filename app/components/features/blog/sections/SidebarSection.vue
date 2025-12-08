@@ -1,47 +1,64 @@
 <template>
-  <div class="space-y-8">
-    <div class="bg-white rounded-2xl shadow-custom p-8">
-      <div class="flex items-center mb-6">
-        <Icon name="mdi:fire" class="text-orange-500 text-xl mr-3" />
-        <h3 class="text-card-title">{{ popular.title }}</h3>
-      </div>
-      <div class="space-y-6">
-        <article
+  <div class="space-y-6 lg:sticky lg:top-24 lg:self-start">
+    <div class="rounded-2xl bg-white p-5 shadow-lg ring-1 ring-gray-100/50">
+      <h3
+        class="flex items-center gap-2 text-sm font-bold uppercase tracking-wide text-gray-400"
+      >
+        <Icon name="mdi:fire" class="text-lg text-orange-500" />
+        {{ popular.title }}
+      </h3>
+      <nav class="mt-4 space-y-1">
+        <component
+          :is="item.slug ? NuxtLink : 'div'"
           v-for="(item, index) in popular.items"
           :key="item.id"
-          class="pb-4"
-          :class="index !== popular.items.length - 1 ? 'border-b border-gray-100' : ''"
+          :to="item.slug ? articleLink(item.slug) : undefined"
+          class="group flex w-full items-center gap-3 rounded-xl px-3 py-2.5 text-sm text-left transition-all hover:bg-primary/5"
+          :class="{ 'cursor-default': !item.slug }"
         >
-          <NuxtLink
-            v-if="item.slug"
-            :to="articleLink(item.slug)"
-            class="block font-semibold text-secondary mb-2 text-sm leading-tight hover:text-primary transition-colors"
+          <span
+            class="flex h-7 w-7 shrink-0 items-center justify-center rounded-lg text-xs font-bold bg-gray-100 text-gray-500 group-hover:bg-primary group-hover:text-white transition-colors"
           >
-            {{ item.title }}
-          </NuxtLink>
-          <p v-else class="font-semibold text-secondary mb-2 text-sm leading-tight">
-            {{ item.title }}
-          </p>
-          <div class="flex items-center text-xs text-gray-500 gap-2">
-            <span v-if="item.date">{{ item.date }}</span>
+            {{ index + 1 }}
+          </span>
+          <div class="min-w-0 flex-1">
+            <span
+              class="line-clamp-2 text-gray-600 group-hover:text-secondary transition-colors block"
+            >
+              {{ item.title }}
+            </span>
+            <span v-if="item.date" class="text-xs text-gray-400 block">
+              {{ item.date }}
+            </span>
           </div>
-        </article>
-      </div>
+        </component>
+      </nav>
     </div>
 
-    <div class="bg-white rounded-2xl shadow-custom p-8">
-      <h3 class="text-card-title mb-6">{{ quickLinks.title }}</h3>
+    <div class="rounded-2xl bg-white p-5 shadow-lg ring-1 ring-gray-100/50">
+      <h3
+        class="flex items-center gap-2 text-sm font-bold uppercase tracking-wide text-gray-400"
+      >
+        <Icon name="mdi:link-variant" class="text-lg" />
+        {{ quickLinks.title }}
+      </h3>
       <ClientOnly>
-        <div class="space-y-4">
+        <div class="mt-4 space-y-1">
           <button
             v-for="link in quickLinks.items"
             :key="link.id"
             type="button"
-            class="flex items-center space-x-3 text-gray-600 hover:text-primary transition-colors w-full text-left"
+            class="group flex w-full items-center gap-3 rounded-xl px-3 py-2.5 text-sm text-left transition-all hover:bg-primary/5"
             @click="$emit('quick-link', link.id)"
           >
-            <Icon :name="quickLinkIcon(link.id)" class="w-5" />
-            <span class="text-sm font-medium">{{ link.label }}</span>
+            <span
+              class="flex h-7 w-7 shrink-0 items-center justify-center rounded-lg bg-gray-100 text-gray-500 group-hover:bg-primary group-hover:text-white transition-colors"
+            >
+              <Icon :name="quickLinkIcon(link.id)" class="text-sm" />
+            </span>
+            <span class="text-gray-600 group-hover:text-secondary transition-colors">
+              {{ link.label }}
+            </span>
           </button>
         </div>
       </ClientOnly>
@@ -50,6 +67,8 @@
 </template>
 
 <script setup lang="ts">
+const NuxtLink = resolveComponent('NuxtLink')
+
 defineProps<{
   popular: {
     title: string
