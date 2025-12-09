@@ -1,6 +1,20 @@
 /* Enhanced component styles for edu.turkish application */
 
 @layer components {
+  /* Article prose content - prevent text overflow on mobile */
+  .prose-article {
+    @apply overflow-hidden;
+  }
+
+  .prose-article p,
+  .prose-article li,
+  .prose-article span,
+  .prose-article div {
+    @apply break-words;
+    word-break: break-word;
+    overflow-wrap: break-word;
+  }
+
   /* FAQ Content Formatting */
   .faq-content {
     @apply prose prose-gray max-w-none;
