@@ -121,7 +121,7 @@
                   {{ t('article.quickFacts.title') }}
                 </h3>
                 <ul class="mt-4 space-y-4">
-                  <li v-for="fact in quickFacts" :key="fact.title" class="flex gap-3">
+                  <li v-for="fact in quickFacts" :key="fact.title" class="flex gap-3 overflow-hidden">
                     <span
                       class="flex h-9 w-9 shrink-0 items-center justify-center rounded-xl bg-primary/10"
                     >
