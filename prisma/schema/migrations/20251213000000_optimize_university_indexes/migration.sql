@@ -7,7 +7,7 @@ DROP INDEX `idx_university_scholarships` ON `universities`;
 DROP INDEX `idx_university_founded_year` ON `universities`;
 DROP INDEX `idx_university_total_students` ON `universities`;
 DROP INDEX `idx_university_international_students` ON `universities`;
-DROP INDEX `idx_university_country` ON `universities`;
+-- Note: idx_university_country cannot be dropped - required by universities_countryId_fkey foreign key
 DROP INDEX `idx_university_tuition` ON `universities`;
 
 -- Create separate indexes for tuition (more flexible for different sort orders)
