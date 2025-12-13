@@ -43,10 +43,10 @@
               {{ t(channelsNs('telegram.description')) }}
             </p>
             <a
-              :href="channels.telegramBot.href"
+              :href="channels.telegram.href"
               target="_blank"
               class="bg-blue-500 text-white px-6 py-3 rounded-xl font-semibold hover:bg-blue-600 transition-colors"
-              @click.prevent="handleSocialClick(channels.telegramBot.href)"
+              @click.prevent="handleSocialClick(channels.telegram.href)"
             >
               {{ t(channelsNs('telegram.button')) }}
             </a>

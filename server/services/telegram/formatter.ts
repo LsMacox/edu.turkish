@@ -1,4 +1,5 @@
 import type { EspoCRMLead } from '~~/lib/types/server'
+import type { ContactChannelKey } from '~~/lib/domain/contact/channels'
 
 /**
  * Escape HTML special characters for Telegram
@@ -90,19 +91,18 @@ export function formatLeadNotification(lead: EspoCRMLead): string {
     return lines.join('\n')
 }
 
-type MessengerChannel = 'whatsapp' | 'telegramBot' | 'instagram'
 
 interface MessengerTouchPayload {
-    channel: MessengerChannel
+    channel: ContactChannelKey
     referralCode?: string
     sessionId?: string
     utm?: Record<string, any> | undefined
     timestamp?: string
 }
 
-const messengerChannelLabels: Record<MessengerChannel, string> = {
+const messengerChannelLabels: Record<ContactChannelKey, string> = {
     whatsapp: 'WhatsApp',
-    telegramBot: 'Telegram',
+    telegram: 'Telegram',
     instagram: 'Instagram',
 }
 

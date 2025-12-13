@@ -136,7 +136,7 @@ const socialLinks = computed(() => [
   },
   {
     name: 'Telegram',
-    href: channels.value.telegramBot.href,
+    href: channels.value.telegram.href,
     icon: 'mdi:telegram',
     bg: 'bg-blue-500 hover:bg-blue-600',
   },

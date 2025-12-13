@@ -4,7 +4,7 @@ import { useReferral } from './useReferral'
 import { sanitizeUtm } from '~~/lib/domain/contact/utm'
 
 const routePaths: Record<ContactChannelKey, string> = {
-  telegramBot: '/go/telegram',
+  telegram: '/go/telegram',
   whatsapp: '/go/whatsapp',
   instagram: '/go/instagram',
 }

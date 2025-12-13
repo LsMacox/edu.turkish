@@ -11,11 +11,11 @@ export interface ContactChannelDefinition {
   queryParam?: string
 }
 
-export type ContactChannelKey = 'telegramBot' | 'whatsapp' | 'instagram'
+export type ContactChannelKey = 'telegram' | 'whatsapp' | 'instagram'
 
 export const contactChannels: Record<ContactChannelKey, ContactChannelDefinition> = {
-  telegramBot: {
-    key: 'telegramBot',
+  telegram: {
+    key: 'telegram',
     type: 'personal',
     baseUrl: 'https://t.me/Hakim7292',
     defaultCta: 'Написать в Telegram',
