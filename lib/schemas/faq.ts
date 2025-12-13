@@ -11,9 +11,10 @@ export const FaqQueryParamsSchema = PaginationParamsSchema.omit({ page: true }).
     .string()
     .optional()
     .transform((v) => {
-      if (!v || v === 'all') return undefined
-      const id = Number(v)
-      return !Number.isNaN(id) && id > 0 ? v : undefined
+      if (!v) return undefined
+      const key = v.trim()
+      if (!key || key === 'all') return undefined
+      return key
     }),
   featured: z.coerce.boolean().optional(),
   lang: OptionalStringSchema,
