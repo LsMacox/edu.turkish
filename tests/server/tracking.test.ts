@@ -2,7 +2,7 @@ import { describe, it, expect, vi } from 'vitest'
 import type { PrismaClient } from '@prisma/client'
 
 import { ApplicationRepository } from '~~/server/repositories/ApplicationRepository'
-import type { ApplicationRequest } from '~~/server/types/api'
+import type { ApplicationRequest } from '~~/lib/types'
 
 describe('tracking code generation', () => {
   it('creates tracking code with EDU prefix via repository', async () => {

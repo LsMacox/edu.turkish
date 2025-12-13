@@ -2,12 +2,12 @@ import type { Prisma, PrismaClient } from '@prisma/client'
 import type { NormalizedLocale } from '~~/server/utils/locale'
 
 export interface DirectionListResult {
-  data: Array<{ id: number; name: string; slug: string; universities_count: number }>
+  data: Array<{ id: number; name: string; slug: string; universitiesCount: number }>
   total: number
 }
 
 export class DirectionRepository {
-  constructor(private prisma: PrismaClient) {}
+  constructor(private prisma: PrismaClient) { }
 
   async findAll(
     locale: NormalizedLocale,
@@ -42,7 +42,7 @@ export class DirectionRepository {
         id: d.id,
         name: d.translations[0]?.name ?? '',
         slug: d.translations[0]?.slug ?? '',
-        universities_count: d._count.universityDirections,
+        universitiesCount: d._count.universityDirections,
       })),
       total,
     }

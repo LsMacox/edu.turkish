@@ -16,8 +16,7 @@
     "subtitle": "Выберите подходящий уровень образования",
     "tabs": {
       "bachelor": "Бакалавриат",
-      "master": "Магистратура",
-      "doctorate": "Докторантура"
+      "master": "Магистратура"
     },
     "table": {
       "programName": "Название программы",
@@ -31,6 +30,26 @@
     },
     "showAll": "Показать все",
     "collapse": "Свернуть"
+  },
+  "footer": {
+    "about_us": "О нас",
+    "who_we_are": "Кто мы",
+    "our_team": "Наша команда",
+    "contacts": "Контакты",
+    "universities": "Университеты",
+    "istanbul": "Стамбул",
+    "ankara": "Анкара",
+    "izmir": "Измир",
+    "antalya": "Анталия",
+    "all_universities": "Все университеты",
+    "support": "Поддержка",
+    "faq": "FAQ",
+    "reviews": "Отзывы",
+    "contract": "Договор",
+    "privacy_policy": "Политика конфиденциальности",
+    "social_networks": "Мы в соцсетях:",
+    "copyright": "© 2025 Edu.turkish. Все права защищены.",
+    "licensed_agency": "Лицензированное образовательное агентство"
   },
   "applicationCTA": {
     "title": "Подайте заявку в {universityName} уже сегодня!",
@@ -56,28 +75,72 @@
       "response_time": "Мы ответим в течение 2 часов"
     }
   },
-  "footer": {
-    "about_us": "О нас",
-    "who_we_are": "Кто мы",
-    "our_team": "Наша команда",
-    "contacts": "Контакты",
-    "universities": "Университеты",
-    "istanbul": "Стамбул",
-    "ankara": "Анкара",
-    "izmir": "Измир",
-    "antalya": "Анталия",
-    "all_universities": "Все университеты",
-    "support": "Поддержка",
-    "faq": "FAQ",
-    "reviews": "Отзывы",
-    "contract": "Договор",
-    "privacy_policy": "Политика конфиденциальности",
-    "social_networks": "Мы в соцсетях:",
-    "copyright": "© 2025 Edu.turkish. Все права защищены.",
-    "licensed_agency": "Лицензированное образовательное агентство"
-  },
   "back_to_home": "На главную",
   "loading": "Загрузка...",
   "universityInformation": "Информация об университете",
-  "backToUniversities": "Вернуться к списку университетов"
+  "backToUniversities": "Вернуться к списку университетов",
+  "nav": {
+    "services": "Услуги",
+    "universities": "Университеты",
+    "programs": "Направления",
+    "reviews": "Отзывы",
+    "blog": "Блог",
+    "about": "О нас",
+    "faq": "FAQ",
+    "servicesDropdown": {
+      "relocation": "Обустройство по Турции",
+      "trYosCourses": "Курсы TR-YÖS",
+      "satCourses": "Курсы SAT",
+      "languageCourse": "Курс по турецкому и английскому",
+      "documentTranslations": "Переводы документов"
+    }
+  },
+  "errors": {
+    "universityNotFound": "Университет не найден",
+    "universityNotFoundDescription": "К сожалению, запрашиваемый университет не найден.",
+    "required": "Это поле обязательно для заполнения",
+    "min_length": "Минимум {min} символов",
+    "max_length": "Максимум {max} символов",
+    "invalid_email": "Введите корректный email адрес",
+    "invalid_phone": "Введите корректный номер телефона (минимум 10 цифр)",
+    "invalid_format": "Неверный формат",
+    "invalid": "Неверное значение",
+    "crm_validation_error": "Ошибка: {message}",
+    "server_error": "Произошла ошибка сервера",
+    "unknown_error": "Произошла неожиданная ошибка",
+    "validation_error_title": "Ошибка валидации",
+    "generic_error_title": "Ошибка",
+    "generic_error_message": "Произошла ошибка. Пожалуйста, попробуйте еще раз.",
+    "min_value": "Минимальное значение {min}",
+    "max_value": "Максимальное значение {max}",
+    "invalid_year": "Введите корректный год (формат ГГГГ)",
+    "fields": {
+      "personal_info": {
+        "first_name": {
+          "required": "Введите имя",
+          "min_length": "Имя слишком короткое (минимум {min})",
+          "max_length": "Имя слишком длинное (максимум {max})"
+        },
+        "phone": {
+          "required": "Введите номер телефона",
+          "invalid_phone": "Введите корректный номер телефона"
+        },
+        "email": {
+          "invalid_email": "Введите корректный email адрес",
+          "max_length": "Email слишком длинный (максимум {max})"
+        }
+      },
+      "additional_info": {
+        "max_length": "Слишком длинное сообщение (максимум {max} символов)"
+      }
+    }
+  },
+  "currency": {
+    "selector": {
+      "KZT": "Тенге (₸)",
+      "TRY": "Лира (₺)",
+      "RUB": "Рубль (₽)",
+      "USD": "Доллар ($)"
+    }
+  }
 }

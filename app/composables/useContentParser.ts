@@ -1,4 +1,4 @@
-import type { BlogArticleContentBlock } from '~~/server/types/api'
+import type { BlogArticleContentBlock } from '~~/lib/types'
 
 export type NormalizedBlock =
   | Exclude<BlogArticleContentBlock, { type: 'heading' }>
@@ -17,14 +17,8 @@ export interface ContentParserOptions {
   maxTocLevel?: number
 }
 
-/**
- * Strip HTML tags from a string
- */
 export const stripHtmlTags = (html: string): string => html.replace(/<[^>]*>/g, '')
 
-/**
- * Create a unique heading ID from text
- */
 export const createHeadingId = (text: string, counts: Map<string, number>): string => {
   const sanitized =
     stripHtmlTags(text)
@@ -40,9 +34,6 @@ export const createHeadingId = (text: string, counts: Map<string, number>): stri
   return count === 0 ? sanitized : `${sanitized}-${count}`
 }
 
-/**
- * Get heading tag based on level
- */
 export const getHeadingTag = (level: number): string => {
   if (level <= 2) return 'h2'
   if (level === 3) return 'h3'
@@ -50,24 +41,15 @@ export const getHeadingTag = (level: number): string => {
   return 'h5'
 }
 
-/**
- * Check if block is a heading
- */
 export const isHeadingBlock = (block: NormalizedBlock): block is HeadingBlockWithId =>
   block.type === 'heading'
 
-/**
- * Composable for parsing article content blocks
- */
 export function useContentParser(
   content: Ref<BlogArticleContentBlock[]> | ComputedRef<BlogArticleContentBlock[]>,
   options: ContentParserOptions = {},
 ) {
   const { maxTocLevel = 3 } = options
 
-  /**
-   * Normalized content with heading IDs
-   */
   const normalizedContent = computed<NormalizedBlock[]>(() => {
     const blocks = unref(content)
     if (!blocks?.length) return []
@@ -85,9 +67,6 @@ export function useContentParser(
     })
   })
 
-  /**
-   * Table of contents extracted from headings
-   */
   const tableOfContents = computed<TableOfContentsItem[]>(() => {
     const headings = normalizedContent.value
       .filter(isHeadingBlock)

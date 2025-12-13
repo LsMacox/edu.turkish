@@ -16,10 +16,10 @@
     <!-- Content -->
     <div class="flex-grow min-w-0">
       <h3 class="font-semibold text-secondary text-base mb-1">
-        {{ displayTitle }}
+        {{ title }}
       </h3>
       <p class="text-sm text-gray-600 leading-relaxed">
-        {{ displayContent }}
+        {{ content }}
       </p>
     </div>
   </div>
@@ -27,9 +27,8 @@
 
 <script setup lang="ts">
 interface Props {
-  keyPrefix: string
-  title?: string
-  content?: string
+  title: string
+  content: string
   variant?: 'success' | 'warning'
 }
 
@@ -37,12 +36,7 @@ const props = withDefaults(defineProps<Props>(), {
   variant: 'success',
 })
 
-const { t } = useI18n()
-
 const iconName = computed(() =>
   props.variant === 'success' ? 'mdi:check-circle-outline' : 'mdi:alert-outline',
 )
-
-const displayTitle = computed(() => props.title || t(`${props.keyPrefix}.title`))
-const displayContent = computed(() => props.content || t(`${props.keyPrefix}.content`))
 </script>

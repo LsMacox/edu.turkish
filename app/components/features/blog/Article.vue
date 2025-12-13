@@ -74,7 +74,7 @@
                 class="flex items-center gap-2 text-sm font-bold uppercase tracking-wide text-gray-400"
               >
                 <Icon name="mdi:format-list-bulleted" class="text-lg" />
-                {{ t('article.tableOfContents') }}
+                {{ t(ns('tableOfContents')) }}
               </h3>
               <nav class="mt-4 space-y-1">
                 <button
@@ -118,7 +118,7 @@
                   class="flex items-center gap-2 text-sm font-bold uppercase tracking-wide text-gray-400"
                 >
                   <Icon name="mdi:lightning-bolt" class="text-lg text-primary" />
-                  {{ t('article.quickFacts.title') }}
+                  {{ t(ns('quickFacts.title')) }}
                 </h3>
                 <ul class="mt-4 space-y-4">
                   <li v-for="fact in quickFacts" :key="fact.title" class="flex gap-3 overflow-hidden">
@@ -145,10 +145,10 @@
                 class="flex items-center gap-2 text-sm font-bold uppercase tracking-wide text-gray-400"
               >
                 <Icon name="mdi:share-variant" class="text-lg" />
-                {{ t('article.share.title') }}
+                {{ t(ns('share.title')) }}
               </h3>
               <p class="mt-2 text-sm text-gray-500">
-                {{ t('article.share.description') }}
+                {{ t(ns('share.description')) }}
               </p>
               <div class="mt-4 flex flex-wrap gap-2">
                 <a
@@ -168,7 +168,7 @@
                   @click="copyShareLink"
                 >
                   <Icon name="mdi:link-variant" class="text-base" />
-                  {{ t('article.share.copyLink') }}
+                  {{ t(ns('share.copyLink')) }}
                 </button>
               </div>
             </div>
@@ -181,7 +181,7 @@
                 class="flex items-center gap-2 text-sm font-bold uppercase tracking-wide text-gray-400"
               >
                 <Icon name="mdi:tag-multiple" class="text-lg" />
-                {{ t('article.tags.title') }}
+                {{ t(ns('tags.title')) }}
               </h3>
               <div class="mt-3 flex flex-wrap gap-2">
                 <span
@@ -203,17 +203,17 @@
         <div class="flex flex-col gap-8 lg:flex-row lg:items-center lg:justify-between">
           <div>
             <h2 class="text-section-title">
-              {{ t('article.related.title') }}
+              {{ t(ns('related.title')) }}
             </h2>
             <p class="text-section-subtitle max-w-2xl">
-              {{ t('article.related.description') }}
+              {{ t(ns('related.description')) }}
             </p>
           </div>
           <NuxtLink
             :to="localePath('/blog')"
             class="inline-flex items-center gap-2 rounded-full bg-secondary px-6 py-3 text-sm font-semibold text-white shadow-lg transition-all duration-300 hover:bg-primary hover:shadow-primary/25"
           >
-            {{ t('article.related.allArticles') }}
+            {{ t(ns('related.allArticles')) }}
             <Icon
               name="mdi:arrow-right"
               class="text-lg transition-transform group-hover:translate-x-1"
@@ -234,9 +234,12 @@
 </template>
 
 <script setup lang="ts">
-import type { BlogArticleDetail, BlogArticleListItem } from '~~/server/types/api'
-import { useDetailPage } from '~/composables/blog/useDetailPage'
-import { useTableOfContentsScrollspy } from '~/composables/blog/useTableOfContentsScrollspy'
+import type { BlogArticleDetail, BlogArticleListItem } from '~~/lib/types'
+import { useDetailPage } from '~/composables/useBlogDetailPage'
+import { useTableOfContentsScrollspy } from '~/composables/useBlogScrollspy'
+import { namespace, key } from '~~/lib/i18n'
+
+const ns = namespace('blog.article')
 
 const props = defineProps<{
   article: BlogArticleDetail
@@ -246,7 +249,6 @@ const props = defineProps<{
 const { t } = useI18n()
 const localePath = useLocalePath()
 
-// Use shared detail page composable
 const articleRef = computed(() => props.article)
 const {
   tableOfContents,
@@ -262,7 +264,13 @@ const {
   copyShareLink,
 } = useDetailPage(articleRef, {
   routeName: 'articles-slug',
-  i18nPrefix: 'article.quickFacts',
+  i18nKeys: {
+    category: key('blog.article.quickFacts.category'),
+    published: key('blog.article.quickFacts.published'),
+    readingTime: key('blog.article.quickFacts.readingTime'),
+    copySuccess: key('blog.article.share.copySuccess'),
+    copyError: key('blog.article.share.copyError'),
+  },
   includeReadingTime: true,
   includePublishedDate: true,
 })

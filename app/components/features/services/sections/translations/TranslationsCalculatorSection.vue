@@ -1,12 +1,12 @@
 <template>
   <div class="mt-16">
-    <BaseSectionHeader :title="computedTitle" />
+    <BaseSectionHeader :title="title" />
 
     <div class="mt-8 max-w-3xl mx-auto px-4 sm:px-6">
       <div class="bg-white rounded-lg shadow-md p-4 sm:p-6 space-y-4 sm:space-y-6">
         <div>
           <label class="block text-sm font-medium text-gray-700 mb-2">
-            {{ t(`${keyPrefix}.documentTypeLabel`) || t('services.common.documentType') }}
+            {{ labels.documentTypeLabel }}
           </label>
           <BaseSelect v-model="selectedDocType">
             <option v-for="(dt, i) in documentTypesWithPrices" :key="i" :value="String(i)">
@@ -17,7 +17,7 @@
 
         <div>
           <label class="block text-sm font-medium text-gray-700 mb-2">
-            {{ t(`${keyPrefix}.languagePairLabel`) || t('services.common.languagePair') }}
+            {{ labels.languagePairLabel }}
           </label>
           <BaseSelect v-model="selectedLang">
             <option v-for="(lang, i) in languagePairs" :key="i" :value="String(i)">
@@ -28,7 +28,7 @@
 
         <div>
           <label class="block text-sm font-medium text-gray-700 mb-2">
-            {{ t(`${keyPrefix}.urgencyLabel`) || t('services.common.urgency') }}
+            {{ labels.urgencyLabel }}
           </label>
           <BaseSelect v-model="selectedUrg">
             <option v-for="(urg, i) in urgencyOptions" :key="i" :value="String(i)">
@@ -39,7 +39,7 @@
 
         <div v-if="displayPrice" class="mt-6 p-4 bg-primary/10 rounded-lg text-center">
           <div class="text-sm text-gray-600 mb-1">
-            {{ t(`${keyPrefix}.estimatedPrice`) || t('services.common.estimatedPrice') }}
+            {{ labels.estimatedPrice }}
           </div>
           <div class="text-2xl sm:text-3xl font-bold text-primary break-words">
             {{ displayPrice }}
@@ -51,7 +51,7 @@
           class="w-full mt-6 px-6 py-3 bg-primary text-white font-semibold rounded-lg hover:bg-primary-600 transition-colors shadow-md hover:shadow-lg"
           @click="handleSubmit"
         >
-          {{ t(`${keyPrefix}.submitButton`) || t('cta.apply') }}
+          {{ labels.submitButton }}
         </button>
       </div>
     </div>
@@ -59,12 +59,24 @@
 </template>
 
 <script setup lang="ts">
-import type { DocumentType, UrgencyOption, CalculatorSubmitEvent } from '@/types/services'
+import type { DocumentType, UrgencyOption, CalculatorSubmitEvent } from '~/types/features/services'
 import { useExchangeRatesStore } from '~/stores/exchangeRates'
+import { namespace, key } from '~~/lib/i18n'
+
+const currencyNs = namespace('currency.selector')
+
+interface CalculatorLabels {
+  documentTypeLabel: string
+  languagePairLabel: string
+  urgencyLabel: string
+  estimatedPrice: string
+  submitButton: string
+  byRequest: string
+}
 
 interface Props {
-  keyPrefix: string
-  title?: string
+  title: string
+  labels: CalculatorLabels
   documentTypesWithPrices?: DocumentType[]
   languagePairs?: string[]
   urgencyOptions?: UrgencyOption[]
@@ -84,8 +96,6 @@ const { t } = useI18n()
 const { currencyRef } = useCurrency()
 const exchangeRatesStore = useExchangeRatesStore()
 
-const computedTitle = computed(() => props.title || t(`${props.keyPrefix}.title`))
-
 const selectedDocType = ref('0')
 const selectedLang = ref('0')
 const selectedUrg = ref('0')
@@ -97,14 +107,24 @@ const priceUsd = computed<number | null>(() => {
   return doc.priceUsd + urg.surcharge
 })
 
+const getCurrencyLabel = (currency: string): string => {
+  const labels: Record<string, string> = {
+    KZT: t(currencyNs('KZT')),
+    TRY: t(currencyNs('TRY')),
+    RUB: t(currencyNs('RUB')),
+    USD: t(currencyNs('USD')),
+  }
+  return labels[currency] ?? currency
+}
+
 const displayPrice = computed(() => {
   if (priceUsd.value === null) {
-    return t(`${props.keyPrefix}.byRequest`) || t('services.common.byRequest')
+    return props.labels.byRequest
   }
   const converted = exchangeRatesStore.convertPrice(priceUsd.value, currencyRef.value)
   if (converted === null) return `$${priceUsd.value}`
-  const fromPrefix = t('common.from') || 'от'
-  return `${fromPrefix} ${Math.round(converted)} ${t(`currency.selector.${currencyRef.value}`)}`
+  const fromPrefix = t(key('common.from')) || 'от'
+  return `${fromPrefix} ${Math.round(converted)} ${getCurrencyLabel(currencyRef.value)}`
 })
 
 const handleSubmit = () => {

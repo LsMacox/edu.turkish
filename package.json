@@ -29,7 +29,9 @@
     "test:watch": "vitest --watch",
     "translate": "docker compose exec app npx tsx scripts/translate.ts",
     "import:university": "docker compose exec app npx tsx scripts/import-university.ts",
-    "find:unused": "npx knip"
+    "find:unused": "npx knip",
+    "i18n:validate": "tsx scripts/validate-i18n.ts",
+    "lint:all": "npm run lint && npm run i18n:validate"
   },
   "dependencies": {
     "@fingerprintjs/fingerprintjs": "^4.6.2",
@@ -55,6 +57,9 @@
     "tailwindcss-animate": "^1.0.7",
     "vue": "^3.5.22",
     "zod": "^4.1.12"
+  },
+  "prisma": {
+    "schema": "prisma/schema"
   },
   "devDependencies": {
     "@playwright/test": "^1.56.0",

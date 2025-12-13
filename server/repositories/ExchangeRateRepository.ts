@@ -3,7 +3,7 @@ import {
   FALLBACK_RATES,
   type SupportedCurrency,
   type ExchangeRateDetails,
-} from '~~/server/schemas/exchange-rates'
+} from '~~/lib/schemas/exchange-rates'
 
 export { FALLBACK_RATES }
 

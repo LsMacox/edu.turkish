@@ -1,4 +1,5 @@
-import { prisma } from '~~/lib/prisma'
+import type { PrismaClient } from '@prisma/client'
+import { prisma } from '~~/lib/infrastructure/prisma'
 import { UniversityRepository } from './UniversityRepository'
 import { DirectionRepository } from './DirectionRepository'
 import { BlogRepository } from './BlogRepository'
@@ -8,46 +9,24 @@ import { ApplicationRepository } from './ApplicationRepository'
 import { ReviewRepository } from './ReviewRepository'
 import { StatisticsRepository } from './StatisticsRepository'
 
-// Singleton instances
-const repos = {
-  university: null as UniversityRepository | null,
-  direction: null as DirectionRepository | null,
-  blog: null as BlogRepository | null,
-  faq: null as FAQRepository | null,
-  exchangeRate: null as ExchangeRateRepository | null,
-  application: null as ApplicationRepository | null,
-  review: null as ReviewRepository | null,
-  statistics: null as StatisticsRepository | null,
+type RepositoryConstructor<T> = new (prisma: PrismaClient) => T
+
+const instances = new Map<RepositoryConstructor<unknown>, unknown>()
+
+function getRepository<T>(Ctor: RepositoryConstructor<T>): T {
+  let instance = instances.get(Ctor) as T | undefined
+  if (!instance) {
+    instance = new Ctor(prisma)
+    instances.set(Ctor, instance)
+  }
+  return instance
 }
 
-export function getUniversityRepository(): UniversityRepository {
-  return (repos.university ??= new UniversityRepository(prisma))
-}
-
-export function getDirectionRepository(): DirectionRepository {
-  return (repos.direction ??= new DirectionRepository(prisma))
-}
-
-export function getBlogRepository(): BlogRepository {
-  return (repos.blog ??= new BlogRepository(prisma))
-}
-
-export function getFAQRepository(): FAQRepository {
-  return (repos.faq ??= new FAQRepository(prisma))
-}
-
-export function getExchangeRateRepository(): ExchangeRateRepository {
-  return (repos.exchangeRate ??= new ExchangeRateRepository(prisma))
-}
-
-export function getApplicationRepository(): ApplicationRepository {
-  return (repos.application ??= new ApplicationRepository(prisma))
-}
-
-export function getReviewRepository(): ReviewRepository {
-  return (repos.review ??= new ReviewRepository(prisma))
-}
-
-export function getStatisticsRepository(): StatisticsRepository {
-  return (repos.statistics ??= new StatisticsRepository(prisma))
-}
+export const getUniversityRepository = () => getRepository(UniversityRepository)
+export const getDirectionRepository = () => getRepository(DirectionRepository)
+export const getBlogRepository = () => getRepository(BlogRepository)
+export const getFAQRepository = () => getRepository(FAQRepository)
+export const getExchangeRateRepository = () => getRepository(ExchangeRateRepository)
+export const getApplicationRepository = () => getRepository(ApplicationRepository)
+export const getReviewRepository = () => getRepository(ReviewRepository)
+export const getStatisticsRepository = () => getRepository(StatisticsRepository)

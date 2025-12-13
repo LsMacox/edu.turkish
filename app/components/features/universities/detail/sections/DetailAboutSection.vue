@@ -3,7 +3,7 @@
     <div class="container mx-auto px-4 lg:px-6">
       <div class="max-w-4xl mx-auto">
         <BaseSectionHeader
-          :title="t('universityDetail.aboutUniversity.title')"
+          :title="t(ns('title'))"
           align="center"
           margin-bottom="lg"
         />
@@ -11,7 +11,7 @@
         <div class="space-y-8">
           <div class="bg-white rounded-2xl shadow-custom p-8">
             <h3 class="text-2xl font-semibold text-secondary mb-4">
-              {{ t('universityDetail.aboutUniversity.history') }}
+              {{ t(ns('history')) }}
             </h3>
             <p class="text-card-body">
               {{ university.about.history }}
@@ -20,7 +20,7 @@
 
           <div class="bg-white rounded-2xl shadow-custom p-8">
             <h3 class="text-2xl font-semibold text-secondary mb-4">
-              {{ t('universityDetail.aboutUniversity.campus') }}
+              {{ t(ns('campus')) }}
             </h3>
             <p class="text-card-body">
               {{ university.about.mission }}
@@ -32,7 +32,7 @@
             class="bg-white rounded-2xl shadow-custom p-8"
           >
             <h3 class="text-2xl font-semibold text-secondary mb-4">
-              {{ t('universityDetail.aboutUniversity.advantages') }}
+              {{ t(ns('advantages')) }}
             </h3>
             <div class="grid md:grid-cols-2 gap-6">
               <div
@@ -59,8 +59,10 @@
 </template>
 
 <script setup lang="ts">
-import type { UniversityDetail } from '~~/server/types/api/universities'
+import type { UniversityDetail } from '~~/lib/types'
+import { namespace } from '~~/lib/i18n'
 
+const ns = namespace('universities.detail.aboutUniversity')
 const { t } = useI18n()
 
 defineProps<{

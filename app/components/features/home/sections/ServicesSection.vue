@@ -2,8 +2,8 @@
   <section id="services" v-scroll-reveal class="section-py bg-gray-50">
     <div class="container">
       <BaseSectionHeader
-        :title="t('home.services.title')"
-        :subtitle="t('home.services.subtitle')"
+        :title="t(servicesNs('title'))"
+        :subtitle="t(servicesNs('subtitle'))"
         align="center"
         margin-bottom="lg"
       />
@@ -25,7 +25,7 @@
           >
             <template #footer>
               <div class="flex items-center text-primary font-medium">
-                <span class="mr-1">{{ t('universities_page.card.details_button') }}</span>
+                <span class="mr-1">{{ t(key('universities.list.card.details_button')) }}</span>
                 <Icon name="mdi:arrow-right" class="w-4 h-4" />
               </div>
             </template>
@@ -38,7 +38,9 @@
 
 <script setup lang="ts">
 import type { BaseIconBadgeProps } from '~/types/ui'
+import { namespace, key } from '~~/lib/i18n'
 
+const servicesNs = namespace('home.services')
 const { t } = useI18n()
 const localePath = useLocalePath()
 

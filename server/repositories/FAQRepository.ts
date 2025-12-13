@@ -1,33 +1,27 @@
 import type { Prisma, PrismaClient } from '@prisma/client'
 import type { z } from 'zod'
-import type { FAQCategory, FAQItem, FAQResponse } from '~~/server/types/api'
-import { normalizeLocale, pickTranslation } from '~~/server/utils/locale'
-import { FAQQueryParamsSchema } from '~~/server/schemas/faq'
+import type { FaqResponse } from '~~/lib/types'
+import { normalizeLocale } from '~~/server/utils/locale'
+import { FaqQueryParamsSchema } from '~~/lib/schemas/faq'
+import {
+  mapFaqItem,
+  mapFaqCategory,
+  type FaqCategoryWithRelations,
+} from '~~/server/mappers/faq'
 
-type FAQQueryParamsInput = z.input<typeof FAQQueryParamsSchema>
-
-type WithRelevance<T> = T & { _relevance?: number }
-
-type FaqWithRelations = Prisma.FaqGetPayload<{
-  include: { translations: true; category: { include: { translations: true } } }
-}>
-
-type CategoryWithRelations = Prisma.FaqCategoryGetPayload<{
-  include: { translations: true; _count: { select: { items: true } } }
-}>
+type FaqQueryParamsInput = z.input<typeof FaqQueryParamsSchema>
 
 export class FAQRepository {
-  constructor(private prisma: PrismaClient) {}
+  constructor(private prisma: PrismaClient) { }
 
-  async findAll(params: FAQQueryParamsInput, locale: string = 'ru'): Promise<FAQResponse> {
-    const validated = FAQQueryParamsSchema.parse(params)
+  async findAll(params: FaqQueryParamsInput, locale: string = 'ru'): Promise<FaqResponse> {
+    const validated = FaqQueryParamsSchema.parse(params)
     const { normalized, fallbacks } = normalizeLocale(locale)
     const { q, category, featured, limit = 50 } = validated
 
     const where: Prisma.FaqWhereInput = {}
     if (category && category !== 'all') {
-      const id = Number(category)
-      if (!Number.isNaN(id) && id > 0) where.categoryId = id
+      where.category = { key: category }
     }
     if (featured) where.featured = true
 
@@ -58,44 +52,13 @@ export class FAQRepository {
       }),
     ])
 
-    const mapped = faqs.map((faq) => this.mapItem(faq, normalized, q))
+    const mapped = faqs.map((faq) => mapFaqItem(faq, normalized, q))
     if (q) mapped.sort((a, b) => (b._relevance ?? 0) - (a._relevance ?? 0))
 
     return {
       data: mapped.map(({ _relevance, ...item }) => item),
-      categories: categories.map((c) => this.mapCategory(c, normalized)),
+      categories: categories.map((c) => mapFaqCategory(c as FaqCategoryWithRelations, normalized)),
       meta: { count, query: q || null },
-    }
-  }
-
-  private mapItem(faq: FaqWithRelations, locale: string, q?: string): WithRelevance<FAQItem> {
-    const t = pickTranslation(faq.translations, locale)
-    const catT = faq.category ? pickTranslation(faq.category.translations, locale) : undefined
-
-    let _relevance: number | undefined
-    if (q && t) {
-      const term = q.toLowerCase()
-      const score =
-        (t.question?.toLowerCase().includes(term) ? 1 : 0) +
-        (t.answer?.toLowerCase().includes(term) ? 0.5 : 0)
-      if (score > 0) _relevance = score
-    }
-
-    return {
-      id: faq.id,
-      question: t?.question || '',
-      answer: t?.answer || '',
-      category: catT?.name || '',
-      _relevance,
-    }
-  }
-
-  private mapCategory(cat: CategoryWithRelations, locale: string): FAQCategory {
-    const t = pickTranslation(cat.translations, locale)
-    return {
-      key: String(cat.id),
-      name: t?.name || String(cat.id),
-      count: cat._count?.items ?? 0,
     }
   }
 }

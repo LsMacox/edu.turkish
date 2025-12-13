@@ -1,5 +1,4 @@
-import type { Prisma } from '@prisma/client'
-import { SUPPORTED_LOCALES, type SupportedLocale } from '~~/lib/locales'
+import { SUPPORTED_LOCALES, type SupportedLocale } from '~~/lib/config/locales'
 
 type LocaleKeys = {
   [key in SupportedLocale]: string
@@ -39,23 +38,14 @@ export function resolveLocaleTag(locale: SupportedLocale): string {
 
 export function pickTranslation<T extends { locale: string | null | undefined }>(
   translations: readonly T[] | null | undefined,
-  locale: string,
+  locale: string | NormalizedLocale,
+  useFallback = true,
 ): T | null {
   if (!translations?.length) return null
-  return (
-    translations.find((t) => t.locale === locale) ??
-    translations.find((t) => t.locale === 'ru') ??
-    translations[0] ??
-    null
-  )
-}
-
-export function selectTranslation<T extends { locale: string | null | undefined }>(
-  translations: readonly T[] | null | undefined,
-  locale: NormalizedLocale,
-): T | null {
-  if (!translations?.length) return null
-  return translations.find((t) => t.locale === locale.normalized) ?? null
+  const localeStr = typeof locale === 'string' ? locale : locale.normalized
+  const exact = translations.find((t) => t.locale === localeStr)
+  if (exact || !useFallback) return exact ?? null
+  return translations.find((t) => t.locale === 'ru') ?? translations[0] ?? null
 }
 
 export function getSlugForLocale(
@@ -65,24 +55,16 @@ export function getSlugForLocale(
   return translations.find((t) => t.locale === locale.normalized && t.slug)?.slug ?? ''
 }
 
-export const decimalToNumber = (value: Prisma.Decimal | number | null | undefined): number =>
-  value == null ? 0 : typeof value === 'number' ? value : Number(value)
-
-export const asRecord = (
-  value: Prisma.JsonValue | null | undefined,
-): Record<string, unknown> | null =>
-  value && typeof value === 'object' && !Array.isArray(value)
-    ? (value as Record<string, unknown>)
-    : null
-
-export const extractStringRecord = (
-  value: Prisma.JsonValue | null | undefined,
-): Record<string, string> | undefined => {
-  const record = asRecord(value)
-  if (!record) return undefined
-  const entries = Object.entries(record).filter(([, v]) => typeof v === 'string')
-  return entries.length > 0 ? (Object.fromEntries(entries) as Record<string, string>) : undefined
+export function formatDate(
+  date: Date | string,
+  locale: string,
+  options?: Intl.DateTimeFormatOptions,
+): string {
+  const d = typeof date === 'string' ? new Date(date) : date
+  const formatOptions = options ?? { day: '2-digit', month: 'short', year: 'numeric' }
+  try {
+    return new Intl.DateTimeFormat(resolveLocaleTag(locale as SupportedLocale), formatOptions).format(d)
+  } catch {
+    return d.toISOString().split('T')[0]!
+  }
 }
-
-export const extractStringArray = (value: Prisma.JsonValue | null | undefined): string[] =>
-  Array.isArray(value) ? value.filter((item): item is string => typeof item === 'string') : []

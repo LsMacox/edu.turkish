@@ -19,11 +19,11 @@
             <h1
               class="text-hero text-xl xs:text-2xl md:text-3xl lg:text-4xl leading-tight lg:leading-tight"
             >
-              <span class="block xs:inline">{{ t('home.hero.title') }}</span>
-              <span class="text-primary ml-2 xs:ml-3">{{ t('home.hero.title_accent') }}</span>
+              <span class="block xs:inline">{{ t(heroNs('title')) }}</span>
+              <span class="text-primary ml-2 xs:ml-3">{{ t(heroNs('title_accent')) }}</span>
             </h1>
             <p class="text-hero-subtitle">
-              {{ t('home.hero.subtitle') }}
+              {{ t(heroNs('subtitle')) }}
             </p>
           </div>
 
@@ -32,26 +32,26 @@
             <div class="flex items-center space-x-1.5">
               <Icon name="mdi:check-circle" class="text-green-500 text-lg md:text-xl" />
               <span class="text-secondary font-medium text-sm md:text-base">{{
-                t('home.hero.stat_students')
+                t(heroNs('stat_students'))
               }}</span>
             </div>
             <div class="flex items-center space-x-1.5">
               <Icon name="mdi:shield-check" class="text-blue-500 text-lg md:text-xl" />
               <span class="text-secondary font-medium text-sm md:text-base">{{
-                t('home.hero.stat_verified')
+                t(heroNs('stat_verified'))
               }}</span>
             </div>
             <div class="flex items-center space-x-1.5">
               <Icon name="mdi:file-document" class="text-purple-500 text-lg md:text-xl" />
               <span class="text-secondary font-medium text-sm md:text-base">{{
-                t('home.hero.stat_documents')
+                t(heroNs('stat_documents'))
               }}</span>
             </div>
           </div>
 
           <div class="flex flex-col gap-2 md:gap-3 pt-2 md:pt-4">
             <BaseButton variant="primary" size="lg" class="shadow-lg" @click="modal.openModal()">
-              {{ t('cta.consultation') }}
+              {{ t(key('cta.consultation')) }}
             </BaseButton>
           </div>
         </div>
@@ -95,9 +95,12 @@
 </template>
 
 <script setup lang="ts">
-import { ASSETS } from '~~/lib/assets'
+import { ASSETS } from '~~/lib/config/assets'
+import { namespace, key } from '~~/lib/i18n'
 
 // Hero section
+const heroNs = namespace('home.hero')
+
 const modal = useApplicationModal()
 const { t } = useI18n()
 const { getCdnUrl } = useCdn()

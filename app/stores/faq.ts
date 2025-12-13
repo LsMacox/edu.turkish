@@ -1,27 +1,11 @@
 import { defineStore } from 'pinia'
-import type { FAQItem, FAQCategory, FAQResponse } from '~~/server/types/api/faq'
-import { useCachedFetch } from '~/composables/useCachedFetch'
+import type { FaqApiItem, FaqCategory, FaqResponse } from '~~/lib/types'
+import { FAQ_CATEGORY_ICONS, DEFAULT_FAQ_ICON } from '~~/lib/domain/faq'
 
 const MAX_HISTORY = 10
 const HISTORY_KEY = 'faq-search-history'
 
-const CATEGORY_ICONS: Record<string, string> = {
-  all: 'ph:squares-four',
-  documents: 'ph:file-text',
-  education: 'ph:graduation-cap',
-  technology: 'ph:device-mobile',
-  residence: 'ph:identification-card',
-  relocation: 'ph:airplane-takeoff',
-  insurance: 'ph:shield-check',
-  transport: 'ph:bus',
-  housing: 'ph:house',
-  exams: 'ph:exam',
-  admission: 'ph:clock',
-  scholarships: 'ph:trophy',
-  languages: 'ph:globe',
-}
-
-export interface CategoryWithIcon extends FAQCategory {
+export interface CategoryWithIcon extends FaqCategory {
   icon: string
 }
 
@@ -30,27 +14,20 @@ export const useFAQStore = defineStore('faq', () => {
 
   const query = ref('')
   const category = ref('all')
-  const items = ref<FAQItem[]>([])
-  const rawCategories = ref<FAQCategory[]>([])
+  const items = ref<FaqApiItem[]>([])
+  const rawCategories = ref<FaqCategory[]>([])
   const loading = ref(false)
   const history = ref<string[]>([])
-
-  const cachedFetch = useCachedFetch((params: Record<string, string>) =>
-    $fetch<FAQResponse>('/api/v1/content/faq', {
-      query: params,
-      headers: { 'Accept-Language': params.lang! },
-    }),
-  )
 
   const hasResults = computed(() => items.value.length > 0)
   const resultCount = computed(() => items.value.length)
   const isActiveSearch = computed(() => query.value.trim().length > 0)
 
   const categories = computed<CategoryWithIcon[]>(() => [
-    { key: 'all', name: '', count: 0, icon: CATEGORY_ICONS.all! },
+    { key: 'all', name: '', count: 0, icon: FAQ_CATEGORY_ICONS.all! },
     ...rawCategories.value.map((c) => ({
       ...c,
-      icon: CATEGORY_ICONS[c.key] ?? 'ph:question',
+      icon: FAQ_CATEGORY_ICONS[c.key] ?? DEFAULT_FAQ_ICON,
     })),
   ])
 
@@ -61,7 +38,10 @@ export const useFAQStore = defineStore('faq', () => {
 
     loading.value = true
     try {
-      const res = await cachedFetch.execute(params)
+      const res = await $fetch<FaqResponse>('/api/v1/content/faq', {
+        query: params,
+        headers: { 'Accept-Language': params.lang! },
+      })
       items.value = res?.data ?? []
       if (res?.categories?.length) rawCategories.value = res.categories
       if (query.value.trim().length > 2) addToHistory(query.value.trim())

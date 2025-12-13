@@ -1,0 +1,130 @@
+{
+  "about": {
+    "meta": {
+      "title": "Hakkımızda - Edu.turkish",
+      "description": "Edu.turkish, öğrencilerin Türkiye'deki üniversitelere kabul edilmelerine yardımcı olan bir ekiptir. 5+ yıl deneyim, 1000+ başarılı kabul."
+    },
+    "hero": {
+      "title": "Hakkımızda",
+      "subtitle": "Edu.turkish, öğrencilerin Türkiye'deki üniversitelere kabul edilmelerine yardımcı olan bir ekiptir",
+      "experienced_team": "Deneyimli ekip",
+      "students_enrolled": "500+ öğrenci kabul edildi",
+      "official_contracts": "Sözleşmeli resmi çalışma"
+    },
+    "who_we_are": {
+      "title": "Biz kimiz",
+      "subtitle": "Türkiye'deki üniversitelere kabule uzmanlaşmış uzun yıllara dayanan deneyime sahip bir eğitim ajansıyız",
+      "experienced_agency": "Deneyimli ajans",
+      "experienced_agency_desc": "Eğitim danışmanlığı alanında 6+ yıl başarılı çalışma. Türk üniversitelerine kaydın tüm inceliklerini biliyoruz.",
+      "students_enrolled": "500+ öğrenci kabul edildi",
+      "students_enrolled_desc": "Yıllar içinde BDT ülkelerinden 500'den fazla öğrencinin Türkiye'nin en iyi üniversitelerine girmesine yardımcı olduk.",
+      "official_work": "Sözleşmeli resmi çalışma",
+      "official_work_desc": "Tüm hizmetlerimiz net garantiler ve yükümlülükler içeren resmi sözleşme temelinde sağlanır.",
+      "comprehensive_help": "Türkiye'de yerleşim desteği",
+      "comprehensive_help_desc": "Belge hazırlamadan ikamet izni almaya kadar kapsamlı destek."
+    },
+    "team": {
+      "title": "Ekibimiz",
+      "subtitle": "Türk üniversitelerine kabul hakkında her şeyi bilen profesyoneller",
+      "links": {
+        "linkedin": "{name}'in LinkedIn profilini aç",
+        "whatsapp": "{name} ile WhatsApp'ta sohbet başlat"
+      },
+      "members": {
+        "hakim": {
+          "name": "Hakim Nagaev",
+          "position": "Edu.turkish Ajansı Kurucusu",
+          "role": "Kurucu",
+          "description": "Uluslararası öğrencilerin Türkiye'deki üniversitelere kayıt olmalarına ve yeni bir ülkedeki yaşama uyum sağlamalarına yardımcı olan ajansın kurucusuyum. 2017'den beri İstanbul'da yaşıyorum ve yerel eğitim sisteminin ve öğrenci hayatının özelliklerini iyi biliyorum.\n\nŞu anda İstanbul Sabahattin Zaim Üniversitesi'nde İslami İlimler bölümünde son sınıf öğrencisiyim. Kişisel öğrencilik deneyimim ve Türkiye'de uzun yıllar süren yaşamım, uluslararası öğrencilerin ihtiyaçlarını ve zorluklarını daha iyi anlamama yardımcı oluyor.\n\nAmacım, kabul ve tam yerleşim sürecini mümkün olduğunca kolay ve basit hale getirmektir: Üniversite seçiminden gerekli tüm belgelerin düzenlenmesine ve Türkiye'de adaptasyona kadar. Sadece güncel bilgiler sağlamaya ve öğrencilere yolculuklarının her aşamasında eşlik etmeye çalışıyorum."
+        },
+        "nazrin": {
+          "name": "Nazrin Imanova",
+          "position": "Danışman ve Öğrenci Küratörü",
+          "role": "Danışman",
+          "description": "Ben Nazrin Imanova, ajansın danışmanı ve öğrenci küratörüyüm. 2022'den beri İstanbul'da yaşıyorum ve İstanbul Aydın Üniversitesi'nde İşletme Yönetimi alanında yüksek lisans yapıyorum. Ben de uluslararası bir öğrenci yolundan geçtiğim için, gençlerin taşınırken ne tür zorluklarla karşılaştığını çok iyi anlıyorum ve bu süreci nasıl daha kolay ve konforlu hale getirebileceğimi biliyorum. Çalışmalarımda sorumluluğa, ayrıntılara dikkate ve kaliteli desteğe odaklanıyorum, böylece her öğrenci yeni bir ülkede destek ve güven hisseder. Danışmanlık faaliyetlerinin yanı sıra, kültürlerarası uyum ve uluslararası eğitim konularıyla aktif olarak ilgileniyorum, bu da öğrencilerin ihtiyaçlarını daha iyi anlamama ve onlar için doğru çözümleri bulmama yardımcı oluyor."
+        },
+        "adam": {
+          "name": "Adam Zugiraev",
+          "position": "Platform Baş Geliştiricisi",
+          "role": "Geliştirici",
+          "description": "Ben Adam, çevrimiçi platformumuzun hızlı, net ve hatasız çalışmasını sağlamaktan sorumlu geliştiriciyim. Tüm formlar, düğmeler, kişisel hesaplar, testler — tüm bunlar rahat ve anlaşılır çalışmalı ve ben bunun böyle olduğundan emin oluyorum.\n\nGörevim, öğrencinin kolayca başvuru yapabilmesini, gerekli bilgileri alabilmesini ve teknik zorluklarla sinirlerini harcamamasını sağlamaktır. Ekip üniversite seçimi ve adaptasyon konusunda yardımcı olurken, ben sitenin \"içindeki\" her şeyin olması gerektiği gibi çalışmasını sağlayarak yardımcı oluyorum.\n\nİyi bir sistemin, sadece çalıştığı için hakkında düşünmediğiniz bir sistem olduğuna inanıyorum. Her gün bunun için çabalıyorum."
+        },
+        "nargiz": {
+          "name": "Nargiz",
+          "position": "Dijital İçerik Yöneticisi",
+          "role": "İçerik Yöneticisi",
+          "description": "Adım Nargiz, Dijital İçerik Yöneticisiyim. 23 yaşındayım ve dört yıldır İstanbul'da yaşıyorum. İstanbul Aydın Üniversitesi Grafik Tasarım bölümünde okuyorum — sanata yakın olduğum, yaratmayı, fikirleri görselleştirmeyi ve kendimi tasarım yoluyla ifade etmeyi sevdiğim için bu bölümü seçtim.\n\nTürkiye'de eğitim yolculuğum kolay olmadı: Başvuru ve hazırlık süreçlerinin tüm aşamalarından geçtim, zorluklarla ve hatta dolandırıcılarla karşılaştım. Bu yüzden her şeye yeniden başlamak zorunda kaldım — belgeleri toplamak, yeni bir şirket bulmak ve taşınmayı kendim organize etmek gibi. Buraya geldiğimde ise ikamet izninden ev bulmaya kadar tüm sorunları kendim çözdüm. Bu deneyim bana çok şey öğretti — bağımsızlık, sorumluluk ve kendine inanç.\n\nŞimdi sosyal medya hesaplarımızda Türkiye'de yaşam ve eğitim konusundaki bilgi ve deneyimlerimi paylaşıyorum. Başkalarının hatalardan kaçınmasına yardımcı olmak ve hedeflerine ulaşmaktan korkmamaları için ilham vermek amacıyla tüm zorlukları ve artıları dürüstçe ve açıkça anlatıyorum."
+        }
+      }
+    },
+    "story": {
+      "title": "Hikayemiz",
+      "subtitle": "Bir fikirden Türk üniversitelerine kabul için önde gelen eğitim ajansına olan yolculuk",
+      "imageAlt": "Edu.turkish gelişim tarihi - küçük bir startup'tan önde gelen ajansa",
+      "timeline": {
+        "step1": {
+          "title": "Başlangıç (2019)",
+          "description": "BDT öğrencilerinin Türk üniversitelerine kaydolmasına yardımcı olmak amacıyla şirketi kurduk"
+        },
+        "step2": {
+          "title": "İlk Başarılar (2020)",
+          "description": "İlk 50 öğrencinin kaydolmasına yardımcı olduk, kilit üniversitelerle ilişkiler kurduk"
+        },
+        "step3": {
+          "title": "Ölçeklendirme (2021-2022)",
+          "description": "Ekibi genişlettik, İstanbul'da ofis açtık, partner üniversite sayısını artırdık"
+        },
+        "step4": {
+          "title": "Liderlik (2023-2024)",
+          "description": "Önde gelen ajanslardan biri olduk, 1000'den fazla öğrencinin kaydolmasına yardımcı olduk"
+        }
+      },
+      "stats": {
+        "students": "Öğrenci kaydoldu",
+        "universities": "Partner üniversite",
+        "success": "Başarı oranı"
+      },
+      "read_reviews": "Öğrenci yorumlarını oku"
+    },
+    "whyChooseUs": {
+      "title": "Neden Bizi Seçiyorlar",
+      "subtitle": "Edu.turkish ile çalışmanın eşsiz avantajları",
+      "imageAlt": "Türk üniversitelerinden kabul mektupları ile mutlu öğrenciler",
+      "advantages": {
+        "personal": {
+          "title": "Kişisel Yaklaşım",
+          "description": "Her başvuru sahibiyle kişisel bir danışmanlık yapılır ve tüm talepler dikkate alınarak Türkiye'ye kabul için bireysel bir plan belirlenir."
+        },
+        "direct": {
+          "title": "Üniversitelerle Doğrudan Bağlantı",
+          "description": "İstanbul'daki ofisimiz ve kabul komisyonlarıyla doğrudan iletişimimiz hızlı belge başvurusu sağlar."
+        },
+        "multilingual": {
+          "title": "Çok Dilli Destek",
+          "description": "Ekibimiz Rusça, Kazakça, Türkçe ve İngilizce dillerini profesyonel seviyede konuşur."
+        },
+        "support": {
+          "title": "Tüm aşamalarda destek",
+          "description": "Tam yerleşimden sonra da, ilk 6 ay boyunca öğrencilerimizin uyum sağlamasına yardımcı oluyoruz."
+        }
+      }
+    },
+    "contact": {
+      "title": "Bizimle İletişim",
+      "subtitle": "Sorularınızı yanıtlamaya ve kabul işlemlerinde size yardımcı olmaya her zaman hazırız",
+      "channels": {
+        "whatsapp": {
+          "description": "Her zaman hızlı yanıtlar",
+          "button": "WhatsApp'a Yaz"
+        },
+        "telegram": {
+          "description": "Mesajlaşma ile rahat iletişim",
+          "button": "Telegram'a Yaz"
+        },
+        "email": {
+          "button": "E-posta Gönder"
+        }
+      }
+    }
+  }
+}

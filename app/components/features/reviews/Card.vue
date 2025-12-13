@@ -136,7 +136,7 @@
 </template>
 
 <script setup lang="ts">
-import type { MediaReview } from '~~/server/types/api'
+import type { MediaReview } from '~~/lib/types'
 
 interface Props {
   review: MediaReview

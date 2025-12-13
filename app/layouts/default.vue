@@ -32,6 +32,8 @@
 </template>
 
 <script setup lang="ts">
+import { key } from '~~/lib/i18n'
+
 // Default layout wrapper
 const modal = useApplicationModal()
 
@@ -40,9 +42,9 @@ const config = useRuntimeConfig()
 
 // Set default site description from i18n (can be overridden by individual pages)
 useSeoMeta({
-  description: () => t('site.description'),
-  ogDescription: () => t('site.description'),
-  twitterDescription: () => t('site.description'),
+  description: () => t(key('site.description')),
+  ogDescription: () => t(key('site.description')),
+  twitterDescription: () => t(key('site.description')),
 })
 const route = useRoute()
 const localeHead = useLocaleHead({ dir: true, seo: true })

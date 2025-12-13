@@ -4,10 +4,10 @@
       <div class="max-w-4xl mx-auto">
         <div class="text-center mb-12 text-white">
           <h2 class="text-4xl lg:text-5xl font-bold mb-6">
-            {{ t('applicationCTA.title', { universityName: university.title }) }}
+            {{ t(ns('title'), { universityName: university.title }) }}
           </h2>
           <p class="text-xl opacity-90">
-            {{ t('applicationCTA.subtitle') }}
+            {{ t(ns('subtitle')) }}
           </p>
         </div>
 
@@ -16,20 +16,20 @@
             <div class="grid md:grid-cols-2 gap-6">
               <div>
                 <label class="block text-sm font-semibold text-secondary mb-2" :for="nameFieldId">
-                  {{ t('applicationCTA.form.name_label') }}
+                  {{ t(ns('form.name_label')) }}
                 </label>
                 <BaseTextField
                   :id="nameFieldId"
                   v-model="form.name"
                   name="name"
                   type="text"
-                  :placeholder="t('applicationCTA.form.name_placeholder')"
+                  :placeholder="t(ns('form.name_placeholder'))"
                   :error="nameError"
                 />
               </div>
               <div>
                 <label class="block text-sm font-semibold text-secondary mb-2" :for="phoneFieldId">
-                  {{ t('applicationCTA.form.phone_label') }}
+                  {{ t(ns('form.phone_label')) }}
                 </label>
                 <div class="relative">
                   <input
@@ -38,7 +38,7 @@
                     name="phone"
                     type="tel"
                     required
-                    :placeholder="t('applicationCTA.form.phone_placeholder')"
+                    :placeholder="t(ns('form.phone_placeholder'))"
                     inputmode="tel"
                     autocomplete="tel"
                     maxlength="18"
@@ -59,14 +59,14 @@
 
             <div>
               <label class="block text-sm font-semibold text-secondary mb-2" :for="emailFieldId">
-                {{ t('applicationCTA.form.email_label') }}
+                {{ t(ns('form.email_label')) }}
               </label>
               <BaseTextField
                 :id="emailFieldId"
                 v-model="form.email"
                 name="email"
                 type="email"
-                :placeholder="t('applicationCTA.form.email_placeholder')"
+                :placeholder="t(ns('form.email_placeholder'))"
                 :error="emailError"
               />
             </div>
@@ -77,7 +77,7 @@
                   class="block text-sm font-semibold text-secondary mb-2"
                   :for="programFieldId"
                 >
-                  {{ t('applicationCTA.form.program_label') }} *
+                  {{ t(ns('form.program_label')) }} *
                 </label>
                 <BaseSelect
                   :id="programFieldId"
@@ -86,7 +86,7 @@
                   required
                   :error="programError"
                 >
-                  <option value="">{{ t('applicationCTA.form.program_placeholder') }}</option>
+                  <option value="">{{ t(ns('form.program_placeholder')) }}</option>
                   <option
                     v-for="(program, index) in availablePrograms"
                     :key="`${index}-${program}`"
@@ -94,23 +94,23 @@
                   >
                     {{ program }}
                   </option>
-                  <option value="other">{{ t('applicationCTA.form.program_other') }}</option>
+                  <option value="other">{{ t(ns('form.program_other')) }}</option>
                 </BaseSelect>
               </div>
               <div>
                 <label class="block text-sm font-semibold text-secondary mb-2" :for="levelFieldId">
-                  {{ t('applicationCTA.form.level_label') }}
+                  {{ t(ns('form.level_label')) }}
                 </label>
                 <BaseSelect :id="levelFieldId" v-model="form.level" name="level">
-                  <option value="bachelor">{{ t('applicationCTA.form.level_bachelor') }}</option>
-                  <option value="master">{{ t('applicationCTA.form.level_master') }}</option>
+                  <option value="bachelor">{{ t(ns('form.level_bachelor')) }}</option>
+                  <option value="master">{{ t(ns('form.level_master')) }}</option>
                 </BaseSelect>
               </div>
             </div>
 
             <div>
               <label class="block text-sm font-semibold text-secondary mb-2" :for="commentFieldId">
-                {{ t('applicationCTA.form.comment_label') }}
+                {{ t(ns('form.comment_label')) }}
               </label>
               <textarea
                 :id="commentFieldId"
@@ -124,7 +124,7 @@
                     : 'border border-gray-300 focus:ring-2 focus:ring-primary focus:border-transparent',
                 ]"
                 :aria-invalid="!!commentError"
-                :placeholder="t('applicationCTA.form.comment_placeholder')"
+                :placeholder="t(ns('form.comment_placeholder'))"
               ></textarea>
               <p v-if="commentError" class="mt-2 text-sm text-red-600">{{ commentError }}</p>
             </div>
@@ -133,7 +133,7 @@
               :checked="form.privacyAgreed"
               @update:checked="form.privacyAgreed = $event"
             >
-              {{ t('applicationCTA.form.privacy_agreement') }}
+              {{ t(ns('form.privacy_agreement')) }}
             </BaseCheckbox>
 
             <div class="text-center">
@@ -142,14 +142,14 @@
                 :disabled="isSubmitting || !form.privacyAgreed"
                 class="bg-primary text-white px-12 py-4 rounded-xl font-bold text-lg hover:bg-red-600 transition-all transform hover:scale-105 shadow-lg disabled:opacity-50 disabled:transform-none"
               >
-                <span v-if="!isSubmitting">{{ t('applicationCTA.form.submit_button') }}</span>
+                <span v-if="!isSubmitting">{{ t(ns('form.submit_button')) }}</span>
                 <span v-else class="flex items-center justify-center space-x-2">
                   <Icon name="ph:spinner" class="animate-spin" />
-                  <span>{{ t('applicationCTA.form.submitting') }}</span>
+                  <span>{{ t(ns('form.submitting')) }}</span>
                 </span>
               </button>
               <p class="text-sm text-gray-500 mt-3">
-                {{ t('applicationCTA.form.response_time') }}
+                {{ t(ns('form.response_time')) }}
               </p>
             </div>
           </form>
@@ -160,8 +160,11 @@
 </template>
 
 <script setup lang="ts">
-import type { UniversityDetail } from '~~/server/types/api/universities'
-import { useApplicationForm } from '~/composables/universities/useApplicationForm'
+import type { UniversityDetail } from '~~/lib/types'
+import { useApplicationForm } from '~/composables/useUniversityApplicationForm'
+import { namespace } from '~~/lib/i18n'
+
+const ns = namespace('applicationCTA')
 
 const nameFieldId = useId()
 const phoneFieldId = useId()

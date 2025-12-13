@@ -27,9 +27,9 @@
         <div class="grid lg:grid-cols-3 gap-section">
           <div class="lg:col-span-2">
             <LazyBlogArticleListSection
-              :title="t('blog.articles.title')"
-              :read-more-label="t('blog.articles.readMore')"
-              :empty-label="t('blog.articles.empty', 'Нет статей для отображения')"
+              :title="t(articlesNs('title'))"
+              :read-more-label="t(articlesNs('readMore'))"
+              :empty-label="t(articlesNs('empty'), 'Нет статей для отображения')"
               :items="articles"
               :featured="featuredArticle"
               :show-featured="shouldShowFeatured"
@@ -64,147 +64,95 @@
 </template>
 
 <script setup lang="ts">
-import { storeToRefs } from 'pinia'
-import type { HeroContent, SidebarPopular, QuickLinksContent } from '~~/app/types/blog'
-import { useBlogStore } from '~/stores/blog'
-import { useBlogFilters } from '~/composables/blog/useBlogFilters'
+import type { HeroContent, SidebarPopular, QuickLinksContent } from '~/types/features/blog'
+import { useBlogPage } from '~/composables/useBlogPage'
+import { namespace } from '~~/lib/i18n'
+
 definePageMeta({
   layout: 'default',
   name: 'BlogPage',
 })
 
-const { t, te } = useI18n()
+const blogNs = namespace('blog')
+const heroNs = namespace('blog.hero')
+const articlesNs = namespace('blog.articles')
+const sidebarNs = namespace('blog.sidebar')
+const metaNs = namespace('blog.meta')
+const { t } = useI18n()
 const router = useRouter()
 const localePath = useLocalePath()
 const { openModal: openApplicationModal } = useApplicationModal()
-const blogStore = useBlogStore()
-const {
-  parseRouteFilters,
-  syncRoute,
-  hasFiltersChanged,
-  watchRouteChanges,
-  createDebouncedSearch,
-} = useBlogFilters()
 
 const {
   articles,
-  featuredArticle,
+  featured: featuredArticle,
   categories: apiCategories,
   loading,
-  activeCategory,
-  searchQuery,
-  currentPage,
+  category: activeCategory,
+  page: currentPage,
   error,
   pagination,
   popular,
   totalArticles,
   totalFAQs,
-} = storeToRefs(blogStore)
-
-const searchInput = ref('')
+  searchInput,
+  setCategory,
+  setPage,
+  initialize,
+  watchRouteChanges,
+  setupSearchWatcher,
+} = useBlogPage()
 
 useHead(() => ({
-  title: t('blog.meta.title'),
+  title: t(metaNs('title')),
   meta: [
-    { name: 'description', content: t('blog.meta.description') },
-    { property: 'og:title', content: t('blog.meta.title') },
-    { property: 'og:description', content: t('blog.meta.description') },
+    { name: 'description', content: t(metaNs('description')) },
+    { property: 'og:title', content: t(metaNs('title')) },
+    { property: 'og:description', content: t(metaNs('description')) },
     { property: 'og:type', content: 'website' },
   ],
 }))
 
-const applyRouteFilters = () => {
-  const filters = parseRouteFilters()
-  blogStore.setCategory(filters.category)
-  blogStore.setSearchQuery(filters.search)
-  blogStore.setPage(filters.page)
-  searchInput.value = filters.search
-  return filters
-}
-
-const currentState = () => ({
-  category: activeCategory.value,
-  search: searchQuery.value,
-  page: currentPage.value,
-})
-
-const initialFilters = applyRouteFilters()
-
+// SSR + client initialization
 if (import.meta.server) {
-  await blogStore.fetchArticles({
-    page: initialFilters.page,
-    category: initialFilters.category,
-    search: initialFilters.search,
-  })
+  await initialize()
 }
-
-onMounted(async () => {
-  await blogStore.fetchArticles({
-    page: currentPage.value,
-    category: activeCategory.value,
-    search: searchQuery.value,
-  })
+onMounted(() => {
+  initialize()
+  setupSearchWatcher()
 })
-
-watchRouteChanges(async (filters: { category: string; search: string; page: number }) => {
-  if (!hasFiltersChanged(filters, currentState())) {
-    if (searchInput.value !== filters.search) searchInput.value = filters.search
-    return
-  }
-
-  blogStore.setCategory(filters.category)
-  blogStore.setSearchQuery(filters.search)
-  blogStore.setPage(filters.page)
-  searchInput.value = filters.search
-  await blogStore.fetchArticles({
-    page: filters.page,
-    category: filters.category,
-    search: filters.search,
-  })
-})
-
-const performSearch = async (value: string) => {
-  if (value === searchQuery.value) return
-  blogStore.setSearchQuery(value)
-  blogStore.resetPagination()
-  const response = await blogStore.fetchArticles({ page: 1, search: value })
-  if (response) syncRoute(currentState(), { search: value, page: 1 })
-}
-
-const debouncedSearch = createDebouncedSearch(performSearch)
-watch(searchInput, debouncedSearch)
+watchRouteChanges()
 
 const hero = computed<HeroContent>(() => {
   const articleCount = totalArticles.value >= 150 ? `${totalArticles.value}+` : totalArticles.value
   const faqCount = totalFAQs.value >= 100 ? `${totalFAQs.value}+` : totalFAQs.value
 
   return {
-    title: t('blog.hero.title'),
-    titleAccent: t('blog.hero.titleAccent'),
-    description: t('blog.hero.description'),
-    searchPlaceholder: t('blog.hero.searchPlaceholder'),
-    imageAlt: t('blog.hero.imageAlt'),
+    title: t(heroNs('title')),
+    titleAccent: t(heroNs('titleAccent')),
+    description: t(heroNs('description')),
+    searchPlaceholder: t(heroNs('searchPlaceholder')),
+    imageAlt: t(heroNs('imageAlt')),
     highlight: {
-      title: t('blog.hero.highlight.title'),
-      subtitle: t('blog.hero.highlight.subtitle'),
+      title: t(heroNs('highlight.title')),
+      subtitle: t(heroNs('highlight.subtitle')),
     },
     stats: [
       {
-        icon: t('blog.hero.stats[0].icon'),
-        label: t('blog.hero.stats[0].label', { count: articleCount }),
+        icon: t(heroNs('stats.articles.icon')),
+        label: t(heroNs('stats.articles.label'), { count: articleCount }),
       },
       {
-        icon: t('blog.hero.stats[1].icon'),
-        label: t('blog.hero.stats[1].label', { count: faqCount }),
+        icon: t(heroNs('stats.faqs.icon')),
+        label: t(heroNs('stats.faqs.label'), { count: faqCount }),
       },
     ],
   }
 })
 
 const getCategoryLabel = (key: string, fallback?: string): string => {
-  const translationKey = `blog.categories.${key}.label`
-  if (te(translationKey)) {
-    return t(translationKey)
+  if (key === 'all') {
+    return t(blogNs('categories.all.label'))
   }
   return fallback || key
 }
@@ -246,7 +194,7 @@ const shouldShowFeatured = computed(() => {
 const { formatDate } = useI18nHelpers()
 
 const sidebarPopular = computed<SidebarPopular>(() => ({
-  title: t('blog.sidebar.popular.title'),
+  title: t(sidebarNs('popular.title')),
   items: popular.value.map((item) => ({
     id: item.id,
     slug: item.slug,
@@ -256,41 +204,17 @@ const sidebarPopular = computed<SidebarPopular>(() => ({
 }))
 
 const quickLinks = computed<QuickLinksContent>(() => ({
-  title: t('blog.sidebar.quickLinks.title'),
+  title: t(sidebarNs('quickLinks.title')),
   items: [
-    { id: 'universities', label: t('blog.sidebar.quickLinks.items[0].label') },
-    { id: 'checklist', label: t('blog.sidebar.quickLinks.items[1].label') },
-    { id: 'reviews', label: t('blog.sidebar.quickLinks.items[2].label') },
-    { id: 'consultation', label: t('blog.sidebar.quickLinks.items[3].label') },
+    { id: 'universities', label: t(sidebarNs('quickLinks.universities')) },
+    { id: 'checklist', label: t(sidebarNs('quickLinks.checklist')) },
+    { id: 'reviews', label: t(sidebarNs('quickLinks.reviews')) },
+    { id: 'consultation', label: t(sidebarNs('quickLinks.consultation')) },
   ],
 }))
 
-const setCategoryAndFetch = async (categoryKey: string) => {
-  if (activeCategory.value === categoryKey) {
-    return
-  }
-
-  blogStore.setCategory(categoryKey)
-  blogStore.resetPagination()
-  const response = await blogStore.fetchArticles({ page: 1, category: categoryKey })
-  if (response) {
-    syncRoute(currentState(), { category: categoryKey, page: 1 })
-  }
-}
-
-const changePage = async (page: number) => {
-  if (page === currentPage.value || loading.value) {
-    return
-  }
-  blogStore.setPage(page)
-  const response = await blogStore.fetchArticles({ page })
-  if (response) {
-    syncRoute(currentState(), { page })
-    if (typeof window !== 'undefined') {
-      window.scrollTo({ top: 0, behavior: 'smooth' })
-    }
-  }
-}
+const setCategoryAndFetch = (categoryKey: string) => setCategory(categoryKey)
+const changePage = (newPage: number) => setPage(newPage)
 
 const handleQuickLinkClick = async (linkId: string) => {
   switch (linkId) {

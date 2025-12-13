@@ -1,5 +1,5 @@
 import { getBlogRepository } from '~~/server/repositories'
-import type { BlogCategory } from '~~/server/types/api'
+import type { BlogCategory } from '~~/lib/types'
 
 export default defineEventHandler(async (event): Promise<{ data: BlogCategory[] }> => {
   const query = getQuery(event)

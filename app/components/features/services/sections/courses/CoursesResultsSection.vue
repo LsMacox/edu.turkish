@@ -74,51 +74,33 @@ interface CaseStudy {
   admission?: string
 }
 
-interface StudentResultsSectionProps {
-  keyPrefix: string
-  title?: string
+interface MaxResult {
+  package: string
+  score: string
+}
+
+interface ResultsLabels {
+  before: string
+  after: string
+  duration: string
+  admittedTo: string
+}
+
+interface ResultsData {
+  title: string
+  labels?: ResultsLabels
+  maxResults?: MaxResult[]
+  cases?: CaseStudy[]
   showProof?: boolean
 }
 
-const props = withDefaults(defineProps<StudentResultsSectionProps>(), {
-  title: '',
-  showProof: false,
-})
+const props = defineProps<{
+  data: ResultsData
+}>()
 
-const { t, tm, getListObjects } = useI18nHelpers()
-
-const title = computed(() => props.title || t(`${props.keyPrefix}.title`))
-
-const labels = computed(() => ({
-  before: t(`${props.keyPrefix}.labels.before`),
-  after: t(`${props.keyPrefix}.labels.after`),
-  duration: t(`${props.keyPrefix}.labels.duration`),
-  admittedTo: t(`${props.keyPrefix}.labels.admittedTo`),
-}))
-
-const maxResults = computed(() =>
-  getListObjects<{ package: string; score: string }>(`${props.keyPrefix}.maxResults`, [
-    'package',
-    'score',
-  ]),
-)
-
-// Cases need special handling because they contain numeric values that must be read directly
-const cases = computed(() => {
-  const rawCases = tm(`${props.keyPrefix}.cases`) as unknown
-  if (!rawCases || !Array.isArray(rawCases)) return []
-
-  return (rawCases as Record<string, unknown>[]).map((item) => {
-    const caseStudy: CaseStudy = {}
-
-    if (typeof item.before === 'number') caseStudy.before = item.before
-    if (typeof item.after === 'number') caseStudy.after = item.after
-    if (typeof item.score === 'number') caseStudy.score = item.score
-    if (typeof item.duration === 'string') caseStudy.duration = item.duration
-    if (typeof item.proof === 'string') caseStudy.proof = item.proof
-    if (typeof item.admission === 'string') caseStudy.admission = item.admission
-
-    return caseStudy
-  }) as CaseStudy[]
-})
+const title = computed(() => props.data.title)
+const labels = computed(() => props.data.labels || { before: '', after: '', duration: '', admittedTo: '' })
+const maxResults = computed(() => props.data.maxResults || [])
+const cases = computed(() => props.data.cases || [])
+const showProof = computed(() => props.data.showProof ?? false)
 </script>

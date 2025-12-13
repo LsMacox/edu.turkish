@@ -151,7 +151,6 @@ CREATE TABLE `university_program_translations` (
     `university_program_id` INTEGER NOT NULL,
     `locale` VARCHAR(5) NOT NULL,
     `name` VARCHAR(255) NULL,
-    `description` TEXT NULL,
     `created_at` DATETIME(3) NOT NULL DEFAULT CURRENT_TIMESTAMP(3),
     `updated_at` DATETIME(3) NOT NULL,
 
@@ -164,16 +163,22 @@ CREATE TABLE `university_reviews` (
     `id` INTEGER NOT NULL AUTO_INCREMENT,
     `university_id` INTEGER NULL,
     `type` ENUM('student', 'parent') NOT NULL,
+    `media_type` ENUM('text', 'video', 'image') NOT NULL DEFAULT 'text',
     `year` INTEGER NULL,
     `rating` TINYINT NULL,
     `avatar` VARCHAR(500) NULL,
     `featured` BOOLEAN NOT NULL DEFAULT false,
+    `video_url` VARCHAR(500) NULL,
+    `video_thumb` VARCHAR(500) NULL,
+    `video_duration` VARCHAR(10) NULL,
+    `image_url` VARCHAR(500) NULL,
     `created_at` DATETIME(3) NOT NULL DEFAULT CURRENT_TIMESTAMP(3),
     `updated_at` DATETIME(3) NOT NULL,
 
     INDEX `idx_review_university_type`(`university_id`, `type`),
     INDEX `idx_review_featured`(`featured`),
     INDEX `idx_review_rating`(`rating`),
+    INDEX `idx_review_media_type`(`media_type`),
     PRIMARY KEY (`id`)
 ) DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
 
@@ -250,16 +255,9 @@ CREATE TABLE `applications` (
     `last_name` VARCHAR(100) NULL,
     `email` VARCHAR(255) NULL,
     `phone` VARCHAR(30) NOT NULL DEFAULT '',
-    `country` VARCHAR(100) NULL,
-    `city` VARCHAR(100) NULL,
-    `education_level` VARCHAR(100) NULL,
-    `education_field` VARCHAR(255) NULL,
-    `target_university` VARCHAR(255) NULL,
-    `target_program` VARCHAR(255) NULL,
     `source` VARCHAR(100) NOT NULL DEFAULT 'unknown',
     `referral_code` VARCHAR(100) NULL,
     `personal_info` JSON NOT NULL,
-    `education` JSON NOT NULL,
     `preferences` JSON NOT NULL,
     `additional_info` JSON NULL,
     `submitted_at` DATETIME(3) NOT NULL DEFAULT CURRENT_TIMESTAMP(3),
@@ -432,7 +430,6 @@ CREATE TABLE `study_direction_translations` (
     `study_direction_id` INTEGER NOT NULL,
     `locale` VARCHAR(5) NOT NULL,
     `name` VARCHAR(255) NULL,
-    `description` TEXT NULL,
     `slug` VARCHAR(255) NOT NULL,
     `created_at` DATETIME(3) NOT NULL DEFAULT CURRENT_TIMESTAMP(3),
     `updated_at` DATETIME(3) NOT NULL,
@@ -447,9 +444,11 @@ CREATE TABLE `blog_categories` (
     `id` INTEGER NOT NULL AUTO_INCREMENT,
     `code` VARCHAR(64) NOT NULL,
     `order` SMALLINT NULL,
+    `is_program` BOOLEAN NOT NULL DEFAULT false,
     `created_at` DATETIME(3) NOT NULL DEFAULT CURRENT_TIMESTAMP(3),
     `updated_at` DATETIME(3) NOT NULL,
 
+    INDEX `idx_blog_category_is_program`(`is_program`),
     UNIQUE INDEX `blog_categories_code_key`(`code`),
     PRIMARY KEY (`id`)
 ) DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
@@ -471,16 +470,18 @@ CREATE TABLE `blog_articles` (
     `category_id` INTEGER NOT NULL,
     `status` ENUM('draft', 'published', 'archived') NOT NULL DEFAULT 'published',
     `is_featured` BOOLEAN NOT NULL DEFAULT false,
+    `is_power_page` BOOLEAN NOT NULL DEFAULT false,
+    `is_program` BOOLEAN NOT NULL DEFAULT false,
     `published_at` DATETIME(3) NOT NULL,
     `cover_image` VARCHAR(500) NULL,
     `hero_image` VARCHAR(500) NULL,
     `reading_time_minutes` INTEGER NULL,
-    `meta` JSON NULL,
     `created_at` DATETIME(3) NOT NULL DEFAULT CURRENT_TIMESTAMP(3),
     `updated_at` DATETIME(3) NOT NULL,
 
     INDEX `idx_blog_article_category`(`category_id`),
     INDEX `idx_blog_article_published_at`(`published_at`),
+    INDEX `idx_blog_article_is_program`(`is_program`),
     PRIMARY KEY (`id`)
 ) DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
 
@@ -501,7 +502,6 @@ CREATE TABLE `blog_article_translations` (
     `seo_description` VARCHAR(500) NULL,
     `content` JSON NULL,
     `quick_facts` JSON NULL,
-    `highlights` JSON NULL,
     `tags` JSON NULL,
     `created_at` DATETIME(3) NOT NULL DEFAULT CURRENT_TIMESTAMP(3),
     `updated_at` DATETIME(3) NOT NULL,
@@ -512,31 +512,16 @@ CREATE TABLE `blog_article_translations` (
 ) DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
 
 -- CreateTable
-CREATE TABLE `university_pivot_featured_programs` (
+CREATE TABLE `exchange_rates` (
     `id` INTEGER NOT NULL AUTO_INCREMENT,
-    `university_id` INTEGER NOT NULL,
-    `university_program_id` INTEGER NOT NULL,
-    `display_order` INTEGER NOT NULL DEFAULT 0,
-    `created_at` DATETIME(3) NOT NULL DEFAULT CURRENT_TIMESTAMP(3),
-    `updated_at` DATETIME(3) NOT NULL,
+    `base_currency` VARCHAR(3) NOT NULL DEFAULT 'USD',
+    `target_currency` VARCHAR(3) NOT NULL,
+    `rate` DECIMAL(12, 6) NOT NULL,
+    `fetched_at` DATETIME(3) NOT NULL DEFAULT CURRENT_TIMESTAMP(3),
+    `expires_at` DATETIME(3) NOT NULL,
 
-    INDEX `idx_featured_program_university`(`university_id`),
-    INDEX `idx_featured_program_program`(`university_program_id`),
-    INDEX `idx_featured_program_order`(`display_order`),
-    UNIQUE INDEX `uniq_featured_program_per_university`(`university_id`, `university_program_id`),
-    PRIMARY KEY (`id`)
-) DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
-
--- CreateTable
-CREATE TABLE `university_pivot_featured_program_translations` (
-    `id` INTEGER NOT NULL AUTO_INCREMENT,
-    `university_pivot_featured_program_id` INTEGER NOT NULL,
-    `locale` VARCHAR(5) NOT NULL,
-    `label` VARCHAR(255) NULL,
-    `created_at` DATETIME(3) NOT NULL DEFAULT CURRENT_TIMESTAMP(3),
-    `updated_at` DATETIME(3) NOT NULL,
-
-    UNIQUE INDEX `uniq_featured_program_translation`(`university_pivot_featured_program_id`, `locale`),
+    INDEX `exchange_rates_expires_at_idx`(`expires_at`),
+    UNIQUE INDEX `exchange_rates_base_currency_target_currency_key`(`base_currency`, `target_currency`),
     PRIMARY KEY (`id`)
 ) DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
 
@@ -632,13 +617,3 @@ ALTER TABLE `blog_articles` ADD CONSTRAINT `blog_articles_category_id_fkey` FORE
 
 -- AddForeignKey
 ALTER TABLE `blog_article_translations` ADD CONSTRAINT `blog_article_translations_article_id_fkey` FOREIGN KEY (`article_id`) REFERENCES `blog_articles`(`id`) ON DELETE CASCADE ON UPDATE CASCADE;
-
--- AddForeignKey
-ALTER TABLE `university_pivot_featured_programs` ADD CONSTRAINT `university_pivot_featured_programs_university_id_fkey` FOREIGN KEY (`university_id`) REFERENCES `universities`(`id`) ON DELETE CASCADE ON UPDATE CASCADE;
-
--- AddForeignKey
-ALTER TABLE `university_pivot_featured_programs` ADD CONSTRAINT `university_pivot_featured_programs_university_program_id_fkey` FOREIGN KEY (`university_program_id`) REFERENCES `university_programs`(`id`) ON DELETE CASCADE ON UPDATE CASCADE;
-
--- AddForeignKey
-ALTER TABLE `university_pivot_featured_program_translations` ADD CONSTRAINT `university_pivot_featured_program_translations_university_p_fkey` FOREIGN KEY (`university_pivot_featured_program_id`) REFERENCES `university_pivot_featured_programs`(`id`) ON DELETE CASCADE ON UPDATE CASCADE;
-

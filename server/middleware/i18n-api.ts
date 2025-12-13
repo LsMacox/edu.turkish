@@ -1,4 +1,4 @@
-import { SUPPORTED_LOCALES, DEFAULT_LOCALE, type SupportedLocale } from '~~/lib/locales'
+import { SUPPORTED_LOCALES, DEFAULT_LOCALE, type SupportedLocale } from '~~/lib/config/locales'
 
 const isLocale = (v: string): v is SupportedLocale =>
   SUPPORTED_LOCALES.includes(v as SupportedLocale)

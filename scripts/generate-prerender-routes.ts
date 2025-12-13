@@ -9,7 +9,7 @@
 import { PrismaClient } from '@prisma/client'
 import fs from 'node:fs'
 import path from 'node:path'
-import { getArticleUrl } from '../lib/blog/article-type'
+import { getArticleUrl } from '../lib/domain/blog/article-type'
 
 async function main() {
   const prisma = new PrismaClient()

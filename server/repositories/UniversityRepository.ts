@@ -4,16 +4,16 @@ import type {
   UniversityDetail,
   UniversityFilters,
   UniversityQueryParams,
-} from '~~/server/types/api'
-import { isValidUniversityType, isValidDegreeType } from '~~/server/schemas/university'
+} from '~~/lib/types'
+import { isValidUniversityType, isValidDegreeType } from '~~/lib/schemas/university'
 import { normalizeLocale, type NormalizedLocale } from '~~/server/utils/locale'
 import {
   universityListInclude,
   universityDetailInclude,
   mapUniversityListItem,
   mapUniversityDetail,
-  generateBadge,
 } from '~~/server/mappers/university'
+import { generateBadge } from '~~/lib/domain/universities/constants'
 
 // ─────────────────────────────────────────────────────────────────────────────
 // Query builders (pure functions)
@@ -72,17 +72,13 @@ function buildWhere(
 function buildOrder(sort?: string): Prisma.UniversityOrderByWithRelationInput {
   if (sort === 'price_asc') return { tuitionMin: 'asc' }
   if (sort === 'price_desc') return { tuitionMax: 'desc' }
+  if (sort === 'rank') return { rankingScore: 'desc' }
   return { id: 'asc' }
 }
-
-// ─────────────────────────────────────────────────────────────────────────────
-// Repository (pure data access)
-// ─────────────────────────────────────────────────────────────────────────────
 
 export interface UniversityListResult {
   data: University[]
   total: number
-  filters: UniversityFilters
 }
 
 export class UniversityRepository {
@@ -94,25 +90,21 @@ export class UniversityRepository {
     const limit = Math.max(1, params.limit ?? 6)
     const where = buildWhere(params, locale)
 
-    const [rows, total, filters] = await Promise.all([
+    const [rows, total] = await Promise.all([
       this.prisma.university.findMany({
         where,
-        ...universityListInclude,
+        ...universityListInclude(locale.normalized),
         orderBy: buildOrder(params.sort),
         skip: (page - 1) * limit,
         take: limit,
       }),
       this.prisma.university.count({ where }),
-      this.getFilters(locale),
     ])
 
     const data = rows.map((row) => mapUniversityListItem(row, locale, generateBadge(row)))
-    return { data, total, filters }
+    return { data, total }
   }
 
-  /**
-   * Get available filter options
-   */
   async getFilters(locale: NormalizedLocale): Promise<UniversityFilters> {
     const [cityGroups, typeGroups, levelGroups, tuition, langGroups] = await Promise.all([
       this.prisma.university.groupBy({ by: ['cityId'], where: { cityId: { not: null } } }),
@@ -181,7 +173,23 @@ export class UniversityRepository {
   }
 
   async findBySlug(slug: string, localeStr = 'ru'): Promise<UniversityDetail | null> {
-    const t = await this.prisma.universityTranslation.findFirst({ where: { slug } })
-    return t ? this.findById(t.universityId, localeStr) : null
+    const row = await this.prisma.university.findFirst({
+      where: { translations: { some: { slug } } },
+      ...universityDetailInclude,
+    })
+    return row ? mapUniversityDetail(row, normalizeLocale(localeStr)) : null
+  }
+
+  async findByIdOrSlug(idOrSlug: string, localeStr = 'ru'): Promise<UniversityDetail | null> {
+    const numericId = Number(idOrSlug)
+    const isNumeric = !isNaN(numericId) && Number.isInteger(numericId) && numericId > 0
+
+    const row = await this.prisma.university.findFirst({
+      where: isNumeric
+        ? { OR: [{ id: numericId }, { translations: { some: { slug: idOrSlug } } }] }
+        : { translations: { some: { slug: idOrSlug } } },
+      ...universityDetailInclude,
+    })
+    return row ? mapUniversityDetail(row, normalizeLocale(localeStr)) : null
   }
 }

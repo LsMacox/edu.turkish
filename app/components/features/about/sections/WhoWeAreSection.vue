@@ -3,8 +3,8 @@
     <div class="container mx-auto container-padding-narrow">
       <div class="max-w-6xl mx-auto">
         <BaseSectionHeader
-          :title="t('about.who_we_are.title')"
-          :subtitle="t('about.who_we_are.subtitle')"
+          :title="t(whoWeAreNs('title'))"
+          :subtitle="t(whoWeAreNs('subtitle'))"
           align="center"
           margin-bottom="lg"
         />
@@ -33,9 +33,9 @@
                 />
                 <div>
                   <h3 class="text-card-title mb-2">
-                    {{ t('about.who_we_are.experienced_agency') }}
+                    {{ t(whoWeAreNs('experienced_agency')) }}
                   </h3>
-                  <p class="text-gray-600">{{ t('about.who_we_are.experienced_agency_desc') }}</p>
+                  <p class="text-gray-600">{{ t(whoWeAreNs('experienced_agency_desc')) }}</p>
                 </div>
               </div>
 
@@ -49,9 +49,9 @@
                 />
                 <div>
                   <h3 class="text-card-title mb-2">
-                    {{ t('about.who_we_are.students_enrolled') }}
+                    {{ t(whoWeAreNs('students_enrolled')) }}
                   </h3>
-                  <p class="text-gray-600">{{ t('about.who_we_are.students_enrolled_desc') }}</p>
+                  <p class="text-gray-600">{{ t(whoWeAreNs('students_enrolled_desc')) }}</p>
                 </div>
               </div>
 
@@ -65,9 +65,9 @@
                 />
                 <div>
                   <h3 class="text-card-title mb-2">
-                    {{ t('about.who_we_are.official_work') }}
+                    {{ t(whoWeAreNs('official_work')) }}
                   </h3>
-                  <p class="text-gray-600">{{ t('about.who_we_are.official_work_desc') }}</p>
+                  <p class="text-gray-600">{{ t(whoWeAreNs('official_work_desc')) }}</p>
                 </div>
               </div>
 
@@ -81,9 +81,9 @@
                 />
                 <div>
                   <h3 class="text-card-title mb-2">
-                    {{ t('about.who_we_are.comprehensive_help') }}
+                    {{ t(whoWeAreNs('comprehensive_help')) }}
                   </h3>
-                  <p class="text-gray-600">{{ t('about.who_we_are.comprehensive_help_desc') }}</p>
+                  <p class="text-gray-600">{{ t(whoWeAreNs('comprehensive_help_desc')) }}</p>
                 </div>
               </div>
             </div>
@@ -95,7 +95,9 @@
 </template>
 
 <script setup lang="ts">
-import { ASSETS } from '~~/lib/assets'
+import { ASSETS } from '~~/lib/config/assets'
+import { namespace } from '~~/lib/i18n'
 
+const whoWeAreNs = namespace('about.who_we_are')
 const { t } = useI18n()
 </script>

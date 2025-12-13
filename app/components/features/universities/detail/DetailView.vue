@@ -38,7 +38,7 @@
               class="bg-primary text-white px-8 py-4 rounded-xl font-semibold text-lg hover:bg-red-600 transition-all shadow-lg hover-lift"
               @click="handleApplyClick"
             >
-              {{ t('universityDetail.applyButton') }}
+              {{ t(ns('applyButton')) }}
             </button>
             <a
               :href="whatsapp.href"
@@ -47,7 +47,7 @@
               @click.prevent="handleWhatsappClick"
             >
               <Icon name="ph:whatsapp-logo" />
-              <span>{{ t('universityDetail.whatsappButton') }}</span>
+              <span>{{ t(ns('whatsappButton')) }}</span>
             </a>
           </div>
         </div>
@@ -78,9 +78,11 @@
 </template>
 
 <script setup lang="ts">
-import type { UniversityDetail } from '~~/server/types/api/universities'
+import type { UniversityDetail } from '~~/lib/types'
 import { useContactChannels } from '~/composables/useContactChannels'
 import { useFingerprint } from '~/composables/useFingerprint'
+import { useUniversity } from '~/composables/useUniversityHelpers'
+import { namespace } from '~~/lib/i18n'
 
 interface Props {
   university: UniversityDetail
@@ -88,12 +90,12 @@ interface Props {
 
 const props = defineProps<Props>()
 const { t, locale } = useI18n()
+const ns = namespace('universities.detail')
+const { getTypeLabel } = useUniversity()
 
 const heroImageSrc = computed(() => props.university.heroImage || props.university.image)
 
-const typeText = computed(
-  () => t(`universityDetail.universityType.${props.university.type}`) || props.university.type,
-)
+const typeText = computed(() => getTypeLabel(props.university.type))
 
 const { openModal: openApplicationModal } = useApplicationModal()
 

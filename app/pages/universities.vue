@@ -9,10 +9,10 @@
       <div class="relative container mx-auto container-padding-narrow pt-6 md:pt-8 pb-4">
         <div class="text-center max-w-2xl mx-auto">
           <h1 class="text-section-title mb-2">
-            {{ t('universities_page.hero.title') }}
+            {{ t(heroNs('title')) }}
           </h1>
           <p class="text-section-subtitle mb-4">
-            {{ t('universities_page.hero.subtitle') }}
+            {{ t(heroNs('subtitle')) }}
           </p>
           <UniversitiesListStatisticsCards />
         </div>
@@ -64,7 +64,7 @@
             :disabled="!hasMore"
             @click="loadMore"
           >
-            {{ t('universities_page.load_more') }}
+            {{ t(listNs('load_more')) }}
           </BaseButton>
         </div>
       </div>
@@ -77,6 +77,11 @@
 
 <script setup lang="ts">
 import { storeToRefs } from 'pinia'
+import { namespace } from '~~/lib/i18n'
+import { useUniversitiesStore } from '~/stores/universities'
+
+const listNs = namespace('universities.list')
+const heroNs = namespace('universities.list.hero')
 
 const { t } = useI18n()
 const route = useRoute()

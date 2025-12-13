@@ -24,8 +24,8 @@ export {
 } from './fixtures'
 export type {
   UniversityFixture,
-  FAQFixture,
-  FAQCategoryFixture,
+  FaqFixture,
+  FaqCategoryFixture,
   ApplicationFixture,
   ReviewFixture,
 } from './fixtures'

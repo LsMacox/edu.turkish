@@ -7,7 +7,7 @@ import type {
   BlogPopularArticle,
   ProgramCategoryWithItems,
   ProgramDetail,
-} from '~~/server/types/api'
+} from '~~/lib/types'
 import { pickTranslation } from '~~/server/utils/locale'
 import {
   mapArticleToListItem,
@@ -17,22 +17,25 @@ import {
   type ArticleWithRelations,
 } from '~~/server/mappers/blog'
 
-// Include configuration for article queries
-const articleInclude = {
-  translations: true,
-  category: {
+// Include configuration for article list queries (only needed locale)
+const articleListInclude = (locale: string) =>
+  ({
     include: {
-      translations: true,
+      translations: { where: { locale } },
+      category: { include: { translations: { where: { locale } } } },
     },
+  }) as const
+
+// Include configuration for article detail queries (all translations for alternates)
+const articleDetailInclude = {
+  include: {
+    translations: true,
+    category: { include: { translations: true } },
   },
 } as const
 
 export class BlogRepository {
-  constructor(private prisma: PrismaClient) {}
-
-  // ==========================================
-  // Categories
-  // ==========================================
+  constructor(private prisma: PrismaClient) { }
 
   async getCategories(locale: string, options?: { isProgram?: boolean }): Promise<BlogCategory[]> {
     const where: Prisma.BlogCategoryWhereInput = {}
@@ -132,14 +135,7 @@ export class BlogRepository {
         orderBy: {
           publishedAt: 'desc',
         },
-        include: {
-          translations: true,
-          category: {
-            include: {
-              translations: true,
-            },
-          },
-        },
+        ...articleListInclude(locale),
       })
 
       if (featured && categoryFilter && featured.category.code !== categoryFilter) {
@@ -164,10 +160,7 @@ export class BlogRepository {
         orderBy: { publishedAt: 'desc' },
         skip: (page - 1) * limit,
         take: limit,
-        include: {
-          translations: true,
-          category: { include: { translations: true } },
-        },
+        ...articleListInclude(locale),
       }),
       this.prisma.blogCategory.findMany({
         orderBy: [{ order: 'asc' }, { id: 'asc' }],
@@ -225,11 +218,11 @@ export class BlogRepository {
     const translation =
       (await this.prisma.blogArticleTranslation.findFirst({
         where: { slug, locale, article: extraWhere },
-        include: { article: { include: articleInclude } },
+        include: { article: articleDetailInclude },
       })) ??
       (await this.prisma.blogArticleTranslation.findFirst({
         where: { slug, article: extraWhere },
-        include: { article: { include: articleInclude } },
+        include: { article: articleDetailInclude },
       }))
 
     const article = translation?.article
@@ -243,9 +236,6 @@ export class BlogRepository {
   // Programs (isProgram: true articles)
   // ==========================================
 
-  /**
-   * Get all programs grouped by category
-   */
   async findProgramsGroupedByCategory(locale: string): Promise<ProgramCategoryWithItems[]> {
     const categories = await this.prisma.blogCategory.findMany({
       where: {
@@ -253,7 +243,7 @@ export class BlogRepository {
       },
       orderBy: [{ order: 'asc' }, { id: 'asc' }],
       include: {
-        translations: true,
+        translations: { where: { locale } },
         articles: {
           where: {
             isProgram: true,
@@ -263,7 +253,7 @@ export class BlogRepository {
             },
           },
           orderBy: { publishedAt: 'desc' },
-          include: articleInclude,
+          ...articleListInclude(locale),
         },
       },
     })

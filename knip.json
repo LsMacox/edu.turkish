@@ -27,7 +27,8 @@
     "ufo",
     "vue-router",
     "h3",
-    "@nuxt/schema"
+    "@nuxt/schema",
+    "nitropack"
   ],
   "ignoreBinaries": ["sleep", "knip"],
   "ignoreExportsUsedInFile": true

@@ -40,13 +40,13 @@
             class="w-full sm:w-auto px-8 py-4 text-base md:text-lg font-bold text-white bg-primary rounded-full hover:bg-primary-dark transition-all transform hover:scale-105 shadow-lg hover:shadow-primary/50 min-w-[200px]"
             @click="scrollToConsultation"
           >
-            {{ t('power_page.cta.consult') }}
+            {{ t(ctaNs('consult')) }}
           </button>
           <NuxtLink
             :to="localePath('/universities')"
             class="w-full sm:w-auto px-8 py-4 text-base md:text-lg font-bold text-white border-2 border-white/20 bg-white/10 backdrop-blur-sm rounded-full hover:bg-white/20 transition-all min-w-[200px]"
           >
-            {{ t('power_page.cta.universities') }}
+            {{ t(ctaNs('universities')) }}
           </NuxtLink>
         </div>
 
@@ -78,8 +78,11 @@
 </template>
 
 <script setup lang="ts">
-import type { BlogArticleDetail } from '~~/server/types/api'
-import { useDetailPage } from '~/composables/blog/useDetailPage'
+import type { BlogArticleDetail } from '~~/lib/types'
+import { useDetailPage } from '~/composables/useBlogDetailPage'
+import { namespace, key } from '~~/lib/i18n'
+
+const ctaNs = namespace('blog.powerPage.cta')
 const props = defineProps<{
   article: BlogArticleDetail
 }>()
@@ -88,13 +91,18 @@ const { t } = useI18n()
 const localePath = useLocalePath()
 const { openModal } = useApplicationModal()
 
-// Use shared detail page composable for unified logic
 const articleRef = computed(() => props.article)
 const { resolvedHeroImage, heroImageAlt, onHeroImageError, quickFacts } = useDetailPage(
   articleRef,
   {
     routeName: 'articles-slug',
-    i18nPrefix: 'power_page.quickFacts',
+    i18nKeys: {
+      category: key('blog.powerPage.quickFacts.category'),
+      published: key('blog.powerPage.quickFacts.published'),
+      readingTime: key('blog.powerPage.quickFacts.readingTime'),
+      copySuccess: key('blog.powerPage.share.copySuccess'),
+      copyError: key('blog.powerPage.share.copyError'),
+    },
     includeReadingTime: false,
     includePublishedDate: false,
   },

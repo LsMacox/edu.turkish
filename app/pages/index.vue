@@ -12,24 +12,29 @@
 </template>
 
 <script setup lang="ts">
+import { namespace } from '~~/lib/i18n'
+import { useUniversitiesStore } from '~/stores/universities'
+
+const ns = namespace('home.seo')
+
 const applicationDeadline = '2026-11-01T23:59:59'
 
 const { t } = useI18n()
 
 useHead(() => ({
-  title: t('home.seo.title'),
+  title: t(ns('title')),
   meta: [
     {
       name: 'description',
-      content: t('home.seo.description'),
+      content: t(ns('description')),
     },
     {
       property: 'og:description',
-      content: t('home.seo.description'),
+      content: t(ns('description')),
     },
     {
       name: 'twitter:description',
-      content: t('home.seo.description'),
+      content: t(ns('description')),
     },
   ],
   script: [

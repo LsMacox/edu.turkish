@@ -1,7 +1,7 @@
 <template>
   <section class="py-8 sm:py-12 px-4 sm:px-0">
     <BaseSectionHeader
-      :title="title || t('services.common.howItWorks.title')"
+      :title="title || t(key('services.common.howItWorks.title'))"
       align="center"
       margin-bottom="md"
     />
@@ -60,7 +60,8 @@
 </template>
 
 <script setup lang="ts">
-import type { ProcessStep } from '~/types/services'
+import type { ProcessStep } from '~/types/features/services'
+import { key } from '~~/lib/i18n'
 
 interface Props {
   title?: string

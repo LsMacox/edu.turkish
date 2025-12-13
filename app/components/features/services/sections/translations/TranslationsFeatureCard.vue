@@ -15,7 +15,7 @@
 </template>
 
 <script setup lang="ts">
-import type { ServiceCard } from '~/types/services'
+import type { ServiceCard } from '~/types/features/services'
 
 defineProps<ServiceCard>()
 </script>

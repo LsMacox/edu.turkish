@@ -16,13 +16,13 @@
       <!-- Price and CTA -->
       <div class="mt-auto space-y-4">
         <div class="flex items-baseline justify-between">
-          <span class="text-sm text-gray-500">{{ t('services.common.price') }}</span>
+          <span class="text-sm text-gray-500">{{ t(ns('price')) }}</span>
           <ServicesPriceTag :price-usd="priceUsd" size="lg" />
         </div>
 
         <!-- Delivery timeframe -->
         <div v-if="deliveryTime" class="text-sm text-gray-600">
-          <span class="font-medium">{{ t('services.common.deliveryTime') }}:</span>
+          <span class="font-medium">{{ t(ns('deliveryTime')) }}:</span>
           {{ deliveryTime }}
         </div>
 
@@ -31,7 +31,7 @@
           class="w-full bg-primary text-white rounded-lg py-3 px-4 font-semibold hover:bg-red-600 active:bg-red-700 transition-colors"
           @click="handleApply"
         >
-          {{ t('cta.apply') }}
+          {{ t(key('cta.apply')) }}
         </button>
       </div>
     </div>
@@ -39,10 +39,12 @@
 </template>
 
 <script setup lang="ts">
-import type { SubServiceId } from '~/types/services'
+import { namespace, key } from '~~/lib/i18n'
+
+const ns = namespace('services.common')
 
 interface Props {
-  subServiceId: SubServiceId
+  serviceName: string
   name: string
   description: string
   priceUsd: number
@@ -50,7 +52,7 @@ interface Props {
 }
 
 interface Emits {
-  (e: 'apply', payload: { subServiceId: SubServiceId; name: string }): void
+  (e: 'apply', payload: { serviceName: string; name: string }): void
 }
 
 const props = defineProps<Props>()
@@ -59,7 +61,7 @@ const { t } = useI18n()
 
 const handleApply = () => {
   emit('apply', {
-    subServiceId: props.subServiceId,
+    serviceName: props.serviceName,
     name: props.name,
   })
 }

@@ -1,0 +1,29 @@
+{
+  "faq": {
+    "title": "Sıkça Sorulan Sorular",
+    "subtitle": "Öğrencilerimiz ve veliler tarafından en sık sorulan sorulara cevaplar",
+    "searchPlaceholder": "Soru ara...",
+    "searching": "Araniyor",
+    "searchResults": "'{query}' için {count} sonuç bulundu",
+    "noResults": "'{query}' için sonuç bulunamadı",
+    "noResultsTitle": "Sonuç bulunamadı",
+    "noResultsMessage": "'{query}' ile eşleşen soru bulunamadı. Farklı anahtar kelimeler deneyin veya kategorilere göz atın.",
+    "tryThese": "Bu popüler aramaları deneyin",
+    "showAllQuestions": "Tüm soruları göster",
+    "startSearching": "Aramaya başlayın",
+    "startSearchingMessage": "Sorularınıza cevap bulmak için yukarıdaki arama kutusunu kullanın veya kategorilere göz atın.",
+    "recentSearches": "Son aramalar",
+    "clearHistory": "Geçmişi temizle",
+    "popularSearches": {
+      "documents": "belgeler",
+      "scholarships": "burslar",
+      "exams": "YÖS sınavı",
+      "language": "Türkçe dil"
+    },
+    "categories": {
+      "all": {
+        "title": "Tüm Sorular"
+      }
+    }
+  }
+}

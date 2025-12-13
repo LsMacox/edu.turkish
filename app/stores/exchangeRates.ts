@@ -1,6 +1,6 @@
 import { defineStore } from 'pinia'
-import type { Currency } from '~/types/currency'
-import type { ExchangeRatesResponse } from '~~/server/types/api/exchange-rates'
+import type { SupportedCurrency as Currency } from '~~/lib/config/currency'
+import type { ExchangeRatesResponse } from '~~/lib/types'
 
 export const useExchangeRatesStore = defineStore('exchangeRates', {
   state: () => ({

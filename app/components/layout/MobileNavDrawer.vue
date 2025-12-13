@@ -62,7 +62,7 @@
             >
               <div class="flex items-center gap-3">
                 <Icon name="mdi:briefcase-outline" class="text-lg opacity-70" />
-                <span class="font-medium">{{ t('nav.services') }}</span>
+                <span class="font-medium">{{ t(navNs('services')) }}</span>
               </div>
               <Icon
                 name="mdi:chevron-down"
@@ -108,7 +108,7 @@
                 @click="closeDrawer"
               >
                 <Icon :name="link.icon" class="text-lg opacity-70" />
-                <span class="font-medium">{{ t(link.labelKey) }}</span>
+                <span class="font-medium">{{ link.label }}</span>
               </NuxtLink>
             </div>
           </nav>
@@ -139,8 +139,11 @@
 </template>
 
 <script setup lang="ts">
-import type { SupportedLocale } from '~~/lib/locales'
-import { ASSETS } from '~~/lib/assets'
+import type { SupportedLocale } from '~~/lib/config/locales'
+import { ASSETS } from '~~/lib/config/assets'
+import { namespace } from '~~/lib/i18n'
+
+const navNs = namespace('nav')
 
 const props = defineProps<{ isOpen: boolean }>()
 const emit = defineEmits<{ close: [] }>()
@@ -162,28 +165,28 @@ const options: { code: SupportedLocale; shortLabel: string }[] = [
 const currentLocale = computed(() => i18n.locale.value)
 
 // Navigation links with icons
-const navLinks = [
-  { path: '/universities', labelKey: 'nav.universities', icon: 'mdi:school' },
-  { path: '/programs', labelKey: 'nav.programs', icon: 'mdi:book-education' },
-  { path: '/reviews', labelKey: 'nav.reviews', icon: 'mdi:star' },
-  { path: '/blog', labelKey: 'nav.blog', icon: 'mdi:newspaper-variant' },
-  { path: '/about', labelKey: 'nav.about', icon: 'mdi:information' },
-  { path: '/faq', labelKey: 'nav.faq', icon: 'mdi:help-circle' },
-]
+const navLinks = computed(() => [
+  { path: '/universities', label: t(navNs('universities')), icon: 'mdi:school' },
+  { path: '/programs', label: t(navNs('programs')), icon: 'mdi:book-education' },
+  { path: '/reviews', label: t(navNs('reviews')), icon: 'mdi:star' },
+  { path: '/blog', label: t(navNs('blog')), icon: 'mdi:newspaper-variant' },
+  { path: '/about', label: t(navNs('about')), icon: 'mdi:information' },
+  { path: '/faq', label: t(navNs('faq')), icon: 'mdi:help-circle' },
+])
 
 const serviceLinks = computed(() => [
   {
-    label: t('nav.servicesDropdown.relocation'),
+    label: t(navNs('servicesDropdown.relocation')),
     path: localePath('/services/relocation-in-turkey'),
   },
-  { label: t('nav.servicesDropdown.trYosCourses'), path: localePath('/services/tr-yos-courses') },
-  { label: t('nav.servicesDropdown.satCourses'), path: localePath('/services/sat-courses') },
+  { label: t(navNs('servicesDropdown.trYosCourses')), path: localePath('/services/tr-yos-courses') },
+  { label: t(navNs('servicesDropdown.satCourses')), path: localePath('/services/sat-courses') },
   {
-    label: t('nav.servicesDropdown.languageCourse'),
+    label: t(navNs('servicesDropdown.languageCourse')),
     path: localePath('/services/turkish-english-course'),
   },
   {
-    label: t('nav.servicesDropdown.documentTranslations'),
+    label: t(navNs('servicesDropdown.documentTranslations')),
     path: localePath('/services/document-translations'),
   },
 ])

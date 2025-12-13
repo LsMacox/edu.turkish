@@ -41,7 +41,7 @@
 </template>
 
 <script setup lang="ts">
-import type { MediaReview } from '~~/server/types/api'
+import type { MediaReview } from '~~/lib/types'
 
 const { getCdnUrl } = useCdn()
 

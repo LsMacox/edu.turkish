@@ -1,5 +1,4 @@
-import type { ApplicationPreferences } from '~/types/application'
-import type { SubServiceId, ServiceApplicationContext } from '~/types/services'
+import type { ApplicationPreferences } from '~/types/features/application'
 
 export function useApplicationModal() {
   const isOpen = useState<boolean>('applicationModal:isOpen', () => false)
@@ -15,9 +14,9 @@ export function useApplicationModal() {
 
     if (import.meta.client && (window as any).ym) {
       const config = useRuntimeConfig()
-      ;(window as any).ym(config.public.yandexMetrikaId, 'reachGoal', 'modal_open', {
-        type: 'application',
-      })
+        ; (window as any).ym(config.public.yandexMetrikaId, 'reachGoal', 'modal_open', {
+          type: 'application',
+        })
     }
 
     if (import.meta.client) {
@@ -40,27 +39,12 @@ export function useApplicationModal() {
     }
   }
 
-  const openModalForSubService = (subServiceId: SubServiceId, subServiceName: string) => {
-    const context: ServiceApplicationContext = {
-      subServiceId,
-      subServiceName,
-      source: 'service_page',
-      sourceDescription: subServiceName,
-    }
-
-    openModal({
-      source: 'service_page',
-      description: subServiceName,
-      serviceContext: context,
-    })
-  }
-
   const submitApplication = () => {
     if (import.meta.client && (window as any).ym) {
       const config = useRuntimeConfig()
-      ;(window as any).ym(config.public.yandexMetrikaId, 'reachGoal', 'application_submitted', {
-        hasPreferences: !!userPreferences.value,
-      })
+        ; (window as any).ym(config.public.yandexMetrikaId, 'reachGoal', 'application_submitted', {
+          hasPreferences: !!userPreferences.value,
+        })
     }
 
     closeModal()
@@ -83,7 +67,6 @@ export function useApplicationModal() {
 
     openModal,
     closeModal,
-    openModalForSubService,
     submitApplication,
     cleanup,
   }

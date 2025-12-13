@@ -9,11 +9,11 @@
       <div class="relative container mx-auto container-padding-narrow pt-6 md:pt-8 pb-4">
         <div class="text-center max-w-2xl mx-auto mb-6">
           <h1 class="text-section-title mb-2">
-            {{ t('reviews.achievements.title') }}
-            <span class="text-primary">{{ t('reviews.achievements.titleAccent') }}</span>
+            {{ t(achievementsNs('title')) }}
+            <span class="text-primary">{{ t(achievementsNs('titleAccent')) }}</span>
           </h1>
           <p class="text-section-subtitle">
-            {{ t('reviews.achievements.description') }}
+            {{ t(achievementsNs('description')) }}
           </p>
         </div>
 
@@ -24,7 +24,7 @@
               <Icon name="mdi:account-group" class="text-lg text-white" />
             </div>
             <div class="text-xl md:text-2xl font-bold text-primary">500+</div>
-            <p class="text-xs text-gray-600">{{ t('reviews.achievements.stats.students.title') }}</p>
+            <p class="text-xs text-gray-600">{{ t(statsNs('students.title')) }}</p>
           </div>
 
           <div class="bg-white/80 backdrop-blur-sm rounded-xl border border-gray-100 p-4 text-center">
@@ -32,7 +32,7 @@
               <Icon name="mdi:check-circle" class="text-lg text-white" />
             </div>
             <div class="text-xl md:text-2xl font-bold text-emerald-500">98%</div>
-            <p class="text-xs text-gray-600">{{ t('reviews.achievements.stats.success.title') }}</p>
+            <p class="text-xs text-gray-600">{{ t(statsNs('success.title')) }}</p>
           </div>
 
           <div class="bg-white/80 backdrop-blur-sm rounded-xl border border-gray-100 p-4 text-center">
@@ -40,7 +40,7 @@
               <Icon name="mdi:school" class="text-lg text-white" />
             </div>
             <div class="text-xl md:text-2xl font-bold text-blue-500">20+</div>
-            <p class="text-xs text-gray-600">{{ t('reviews.achievements.stats.universities.title') }}</p>
+            <p class="text-xs text-gray-600">{{ t(statsNs('universities.title')) }}</p>
           </div>
 
           <div class="bg-white/80 backdrop-blur-sm rounded-xl border border-gray-100 p-4 text-center">
@@ -48,7 +48,7 @@
               <Icon name="mdi:star" class="text-lg text-white" />
             </div>
             <div class="text-xl md:text-2xl font-bold text-orange-500">4.9</div>
-            <p class="text-xs text-gray-600">{{ t('reviews.achievements.overallRating.title') }}</p>
+            <p class="text-xs text-gray-600">{{ t(achievementsNs('overallRating.title')) }}</p>
           </div>
         </div>
       </div>
@@ -63,6 +63,10 @@
 </template>
 
 <script setup lang="ts">
+import { namespace } from '~~/lib/i18n'
+
+const achievementsNs = namespace('reviews.achievements')
+const statsNs = namespace('reviews.achievements.stats')
 const { t } = useI18n()
 
 // Reviews page meta

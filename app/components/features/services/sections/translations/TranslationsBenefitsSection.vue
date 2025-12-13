@@ -2,7 +2,7 @@
   <section class="py-8 sm:py-12 px-4 sm:px-6 bg-gray-50 rounded-2xl">
     <div class="container">
       <BaseSectionHeader
-        :title="title || t('services.common.whyChooseUs.title')"
+        :title="title || t(key('services.common.whyChooseUs.title'))"
         align="center"
         margin-bottom="md"
       />
@@ -33,7 +33,8 @@
 </template>
 
 <script setup lang="ts">
-import type { TrustFactor } from '~/types/services'
+import type { TrustFactor } from '~/types/features/services'
+import { key } from '~~/lib/i18n'
 
 interface Props {
   title?: string

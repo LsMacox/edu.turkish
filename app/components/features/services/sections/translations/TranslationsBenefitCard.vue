@@ -18,7 +18,7 @@
 </template>
 
 <script setup lang="ts">
-import type { TrustFactor } from '~/types/services'
+import type { TrustFactor } from '~/types/features/services'
 
 defineProps<{ factor: TrustFactor }>()
 </script>

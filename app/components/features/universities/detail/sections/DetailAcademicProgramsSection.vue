@@ -2,8 +2,8 @@
   <section class="py-16 bg-white">
     <div class="container mx-auto px-4 lg:px-6">
       <BaseSectionHeader
-        :title="t('academicPrograms.title')"
-        :subtitle="t('academicPrograms.subtitle')"
+        :title="t(ns('title'))"
+        :subtitle="t(ns('subtitle'))"
         align="center"
         margin-bottom="lg"
       />
@@ -22,7 +22,7 @@
             ]"
             @click="activeTab = tab.key"
           >
-            {{ t(`academicPrograms.tabs.${tab.key}`) }}
+            {{ tab.label }}
           </button>
         </div>
       </div>
@@ -38,16 +38,16 @@
               <thead class="bg-background">
                 <tr>
                   <th class="px-6 py-4 text-left font-semibold text-secondary">
-                    {{ t('academicPrograms.table.programName') }}
+                    {{ t(ns('table.programName')) }}
                   </th>
                   <th class="px-6 py-4 text-center font-semibold text-secondary">
-                    {{ t('academicPrograms.table.language') }}
+                    {{ t(ns('table.language')) }}
                   </th>
                   <th class="px-6 py-4 text-center font-semibold text-secondary">
-                    {{ t('academicPrograms.table.duration') }}
+                    {{ t(ns('table.duration')) }}
                   </th>
                   <th class="px-6 py-4 text-center font-semibold text-secondary">
-                    {{ t('academicPrograms.table.costPerYear') }}
+                    {{ t(ns('table.costPerYear')) }}
                   </th>
                 </tr>
               </thead>
@@ -84,7 +84,7 @@
             class="bg-primary text-white px-6 py-3 rounded-xl font-semibold hover:bg-red-600 transition-colors shadow-lg flex items-center gap-2"
             @click="isExpanded = true"
           >
-            <span>{{ t('academicPrograms.showAll') }}</span>
+            <span>{{ t(ns('showAll')) }}</span>
             <Icon name="ph:caret-down" class="text-lg" />
           </button>
         </div>
@@ -95,7 +95,7 @@
             class="text-primary font-semibold hover:text-red-600 transition-colors flex items-center gap-2"
             @click="isExpanded = false"
           >
-            <span>{{ t('academicPrograms.collapse') }}</span>
+            <span>{{ t(ns('collapse')) }}</span>
             <Icon name="ph:caret-up" class="text-lg" />
           </button>
         </div>
@@ -109,18 +109,21 @@
           <Icon name="ph:graduation-cap" class="text-gray-400 text-2xl" />
         </div>
         <h3 class="text-card-title mb-2">
-          {{ t('academicPrograms.emptyState.title') }}
+          {{ t(ns('emptyState.title')) }}
         </h3>
-        <p class="text-gray-600">{{ t('academicPrograms.emptyState.description') }}</p>
+        <p class="text-gray-600">{{ t(ns('emptyState.description')) }}</p>
       </div>
     </div>
   </section>
 </template>
 
 <script setup lang="ts">
-import type { UniversityProgram } from '~~/server/types/api/universities'
-import { getLanguageBadgeClass } from '~~/lib/universities/constants'
-import { useUniversity } from '~/composables/universities/useUniversity'
+import type { UniversityProgram } from '~~/lib/types'
+import { getLanguageBadgeClass } from '~~/lib/domain/universities/constants'
+import { useUniversity } from '~/composables/useUniversityHelpers'
+import { namespace } from '~~/lib/i18n'
+
+const ns = namespace('academicPrograms')
 
 interface Props {
   programs: UniversityProgram[]
@@ -133,7 +136,10 @@ const { formatDuration, formatPrice } = useUniversity()
 const activeTab = ref<'bachelor' | 'master'>('bachelor')
 const isExpanded = ref(false)
 
-const tabs = [{ key: 'bachelor' as const }, { key: 'master' as const }]
+const tabs = computed(() => [
+  { key: 'bachelor' as const, label: t(ns('tabs.bachelor')) },
+  { key: 'master' as const, label: t(ns('tabs.master')) },
+])
 
 const filteredPrograms = computed(() =>
   props.programs.filter((p) => p.degreeType === activeTab.value),

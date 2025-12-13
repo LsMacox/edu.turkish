@@ -1,4 +1,4 @@
-import { getArticleUrl } from '../../lib/blog/article-type'
+import { getArticleUrl } from '../../lib/domain/blog/article-type'
 
 // Mapping from sitemap filename locale part to DB locale
 const sitemapLocaleMap: Record<string, string> = {

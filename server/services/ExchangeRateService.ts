@@ -1,5 +1,5 @@
-import type { SupportedCurrency } from '~~/lib/currency'
-import { FALLBACK_RATES } from '~~/server/schemas/exchange-rates'
+import type { SupportedCurrency } from '~~/lib/config/currency'
+import { FALLBACK_RATES } from '~~/lib/schemas/exchange-rates'
 
 interface ExchangeRateApiResponse {
   base: string

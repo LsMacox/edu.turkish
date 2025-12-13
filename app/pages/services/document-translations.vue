@@ -2,19 +2,19 @@
   <div class="container pt-6 md:pt-8 pb-8 md:pb-12">
     <!-- Hero Section -->
     <BaseSectionHeader
-      :title="t('services.document-translations.title')"
-      :subtitle="t('services.document-translations.subtitle')"
+      :title="t(svc('title'))"
+      :subtitle="t(svc('subtitle'))"
       title-tag="h1"
     >
       <template #action>
         <div class="flex flex-wrap justify-center gap-4 text-body-sm">
           <span class="flex items-center gap-1.5">
             <Icon name="mdi:shield-check" class="text-green-500" />
-            {{ t('services.common.trustIndicators.workingSince') }}
+            {{ t(commonNs('workingSince')) }}
           </span>
           <span class="flex items-center gap-1.5">
             <Icon name="mdi:file-document-check" class="text-primary" />
-            {{ t('services.common.trustIndicators.documentsCount') }}
+            {{ t(commonNs('documentsCount')) }}
           </span>
         </div>
       </template>
@@ -22,64 +22,14 @@
 
     <!-- Calculator Card -->
     <section class="max-w-lg mx-auto mb-12">
-      <div class="bg-white rounded-2xl shadow-lg border border-gray-100 p-6">
-        <h2 class="text-lg font-semibold text-secondary mb-4 text-center">
-          {{ t('services.document-translations.calculator.title') }}
-        </h2>
-
-        <div class="space-y-4">
-          <div>
-            <label class="block text-sm font-medium text-gray-700 mb-1.5">
-              {{ t('services.document-translations.calculator.documentTypeLabel') }}
-            </label>
-            <BaseSelect v-model="selectedDocType">
-              <option v-for="(dt, i) in calculatorDocumentTypes" :key="i" :value="String(i)">
-                {{ dt.name }}
-              </option>
-            </BaseSelect>
-          </div>
-
-          <div>
-            <label class="block text-sm font-medium text-gray-700 mb-1.5">
-              {{ t('services.document-translations.calculator.languagePairLabel') }}
-            </label>
-            <BaseSelect v-model="selectedLang">
-              <option v-for="(lang, i) in calculatorLanguagePairs" :key="i" :value="String(i)">
-                {{ lang }}
-              </option>
-            </BaseSelect>
-          </div>
-
-          <div>
-            <label class="block text-sm font-medium text-gray-700 mb-1.5">
-              {{ t('services.document-translations.calculator.urgencyLabel') }}
-            </label>
-            <BaseSelect v-model="selectedUrg">
-              <option v-for="(urg, i) in calculatorUrgency" :key="i" :value="String(i)">
-                {{ urg.name }}
-              </option>
-            </BaseSelect>
-          </div>
-
-          <!-- Price display -->
-          <div v-if="displayPrice" class="pt-2 pb-1 text-center">
-            <div class="text-sm text-gray-500 mb-1">
-              {{ t('services.document-translations.calculator.estimatedPrice') }}
-            </div>
-            <div class="text-2xl font-bold text-primary">
-              {{ displayPrice }}
-            </div>
-          </div>
-
-          <button
-            type="button"
-            class="w-full py-3 bg-primary text-white font-semibold rounded-xl hover:bg-primary-600 transition-colors"
-            @click="handleCalculatorSubmit"
-          >
-            {{ t('services.document-translations.calculator.submitButton') }}
-          </button>
-        </div>
-      </div>
+      <ServicesTranslationsCalculatorSection
+        :title="t(calcNs('title'))"
+        :labels="calculatorLabels"
+        :document-types-with-prices="calculatorDocumentTypes"
+        :language-pairs="calculatorLanguagePairs"
+        :urgency-options="calculatorUrgency"
+        @submit="handleCalculatorSubmit"
+      />
     </section>
 
     <!-- How it works - compact -->
@@ -92,94 +42,114 @@
 
 <script setup lang="ts">
 import { useExchangeRatesStore } from '~/stores/exchangeRates'
-import { useServiceHead } from '~/composables/services/useServiceHead'
+import { useServiceHead } from '~/composables/useServiceHead'
+import { namespace } from '~~/lib/i18n'
+import type { CalculatorSubmitEvent } from '~/types/features/services'
 
-const { t, getListObjects } = useI18nHelpers()
+const svc = namespace('services.document-translations')
+const calcNs = namespace('services.document-translations.calculator')
+const calcDataNs = namespace('services.document-translations.calculatorData')
+const howNs = namespace('services.document-translations.howItWorks.steps')
+const whyNs = namespace('services.document-translations.whyChooseUs.factors')
+const commonNs = namespace('services.common.trustIndicators')
+const { t } = useI18nHelpers()
 const modal = useApplicationModal()
 const exchangeRatesStore = useExchangeRatesStore()
-const { currencyRef } = useCurrency()
 
 onMounted(() => exchangeRatesStore.ensureFresh())
 
-// Calculator state
-const selectedDocType = ref('0')
-const selectedLang = ref('0')
-const selectedUrg = ref('0')
-
-// Calculator data - prices are static, names are translated
-const documentTypePrices = [20, 30, 45, 40, 25, null] as const
-const calculatorDocumentTypes = computed(() =>
-  documentTypePrices.map((priceUsd, idx) => ({
-    name: t(`services.document-translations.calculatorData.documentTypes[${idx}].name`),
-    priceUsd,
-  })),
-)
-
-const calculatorLanguagePairs = computed(() => [
-  t('services.document-translations.calculatorData.languagePairs[0]'),
-  t('services.document-translations.calculatorData.languagePairs[1]'),
+const calculatorDocumentTypes = computed(() => [
+  { name: t(calcDataNs('documentTypes.passport.name')), priceUsd: 20 },
+  { name: t(calcDataNs('documentTypes.highSchool.name')), priceUsd: 30 },
+  { name: t(calcDataNs('documentTypes.diploma.name')), priceUsd: 45 },
+  { name: t(calcDataNs('documentTypes.powerOfAttorney.name')), priceUsd: 40 },
+  { name: t(calcDataNs('documentTypes.financial.name')), priceUsd: 25 },
+  { name: t(calcDataNs('documentTypes.other.name')), priceUsd: null },
 ])
 
-const urgencySurcharges = [0, 10] as const
-const calculatorUrgency = computed(() =>
-  urgencySurcharges.map((surcharge, idx) => ({
-    name: t(`services.document-translations.calculatorData.urgency[${idx}].name`),
-    surcharge,
-  })),
-)
+const calculatorLanguagePairs = computed(() => [
+  t(calcDataNs('languagePairs.ru_tr')),
+  t(calcDataNs('languagePairs.tr_ru')),
+])
 
-// Price calculation
-const priceUsd = computed<number | null>(() => {
-  const doc = calculatorDocumentTypes.value[Number(selectedDocType.value)]
-  const urg = calculatorUrgency.value[Number(selectedUrg.value)]
-  if (!doc || !urg || doc.priceUsd === null) return null
-  return doc.priceUsd + urg.surcharge
-})
+const calculatorUrgency = computed(() => [
+  { name: t(calcDataNs('urgency.standard.name')), surcharge: 0 },
+  { name: t(calcDataNs('urgency.rush.name')), surcharge: 10 },
+])
 
-const displayPrice = computed(() => {
-  if (priceUsd.value === null) {
-    return t('services.document-translations.calculator.byRequest')
-  }
-  const converted = exchangeRatesStore.convertPrice(priceUsd.value, currencyRef.value)
-  if (converted === null) return `$${priceUsd.value}`
-  const fromPrefix = t('common.from')
-  return `${fromPrefix} ${Math.round(converted)} ${t(`currency.selector.${currencyRef.value}`)}`
-})
+const calculatorLabels = computed(() => ({
+  documentTypeLabel: t(calcNs('documentTypeLabel')),
+  languagePairLabel: t(calcNs('languagePairLabel')),
+  urgencyLabel: t(calcNs('urgencyLabel')),
+  estimatedPrice: t(calcNs('estimatedPrice')),
+  submitButton: t(calcNs('submitButton')),
+  byRequest: t(calcNs('byRequest')),
+}))
 
-const howItWorksSteps = computed(() =>
-  getListObjects<{ title: string; description: string; icon: string }>(
-    'services.document-translations.howItWorks.steps',
-    ['title', 'description', 'icon'],
-  ),
-)
-
-const whyChooseUsFactors = computed(() =>
-  getListObjects<{ title: string; description: string; icon: string }>(
-    'services.document-translations.whyChooseUs.factors',
-    ['title', 'description', 'icon'],
-  ),
-)
-
-const handleCalculatorSubmit = () => {
-  const doc = calculatorDocumentTypes.value[Number(selectedDocType.value)]
-  const urg = calculatorUrgency.value[Number(selectedUrg.value)]
-  const serviceName = `${doc?.name} + ${urg?.name}`
-  const priceDisplay = priceUsd.value === null ? 'by_request' : displayPrice.value
+const handleCalculatorSubmit = (e: CalculatorSubmitEvent) => {
+  const serviceName = `${e.selectedDocumentType.name} + ${e.selectedUrgency.name}`
 
   modal.openModal({
     source: 'service_page',
     description: serviceName,
-    serviceContext: {
-      subServiceName: serviceName,
-      source: 'service_page',
-      sourceDescription: `${t('services.document-translations.title')}: ${doc?.name}`,
-      price: priceDisplay,
-    },
   })
 }
 
+const howItWorksSteps = computed(() => [
+  {
+    title: t(howNs('upload.title')),
+    description: t(howNs('upload.description')),
+    icon: t(howNs('upload.icon')),
+  },
+  {
+    title: t(howNs('clarify.title')),
+    description: t(howNs('clarify.description')),
+    icon: t(howNs('clarify.icon')),
+  },
+  {
+    title: t(howNs('translate.title')),
+    description: t(howNs('translate.description')),
+    icon: t(howNs('translate.icon')),
+  },
+  {
+    title: t(howNs('receive.title')),
+    description: t(howNs('receive.description')),
+    icon: t(howNs('receive.icon')),
+  },
+])
+
+const whyChooseUsFactors = computed(() => [
+  {
+    title: t(whyNs('accredited.title')),
+    description: t(whyNs('accredited.description')),
+    icon: t(whyNs('accredited.icon')),
+  },
+  {
+    title: t(whyNs('accepted.title')),
+    description: t(whyNs('accepted.description')),
+    icon: t(whyNs('accepted.icon')),
+  },
+  {
+    title: t(whyNs('online.title')),
+    description: t(whyNs('online.description')),
+    icon: t(whyNs('online.icon')),
+  },
+  {
+    title: t(whyNs('verification.title')),
+    description: t(whyNs('verification.description')),
+    icon: t(whyNs('verification.icon')),
+  },
+  {
+    title: t(whyNs('rush.title')),
+    description: t(whyNs('rush.description')),
+    icon: t(whyNs('rush.icon')),
+  },
+])
+
+
+
 useServiceHead({
-  title: () => t('services.document-translations.title'),
-  description: () => t('services.document-translations.subtitle'),
+  title: () => t(svc('title')),
+  description: () => t(svc('subtitle')),
 })
 </script>

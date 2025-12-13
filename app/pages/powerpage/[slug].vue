@@ -3,7 +3,7 @@
     <section v-if="pending" class="py-20">
       <div class="container mx-auto px-4 lg:px-6">
         <div class="rounded-3xl bg-white p-10 text-center shadow-custom">
-          <p class="text-lg font-semibold text-secondary">{{ t('article.loading') }}</p>
+          <p class="text-lg font-semibold text-secondary">{{ t(articleNs('loading')) }}</p>
         </div>
       </div>
     </section>
@@ -16,7 +16,7 @@
             :to="localePath('/')"
             class="inline-flex items-center gap-2 rounded-full bg-secondary px-6 py-3 text-sm font-semibold text-white shadow-lg transition hover:bg-secondary/90"
           >
-            {{ t('common.backHome') }}
+            {{ t(key('back_to_home')) }}
             <Icon name="mdi:arrow-right" class="text-lg" />
           </NuxtLink>
         </div>
@@ -30,7 +30,11 @@
 </template>
 
 <script setup lang="ts">
-import type { BlogArticleDetail } from '~~/server/types/api'
+import type { BlogArticleDetail } from '~~/lib/types'
+import { namespace, key } from '~~/lib/i18n'
+
+const articleNs = namespace('blog.article')
+const blogNs = namespace('blog')
 
 definePageMeta({ layout: 'default' })
 
@@ -72,9 +76,9 @@ const {
   { watch: [slug, locale] },
 )
 
-const seoTitle = computed(() => article.value?.title ?? t('blog.meta.title'))
+const seoTitle = computed(() => article.value?.title ?? t(blogNs('meta.title')))
 const seoDescription = computed(
-  () => article.value?.seoDescription ?? article.value?.excerpt ?? t('blog.meta.description'),
+  () => article.value?.seoDescription ?? article.value?.excerpt ?? t(blogNs('meta.description')),
 )
 
 useSeoMeta({
@@ -90,9 +94,9 @@ useSeoMeta({
 const errorMessage = computed(() => {
   if (error.value) {
     const status = (error.value as any).statusCode ?? (error.value as any).status
-    return status === 404 ? t('article.notFound') : t('article.error')
+    return status === 404 ? t(articleNs('notFound')) : t(articleNs('error'))
   }
-  return !pending.value && !article.value ? t('article.notFound') : ''
+  return !pending.value && !article.value ? t(articleNs('notFound')) : ''
 })
 </script>
 

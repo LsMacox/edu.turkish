@@ -7,7 +7,7 @@ Environment:
   - OPENROUTER_API_KEY must be set for writes (otherwise use --dry-run)
 */
 
-import { prisma } from '../lib/prisma'
+import { prisma } from '../lib/infrastructure/prisma'
 
 type EntityType =
   | 'universities'
@@ -951,7 +951,7 @@ async function main() {
         break
     }
   } finally {
-    await prisma.$disconnect().catch(() => {})
+    await prisma.$disconnect().catch(() => { })
   }
 }
 

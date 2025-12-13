@@ -4,7 +4,7 @@ import type {
   TelegramSendMessageRequest,
   TelegramAPIResponse,
   TelegramMessage,
-} from '~~/server/types/telegram'
+} from '~~/lib/types/server'
 
 /**
  * Telegram Notification Service

@@ -1,15 +1,12 @@
-import type { LeadData } from '~~/server/types/crm'
-import type { ApplicationRequest } from '~~/server/types/api'
+import type { LeadData } from '~~/lib/types/server'
+import type { ApplicationRequest } from '~~/lib/types'
 
-export interface LeadDataContext {
+interface LeadDataContext {
   body: ApplicationRequest
   fingerprintCookie?: string
   fingerprintKey?: string
 }
 
-/**
- * Map application request to CRM LeadData format.
- */
 export function mapApplicationToLeadData(ctx: LeadDataContext): LeadData {
   const { body, fingerprintCookie, fingerprintKey } = ctx
 

@@ -4,8 +4,8 @@
       <!-- Gallery Carousel -->
       <template v-if="galleryItems.length">
         <BaseSectionHeader
-          :title="t('universityDetail.campusLife.title')"
-          :subtitle="t('universityDetail.campusLife.subtitle')"
+          :title="t(ns('title'))"
+          :subtitle="t(ns('subtitle'))"
           align="center"
           margin-bottom="lg"
         />
@@ -90,7 +90,7 @@
       <!-- Facilities Grid -->
       <div v-if="realFacilities.length" :class="{ 'mt-16': galleryItems.length }">
         <h3 class="text-2xl font-bold text-secondary text-center mb-8">
-          {{ t('universityDetail.campusLife.infrastructure') }}
+          {{ t(ns('infrastructure')) }}
         </h3>
         <div class="grid grid-cols-2 md:grid-cols-2 lg:grid-cols-3 gap-3 md:gap-6">
           <div
@@ -118,8 +118,11 @@
 </template>
 
 <script setup lang="ts">
-import type { UniversityDetail, UniversityCampusFacility } from '~~/server/types/api/universities'
-import { getFacilityStyleWithIcon } from '~~/lib/universities/constants'
+import type { UniversityDetail, UniversityCampusFacility } from '~~/lib/types'
+import { getFacilityStyleWithIcon } from '~~/lib/domain/universities/constants'
+import { namespace } from '~~/lib/i18n'
+
+const ns = namespace('universities.detail.campusLife')
 
 interface Props {
   university?: UniversityDetail

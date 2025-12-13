@@ -1,6 +1,6 @@
 import { Queue } from 'bullmq'
-import type { LeadData } from '~~/server/types/crm'
-import { createRedisClient } from '~~/server/utils/redis'
+import type { LeadData } from '~~/lib/types/server'
+import { createRedisClient } from './redis'
 
 interface QueuedJob {
   id: string

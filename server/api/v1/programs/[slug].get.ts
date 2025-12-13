@@ -1,5 +1,5 @@
 import { getBlogRepository } from '~~/server/repositories'
-import type { ProgramDetailResponse } from '~~/server/types/api'
+import type { ProgramDetailResponse } from '~~/lib/types'
 
 export default defineEventHandler(async (event): Promise<ProgramDetailResponse> => {
   const locale = event.context.locale || 'ru'

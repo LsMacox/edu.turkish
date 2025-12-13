@@ -7,7 +7,7 @@
           <template #fallback>–</template>
         </ClientOnly>
       </div>
-      <p class="text-xs text-gray-600">{{ t('universities_page.hero.stats.universities') }}</p>
+      <p class="text-xs text-gray-600">{{ t(ns('universities')) }}</p>
     </div>
 
     <div class="bg-white/80 backdrop-blur-sm rounded-xl border border-gray-100 p-3 text-center">
@@ -17,7 +17,7 @@
           <template #fallback>–</template>
         </ClientOnly>
       </div>
-      <p class="text-xs text-gray-600">{{ t('universities_page.hero.stats.cities') }}</p>
+      <p class="text-xs text-gray-600">{{ t(ns('cities')) }}</p>
     </div>
 
     <div class="bg-white/80 backdrop-blur-sm rounded-xl border border-gray-100 p-3 text-center">
@@ -27,13 +27,16 @@
           <template #fallback>–</template>
         </ClientOnly>
       </div>
-      <p class="text-xs text-gray-600">{{ t('universities_page.hero.stats.programs') }}</p>
+      <p class="text-xs text-gray-600">{{ t(ns('programs')) }}</p>
     </div>
   </div>
 </template>
 
 <script setup lang="ts">
 import { useStatisticsStore } from '~/stores/statistics'
+import { namespace } from '~~/lib/i18n'
+
+const ns = namespace('universities.list.hero.stats')
 
 const { t } = useI18n()
 const statisticsStore = useStatisticsStore()

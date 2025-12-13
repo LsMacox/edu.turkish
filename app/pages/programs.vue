@@ -8,11 +8,11 @@
       <div class="relative container mx-auto container-padding-narrow pt-6 md:pt-8 pb-4">
         <div class="text-center max-w-2xl mx-auto mb-6">
           <h1 class="text-section-title mb-2">
-            {{ t('programs.hero.title') }}
-            <span class="text-primary">{{ t('programs.hero.titleAccent') }}</span>
+            {{ t(heroNs('title')) }}
+            <span class="text-primary">{{ t(heroNs('titleAccent')) }}</span>
           </h1>
           <p class="text-section-subtitle">
-            {{ t('programs.hero.description') }}
+            {{ t(heroNs('description')) }}
           </p>
         </div>
 
@@ -20,15 +20,15 @@
         <div class="grid grid-cols-3 gap-3 md:gap-4 max-w-xl mx-auto">
           <div class="bg-white/80 backdrop-blur-sm rounded-xl border border-gray-100 p-3 text-center">
             <div class="text-xl md:text-2xl font-bold text-primary">{{ totalPrograms }}+</div>
-            <p class="text-xs text-gray-600">{{ t('programs.hero.stats.programs') }}</p>
+            <p class="text-xs text-gray-600">{{ t(heroNs('stats.programs')) }}</p>
           </div>
           <div class="bg-white/80 backdrop-blur-sm rounded-xl border border-gray-100 p-3 text-center">
             <div class="text-xl md:text-2xl font-bold text-primary">{{ categories.length }}</div>
-            <p class="text-xs text-gray-600">{{ t('programs.hero.stats.categories') }}</p>
+            <p class="text-xs text-gray-600">{{ t(heroNs('stats.categories')) }}</p>
           </div>
           <div class="bg-white/80 backdrop-blur-sm rounded-xl border border-gray-100 p-3 text-center">
             <div class="text-xl md:text-2xl font-bold text-primary">100%</div>
-            <p class="text-xs text-gray-600">{{ t('programs.hero.stats.support') }}</p>
+            <p class="text-xs text-gray-600">{{ t(heroNs('stats.support')) }}</p>
           </div>
         </div>
       </div>
@@ -43,7 +43,7 @@
             <div class="absolute inset-0 rounded-full border-4 border-gray-200" />
             <div class="absolute inset-0 rounded-full border-4 border-primary border-t-transparent animate-spin" />
           </div>
-          <p class="text-gray-500">{{ t('programs.loading') }}</p>
+          <p class="text-gray-500">{{ t(programsNs('loading')) }}</p>
         </div>
 
         <!-- Error State -->
@@ -51,13 +51,13 @@
           <div class="w-20 h-20 mx-auto mb-6 rounded-full bg-red-100 flex items-center justify-center">
             <Icon name="mdi:alert-circle-outline" class="text-4xl text-red-500" />
           </div>
-          <h3 class="text-xl font-semibold text-secondary mb-2">{{ t('programs.errorTitle') }}</h3>
-          <p class="text-gray-500 mb-6">{{ t('programs.error') }}</p>
+          <h3 class="text-xl font-semibold text-secondary mb-2">{{ t(programsNs('errorTitle')) }}</h3>
+          <p class="text-gray-500 mb-6">{{ t(programsNs('error')) }}</p>
           <button 
             class="px-6 py-3 bg-primary text-white rounded-xl font-medium hover:bg-primary/90 transition-colors"
             @click="() => refresh()"
           >
-            {{ t('programs.retry') }}
+            {{ t(programsNs('retry')) }}
           </button>
         </div>
 
@@ -66,8 +66,8 @@
           <div class="w-20 h-20 mx-auto mb-6 rounded-full bg-gray-100 flex items-center justify-center">
             <Icon name="mdi:folder-open-outline" class="text-4xl text-gray-400" />
           </div>
-          <h3 class="text-xl font-semibold text-secondary mb-2">{{ t('programs.emptyTitle') }}</h3>
-          <p class="text-gray-500">{{ t('programs.empty') }}</p>
+          <h3 class="text-xl font-semibold text-secondary mb-2">{{ t(programsNs('emptyTitle')) }}</h3>
+          <p class="text-gray-500">{{ t(programsNs('empty')) }}</p>
         </div>
 
         <!-- Programs Content -->
@@ -108,7 +108,7 @@
               {{ activeCategoryData?.label }}
             </h2>
             <p class="text-section-subtitle max-w-2xl mx-auto">
-              {{ t('programs.categorySubtitle', { count: activeCategoryData?.programs.length }) }}
+              {{ t(programsNs('categorySubtitle'), { count: activeCategoryData?.programs.length }) }}
             </p>
           </div>
 
@@ -160,7 +160,7 @@
                   {{ program.title }}
                 </h3>
                 <div class="flex items-center justify-between">
-                  <span class="text-sm text-gray-500">{{ t('programs.learnMore') }}</span>
+                  <span class="text-sm text-gray-500">{{ t(programsNs('learnMore')) }}</span>
                   <Icon 
                     name="mdi:chevron-right" 
                     class="text-gray-400 group-hover:text-primary group-hover:translate-x-1 transition-all" 
@@ -178,10 +178,10 @@
       <div class="container mx-auto container-padding-narrow text-center">
         <div class="max-w-2xl mx-auto">
           <h2 class="text-2xl md:text-3xl font-bold text-white mb-4">
-            {{ t('programs.cta.title') }}
+            {{ t(ctaNs('title')) }}
           </h2>
           <p class="text-gray-300 mb-8">
-            {{ t('programs.cta.description') }}
+            {{ t(ctaNs('description')) }}
           </p>
           <div class="flex flex-col sm:flex-row gap-4 justify-center">
             <NuxtLink
@@ -189,14 +189,14 @@
               class="inline-flex items-center justify-center gap-2 px-8 py-4 bg-primary text-white rounded-xl font-semibold hover:bg-primary/90 transition-all shadow-lg shadow-primary/25 hover:shadow-xl hover:shadow-primary/30"
             >
               <Icon name="mdi:school" class="text-xl" />
-              {{ t('programs.cta.universities') }}
+              {{ t(ctaNs('universities')) }}
             </NuxtLink>
             <NuxtLink
               :to="localePath('/')"
               class="inline-flex items-center justify-center gap-2 px-8 py-4 bg-white/10 text-white rounded-xl font-semibold hover:bg-white/20 transition-all backdrop-blur-sm"
             >
               <Icon name="mdi:message-text" class="text-xl" />
-              {{ t('programs.cta.contact') }}
+              {{ t(ctaNs('contact')) }}
             </NuxtLink>
           </div>
         </div>
@@ -206,22 +206,27 @@
 </template>
 
 <script setup lang="ts">
-import type { ProgramsResponse, ProgramCategoryWithItems } from '~~/server/types/api'
+import type { ProgramsResponse, ProgramCategoryWithItems } from '~~/lib/types'
+import { namespace } from '~~/lib/i18n'
 
 definePageMeta({
   layout: 'default',
   name: 'ProgramsPage',
 })
 
+const programsNs = namespace('programs')
+const heroNs = namespace('programs.hero')
+const ctaNs = namespace('programs.cta')
+const metaNs = namespace('programs.meta')
 const { t, locale } = useI18n()
 const localePath = useLocalePath()
 
 useHead(() => ({
-  title: t('programs.meta.title'),
+  title: t(metaNs('title')),
   meta: [
-    { name: 'description', content: t('programs.meta.description') },
-    { property: 'og:title', content: t('programs.meta.title') },
-    { property: 'og:description', content: t('programs.meta.description') },
+    { name: 'description', content: t(metaNs('description')) },
+    { property: 'og:title', content: t(metaNs('title')) },
+    { property: 'og:description', content: t(metaNs('description')) },
     { property: 'og:type', content: 'website' },
   ],
 }))

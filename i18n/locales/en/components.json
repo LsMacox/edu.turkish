@@ -1,0 +1,66 @@
+{
+  "modal": {
+    "exit_intent_title": "Wait! Don't leave without getting your admission plan.",
+    "consultation_title": "Free consultation",
+    "your_name": "Your name",
+    "required": "*",
+    "phone": "WhatsApp number",
+    "email": "Email",
+    "additional_info": "Additional information",
+    "name_placeholder": "Enter your name",
+    "phone_placeholder": "+1234567890",
+    "email_placeholder": "Enter your email",
+    "message_placeholder": "Tell us about your goals, city preferences, budget...",
+    "preferences_title": "Your preferences:",
+    "preference_labels": {
+      "user_type": "User type:",
+      "university": "University:",
+      "language": "Language of study:",
+      "scholarship": "Scholarship:"
+    },
+    "user_types": {
+      "student": "Student",
+      "parent": "Parent"
+    },
+    "university_chosen": {
+      "yes": "Already chosen",
+      "no": "Need help choosing"
+    },
+    "languages": {
+      "turkish": "Turkish",
+      "english": "English",
+      "both": "Both languages"
+    },
+    "scholarship": {
+      "yes": "Scholarship assistance required",
+      "no": "Ready to pay independently"
+    },
+    "agreement": "I agree to the processing of personal data and receiving information messages",
+    "submit_button": "Get consultation",
+    "submitting": "Submitting...",
+    "success_title": "Application sent",
+    "success_message": "We will contact you within 30 minutes.",
+    "error_title": "Submission error"
+  },
+  "admissionRequirements": {
+    "title": "What do you need for admission?",
+    "subtitle": "Requirements and documents for international students",
+    "requiredDocuments": {
+      "title": "Required Documents"
+    },
+    "examsAndLanguage": {
+      "title": "Exams and language requirements",
+      "goodNews": "Good news!",
+      "goodNewsText": "For most programs YÖS and SAT are not mandatory"
+    },
+    "scholarships": {
+      "title": "Tuition discounts"
+    },
+    "importantDates": {
+      "title": "Important Dates"
+    }
+  },
+  "range": {
+    "to": "to"
+  }
+}

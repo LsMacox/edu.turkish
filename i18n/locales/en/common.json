@@ -16,8 +16,7 @@
     "subtitle": "Choose the appropriate education level",
     "tabs": {
       "bachelor": "Bachelor's",
-      "master": "Master's",
-      "doctorate": "Doctorate"
+      "master": "Master's"
     },
     "table": {
       "programName": "Program Name",
@@ -79,5 +78,69 @@
   "back_to_home": "Back to Home",
   "loading": "Loading...",
   "universityInformation": "University information",
-  "backToUniversities": "Back to universities"
+  "backToUniversities": "Back to universities",
+  "nav": {
+    "services": "Services",
+    "universities": "Universities",
+    "programs": "Programs",
+    "reviews": "Reviews",
+    "blog": "Blog",
+    "about": "About us",
+    "faq": "FAQ",
+    "servicesDropdown": {
+      "relocation": "Relocation in Turkey",
+      "trYosCourses": "TR-YÖS Courses",
+      "satCourses": "SAT Courses",
+      "languageCourse": "Turkish & English Course",
+      "documentTranslations": "Document Translations"
+    }
+  },
+  "errors": {
+    "universityNotFound": "University not found",
+    "universityNotFoundDescription": "Sorry, the requested university was not found.",
+    "required": "This field is required",
+    "min_length": "Minimum {min} characters required",
+    "max_length": "Maximum {max} characters allowed",
+    "invalid_email": "Please enter a valid email address",
+    "invalid_phone": "Please enter a valid phone number (at least 10 digits)",
+    "invalid_format": "Invalid format",
+    "invalid": "Invalid value",
+    "crm_validation_error": "Error: {message}",
+    "server_error": "Server error occurred",
+    "unknown_error": "An unexpected error occurred",
+    "validation_error_title": "Validation Error",
+    "generic_error_title": "Error",
+    "generic_error_message": "An error occurred. Please try again.",
+    "min_value": "Minimum value is {min}",
+    "max_value": "Maximum value is {max}",
+    "invalid_year": "Please enter a valid year (YYYY format)",
+    "fields": {
+      "personal_info": {
+        "first_name": {
+          "required": "Please enter your first name",
+          "min_length": "First name is too short (minimum {min})",
+          "max_length": "First name is too long (maximum {max})"
+        },
+        "phone": {
+          "required": "Please enter your phone number",
+          "invalid_phone": "Please enter a valid phone number"
+        },
+        "email": {
+          "invalid_email": "Please enter a valid email address",
+          "max_length": "Email is too long (maximum {max})"
+        }
+      },
+      "additional_info": {
+        "max_length": "Message is too long (maximum {max} characters)"
+      }
+    }
+  },
+  "currency": {
+    "selector": {
+      "KZT": "Tenge (₸)",
+      "TRY": "Lira (₺)",
+      "RUB": "Ruble (₽)",
+      "USD": "Dollar ($)"
+    }
+  }
 }

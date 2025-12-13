@@ -44,13 +44,14 @@
 </template>
 
 <script setup lang="ts">
-import type { BlogArticleListItem } from '~~/server/types/api'
+import type { BlogArticleListItem } from '~~/lib/types'
+import { key } from '~~/lib/i18n'
 
 const { formatDate, t } = useI18nHelpers()
 const localePath = useLocalePath()
 
 const formatReadingTime = (minutes?: number | null) =>
-  minutes ? t('blog.articles.readingTime', { minutes }) : null
+  minutes ? t(key('blog.articles.readingTime'), { minutes }) : null
 
 defineProps<{
   article: BlogArticleListItem

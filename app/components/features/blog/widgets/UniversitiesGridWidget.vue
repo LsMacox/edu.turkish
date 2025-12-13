@@ -2,10 +2,10 @@
   <div class="my-16">
     <div class="flex items-center justify-between mb-8">
       <h3 class="text-2xl font-bold text-secondary">
-        {{ t('power_page.universities.title') }}
+        {{ t(ns('title')) }}
       </h3>
       <NuxtLink :to="localePath('/universities')" class="text-primary font-medium hover:underline">
-        {{ t('power_page.universities.view_all') }} →
+        {{ t(ns('view_all')) }} →
       </NuxtLink>
     </div>
 
@@ -31,6 +31,9 @@
 </template>
 
 <script setup lang="ts">
+import { namespace } from '~~/lib/i18n'
+
+const ns = namespace('blog.powerPage.universities')
 const { t, locale } = useI18n()
 const localePath = useLocalePath()
 

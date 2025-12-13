@@ -1,7 +1,6 @@
 import { defineStore } from 'pinia'
 import { useCookie } from '#app'
-import type { Currency } from '~/types/currency'
-import { CURRENCY_CODES } from '~/types/currency'
+import { SUPPORTED_CURRENCY as CURRENCY_CODES, type SupportedCurrency as Currency } from '~~/lib/config/currency'
 
 const STORAGE_KEY = 'preferred-currency'
 const DEFAULT_CURRENCY: Currency = 'USD'

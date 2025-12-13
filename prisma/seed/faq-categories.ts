@@ -27,11 +27,25 @@ export async function seedFaqCategories(prisma: PrismaClient) {
 
     if (existingRu) {
       categoryId = existingRu.categoryId
+      // Ensure key is set on existing category
+      await (prisma as any).faqCategory.update({
+        where: { id: categoryId },
+        data: { key: categoryDef.key },
+      })
       console.log(`  ♻️ Reusing FAQ category: ${categoryDef.key} (id: ${categoryId})`)
     } else {
-      const created = await (prisma as any).faqCategory.create({ data: {} })
-      categoryId = created.id
-      console.log(`  ✅ Created FAQ category: ${categoryDef.key} (id: ${categoryId})`)
+      // Try to find by key first (in case category exists but translation doesn't)
+      const existingByKey = await (prisma as any).faqCategory.findUnique({
+        where: { key: categoryDef.key },
+      })
+      if (existingByKey) {
+        categoryId = existingByKey.id
+        console.log(`  ♻️ Reusing FAQ category by key: ${categoryDef.key} (id: ${categoryId})`)
+      } else {
+        const created = await (prisma as any).faqCategory.create({ data: { key: categoryDef.key } })
+        categoryId = created.id
+        console.log(`  ✅ Created FAQ category: ${categoryDef.key} (id: ${categoryId})`)
+      }
     }
 
     // Ensure translations are present and up-to-date (idempotent)

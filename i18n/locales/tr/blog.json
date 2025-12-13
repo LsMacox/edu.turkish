@@ -1,0 +1,108 @@
+{
+  "blog": {
+    "meta": {
+      "title": "Blog ve Sık Sorulan Sorular - Edu.turkish",
+      "description": "Türkiye'de eğitim, vizeler, burslar ve öğrenci yaşamı hakkında güncel yazılar. Edu.turkish uzmanlarından popüler sorulara yanıtlar."
+    },
+    "hero": {
+      "title": "Blog ve",
+      "titleAccent": "sık sorulan sorular",
+      "description": "Türkiye'de başvuru, sınavlar, burslar ve eğitim hakkında önemli sorulara yanıtlar",
+      "searchPlaceholder": "Makale veya yanıt ara...",
+      "imageAlt": "Blog ve SSS",
+      "highlight": {
+        "title": "Uzman tavsiyeleri",
+        "subtitle": "Danışmanlarımızdan"
+      },
+      "stats": {
+        "articles": {
+          "icon": "mdi:file-document-outline",
+          "label": "{count} faydalı makale"
+        },
+        "faqs": {
+          "icon": "mdi:comment-question-outline",
+          "label": "{count} soruya yanıt"
+        }
+      }
+    },
+    "categories": {
+      "all": {
+        "label": "Tümü"
+      }
+    },
+    "articles": {
+      "title": "Son makaleler",
+      "readMore": "Devamını oku →",
+      "empty": "Filtrelerinize uygun makale bulunamadı",
+      "readingTime": "{minutes} dk"
+    },
+    "pros_cons": {
+      "pros": "Artıları",
+      "cons": "Eksileri"
+    },
+    "sidebar": {
+      "popular": {
+        "title": "Popüler makaleler"
+      },
+      "quickLinks": {
+        "title": "Yararlı bağlantılar",
+        "universities": "Üniversite kataloğu",
+        "checklist": "Belge kontrol listesi",
+        "reviews": "Öğrenci yorumları",
+        "consultation": "Uzman danışmanlığı"
+      }
+    },
+    "article": {
+      "loading": "Makale yükleniyor...",
+      "notFound": "Makale bulunamadı",
+      "error": "Makaleyi yükleyemedik. Lütfen sayfayı yenileyin.",
+      "tableOfContents": "İçindekiler",
+      "quickFacts": {
+        "title": "Kısa bilgiler",
+        "category": "Kategori",
+        "published": "Yayın tarihi",
+        "readingTime": "Okuma süresi"
+      },
+      "share": {
+        "title": "Paylaş",
+        "description": "Bu makaleyi arkadaşlarınla paylaş — belki onları Türkiye'de okumaya teşvik eder.",
+        "copyLink": "Bağlantıyı kopyala",
+        "copySuccess": "Bağlantı panoya kopyalandı",
+        "copyError": "Bağlantı kopyalanamadı"
+      },
+      "tags": {
+        "title": "Etiketler"
+      },
+      "related": {
+        "title": "Bunları da oku",
+        "description": "Öğrencilerimizden daha fazla hikâye ve faydalı ipuçları.",
+        "allArticles": "Tüm makaleler"
+      }
+    },
+    "powerPage": {
+      "cta": {
+        "consult": "Free Consultation",
+        "universities": "View Universities",
+        "mobile_label": "Have questions?",
+        "mobile_title": "Get free consultation"
+      },
+      "quickFacts": {
+        "category": "Category",
+        "published": "Published",
+        "readingTime": "Reading time"
+      },
+      "share": {
+        "copySuccess": "Link copied",
+        "copyError": "Copy failed"
+      },
+      "price": {
+        "title": "Tuition Fees",
+        "year": "year"
+      },
+      "universities": {
+        "title": "Recommended Universities",
+        "view_all": "View All"
+      }
+    }
+  }
+}

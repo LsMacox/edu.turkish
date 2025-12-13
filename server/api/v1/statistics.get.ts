@@ -1,5 +1,5 @@
 import { getStatisticsRepository } from '~~/server/repositories'
-import type { ReviewStatistics } from '~~/server/types/api'
+import type { ReviewStatistics } from '~~/lib/types'
 
 export default defineEventHandler(async (_event): Promise<ReviewStatistics> => {
   try {

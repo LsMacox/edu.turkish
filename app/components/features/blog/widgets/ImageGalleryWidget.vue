@@ -50,7 +50,7 @@
 </template>
 
 <script setup lang="ts">
-import type { ImageGalleryData } from '~/types/blog/widgets'
+import type { ImageGalleryData } from '~/types/features/blog/widgets'
 
 defineProps<{
   data: ImageGalleryData

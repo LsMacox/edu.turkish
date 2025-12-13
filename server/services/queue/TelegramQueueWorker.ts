@@ -1,7 +1,7 @@
 import { Worker } from 'bullmq'
 import type { Job } from 'bullmq'
-import type { TelegramNotificationJob } from '~~/server/types/telegram'
-import { createRedisClient } from '~~/server/utils/redis'
+import type { TelegramNotificationJob } from '~~/lib/types/server'
+import { createRedisClient } from './redis'
 import { createTelegramNotificationService } from '~~/server/services/telegram/TelegramNotificationService'
 
 let worker: Worker | null = null

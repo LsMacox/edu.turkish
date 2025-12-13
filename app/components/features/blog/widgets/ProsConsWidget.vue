@@ -20,7 +20,7 @@
         @click="activeTab = 'pros'"
       >
         <Icon name="mdi:check-circle" class="text-lg" />
-        {{ t('blog.pros_cons.pros') }}
+        {{ t(ns('pros')) }}
       </button>
       <button
         :class="[
@@ -32,7 +32,7 @@
         @click="activeTab = 'cons'"
       >
         <Icon name="mdi:alert" class="text-lg" />
-        {{ t('blog.pros_cons.cons') }}
+        {{ t(ns('cons')) }}
       </button>
     </div>
 
@@ -72,7 +72,10 @@
 </template>
 
 <script setup lang="ts">
-import type { ProsConsData } from '~/types/blog/widgets'
+import type { ProsConsData } from '~/types/features/blog/widgets'
+import { namespace } from '~~/lib/i18n'
+
+const ns = namespace('blog.pros_cons')
 
 defineProps<{
   data: ProsConsData

@@ -4,7 +4,7 @@ let categoryIdCounter = 1
 let faqTranslationIdCounter = 1
 let categoryTranslationIdCounter = 1
 
-export interface FAQCategoryFixture {
+export interface FaqCategoryFixture {
   id: number
   createdAt: Date
   updatedAt: Date
@@ -18,7 +18,7 @@ export interface FAQCategoryFixture {
   }>
 }
 
-export interface FAQFixture {
+export interface FaqFixture {
   id: number
   categoryId: number
   featured: boolean
@@ -33,13 +33,13 @@ export interface FAQFixture {
     createdAt: Date
     updatedAt: Date
   }>
-  category?: FAQCategoryFixture
+  category?: FaqCategoryFixture
 }
 
-export function createFAQCategory(overrides?: Partial<FAQCategoryFixture>): FAQCategoryFixture {
+export function createFAQCategory(overrides?: Partial<FaqCategoryFixture>): FaqCategoryFixture {
   const id = overrides?.id ?? categoryIdCounter++
 
-  const defaults: FAQCategoryFixture = {
+  const defaults: FaqCategoryFixture = {
     id,
     createdAt: baseDate,
     updatedAt: baseDate,
@@ -86,11 +86,11 @@ export function createFAQCategory(overrides?: Partial<FAQCategoryFixture>): FAQC
   }
 }
 
-export function createFAQ(overrides?: Partial<FAQFixture>): FAQFixture {
+export function createFAQ(overrides?: Partial<FaqFixture>): FaqFixture {
   const id = overrides?.id ?? faqIdCounter++
   const categoryId = overrides?.categoryId ?? 1
 
-  const defaults: FAQFixture = {
+  const defaults: FaqFixture = {
     id,
     categoryId,
     featured: false,

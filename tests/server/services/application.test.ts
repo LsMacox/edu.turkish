@@ -1,12 +1,12 @@
 import { describe, it, expect, vi, beforeEach, afterEach } from 'vitest'
-import type { ApplicationRequest } from '~~/server/types/api'
+import type { ApplicationRequest } from '~~/lib/types'
 
 // Import after mocks
 import {
   ApplicationService,
   getApplicationService,
 } from '~~/server/services/application/ApplicationService'
-import { prisma } from '~~/lib/prisma'
+import { prisma } from '~~/lib/infrastructure/prisma'
 
 // Use vi.hoisted for variables used in vi.mock factories
 const { mockGetCookie, mockCRMService, mockQueue } = vi.hoisted(() => ({
@@ -34,7 +34,7 @@ mockQueue.clear.mockImplementation(async () => {
   mockQueue._jobs = []
 })
 
-vi.mock('~~/lib/prisma', () => ({
+vi.mock('~~/lib/infrastructure/prisma', () => ({
   prisma: {
     application: {
       create: vi.fn(),
@@ -47,7 +47,7 @@ vi.mock('~~/server/services/queue', () => ({
 }))
 
 vi.mock('~~/server/services/crm/CRMFactory', () => ({
-  CRMFactory: {
+  CrmFactory: {
     createFromEnv: () => mockCRMService,
   },
 }))
@@ -107,7 +107,7 @@ describe('ApplicationService', () => {
       const result = await service.submit(validRequest)
 
       expect(result.id).toBe('1')
-      expect(result.tracking_code).toBe('EDU-TEST-12345678')
+      expect(result.trackingCode).toBe('EDU-TEST-12345678')
       expect(result.status).toBe('submitted')
       expect(result.crm.provider).toBe('espocrm')
       expect(result.crm.leadId).toBe('crm-lead-123')
@@ -124,7 +124,7 @@ describe('ApplicationService', () => {
 
       // Application should still be created
       expect(result.id).toBe('1')
-      expect(result.tracking_code).toBe('EDU-TEST-12345678')
+      expect(result.trackingCode).toBe('EDU-TEST-12345678')
 
       // CRM error should be captured
       expect(result.crm.error).toBe('CRM connection timeout')

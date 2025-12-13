@@ -1,4 +1,4 @@
-import { getTelegramQueue } from '~~/server/utils/telegram-queue'
+import { getTelegramQueue } from '~~/server/services/telegram/queue'
 
 /**
  * Telegram Queue Health Check
@@ -17,20 +17,17 @@ export default defineEventHandler(async (event) => {
   try {
     const queue = getTelegramQueue()
 
-    // Get job counts
     const counts = await queue.getJobCounts('waiting', 'active', 'completed', 'failed', 'delayed')
 
-    // Calculate health status
     const waitingCount = counts.waiting || 0
     const failedCount = counts.failed || 0
     const activeCount = counts.active || 0
 
     const isHealthy =
-      waitingCount < 100 && // Not too many pending
-      failedCount < 10 && // Not too many failures
-      activeCount < 20 // Not stuck processing
+      waitingCount < 100 &&
+      failedCount < 10 && 
+      activeCount < 20 
 
-    // Get recent failed jobs (if any)
     let recentFailures: any[] = []
     if (failedCount > 0) {
       const failedJobs = await queue.getFailed(0, 5)

@@ -1,8 +1,9 @@
 import type { Job } from 'bullmq'
 import { Worker } from 'bullmq'
-import type { LeadData } from '~~/server/types/crm'
-import { CRMFactory } from '~~/server/services/crm/CRMFactory'
-import { parsePositiveInt } from '~~/lib/number'
+import type { LeadData } from '~~/lib/schemas/crm'
+import { CrmFactory } from '~~/server/services/crm/CRMFactory'
+import { parsePositiveInt } from '~~/lib/utils/number'
+import { getRedisClient } from './redis'
 
 interface QueueJobData {
   operation: 'createLead'
@@ -60,7 +61,7 @@ export class CRMQueueWorker {
     console.log(`Processing CRM job: ${job.id} - ${operation} (${provider})`)
 
     try {
-      const crmProvider = CRMFactory.create(provider)
+      const crmProvider = CrmFactory.create(provider)
       const result = await crmProvider.createLead(data)
 
       if (!result.success) {

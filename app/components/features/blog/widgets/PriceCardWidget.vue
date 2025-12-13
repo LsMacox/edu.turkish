@@ -3,12 +3,12 @@
     class="my-8 p-5 md:p-6 bg-gradient-to-br from-green-50 to-emerald-50 border border-green-500/20 rounded-2xl text-center max-w-md mx-auto"
   >
     <h3 class="text-lg font-semibold text-green-800 mb-3">
-      {{ t('power_page.price.title') }}
+      {{ t(ns('title')) }}
     </h3>
     <div class="flex items-end justify-center gap-1 mb-3">
       <span class="text-3xl md:text-4xl font-bold text-green-600"> $2,500 </span>
       <span class="text-base font-medium text-green-700/80 mb-0.5">
-        / {{ t('power_page.price.year') }}
+        / {{ t(ns('year')) }}
       </span>
     </div>
     <p v-if="text" class="text-sm text-green-800/80 leading-relaxed">
@@ -18,6 +18,10 @@
 </template>
 
 <script setup lang="ts">
+import { namespace } from '~~/lib/i18n'
+
+const ns = namespace('blog.powerPage.price')
+
 defineProps<{
   text?: string
 }>()

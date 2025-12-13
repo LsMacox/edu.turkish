@@ -50,7 +50,7 @@
         class="w-24 px-3 py-2 border border-gray-300 rounded-xl text-sm focus:ring-2 focus:ring-primary focus:border-transparent"
         @input="updateMinInput"
       />
-      <div class="flex-1 text-center text-gray-400 text-sm">{{ t('range.to') }}</div>
+      <div class="flex-1 text-center text-gray-400 text-sm">{{ t(key('range.to')) }}</div>
       <input
         :id="maxInputId"
         :name="maxInputId"
@@ -67,6 +67,8 @@
 </template>
 
 <script setup lang="ts">
+import { key } from '~~/lib/i18n'
+
 const props = defineProps<{
   modelValue: [number, number]
   min: number

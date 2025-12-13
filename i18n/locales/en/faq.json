@@ -1,0 +1,29 @@
+{
+  "faq": {
+    "title": "Frequently Asked Questions",
+    "subtitle": "Answers to questions most commonly asked by our students and parents",
+    "searchPlaceholder": "Search questions...",
+    "searching": "Searching",
+    "searchResults": "Found {count} results for '{query}'",
+    "noResults": "No results found for '{query}'",
+    "noResultsTitle": "No results found",
+    "noResultsMessage": "We couldn't find any questions matching '{query}'. Try different keywords or browse categories.",
+    "tryThese": "Try these popular searches",
+    "showAllQuestions": "Show all questions",
+    "startSearching": "Start searching",
+    "startSearchingMessage": "Use the search box above to find answers to your questions or browse by category.",
+    "recentSearches": "Recent searches",
+    "clearHistory": "Clear history",
+    "popularSearches": {
+      "documents": "documents",
+      "scholarships": "scholarships",
+      "exams": "YÖS exam",
+      "language": "Turkish language"
+    },
+    "categories": {
+      "all": {
+        "title": "All Questions"
+      }
+    }
+  }
+}

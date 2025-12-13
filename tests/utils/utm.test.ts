@@ -1,6 +1,6 @@
 import { describe, expect, it } from 'vitest'
 
-import { sanitizeUtm } from '~~/lib/utm'
+import { sanitizeUtm } from '~~/lib/domain/contact/utm'
 
 describe('UTM utilities', () => {
   it('coerces first non-empty string from array values', () => {

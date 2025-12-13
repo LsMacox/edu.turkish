@@ -2,8 +2,8 @@
   <section class="py-16 bg-background">
     <div class="container mx-auto px-4 lg:px-6">
       <BaseSectionHeader
-        :title="t('admissionRequirements.title')"
-        :subtitle="t('admissionRequirements.subtitle')"
+        :title="t(ns('title'))"
+        :subtitle="t(ns('subtitle'))"
         align="center"
         margin-bottom="lg"
       />
@@ -12,7 +12,7 @@
         <!-- Required Documents -->
         <div class="bg-white rounded-2xl shadow-custom p-8">
           <h3 class="text-2xl font-semibold text-secondary mb-6">
-            {{ t('admissionRequirements.requiredDocuments.title') }}
+            {{ t(ns('requiredDocuments.title')) }}
           </h3>
           <div class="space-y-4">
             <div
@@ -41,18 +41,18 @@
         <div class="space-y-8">
           <div class="bg-white rounded-2xl shadow-custom p-8">
             <h3 class="text-2xl font-semibold text-secondary mb-6">
-              {{ t('admissionRequirements.examsAndLanguage.title') }}
+              {{ t(ns('examsAndLanguage.title')) }}
             </h3>
 
             <div class="bg-green-50 border-l-4 border-green-500 p-4 mb-6">
               <div class="flex items-center">
                 <Icon name="ph:info" class="text-green-600 mr-2" />
                 <p class="text-green-800 font-semibold">
-                  {{ t('admissionRequirements.examsAndLanguage.goodNews') }}
+                  {{ t(ns('examsAndLanguage.goodNews')) }}
                 </p>
               </div>
               <p class="text-green-700 mt-1">
-                {{ t('admissionRequirements.examsAndLanguage.goodNewsText') }}
+                {{ t(ns('examsAndLanguage.goodNewsText')) }}
               </p>
             </div>
 
@@ -71,7 +71,7 @@
 
           <div v-if="scholarships.length" class="bg-white rounded-2xl shadow-custom p-8">
             <h3 class="text-card-title mb-4">
-              {{ t('admissionRequirements.scholarships.title') }}
+              {{ t(ns('scholarships.title')) }}
             </h3>
             <div class="space-y-3">
               <div
@@ -91,7 +91,7 @@
           <!-- Important Dates -->
           <div v-if="importantDates.length" class="bg-white rounded-2xl shadow-custom p-8">
             <h3 class="text-card-title mb-4">
-              {{ t('admissionRequirements.importantDates.title') }}
+              {{ t(ns('importantDates.title')) }}
             </h3>
             <div class="space-y-3">
               <div
@@ -116,8 +116,11 @@
 </template>
 
 <script setup lang="ts">
-import type { UniversityDetail } from '~~/server/types/api/universities'
-import { BORDER_COLORS, SCHOLARSHIP_COLOR_SCHEMES } from '~~/lib/universities/constants'
+import type { UniversityDetail } from '~~/lib/types'
+import { BORDER_COLORS, SCHOLARSHIP_COLOR_SCHEMES } from '~~/lib/domain/universities/constants'
+import { namespace, key } from '~~/lib/i18n'
+
+const ns = namespace('admissionRequirements')
 
 interface Props {
   admission?: UniversityDetail['admission']
@@ -160,7 +163,7 @@ const scholarships = computed(() =>
     return {
       key: `scholarship_${i}`,
       name: s.name,
-      discount: `${t('range.to')} ${s.coveragePercentage}%`,
+      discount: `${t(key('range.to'))} ${s.coveragePercentage}%`,
       bgColor: colorScheme.bgColor,
       badgeColor: colorScheme.badgeColor,
     }

@@ -1,0 +1,63 @@
+// Prisma Schema - Location Domain
+// Country and City models with translations
+
+model Country {
+  id          Int                  @id @default(autoincrement())
+  code        String               @unique @db.VarChar(3) // ISO Alpha-3
+  createdAt   DateTime             @default(now()) @map("created_at")
+  updatedAt   DateTime             @updatedAt @map("updated_at")
+
+  // Relations
+  translations CountryTranslation[]
+  cities       City[]
+  universities University[]
+
+  @@map("countries")
+}
+
+model CountryTranslation {
+  id         Int      @id @default(autoincrement())
+  countryId  Int      @map("country_id")
+  locale     String   @db.VarChar(5)
+  name       String   @db.VarChar(100)
+  createdAt  DateTime @default(now()) @map("created_at")
+  updatedAt  DateTime @updatedAt @map("updated_at")
+
+  // Relations
+  country Country @relation(fields: [countryId], references: [id], onDelete: Cascade)
+
+  @@unique([countryId, locale])
+  @@index([locale, name], map: "idx_country_locale_name")
+  @@map("country_translations")
+}
+
+model City {
+  id        Int      @id @default(autoincrement())
+  countryId Int      @map("country_id")
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
+
+  // Relations
+  country      Country           @relation(fields: [countryId], references: [id], onDelete: Cascade)
+  translations CityTranslation[]
+  universities University[]
+
+  @@index([countryId], map: "idx_city_country")
+  @@map("cities")
+}
+
+model CityTranslation {
+  id        Int      @id @default(autoincrement())
+  cityId    Int      @map("city_id")
+  locale    String   @db.VarChar(5)
+  name      String   @db.VarChar(100)
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
+
+  // Relations
+  city City @relation(fields: [cityId], references: [id], onDelete: Cascade)
+
+  @@unique([cityId, locale])
+  @@index([locale, name], map: "idx_city_locale_name")
+  @@map("city_translations")
+}

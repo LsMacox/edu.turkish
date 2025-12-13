@@ -1,5 +1,5 @@
 import { getBlogRepository } from '~~/server/repositories'
-import type { ProgramsResponse } from '~~/server/types/api'
+import type { ProgramsResponse } from '~~/lib/types'
 
 export default defineEventHandler(async (event): Promise<ProgramsResponse> => {
   const query = getQuery(event)

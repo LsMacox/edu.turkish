@@ -41,7 +41,7 @@
           <button
             v-if="modelValue"
             class="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400 hover:text-gray-600 transition-colors p-1"
-            :aria-label="t('common.clear')"
+            :aria-label="t(key('common.clear'))"
             @click="$emit('update:modelValue', '')"
           >
             <Icon name="mdi:close" class="w-4 h-4" />
@@ -56,6 +56,8 @@
 </template>
 
 <script setup lang="ts">
+import { key } from '~~/lib/i18n'
+
 defineProps<{
   hero: {
     title: string

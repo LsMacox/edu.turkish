@@ -1,0 +1,185 @@
+{
+  "universities": {
+    "list": {
+      "hero": {
+        "title": "Üniversiteler Kataloğu",
+        "subtitle": "Filtrelerle hayalinizdeki üniversiteyi bulun veya detaylar için herhangi bir kartı açın",
+        "stats": {
+          "universities": "Üniversite",
+          "cities": "Şehir",
+          "programs": "Program"
+        }
+      },
+      "filters": {
+        "search_label": "İsime göre ara",
+        "search_placeholder": "Üniversite adını girin...",
+        "city_label": "Şehir",
+        "all_cities": "Tüm şehirler",
+        "language_label": "Eğitim dili",
+        "type_label": "Tür",
+        "all_types": "Tüm türler",
+        "level_label": "Seviye",
+        "all_levels": "Tüm seviyeler",
+        "price_label": "Yıllık ücret (USD)",
+        "reset_button": "Sıfırla",
+        "apply_button": "Ara",
+        "more_filters": "Daha fazla filtre",
+        "hide_filters": "Gizle",
+        "languages": {
+          "en": "İngilizce",
+          "tr": "Türkçe",
+          "ru": "Rusça"
+        },
+        "types": {
+          "state": "Devlet",
+          "private": "Özel",
+          "tech": "Teknik",
+          "elite": "Elit"
+        },
+        "levels": {
+          "bachelor": "Lisans",
+          "master": "Yüksek Lisans",
+          "doctorate": "Doktora"
+        },
+        "cities": {
+          "istanbul": "İstanbul",
+          "ankara": "Ankara",
+          "izmir": "İzmir"
+        }
+      },
+      "sort": {
+        "showing_text": "Gösterilen",
+        "of_text": "toplam",
+        "universities_text": "üniversite",
+        "sort_label": "Sıralama:",
+        "options": {
+          "popularity": "Popülerliğe göre",
+          "price_asc": "Fiyata göre (artan)",
+          "price_desc": "Fiyata göre (azalan)",
+          "alphabetical": "Alfabetik",
+          "english_first": "Önce İngilizce"
+        }
+      },
+      "card": {
+        "details_button": "Detaylar",
+        "application_description": "Üniversite kartından başvuru:",
+        "year": "yıl",
+        "price_on_request": "Fiyat talep üzerine",
+        "badges": {
+          "scholarships": "Burslar",
+          "technical": "Teknik"
+        }
+      },
+      "load_more": "Daha fazla göster",
+      "how_to_choose": {
+        "title": "Üniversite nasıl seçilir?",
+        "subtitle": "Doğru üniversite seçimi için bilgi rehberi",
+        "tips": {
+          "location": {
+            "title": "Şehir ve maliyeti kontrol edin",
+            "description": "Yaşam giderlerini, iklimi ve evden uzaklığı göz önünde bulundurun"
+          },
+          "language": {
+            "title": "Eğitim diline dikkat edin",
+            "description": "Türkçe daha ucuz, İngilizce daha fazla fırsat sunar"
+          },
+          "dormitory": {
+            "title": "Yurt imkanlarını araştırın",
+            "description": "Devlet yurtları daha ucuz, özel yurtlar daha konforlu"
+          },
+          "rating": {
+            "title": "Sıralamaları karşılaştırın",
+            "description": "Uluslararası sıralamalar mezuniyet sonrası istihdamı etkiler"
+          }
+        }
+      },
+      "scholarships": {
+        "title": "Burslar ve Hibeler",
+        "subtitle": "Eğitim için finansal destek alma fırsatları",
+        "types": {
+          "government": {
+            "title": "Türkiye Bursları",
+            "badge": "Devlet",
+            "description": "Devlet bursu %100 eğitim ücreti + konaklama sağlar",
+            "benefits": {
+              "full_tuition": "Tam eğitim ücreti karşılama",
+              "monthly_allowance": "Aylık burs",
+              "health_insurance": "Sağlık sigortası"
+            }
+          },
+          "university": {
+            "title": "Üniversite Bursları",
+            "badge": "Üniversite",
+            "description": "Eğitim ücretinde %25'ten %75'e kadar kısmi indirimler",
+            "benefits": {
+              "tuition_discount": "Eğitim ücreti indirimi",
+              "academic_merit": "Akademik başarılar",
+              "sports_achievement": "Sportif başarılar"
+            }
+          }
+        }
+      },
+      "tuitionFrom": "${price}/yıldan itibaren"
+    },
+    "detail": {
+      "applyButton": "Üniversiteye Başvur",
+      "whatsappButton": "WhatsApp ile İletişime Geç",
+      "metaTitleTemplate": "{name} — Uluslararası öğrenciler için Türkiye'de eğitim | 2025 Başvurusu",
+      "keyInformation": {
+        "title": "Anahtar Bilgiler",
+        "subtitle": "Üniversite hakkında bilmeniz gereken her şey",
+        "city": "Şehir",
+        "foundedYear": "Kuruluş Yılı",
+        "cost": "Eğitim Ücreti",
+        "costFrom": "yılda {cost}'dan itibaren",
+        "languages": "Eğitim Dilleri",
+        "students": "Öğrenciler",
+        "accommodation": "Yurt",
+        "ranking": "Sıralama",
+        "internationalStudents": "Uluslararası Öğrenciler"
+      },
+      "accommodationValue": {
+        "has": "Kampüs içinde yurt",
+        "none": "Yurt yok"
+      },
+      "rankingNotSpecified": "Sıralama belirtilmemiş",
+      "internationalCount": "{count}+ öğrenci",
+      "programDuration": {
+        "durationYears": "{count} yıl"
+      },
+      "aboutUniversity": {
+        "title": "Üniversite Hakkında",
+        "history": "Tarih ve Misyon",
+        "campus": "Kampüs Özellikleri",
+        "advantages": "Uluslararası Öğrenciler için Avantajlar"
+      },
+      "campusLife": {
+        "title": "Kampüs Yaşamı",
+        "subtitle": "Çalışma ve dinlenme için modern imkanlar",
+        "infrastructure": "Kampüs Altyapısı"
+      },
+      "faq": {
+        "title": "📌 Türkiye üniversitelerine başvuru hakkındaki sık sorulan sorular",
+        "subtitle": "Türkiye üniversitelerine başvuru hakkındaki en popüler sorulara yanıtlar",
+        "q1": "Başvuru için Türkçe veya İngilizce bilmek gerekiyor mu?",
+        "a1": "✨ Hayır! Dili bilmeseniz bile, üniversite Türkçe, İngilizce veya Arapça hazırlık yılı geçirme imkanı sunacaktır. Rahatça adapte olabilir ve konforlu bir tempoda öğrenebilirsiniz.",
+        "q2": "TR-YÖS veya SAT zorunlu mu?",
+        "a2": "🚀 Hayır, başvuru için lise diplomanız yeterlidir.",
+        "q3": "Öğrenim ücreti ne kadar?",
+        "a3": "🎓 Lisans eğitimi ücreti yılda 2000 $'dan başlamaktadır. Kesin fiyat üniversiteye ve programa bağlıdır.",
+        "q4": "Başvuru için hangi belgeler gerekli?",
+        "a4": "📂 Minimum paket:\n• Türkçeye tercüme edilmiş lise diploması\n• Pasaport\n• Biyometrik fotoğraf",
+        "q5": "Burs veya indirimler var mı?",
+        "a5": "✅ Elbette! Birkaç seçeneğiniz var:\n• Türkiye Bursları — aylık burs ile devlet programı.\n• Akademik indirimler — yüksek GPA için.\n• Spor indirimleri — üniversiteyi yarışmalarda temsil ederseniz.",
+        "q6": "Belgeler ne kadar hızlı incelenir?",
+        "a6": "⏳ Resmi olarak 2 haftaya kadar incelenir. Ancak bizim aracılığımızla sadece birkaç gün içinde davet mektubu alabilirsiniz.",
+        "q7": "Vize gerekiyor mu?",
+        "a7": "🌍\n• Kazakistan, Rusya, Özbekistan ve Kırgızistan vatandaşları için vizesiz günler varsa vize gerekmez.\n• Türkiye Bursları öğrencileri için öğrenci vizesi almak zorunludur.",
+        "q8": "Başvuru süreci nasıl ilerliyor?",
+        "a8": "🔹 Sadece birkaç basit adım:\n1️⃣ Bize belgelerinizi gönderiyorsunuz\n2️⃣ Ön kabul mektubu alıyorsunuz\n3️⃣ Üniversitenin hesabına depozito yatırıyorsunuz\n4️⃣ Kesin kabul mektubunu alıyorsunuz\n5️⃣ Türkiye'ye gelip üniversitede kesin kaydınızı tamamlıyorsunuz",
+        "q9": "Yalnızca başvuru ve üniversitedeki kesin kayıtta mı eşlik ediyorsunuz?",
+        "a9": "✨ Evet, belge sunumundan Türkiye'ye gelişinize kadar her aşamada size eşlik ediyoruz."
+      }
+    }
+  }
+}

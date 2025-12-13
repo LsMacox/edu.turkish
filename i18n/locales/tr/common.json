@@ -16,8 +16,7 @@
     "subtitle": "Uygun eğitim seviyesini seçin",
     "tabs": {
       "bachelor": "Lisans",
-      "master": "Yüksek Lisans",
-      "doctorate": "Doktora"
+      "master": "Yüksek Lisans"
     },
     "table": {
       "programName": "Program Adı",
@@ -31,6 +30,26 @@
     },
     "showAll": "Tümünü göster",
     "collapse": "Daralt"
+  },
+  "footer": {
+    "about_us": "Hakkımızda",
+    "who_we_are": "Biz kimiz",
+    "our_team": "Ekibimiz",
+    "contacts": "İletişim",
+    "universities": "Üniversiteler",
+    "istanbul": "İstanbul",
+    "ankara": "Ankara",
+    "izmir": "İzmir",
+    "antalya": "Antalya",
+    "all_universities": "Tüm üniversiteler",
+    "support": "Destek",
+    "faq": "SSS",
+    "reviews": "Yorumlar",
+    "contract": "Sözleşme",
+    "privacy_policy": "Gizlilik Politikası",
+    "social_networks": "Sosyal medyada bizi takip edin:",
+    "copyright": "© 2025 Edu.turkish. Tüm hakları saklıdır.",
+    "licensed_agency": "Lisanslı eğitim ajansı"
   },
   "applicationCTA": {
     "title": "{universityName} üniversitesine bugün başvurun!",
@@ -56,28 +75,72 @@
       "response_time": "2 saat içinde geri döneceğiz"
     }
   },
-  "footer": {
-    "about_us": "Hakkımızda",
-    "who_we_are": "Biz kimiz",
-    "our_team": "Ekibimiz",
-    "contacts": "İletişim",
-    "universities": "Üniversiteler",
-    "istanbul": "İstanbul",
-    "ankara": "Ankara",
-    "izmir": "İzmir",
-    "antalya": "Antalya",
-    "all_universities": "Tüm üniversiteler",
-    "support": "Destek",
-    "faq": "SSS",
-    "reviews": "Yorumlar",
-    "contract": "Sözleşme",
-    "privacy_policy": "Gizlilik Politikası",
-    "social_networks": "Sosyal medyada bizi takip edin:",
-    "copyright": "© 2025 Edu.turkish. Tüm hakları saklıdır.",
-    "licensed_agency": "Lisanslı eğitim ajansı"
-  },
   "back_to_home": "Ana Sayfaya Dön",
   "loading": "Yükleniyor...",
   "universityInformation": "Üniversite bilgileri",
-  "backToUniversities": "Üniversitelere geri dön"
+  "backToUniversities": "Üniversitelere geri dön",
+  "nav": {
+    "services": "Hizmetler",
+    "universities": "Üniversiteler",
+    "programs": "Programlar",
+    "reviews": "Yorumlar",
+    "blog": "Blog",
+    "about": "Hakkımızda",
+    "faq": "SSS",
+    "servicesDropdown": {
+      "relocation": "Türkiye'de Yerleşim",
+      "trYosCourses": "TR-YÖS Kursları",
+      "satCourses": "SAT Kursları",
+      "languageCourse": "Türkçe ve İngilizce Kursu",
+      "documentTranslations": "Belge Çevirileri"
+    }
+  },
+  "errors": {
+    "universityNotFound": "Üniversite bulunamadı",
+    "universityNotFoundDescription": "Üzgünüz, istenen üniversite bulunamadı.",
+    "required": "Bu alan zorunludur",
+    "min_length": "En az {min} karakter gereklidir",
+    "max_length": "En fazla {max} karakter olabilir",
+    "invalid_email": "Geçerli bir e-posta adresi girin",
+    "invalid_phone": "Geçerli bir telefon numarası girin (en az 10 rakam)",
+    "invalid_format": "Geçersiz format",
+    "invalid": "Geçersiz değer",
+    "crm_validation_error": "Hata: {message}",
+    "server_error": "Sunucu hatası oluştu",
+    "unknown_error": "Beklenmeyen bir hata oluştu",
+    "validation_error_title": "Doğrulama Hatası",
+    "generic_error_title": "Hata",
+    "generic_error_message": "Bir hata oluştu. Lütfen tekrar deneyin.",
+    "min_value": "Minimum değer {min}",
+    "max_value": "Maksimum değer {max}",
+    "invalid_year": "Geçerli bir yıl girin (YYYY formatı)",
+    "fields": {
+      "personal_info": {
+        "first_name": {
+          "required": "Adınızı girin",
+          "min_length": "Ad çok kısa (en az {min})",
+          "max_length": "Ad çok uzun (en fazla {max})"
+        },
+        "phone": {
+          "required": "Telefon numaranızı girin",
+          "invalid_phone": "Geçerli bir telefon numarası girin"
+        },
+        "email": {
+          "invalid_email": "Geçerli bir e-posta adresi girin",
+          "max_length": "E-posta çok uzun (en fazla {max})"
+        }
+      },
+      "additional_info": {
+        "max_length": "Mesaj çok uzun (en fazla {max} karakter)"
+      }
+    }
+  },
+  "currency": {
+    "selector": {
+      "KZT": "Tenge (₸)",
+      "TRY": "Lira (₺)",
+      "RUB": "Ruble (₽)",
+      "USD": "Dolar ($)"
+    }
+  }
 }

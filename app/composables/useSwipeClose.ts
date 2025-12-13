@@ -1,8 +1,3 @@
-/**
- * Composable for handling swipe-to-close gesture
- * @param onClose - callback to execute when swipe threshold is reached
- * @param options - configuration options
- */
 export function useSwipeClose(
   onClose: () => void,
   options: { threshold?: number; direction?: 'left' | 'right' } = {},

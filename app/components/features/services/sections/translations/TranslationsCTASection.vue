@@ -23,21 +23,14 @@ const props = defineProps<{
   title: string
   buttonText: string
   icon?: string
-  serviceName?: string
 }>()
 
-const { t } = useI18n()
 const modal = useApplicationModal()
 
 const handleClick = () => {
   modal.openModal({
     source: 'service_page',
     description: props.buttonText,
-    serviceContext: {
-      subServiceName: props.serviceName || t('services.document-translations.title'),
-      source: 'service_page',
-      sourceDescription: props.buttonText,
-    },
   })
 }
 </script>

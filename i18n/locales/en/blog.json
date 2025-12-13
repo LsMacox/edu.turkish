@@ -1,0 +1,108 @@
+{
+  "blog": {
+    "meta": {
+      "title": "Blog & FAQ - Edu.turkish",
+      "description": "Fresh articles about admission, visas, scholarships, and student life in Turkey. Expert answers from Edu.turkish to popular questions."
+    },
+    "hero": {
+      "title": "Blog and",
+      "titleAccent": "frequently asked questions",
+      "description": "Answers to important questions about admission, exams, scholarships and studying in Turkey",
+      "searchPlaceholder": "Find an article or answer...",
+      "imageAlt": "Blog and FAQ",
+      "highlight": {
+        "title": "Expert advice",
+        "subtitle": "From our consultants"
+      },
+      "stats": {
+        "articles": {
+          "icon": "mdi:file-document-outline",
+          "label": "{count} useful articles"
+        },
+        "faqs": {
+          "icon": "mdi:comment-question-outline",
+          "label": "{count} answers to questions"
+        }
+      }
+    },
+    "categories": {
+      "all": {
+        "label": "All"
+      }
+    },
+    "articles": {
+      "title": "Latest articles",
+      "readMore": "Read more →",
+      "empty": "No articles match your filters yet",
+      "readingTime": "{minutes} min"
+    },
+    "pros_cons": {
+      "pros": "Pros",
+      "cons": "Cons"
+    },
+    "sidebar": {
+      "popular": {
+        "title": "Popular articles"
+      },
+      "quickLinks": {
+        "title": "Useful links",
+        "universities": "University catalog",
+        "checklist": "Document checklist",
+        "reviews": "Student reviews",
+        "consultation": "Expert consultation"
+      }
+    },
+    "article": {
+      "loading": "Loading article...",
+      "notFound": "Article not found",
+      "error": "We couldn't load the article. Please try refreshing the page.",
+      "tableOfContents": "Table of contents",
+      "quickFacts": {
+        "title": "Quick facts",
+        "category": "Category",
+        "published": "Published",
+        "readingTime": "Reading time"
+      },
+      "share": {
+        "title": "Share",
+        "description": "Let your friends know about this article — it might inspire them to study in Türkiye.",
+        "copyLink": "Copy link",
+        "copySuccess": "Link copied to clipboard",
+        "copyError": "Failed to copy the link"
+      },
+      "tags": {
+        "title": "Tags"
+      },
+      "related": {
+        "title": "You might also like",
+        "description": "More stories and helpful tips from our students.",
+        "allArticles": "All articles"
+      }
+    },
+    "powerPage": {
+      "cta": {
+        "consult": "Free Consultation",
+        "universities": "View Universities",
+        "mobile_label": "Have questions?",
+        "mobile_title": "Get free consultation"
+      },
+      "quickFacts": {
+        "category": "Category",
+        "published": "Published",
+        "readingTime": "Reading time"
+      },
+      "share": {
+        "copySuccess": "Link copied",
+        "copyError": "Copy failed"
+      },
+      "price": {
+        "title": "Tuition Fees",
+        "year": "year"
+      },
+      "universities": {
+        "title": "Recommended Universities",
+        "view_all": "View All"
+      }
+    }
+  }
+}

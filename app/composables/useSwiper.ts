@@ -1,7 +1,3 @@
-/**
- * Composable for lazy loading Swiper with common modules
- */
-
 type SwiperVueModule = typeof import('swiper/vue')
 type SwiperComponentType = SwiperVueModule['Swiper']
 type SwiperSlideComponentType = SwiperVueModule['SwiperSlide']

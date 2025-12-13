@@ -1,10 +1,10 @@
 import { getExchangeRateRepository } from '~~/server/repositories'
 import { ExchangeRateService } from '~~/server/services/ExchangeRateService'
-import { FALLBACK_RATES } from '~~/server/schemas/exchange-rates'
-import type { ExchangeRatesResponse } from '~~/server/types/api/exchange-rates'
+import { FALLBACK_RATES } from '~~/lib/schemas/exchange-rates'
+import type { ExchangeRatesResponse, ExchangeRateDetails } from '~~/lib/types'
 
 function toResponse(
-  details: { rates: typeof FALLBACK_RATES; fetchedAt: Date; expiresAt: Date },
+  details: Pick<ExchangeRateDetails, 'rates' | 'fetchedAt' | 'expiresAt'>,
   isFallback = false,
 ): ExchangeRatesResponse {
   return {

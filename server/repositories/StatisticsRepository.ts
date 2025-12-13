@@ -1,8 +1,8 @@
 import type { PrismaClient } from '@prisma/client'
-import type { ReviewStatistics } from '~~/server/types/api'
+import type { ReviewStatistics } from '~~/lib/types'
 
 export class StatisticsRepository {
-  constructor(private prisma: PrismaClient) {}
+  constructor(private prisma: PrismaClient) { }
 
   async getStatistics(): Promise<ReviewStatistics> {
     const [
@@ -40,14 +40,14 @@ export class StatisticsRepository {
     const avgRating = reviewStats._avg.rating ? Number(reviewStats._avg.rating.toFixed(1)) : 0
 
     return {
-      total_students: reviewStats._count.id,
-      average_rating: avgRating,
-      success_rate: successRate,
-      universities_count: universityCount,
-      scholarships_provided: scholarshipsCount,
-      cities_covered: citiesCount,
-      languages_supported: 4, // en, ru, kk, tr - статичное значение
-      specialties_available: programCount,
+      totalStudents: reviewStats._count.id,
+      averageRating: avgRating,
+      successRate: successRate,
+      universitiesCount: universityCount,
+      scholarshipsProvided: scholarshipsCount,
+      citiesCovered: citiesCount,
+      languagesSupported: 4,
+      specialtiesAvailable: programCount,
     }
   }
 }

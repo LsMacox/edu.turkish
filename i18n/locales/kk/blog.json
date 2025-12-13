@@ -1,0 +1,108 @@
+{
+  "blog": {
+    "meta": {
+      "title": "Блог және жиі қойылатын сұрақтар - Edu.turkish",
+      "description": "Түркиядағы түсу, визалар, шәкіртақылар және студенттік өмір туралы жаңа мақалалар. Edu.turkish сарапшыларының танымал сұрақтарға жауаптары."
+    },
+    "hero": {
+      "title": "Блог және",
+      "titleAccent": "жиі қойылатын сұрақтар",
+      "description": "Түркиядағы түсу, емтихандар, шәкіртақылар және оқу туралы маңызды сұрақтарға жауаптар",
+      "searchPlaceholder": "Мақала немесе жауап іздеу...",
+      "imageAlt": "Блог және жиі қойылатын сұрақтар",
+      "highlight": {
+        "title": "Сарапшылық кеңестер",
+        "subtitle": "Біздің консультанттардан"
+      },
+      "stats": {
+        "articles": {
+          "icon": "mdi:file-document-outline",
+          "label": "{count} пайдалы мақала"
+        },
+        "faqs": {
+          "icon": "mdi:comment-question-outline",
+          "label": "{count} сұрақтарға жауап"
+        }
+      }
+    },
+    "categories": {
+      "all": {
+        "label": "Барлығы"
+      }
+    },
+    "articles": {
+      "title": "Соңғы мақалалар",
+      "readMore": "Толығырақ →",
+      "empty": "Сүзгілерге сәйкес мақалалар әлі жоқ",
+      "readingTime": "{minutes} мин"
+    },
+    "pros_cons": {
+      "pros": "Артықшылықтары",
+      "cons": "Кемшіліктері"
+    },
+    "sidebar": {
+      "popular": {
+        "title": "Жиі оқылатындар"
+      },
+      "quickLinks": {
+        "title": "Пайдалы сілтемелер",
+        "universities": "Университеттер каталогы",
+        "checklist": "Құжаттар тізімі",
+        "reviews": "Студенттердің пікірлері",
+        "consultation": "Сарапшы кеңесі"
+      }
+    },
+    "article": {
+      "loading": "Мақала жүктелуде...",
+      "notFound": "Мақала табылмады",
+      "error": "Мақаланы жүктеу мүмкін болмады. Бетті жаңартып көріңіз.",
+      "tableOfContents": "Мазмұны",
+      "quickFacts": {
+        "title": "Қысқаша ақпарат",
+        "category": "Санат",
+        "published": "Жарияланған күні",
+        "readingTime": "Оқу уақыты"
+      },
+      "share": {
+        "title": "Бөлісу",
+        "description": "Мақаланы достарыңызбен бөлісіңіз — оларды Түркияда оқуға шабыттандыруы мүмкін.",
+        "copyLink": "Сілтемені көшіру",
+        "copySuccess": "Сілтеме алмасу буферіне көшірілді",
+        "copyError": "Сілтемені көшіру мүмкін болмады"
+      },
+      "tags": {
+        "title": "Тегтер"
+      },
+      "related": {
+        "title": "Тағы оқыңыз",
+        "description": "Студенттерден тағы да пайдалы кеңестер мен шабыт беретін мақалалар.",
+        "allArticles": "Барлық мақалалар"
+      }
+    },
+    "powerPage": {
+      "cta": {
+        "consult": "Free Consultation",
+        "universities": "View Universities",
+        "mobile_label": "Have questions?",
+        "mobile_title": "Get free consultation"
+      },
+      "quickFacts": {
+        "category": "Category",
+        "published": "Published",
+        "readingTime": "Reading time"
+      },
+      "share": {
+        "copySuccess": "Link copied",
+        "copyError": "Copy failed"
+      },
+      "price": {
+        "title": "Tuition Fees",
+        "year": "year"
+      },
+      "universities": {
+        "title": "Recommended Universities",
+        "view_all": "View All"
+      }
+    }
+  }
+}

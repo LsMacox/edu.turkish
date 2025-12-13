@@ -6,10 +6,11 @@ import type {
   BlogArticleQuickFact,
   ProgramListItem,
   ProgramDetail,
-} from '~~/server/types/api'
-import { pickTranslation, resolveLocaleTag, extractStringArray } from '~~/server/utils/locale'
+} from '~~/lib/types'
+import { pickTranslation, formatDate } from '~~/server/utils/locale'
+import { extractStringArray } from '~~/server/utils/prisma'
 import { sanitizeRichText } from '~~/server/utils/sanitize'
-import { parseBlogContent, type BlogContentBlock } from '~~/server/schemas/blog'
+import { parseBlogContent, type BlogContentBlock } from '~~/lib/schemas/blog'
 
 // ==========================================
 // Types
@@ -57,12 +58,12 @@ function sanitizeContentBlocks(blocks: BlogContentBlock[]): BlogArticleContentBl
         case 'image': {
           return block.url
             ? {
-                type: 'image',
-                url: block.url,
-                alt: block.alt,
-                caption: block.caption ? sanitizeRichText(block.caption) : undefined,
-                width: block.width,
-              }
+              type: 'image',
+              url: block.url,
+              alt: block.alt,
+              caption: block.caption ? sanitizeRichText(block.caption) : undefined,
+              width: block.width,
+            }
             : null
         }
         case 'spacer':
@@ -130,21 +131,6 @@ function extractTranslationMetadata(translation?: ArticleTranslation | null): {
   }
 }
 
-// ==========================================
-// Date formatting
-// ==========================================
-
-export function formatDate(date: Date, locale: string): string {
-  try {
-    return new Intl.DateTimeFormat(resolveLocaleTag(locale as any), {
-      day: '2-digit',
-      month: 'short',
-      year: 'numeric',
-    }).format(date)
-  } catch {
-    return date.toISOString().split('T')[0]!
-  }
-}
 
 // ==========================================
 // Alternates extraction
@@ -164,40 +150,48 @@ function extractAlternates(translations: ArticleTranslation[]): Record<string, s
 // Blog article mappers
 // ==========================================
 
-export function mapArticleToListItem(
-  article: ArticleWithRelations,
-  locale: string,
-): BlogArticleListItem {
+function mapArticleBase(article: ArticleWithRelations, locale: string) {
   const translation = pickTranslation(article.translations, locale)
   const categoryTranslation = pickTranslation(article.category.translations, locale)
 
   return {
-    id: article.id,
-    slug: translation?.slug ?? String(article.id),
-    title: translation?.title ?? '',
-    excerpt: translation?.excerpt ?? '',
-    image: article.coverImage ?? null,
-    imageAlt: translation?.imageAlt ?? translation?.title ?? undefined,
-    publishedAt: article.publishedAt.toISOString(),
-    readingTimeMinutes: article.readingTimeMinutes ?? undefined,
-    category: {
-      key: article.category.code,
-      label: categoryTranslation?.title ?? article.category.code,
+    translation,
+    base: {
+      id: article.id,
+      slug: translation?.slug ?? String(article.id),
+      title: translation?.title ?? '',
+      excerpt: translation?.excerpt ?? '',
+      image: article.coverImage ?? null,
+      imageAlt: translation?.imageAlt ?? translation?.title ?? undefined,
+      publishedAt: article.publishedAt.toISOString(),
+      category: {
+        key: article.category.code,
+        label: categoryTranslation?.title ?? article.category.code,
+      },
     },
+  }
+}
+
+export function mapArticleToListItem(
+  article: ArticleWithRelations,
+  locale: string,
+): BlogArticleListItem {
+  const { base } = mapArticleBase(article, locale)
+
+  return {
+    ...base,
+    readingTimeMinutes: article.readingTimeMinutes ?? undefined,
     isPowerPage: article.isPowerPage ?? false,
   }
 }
 
-export function mapArticleToDetail(
+function mapArticleDetailFields(
   article: ArticleWithRelations,
-  locale: string,
-): BlogArticleDetail {
-  const base = mapArticleToListItem(article, locale)
-  const translation = pickTranslation(article.translations, locale)
+  base: ReturnType<typeof mapArticleBase>['base'],
+  translation: ReturnType<typeof pickTranslation<ArticleTranslation>>,
+) {
   const metadata = extractTranslationMetadata(translation)
-
   return {
-    ...base,
     heroImage: article.heroImage ?? base.image,
     heroImageAlt: translation?.heroImageAlt ?? base.imageAlt,
     heroKicker: translation?.heroKicker ?? undefined,
@@ -208,6 +202,20 @@ export function mapArticleToDetail(
     quickFacts: metadata.quickFacts,
     tags: metadata.tags,
     alternates: extractAlternates(article.translations),
+  }
+}
+
+export function mapArticleToDetail(
+  article: ArticleWithRelations,
+  locale: string,
+): BlogArticleDetail {
+  const { base, translation } = mapArticleBase(article, locale)
+
+  return {
+    ...base,
+    readingTimeMinutes: article.readingTimeMinutes ?? undefined,
+    isPowerPage: article.isPowerPage ?? false,
+    ...mapArticleDetailFields(article, base, translation),
   }
 }
 
@@ -219,22 +227,11 @@ export function mapArticleToProgramListItem(
   article: ArticleWithRelations,
   locale: string,
 ): ProgramListItem {
-  const translation = pickTranslation(article.translations, locale)
-  const categoryTranslation = pickTranslation(article.category.translations, locale)
+  const { base } = mapArticleBase(article, locale)
 
   return {
-    id: article.id,
-    slug: translation?.slug ?? String(article.id),
-    title: translation?.title ?? '',
-    excerpt: translation?.excerpt ?? '',
-    image: article.coverImage ?? null,
-    imageAlt: translation?.imageAlt ?? translation?.title ?? undefined,
-    publishedAt: article.publishedAt.toISOString(),
+    ...base,
     publishedAtLabel: formatDate(article.publishedAt, locale),
-    category: {
-      key: article.category.code,
-      label: categoryTranslation?.title ?? article.category.code,
-    },
   }
 }
 
@@ -242,21 +239,11 @@ export function mapArticleToProgramDetail(
   article: ArticleWithRelations,
   locale: string,
 ): ProgramDetail {
-  const base = mapArticleToProgramListItem(article, locale)
-  const translation = pickTranslation(article.translations, locale)
-  const metadata = extractTranslationMetadata(translation)
+  const { base, translation } = mapArticleBase(article, locale)
 
   return {
     ...base,
-    heroImage: article.heroImage ?? base.image,
-    heroImageAlt: translation?.heroImageAlt ?? base.imageAlt,
-    heroKicker: translation?.heroKicker ?? undefined,
-    heroSubtitle: translation?.heroSubtitle ?? translation?.excerpt ?? undefined,
-    heroLocation: translation?.heroLocation ?? undefined,
-    seoDescription: translation?.seoDescription ?? undefined,
-    content: normalizeContent(translation?.content),
-    quickFacts: metadata.quickFacts,
-    tags: metadata.tags,
-    alternates: extractAlternates(article.translations),
+    publishedAtLabel: formatDate(article.publishedAt, locale),
+    ...mapArticleDetailFields(article, base, translation),
   }
 }

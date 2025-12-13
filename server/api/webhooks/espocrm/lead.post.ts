@@ -1,6 +1,6 @@
-import type { EspoCRMLead } from '~~/server/types/espocrm-webhook'
-import { formatLeadNotification } from '~~/server/utils/telegram-formatter'
-import { getTelegramQueue } from '~~/server/utils/telegram-queue'
+import type { EspoCRMLead } from '~~/lib/types/server'
+import { formatLeadNotification } from '~~/server/services/telegram/formatter'
+import { getTelegramQueue } from '~~/server/services/telegram/queue'
 
 const isLead = (v: unknown): v is EspoCRMLead =>
   typeof v === 'object' && v !== null && 'id' in v && typeof (v as any).id === 'string'

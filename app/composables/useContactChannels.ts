@@ -1,7 +1,7 @@
 import { withQuery } from 'ufo'
-import { contactChannels, type ContactChannelKey } from '~~/lib/contact/channels'
+import { contactChannels, type ContactChannelKey } from '~~/lib/domain/contact/channels'
 import { useReferral } from './useReferral'
-import { sanitizeUtm } from '~~/lib/utm'
+import { sanitizeUtm } from '~~/lib/domain/contact/utm'
 
 const routePaths: Record<ContactChannelKey, string> = {
   telegramBot: '/go/telegram',

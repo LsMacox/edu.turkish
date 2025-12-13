@@ -1,6 +1,6 @@
 import { storeToRefs } from 'pinia'
 import { useCurrencyStore } from '~/stores/currency'
-import { CURRENCIES, type Currency, CURRENCY_CODES } from '~/types/currency'
+import { CURRENCIES, SUPPORTED_CURRENCY as CURRENCY_CODES, type SupportedCurrency as Currency } from '~~/lib/config/currency'
 
 export function useCurrency() {
   const store = useCurrencyStore()

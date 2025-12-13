@@ -3,11 +3,11 @@
     <div class="container mx-auto px-4">
       <div class="max-w-2xl mx-auto text-center">
         <h1 class="text-4xl font-bold text-gray-900 mb-4">
-          {{ t('services.sat-courses.title') }}
+          {{ t(svc('title')) }}
         </h1>
         <div class="bg-white rounded-lg shadow-md p-8 mt-8">
           <p class="text-xl text-gray-600">
-            {{ t('services.sat-courses.temporarilyUnavailable') }}
+            {{ t(svc('temporarilyUnavailable')) }}
           </p>
         </div>
       </div>
@@ -16,18 +16,21 @@
 </template>
 
 <script setup lang="ts">
+import { namespace } from '~~/lib/i18n'
+
+const svc = namespace('services.sat-courses')
 const { t } = useI18n()
 
 useHead({
-  title: t('services.sat-courses.title'),
+  title: t(svc('title')),
   script: [
     {
       type: 'application/ld+json',
       innerHTML: JSON.stringify({
         '@context': 'https://schema.org',
         '@type': 'Course',
-        name: t('services.sat-courses.title'),
-        description: t('services.sat-courses.subtitle'),
+        name: t(svc('title')),
+        description: t(svc('subtitle')),
         provider: {
           '@type': 'Organization',
           name: 'Edu.turkish',

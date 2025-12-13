@@ -3,7 +3,7 @@
     <section v-if="pending" class="py-20">
       <div class="container mx-auto px-4 lg:px-6">
         <div class="rounded-3xl bg-white p-10 text-center shadow-custom">
-          <p class="text-lg font-semibold text-secondary">{{ t('programs.detail.loading') }}</p>
+          <p class="text-lg font-semibold text-secondary">{{ t(detailNs('loading')) }}</p>
         </div>
       </div>
     </section>
@@ -16,7 +16,7 @@
             :to="localePath('/programs')"
             class="inline-flex items-center gap-2 rounded-full bg-secondary px-6 py-3 text-sm font-semibold text-white shadow-lg transition hover:bg-secondary/90"
           >
-            {{ t('programs.detail.allPrograms') }}
+            {{ t(detailNs('allPrograms')) }}
             <Icon name="mdi:arrow-right" class="text-lg" />
           </NuxtLink>
         </div>
@@ -30,7 +30,11 @@
 </template>
 
 <script setup lang="ts">
-import type { ProgramDetailResponse } from '~~/server/types/api'
+import type { ProgramDetailResponse } from '~~/lib/types'
+import { namespace } from '~~/lib/i18n'
+
+const programsNs = namespace('programs')
+const detailNs = namespace('programs.detail')
 
 definePageMeta({ layout: 'default' })
 
@@ -68,9 +72,9 @@ const { data, pending, error } = await useAsyncData(
 
 const program = computed(() => data.value ?? null)
 
-const seoTitle = computed(() => program.value?.title ?? t('programs.meta.title'))
+const seoTitle = computed(() => program.value?.title ?? t(programsNs('meta.title')))
 const seoDescription = computed(
-  () => program.value?.seoDescription ?? program.value?.excerpt ?? t('programs.meta.description'),
+  () => program.value?.seoDescription ?? program.value?.excerpt ?? t(programsNs('meta.description')),
 )
 
 useSeoMeta({
@@ -86,9 +90,9 @@ useSeoMeta({
 const errorMessage = computed(() => {
   if (error.value) {
     const status = (error.value as any).statusCode ?? (error.value as any).status
-    return status === 404 ? t('programs.detail.notFound') : t('programs.detail.error')
+    return status === 404 ? t(detailNs('notFound')) : t(detailNs('error'))
   }
-  return !pending.value && !program.value ? t('programs.detail.notFound') : ''
+  return !pending.value && !program.value ? t(detailNs('notFound')) : ''
 })
 </script>
 

@@ -3,11 +3,11 @@
     <div class="container mx-auto container-padding-narrow">
       <div class="text-center mb-8 md:mb-12">
         <h2 class="text-section-title mb-6">
-          {{ t('reviews.shareExperience.title') }}
-          <span class="text-primary">{{ t('reviews.shareExperience.titleAccent') }}</span>
+          {{ t(ns('title')) }}
+          <span class="text-primary">{{ t(ns('titleAccent')) }}</span>
         </h2>
         <p class="text-section-subtitle max-w-3xl mx-auto">
-          {{ t('reviews.shareExperience.description') }}
+          {{ t(ns('description')) }}
         </p>
       </div>
 
@@ -20,13 +20,13 @@
               <!-- Name -->
               <div>
                 <label :for="nameFieldId" class="block text-sm font-semibold text-secondary mb-2">
-                  {{ t('reviews.shareExperience.form.name.label') }}
+                  {{ t(formNs('name.label')) }}
                 </label>
                 <BaseTextField
                   :id="nameFieldId"
                   v-model="form.name"
                   type="text"
-                  :placeholder="t('reviews.shareExperience.form.name.placeholder')"
+                  :placeholder="t(formNs('name.placeholder'))"
                   :error="nameError"
                   icon="mdi:account"
                 />
@@ -38,17 +38,17 @@
                   :for="reviewerTypeFieldId"
                   class="block text-sm font-semibold text-secondary mb-2"
                 >
-                  {{ t('reviews.shareExperience.form.reviewerType.label') }}
+                  {{ t(formNs('reviewerType.label')) }}
                 </label>
                 <BaseSelect :id="reviewerTypeFieldId" v-model="form.reviewerType">
                   <option value="">
-                    {{ t('reviews.shareExperience.form.reviewerType.placeholder') }}
+                    {{ t(formNs('reviewerType.placeholder')) }}
                   </option>
                   <option value="student">
-                    {{ t('reviews.shareExperience.form.reviewerType.student') }}
+                    {{ t(formNs('reviewerType.student')) }}
                   </option>
                   <option value="parent">
-                    {{ t('reviews.shareExperience.form.reviewerType.parent') }}
+                    {{ t(formNs('reviewerType.parent')) }}
                   </option>
                 </BaseSelect>
               </div>
@@ -61,7 +61,7 @@
                   :for="universityFieldId"
                   class="block text-sm font-semibold text-secondary mb-2"
                 >
-                  {{ t('reviews.shareExperience.form.university.label') }}
+                  {{ t(formNs('university.label')) }}
                 </label>
                 <BaseSelect
                   :id="universityFieldId"
@@ -71,8 +71,8 @@
                   <option value="">
                     {{
                       isLoadingUniversities
-                        ? t('reviews.shareExperience.form.university.loading')
-                        : t('reviews.shareExperience.form.university.placeholder')
+                        ? t(formNs('university.loading'))
+                        : t(formNs('university.placeholder'))
                     }}
                   </option>
                   <option
@@ -83,7 +83,7 @@
                     {{ university.title }}
                   </option>
                   <option value="other">
-                    {{ t('reviews.shareExperience.form.university.other') }}
+                    {{ t(formNs('university.other')) }}
                   </option>
                 </BaseSelect>
                 <p v-if="universityError" class="mt-1 text-sm text-red-600">
@@ -99,13 +99,13 @@
                   :for="facultyFieldId"
                   class="block text-sm font-semibold text-secondary mb-2"
                 >
-                  {{ t('reviews.shareExperience.form.faculty.label') }}
+                  {{ t(formNs('faculty.label')) }}
                 </label>
                 <BaseTextField
                   :id="facultyFieldId"
                   v-model="form.faculty"
                   type="text"
-                  :placeholder="t('reviews.shareExperience.form.faculty.placeholder')"
+                  :placeholder="t(formNs('faculty.placeholder'))"
                   icon="mdi:school"
                 />
               </div>
@@ -113,11 +113,11 @@
               <!-- Year -->
               <div>
                 <label :for="yearFieldId" class="block text-sm font-semibold text-secondary mb-2">
-                  {{ t('reviews.shareExperience.form.year.label') }}
+                  {{ t(formNs('year.label')) }}
                 </label>
                 <BaseSelect :id="yearFieldId" v-model="form.year">
                   <option value="">
-                    {{ t('reviews.shareExperience.form.year.placeholder') }}
+                    {{ t(formNs('year.placeholder')) }}
                   </option>
                   <option value="2024">2024</option>
                   <option value="2023">2023</option>
@@ -125,7 +125,7 @@
                   <option value="2021">2021</option>
                   <option value="2020">2020</option>
                   <option value="other">
-                    {{ t('reviews.shareExperience.form.year.earlier') }}
+                    {{ t(formNs('year.earlier')) }}
                   </option>
                 </BaseSelect>
               </div>
@@ -135,22 +135,22 @@
               <!-- Rating -->
               <div>
                 <label :for="ratingFieldId" class="block text-sm font-semibold text-secondary mb-2">
-                  {{ t('reviews.shareExperience.form.rating.label') }}
+                  {{ t(formNs('rating.label')) }}
                 </label>
                 <BaseSelect :id="ratingFieldId" v-model="form.rating">
                   <option value="">
-                    {{ t('reviews.shareExperience.form.rating.placeholder') }}
+                    {{ t(formNs('rating.placeholder')) }}
                   </option>
                   <option value="5">
-                    {{ t('reviews.shareExperience.form.rating.excellent') }}
+                    {{ t(formNs('rating.excellent')) }}
                   </option>
-                  <option value="4">{{ t('reviews.shareExperience.form.rating.good') }}</option>
+                  <option value="4">{{ t(formNs('rating.good')) }}</option>
                   <option value="3">
-                    {{ t('reviews.shareExperience.form.rating.satisfactory') }}
+                    {{ t(formNs('rating.satisfactory')) }}
                   </option>
-                  <option value="2">{{ t('reviews.shareExperience.form.rating.poor') }}</option>
+                  <option value="2">{{ t(formNs('rating.poor')) }}</option>
                   <option value="1">
-                    {{ t('reviews.shareExperience.form.rating.veryPoor') }}
+                    {{ t(formNs('rating.veryPoor')) }}
                   </option>
                 </BaseSelect>
                 <p v-if="ratingError" class="mt-1 text-sm text-red-600">
@@ -164,13 +164,13 @@
                   :for="contactFieldId"
                   class="block text-sm font-semibold text-secondary mb-2"
                 >
-                  {{ t('reviews.shareExperience.form.contact.label') }}
+                  {{ t(formNs('contact.label')) }}
                 </label>
                 <BaseTextField
                   :id="contactFieldId"
                   v-model="form.contact"
                   type="text"
-                  :placeholder="t('reviews.shareExperience.form.contact.placeholder')"
+                  :placeholder="t(formNs('contact.placeholder'))"
                   icon="mdi:email"
                 />
               </div>
@@ -179,14 +179,14 @@
             <!-- Review Text -->
             <div>
               <label class="block text-sm font-semibold text-secondary mb-2" :for="reviewFieldId">
-                {{ t('reviews.shareExperience.form.review.label') }}
+                {{ t(formNs('review.label')) }}
               </label>
               <textarea
                 :id="reviewFieldId"
                 v-model="form.review"
                 name="review"
                 rows="6"
-                :placeholder="t('reviews.shareExperience.form.review.placeholder')"
+                :placeholder="t(formNs('review.placeholder'))"
                 :class="[
                   'w-full px-4 py-3 bg-white border border-gray-300 rounded-xl',
                   'focus:ring-2 focus:ring-primary focus:border-transparent focus:outline-none',
@@ -202,7 +202,7 @@
             <!-- Helpful aspects -->
             <fieldset class="p-0 m-0 border-0">
               <legend class="block text-sm font-semibold text-secondary mb-4">
-                {{ t('reviews.shareExperience.form.helpful.label') }}
+                {{ t(formNs('helpful.label')) }}
               </legend>
               <div class="grid grid-cols-1 md:grid-cols-2 gap-2 md:gap-3">
                 <BaseCheckbox
@@ -211,7 +211,7 @@
                   :checked="form.helpfulAspects.includes(aspect)"
                   @update:checked="toggleHelpful(aspect)"
                 >
-                  {{ t(`reviews.shareExperience.form.helpful.aspects.${aspect}`) }}
+                  {{ t(helpfulAspectKeys[aspect]) }}
                 </BaseCheckbox>
               </div>
             </fieldset>
@@ -219,7 +219,7 @@
             <!-- Recommendation -->
             <fieldset class="p-0 m-0 border-0">
               <legend class="block text-sm font-semibold text-secondary mb-4">
-                {{ t('reviews.shareExperience.form.recommend.label') }}
+                {{ t(formNs('recommend.label')) }}
               </legend>
               <div class="flex flex-col space-y-3 md:flex-row md:space-y-0 md:space-x-6">
                 <label
@@ -233,7 +233,7 @@
                     class="text-primary focus:ring-primary"
                   />
                   <span class="text-secondary text-sm md:text-base">{{
-                    t('reviews.shareExperience.form.recommend.yes')
+                    t(formNs('recommend.yes'))
                   }}</span>
                 </label>
                 <label
@@ -247,7 +247,7 @@
                     class="text-primary focus:ring-primary"
                   />
                   <span class="text-secondary text-sm md:text-base">{{
-                    t('reviews.shareExperience.form.recommend.maybe')
+                    t(formNs('recommend.maybe'))
                   }}</span>
                 </label>
                 <label
@@ -261,7 +261,7 @@
                     class="text-primary focus:ring-primary"
                   />
                   <span class="text-secondary text-sm md:text-base">{{
-                    t('reviews.shareExperience.form.recommend.no')
+                    t(formNs('recommend.no'))
                   }}</span>
                 </label>
               </div>
@@ -277,8 +277,8 @@
               >
                 {{
                   isSubmitting
-                    ? t('reviews.shareExperience.form.submitting')
-                    : t('reviews.shareExperience.form.submit')
+                    ? t(formNs('submitting'))
+                    : t(formNs('submit'))
                 }}
               </button>
             </div>
@@ -292,10 +292,10 @@
         >
           <Icon name="mdi:check-circle" class="text-green-500 text-3xl md:text-4xl mb-3 md:mb-4" />
           <h3 class="text-lg md:text-xl font-bold text-green-800 mb-2">
-            {{ t('reviews.shareExperience.success.title') }}
+            {{ t(ns('success.title')) }}
           </h3>
           <p class="text-sm md:text-base text-green-700">
-            {{ t('reviews.shareExperience.success.message') }}
+            {{ t(ns('success.message')) }}
           </p>
         </div>
 
@@ -306,7 +306,7 @@
         >
           <Icon name="mdi:alert-circle" class="text-red-500 text-3xl md:text-4xl mb-3 md:mb-4" />
           <h3 class="text-lg md:text-xl font-bold text-red-800 mb-2">
-            {{ t('reviews.shareExperience.error.title') }}
+            {{ t(ns('error.title')) }}
           </h3>
           <p class="text-sm md:text-base text-red-700">
             {{ submissionError }}
@@ -315,7 +315,7 @@
             class="mt-4 text-red-600 hover:text-red-800 font-semibold"
             @click="submissionError = ''"
           >
-            {{ t('reviews.shareExperience.error.dismiss') }}
+            {{ t(ns('error.dismiss')) }}
           </button>
         </div>
       </div>
@@ -324,13 +324,16 @@
 </template>
 
 <script setup lang="ts">
-import { parsePositiveInt } from '~~/lib/number'
+import { parsePositiveInt } from '~~/lib/utils/number'
 import type { UserType } from '@prisma/client'
-import { useServerValidation } from '~/composables/useServerValidation'
+import { useFormSubmit } from '~/composables/useFormSubmit'
+import { namespace } from '~~/lib/i18n'
 import { storeToRefs } from 'pinia'
 import { useUniversitiesStore } from '~/stores/universities'
 
 const { t } = useI18n()
+const ns = namespace('reviews.shareExperience')
+const formNs = namespace('reviews.shareExperience.form')
 const universitiesStore = useUniversitiesStore()
 const { universities: storeUniversities, loading: storeLoading } = storeToRefs(universitiesStore)
 
@@ -369,15 +372,18 @@ const form = reactive<ReviewForm>({
   reviewerType: '',
 })
 
-const { getFieldError, handleValidationError, clearAllErrors, nonFieldErrors } =
-  useServerValidation()
+const {
+  isSubmitting,
+  getFieldError,
+  clearAllErrors,
+  submit,
+} = useFormSubmit()
 
 const nameError = computed(() => getFieldError('name'))
 const universityError = computed(() => getFieldError('university'))
 const ratingError = computed(() => getFieldError('rating'))
 const reviewError = computed(() => getFieldError('review'))
 
-const isSubmitting = ref(false)
 const submitted = ref(false)
 const submissionError = ref('')
 
@@ -390,16 +396,18 @@ const universities = computed(() =>
 )
 const isLoadingUniversities = computed(() => storeLoading.value)
 
-const helpfulAspects = [
-  'documents',
-  'language',
-  'exam-prep',
-  'university-choice',
-  'visa',
-  'accommodation',
-  'support',
-  'consultation',
-]
+const helpfulAspectKeys = {
+  documents: formNs('helpful.aspects.documents'),
+  language: formNs('helpful.aspects.language'),
+  'exam-prep': formNs('helpful.aspects.exam-prep'),
+  'university-choice': formNs('helpful.aspects.university-choice'),
+  visa: formNs('helpful.aspects.visa'),
+  accommodation: formNs('helpful.aspects.accommodation'),
+  support: formNs('helpful.aspects.support'),
+  consultation: formNs('helpful.aspects.consultation'),
+} as const
+
+const helpfulAspects = Object.keys(helpfulAspectKeys) as (keyof typeof helpfulAspectKeys)[]
 
 function toggleHelpful(value: string) {
   const index = form.helpfulAspects.indexOf(value)
@@ -410,43 +418,35 @@ function toggleHelpful(value: string) {
   }
 }
 
-// Load universities for the dropdown - always fetch all sorted alphabetically
-// We need all universities for the dropdown, not just the filtered subset
 onMounted(async () => {
   await universitiesStore.fetchUniversities({ limit: 100, overrides: { sort: 'alpha' } as any })
 })
 
 async function submitReview() {
-  if (isSubmitting.value) {
-    return
-  }
-
-  clearAllErrors()
-  isSubmitting.value = true
   submissionError.value = ''
 
-  try {
-    // Prepare data for API
-    const numericYear = form.year && /^\d{4}$/.test(form.year) ? form.year : undefined
-    const reviewData = {
-      name: form.name.trim(),
-      university: form.university,
-      faculty: form.faculty.trim() || undefined,
-      year: numericYear,
-      rating: parsePositiveInt(form.rating) ?? 0,
-      contact: form.contact.trim() || undefined,
-      review: form.review.trim(),
-      helpfulAspects: form.helpfulAspects.length > 0 ? form.helpfulAspects : undefined,
-      recommendation: form.recommendation || undefined,
-      type: (form.reviewerType || 'student') as UserType,
-    }
+  await submit({
+    submitFn: async () => {
+      const numericYear = form.year && /^\d{4}$/.test(form.year) ? form.year : undefined
+      const reviewData = {
+        name: form.name.trim(),
+        university: form.university,
+        faculty: form.faculty.trim() || undefined,
+        year: numericYear,
+        rating: parsePositiveInt(form.rating) ?? 0,
+        contact: form.contact.trim() || undefined,
+        review: form.review.trim(),
+        helpfulAspects: form.helpfulAspects.length > 0 ? form.helpfulAspects : undefined,
+        recommendation: form.recommendation || undefined,
+        type: (form.reviewerType || 'student') as UserType,
+      }
 
-    const data = await $fetch('/api/v1/reviews', {
-      method: 'POST',
-      body: reviewData,
-    })
-
-    if (data.success) {
+      return await ($fetch as typeof $fetch<{ success: boolean }>)('/api/v1/reviews', {
+        method: 'POST',
+        body: reviewData,
+      })
+    },
+    onSuccess: () => {
       submitted.value = true
 
       setTimeout(() => {
@@ -465,19 +465,10 @@ async function submitReview() {
         clearAllErrors()
         submitted.value = false
       }, 3000)
-    }
-  } catch (error: any) {
-    console.error('Error submitting review:', error)
-
-    if (handleValidationError(error)) {
-      if (nonFieldErrors.value.length > 0) {
-        submissionError.value = nonFieldErrors.value.join('\n')
-      }
-    } else {
-      submissionError.value = error?.data?.message || t('reviews.shareExperience.errors.submit')
-    }
-  } finally {
-    isSubmitting.value = false
-  }
+    },
+    onError: (error: any) => {
+      submissionError.value = error?.data?.message || t(ns('errors.generic'))
+    },
+  })
 }
 </script>

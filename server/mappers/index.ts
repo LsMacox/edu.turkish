@@ -1,3 +1,5 @@
 export * from './university'
 export * from './blog'
 export * from './application'
+export * from './review'
+export * from './faq'

@@ -5,13 +5,13 @@
       <!-- Search -->
       <div class="flex-1 min-w-[200px] md:min-w-[280px]">
         <label :for="searchFieldId" class="block text-xs font-medium text-gray-500 mb-1.5">{{
-          t('universities_page.filters.search_label')
+          t(filtersNs('search_label'))
         }}</label>
         <BaseTextField
           :id="searchFieldId"
           v-model="state.q"
           type="text"
-          :placeholder="t('universities_page.filters.search_placeholder')"
+          :placeholder="t(filtersNs('search_placeholder'))"
           icon="mdi:magnify"
         />
       </div>
@@ -19,10 +19,10 @@
       <!-- City -->
       <div class="w-full sm:w-auto sm:min-w-[160px]">
         <label :for="cityFieldId" class="block text-xs font-medium text-gray-500 mb-1.5">{{
-          t('universities_page.filters.city_label')
+          t(filtersNs('city_label'))
         }}</label>
         <BaseSelect :id="cityFieldId" v-model="state.city">
-          <option :value="CITY_ALL">{{ t('universities_page.filters.all_cities') }}</option>
+          <option :value="CITY_ALL">{{ t(filtersNs('all_cities')) }}</option>
           <option v-for="city in availableFilters.cities" :key="city" :value="city">
             {{ city }}
           </option>
@@ -32,10 +32,10 @@
       <!-- Type -->
       <div class="w-full sm:w-auto sm:min-w-[140px]">
         <label :for="typeFieldId" class="block text-xs font-medium text-gray-500 mb-1.5">{{
-          t('universities_page.filters.type_label')
+          t(filtersNs('type_label'))
         }}</label>
         <BaseSelect :id="typeFieldId" v-model="state.type">
-          <option :value="TYPE_ALL">{{ t('universities_page.filters.all_types') }}</option>
+          <option :value="TYPE_ALL">{{ t(filtersNs('all_types')) }}</option>
           <option v-for="typeOption in availableFilters.types" :key="typeOption" :value="typeOption">
             {{ getTypeLabel(typeOption) }}
           </option>
@@ -45,10 +45,10 @@
       <!-- Level -->
       <div class="w-full sm:w-auto sm:min-w-[140px]">
         <label :for="levelFieldId" class="block text-xs font-medium text-gray-500 mb-1.5">{{
-          t('universities_page.filters.level_label')
+          t(filtersNs('level_label'))
         }}</label>
         <BaseSelect :id="levelFieldId" v-model="state.level">
-          <option :value="LEVEL_ALL">{{ t('universities_page.filters.all_levels') }}</option>
+          <option :value="LEVEL_ALL">{{ t(filtersNs('all_levels')) }}</option>
           <option v-for="level in levelOptions" :key="level.value" :value="level.value">
             {{ level.label }}
           </option>
@@ -62,7 +62,7 @@
         @click="showAdvanced = !showAdvanced"
       >
         <Icon :name="showAdvanced ? 'mdi:chevron-up' : 'mdi:tune-variant'" class="w-4 h-4" />
-        <span class="hidden sm:inline">{{ showAdvanced ? t('universities_page.filters.hide_filters') : t('universities_page.filters.more_filters') }}</span>
+        <span class="hidden sm:inline">{{ showAdvanced ? t(filtersNs('hide_filters')) : t(filtersNs('more_filters')) }}</span>
       </button>
     </div>
 
@@ -80,7 +80,7 @@
           <!-- Language Chips -->
           <div>
             <p class="text-xs font-medium text-gray-500 mb-2">
-              {{ t('universities_page.filters.language_label') }}
+              {{ t(filtersNs('language_label')) }}
             </p>
             <div v-if="availableLanguageCodes.length" class="flex flex-wrap gap-2">
               <button
@@ -107,7 +107,7 @@
               :min="priceRangeBounds[0]"
               :max="priceRangeBounds[1]"
               :step="500"
-              :label="t('universities_page.filters.price_label')"
+              :label="t(filtersNs('price_label'))"
             />
           </div>
         </div>
@@ -122,10 +122,10 @@
         @click="reset"
       >
         <Icon name="mdi:refresh" class="w-4 h-4" />
-        {{ t('universities_page.filters.reset_button') }}
+        {{ t(filtersNs('reset_button')) }}
       </button>
       <BaseButton variant="primary" size="md" icon="mdi:magnify" @click="apply">
-        {{ t('universities_page.filters.apply_button') }}
+        {{ t(filtersNs('apply_button')) }}
       </BaseButton>
     </div>
   </div>
@@ -134,20 +134,10 @@
 <script setup lang="ts">
 import { storeToRefs } from 'pinia'
 import { CITY_ALL, LEVEL_ALL, TYPE_ALL, useUniversitiesStore } from '~/stores/universities'
-import { useUniversity } from '~/composables/universities/useUniversity'
+import { useUniversity } from '~/composables/useUniversityHelpers'
+import { namespace } from '~~/lib/i18n'
 
-const emit = defineEmits<{
-  apply: [
-    payload: {
-      q: string
-      city: string
-      langs: string[]
-      type: string
-      level: string
-      price: [number, number]
-    },
-  ]
-}>()
+const filtersNs = namespace('universities.list.filters')
 
 const { t } = useI18n()
 const universitiesStore = useUniversitiesStore()
@@ -242,15 +232,13 @@ const reset = () => {
 }
 
 const apply = () => {
-  const payload = {
+  applyFilters({
     q: state.q,
     city: state.city,
     langs: [...state.langs],
     type: state.type,
     level: state.level,
     price: [...priceRange.value] as [number, number],
-  }
-  applyFilters(payload)
-  emit('apply', payload)
+  })
 }
 </script>

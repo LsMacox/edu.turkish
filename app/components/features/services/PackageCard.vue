@@ -31,7 +31,7 @@
           class="w-full flex items-center justify-between text-left font-semibold text-gray-700 mb-2 md:hidden"
           @click="isExpanded = !isExpanded"
         >
-          <span>{{ t('services.common.whatIncluded') }}</span>
+          <span>{{ t(key('services.common.whatIncluded')) }}</span>
           <Icon
             name="mdi:chevron-down"
             :class="['w-5 h-5 transition-transform', isExpanded ? 'rotate-180' : '']"
@@ -77,10 +77,10 @@
 </template>
 
 <script setup lang="ts">
-import type { PackageId } from '~/types/services'
+import { key } from '~~/lib/i18n'
 
 interface Props {
-  packageId: PackageId
+  packageName: string
   name: string
   price: number
   services: string[]
@@ -101,7 +101,7 @@ const props = withDefaults(defineProps<Props>(), {
 const { t } = useI18n()
 
 const emit = defineEmits<{
-  apply: [payload: { packageId: PackageId; name: string; price: number }]
+  apply: [payload: { packageName: string; name: string; price: number }]
 }>()
 
 const isExpanded = ref(props.defaultExpanded)
@@ -117,6 +117,6 @@ const displayServices = computed(() =>
 )
 
 const handleApply = () => {
-  emit('apply', { packageId: props.packageId, name: props.name, price: props.price })
+  emit('apply', { packageName: props.packageName, name: props.name, price: props.price })
 }
 </script>

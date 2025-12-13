@@ -12,7 +12,7 @@
               class="inline-flex items-center gap-2 text-sm text-gray-500 hover:text-primary transition-colors"
             >
               <Icon name="mdi:arrow-left" class="text-base" />
-              {{ t('programs.detail.backToPrograms') }}
+              {{ t(ns('backToPrograms')) }}
             </NuxtLink>
 
             <span
@@ -85,7 +85,7 @@
                 class="flex items-center gap-2 text-sm font-bold uppercase tracking-wide text-gray-400"
               >
                 <Icon name="mdi:format-list-bulleted" class="text-lg" />
-                {{ t('programs.detail.tableOfContents') }}
+                {{ t(ns('tableOfContents')) }}
               </h3>
               <nav class="mt-4 space-y-1">
                 <button
@@ -130,7 +130,7 @@
                   class="flex items-center gap-2 text-sm font-bold uppercase tracking-wide text-gray-400"
                 >
                   <Icon name="mdi:lightning-bolt" class="text-lg text-primary" />
-                  {{ t('programs.detail.quickFacts') }}
+                  {{ t(ns('quickFacts')) }}
                 </h3>
                 <ul class="mt-4 space-y-4">
                   <li v-for="fact in quickFacts" :key="fact.title" class="flex gap-3">
@@ -159,10 +159,10 @@
                 class="flex items-center gap-2 text-sm font-bold uppercase tracking-wide text-gray-400"
               >
                 <Icon name="mdi:share-variant" class="text-lg" />
-                {{ t('programs.detail.share.title') }}
+                {{ t(ns('share.title')) }}
               </h3>
               <p class="mt-2 text-sm text-gray-500">
-                {{ t('programs.detail.share.description') }}
+                {{ t(ns('share.description')) }}
               </p>
               <div class="mt-4 flex flex-wrap gap-2">
                 <a
@@ -182,7 +182,7 @@
                   @click="copyShareLink"
                 >
                   <Icon name="mdi:link-variant" class="text-base" />
-                  {{ t('programs.detail.share.copyLink') }}
+                  {{ t(ns('share.copyLink')) }}
                 </button>
               </div>
             </div>
@@ -196,7 +196,7 @@
                 class="flex items-center gap-2 text-sm font-bold uppercase tracking-wide text-gray-400"
               >
                 <Icon name="mdi:tag-multiple" class="text-lg" />
-                {{ t('programs.detail.tags') }}
+                {{ t(ns('tags')) }}
               </h3>
               <div class="mt-3 flex flex-wrap gap-2">
                 <span
@@ -216,9 +216,12 @@
 </template>
 
 <script setup lang="ts">
-import type { ProgramDetail } from '~~/server/types/api'
-import { useDetailPage } from '~/composables/blog/useDetailPage'
-import { useTableOfContentsScrollspy } from '~/composables/blog/useTableOfContentsScrollspy'
+import type { ProgramDetail } from '~~/lib/types'
+import { useDetailPage } from '~/composables/useBlogDetailPage'
+import { useTableOfContentsScrollspy } from '~/composables/useBlogScrollspy'
+import { namespace, key } from '~~/lib/i18n'
+
+const ns = namespace('programs.detail')
 
 const props = defineProps<{
   program: ProgramDetail
@@ -243,7 +246,13 @@ const {
   copyShareLink,
 } = useDetailPage(programRef, {
   routeName: 'program-slug',
-  i18nPrefix: 'programs.detail',
+  i18nKeys: {
+    category: key('programs.detail.category'),
+    published: key('programs.detail.published'),
+    readingTime: key('programs.detail.readingTime'),
+    copySuccess: key('programs.detail.share.copySuccess'),
+    copyError: key('programs.detail.share.copyError'),
+  },
 })
 
 // Scrollspy

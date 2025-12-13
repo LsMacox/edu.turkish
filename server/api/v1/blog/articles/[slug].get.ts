@@ -1,5 +1,5 @@
 import { getBlogRepository } from '~~/server/repositories'
-import type { BlogArticleDetail } from '~~/server/types/api'
+import type { BlogArticleDetail } from '~~/lib/types'
 
 export default defineEventHandler(async (event): Promise<{ data: BlogArticleDetail }> => {
   const locale = event.context.locale || 'ru'

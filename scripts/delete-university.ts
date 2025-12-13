@@ -15,7 +15,7 @@
   - Use --yes for non-interactive confirmation.
 */
 
-import { prisma } from '../lib/prisma'
+import { prisma } from '../lib/infrastructure/prisma'
 
 interface CliOptions {
   slug: string | null
@@ -210,7 +210,7 @@ async function main() {
   try {
     await deleteUniversityBySlug(opts.slug, opts.locale, opts.dryRun, opts.yes)
   } finally {
-    await prisma.$disconnect().catch(() => {})
+    await prisma.$disconnect().catch(() => { })
   }
 }
 

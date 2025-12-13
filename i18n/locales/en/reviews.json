@@ -1,0 +1,111 @@
+{
+  "reviews": {
+    "mediaReviews": {
+      "title": "Video and photo reviews",
+      "titleAccent": "from our students",
+      "description": "Watch real success stories from our students. Video and photo reviews about admission and studying at Turkish universities.",
+      "error": "Failed to load reviews. Please try refreshing the page.",
+      "empty": "No media reviews yet"
+    },
+    "achievements": {
+      "title": "Our achievements",
+      "titleAccent": "in numbers",
+      "description": "Results that speak for themselves. Every number is someone's dream come true.",
+      "stats": {
+        "students": {
+          "title": "Students"
+        },
+        "success": {
+          "title": "Success"
+        },
+        "universities": {
+          "title": "Universities"
+        }
+      },
+      "overallRating": {
+        "title": "Overall rating"
+      }
+    },
+    "shareExperience": {
+      "title": "Share your",
+      "titleAccent": "experience",
+      "description": "Your review will help other students make the right decision. Tell us about your path to successful admission.",
+      "form": {
+        "name": {
+          "label": "Your name *",
+          "placeholder": "Enter your name"
+        },
+        "reviewerType": {
+          "label": "Who are you? *",
+          "placeholder": "Select reviewer type",
+          "student": "Student",
+          "parent": "Parent"
+        },
+        "university": {
+          "label": "University *",
+          "placeholder": "Choose university",
+          "loading": "Loading universities...",
+          "other": "Other"
+        },
+        "faculty": {
+          "label": "Faculty",
+          "placeholder": "For example: Medicine, Engineering"
+        },
+        "year": {
+          "label": "Year of admission",
+          "placeholder": "Choose year",
+          "earlier": "Earlier"
+        },
+        "rating": {
+          "label": "Rate our services *",
+          "placeholder": "Choose rating",
+          "excellent": "⭐⭐⭐⭐⭐ Excellent (5)",
+          "good": "⭐⭐⭐⭐ Good (4)",
+          "satisfactory": "⭐⭐⭐ Satisfactory (3)",
+          "poor": "⭐⭐ Poor (2)",
+          "veryPoor": "⭐ Very poor (1)"
+        },
+        "contact": {
+          "label": "Email or phone",
+          "placeholder": "For contact (will not be published)"
+        },
+        "review": {
+          "label": "Your review *",
+          "placeholder": "Share your admission and study experience. What helped you the most? What advice would you give to future students?"
+        },
+        "helpful": {
+          "label": "What was most helpful? (you can choose multiple)",
+          "aspects": {
+            "documents": "Document assistance",
+            "language": "Language preparation",
+            "exam-prep": "Exam preparation",
+            "university-choice": "University selection",
+            "visa": "Visa processing",
+            "accommodation": "Housing search",
+            "support": "Support at all stages",
+            "consultation": "Expert consultations"
+          }
+        },
+        "recommend": {
+          "label": "Would you recommend Edu.turkish?",
+          "yes": "Yes, definitely",
+          "maybe": "Maybe",
+          "no": "No"
+        },
+        "submit": "Share review",
+        "submitting": "Submitting..."
+      },
+      "success": {
+        "title": "Thank you for your review!",
+        "message": "We received your review and will definitely publish it after moderation. Your experience will help other students!"
+      },
+      "error": {
+        "title": "Submission Error",
+        "dismiss": "Close"
+      },
+      "errors": {
+        "generic": "An error occurred while submitting your review. Please try again."
+      }
+    }
+  }
+}

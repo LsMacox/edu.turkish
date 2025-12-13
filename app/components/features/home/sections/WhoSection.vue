@@ -7,8 +7,8 @@
       <div :class="[props.inModal ? '' : 'max-w-4xl mx-auto']">
         <BaseSectionHeader
           v-if="!props.inModal"
-          :title="t('home.who.title')"
-          :subtitle="t('home.who.subtitle')"
+          :title="t(whoNs('title'))"
+          :subtitle="t(whoNs('subtitle'))"
           align="center"
           margin-bottom="lg"
         />
@@ -20,7 +20,7 @@
         >
           <div class="space-y-4">
             <h3 v-if="!props.inModal" class="text-card-title hidden md:block">
-              {{ t('home.who.title') }}
+              {{ t(whoNs('title')) }}
             </h3>
             <div class="grid md:grid-cols-2 gap-2.5 md:gap-4">
               <button
@@ -35,8 +35,8 @@
                 <div class="flex items-center gap-2 md:gap-3">
                   <BaseIconBadge icon="mdi:school" color="blue" size="md" rounded="xl" />
                   <div>
-                    <p class="font-semibold text-secondary">{{ t('home.who.student') }}</p>
-                    <p class="text-sm text-gray-500">{{ t('home.who.student_desc') }}</p>
+                    <p class="font-semibold text-secondary">{{ t(whoNs('student')) }}</p>
+                    <p class="text-sm text-gray-500">{{ t(whoNs('student_desc')) }}</p>
                   </div>
                 </div>
               </button>
@@ -52,8 +52,8 @@
                 <div class="flex items-center gap-2 md:gap-3">
                   <BaseIconBadge icon="mdi:heart" color="purple" size="md" rounded="xl" />
                   <div>
-                    <p class="font-semibold text-secondary">{{ t('home.who.parent') }}</p>
-                    <p class="text-sm text-gray-500">{{ t('home.who.parent_desc') }}</p>
+                    <p class="font-semibold text-secondary">{{ t(whoNs('parent')) }}</p>
+                    <p class="text-sm text-gray-500">{{ t(whoNs('parent_desc')) }}</p>
                   </div>
                 </div>
               </button>
@@ -62,7 +62,7 @@
 
           <div class="space-y-4">
             <h3 class="text-card-title">
-              {{ t('home.who.university_chosen') }}
+              {{ t(whoNs('university_chosen')) }}
             </h3>
             <div class="grid md:grid-cols-2 gap-2.5 md:gap-4">
               <button
@@ -74,7 +74,7 @@
                 ]"
                 @click="selectOption('universityChosen', 'yes')"
               >
-                {{ t('home.who.yes_know') }}
+                {{ t(whoNs('yes_know')) }}
               </button>
               <button
                 :class="[
@@ -85,14 +85,14 @@
                 ]"
                 @click="selectOption('universityChosen', 'no')"
               >
-                {{ t('home.who.no_help') }}
+                {{ t(whoNs('no_help')) }}
               </button>
             </div>
           </div>
 
           <div class="space-y-4">
             <h3 class="text-card-title">
-              {{ t('home.who.language_interest') }}
+              {{ t(whoNs('language_interest')) }}
             </h3>
             <div class="grid md:grid-cols-2 gap-2.5 md:gap-4">
               <button
@@ -104,7 +104,7 @@
                 ]"
                 @click="selectOption('language', 'turkish')"
               >
-                {{ t('home.who.turkish') }}
+                {{ t(whoNs('turkish')) }}
               </button>
               <button
                 :class="[
@@ -115,14 +115,14 @@
                 ]"
                 @click="selectOption('language', 'english')"
               >
-                {{ t('home.who.english') }}
+                {{ t(whoNs('english')) }}
               </button>
             </div>
           </div>
 
           <div class="space-y-4">
             <h3 class="text-card-title">
-              {{ t('home.who.scholarship_help') }}
+              {{ t(whoNs('scholarship_help')) }}
             </h3>
             <div class="grid md:grid-cols-2 gap-2.5 md:gap-4">
               <button
@@ -134,7 +134,7 @@
                 ]"
                 @click="selectOption('scholarship', 'yes')"
               >
-                {{ t('home.who.yes_important') }}
+                {{ t(whoNs('yes_important')) }}
               </button>
               <button
                 :class="[
@@ -145,7 +145,7 @@
                 ]"
                 @click="selectOption('scholarship', 'no')"
               >
-                {{ t('home.who.no_ready_pay') }}
+                {{ t(whoNs('no_ready_pay')) }}
               </button>
             </div>
           </div>
@@ -154,14 +154,14 @@
             <div class="flex items-center gap-3 mb-4">
               <Icon name="mdi:check-circle" class="text-green-600 text-xl" />
               <h4 class="text-lg font-semibold text-green-800">
-                {{ t('home.who.profile_ready') }}
+                {{ t(whoNs('profile_ready')) }}
               </h4>
             </div>
             <div class="text-sm text-green-700 space-y-1">
-              <p>• {{ t('home.who.type') }}: {{ getUserTypeText }}</p>
-              <p>• {{ t('home.who.university') }}: {{ getUniversityText }}</p>
-              <p>• {{ t('home.who.language') }}: {{ getLanguageText }}</p>
-              <p>• {{ t('home.who.scholarship') }}: {{ getScholarshipText }}</p>
+              <p>• {{ t(whoNs('type')) }}: {{ getUserTypeText }}</p>
+              <p>• {{ t(whoNs('university')) }}: {{ getUniversityText }}</p>
+              <p>• {{ t(whoNs('language')) }}: {{ getLanguageText }}</p>
+              <p>• {{ t(whoNs('scholarship')) }}: {{ getScholarshipText }}</p>
             </div>
           </div>
 
@@ -176,14 +176,14 @@
               class="bg-primary text-white px-4 py-2 md:px-6 md:py-3 rounded-xl font-semibold text-sm md:text-lg hover:bg-red-600 transition-all shadow-lg w-full sm:w-auto min-h-touch-44 md:min-h-touch-48"
               @click="openApplicationForm"
             >
-              {{ t('home.who.get_offer') }}
+              {{ t(whoNs('get_offer')) }}
             </button>
             <NuxtLink
               v-if="!props.inModal"
               to="#universities"
               class="bg-white border-2 border-primary text-primary px-4 py-2 md:px-6 md:py-3 rounded-xl font-semibold text-sm md:text-lg hover:bg-primary hover:text-white transition-all w-full sm:w-auto min-h-touch-44 md:min-h-touch-48 text-center"
             >
-              {{ t('home.who.view_universities') }}
+              {{ t(whoNs('view_universities')) }}
             </NuxtLink>
             <button
               v-else
@@ -191,7 +191,7 @@
               class="bg-white border-2 border-primary text-primary px-4 py-2 md:px-6 md:py-3 rounded-xl font-semibold text-sm md:text-lg hover:bg-primary hover:text-white transition-all w-full sm:w-auto min-h-touch-44 md:min-h-touch-48 text-center"
               @click="handleViewUniversitiesClick"
             >
-              {{ t('home.who.view_universities') }}
+              {{ t(whoNs('view_universities')) }}
             </button>
           </div>
         </div>
@@ -201,7 +201,10 @@
 </template>
 
 <script setup lang="ts">
+import { namespace } from '~~/lib/i18n'
+
 // Step-by-step questionnaire section with logic
+const whoNs = namespace('home.who')
 
 const props = withDefaults(
   defineProps<{
@@ -234,39 +237,36 @@ const isFormComplete = computed(() => {
 })
 
 const getUserTypeText = computed(() => {
-  return answers.value.userType === 'student' ? t('home.who.student') : t('home.who.parent')
+  return answers.value.userType === 'student' ? t(whoNs('student')) : t(whoNs('parent'))
 })
 
 const getUniversityText = computed(() => {
   return answers.value.universityChosen === 'yes'
-    ? t('home.who.already_chosen')
-    : t('home.who.need_help_choosing')
+    ? t(whoNs('already_chosen'))
+    : t(whoNs('need_help_choosing'))
 })
 
 const getLanguageText = computed(() => {
-  return answers.value.language === 'turkish' ? t('home.who.turkish') : t('home.who.english')
+  return answers.value.language === 'turkish' ? t(whoNs('turkish')) : t(whoNs('english'))
 })
 
 const getScholarshipText = computed(() => {
   return answers.value.scholarship === 'yes'
-    ? t('home.who.scholarship_required')
-    : t('home.who.ready_pay_self')
+    ? t(whoNs('scholarship_required'))
+    : t(whoNs('ready_pay_self'))
 })
 
 const modal = useApplicationModal()
 
 const openApplicationForm = () => {
-  // Создаем объект с данными анкеты в нужном формате
-  const questionnairePreferences = {
+  modal.openModal({
     source: 'home_questionnaire',
     description: 'Заявка на основе анкеты с главной страницы',
-    userType: answers.value.userType,
+    userType: answers.value.userType as 'student' | 'parent',
     universityChosen: answers.value.universityChosen,
-    language: answers.value.language,
-    scholarship: answers.value.scholarship,
-  } as any
-
-  modal.openModal(questionnairePreferences)
+    language: answers.value.language as 'turkish' | 'english' | 'both',
+    scholarship: answers.value.scholarship as 'yes' | 'no',
+  })
 }
 
 const handleViewUniversitiesClick = () => {

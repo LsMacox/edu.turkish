@@ -11,7 +11,7 @@
       <div v-if="loading" class="min-h-screen bg-white flex items-center justify-center">
         <div class="text-center">
           <div class="animate-spin rounded-full h-32 w-32 border-b-2 border-primary mx-auto mb-4" />
-          <h1 class="text-xl font-semibold text-secondary">{{ t('loading') }}</h1>
+          <h1 class="text-xl font-semibold text-secondary">{{ t(key('loading')) }}</h1>
         </div>
       </div>
       <div
@@ -19,13 +19,13 @@
         class="min-h-screen bg-white flex items-center justify-center"
       >
         <div class="text-center">
-          <h1 class="text-4xl font-bold text-secondary mb-4">{{ t('universityNotFound') }}</h1>
-          <p class="text-gray-600 mb-8">{{ t('universityNotFoundDescription') }}</p>
+          <h1 class="text-4xl font-bold text-secondary mb-4">{{ t(key('errors.universityNotFound')) }}</h1>
+          <p class="text-gray-600 mb-8">{{ t(key('errors.universityNotFoundDescription')) }}</p>
           <NuxtLink
             :to="localePath('/universities')"
             class="bg-primary text-white px-6 py-3 rounded-xl font-semibold hover:bg-red-600 transition-colors"
           >
-            {{ t('backToUniversities') }}
+            {{ t(key('backToUniversities')) }}
           </NuxtLink>
         </div>
       </div>
@@ -35,6 +35,7 @@
 
 <script setup lang="ts">
 import { useUniversityDetailStore } from '~/stores/universityDetail'
+import { key } from '~~/lib/i18n'
 const localePath = useLocalePath()
 
 const route = useRoute()
@@ -51,12 +52,6 @@ await callOnce(async () => {
 })
 
 if (import.meta.client) {
-  onMounted(async () => {
-    if (!universityDetailStore.isUniversityLoaded(slug.value) && !universityDetailStore.loading) {
-      await universityDetailStore.loadUniversityBySlug(slug.value)
-    }
-  })
-
   watch(
     () => slug.value,
     async (newSlug, oldSlug) => {
@@ -70,7 +65,7 @@ if (import.meta.client) {
     () => locale.value,
     async (newLocale, oldLocale) => {
       if (!newLocale || newLocale === oldLocale) return
-      if (slug.value && universityDetailStore.isUniversityLoaded(slug.value)) {
+      if (slug.value) {
         await universityDetailStore.loadUniversityBySlug(slug.value)
       }
     },
@@ -99,11 +94,11 @@ watch(
 const headData = computed(() => {
   if (university.value && university.value.title) {
     const defaultTitle = `${university.value.title} - Edu.turkish`
-    const metaTitleFromI18n = t('universityDetail.metaTitleTemplate', {
+    const metaTitleFromI18n = t(key('universities.detail.metaTitleTemplate'), {
       name: university.value.title,
     })
     const metaTitle =
-      metaTitleFromI18n && metaTitleFromI18n !== 'universityDetail.metaTitleTemplate'
+      metaTitleFromI18n && metaTitleFromI18n !== 'universities.detail.metaTitleTemplate'
         ? metaTitleFromI18n
         : defaultTitle
 
@@ -112,7 +107,7 @@ const headData = computed(() => {
       meta: [
         {
           name: 'description',
-          content: university.value.description || t('universityInformation'),
+          content: university.value.description || t(key('universityInformation')),
         },
         {
           property: 'og:title',
@@ -120,7 +115,7 @@ const headData = computed(() => {
         },
         {
           property: 'og:description',
-          content: university.value.description || t('universityInformation'),
+          content: university.value.description || t(key('universityInformation')),
         },
         {
           property: 'og:image',
@@ -130,11 +125,11 @@ const headData = computed(() => {
     }
   } else {
     return {
-      title: `${t('universityNotFound')} - Edu.turkish`,
+      title: `${t(key('errors.universityNotFound'))} - Edu.turkish`,
       meta: [
         {
           name: 'description',
-          content: t('universityNotFoundDescription'),
+          content: t(key('errors.universityNotFoundDescription')),
         },
       ],
     }

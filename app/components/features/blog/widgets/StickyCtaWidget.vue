@@ -6,23 +6,26 @@
     <div class="flex items-center gap-3">
       <div class="flex-1">
         <p class="text-xs font-medium text-gray-500 uppercase tracking-wider mb-0.5">
-          {{ t('power_page.cta.mobile_label') }}
+          {{ t(ns('mobile_label')) }}
         </p>
         <p class="text-sm font-bold text-secondary leading-tight">
-          {{ t('power_page.cta.mobile_title') }}
+          {{ t(ns('mobile_title')) }}
         </p>
       </div>
       <button
         class="px-6 py-3 text-sm font-bold text-white bg-primary rounded-full shadow-lg hover:bg-primary-dark whitespace-nowrap"
         @click="onCtaClick"
       >
-        {{ t('power_page.cta.consult') }}
+        {{ t(ns('consult')) }}
       </button>
     </div>
   </div>
 </template>
 
 <script setup lang="ts">
+import { namespace } from '~~/lib/i18n'
+
+const ns = namespace('blog.powerPage.cta')
 const { t } = useI18n()
 const emit = defineEmits<{
   (e: 'click'): void
@@ -34,11 +37,9 @@ let lastScrollY = 0
 const onScroll = () => {
   if (import.meta.client) {
     const currentScrollY = window.scrollY
-    // Show only after scrolling down a bit (e.g. past hero)
     const heroHeight = window.innerHeight * 0.8
 
     if (currentScrollY > heroHeight) {
-      // Show when scrolling up or at the bottom, hide when scrolling down
       const visible =
         currentScrollY < lastScrollY ||
         window.innerHeight + currentScrollY >= document.body.offsetHeight - 100

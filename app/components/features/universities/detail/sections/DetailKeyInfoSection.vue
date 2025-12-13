@@ -2,8 +2,8 @@
   <section class="py-12 md:py-16 bg-white">
     <div class="container mx-auto px-4 lg:px-6">
       <BaseSectionHeader
-        :title="t('universityDetail.keyInformation.title')"
-        :subtitle="t('universityDetail.keyInformation.subtitle')"
+        :title="t(ns('title'))"
+        :subtitle="t(ns('subtitle'))"
         align="center"
         margin-bottom="lg"
       />
@@ -15,7 +15,7 @@
           :icon="item.icon"
           :icon-bg="item.iconBg"
           :icon-color="item.iconColor"
-          :title="t(`universityDetail.keyInformation.${item.key}`)"
+          :title="item.title"
           :value="item.value"
         />
       </div>
@@ -24,9 +24,10 @@
 </template>
 
 <script setup lang="ts">
-import type { UniversityDetail } from '~~/server/types/api/universities'
-import { useUniversity } from '~/composables/universities/useUniversity'
-import { getInfoItemStyle } from '~~/lib/universities/constants'
+import type { UniversityDetail } from '~~/lib/types'
+import { useUniversity } from '~/composables/useUniversityHelpers'
+import { getInfoItemStyle } from '~~/lib/domain/universities/constants'
+import { namespace } from '~~/lib/i18n'
 
 interface Props {
   university: UniversityDetail
@@ -34,49 +35,66 @@ interface Props {
 
 const props = defineProps<Props>()
 const { t } = useI18n()
+const ns = namespace('universities.detail.keyInformation')
+const nsRoot = namespace('universities.detail')
 const { formatNumber } = useUniversity()
 
-// Info item keys and their value getters
-const INFO_ITEMS = [
-  { key: 'city', getValue: () => props.university.city },
-  { key: 'foundedYear', getValue: () => String(props.university.foundedYear) },
-  {
-    key: 'cost',
-    getValue: () =>
-      t('universityDetail.keyInformation.costFrom', {
+const infoItems = computed(() => {
+  const items = [
+    {
+      key: 'city',
+      title: t(ns('city')),
+      value: props.university.city,
+    },
+    {
+      key: 'foundedYear',
+      title: t(ns('foundedYear')),
+      value: String(props.university.foundedYear),
+    },
+    {
+      key: 'cost',
+      title: t(ns('cost')),
+      value: t(ns('costFrom'), {
         cost: '$' + formatNumber(props.university.tuitionMin),
       }),
-  },
-  { key: 'languages', getValue: () => props.university.languages.join(', ') },
-  { key: 'students', getValue: () => formatNumber(props.university.totalStudents) },
-  {
-    key: 'accommodation',
-    getValue: () =>
-      props.university.hasAccommodation
-        ? t('universityDetail.accommodationValue.has')
-        : t('universityDetail.accommodationValue.none'),
-  },
-  {
-    key: 'ranking',
-    getValue: () => props.university.rankingText || t('universityDetail.rankingNotSpecified'),
-  },
-  {
-    key: 'internationalStudents',
-    getValue: () =>
-      t('universityDetail.internationalCount', { count: props.university.internationalStudents }),
-  },
-] as const
+    },
+    {
+      key: 'languages',
+      title: t(ns('languages')),
+      value: props.university.languages.join(', '),
+    },
+    {
+      key: 'students',
+      title: t(ns('students')),
+      value: formatNumber(props.university.totalStudents),
+    },
+    {
+      key: 'accommodation',
+      title: t(ns('accommodation')),
+      value: props.university.hasAccommodation
+        ? t(nsRoot('accommodationValue.has'))
+        : t(nsRoot('accommodationValue.none')),
+    },
+    {
+      key: 'ranking',
+      title: t(ns('ranking')),
+      value: props.university.rankingText || t(nsRoot('rankingNotSpecified')),
+    },
+    {
+      key: 'internationalStudents',
+      title: t(ns('internationalStudents')),
+      value: t(nsRoot('internationalCount'), { count: props.university.internationalStudents }),
+    },
+  ]
 
-const infoItems = computed(() =>
-  INFO_ITEMS.map((item) => {
+  return items.map((item) => {
     const style = getInfoItemStyle(item.key)
     return {
-      key: item.key,
+      ...item,
       icon: style.icon,
       iconBg: style.iconBg,
       iconColor: style.iconColor,
-      value: item.getValue(),
     }
-  }),
-)
+  })
+})
 </script>

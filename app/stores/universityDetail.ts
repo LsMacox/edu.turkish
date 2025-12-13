@@ -1,5 +1,5 @@
 import { defineStore } from 'pinia'
-import type { UniversityDetail } from '~~/server/types/api/universities'
+import type { UniversityDetail } from '~~/lib/types'
 
 export const useUniversityDetailStore = defineStore('universityDetail', () => {
   const university = ref<UniversityDetail | null>(null)

@@ -1,36 +1,36 @@
 <template>
   <ServicesPageLayout
-    :title="t('services.relocation-in-turkey.title')"
-    :subtitle="t('services.relocation-in-turkey.subtitle')"
+    :title="t(svc('title'))"
+    :subtitle="t(svc('subtitle'))"
     sub-services-cols="md:grid-cols-2 lg:grid-cols-3"
   >
     <template #sub-services>
       <ServicesPackageCard
-        package-id="university-admission"
-        :name="t('services.relocation-in-turkey.packages.admission.name')"
+        package-name="university-admission"
+        :name="t(pkgAdmission('name'))"
         :price="admissionPrice"
         :services="admissionServices"
-        :cta-text="t('services.relocation-in-turkey.packages.admission.ctaButton')"
+        :cta-text="t(pkgAdmission('ctaButton'))"
         :is-mobile-accordion="isMobile"
         @apply="handlePackageApply"
       />
       <ServicesPackageCard
-        package-id="relocation-standard"
-        :name="t('services.relocation-in-turkey.packages.standard.name')"
+        package-name="relocation-standard"
+        :name="t(pkgStandard('name'))"
         :price="standardPrice"
         :services="standardServices"
-        :cta-text="t('services.relocation-in-turkey.packages.standard.ctaButton')"
-        :includes-text="t('services.relocation-in-turkey.packages.standard.includes')"
+        :cta-text="t(pkgStandard('ctaButton'))"
+        :includes-text="t(pkgStandard('includes'))"
         :is-mobile-accordion="isMobile"
         @apply="handlePackageApply"
       />
       <ServicesPackageCard
-        package-id="relocation-vip"
-        :name="t('services.relocation-in-turkey.packages.vip.name')"
+        package-name="relocation-vip"
+        :name="t(pkgVip('name'))"
         :price="vipPrice"
         :services="vipServices"
-        :cta-text="t('services.relocation-in-turkey.packages.vip.ctaButton')"
-        :includes-text="t('services.relocation-in-turkey.packages.vip.includes')"
+        :cta-text="t(pkgVip('ctaButton'))"
+        :includes-text="t(pkgVip('includes'))"
         is-vip
         :is-mobile-accordion="isMobile"
         @apply="handlePackageApply"
@@ -41,26 +41,40 @@
       <div class="bg-white rounded-2xl p-6 md:p-8 shadow-card border border-gray-100">
         <div class="grid md:grid-cols-2 gap-6 md:gap-8">
           <ServicesAlertCard
-            key-prefix="services.relocation-in-turkey.benefits"
+            :title="t(svc('benefits.title'))"
+            :content="t(svc('benefits.content'))"
             variant="success"
           />
-          <ServicesAlertCard key-prefix="services.relocation-in-turkey.risks" variant="warning" />
+          <ServicesAlertCard
+            :title="t(svc('risks.title'))"
+            :content="t(svc('risks.content'))"
+            variant="warning"
+          />
         </div>
       </div>
     </template>
 
     <template #faq>
-      <ServicesFAQ key-prefix="services.relocation-in-turkey.faq" />
+      <ServicesFAQ
+        :title="faqData.title"
+        :items="faqData.items"
+      />
     </template>
   </ServicesPageLayout>
 </template>
 
 <script setup lang="ts">
-import type { PackageId } from '~/types/services'
 import { useExchangeRatesStore } from '~/stores/exchangeRates'
-import { useServiceHead } from '~/composables/services/useServiceHead'
+import { useServiceHead } from '~/composables/useServiceHead'
+import { namespace } from '~~/lib/i18n'
 
-const { t, getListStrings, getNumber } = useI18nHelpers()
+const svc = namespace('services.relocation-in-turkey')
+const pkgAdmission = namespace('services.relocation-in-turkey.packages.admission')
+const pkgStandard = namespace('services.relocation-in-turkey.packages.standard')
+const pkgVip = namespace('services.relocation-in-turkey.packages.vip')
+const faqNs = namespace('services.relocation-in-turkey.faq')
+const faqItemsNs = namespace('services.relocation-in-turkey.faq.items')
+const { t, getNumber } = useI18nHelpers()
 const modal = useApplicationModal()
 const exchangeRatesStore = useExchangeRatesStore()
 
@@ -76,42 +90,105 @@ onMounted(() => exchangeRatesStore.ensureFresh())
 
 // Prices from i18n (stored as numbers in JSON)
 const admissionPrice = computed(() =>
-  getNumber('services.relocation-in-turkey.packages.admission.priceUsd', 200),
+  getNumber(pkgAdmission('priceUsd'), 200),
 )
 const standardPrice = computed(() =>
-  getNumber('services.relocation-in-turkey.packages.standard.priceUsd', 1500),
+  getNumber(pkgStandard('priceUsd'), 1500),
 )
 const vipPrice = computed(() =>
-  getNumber('services.relocation-in-turkey.packages.vip.priceUsd', 2500),
+  getNumber(pkgVip('priceUsd'), 2500),
 )
 
-const admissionServices = computed(() =>
-  getListStrings('services.relocation-in-turkey.packages.admission.services'),
-)
+const admissionServices = computed(() => [
+  t(pkgAdmission('services.consultation')),
+  t(pkgAdmission('services.selection')),
+  t(pkgAdmission('services.documents')),
+  t(pkgAdmission('services.translation')),
+  t(pkgAdmission('services.guarantee')),
+  t(pkgAdmission('services.payment')),
+])
+
+const standardAdditionalServices = computed(() => [
+  t(pkgStandard('additionalServices.transfer')),
+  t(pkgStandard('additionalServices.registration')),
+  t(pkgStandard('additionalServices.studentCard')),
+  t(pkgStandard('additionalServices.dormitory')),
+  t(pkgStandard('additionalServices.travelCard')),
+  t(pkgStandard('additionalServices.taxNumber')),
+  t(pkgStandard('additionalServices.residencePermit')),
+  t(pkgStandard('additionalServices.denklik')),
+  t(pkgStandard('additionalServices.accompaniment')),
+  t(pkgStandard('additionalServices.simCard')),
+])
+
+const vipAdditionalServices = computed(() => [
+  t(pkgVip('additionalServices.apartment')),
+  t(pkgVip('additionalServices.utilities')),
+  t(pkgVip('additionalServices.residence')),
+  t(pkgVip('additionalServices.bankAccount')),
+])
+
 const standardServices = computed(() => [
   ...admissionServices.value,
-  ...getListStrings('services.relocation-in-turkey.packages.standard.additionalServices'),
-])
-const vipServices = computed(() => [
-  ...standardServices.value,
-  ...getListStrings('services.relocation-in-turkey.packages.vip.additionalServices'),
+  ...standardAdditionalServices.value,
 ])
 
-const handlePackageApply = ({ packageId, name }: { packageId: PackageId; name: string }) => {
+const vipServices = computed(() => [
+  ...standardServices.value,
+  ...vipAdditionalServices.value,
+])
+
+const faqData = computed(() => ({
+  title: t(faqNs('title')),
+  items: [
+    {
+      question: t(faqItemsNs('process_time.question')),
+      answer: t(faqItemsNs('process_time.answer')),
+    },
+    {
+      question: t(faqItemsNs('installments.question')),
+      answer: t(faqItemsNs('installments.answer')),
+    },
+    {
+      question: t(faqItemsNs('cities.question')),
+      answer: t(faqItemsNs('cities.answer')),
+    },
+    {
+      question: t(faqItemsNs('individual_services.question')),
+      answer: t(faqItemsNs('individual_services.answer')),
+    },
+    {
+      question: t(faqItemsNs('risks.question')),
+      answer: t(faqItemsNs('risks.answer')),
+    },
+    {
+      question: t(faqItemsNs('accommodation.question')),
+      answer: t(faqItemsNs('accommodation.answer')),
+    },
+    {
+      question: t(faqItemsNs('documents.question')),
+      answer: t(faqItemsNs('documents.answer')),
+    },
+    {
+      question: t(faqItemsNs('visa.question')),
+      answer: t(faqItemsNs('visa.answer')),
+    },
+    {
+      question: t(faqItemsNs('rejection.question')),
+      answer: t(faqItemsNs('rejection.answer')),
+    },
+  ],
+}))
+
+const handlePackageApply = ({ name }: { packageName: string; name: string }) => {
   modal.openModal({
     source: 'service_page',
     description: name,
-    serviceContext: {
-      subServiceId: packageId as any,
-      subServiceName: name,
-      source: 'service_page',
-      sourceDescription: name,
-    },
   })
 }
 
 useServiceHead({
-  title: () => t('services.relocation-in-turkey.title'),
-  description: () => t('services.relocation-in-turkey.subtitle'),
+  title: () => t(svc('title')),
+  description: () => t(svc('subtitle')),
 })
 </script>

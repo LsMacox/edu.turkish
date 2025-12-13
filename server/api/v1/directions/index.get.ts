@@ -1,7 +1,7 @@
 import { getDirectionRepository } from '~~/server/repositories/factory'
 import { calculatePagination } from '~~/server/utils/api/pagination'
 import { normalizeLocale } from '~~/server/utils/locale'
-import type { DirectionResponse, DirectionQueryParams } from '~~/server/types/api'
+import type { DirectionResponse, DirectionQueryParams } from '~~/lib/types'
 
 export default defineEventHandler(async (event): Promise<DirectionResponse> => {
   const locale = event.context.locale || 'ru'

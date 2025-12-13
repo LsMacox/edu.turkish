@@ -2,8 +2,8 @@
   <section id="scholarships" class="section-py bg-gradient-to-b from-gray-50 to-white">
     <div class="container">
       <BaseSectionHeader
-        :title="t('universities_page.scholarships.title')"
-        :subtitle="t('universities_page.scholarships.subtitle')"
+        :title="t(ns('title'))"
+        :subtitle="t(ns('subtitle'))"
         align="center"
         margin-bottom="lg"
       />
@@ -35,18 +35,18 @@
                 :class="scholarship.badgeClass"
               >
                 <Icon :name="scholarship.badgeIcon" class="w-3.5 h-3.5 mr-1" />
-                {{ t(`universities_page.scholarships.types.${scholarship.key}.badge`) }}
+                {{ scholarship.badge }}
               </span>
             </div>
 
             <!-- Title -->
             <h3 class="text-xl font-semibold text-secondary mb-3 group-hover:text-primary transition-colors">
-              {{ t(`universities_page.scholarships.types.${scholarship.key}.title`) }}
+              {{ scholarship.title }}
             </h3>
             
             <!-- Description -->
             <p class="text-gray-600 text-sm leading-relaxed mb-5">
-              {{ t(`universities_page.scholarships.types.${scholarship.key}.description`) }}
+              {{ scholarship.description }}
             </p>
 
             <!-- Benefits list -->
@@ -63,7 +63,7 @@
                   <Icon name="mdi:check" class="w-3.5 h-3.5 text-white" />
                 </div>
                 <span class="text-sm text-gray-700 leading-relaxed">
-                  {{ t(`universities_page.scholarships.types.${scholarship.key}.benefits.${benefit}`) }}
+                  {{ benefit }}
                 </span>
               </div>
             </div>
@@ -75,9 +75,14 @@
 </template>
 
 <script setup lang="ts">
-const { t } = useI18n()
+import { namespace } from '~~/lib/i18n'
 
-const scholarships = [
+const { t } = useI18n()
+const ns = namespace('universities.list.scholarships')
+
+const nsTypes = namespace('universities.list.scholarships.types')
+
+const scholarships = computed(() => [
   {
     key: 'government',
     icon: 'mdi:trophy',
@@ -86,7 +91,14 @@ const scholarships = [
     badgeClass: 'bg-blue-50 text-blue-700',
     badgeIcon: 'mdi:star',
     checkBg: 'bg-blue-500',
-    benefits: ['full_tuition', 'monthly_allowance', 'health_insurance'],
+    title: t(nsTypes('government.title')),
+    badge: t(nsTypes('government.badge')),
+    description: t(nsTypes('government.description')),
+    benefits: [
+      t(nsTypes('government.benefits.full_tuition')),
+      t(nsTypes('government.benefits.monthly_allowance')),
+      t(nsTypes('government.benefits.health_insurance')),
+    ],
   },
   {
     key: 'university',
@@ -96,7 +108,14 @@ const scholarships = [
     badgeClass: 'bg-emerald-50 text-emerald-700',
     badgeIcon: 'mdi:account-school',
     checkBg: 'bg-emerald-500',
-    benefits: ['tuition_discount', 'academic_merit', 'sports_achievement'],
+    title: t(nsTypes('university.title')),
+    badge: t(nsTypes('university.badge')),
+    description: t(nsTypes('university.description')),
+    benefits: [
+      t(nsTypes('university.benefits.tuition_discount')),
+      t(nsTypes('university.benefits.academic_merit')),
+      t(nsTypes('university.benefits.sports_achievement')),
+    ],
   },
-] as const
+])
 </script>

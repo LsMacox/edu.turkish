@@ -1,0 +1,111 @@
+{
+  "reviews": {
+    "mediaReviews": {
+      "title": "Video ve fotoğraf yorumlar",
+      "titleAccent": "öğrencilerimizden",
+      "description": "Öğrencilerimizin gerçek başarı hikayelerini izleyin. Türk üniversitelerine kabul ve eğitim hakkında video ve fotoğraf yorumlar.",
+      "error": "Yorumlar yüklenemedi. Lütfen sayfayı yenilemeyi deneyin.",
+      "empty": "Henüz medya yorumu yok"
+    },
+    "achievements": {
+      "title": "Başarılarımız",
+      "titleAccent": "rakamlarla",
+      "description": "Kendiliğinden konuşan sonuçlar. Her rakam birinin gerçekleşen hayali.",
+      "stats": {
+        "students": {
+          "title": "Öğrenci"
+        },
+        "success": {
+          "title": "Başarı"
+        },
+        "universities": {
+          "title": "Üniversite"
+        }
+      },
+      "overallRating": {
+        "title": "Genel puan"
+      }
+    },
+    "shareExperience": {
+      "title": "Deneyiminizi",
+      "titleAccent": "paylaşın",
+      "description": "Yorumunuz diğer öğrencilerin doğru karar vermesine yardımcı olacak. Başarılı başvurunuza giden yolunuzu anlatın.",
+      "form": {
+        "name": {
+          "label": "Adınız *",
+          "placeholder": "Adınızı girin"
+        },
+        "reviewerType": {
+          "label": "Kimsiniz? *",
+          "placeholder": "Yorumcu tipini seçin",
+          "student": "Öğrenci",
+          "parent": "Veli"
+        },
+        "university": {
+          "label": "Üniversite *",
+          "placeholder": "Üniversite seçin",
+          "loading": "Üniversiteler yükleniyor...",
+          "other": "Diğer"
+        },
+        "faculty": {
+          "label": "Fakülte",
+          "placeholder": "Örneğin: Tıp, Mühendislik"
+        },
+        "year": {
+          "label": "Giriş yılı",
+          "placeholder": "Yıl seçin",
+          "earlier": "Daha erken"
+        },
+        "rating": {
+          "label": "Hizmetlerimizi değerlendirin *",
+          "placeholder": "Değerlendirme seçin",
+          "excellent": "⭐⭐⭐⭐⭐ Mükemmel (5)",
+          "good": "⭐⭐⭐⭐ İyi (4)",
+          "satisfactory": "⭐⭐⭐ Yeterli (3)",
+          "poor": "⭐⭐ Kötü (2)",
+          "veryPoor": "⭐ Çok kötü (1)"
+        },
+        "contact": {
+          "label": "Email veya telefon",
+          "placeholder": "İletişim için (yayınlanmayacak)"
+        },
+        "review": {
+          "label": "Yorumunuz *",
+          "placeholder": "Başvuru ve eğitim deneyiminizi paylaşın. Size en çok ne yardımcı oldu? Gelecekteki öğrencilere ne tavsiye edersiniz?"
+        },
+        "helpful": {
+          "label": "En yararlı olan neydi? (birden fazla seçebilirsiniz)",
+          "aspects": {
+            "documents": "Belge yardımı",
+            "language": "Dil hazırlığı",
+            "exam-prep": "Sınav hazırlığı",
+            "university-choice": "Üniversite seçimi",
+            "visa": "Vize işlemleri",
+            "accommodation": "Konaklama arama",
+            "support": "Tüm aşamalarda destek",
+            "consultation": "Uzman danışmanlığı"
+          }
+        },
+        "recommend": {
+          "label": "Edu.turkish'i tavsiye eder misiniz?",
+          "yes": "Evet, kesinlikle",
+          "maybe": "Belki",
+          "no": "Hayır"
+        },
+        "submit": "Yorumu paylaş",
+        "submitting": "Gönderiliyor..."
+      },
+      "success": {
+        "title": "Yorumunuz için teşekkürler!",
+        "message": "Yorumunuzu aldık ve moderasyondan sonra kesinlikle yayınlayacağız. Deneyiminiz diğer öğrencilere yardımcı olacak!"
+      },
+      "error": {
+        "title": "Gönderim Hatası",
+        "dismiss": "Kapat"
+      },
+      "errors": {
+        "generic": "Yorumunuz gönderilirken bir hata oluştu. Lütfen tekrar deneyin."
+      }
+    }
+  }
+}

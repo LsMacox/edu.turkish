@@ -1,4 +1,4 @@
-import type { LeadData } from '~~/server/types/crm'
+import type { LeadData } from '~~/lib/types/server'
 
 export type ApplicationFixture = LeadData
 

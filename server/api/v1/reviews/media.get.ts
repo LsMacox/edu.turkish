@@ -1,6 +1,6 @@
 import { getReviewRepository } from '~~/server/repositories'
-import type { SupportedLocale } from '~~/lib/locales'
-import { parsePositiveInt } from '~~/lib/number'
+import type { SupportedLocale } from '~~/lib/config/locales'
+import { parsePositiveInt } from '~~/lib/utils/number'
 
 export default defineEventHandler(async (event: any) => {
   const query = getQuery(event)

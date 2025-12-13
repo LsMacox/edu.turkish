@@ -4,24 +4,24 @@
       <!-- Header -->
       <div class="text-center mb-6 md:mb-8">
         <h2 class="text-xl md:text-2xl font-bold text-secondary mb-2">
-          {{ t('reviews.mediaReviews.title') }}
-          <span class="text-primary">{{ t('reviews.mediaReviews.titleAccent') }}</span>
+          {{ t(mediaReviewsNs('title')) }}
+          <span class="text-primary">{{ t(mediaReviewsNs('titleAccent')) }}</span>
         </h2>
         <p class="text-sm md:text-base text-gray-600 max-w-2xl mx-auto">
-          {{ t('reviews.mediaReviews.description') }}
+          {{ t(mediaReviewsNs('description')) }}
         </p>
       </div>
 
       <!-- Loading State -->
       <div v-if="loading" class="text-center py-12">
         <div class="inline-block animate-spin rounded-full h-12 w-12 border-b-2 border-primary" />
-        <p class="text-gray-500 mt-4">{{ t('common.loading') }}</p>
+        <p class="text-gray-500 mt-4">{{ t(key('common.loading')) }}</p>
       </div>
 
       <!-- Error State -->
       <div v-else-if="error" class="text-center py-12">
         <Icon name="mdi:alert-circle" class="text-5xl text-red-500 mb-4" />
-        <p class="text-red-500">{{ t('reviews.mediaReviews.error') }}</p>
+        <p class="text-red-500">{{ t(mediaReviewsNs('error')) }}</p>
       </div>
 
       <!-- Carousel -->
@@ -64,12 +64,12 @@
           </component>
         </component>
         <div v-else class="text-center py-12">
-          <p class="text-gray-500">{{ t('common.loading') }}</p>
+          <p class="text-gray-500">{{ t(key('common.loading')) }}</p>
         </div>
 
         <template #fallback>
           <div class="text-center py-12">
-            <p class="text-gray-500">{{ t('common.loading') }}</p>
+            <p class="text-gray-500">{{ t(key('common.loading')) }}</p>
           </div>
         </template>
       </ClientOnly>
@@ -77,7 +77,7 @@
       <!-- Empty State -->
       <div v-else class="text-center py-12">
         <Icon name="mdi:video-off" class="text-5xl text-gray-400 mb-4" />
-        <p class="text-gray-500">{{ t('reviews.mediaReviews.empty') }}</p>
+        <p class="text-gray-500">{{ t(mediaReviewsNs('empty')) }}</p>
       </div>
     </div>
 
@@ -88,8 +88,10 @@
 
 <script setup lang="ts">
 import { useFetch } from '#app'
-import type { MediaReviewResponse } from '~~/server/types/api'
+import type { MediaReviewResponse } from '~~/lib/types'
+import { namespace, key } from '~~/lib/i18n'
 
+const mediaReviewsNs = namespace('reviews.mediaReviews')
 const { locale, t } = useI18n()
 
 const activeIndex = ref<number | null>(null)

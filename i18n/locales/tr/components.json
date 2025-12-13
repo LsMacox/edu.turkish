@@ -1,0 +1,66 @@
+{
+  "modal": {
+    "exit_intent_title": "Bekleyin! Kabul planınızı almadan gitmeyin.",
+    "consultation_title": "Ücretsiz danışmanlık",
+    "your_name": "Adınız",
+    "required": "*",
+    "phone": "WhatsApp numarası",
+    "email": "E-posta",
+    "additional_info": "Ek bilgi",
+    "name_placeholder": "Adınızı girin",
+    "phone_placeholder": "+1234567890",
+    "email_placeholder": "Email adresinizi girin",
+    "message_placeholder": "Hedefleriniz, şehir tercihleriniz, bütçeniz hakkında bize anlatın...",
+    "preferences_title": "Tercihleriniz:",
+    "preference_labels": {
+      "user_type": "Kullanıcı türü:",
+      "university": "Üniversite:",
+      "language": "Eğitim dili:",
+      "scholarship": "Burs:"
+    },
+    "user_types": {
+      "student": "Öğrenci",
+      "parent": "Veli"
+    },
+    "university_chosen": {
+      "yes": "Zaten seçildi",
+      "no": "Seçim konusunda yardım gerekli"
+    },
+    "languages": {
+      "turkish": "Türkçe",
+      "english": "İngilizce",
+      "both": "Her iki dil"
+    },
+    "scholarship": {
+      "yes": "Burs yardımı gerekli",
+      "no": "Bağımsız ödemeye hazır"
+    },
+    "agreement": "Kişisel verilerin işlenmesine ve bilgilendirme mesajlarının alınmasına onay veriyorum",
+    "submit_button": "Danışmanlık al",
+    "submitting": "Gönderiliyor...",
+    "success_title": "Başvuru gönderildi",
+    "success_message": "30 dakika içinde sizinle iletişime geçeceğiz.",
+    "error_title": "Gönderim hatası"
+  },
+  "admissionRequirements": {
+    "title": "Başvuru için ne gerekli?",
+    "subtitle": "Uluslararası öğrenciler için gereksinimler ve belgeler",
+    "requiredDocuments": {
+      "title": "Gerekli Belgeler"
+    },
+    "examsAndLanguage": {
+      "title": "Sınavlar ve dil gereksinimleri",
+      "goodNews": "İyi haber!",
+      "goodNewsText": "Çoğu program için YÖS ve SAT zorunlu değil"
+    },
+    "scholarships": {
+      "title": "Öğrenim indirimleri"
+    },
+    "importantDates": {
+      "title": "Önemli Tarihler"
+    }
+  },
+  "range": {
+    "to": "kadar"
+  }
+}

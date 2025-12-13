@@ -4,7 +4,7 @@
       <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8 mb-8">
         <!-- About Us -->
         <div>
-          <h3 class="text-xl font-semibold text-secondary mb-6">{{ t('footer.about_us') }}</h3>
+          <h3 class="text-xl font-semibold text-secondary mb-6">{{ t(footer('about_us')) }}</h3>
           <ul class="space-y-3">
             <li v-for="link in aboutLinks" :key="link.hash">
               <NuxtLink :to="localePath('/about') + link.hash" class="footer-link">
@@ -16,7 +16,7 @@
 
         <!-- Universities -->
         <div>
-          <h3 class="text-xl font-semibold text-secondary mb-6">{{ t('footer.universities') }}</h3>
+          <h3 class="text-xl font-semibold text-secondary mb-6">{{ t(footer('universities')) }}</h3>
           <ul class="space-y-3">
             <li v-for="city in cities" :key="city.value">
               <button class="footer-link" @click="handleCityClick(city.value)">
@@ -25,7 +25,7 @@
             </li>
             <li>
               <button class="footer-link" @click="handleAllUniversitiesClick">
-                {{ t('footer.all_universities') }}
+                {{ t(footer('all_universities')) }}
               </button>
             </li>
           </ul>
@@ -33,7 +33,7 @@
 
         <!-- Support -->
         <div>
-          <h3 class="text-xl font-semibold text-secondary mb-6">{{ t('footer.support') }}</h3>
+          <h3 class="text-xl font-semibold text-secondary mb-6">{{ t(footer('support')) }}</h3>
           <ul class="space-y-3">
             <li v-for="link in supportLinks" :key="link.to">
               <NuxtLink :to="localePath(link.to)" class="footer-link">
@@ -44,7 +44,7 @@
 
           <!-- Social Links -->
           <div class="mt-6">
-            <p class="text-sm text-gray-700 mb-3">{{ t('footer.social_networks') }}</p>
+            <p class="text-sm text-gray-700 mb-3">{{ t(footer('social_networks')) }}</p>
             <div class="flex space-x-3">
               <a
                 v-for="social in socialLinks"
@@ -83,8 +83,8 @@
             <span class="text-xl font-bold text-secondary">Edu.turkish</span>
           </div>
           <div class="text-center md:text-right">
-            <p class="text-gray-700">{{ t('footer.copyright') }}</p>
-            <p class="text-sm text-gray-600 mt-1">{{ t('footer.licensed_agency') }}</p>
+            <p class="text-gray-700">{{ t(footer('copyright')) }}</p>
+            <p class="text-sm text-gray-600 mt-1">{{ t(footer('licensed_agency')) }}</p>
           </div>
         </div>
       </div>
@@ -96,8 +96,10 @@
 import { useContactChannels } from '~/composables/useContactChannels'
 import { useUniversitiesStore } from '~/stores/universities'
 import { useFingerprint } from '~/composables/useFingerprint'
-import { ASSETS } from '~~/lib/assets'
+import { ASSETS } from '~~/lib/config/assets'
+import { namespace } from '~~/lib/i18n'
 
+const footer = namespace('footer')
 const { t } = useI18n()
 const route = useRoute()
 const router = useRouter()
@@ -106,23 +108,23 @@ const { channels } = useContactChannels()
 const { openWithFingerprint } = useFingerprint()
 
 const aboutLinks = [
-  { hash: '#who-we-are', label: 'footer.who_we_are' },
-  { hash: '#team', label: 'footer.our_team' },
-  { hash: '#contacts', label: 'footer.contacts' },
+  { hash: '#who-we-are', label: footer('who_we_are') },
+  { hash: '#team', label: footer('our_team') },
+  { hash: '#contacts', label: footer('contacts') },
 ]
 
 const cities = [
-  { value: 'Стамбул', label: 'footer.istanbul' },
-  { value: 'Анкара', label: 'footer.ankara' },
-  { value: 'Измир', label: 'footer.izmir' },
-  { value: 'Анталия', label: 'footer.antalya' },
+  { value: 'Стамбул', label: footer('istanbul') },
+  { value: 'Анкара', label: footer('ankara') },
+  { value: 'Измир', label: footer('izmir') },
+  { value: 'Анталия', label: footer('antalya') },
 ]
 
 const supportLinks = [
-  { to: '/faq', label: 'footer.faq' },
-  { to: '/reviews', label: 'footer.reviews' },
-  { to: '/contract', label: 'footer.contract' },
-  { to: '/privacy-policy', label: 'footer.privacy_policy' },
+  { to: '/faq', label: footer('faq') },
+  { to: '/reviews', label: footer('reviews') },
+  { to: '/contract', label: footer('contract') },
+  { to: '/privacy-policy', label: footer('privacy_policy') },
 ]
 
 const socialLinks = computed(() => [

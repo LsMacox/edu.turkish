@@ -1,20 +1,20 @@
-import type { ICRMProvider } from './CRMProvider.interface'
+import type { ICrmProvider } from './CRMProvider.interface'
 import { EspoCRMProvider } from './EspoCRMProvider'
-import { getCRMConfig, validateCRMConfig } from '~~/server/utils/crm-config'
+import { getCrmConfig, validateCrmConfig } from './config'
 
-let providerInstance: ICRMProvider | null = null
+let providerInstance: ICrmProvider | null = null
 
-function create(_provider: 'espocrm' = 'espocrm'): ICRMProvider {
+function create(_provider: 'espocrm' = 'espocrm'): ICrmProvider {
   if (providerInstance) {
     return providerInstance
   }
 
-  validateCRMConfig(getCRMConfig())
+  validateCrmConfig(getCrmConfig())
   providerInstance = new EspoCRMProvider()
   return providerInstance
 }
 
-function createFromEnv(): ICRMProvider {
+function createFromEnv(): ICrmProvider {
   return create()
 }
 
@@ -22,7 +22,7 @@ function clearCache(): void {
   providerInstance = null
 }
 
-export const CRMFactory = {
+export const CrmFactory = {
   create,
   createFromEnv,
   clearCache,

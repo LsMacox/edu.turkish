@@ -1,0 +1,185 @@
+{
+  "universities": {
+    "list": {
+      "hero": {
+        "title": "Universities Catalog",
+        "subtitle": "Find your dream university using filters or explore any card for details",
+        "stats": {
+          "universities": "Universities",
+          "cities": "Cities",
+          "programs": "Programs"
+        }
+      },
+      "filters": {
+        "search_label": "Search by name",
+        "search_placeholder": "Enter university name...",
+        "city_label": "City",
+        "all_cities": "All cities",
+        "language_label": "Language of instruction",
+        "type_label": "Type",
+        "all_types": "All types",
+        "level_label": "Level",
+        "all_levels": "All levels",
+        "price_label": "Cost per year (USD)",
+        "reset_button": "Reset",
+        "apply_button": "Search",
+        "more_filters": "More filters",
+        "hide_filters": "Hide",
+        "languages": {
+          "en": "English",
+          "tr": "Turkish",
+          "ru": "Russian"
+        },
+        "types": {
+          "state": "State",
+          "private": "Private",
+          "tech": "Technical",
+          "elite": "Elite"
+        },
+        "levels": {
+          "bachelor": "Bachelor",
+          "master": "Master",
+          "doctorate": "Doctorate"
+        },
+        "cities": {
+          "istanbul": "Istanbul",
+          "ankara": "Ankara",
+          "izmir": "Izmir"
+        }
+      },
+      "sort": {
+        "showing_text": "Showing",
+        "of_text": "of",
+        "universities_text": "universities",
+        "sort_label": "Sort by:",
+        "options": {
+          "popularity": "By popularity",
+          "price_asc": "By price (ascending)",
+          "price_desc": "By price (descending)",
+          "alphabetical": "Alphabetically",
+          "english_first": "English first"
+        }
+      },
+      "card": {
+        "details_button": "Details",
+        "application_description": "Application from university card:",
+        "year": "year",
+        "price_on_request": "Price on request",
+        "badges": {
+          "scholarships": "Scholarships",
+          "technical": "Technical"
+        }
+      },
+      "load_more": "Load more",
+      "how_to_choose": {
+        "title": "How to choose a university?",
+        "subtitle": "Info guide for making the right university choice",
+        "tips": {
+          "location": {
+            "title": "Check city and cost",
+            "description": "Consider living expenses, climate and distance from home"
+          },
+          "language": {
+            "title": "Pay attention to language of instruction",
+            "description": "Turkish is cheaper, English opens more opportunities"
+          },
+          "dormitory": {
+            "title": "Check dormitory availability",
+            "description": "State dormitories are cheaper, private ones more comfortable"
+          },
+          "rating": {
+            "title": "Compare ratings",
+            "description": "International ratings affect employment after graduation"
+          }
+        }
+      },
+      "scholarships": {
+        "title": "Scholarships and Grants",
+        "subtitle": "Opportunities to receive financial support for education",
+        "types": {
+          "government": {
+            "title": "Türkiye Scholarships",
+            "badge": "Government",
+            "description": "Government scholarship covers 100% tuition + accommodation",
+            "benefits": {
+              "full_tuition": "Full tuition coverage",
+              "monthly_allowance": "Monthly stipend",
+              "health_insurance": "Health insurance"
+            }
+          },
+          "university": {
+            "title": "University Scholarships",
+            "badge": "University",
+            "description": "Partial discounts from 25% to 75% on tuition",
+            "benefits": {
+              "tuition_discount": "Tuition discount",
+              "academic_merit": "Academic achievements",
+              "sports_achievement": "Sports achievements"
+            }
+          }
+        }
+      },
+      "tuitionFrom": "from ${price}/year"
+    },
+    "detail": {
+      "applyButton": "Apply to University",
+      "whatsappButton": "Contact via WhatsApp",
+      "metaTitleTemplate": "{name} — Study in Turkey for International Students | Admission 2025",
+      "keyInformation": {
+        "title": "Key Information",
+        "subtitle": "Everything you need to know about the university",
+        "city": "City",
+        "foundedYear": "Founded",
+        "cost": "Tuition",
+        "costFrom": "from {cost} per year",
+        "languages": "Languages",
+        "students": "Students",
+        "accommodation": "Accommodation",
+        "ranking": "Ranking",
+        "internationalStudents": "International Students"
+      },
+      "accommodationValue": {
+        "has": "On-campus dormitory",
+        "none": "No dormitory"
+      },
+      "rankingNotSpecified": "Ranking not specified",
+      "internationalCount": "{count}+ students",
+      "programDuration": {
+        "durationYears": "{count} year | {count} years"
+      },
+      "aboutUniversity": {
+        "title": "About University",
+        "history": "History and Mission",
+        "campus": "Campus Features",
+        "advantages": "Advantages for International Students"
+      },
+      "campusLife": {
+        "title": "Campus Life",
+        "subtitle": "Modern facilities for study and recreation",
+        "infrastructure": "Campus Infrastructure"
+      },
+      "faq": {
+        "title": "📌 Frequently Asked Questions about Admission to Turkish Universities",
+        "subtitle": "Answers to the most popular questions about applying to Turkish universities",
+        "q1": "Do I need to know Turkish or English to enroll?",
+        "a1": "✨ No! Even if you don't speak the language, the university will give you the opportunity to take a preparatory year in Turkish, English or Arabic. You will be able to adapt calmly and study at a comfortable pace.",
+        "q2": "Is it mandatory to take TR-YÖS or SAT?",
+        "a2": "🚀 No, your high school diploma is sufficient for admission.",
+        "q3": "How much does tuition cost?",
+        "a3": "🎓 Bachelor's degree tuition starts from $2000 per year. The specific price depends on the university and program.",
+        "q4": "What documents are required for admission?",
+        "a4": "📂 Minimum package:\n• High school diploma with translation into Turkish\n• Passport\n• Biometric photo",
+        "q5": "Are there scholarships or discounts?",
+        "a5": "✅ Of course! You have several options:\n• Türkiye Bursları — government program with monthly scholarship.\n• Academic discounts — for high GPA.\n• Sports discounts — if you represent the university in competitions.",
+        "q6": "How fast are the documents reviewed?",
+        "a6": "⏳ Officially it takes up to 2 weeks. But through us you can get an invitation letter in just a few days.",
+        "q7": "Do I need a visa?",
+        "a7": "🌍\n• For citizens of Kazakhstan, Russia, Uzbekistan and Kyrgyzstan with visa-free days, a visa is not required.\n• For students under Türkiye Bursları, obtaining a student visa is mandatory.",
+        "q8": "What does the admission process look like?",
+        "a8": "🔹 Just a few simple steps:\n1️⃣ Send us your documents\n2️⃣ Receive a preliminary acceptance letter\n3️⃣ Make a deposit to the university's account\n4️⃣ Receive the final acceptance letter\n5️⃣ Come to Turkey and complete final registration at the university",
+        "q9": "Do you support only the admission and final registration at the university?",
+        "a9": "✨ Yes, we support you at every stage — from submitting documents to arriving in Turkey."
+      }
+    }
+  }
+}

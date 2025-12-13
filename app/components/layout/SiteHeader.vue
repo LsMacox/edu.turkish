@@ -34,7 +34,7 @@
               "
               @click.prevent="servicesDropdown.toggle"
             >
-              {{ t('nav.services') }}
+              {{ t(navNs('services')) }}
               <Icon
                 :name="servicesDropdown.isOpen.value ? 'mdi:chevron-up' : 'mdi:chevron-down'"
                 class="text-base"
@@ -76,7 +76,7 @@
             class="nav-link"
             :class="isActive(link.path) ? 'nav-link-active' : ''"
           >
-            {{ t(link.i18nKey) }}
+            {{ link.label }}
           </NuxtLink>
         </nav>
 
@@ -181,9 +181,13 @@
 </template>
 
 <script setup lang="ts">
-import type { SupportedLocale } from '~~/lib/locales'
-import type { Currency } from '~/types/currency'
-import { ASSETS } from '~~/lib/assets'
+import type { SupportedLocale } from '~~/lib/config/locales'
+import type { SupportedCurrency as Currency } from '~~/lib/config/currency'
+import { ASSETS } from '~~/lib/config/assets'
+import { namespace } from '~~/lib/i18n'
+
+const navNs = namespace('nav')
+const currencyNs = namespace('currency.selector')
 
 const route = useRoute()
 const { t } = useI18n()
@@ -241,28 +245,28 @@ const currencyDropdown = useDropdown(currencyElRef)
 const localeDropdown = useDropdown(localeElRef)
 
 // Navigation links
-const navLinks = [
-  { path: '/universities', i18nKey: 'nav.universities' },
-  { path: '/programs', i18nKey: 'nav.programs' },
-  { path: '/reviews', i18nKey: 'nav.reviews' },
-  { path: '/blog', i18nKey: 'nav.blog' },
-  { path: '/about', i18nKey: 'nav.about' },
-  { path: '/faq', i18nKey: 'nav.faq' },
-]
+const navLinks = computed(() => [
+  { path: '/universities', label: t(navNs('universities')) },
+  { path: '/programs', label: t(navNs('programs')) },
+  { path: '/reviews', label: t(navNs('reviews')) },
+  { path: '/blog', label: t(navNs('blog')) },
+  { path: '/about', label: t(navNs('about')) },
+  { path: '/faq', label: t(navNs('faq')) },
+])
 
 const serviceLinks = computed(() => [
   {
-    label: t('nav.servicesDropdown.relocation'),
+    label: t(navNs('servicesDropdown.relocation')),
     path: localePath('/services/relocation-in-turkey'),
   },
-  { label: t('nav.servicesDropdown.trYosCourses'), path: localePath('/services/tr-yos-courses') },
-  { label: t('nav.servicesDropdown.satCourses'), path: localePath('/services/sat-courses') },
+  { label: t(navNs('servicesDropdown.trYosCourses')), path: localePath('/services/tr-yos-courses') },
+  { label: t(navNs('servicesDropdown.satCourses')), path: localePath('/services/sat-courses') },
   {
-    label: t('nav.servicesDropdown.languageCourse'),
+    label: t(navNs('servicesDropdown.languageCourse')),
     path: localePath('/services/turkish-english-course'),
   },
   {
-    label: t('nav.servicesDropdown.documentTranslations'),
+    label: t(navNs('servicesDropdown.documentTranslations')),
     path: localePath('/services/document-translations'),
   },
 ])
@@ -294,10 +298,10 @@ function changeLocale(code: SupportedLocale) {
 
 // Currency
 const currencyOptions = computed(() => [
-  { code: 'KZT' as Currency, label: t('currency.selector.KZT') },
-  { code: 'TRY' as Currency, label: t('currency.selector.TRY') },
-  { code: 'RUB' as Currency, label: t('currency.selector.RUB') },
-  { code: 'USD' as Currency, label: t('currency.selector.USD') },
+  { code: 'KZT' as Currency, label: t(currencyNs('KZT')) },
+  { code: 'TRY' as Currency, label: t(currencyNs('TRY')) },
+  { code: 'RUB' as Currency, label: t(currencyNs('RUB')) },
+  { code: 'USD' as Currency, label: t(currencyNs('USD')) },
 ])
 
 const currencySymbol = computed(() => getCurrencySymbol())

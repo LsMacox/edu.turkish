@@ -11,37 +11,12 @@
     "apply": "Өтінім беру",
     "consultation": "15 минут ішінде жағдайыңызды тегін талдау."
   },
-  "applicationCTA": {
-    "title": "{universityName} университетіне бүгін ақ өтініш беріңіз!",
-    "subtitle": "Мерзімдерді жіберіп алмаңыз. Біз сізбен байланысып, барлық құжаттарды дайындаймыз.",
-    "form": {
-      "name_label": "Сіздің атыңыз *",
-      "name_placeholder": "Атыңызды енгізіңіз",
-      "phone_label": "WhatsApp нөмірі",
-      "phone_placeholder": "+1234567890",
-      "email_label": "Email",
-      "email_placeholder": "Сіздің email мекенжайыңыз",
-      "program_label": "Қызықтыратын бағдарлама",
-      "program_placeholder": "Бағдарламаны таңдаңыз",
-      "program_other": "Басқа",
-      "level_label": "Білім деңгейі",
-      "level_bachelor": "Бакалавриат",
-      "level_master": "Магистратура",
-      "comment_label": "Түсініктеме",
-      "comment_placeholder": "Мақсаттарыңыз бен сұрақтарыңыз туралы айтыңыз...",
-      "privacy_agreement": "Мен жеке деректерді өңдеуге және ақпарат алуға келісемін",
-      "submit_button": "Өтініш жіберу",
-      "submitting": "Жіберілуде...",
-      "response_time": "Біз 2 сағат ішінде жауап береміз"
-    }
-  },
   "academicPrograms": {
     "title": "Академиялық бағдарламалар",
     "subtitle": "Тиісті білім деңгейін таңдаңыз",
     "tabs": {
       "bachelor": "Бакалавриат",
-      "master": "Магистратура",
-      "doctorate": "Докторантура"
+      "master": "Магистратура"
     },
     "table": {
       "programName": "Бағдарлама атауы",
@@ -76,8 +51,96 @@
     "copyright": "© 2025 Edu.turkish. Барлық құқықтар қорғалған.",
     "licensed_agency": "Лицензияланған білім агенттігі"
   },
+  "applicationCTA": {
+    "title": "{universityName} университетіне бүгін ақ өтініш беріңіз!",
+    "subtitle": "Мерзімдерді жіберіп алмаңыз. Біз сізбен байланысып, барлық құжаттарды дайындаймыз.",
+    "form": {
+      "name_label": "Сіздің атыңыз *",
+      "name_placeholder": "Атыңызды енгізіңіз",
+      "phone_label": "WhatsApp нөмірі",
+      "phone_placeholder": "+1234567890",
+      "email_label": "Email",
+      "email_placeholder": "Сіздің email мекенжайыңыз",
+      "program_label": "Қызықтыратын бағдарлама",
+      "program_placeholder": "Бағдарламаны таңдаңыз",
+      "program_other": "Басқа",
+      "level_label": "Білім деңгейі",
+      "level_bachelor": "Бакалавриат",
+      "level_master": "Магистратура",
+      "comment_label": "Түсініктеме",
+      "comment_placeholder": "Мақсаттарыңыз бен сұрақтарыңыз туралы айтыңыз...",
+      "privacy_agreement": "Мен жеке деректерді өңдеуге және ақпарат алуға келісемін",
+      "submit_button": "Өтініш жіберу",
+      "submitting": "Жіберілуде...",
+      "response_time": "Біз 2 сағат ішінде жауап береміз"
+    }
+  },
   "back_to_home": "Басты бетке қайту",
   "loading": "Жүктелуде...",
   "universityInformation": "Университет туралы ақпарат",
-  "backToUniversities": "Университеттер тізіміне оралу"
+  "backToUniversities": "Университеттер тізіміне оралу",
+  "nav": {
+    "services": "Қызметтер",
+    "universities": "Университеттер",
+    "programs": "Бағыттар",
+    "reviews": "Пікірлер",
+    "blog": "Блог",
+    "about": "Біз туралы",
+    "faq": "FAQ",
+    "servicesDropdown": {
+      "relocation": "Түркияда орналасу",
+      "trYosCourses": "TR-YÖS курстары",
+      "satCourses": "SAT курстары",
+      "languageCourse": "Түрік және ағылшын тілі курсы",
+      "documentTranslations": "Құжаттарды аудару"
+    }
+  },
+  "errors": {
+    "universityNotFound": "Университет табылмады",
+    "universityNotFoundDescription": "Кешіріңіз, сұралған университет табылмады.",
+    "required": "Бұл өрісті толтыру міндетті",
+    "min_length": "Ең аз {min} таңба",
+    "max_length": "Ең көп {max} таңба",
+    "invalid_email": "Дұрыс email мекенжайын енгізіңіз",
+    "invalid_phone": "Дұрыс телефон нөмірін енгізіңіз (ең аз 10 сан)",
+    "invalid_format": "Қате пішім",
+    "invalid": "Қате мән",
+    "crm_validation_error": "Қате: {message}",
+    "server_error": "Сервер қатесі орын алды",
+    "unknown_error": "Күтпеген қате орын алды",
+    "validation_error_title": "Тексеру қатесі",
+    "generic_error_title": "Қате",
+    "generic_error_message": "Қате орын алды. Қайталап көріңіз.",
+    "min_value": "Ең аз мән {min}",
+    "max_value": "Ең көп мән {max}",
+    "invalid_year": "Дұрыс жыл енгізіңіз (ЖЖЖЖ форматы)",
+    "fields": {
+      "personal_info": {
+        "first_name": {
+          "required": "Атыңызды енгізіңіз",
+          "min_length": "Атын тым қысқа (ең аз {min})",
+          "max_length": "Атын тым ұзын (ең көп {max})"
+        },
+        "phone": {
+          "required": "Телефон нөміріңізді енгізіңіз",
+          "invalid_phone": "Дұрыс телефон нөмірін енгізіңіз"
+        },
+        "email": {
+          "invalid_email": "Дұрыс email мекенжайын енгізіңіз",
+          "max_length": "Email тым ұзын (ең көп {max})"
+        }
+      },
+      "additional_info": {
+        "max_length": "Хабарлама тым ұзын (ең көп {max} таңба)"
+      }
+    }
+  },
+  "currency": {
+    "selector": {
+      "KZT": "Теңге (₸)",
+      "TRY": "Лира (₺)",
+      "RUB": "Рубль (₽)",
+      "USD": "Доллар ($)"
+    }
+  }
 }

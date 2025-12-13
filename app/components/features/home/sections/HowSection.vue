@@ -2,8 +2,8 @@
   <section id="how-it-works" v-scroll-reveal class="section-py bg-background">
     <div class="container">
       <BaseSectionHeader
-        :title="t('home.how.title')"
-        :subtitle="t('home.how.subtitle')"
+        :title="t(howNs('title'))"
+        :subtitle="t(howNs('subtitle'))"
         align="center"
         margin-bottom="lg"
       />
@@ -29,8 +29,8 @@
             </div>
           </div>
           <div class="space-y-2">
-            <h3 class="text-card-title">{{ t('home.how.step1_title') }}</h3>
-            <p class="text-card-body">{{ t('home.how.step1_desc') }}</p>
+            <h3 class="text-card-title">{{ t(howNs('step1_title')) }}</h3>
+            <p class="text-card-body">{{ t(howNs('step1_desc')) }}</p>
           </div>
         </div>
 
@@ -50,8 +50,8 @@
             </div>
           </div>
           <div class="space-y-2">
-            <h3 class="text-card-title">{{ t('home.how.step2_title') }}</h3>
-            <p class="text-card-body">{{ t('home.how.step2_desc') }}</p>
+            <h3 class="text-card-title">{{ t(howNs('step2_title')) }}</h3>
+            <p class="text-card-body">{{ t(howNs('step2_desc')) }}</p>
           </div>
         </div>
 
@@ -71,8 +71,8 @@
             </div>
           </div>
           <div class="space-y-2">
-            <h3 class="text-card-title">{{ t('home.how.step3_title') }}</h3>
-            <p class="text-card-body">{{ t('home.how.step3_desc') }}</p>
+            <h3 class="text-card-title">{{ t(howNs('step3_title')) }}</h3>
+            <p class="text-card-body">{{ t(howNs('step3_desc')) }}</p>
           </div>
         </div>
 
@@ -92,8 +92,8 @@
             </div>
           </div>
           <div class="space-y-2">
-            <h3 class="text-card-title">{{ t('home.how.step4_title') }}</h3>
-            <p class="text-card-body">{{ t('home.how.step4_desc') }}</p>
+            <h3 class="text-card-title">{{ t(howNs('step4_title')) }}</h3>
+            <p class="text-card-body">{{ t(howNs('step4_desc')) }}</p>
           </div>
         </div>
       </div>
@@ -102,6 +102,9 @@
 </template>
 
 <script setup lang="ts">
+import { namespace } from '~~/lib/i18n'
+
 // How it works steps
+const howNs = namespace('home.how')
 const { t } = useI18n()
 </script>

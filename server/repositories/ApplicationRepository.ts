@@ -1,7 +1,7 @@
 import { randomUUID } from 'node:crypto'
 import type { PrismaClient } from '@prisma/client'
-import type { ApplicationResponse } from '~~/server/types/api'
-import { ApplicationRequestSchema } from '~~/server/schemas/application'
+import type { ApplicationResponse } from '~~/lib/types'
+import { ApplicationRequestSchema } from '~~/lib/schemas/application'
 
 const generateTrackingCode = (): string => {
   const prefix = 'EDU'
@@ -11,14 +11,9 @@ const generateTrackingCode = (): string => {
 }
 
 export class ApplicationRepository {
-  constructor(private prisma: PrismaClient) {}
+  constructor(private prisma: PrismaClient) { }
 
-  /**
-   * Create a new application with validated data
-   * @throws {z.ZodError} if data validation fails
-   */
   async create(rawData: unknown): Promise<ApplicationResponse> {
-    // Validate and transform input data using Zod schema
     const data = ApplicationRequestSchema.parse(rawData)
     const trackingCode = generateTrackingCode()
 
@@ -31,7 +26,7 @@ export class ApplicationRepository {
         email: data.personal_info.email ?? null,
         phone: data.personal_info.phone,
         source: data.source,
-        referralCode: data.ref ?? null,
+        referralCode: data.referral_code ?? null,
         personalInfo: data.personal_info,
         preferences: data.preferences ?? {},
         additionalInfo: data.additional_info ?? {},
@@ -41,8 +36,8 @@ export class ApplicationRepository {
     return {
       id: application.id.toString(),
       status: application.status,
-      submitted_at: application.submittedAt.toISOString(),
-      tracking_code: application.trackingCode,
+      submittedAt: application.submittedAt.toISOString(),
+      trackingCode: application.trackingCode,
     }
   }
 }

@@ -3,10 +3,10 @@
     <div class="container mx-auto container-padding-narrow text-center">
       <div class="max-w-4xl mx-auto">
         <h2 class="text-section-title mb-6 text-white">
-          {{ t('home.final_cta.title') }}
+          {{ t(finalCtaNs('title')) }}
         </h2>
         <p class="text-body-lg mb-8 opacity-90 text-white">
-          {{ t('home.final_cta.subtitle', { days: timeLeft.days }) }}
+          {{ t(finalCtaNs('subtitle'), { days: timeLeft.days }) }}
         </p>
 
         <!-- Countdown Timer -->
@@ -17,7 +17,7 @@
             >
               {{ timeLeft.days }}
             </div>
-            <p class="text-sm mt-2 text-white">{{ t('home.final_cta.days') }}</p>
+            <p class="text-sm mt-2 text-white">{{ t(finalCtaNs('days')) }}</p>
           </div>
           <div class="text-center">
             <div
@@ -25,7 +25,7 @@
             >
               {{ timeLeft.hours }}
             </div>
-            <p class="text-sm mt-2 text-white">{{ t('home.final_cta.hours') }}</p>
+            <p class="text-sm mt-2 text-white">{{ t(finalCtaNs('hours')) }}</p>
           </div>
           <div class="text-center">
             <div
@@ -33,7 +33,7 @@
             >
               {{ timeLeft.minutes }}
             </div>
-            <p class="text-sm mt-2 text-white">{{ t('home.final_cta.minutes') }}</p>
+            <p class="text-sm mt-2 text-white">{{ t(finalCtaNs('minutes')) }}</p>
           </div>
         </div>
 
@@ -42,10 +42,10 @@
             class="bg-white text-primary px-12 py-4 rounded-xl font-bold text-xl hover:bg-gray-100 transition-all transform hover:scale-105 shadow-2xl"
             @click="modal.openModal()"
           >
-            {{ t('home.final_cta.button') }}
+            {{ t(finalCtaNs('button')) }}
           </button>
           <p class="text-sm opacity-80 text-white">
-            {{ t('home.final_cta.guarantee') }}
+            {{ t(finalCtaNs('guarantee')) }}
           </p>
         </div>
       </div>
@@ -54,6 +54,8 @@
 </template>
 
 <script setup lang="ts">
+import { namespace } from '~~/lib/i18n'
+
 interface Props {
   deadline?: string | Date
   fallbackDays?: number
@@ -68,6 +70,7 @@ const props = withDefaults(defineProps<Props>(), {
   fallbackMinutes: 35,
 })
 
+const finalCtaNs = namespace('home.final_cta')
 const { t } = useI18n()
 const modal = useApplicationModal()
 

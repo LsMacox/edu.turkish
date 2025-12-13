@@ -4,10 +4,10 @@
       <div class="max-w-6xl mx-auto">
         <div class="text-center mb-16">
           <h2 class="text-section-title mb-6">
-            {{ t('about.team.title') }}
+            {{ t(teamNs('title')) }}
           </h2>
           <p class="text-section-subtitle max-w-3xl mx-auto">
-            {{ t('about.team.subtitle') }}
+            {{ t(teamNs('subtitle')) }}
           </p>
         </div>
 
@@ -44,7 +44,7 @@
                   target="_blank"
                   rel="noopener noreferrer"
                   class="w-8 h-8 bg-blue-100 rounded-lg flex items-center justify-center cursor-pointer"
-                  :aria-label="t('about.team.links.linkedin', { name: member.name })"
+                  :aria-label="t(linksNs('linkedin'), { name: member.name })"
                 >
                   <Icon name="mdi:linkedin" class="text-blue-600" />
                 </a>
@@ -54,7 +54,7 @@
                   target="_blank"
                   rel="noopener noreferrer"
                   class="w-8 h-8 bg-green-100 rounded-lg flex items-center justify-center cursor-pointer"
-                  :aria-label="t('about.team.links.whatsapp', { name: member.name })"
+                  :aria-label="t(linksNs('whatsapp'), { name: member.name })"
                 >
                   <Icon name="mdi:whatsapp" class="text-green-600" />
                 </a>
@@ -68,8 +68,12 @@
 </template>
 
 <script setup lang="ts">
-import { ASSETS } from '~~/lib/assets'
+import { ASSETS } from '~~/lib/config/assets'
+import { namespace } from '~~/lib/i18n'
 
+const teamNs = namespace('about.team')
+const membersNs = namespace('about.team.members')
+const linksNs = namespace('about.team.links')
 const { t } = useI18n()
 
 interface TeamMember {
@@ -86,35 +90,35 @@ interface TeamMember {
 const teamMembers = computed<TeamMember[]>(() => [
   {
     id: 1,
-    name: t('about.team.members.hakim.name'),
-    position: t('about.team.members.hakim.position'),
-    role: t('about.team.members.hakim.role'),
-    description: t('about.team.members.hakim.description'),
+    name: t(membersNs('hakim.name')),
+    position: t(membersNs('hakim.position')),
+    role: t(membersNs('hakim.role')),
+    description: t(membersNs('hakim.description')),
     photo: ASSETS.about.team.hakim,
   },
   {
     id: 2,
-    name: t('about.team.members.nazrin.name'),
-    position: t('about.team.members.nazrin.position'),
-    role: t('about.team.members.nazrin.role'),
-    description: t('about.team.members.nazrin.description'),
+    name: t(membersNs('nazrin.name')),
+    position: t(membersNs('nazrin.position')),
+    role: t(membersNs('nazrin.role')),
+    description: t(membersNs('nazrin.description')),
     photo: ASSETS.about.team.nazrin,
   },
   {
     id: 3,
-    name: t('about.team.members.adam.name'),
-    position: t('about.team.members.adam.position'),
-    role: t('about.team.members.adam.role'),
-    description: t('about.team.members.adam.description'),
+    name: t(membersNs('adam.name')),
+    position: t(membersNs('adam.position')),
+    role: t(membersNs('adam.role')),
+    description: t(membersNs('adam.description')),
     photo: ASSETS.about.team.adam,
     linkedin: 'https://www.linkedin.com/in/adam-zugiraev/',
   },
   {
     id: 4,
-    name: t('about.team.members.nargiz.name'),
-    position: t('about.team.members.nargiz.position'),
-    role: t('about.team.members.nargiz.role'),
-    description: t('about.team.members.nargiz.description'),
+    name: t(membersNs('nargiz.name')),
+    position: t(membersNs('nargiz.position')),
+    role: t(membersNs('nargiz.role')),
+    description: t(membersNs('nargiz.description')),
     photo: ASSETS.about.team.nargiz,
   },
 ])

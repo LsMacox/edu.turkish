@@ -28,7 +28,7 @@
 </template>
 
 <script setup lang="ts">
-import type { ProcessStep } from '~/types/services'
+import type { ProcessStep } from '~/types/features/services'
 
 defineProps<{ step: ProcessStep }>()
 </script>

@@ -2,20 +2,20 @@
   <section id="reviews" v-scroll-reveal class="section-py bg-background">
     <div class="container mx-auto container-padding-narrow">
       <BaseSectionHeader
-        :title="t('home.reviews.title')"
-        :subtitle="t('home.reviews.subtitle')"
+        :title="t(reviewsNs('title'))"
+        :subtitle="t(reviewsNs('subtitle'))"
         align="center"
         margin-bottom="lg"
       />
 
       <div v-if="reviewsError" class="text-center text-red-500 mb-12">
-        {{ t('home.reviews.error') }}
+        {{ t(reviewsNs('error')) }}
       </div>
       <div v-else-if="pending" class="text-center text-gray-500 mb-12">
-        {{ t('home.reviews.loading') }}
+        {{ t(reviewsNs('loading')) }}
       </div>
       <div v-else-if="!featuredReviews.length" class="text-center text-gray-500 mb-12">
-        {{ t('home.reviews.empty') }}
+        {{ t(reviewsNs('empty')) }}
       </div>
       <div v-else class="grid md:grid-cols-2 lg:grid-cols-3 gap-8 mb-12">
         <div
@@ -47,7 +47,7 @@
           :to="localePath('/reviews')"
           class="inline-block bg-white border-2 border-primary text-primary px-8 py-3 rounded-xl font-semibold hover:bg-primary hover:text-white transition-all"
         >
-          {{ t('home.reviews.read_more') }}
+          {{ t(reviewsNs('read_more')) }}
         </NuxtLink>
       </div>
     </div>
@@ -55,7 +55,10 @@
 </template>
 
 <script setup lang="ts">
+import { namespace } from '~~/lib/i18n'
+
 // Reviews section with student testimonials loaded from API
+const reviewsNs = namespace('home.reviews')
 const { t, locale } = useI18n()
 const localePath = useLocalePath()
 

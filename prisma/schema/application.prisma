@@ -1,0 +1,25 @@
+// Prisma Schema - Application Domain
+// Student applications
+
+model Application {
+  id             Int               @id @default(autoincrement())
+  trackingCode   String            @unique @map("tracking_code") @db.VarChar(50)
+  status         ApplicationStatus @default(submitted)
+  firstName      String            @default("") @map("first_name") @db.VarChar(100)
+  lastName       String?           @map("last_name") @db.VarChar(100)
+  email          String?           @db.VarChar(255)
+  phone          String            @default("") @db.VarChar(30)
+  source         String            @default("unknown") @db.VarChar(100)
+  referralCode   String?           @map("referral_code") @db.VarChar(100)
+  personalInfo   Json              @map("personal_info")
+  preferences    Json
+  additionalInfo Json?             @map("additional_info")
+  submittedAt    DateTime          @default(now()) @map("submitted_at")
+  updatedAt      DateTime          @updatedAt @map("updated_at")
+
+  @@index([status], map: "idx_application_status")
+  @@index([submittedAt], map: "idx_application_submitted_at")
+  @@index([referralCode], map: "idx_application_referral")
+  @@index([source], map: "idx_application_source")
+  @@map("applications")
+}

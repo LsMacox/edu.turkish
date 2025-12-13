@@ -1,8 +1,8 @@
 import { ZodError } from 'zod'
-import { formatZodError } from '~~/server/utils/zod'
-import { ApplicationRequestSchema } from '~~/server/schemas/application'
+import { formatZodError } from '~~/server/utils/validation'
+import { ApplicationRequestSchema } from '~~/lib/schemas/application'
 import { getApplicationService } from '~~/server/services/application/ApplicationService'
-import type { ApplicationRequest } from '~~/server/types/api'
+import type { ApplicationRequest } from '~~/lib/types'
 import type { SubmitApplicationResult } from '~~/server/services/application/ApplicationService'
 
 export default defineEventHandler(async (event): Promise<SubmitApplicationResult> => {
@@ -11,7 +11,6 @@ export default defineEventHandler(async (event): Promise<SubmitApplicationResult
   try {
     const rawBody = await readBody(event)
 
-    // Validate request body
     let body: ApplicationRequest
     try {
       body = ApplicationRequestSchema.parse(rawBody) as ApplicationRequest
@@ -26,7 +25,6 @@ export default defineEventHandler(async (event): Promise<SubmitApplicationResult
       throw error
     }
 
-    // Submit via service
     const service = getApplicationService()
     const ctx = service.extractContext(event)
     const result = await service.submit(body, ctx)
@@ -34,7 +32,6 @@ export default defineEventHandler(async (event): Promise<SubmitApplicationResult
     setResponseStatus(event, 201)
     return result
   } catch (error: any) {
-    // Handle CRM validation errors
     if (error.isValidationError) {
       throw createError({
         statusCode: 422,
@@ -54,8 +51,6 @@ export default defineEventHandler(async (event): Promise<SubmitApplicationResult
       throw error
     }
 
-    console.error('Error creating application:', error)
-
     throw createError({
       statusCode: 500,
       statusMessage: 'Internal server error',
@@ -66,3 +61,4 @@ export default defineEventHandler(async (event): Promise<SubmitApplicationResult
     })
   }
 })
+

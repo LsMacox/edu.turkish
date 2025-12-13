@@ -1,0 +1,48 @@
+// Prisma Schema - Reviews Domain
+// University reviews with translations
+
+model UniversityReview {
+  id            Int             @id @default(autoincrement())
+  universityId  Int?            @map("university_id")
+  type          ReviewType
+  mediaType     MediaReviewType @default(text) @map("media_type")
+  year          Int?
+  rating        Int?            @db.TinyInt
+  avatar        String?         @db.VarChar(500)
+  featured      Boolean         @default(false)
+  videoUrl      String?         @map("video_url") @db.VarChar(500)
+  videoThumb    String?         @map("video_thumb") @db.VarChar(500)
+  videoDuration String?         @map("video_duration") @db.VarChar(10)
+  imageUrl      String?         @map("image_url") @db.VarChar(500)
+  createdAt     DateTime        @default(now()) @map("created_at")
+  updatedAt     DateTime        @updatedAt @map("updated_at")
+
+  // Relations
+  university   University?                  @relation(fields: [universityId], references: [id], onDelete: SetNull)
+  translations UniversityReviewTranslation[]
+
+  @@index([universityId, type], map: "idx_review_university_type")
+  @@index([featured], map: "idx_review_featured")
+  @@index([rating], map: "idx_review_rating")
+  @@index([mediaType], map: "idx_review_media_type")
+  @@index([featured, mediaType], map: "idx_review_featured_media")
+  @@map("university_reviews")
+}
+
+model UniversityReviewTranslation {
+  id             Int      @id @default(autoincrement())
+  reviewId       Int      @map("university_review_id")
+  locale         String   @db.VarChar(5)
+  name           String?  @db.VarChar(255)
+  quote          String?  @db.Text
+  universityName String?  @map("university_name") @db.VarChar(255)
+  achievements   Json?
+  createdAt      DateTime @default(now()) @map("created_at")
+  updatedAt      DateTime @updatedAt @map("updated_at")
+
+  // Relations
+  review UniversityReview @relation(fields: [reviewId], references: [id], onDelete: Cascade)
+
+  @@unique([reviewId, locale])
+  @@map("university_review_translations")
+}

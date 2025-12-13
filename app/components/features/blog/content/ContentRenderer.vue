@@ -97,15 +97,15 @@
 </template>
 
 <script setup lang="ts">
-import type { BlogArticleContentBlock } from '~~/server/types/api'
+import type { BlogArticleContentBlock } from '~~/lib/types'
 import { useContentParser, getHeadingTag } from '~/composables/useContentParser'
-import { variantStyles, type ContentVariant } from '~~/lib/blog/contentRendererStyles'
+import { variantStyles, type ContentVariant } from '~~/lib/domain/blog/contentRendererStyles'
 import {
   createWidgetRegistry,
   detectWidget as detectWidgetFn,
   getWidgetTextBefore as getWidgetTextBeforeFn,
   type WidgetMatch,
-} from '~~/lib/blog/widgetRegistry'
+} from '~~/lib/domain/blog/widgetRegistry'
 
 const props = withDefaults(
   defineProps<{

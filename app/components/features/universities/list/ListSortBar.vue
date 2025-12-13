@@ -5,24 +5,24 @@
         <Icon name="mdi:school" class="w-4 h-4 text-primary" />
       </div>
       <p class="text-sm text-gray-600">
-        {{ t('universities_page.sort.showing_text') }}
+        {{ t(sortNs('showing_text')) }}
         <span class="font-semibold text-secondary">{{ displayed }}</span>
-        {{ t('universities_page.sort.of_text') }}
+        {{ t(sortNs('of_text')) }}
         <span class="font-semibold text-secondary">{{ total }}</span>
-        {{ t('universities_page.sort.universities_text') }}
+        {{ t(sortNs('universities_text')) }}
       </p>
     </div>
 
     <div class="flex items-center gap-2">
       <label :for="sortFieldId" class="text-xs font-medium text-gray-500 whitespace-nowrap">
-        {{ t('universities_page.sort.sort_label') }}
+        {{ t(sortNs('sort_label')) }}
       </label>
       <BaseSelect :id="sortFieldId" :model-value="sort" class="min-w-[160px]" @update:model-value="onUpdateSort">
-        <option value="pop">{{ t('universities_page.sort.options.popularity') }}</option>
-        <option value="price_asc">{{ t('universities_page.sort.options.price_asc') }}</option>
-        <option value="price_desc">{{ t('universities_page.sort.options.price_desc') }}</option>
-        <option value="alpha">{{ t('universities_page.sort.options.alphabetical') }}</option>
-        <option value="lang_en">{{ t('universities_page.sort.options.english_first') }}</option>
+        <option value="pop">{{ t(sortNs('options.popularity')) }}</option>
+        <option value="price_asc">{{ t(sortNs('options.price_asc')) }}</option>
+        <option value="price_desc">{{ t(sortNs('options.price_desc')) }}</option>
+        <option value="alpha">{{ t(sortNs('options.alphabetical')) }}</option>
+        <option value="lang_en">{{ t(sortNs('options.english_first')) }}</option>
       </BaseSelect>
     </div>
   </div>
@@ -31,6 +31,9 @@
 <script setup lang="ts">
 import type { SortOption } from '~/stores/universities'
 import { SORT_OPTIONS } from '~/stores/universities'
+import { namespace } from '~~/lib/i18n'
+
+const sortNs = namespace('universities.list.sort')
 
 defineProps<{ total: number; displayed: number; sort: SortOption }>()
 const emit = defineEmits<{ (e: 'update:sort', value: SortOption): void }>()

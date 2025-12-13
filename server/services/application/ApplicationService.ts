@@ -2,10 +2,10 @@ import type { H3Event } from 'h3'
 import { getCookie } from 'h3'
 import { getApplicationRepository } from '~~/server/repositories'
 import { mapApplicationToLeadData } from '~~/server/mappers'
-import { CRMFactory } from '~~/server/services/crm/CRMFactory'
+import { CrmFactory } from '~~/server/services/crm/CRMFactory'
 import { getRedisQueue } from '~~/server/services/queue'
-import type { ApplicationRequest, ApplicationResponse } from '~~/server/types/api'
-import type { LeadData } from '~~/server/types/crm'
+import type { ApplicationRequest, ApplicationResponse } from '~~/lib/types'
+import type { LeadData } from '~~/lib/schemas/crm'
 
 export interface CRMSubmitResult {
   provider: string | null
@@ -26,9 +26,6 @@ export interface SubmitContext {
  * Orchestrates: DB persistence → CRM sync → Queue fallback.
  */
 export class ApplicationService {
-  /**
-   * Submit application: persist to DB, sync to CRM, queue on failure.
-   */
   async submit(
     body: ApplicationRequest,
     ctx: SubmitContext = {},
@@ -49,9 +46,6 @@ export class ApplicationService {
     }
   }
 
-  /**
-   * Extract context from H3 event for submission.
-   */
   extractContext(event: H3Event): SubmitContext {
     return {
       fingerprintCookie: getCookie(event, 'fp')?.trim(),
@@ -79,7 +73,7 @@ export class ApplicationService {
     let crmProvider: string | null = null
 
     try {
-      const crmService = CRMFactory.createFromEnv()
+      const crmService = CrmFactory.createFromEnv()
       crmProvider = crmService.providerName
 
       const result = await crmService.createLead(leadData)
@@ -127,7 +121,6 @@ export class ApplicationService {
   }
 }
 
-// Singleton instance
 let instance: ApplicationService | null = null
 
 export function getApplicationService(): ApplicationService {

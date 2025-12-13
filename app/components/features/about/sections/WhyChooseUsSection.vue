@@ -4,10 +4,10 @@
       <div class="max-w-6xl mx-auto">
         <div class="text-center mb-16">
           <h2 class="text-section-title mb-6">
-            {{ t('about.whyChooseUs.title') }}
+            {{ t(whyNs('title')) }}
           </h2>
           <p class="text-section-subtitle max-w-3xl mx-auto">
-            {{ t('about.whyChooseUs.subtitle') }}
+            {{ t(whyNs('subtitle')) }}
           </p>
         </div>
 
@@ -23,10 +23,10 @@
               />
               <div>
                 <h3 class="text-card-title mb-2">
-                  {{ t('about.whyChooseUs.advantages.personal.title') }}
+                  {{ t(advNs('personal.title')) }}
                 </h3>
                 <p class="text-gray-600">
-                  {{ t('about.whyChooseUs.advantages.personal.description') }}
+                  {{ t(advNs('personal.description')) }}
                 </p>
               </div>
             </div>
@@ -41,10 +41,10 @@
               />
               <div>
                 <h3 class="text-card-title mb-2">
-                  {{ t('about.whyChooseUs.advantages.direct.title') }}
+                  {{ t(advNs('direct.title')) }}
                 </h3>
                 <p class="text-gray-600">
-                  {{ t('about.whyChooseUs.advantages.direct.description') }}
+                  {{ t(advNs('direct.description')) }}
                 </p>
               </div>
             </div>
@@ -59,10 +59,10 @@
               />
               <div>
                 <h3 class="text-card-title mb-2">
-                  {{ t('about.whyChooseUs.advantages.multilingual.title') }}
+                  {{ t(advNs('multilingual.title')) }}
                 </h3>
                 <p class="text-gray-600">
-                  {{ t('about.whyChooseUs.advantages.multilingual.description') }}
+                  {{ t(advNs('multilingual.description')) }}
                 </p>
               </div>
             </div>
@@ -77,10 +77,10 @@
               />
               <div>
                 <h3 class="text-card-title mb-2">
-                  {{ t('about.whyChooseUs.advantages.support.title') }}
+                  {{ t(advNs('support.title')) }}
                 </h3>
                 <p class="text-gray-600">
-                  {{ t('about.whyChooseUs.advantages.support.description') }}
+                  {{ t(advNs('support.description')) }}
                 </p>
               </div>
             </div>
@@ -89,7 +89,7 @@
             <NuxtImg
               class="w-full h-96 object-cover rounded-2xl shadow-custom"
               :src="ASSETS.about.whyChooseUsImage"
-              :alt="t('about.whyChooseUs.imageAlt')"
+              :alt="t(whyNs('imageAlt'))"
               loading="lazy"
               format="webp"
               sizes="(max-width: 1024px) 100vw, 50vw"
@@ -102,7 +102,10 @@
 </template>
 
 <script setup lang="ts">
-import { ASSETS } from '~~/lib/assets'
+import { ASSETS } from '~~/lib/config/assets'
+import { namespace } from '~~/lib/i18n'
 
+const whyNs = namespace('about.whyChooseUs')
+const advNs = namespace('about.whyChooseUs.advantages')
 const { t } = useI18n()
 </script>

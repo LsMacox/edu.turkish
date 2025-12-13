@@ -1,0 +1,66 @@
+{
+  "modal": {
+    "exit_intent_title": "Подождите! Не уходите, не получив свой план поступления.",
+    "consultation_title": "Бесплатная консультация",
+    "your_name": "Ваше имя",
+    "required": "*",
+    "phone": "Номер WhatsApp",
+    "email": "Email",
+    "additional_info": "Дополнительная информация",
+    "name_placeholder": "Введите ваше имя",
+    "phone_placeholder": "+1234567890",
+    "email_placeholder": "Введите ваш email",
+    "message_placeholder": "Расскажите о ваших целях, предпочтениях по городу, бюджету...",
+    "preferences_title": "Ваши предпочтения:",
+    "preference_labels": {
+      "user_type": "Тип пользователя:",
+      "university": "Университет:",
+      "language": "Язык обучения:",
+      "scholarship": "Стипендия:"
+    },
+    "user_types": {
+      "student": "Студент",
+      "parent": "Родитель"
+    },
+    "university_chosen": {
+      "yes": "Уже выбран",
+      "no": "Нужна помощь с выбором"
+    },
+    "languages": {
+      "turkish": "Турецкий",
+      "english": "Английский",
+      "both": "Оба языка"
+    },
+    "scholarship": {
+      "yes": "Требуется помощь со стипендией",
+      "no": "Готов оплачивать самостоятельно"
+    },
+    "agreement": "Согласен с обработкой персональных данных и получением информационных сообщений",
+    "submit_button": "Получить консультацию",
+    "submitting": "Отправляем...",
+    "success_title": "Заявка отправлена",
+    "success_message": "Мы свяжемся с вами в течение 30 минут.",
+    "error_title": "Ошибка отправки"
+  },
+  "admissionRequirements": {
+    "title": "Что нужно для поступления?",
+    "subtitle": "Требования и документы для международных студентов",
+    "requiredDocuments": {
+      "title": "Необходимые документы"
+    },
+    "examsAndLanguage": {
+      "title": "Экзамены и языковые требования",
+      "goodNews": "Хорошая новость!",
+      "goodNewsText": "Для большинства программ YÖS и SAT не обязательны"
+    },
+    "scholarships": {
+      "title": "Скидки на обучение"
+    },
+    "importantDates": {
+      "title": "Важные даты"
+    }
+  },
+  "range": {
+    "to": "до"
+  }
+}

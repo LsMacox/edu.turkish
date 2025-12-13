@@ -5,10 +5,10 @@
         <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 mb-5">
           <div>
             <h1 class="text-section-title">
-              {{ t('faq.title') }}
+              {{ t(faqNs('title')) }}
             </h1>
             <p class="text-section-subtitle mt-1">
-              {{ t('faq.subtitle') }}
+              {{ t(faqNs('subtitle')) }}
             </p>
           </div>
         </div>
@@ -18,7 +18,7 @@
             :name="searchInputId"
             :value="searchQuery"
             type="text"
-            :placeholder="t('faq.searchPlaceholder')"
+            :placeholder="t(faqNs('searchPlaceholder'))"
             class="w-full px-4 py-3 pl-10 pr-10 border border-gray-200 rounded-xl text-base focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent shadow-sm transition-all min-h-touch-44"
             @input="handleSearchInput"
           />
@@ -30,7 +30,7 @@
           <button
             v-if="searchQuery"
             class="absolute right-4 top-1/2 transform -translate-y-1/2 text-gray-400 hover:text-gray-600 transition-colors p-1 min-w-touch-44 min-h-touch-44 flex items-center justify-center"
-            :aria-label="t('common.clear')"
+            :aria-label="t(key('common.clear'))"
             @click="clearSearch"
           >
             <Icon name="mdi:close" class="w-5 h-5" />
@@ -41,7 +41,7 @@
             class="absolute top-full left-0 right-0 mt-2 bg-white border border-gray-200 rounded-xl shadow-lg z-10"
           >
             <div class="p-4">
-              <h4 class="text-sm font-medium text-gray-700 mb-2">{{ t('faq.recentSearches') }}</h4>
+              <h4 class="text-sm font-medium text-gray-700 mb-2">{{ t(faqNs('recentSearches')) }}</h4>
               <div class="space-y-1">
                 <button
                   v-for="suggestion in searchHistory.slice(0, 5)"
@@ -58,11 +58,11 @@
 
         <div v-if="isActiveSearch" class="mt-4 flex items-center justify-between">
           <p class="text-sm text-gray-600">
-            <span v-if="isSearching">{{ t('faq.searching') }}...</span>
+            <span v-if="isSearching">{{ t(faqNs('searching')) }}...</span>
             <span v-else-if="hasResults">
-              {{ t('faq.searchResults', { count: resultCount, query: searchQuery }) }}
+              {{ t(faqNs('searchResults'), { count: resultCount, query: searchQuery }) }}
             </span>
-            <span v-else>{{ t('faq.noResults', { query: searchQuery }) }}</span>
+            <span v-else>{{ t(faqNs('noResults'), { query: searchQuery }) }}</span>
           </p>
 
           <button
@@ -70,7 +70,7 @@
             class="text-xs text-gray-500 hover:text-gray-700 transition-colors"
             @click="clearSearchHistory"
           >
-            {{ t('faq.clearHistory') }}
+            {{ t(faqNs('clearHistory')) }}
           </button>
         </div>
 
@@ -98,11 +98,11 @@
       <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
         <div v-if="isActiveSearch && !hasResults && !isSearching" class="text-center py-12">
           <Icon name="mdi:magnify-close" class="w-16 h-16 text-gray-300 mx-auto mb-4" />
-          <h3 class="text-card-title mb-2">{{ t('faq.noResultsTitle') }}</h3>
-          <p class="text-gray-500 mb-6">{{ t('faq.noResultsMessage', { query: searchQuery }) }}</p>
+          <h3 class="text-card-title mb-2">{{ t(faqNs('noResultsTitle')) }}</h3>
+          <p class="text-gray-500 mb-6">{{ t(faqNs('noResultsMessage'), { query: searchQuery }) }}</p>
 
           <div class="space-y-3">
-            <p class="text-sm text-gray-600">{{ t('faq.tryThese') }}:</p>
+            <p class="text-sm text-gray-600">{{ t(faqNs('tryThese')) }}:</p>
             <div class="flex flex-wrap justify-center gap-2">
               <button
                 v-for="suggestion in popularSearches"
@@ -117,7 +117,7 @@
               class="text-primary hover:text-primary-dark font-medium text-sm"
               @click="resetFilters"
             >
-              {{ t('faq.showAllQuestions') }}
+              {{ t(faqNs('showAllQuestions')) }}
             </button>
           </div>
         </div>
@@ -174,7 +174,7 @@
 
         <div v-else-if="isSearching" class="text-center py-12">
           <Icon name="mdi:loading" class="w-8 h-8 text-primary animate-spin mx-auto mb-4" />
-          <p class="text-gray-600">{{ t('faq.searching') }}...</p>
+          <p class="text-gray-600">{{ t(faqNs('searching')) }}...</p>
         </div>
 
         <div v-else class="text-center py-12">
@@ -182,8 +182,8 @@
             name="mdi:frequently-asked-questions"
             class="w-16 h-16 text-gray-300 mx-auto mb-4"
           />
-          <h3 class="text-card-title mb-2">{{ t('faq.startSearching') }}</h3>
-          <p class="text-gray-500">{{ t('faq.startSearchingMessage') }}</p>
+          <h3 class="text-card-title mb-2">{{ t(faqNs('startSearching')) }}</h3>
+          <p class="text-gray-500">{{ t(faqNs('startSearchingMessage')) }}</p>
         </div>
       </div>
     </section>
@@ -192,13 +192,16 @@
 
 <script setup lang="ts">
 import { storeToRefs } from 'pinia'
-import { highlightSearchTerms } from '~~/lib/text'
+import { highlightSearchTerms } from '~~/lib/utils/text'
 import { useFAQStore } from '~/stores/faq'
-import { useFaqFilters } from '~/composables/faq/useFaqFilters'
+import { useFaqFilters } from '~/composables/useFaqFilters'
+import { namespace, key } from '~~/lib/i18n'
+import { FAQ_CATEGORY_ICONS, DEFAULT_FAQ_ICON } from '~~/lib/domain/faq'
 
 definePageMeta({ layout: 'default' })
 
-const { t, te, locale } = useI18n()
+const faqNs = namespace('faq')
+const { t, locale } = useI18n()
 const searchInputId = useId()
 
 const faqStore = useFAQStore()
@@ -261,26 +264,11 @@ const { status: faqStatus, data: faqData } = await useAsyncData(`faq-${locale.va
 // Use categories from async data to ensure SSR/client consistency
 const ssrCategories = computed(() => {
   if (!faqData.value?.categories) return categories.value
-  const CATEGORY_ICONS: Record<string, string> = {
-    all: 'ph:squares-four',
-    documents: 'ph:file-text',
-    education: 'ph:graduation-cap',
-    technology: 'ph:device-mobile',
-    residence: 'ph:identification-card',
-    relocation: 'ph:airplane-takeoff',
-    insurance: 'ph:shield-check',
-    transport: 'ph:bus',
-    housing: 'ph:house',
-    exams: 'ph:exam',
-    admission: 'ph:clock',
-    scholarships: 'ph:trophy',
-    languages: 'ph:globe',
-  }
   return [
-    { key: 'all', name: '', count: 0, icon: CATEGORY_ICONS.all! },
+    { key: 'all', name: '', count: 0, icon: FAQ_CATEGORY_ICONS.all! },
     ...faqData.value.categories.map((c: any) => ({
       ...c,
-      icon: CATEGORY_ICONS[c.key] ?? 'ph:question',
+      icon: FAQ_CATEGORY_ICONS[c.key] ?? DEFAULT_FAQ_ICON,
     })),
   ]
 })
@@ -317,15 +305,22 @@ const openItems = ref<Record<number, boolean>>({})
 const showSearchSuggestions = ref(false)
 
 const getCategoryLabel = (key: string, fallbackName?: string) => {
-  const i18nKey = `faq.categories.${key}.title`
-  return te(i18nKey) ? t(i18nKey) : fallbackName || key
+  if (key === 'all') {
+    return t(faqNs('categories.all.title'))
+  }
+  // Look up translated name from categories if no fallback provided
+  if (!fallbackName) {
+    const cat = ssrCategories.value.find((c) => c.key === key)
+    if (cat?.name) return cat.name
+  }
+  return fallbackName || key
 }
 
 const popularSearches = computed(() => [
-  t('faq.popularSearches.documents'),
-  t('faq.popularSearches.scholarships'),
-  t('faq.popularSearches.exams'),
-  t('faq.popularSearches.language'),
+  t(faqNs('popularSearches.documents')),
+  t(faqNs('popularSearches.scholarships')),
+  t(faqNs('popularSearches.exams')),
+  t(faqNs('popularSearches.language')),
 ])
 
 const toggleFAQ = (itemId: number) => {

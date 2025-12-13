@@ -22,67 +22,23 @@
 </template>
 
 <script setup lang="ts">
-interface FormatScheduleSectionProps {
-  keyPrefix: string
-  title?: string
-}
-
-const props = withDefaults(defineProps<FormatScheduleSectionProps>(), {
-  title: '',
-})
-
-const { t, te } = useI18n()
-
-const title = computed(() => props.title || t(`${props.keyPrefix}.title`))
-
 interface FormatDetail {
   key: string
   label: string
   value: string
 }
 
-const formatDetails = computed<FormatDetail[]>(() => {
-  const details: FormatDetail[] = []
-
-  // Dynamically collect all keys from the i18n object
-  const keys = [
-    'format',
-    'duration',
-    'homework',
-    'support',
-    'enrollmentSchedule',
-    'recordings',
-    'taskBank',
-    'groupSize',
-    'individual',
-    'conversationClubs',
-    'schedule',
-    'platform',
-    'certificate',
-  ]
-
-  keys.forEach((key) => {
-    const fullKey = `${props.keyPrefix}.${key}`
-    if (!te(fullKey)) {
-      return
-    }
-    const raw = t(fullKey) as unknown as string
-    const labelKey = `${props.keyPrefix}.labels.${key}`
-    const label = te(labelKey)
-      ? (t(labelKey) as unknown as string) || formatKey(key)
-      : formatKey(key)
-    details.push({
-      key,
-      label,
-      value: raw,
-    })
-  })
-
-  return details
-})
-
-const formatKey = (key: string): string => {
-  // Convert camelCase to Title Case
-  return key.replace(/([A-Z])/g, ' $1').replace(/^./, (str) => str.toUpperCase())
+interface FormatScheduleData {
+  title: string
+  items: FormatDetail[]
 }
+
+interface Props {
+  data: FormatScheduleData
+}
+
+const props = defineProps<Props>()
+
+const title = computed(() => props.data.title)
+const formatDetails = computed(() => props.data.items)
 </script>

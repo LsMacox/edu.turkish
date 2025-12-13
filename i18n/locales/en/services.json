@@ -1,74 +1,14 @@
 {
-  "currency": {
-    "selector": {
-      "label": "Currency",
-      "KZT": "KZT",
-      "TRY": "TRY",
-      "RUB": "RUB",
-      "USD": "USD"
-    }
-  },
   "services": {
     "common": {
       "deliveryTime": "Timeline",
       "price": "Price",
-      "week": "Week",
-      "day": "Day",
-      "days": "days",
-      "months": "months",
-      "phase": "Phase",
-      "documentType": "Document Type",
-      "languagePair": "Language Pair",
-      "urgency": "Urgency",
-      "estimatedPrice": "Estimated Price",
-      "acceptedFormats": "Accepted Formats",
-      "acceptedByUniversities": "Accepted By",
-      "sampleDocumentsNote": "All samples are anonymized for privacy",
       "whatIncluded": "What's Included",
       "howItWorks": {
-        "title": "How It Works",
-        "steps": [
-          {
-            "title": "Upload Document",
-            "description": "Send us a scan or photo of your document via the website form",
-            "icon": "mdi:upload"
-          },
-          {
-            "title": "We Clarify Details",
-            "description": "Our manager will contact you to clarify requirements",
-            "icon": "mdi:message-text"
-          },
-          {
-            "title": "Translate and Certify",
-            "description": "Licensed translators perform the translation with notarial certification",
-            "icon": "mdi:translate"
-          },
-          {
-            "title": "Receive Ready File",
-            "description": "We send an electronic version and, if needed, the original by courier",
-            "icon": "mdi:check-circle"
-          }
-        ]
+        "title": "How It Works"
       },
       "whyChooseUs": {
-        "title": "Why Choose Us",
-        "factors": [
-          {
-            "title": "Licensed Translators",
-            "description": "All our specialists have official accreditation",
-            "icon": "mdi:certificate"
-          },
-          {
-            "title": "Accepted by Turkish Universities",
-            "description": "We work with all major universities in Turkey",
-            "icon": "mdi:school"
-          },
-          {
-            "title": "Support in Russian, Turkish, and English",
-            "description": "Communicate with us in your preferred language",
-            "icon": "mdi:web"
-          }
-        ]
+        "title": "Why Choose Us"
       },
       "trustIndicators": {
         "workingSince": "Working since 2019",
@@ -83,44 +23,44 @@
           "name": "University Admission",
           "priceUsd": 200,
           "ctaButton": "Order",
-          "services": [
-            "Initial consultation",
-            "Selection of universities and programs",
-            "Consultation on collecting necessary documents for admission",
-            "Assistance with translation and notarization of documents",
-            "Guarantee of university admission for the student",
-            "Assistance with tuition fee payment"
-          ]
+          "services": {
+            "consultation": "Initial consultation",
+            "selection": "Selection of universities and programs",
+            "documents": "Consultation on collecting necessary documents for admission",
+            "translation": "Assistance with translation and notarization of documents",
+            "guarantee": "Guarantee of university admission for the student",
+            "payment": "Assistance with tuition fee payment"
+          }
         },
         "standard": {
           "name": "Settlement in Turkey",
           "priceUsd": 1500,
           "ctaButton": "Order",
           "includes": "Includes 'University Admission' package plus:",
-          "additionalServices": [
-            "Airport transfer",
-            "Final registration at the university",
-            "Issuance of university student card",
-            "Dormitory search and registration",
-            "Student travel card processing",
-            "Obtaining a tax number",
-            "Preparation and collection of all necessary documents for Residence Permit",
-            "Consultation and processing of Denklik belgesi",
-            "Personal accompaniment at all stages",
-            "Assistance with purchasing a SIM card"
-          ]
+          "additionalServices": {
+            "transfer": "Airport transfer",
+            "registration": "Final registration at the university",
+            "studentCard": "Issuance of university student card",
+            "dormitory": "Dormitory search and registration",
+            "travelCard": "Student travel card processing",
+            "taxNumber": "Obtaining a tax number",
+            "residencePermit": "Preparation and collection of all necessary documents for Residence Permit",
+            "denklik": "Consultation and processing of Denklik belgesi",
+            "accompaniment": "Personal accompaniment at all stages",
+            "simCard": "Assistance with purchasing a SIM card"
+          }
         },
         "vip": {
           "name": "VIP Settlement in Turkey",
           "priceUsd": 2200,
           "ctaButton": "Order",
           "includes": "Includes 'Admission and Settlement' packages plus:",
-          "additionalServices": [
-            "Apartment search and assistance with notarized rental agreement",
-            "Utility services registration",
-            "Residence registration (address registration)",
-            "Opening a bank account"
-          ]
+          "additionalServices": {
+            "apartment": "Apartment search and assistance with notarized rental agreement",
+            "utilities": "Utility services registration",
+            "residence": "Residence registration (address registration)",
+            "bankAccount": "Opening a bank account"
+          }
         }
       },
       "benefits": {
@@ -133,95 +73,97 @@
       },
       "faq": {
         "title": "Frequently Asked Questions",
-        "items": [
-          {
+        "items": {
+          "process_time": {
             "question": "How long does the entire settlement process take?",
             "answer": "The full process typically takes 30-45 days from arrival to residence permit submission. We provide a detailed timeline after you submit your documents."
           },
-          {
+          "installments": {
             "question": "Can I pay in installments?",
             "answer": "Yes, we offer payment plans. Standard package can be split into 2 payments, VIP into 3 payments. Contact us for specific terms."
           },
-          {
+          "cities": {
             "question": "Do you work in all Turkish cities?",
             "answer": "We operate in Istanbul, Ankara, Izmir, Antalya, and Bursa. For other cities, we can provide remote consultation and document preparation."
           },
-          {
+          "individual_services": {
             "question": "Can I order individual services instead of a full package?",
             "answer": "Yes, individual services are available. However, packages offer better value (15-20% discount) and ensure nothing is missed in the settlement process."
           },
-          {
+          "risks": {
             "question": "What are the risks of doing everything myself?",
             "answer": "Common issues include: incorrect document translations rejected by authorities, missed residence permit deadlines resulting in fines (500-1000 TRY), unfavorable rental contracts, and difficulty opening bank accounts without proper guidance."
           },
-          {
+          "accommodation": {
             "question": "Is accommodation included in the package price?",
             "answer": "No, the package covers search assistance and contract review. You pay rent directly to the landlord. We help you find options within your budget and negotiate fair terms."
           },
-          {
+          "documents": {
             "question": "What documents do I need to prepare before arrival?",
             "answer": "Required: passport (valid 6+ months), university acceptance letter, diploma and transcript, health insurance certificate, and 4 passport photos. We provide a complete checklist with instructions after booking."
           },
-          {
+          "visa": {
             "question": "Do you help with visa applications?",
             "answer": "Standard package includes enrollment documentation for student visa. VIP package includes full visa application support with consulate appointment booking and interview preparation."
           },
-          {
+          "rejection": {
             "question": "What happens if my residence permit is rejected?",
             "answer": "In 6 years, we've had zero rejections when clients follow our guidance. If a rejection occurs due to our error, we resubmit at no cost and cover any related fines or legal fees."
           }
-        ]
+        }
       }
     },
     "tr-yos-courses": {
       "title": "TR-YÖS preparation",
       "subtitle": "Our expert courses and proven methods help you achieve a high score.",
-      "subServices": [
-        {
-          "id": "basic-package",
+      "subServices": {
+        "basic": {
           "name": "Basic",
-          "description": "Duration: 7+ months\nGroup: up to 10 people\nProgram: full preparation on all topics\nSchedule: 3 lessons per week",
-          "priceUsd": 300
+          "description": "Duration: 7+ months\nGroup: up to 10 people\nProgram: full preparation on all topics\nSchedule: 3 lessons per week"
         },
-        {
-          "id": "individual-package",
+        "individual": {
           "name": "Individual",
-          "description": "Duration: 7+ months\nFormat: individual lessons\nProgram: same base + adaptation to your level\nSchedule: 3 lessons per week",
-          "priceUsd": 700
+          "description": "Duration: 7+ months\nFormat: individual lessons\nProgram: same base + adaptation to your level\nSchedule: 3 lessons per week"
         }
-      ],
+      },
       "courseGoal": {
         "title": "Course Goal",
         "description": "We prepare for TR-YÖS to achieve the highest possible score sufficient for admission to your chosen faculty — including the most competitive programs. Every student receives an equally strong curriculum, and the result depends on their preparation level and chosen learning format.",
-        "packages": [
-          { "name": "Basic", "targetScore": "300+" },
-          { "name": "Individual", "targetScore": "350+" }
-        ]
+        "packages": {
+          "basic": {
+            "name": "Basic",
+            "targetScore": "300+"
+          },
+          "individual": {
+            "name": "Individual",
+            "targetScore": "350+"
+          }
+        }
       },
       "programContent": {
         "title": "What's Included in the Program?",
-        "items": [
-          {
+        "items": {
+          "theory": {
             "title": "Theory",
             "description": "Fundamentals of mathematics, logic, and geometry",
             "icon": "mdi:book-open"
           },
-          {
+          "practice": {
             "title": "Practice",
             "description": "Many problems solved during theory sessions with detailed explanations",
             "icon": "mdi:pencil"
           },
-          {
+          "errorAnalysis": {
             "title": "Error Analysis",
             "description": "Personal feedback on completed tests",
             "icon": "mdi:chart-line"
           },
-          {
+          "materials": {
             "title": "Materials",
             "description": "Task bank with 500+ problems",
             "icon": "mdi:folder"
           }
-        ]
+        }
       },
       "formatSchedule": {
         "title": "Format",
@@ -238,289 +180,98 @@
       },
       "studentResults": {
         "title": "Maximum Results",
-        "maxResults": [
-          { "package": "Individual", "score": "424/500" },
-          { "package": "Group", "score": "372/500" }
-        ]
+        "maxResults": {
+          "individual": {
+            "package": "Individual",
+            "score": "424/500"
+          },
+          "group": {
+            "package": "Group",
+            "score": "372/500"
+          }
+        }
       },
       "faq": {
         "title": "Frequently Asked Questions",
-        "items": [
-          {
+        "items": {
+          "difference": {
             "question": "What's the difference between 'Basic' and 'Individual' packages?",
             "answer": "The curriculum is the same for everyone and aims for a high TR-YÖS score. The difference lies in the group size and level of instructor attention. 'Basic' has up to 10 people, while 'Individual' format involves personal lessons."
           },
-          {
+          "duration": {
             "question": "How long is the course?",
             "answer": "More than 7+ months."
           },
-          {
+          "trial": {
             "question": "Are trial lessons available?",
             "answer": "Yes, if desired, you can attend a trial lesson and familiarize yourself with the instructor's approach."
           },
-          {
+          "content": {
             "question": "What's included in the program?",
             "answer": "Full TR-YÖS preparation course: mathematics, logic, geometry, problem solving, exam strategy, practice tests, etc."
           },
-          {
+          "missed_lesson": {
             "question": "What if I miss a lesson?",
             "answer": "In groups, lesson recordings are provided. In individual format, it's possible to reschedule the lesson."
           },
-          {
+          "score": {
             "question": "How many points can I realistically score after the course?",
             "answer": "Everything depends on the student's level and effort. The program is designed for preparation to 350+ points with regular participation and homework completion!"
           },
-          {
+          "online": {
             "question": "Is the learning format online or offline?",
             "answer": "The training is conducted online, with live lessons and constant feedback."
           }
-        ]
+        }
       }
     },
     "sat-courses": {
       "title": "SAT preparation",
       "subtitle": "We train at the level of top international schools, opening doors to leading universities.",
-      "temporarilyUnavailable": "Service temporarily unavailable",
-      "courseGoal": {
-        "title": "Target Results",
-        "description": "Focused on Digital SAT preparation with proven strategies for success.",
-        "packages": [
-          {
-            "name": "Foundation",
-            "targetScore": "1200+"
-          },
-          {
-            "name": "Advanced",
-            "targetScore": "1350+"
-          },
-          {
-            "name": "Elite",
-            "targetScore": "1450+"
-          }
-        ]
-      },
-      "programContent": {
-        "title": "Program Content",
-        "items": [
-          {
-            "title": "Math",
-            "description": "Algebra, geometry, data analysis, advanced math",
-            "icon": "mdi:calculator"
-          },
-          {
-            "title": "Reading & Writing",
-            "description": "Comprehension, grammar, rhetoric, vocabulary",
-            "icon": "mdi:text"
-          },
-          {
-            "title": "Mock Tests",
-            "description": "Weekly full-length tests with timing",
-            "icon": "mdi:clock"
-          },
-          {
-            "title": "Strategies",
-            "description": "Time management, section-specific tactics",
-            "icon": "mdi:strategy"
-          },
-          {
-            "title": "Progress Tracking",
-            "description": "Homework trackers and performance analytics",
-            "icon": "mdi:chart-box"
-          }
-        ]
-      },
-      "formatSchedule": {
-        "title": "Format",
-        "enrollmentSchedule": "New cohorts start every month",
-        "duration": "12 weeks (36 lessons)",
-        "recordings": "Access to all recorded sessions",
-        "taskBank": "Full task bank with 1000+ problems"
-      },
-      "studentResults": {
-        "title": "Case Studies",
-        "labels": {
-          "before": "Before",
-          "after": "After",
-          "duration": "Duration",
-          "admittedTo": "Admitted to"
-        },
-        "cases": [
-          {
-            "score": 1420,
-            "proof": "/images/sat-report-1.png",
-            "admission": "MIT"
-          },
-          {
-            "score": 1380,
-            "proof": "/images/sat-report-2.png",
-            "admission": "Stanford"
-          }
-        ]
-      },
-      "faq": {
-        "title": "Frequently Asked Questions",
-        "items": [
-          {
-            "question": "How many times can I take the SAT?",
-            "answer": "You can take the SAT as many times as you want. Most students take it 2-3 times to achieve their target score."
-          },
-          {
-            "question": "Can I change my test date?",
-            "answer": "Yes, College Board allows date changes for a fee. We'll help you navigate the process and choose the best test date."
-          },
-          {
-            "question": "Do I need TOEFL/IELTS too?",
-            "answer": "It depends on the university. Some accept high SAT Reading & Writing scores instead of separate English proficiency tests."
-          }
-        ]
-      }
+      "temporarilyUnavailable": "Service temporarily unavailable"
     },
     "turkish-english-course": {
       "title": "Language courses (TR/EN)",
       "subtitle": "Speak with confidence! We help you pass TÖMER/IELTS and feel at home in Turkey.",
-      "temporarilyUnavailable": "Service temporarily unavailable",
-      "levelProgression": {
-        "title": "Your Level Progression",
-        "levels": [
-          {
-            "from": "A1",
-            "to": "A2",
-            "outcome": "Basic conversations, daily tasks, simple texts"
-          },
-          {
-            "from": "B1",
-            "to": "B2",
-            "outcome": "Work meetings, academic discussions, complex texts"
-          },
-          {
-            "from": "C1",
-            "to": "C2",
-            "outcome": "Native-like fluency, professional writing, nuanced expression"
-          }
-        ]
-      },
-      "formatSchedule": {
-        "title": "Learning Format",
-        "labels": {
-          "groupSize": "Group Size",
-          "individual": "Individual Lessons",
-          "conversationClubs": "Conversation Clubs",
-          "schedule": "Schedule",
-          "platform": "Platform",
-          "certificate": "Certificate"
-        },
-        "groupSize": "Up to 8 students per group",
-        "individual": "Individual lessons available",
-        "conversationClubs": "Weekly conversation clubs included",
-        "schedule": "Flexible schedule, morning/evening options",
-        "platform": "Zoom + learning portal with materials",
-        "certificate": "Certificate of completion issued"
-      },
-      "teachers": {
-        "title": "Methodology & Teachers",
-        "methodology": "We use a communicative approach with real-world scenarios. Every lesson includes speaking practice, grammar in context, and cultural insights.",
-        "profiles": [
-          {
-            "name": "Ayşe Yılmaz",
-            "photo": "/images/team/teacher-placeholder.jpg",
-            "achievements": "Native Turkish speaker, 10+ years teaching experience, TÖMER certified"
-          },
-          {
-            "name": "John Smith",
-            "photo": "/images/team/teacher-placeholder.jpg",
-            "achievements": "Native English speaker, CELTA certified, 8 years in Turkey"
-          },
-          {
-            "name": "Mehmet Demir",
-            "photo": "/images/team/teacher-placeholder.jpg",
-            "achievements": "Bilingual Turkish-English, MA in Linguistics, exam prep specialist"
-          }
-        ]
-      },
-      "expectedResults": {
-        "title": "Results in 12 Weeks",
-        "duration": "12",
-        "skills": [
-          "Open a bank account in Turkish",
-          "Pass a university interview",
-          "Read news articles and understand main ideas",
-          "Write formal emails and applications",
-          "Navigate daily life without translation apps"
-        ]
-      },
-      "faq": {
-        "title": "Frequently Asked Questions",
-        "items": [
-          {
-            "question": "What if I miss a class?",
-            "answer": "All lessons are recorded. You can watch the recording and we'll schedule a makeup if needed."
-          },
-          {
-            "question": "Can I freeze my course?",
-            "answer": "Yes, you can freeze for up to 2 weeks. Just let us know in advance."
-          },
-          {
-            "question": "What's your refund policy?",
-            "answer": "Full refund within first 2 lessons. After that, prorated refund for unused lessons."
-          }
-        ]
-      }
+      "temporarilyUnavailable": "Service temporarily unavailable"
     },
     "document-translations": {
       "title": "Translation & legalization",
       "subtitle": "100% guarantee: your documents will be translated, certified (yeminli tercüman) and accepted by any university.",
-      "shortTitle": "Document Translation",
-      "serviceCards": [
-        {
-          "title": "Certificate / Diploma / Transcript",
-          "description": "Translation and notarization of certificates, diplomas and transcripts for university admission in Turkey",
-          "icon": "mdi:certificate"
-        },
-        {
-          "title": "School / University Documents",
-          "description": "Academic certificates, grade transcripts and other documents from educational institutions",
-          "icon": "mdi:school"
-        },
-        {
-          "title": "Passport / ID / Certificates",
-          "description": "Translation of passports, identity cards, birth certificates, marriage certificates and other personal documents",
-          "icon": "mdi:card-account-details"
-        },
-        {
-          "title": "Criminal Record / Medical Certificates",
-          "description": "Criminal record checks, medical reports and other official certificates",
-          "icon": "mdi:file-document-check"
-        },
-        {
-          "title": "Power of Attorney/Consents",
-          "description": "Notarized powers of attorney, parental consents and other legal documents",
-          "icon": "mdi:file-sign"
-        },
-        {
-          "title": "Financial Documents",
-          "description": "Bank statements, income certificates, guarantee letters and financial documents",
-          "icon": "mdi:bank"
-        },
-        {
-          "title": "Other",
-          "description": "Any other documents requiring notarized translation - individual cost assessment",
-          "icon": "mdi:file-question"
-        }
-      ],
       "calculatorData": {
-        "documentTypes": [
-          { "name": "Passport", "priceUsd": 20 },
-          { "name": "High School Certificate", "priceUsd": 30 },
-          { "name": "Diploma", "priceUsd": 45 },
-          { "name": "Power of Attorney/Consent", "priceUsd": 40 },
-          { "name": "Financial Statements", "priceUsd": 25 },
-          { "name": "Other", "priceUsd": null }
-        ],
-        "languagePairs": ["Russian – Turkish", "Turkish – Russian"],
-        "urgency": [
-          { "name": "Standard (1-3 days)", "surcharge": 0 },
-          { "name": "Rush (up to 3 hours)", "surcharge": 10 }
-        ]
+        "documentTypes": {
+          "passport": {
+            "name": "Passport"
+          },
+          "highSchool": {
+            "name": "High School Certificate"
+          },
+          "diploma": {
+            "name": "Diploma"
+          },
+          "powerOfAttorney": {
+            "name": "Power of Attorney/Consent"
+          },
+          "financial": {
+            "name": "Financial Statements"
+          },
+          "other": {
+            "name": "Other",
+            "priceUsd": null
+          }
+        },
+        "languagePairs": {
+          "ru_tr": "Russian – Turkish",
+          "tr_ru": "Turkish – Russian"
+        },
+        "urgency": {
+          "standard": {
+            "name": "Standard (1-3 days)"
+          },
+          "rush": {
+            "name": "Rush (up to 3 hours)"
+          }
+        }
       },
       "calculator": {
         "title": "Price Calculator",
@@ -532,64 +283,57 @@
         "byRequest": "Upon Request"
       },
       "howItWorks": {
-        "title": "How It Works",
-        "steps": [
-          {
+        "steps": {
+          "upload": {
             "title": "Upload Document",
             "description": "You send us documents online by submitting an application (PDF/photo) — no need to bring originals in person",
             "icon": "mdi:upload"
           },
-          {
+          "clarify": {
             "title": "We Clarify Details",
             "description": "Our manager will contact you to clarify requirements",
             "icon": "mdi:message-text"
           },
-          {
+          "translate": {
             "title": "Translate and Certify",
             "description": "Licensed translators perform translation with notarial certification",
             "icon": "mdi:translate"
           },
-          {
+          "receive": {
             "title": "Receive Ready File",
             "description": "We send completed translations in digital format or paper copy, by courier throughout Turkey if needed",
             "icon": "mdi:check-circle"
           }
-        ]
+        }
       },
       "whyChooseUs": {
-        "title": "Why Choose Us",
-        "factors": [
-          {
+        "factors": {
+          "accredited": {
             "title": "Only accredited translators work",
             "description": "All our specialists have official yeminli tercüman accreditation with document certification rights",
             "icon": "mdi:certificate"
           },
-          {
+          "accepted": {
             "title": "Translations accepted by all Turkish government institutions",
             "description": "Our translations are guaranteed to be accepted by universities, immigration services and other government agencies",
             "icon": "mdi:bank-check"
           },
-          {
+          "online": {
             "title": "Online translation without office visit",
             "description": "The entire process can be done remotely — send scans, receive ready translations",
             "icon": "mdi:web"
           },
-          {
+          "verification": {
             "title": "Verification and correction before certification",
             "description": "We carefully check each translation for compliance with Turkish institution requirements",
             "icon": "mdi:file-document-check"
           },
-          {
+          "rush": {
             "title": "Rush translations — within a few hours",
             "description": "If you need it quickly, we do translation and certification within 2-3 hours",
             "icon": "mdi:clock-fast"
           }
-        ]
-      },
-      "finalCTA": {
-        "title": "Want to quickly and accurately translate documents for admission or residence permit? Contact us now - we'll check your documents and advise which type of translation you need",
-        "button": "Send Documents",
-        "icon": "mdi:send"
+        }
       }
     }
   }

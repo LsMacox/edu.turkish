@@ -23,22 +23,11 @@ interface ProgramItem {
   icon: string
 }
 
-interface ProgramContentSectionProps {
-  keyPrefix: string
-  title?: string
-  columns?: number
-}
+const props = defineProps<{
+  title: string
+  items: ProgramItem[]
+}>()
 
-const props = withDefaults(defineProps<ProgramContentSectionProps>(), {
-  title: '',
-  columns: 2,
-})
-
-const { t, getListObjects } = useI18nHelpers()
-
-const title = computed(() => props.title || t(`${props.keyPrefix}.title`))
-
-const items = computed(() =>
-  getListObjects<ProgramItem>(`${props.keyPrefix}.items`, ['title', 'description', 'icon']),
-)
+const title = computed(() => props.title)
+const items = computed(() => props.items)
 </script>

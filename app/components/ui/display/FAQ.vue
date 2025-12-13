@@ -24,27 +24,7 @@
               />
             </button>
             <div v-show="isOpen(index)" class="px-6 pb-4 text-gray-600">
-              <template v-if="isStringAnswer(faq.answer)">
-                <p>{{ faq.answer }}</p>
-              </template>
-              <div v-else class="space-y-3">
-                <p v-if="faq.answer.title" class="font-medium text-gray-700">
-                  {{ faq.answer.title }}
-                </p>
-                <ul
-                  v-if="faq.answer.items?.length && !faq.answer.ordered"
-                  class="list-disc pl-5 space-y-1"
-                >
-                  <li v-for="(item, itemIndex) in faq.answer.items" :key="itemIndex">
-                    {{ item }}
-                  </li>
-                </ul>
-                <ol v-else-if="faq.answer.items?.length" class="list-decimal pl-5 space-y-1">
-                  <li v-for="(item, itemIndex) in faq.answer.items" :key="itemIndex">
-                    {{ item }}
-                  </li>
-                </ol>
-              </div>
+              <p>{{ faq.answer }}</p>
             </div>
           </div>
         </div>
@@ -54,8 +34,10 @@
 </template>
 
 <script setup lang="ts">
-import type { FaqItem } from '~/types/faq'
-import { isStringAnswer } from '~/types/faq'
+import type { FaqItem } from '~~/lib/types/entities/faq'
+import { namespace } from '~~/lib/i18n'
+
+const faqNs = namespace('home.faq')
 
 interface Props {
   items?: FaqItem[]
@@ -73,13 +55,11 @@ const props = withDefaults(defineProps<Props>(), {
   background: true,
 })
 
-// Use i18n defaults if no props are provided
-const displayTitle = computed(() => props.title || t('home.faq.title'))
-const displaySubtitle = computed(() => props.subtitle || t('home.faq.subtitle'))
+const displayTitle = computed(() => props.title || t(faqNs('title')))
+const displaySubtitle = computed(() => props.subtitle || t(faqNs('subtitle')))
 
 const openFaqs = ref<number[]>([])
 
-// Reset open state when locale changes
 watch(locale, () => {
   openFaqs.value = []
 })

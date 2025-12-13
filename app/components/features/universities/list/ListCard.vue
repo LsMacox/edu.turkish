@@ -38,9 +38,9 @@
       <div class="absolute bottom-3 right-3">
         <div class="bg-white/95 backdrop-blur-sm rounded-lg px-3 py-1.5 shadow-sm">
           <span v-if="formattedTuition !== '0'" class="text-sm font-bold text-secondary">
-            ${{ formattedTuition }}<span class="text-xs font-normal text-gray-500">/{{ t('universities_page.card.year') }}</span>
+            ${{ formattedTuition }}<span class="text-xs font-normal text-gray-500">/{{ t(card('year')) }}</span>
           </span>
-          <span v-else class="text-xs font-medium text-gray-600">{{ t('universities_page.card.price_on_request') }}</span>
+          <span v-else class="text-xs font-medium text-gray-600">{{ t(card('price_on_request')) }}</span>
         </div>
       </div>
     </div>
@@ -73,7 +73,7 @@
       <!-- Actions -->
       <div class="flex gap-2 pt-3 border-t border-gray-100">
         <BaseButton :to="detailHref" size="sm" class="flex-1">
-          {{ t('universities_page.card.details_button') }}
+          {{ t(card('details_button')) }}
         </BaseButton>
         <BaseButton variant="outline" size="sm" icon="mdi:send" class="flex-shrink-0 px-3" @click="openApplicationModal" />
       </div>
@@ -82,11 +82,13 @@
 </template>
 
 <script setup lang="ts">
-import { TYPE_BADGE_COLORS, BADGE_COLOR_MAP } from '~~/lib/universities/constants'
-import { useUniversity } from '~/composables/universities/useUniversity'
-import { slugify } from '~~/lib/text'
-import { toNonNegativeNumber } from '~~/lib/number'
+import { TYPE_BADGE_COLORS, BADGE_COLOR_MAP } from '~~/lib/domain/universities/constants'
+import { useUniversity } from '~/composables/useUniversityHelpers'
+import { toNonNegativeNumber } from '~~/lib/utils/number'
+import { namespace } from '~~/lib/i18n'
 import type { SemanticColor } from '~/types/ui'
+
+const card = namespace('universities.list.card')
 
 interface Props {
   title: string
@@ -111,7 +113,7 @@ const props = withDefaults(defineProps<Props>(), {
   slug: '',
 })
 
-const { t, te } = useI18n()
+const { t } = useI18n()
 const localePath = useLocalePath()
 const { openModal } = useApplicationModal()
 const { formatNumber, getTypeLabel } = useUniversity()
@@ -125,23 +127,30 @@ const formattedTuition = computed(() =>
   tuitionValue.value > 0 ? formatNumber(tuitionValue.value) : '0',
 )
 
+const getBadgeLabel = (labelKey: string): string | undefined => {
+  const labels: Record<string, string> = {
+    'universities.list.card.badges.scholarships': t(card('badges.scholarships')),
+    'universities.list.card.badges.technical': t(card('badges.technical')),
+  }
+  return labels[labelKey]
+}
+
 const badgeData = computed(() => {
   if (!props.badge || typeof props.badge === 'string') return null
-  const label =
-    props.badge.labelKey && te(props.badge.labelKey) ? t(props.badge.labelKey) : props.badge.label
+  const label = props.badge.labelKey
+    ? getBadgeLabel(props.badge.labelKey)
+    : props.badge.label
   if (!label) return null
   const color: SemanticColor = BADGE_COLOR_MAP[props.badge.color ?? ''] ?? 'neutral'
   return { label, color }
 })
 
-const detailHref = computed(() => localePath(`/university/${props.slug || slugify(props.title)}`))
+const detailHref = computed(() => localePath(`/university/${props.slug}`))
 
 const openApplicationModal = () =>
   openModal({
     source: 'universities_cta',
-    description: `${t('universities_page.card.application_description')} ${props.title}`,
+    description: `${t(card('application_description'))} ${props.title}`,
     universityName: props.title,
-    universityCity: props.city,
-    universityTuition: tuitionValue.value || undefined,
   })
 </script>

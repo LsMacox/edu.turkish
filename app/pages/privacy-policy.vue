@@ -5,7 +5,7 @@
         <!-- Page Header -->
         <div class="text-center mb-8 sm:mb-10 lg:mb-12">
           <h1 class="text-hero mb-4 px-2 sm:px-0">
-            {{ t('privacy.title') }}
+            {{ t(privacyNs('title')) }}
           </h1>
         </div>
 
@@ -16,10 +16,10 @@
               <h2
                 class="text-lg sm:text-xl md:text-2xl font-semibold text-secondary mt-0 mb-3 sm:mb-4"
               >
-                {{ t('privacy.data_collection_title') }}
+                {{ t(privacyNs('data_collection_title')) }}
               </h2>
               <p class="text-sm sm:text-base text-gray-700 leading-relaxed sm:leading-loose">
-                {{ t('privacy.data_collection') }}
+                {{ t(privacyNs('data_collection')) }}
               </p>
             </section>
 
@@ -27,10 +27,10 @@
               <h2
                 class="text-lg sm:text-xl md:text-2xl font-semibold text-secondary mt-0 mb-3 sm:mb-4"
               >
-                {{ t('privacy.data_usage_title') }}
+                {{ t(privacyNs('data_usage_title')) }}
               </h2>
               <p class="text-sm sm:text-base text-gray-700 leading-relaxed sm:leading-loose">
-                {{ t('privacy.data_usage') }}
+                {{ t(privacyNs('data_usage')) }}
               </p>
             </section>
 
@@ -38,10 +38,10 @@
               <h2
                 class="text-lg sm:text-xl md:text-2xl font-semibold text-secondary mt-0 mb-3 sm:mb-4"
               >
-                {{ t('privacy.contact_title') }}
+                {{ t(privacyNs('contact_title')) }}
               </h2>
               <p class="text-sm sm:text-base text-gray-700 leading-relaxed sm:leading-loose">
-                {{ t('privacy.contact') }}
+                {{ t(privacyNs('contact')) }}
               </p>
             </section>
           </div>
@@ -55,7 +55,7 @@
             class="inline-flex items-center justify-center w-full sm:w-auto px-6 py-3 bg-primary text-white rounded-xl font-semibold hover:bg-red-600 transition-colors shadow-lg text-sm sm:text-base min-h-touch-48"
           >
             <Icon name="mdi:arrow-left" class="mr-2" />
-            {{ t('back_to_home') }}
+            {{ t(key('back_to_home')) }}
           </NuxtLink>
         </div>
       </div>
@@ -64,24 +64,27 @@
 </template>
 
 <script setup lang="ts">
+import { namespace, key } from '~~/lib/i18n'
+
+const privacyNs = namespace('privacy')
 const { t } = useI18n()
 const localePath = useLocalePath()
 
 // SEO Meta Tags
 useHead({
-  title: () => t('privacy.title'),
+  title: () => t(privacyNs('title')),
   meta: [
     {
       name: 'description',
-      content: () => t('privacy.title'),
+      content: () => t(privacyNs('title')),
     },
     {
       property: 'og:title',
-      content: () => t('privacy.title'),
+      content: () => t(privacyNs('title')),
     },
     {
       property: 'og:description',
-      content: () => t('privacy.title'),
+      content: () => t(privacyNs('title')),
     },
   ],
 })

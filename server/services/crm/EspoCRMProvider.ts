@@ -1,13 +1,13 @@
-import type { ICRMProvider } from './CRMProvider.interface'
-import type { LeadData, CRMResult } from '~~/server/types/crm'
-import { leadDataSchema } from '~~/server/types/crm'
-import { getCRMConfig } from '~~/server/utils/crm-config'
+import type { ICrmProvider } from './CRMProvider.interface'
+import type { CrmResult } from '~~/lib/types/server'
+import { leadDataSchema, type LeadData } from '~~/lib/schemas/crm'
+import { getCrmConfig } from './config'
 
-export class EspoCRMProvider implements ICRMProvider {
+export class EspoCRMProvider implements ICrmProvider {
   readonly providerName = 'espocrm' as const
-  private config = getCRMConfig()
+  private config = getCrmConfig()
 
-  async createLead(data: LeadData): Promise<CRMResult> {
+  async createLead(data: LeadData): Promise<CrmResult> {
     try {
       const sanitized: LeadData = {
         ...data,
@@ -33,7 +33,7 @@ export class EspoCRMProvider implements ICRMProvider {
     }
   }
 
-  private async postLead(lead: Record<string, any>): Promise<CRMResult> {
+  private async postLead(lead: Record<string, any>): Promise<CrmResult> {
     try {
       const response = await this.fetch(this.getApiUrl('Lead'), {
         method: 'POST',

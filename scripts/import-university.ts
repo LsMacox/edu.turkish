@@ -17,7 +17,7 @@
 import { readFileSync } from 'node:fs'
 import { resolve } from 'node:path'
 import { z } from 'zod'
-import { prisma } from '../lib/prisma'
+import { prisma } from '../lib/infrastructure/prisma'
 import prismaPkg from '@prisma/client'
 import type { UniversityType, DegreeType } from '@prisma/client'
 const { Prisma } = prismaPkg as any
@@ -773,6 +773,6 @@ async function ensureCountryAndCity(
 
 main().catch(async (e) => {
   console.error(e)
-  await prisma.$disconnect().catch(() => {})
+  await prisma.$disconnect().catch(() => { })
   process.exit(1)
 })

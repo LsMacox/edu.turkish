@@ -12,7 +12,7 @@
           class="flex items-start justify-between px-5 py-4 md:px-6 md:py-5 border-b border-gray-100"
         >
           <h2 class="text-lg md:text-2xl font-bold text-secondary pr-4">
-            Подождите! Не уходите, не получив свой план поступления.
+            {{ t(key('modal.exit_intent_title')) }}
           </h2>
           <button
             class="w-10 h-10 flex items-center justify-center rounded-full hover:bg-gray-100 active:bg-gray-200 transition-colors flex-shrink-0"
@@ -32,6 +32,10 @@
 </template>
 
 <script setup lang="ts">
+import { key } from '~~/lib/i18n'
+
+const { t } = useI18n()
+
 interface Props {
   isOpen: boolean
 }

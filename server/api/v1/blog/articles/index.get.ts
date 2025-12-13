@@ -1,18 +1,14 @@
 import { getBlogRepository, getFAQRepository } from '~~/server/repositories'
 import { calculatePagination } from '~~/server/utils/api/pagination'
-import type { BlogArticlesResponse } from '~~/server/types/api'
+import { BlogArticleQueryParamsSchema } from '~~/lib/schemas'
+import type { BlogArticlesResponse } from '~~/lib/types'
 
 export default defineEventHandler(async (event): Promise<BlogArticlesResponse> => {
-  const query = getQuery(event)
-  const page = Number(query.page) || 1
-  const limit = Number(query.limit) || 6
-  const category = typeof query.category === 'string' ? query.category : undefined
-  const search = typeof query.q === 'string' ? query.q : undefined
-  const queryLocale = typeof query.lang === 'string' ? query.lang.trim() : ''
-  const locale = queryLocale || event.context?.locale || 'ru'
+  const params = BlogArticleQueryParamsSchema.parse(getQuery(event))
+  const locale = params.lang?.trim() || event.context?.locale || 'ru'
 
   const result = await getBlogRepository().findArticles(
-    { page, limit, category, q: search, lang: queryLocale || undefined },
+    { page: params.page, limit: params.limit, category: params.category, q: params.q, lang: params.lang },
     locale,
   )
 
@@ -20,7 +16,7 @@ export default defineEventHandler(async (event): Promise<BlogArticlesResponse> =
 
   return {
     data: result.articles,
-    meta: calculatePagination(result.total, page, limit),
+    meta: calculatePagination(result.total, params.page, params.limit),
     featured: result.featured,
     categories: result.categories,
     popular: result.popular,
@@ -28,3 +24,4 @@ export default defineEventHandler(async (event): Promise<BlogArticlesResponse> =
     totalFAQs: faqResult.meta.count,
   }
 })
+

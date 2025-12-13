@@ -1,4 +1,4 @@
-import type { Prisma } from '@prisma/client'
+import type { Prisma, UniversityType } from '@prisma/client'
 import type {
   University,
   UniversityDetail,
@@ -10,28 +10,31 @@ import type {
   UniversityRequiredDocument,
   UniversityScholarship,
   UniversityStudyDirection,
-} from '~~/server/types/api'
+} from '~~/lib/types'
 import {
-  selectTranslation,
+  pickTranslation,
   getSlugForLocale,
+  type NormalizedLocale,
+} from '~~/server/utils/locale'
+import {
   decimalToNumber,
   asRecord,
   extractStringRecord,
   extractStringArray,
-  type NormalizedLocale,
-} from '~~/server/utils/locale'
+} from '~~/server/utils/prisma'
+import { generateBadge, type UniversityBadge } from '~~/lib/domain/universities/constants'
 
 // ─────────────────────────────────────────────────────────────────────────────
 // Prisma payload types
 // ─────────────────────────────────────────────────────────────────────────────
 
-export const universityListInclude = {
+export const universityListInclude = (locale: string) => ({
   include: {
-    translations: true,
-    academicPrograms: true,
-    city: { include: { translations: true } },
+    translations: { where: { locale } },
+    academicPrograms: { select: { languageCode: true } },
+    city: { include: { translations: { where: { locale } } } },
   },
-} as const
+} as const)
 
 export const universityDetailInclude = {
   include: {
@@ -49,60 +52,35 @@ export const universityDetailInclude = {
   },
 } as const
 
-export type UniversityListRow = Prisma.UniversityGetPayload<typeof universityListInclude>
+// Тип для list row - используем ReturnType для получения типа из функции
+type UniversityListIncludeResult = ReturnType<typeof universityListInclude>
+export type UniversityListRow = Prisma.UniversityGetPayload<UniversityListIncludeResult>
 export type UniversityDetailRow = Prisma.UniversityGetPayload<typeof universityDetailInclude>
-
-// ─────────────────────────────────────────────────────────────────────────────
-// Badge generation
-// ─────────────────────────────────────────────────────────────────────────────
-
-export interface UniversityBadge {
-  labelKey: string
-  color: string
-}
-
-export function generateBadge(u: {
-  type?: string | null
-  scholarships?: unknown[]
-}): UniversityBadge | undefined {
-  if (u.scholarships?.length) {
-    return { labelKey: 'universities_page.card.badges.scholarships', color: 'green' }
-  }
-  if (u.type === 'tech') {
-    return { labelKey: 'universities_page.card.badges.technical', color: 'purple' }
-  }
-  return undefined
-}
 
 // ─────────────────────────────────────────────────────────────────────────────
 // List item mapper
 // ─────────────────────────────────────────────────────────────────────────────
 
-export function mapUniversityListItem(
-  row: UniversityListRow | UniversityDetailRow,
-  locale: NormalizedLocale,
+function extractLanguages(programs: { languageCode: string | null }[]): string[] {
+  return [...new Set(programs.map((p) => p.languageCode).filter((c): c is string => Boolean(c)))]
+}
+
+function mapUniversityBase(
+  row: { id: number; image: string | null; heroImage: string | null; type: UniversityType; foundedYear: number | null; totalStudents: number | null; internationalStudents: number | null; hasAccommodation: boolean | null; tuitionMin: any; tuitionMax: any; currency: string | null },
+  t: { slug?: string | null; title?: string | null; description?: string | null; keyInfoTexts?: any } | null,
+  cityName: string,
+  langs: string[],
   badge?: UniversityBadge,
 ): University {
-  const t = selectTranslation(row.translations, locale)
-  const cityT = row.city?.translations ? selectTranslation(row.city.translations, locale) : null
   const keyInfo = extractStringRecord(t?.keyInfoTexts)
-  const langs = [
-    ...new Set(
-      row.academicPrograms.map((p) => p.languageCode).filter((c): c is string => Boolean(c)),
-    ),
-  ]
-
   return {
     id: row.id,
-    slug: getSlugForLocale(
-      row.translations.map(({ locale, slug }) => ({ locale, slug })),
-      locale,
-    ),
+    slug: t?.slug ?? '',
     title: t?.title ?? '',
     description: t?.description ?? '',
     image: row.image ?? '',
     heroImage: row.heroImage ?? row.image ?? '',
-    city: cityT?.name ?? '',
+    city: cityName,
     type: row.type,
     foundedYear: row.foundedYear ?? 0,
     totalStudents: row.totalStudents ?? 0,
@@ -114,6 +92,34 @@ export function mapUniversityListItem(
     languages: langs,
     rankingText: typeof keyInfo?.ranking_text === 'string' ? keyInfo.ranking_text : undefined,
     badge,
+  }
+}
+
+export function mapUniversityListItem(
+  row: UniversityListRow,
+  locale: NormalizedLocale,
+  badge?: UniversityBadge,
+): University {
+  const t = row.translations[0] ?? null
+  const cityT = row.city?.translations?.[0] ?? null
+  return mapUniversityBase(row, t, cityT?.name ?? '', extractLanguages(row.academicPrograms), badge)
+}
+
+export function mapUniversityDetailItem(
+  row: UniversityDetailRow,
+  locale: NormalizedLocale,
+  badge?: UniversityBadge,
+): University {
+  const t = pickTranslation(row.translations, locale)
+  const cityT = row.city?.translations ? pickTranslation(row.city.translations, locale) : null
+  const base = mapUniversityBase(row, t, cityT?.name ?? '', extractLanguages(row.academicPrograms), badge)
+
+  return {
+    ...base,
+    slug: getSlugForLocale(
+      row.translations.map(({ locale, slug }) => ({ locale, slug })),
+      locale,
+    ),
     alternates: row.translations.reduce(
       (acc, tr) => {
         if (tr.slug && tr.locale) acc[tr.locale] = tr.slug
@@ -132,24 +138,24 @@ export function mapUniversityDetail(
   row: UniversityDetailRow,
   locale: NormalizedLocale,
 ): UniversityDetail {
-  const base = mapUniversityListItem(row, locale, generateBadge(row))
-  const t = selectTranslation(row.translations, locale)
+  const base = mapUniversityDetailItem(row, locale, generateBadge(row))
+  const t = pickTranslation(row.translations, locale)
   const about = (asRecord(t?.about) ?? {}) as Record<string, unknown>
 
   const advantages = Array.isArray(about.advantages)
     ? about.advantages
-        .map((item) => {
-          if (typeof item === 'string') return { title: item, description: '' }
-          if (item && typeof item === 'object') {
-            const r = item as Record<string, unknown>
-            return {
-              title: typeof r.title === 'string' ? r.title : '',
-              description: typeof r.description === 'string' ? r.description : '',
-            }
+      .map((item) => {
+        if (typeof item === 'string') return { title: item, description: '' }
+        if (item && typeof item === 'object') {
+          const r = item as Record<string, unknown>
+          return {
+            title: typeof r.title === 'string' ? r.title : '',
+            description: typeof r.description === 'string' ? r.description : '',
           }
-          return null
-        })
-        .filter((x): x is { title: string; description: string } => x !== null)
+        }
+        return null
+      })
+      .filter((x): x is { title: string; description: string } => x !== null)
     : []
 
   return {
@@ -191,7 +197,7 @@ function mapCampusFacilities(
   return facilities
     .filter((f) => f.isActive !== false)
     .map((f): UniversityCampusFacility => {
-      const ft = selectTranslation(f.translations, locale)
+      const ft = pickTranslation(f.translations, locale)
       return {
         id: f.id,
         name: ft?.name ?? '',
@@ -209,7 +215,7 @@ function mapCampusGallery(
   return media
     .filter((m) => m.kind === 'image')
     .map((m): UniversityCampusGalleryItem => {
-      const mt = selectTranslation(m.translations, locale)
+      const mt = pickTranslation(m.translations, locale)
       return {
         url: m.url,
         alt: mt?.alt ?? '',
@@ -223,7 +229,7 @@ function mapStudyDirections(
   locale: NormalizedLocale,
 ): UniversityStudyDirection[] {
   return directions.map((d): UniversityStudyDirection => {
-    const dt = selectTranslation(d.direction.translations, locale)
+    const dt = pickTranslation(d.direction.translations, locale)
     return {
       id: d.direction.id,
       name: dt?.name ?? '',
@@ -238,7 +244,7 @@ function mapAdmissionRequirements(
   locale: NormalizedLocale,
 ): UniversityAdmissionRequirement[] {
   return requirements.map((r): UniversityAdmissionRequirement => {
-    const rt = selectTranslation(r.translations, locale)
+    const rt = pickTranslation(r.translations, locale)
     return {
       id: r.id,
       category: rt?.category ?? '',
@@ -254,7 +260,7 @@ function mapRequiredDocuments(
   locale: NormalizedLocale,
 ): UniversityRequiredDocument[] {
   return documents.map((d): UniversityRequiredDocument => {
-    const dt = selectTranslation(d.translations, locale)
+    const dt = pickTranslation(d.translations, locale)
     return {
       id: d.id,
       name: dt?.name ?? '',
@@ -270,7 +276,7 @@ function mapImportantDates(
   locale: NormalizedLocale,
 ): UniversityImportantDate[] {
   return dates.map((d): UniversityImportantDate => {
-    const dt = selectTranslation(d.translations, locale)
+    const dt = pickTranslation(d.translations, locale)
     return {
       id: d.id,
       event: dt?.event ?? '',
@@ -285,7 +291,7 @@ function mapScholarships(
   locale: NormalizedLocale,
 ): UniversityScholarship[] {
   return scholarships.map((s): UniversityScholarship => {
-    const st = selectTranslation(s.translations, locale)
+    const st = pickTranslation(s.translations, locale)
     return {
       id: s.id,
       name: st?.name ?? '',
@@ -304,7 +310,7 @@ function mapPrograms(
   locale: NormalizedLocale,
 ): UniversityProgram[] {
   return programs.map((p): UniversityProgram => {
-    const pt = selectTranslation(p.translations, locale)
+    const pt = pickTranslation(p.translations, locale)
     return {
       id: p.id,
       name: pt?.name ?? '',

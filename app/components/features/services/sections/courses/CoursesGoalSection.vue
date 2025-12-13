@@ -27,24 +27,13 @@ interface PackageTier {
   targetScore: string
 }
 
-interface CourseGoalSectionProps {
-  keyPrefix: string
-  title?: string
-  layout?: 'cards' | 'list'
-}
+const props = defineProps<{
+  title: string
+  description?: string
+  packages: PackageTier[]
+}>()
 
-const props = withDefaults(defineProps<CourseGoalSectionProps>(), {
-  title: '',
-  layout: 'cards',
-})
-
-const { t, getListObjects, getOptional } = useI18nHelpers()
-
-const title = computed(() => props.title || t(`${props.keyPrefix}.title`))
-
-const description = computed(() => getOptional(`${props.keyPrefix}.description`))
-
-const packages = computed(() =>
-  getListObjects<PackageTier>(`${props.keyPrefix}.packages`, ['name', 'targetScore']),
-)
+const title = computed(() => props.title)
+const description = computed(() => props.description)
+const packages = computed(() => props.packages)
 </script>
