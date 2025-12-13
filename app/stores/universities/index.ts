@@ -44,12 +44,15 @@ export const useUniversitiesStore = defineStore('universities', () => {
     })
 
     const { locale } = useI18n({ useScope: 'global' })
+    
+    // Get route once at store level to avoid context issues
+    const route = useRoute()
 
     // --- Helpers ---
     const defaultFilters = () => createDefaultFilters(available.value.priceRange as [number, number])
 
     const parseFiltersFromURL = (): Filters => {
-        const { query } = useRoute()
+        const { query } = route
         return parseFiltersFromQuery(query as Record<string, unknown>, available.value)
     }
 
@@ -85,7 +88,7 @@ export const useUniversitiesStore = defineStore('universities', () => {
             filtersLoaded.value = true
 
             const [min, max] = res.priceRange
-            const { query } = useRoute()
+            const { query } = route
             if (!query.price_min && !query.price_max) {
                 filters.value.price = [min, max]
             } else {
@@ -189,7 +192,7 @@ export const useUniversitiesStore = defineStore('universities', () => {
     }
 
     const initializeFilters = async (opts?: { limit?: number; page?: number; ssr?: boolean }) => {
-        const { query } = useRoute()
+        const { query } = route
         filters.value = parseFiltersFromURL()
 
         const qSort = typeof query.sort === 'string' ? query.sort : ''
