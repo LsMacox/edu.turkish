@@ -39,8 +39,8 @@
 
         <div class="space-y-4">
           <button
-            class="bg-white text-primary px-12 py-4 rounded-xl font-bold text-xl hover:bg-gray-100 transition-all transform hover:scale-105 shadow-2xl"
-            @click="modal.openModal()"
+            class="bg-white text-primary px-12 py-4 rounded-xl font-bold text-xl hover:bg-gray-100 shadow-2xl"
+            @click="modal.openModal({ source: 'home_final_cta', description: t(finalCtaNs('button')) })"
           >
             {{ t(finalCtaNs('button')) }}
           </button>

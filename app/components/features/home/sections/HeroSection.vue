@@ -50,7 +50,7 @@
           </div>
 
           <div class="flex flex-col gap-2 md:gap-3 pt-2 md:pt-4">
-            <BaseButton variant="primary" size="lg" class="shadow-lg" @click="modal.openModal()">
+            <BaseButton variant="primary" size="lg" class="shadow-lg" @click="modal.openModal({ source: 'home_hero_cta', description: t(key('cta.consultation')) })">
               {{ t(key('cta.consultation')) }}
             </BaseButton>
           </div>

@@ -24,13 +24,6 @@ export interface UniversityListResponse {
     meta: PaginationMeta
 }
 
-/** @deprecated Use UniversityListResponse instead */
-export interface UniversityResponse {
-    data: University[]
-    meta: PaginationMeta
-    filters: UniversityFilters
-}
-
 // ============================================================================
 // BLOG
 // ============================================================================

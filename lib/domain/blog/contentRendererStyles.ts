@@ -33,7 +33,7 @@ export const variantStyles: Record<ContentVariant, VariantStyles> = {
       { 'px-6 lg:px-10': width === 'full' },
     ],
     quote:
-      'relative my-6 pl-5 border-l-4 border-primary bg-gradient-to-r from-primary/5 to-transparent py-4 pr-5 rounded-r-xl',
+      'relative my-6 pl-4 border-l-4 border-primary bg-gradient-to-r from-primary/5 to-transparent py-4 pr-5 rounded-r-xl',
     cite: 'block mt-3 text-sm font-medium text-gray-500 not-italic',
     spacer: (size) => ({
       'h-4': size === 'sm',

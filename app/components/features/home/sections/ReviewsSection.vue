@@ -1,5 +1,5 @@
 <template>
-  <section id="reviews" v-scroll-reveal class="section-py bg-background">
+  <section id="reviews" class="section-py bg-background">
     <div class="container mx-auto container-padding-narrow">
       <BaseSectionHeader
         :title="t(reviewsNs('title'))"
@@ -19,9 +19,8 @@
       </div>
       <div v-else class="grid md:grid-cols-2 lg:grid-cols-3 gap-8 mb-12">
         <div
-          v-for="(review, index) in featuredReviews"
+          v-for="review in featuredReviews"
           :key="review.id"
-          v-scroll-reveal="index * 80"
           class="card-surface flex flex-col"
         >
           <div class="mb-6">
@@ -45,7 +44,7 @@
       <div class="text-center">
         <NuxtLink
           :to="localePath('/reviews')"
-          class="inline-block bg-white border-2 border-primary text-primary px-8 py-3 rounded-xl font-semibold hover:bg-primary hover:text-white transition-all"
+          class="inline-block bg-white border-2 border-primary text-primary px-8 py-3 rounded-xl font-semibold hover:bg-primary hover:text-white"
         >
           {{ t(reviewsNs('read_more')) }}
         </NuxtLink>

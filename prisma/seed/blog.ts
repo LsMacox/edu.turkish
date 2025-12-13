@@ -202,6 +202,11 @@ const articles: SeedArticle[] = [
             value: '≈ 60 USD',
             icon: 'mdi:cash-multiple',
           },
+          {
+            title: 'Экзамены',
+            value: 'Частные — без экзаменов (Аттестат). Гос — YÖS/SAT',
+            icon: 'mdi:cash-multiple',
+          },
         ],
         tags: ['виза', 'документы', 'Турция'],
         content: [

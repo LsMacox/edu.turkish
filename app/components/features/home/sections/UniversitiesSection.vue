@@ -1,5 +1,5 @@
 <template>
-  <section id="universities" v-scroll-reveal class="section-py bg-gray-50">
+  <section id="universities" class="section-py bg-gray-50">
     <div class="container">
       <BaseSectionHeader
         :title="t(ns('title'))"
@@ -11,7 +11,7 @@
       <div class="flex flex-wrap justify-center gap-3 mb-10 md:gap-4 md:mb-12">
         <button
           :class="[
-            'px-4 py-2 text-sm rounded-xl font-medium transition-all md:px-6 md:text-base',
+            'px-4 py-2 text-sm rounded-xl font-medium md:px-6 md:text-base',
             selectedCity === 'ALL_CITIES'
               ? 'bg-primary text-white'
               : 'bg-white border border-gray-300 text-secondary hover:border-primary hover:text-primary',
@@ -24,7 +24,7 @@
           v-for="city in mainCities"
           :key="city.code"
           :class="[
-            'px-4 py-2 text-sm rounded-xl font-medium transition-all md:px-6 md:text-base',
+            'px-4 py-2 text-sm rounded-xl font-medium md:px-6 md:text-base',
             selectedCity === city.label
               ? 'bg-primary text-white'
               : 'bg-white border border-gray-300 text-secondary hover:border-primary hover:text-primary',
@@ -35,7 +35,7 @@
         </button>
         <button
           :class="[
-            'px-4 py-2 text-sm rounded-xl font-medium transition-all md:px-6 md:text-base',
+            'px-4 py-2 text-sm rounded-xl font-medium md:px-6 md:text-base',
             englishOnly
               ? 'bg-primary text-white'
               : 'bg-white border border-gray-300 text-secondary hover:border-primary hover:text-primary',
@@ -46,7 +46,7 @@
         </button>
         <button
           :class="[
-            'px-4 py-2 text-sm rounded-xl font-medium transition-all md:px-6 md:text-base',
+            'px-4 py-2 text-sm rounded-xl font-medium md:px-6 md:text-base',
             budgetOnly
               ? 'bg-primary text-white'
               : 'bg-white border border-gray-300 text-secondary hover:border-primary hover:text-primary',
@@ -59,9 +59,8 @@
 
       <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
         <UniversitiesListCard
-          v-for="(university, index) in displayedUniversities"
+          v-for="university in displayedUniversities"
           :key="university.id"
-          v-scroll-reveal="index * 80"
           :title="university.title"
           :city="university.city"
           :languages="university.languages"
@@ -76,7 +75,7 @@
       <div class="text-center mt-12">
         <NuxtLink
           :to="localePath('/universities')"
-          class="inline-block bg-white border-2 border-primary text-primary px-8 py-3 rounded-xl font-semibold hover:bg-primary hover:text-white transition-all"
+          class="inline-block bg-white border-2 border-primary text-primary px-8 py-3 rounded-xl font-semibold hover:bg-primary hover:text-white"
         >
           {{ t(ns('view_all')) }}
         </NuxtLink>

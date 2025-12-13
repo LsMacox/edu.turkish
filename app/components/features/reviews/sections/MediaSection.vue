@@ -14,7 +14,7 @@
 
       <!-- Loading State -->
       <div v-if="loading" class="text-center py-12">
-        <div class="inline-block animate-spin rounded-full h-12 w-12 border-b-2 border-primary" />
+        <div class="inline-block rounded-full h-12 w-12 border-b-2 border-primary" />
         <p class="text-gray-500 mt-4">{{ t(key('common.loading')) }}</p>
       </div>
 

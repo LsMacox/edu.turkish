@@ -51,7 +51,7 @@
       <div class="container mx-auto px-4 lg:px-6">
         <div class="grid gap-8 lg:gap-12 lg:grid-cols-[minmax(0,2.4fr)_minmax(0,1fr)]">
           <!-- Main content -->
-          <div>
+          <div class="order-2 lg:order-1">
             <article
               class="prose-article rounded-3xl bg-white p-6 shadow-lg ring-1 ring-gray-100/50 lg:p-10 xl:p-12"
             >
@@ -65,7 +65,7 @@
           </div>
 
           <!-- Sticky sidebar -->
-          <aside class="space-y-6 lg:sticky lg:top-24 lg:self-start">
+          <aside class="order-1 lg:order-2 space-y-4 lg:space-y-6 lg:sticky lg:top-24 lg:self-start">
             <div
               v-if="tableOfContents.length"
               class="hidden md:block rounded-2xl bg-white p-5 shadow-lg ring-1 ring-gray-100/50"
@@ -113,28 +113,28 @@
               v-if="quickFacts.length"
               class="overflow-hidden rounded-2xl bg-gradient-to-br from-primary to-secondary p-[2px] shadow-lg"
             >
-              <div class="rounded-[14px] bg-white p-5">
+              <div class="rounded-[14px] bg-white p-4 sm:p-5">
                 <h3
                   class="flex items-center gap-2 text-sm font-bold uppercase tracking-wide text-gray-400"
                 >
                   <Icon name="mdi:lightning-bolt" class="text-lg text-primary" />
                   {{ t(ns('quickFacts.title')) }}
                 </h3>
-                <ul class="mt-4 space-y-4">
-                  <li v-for="fact in quickFacts" :key="fact.title" class="flex gap-3 overflow-hidden">
+                <ul class="mt-4 space-y-3 sm:space-y-4">
+                  <li v-for="fact in quickFacts" :key="fact.title" class="flex gap-3">
                     <span
-                      class="flex h-9 w-9 shrink-0 items-center justify-center rounded-xl bg-primary/10"
+                      class="flex h-8 w-8 sm:h-9 sm:w-9 shrink-0 items-center justify-center rounded-xl bg-primary/10"
                     >
                       <Icon
                         :name="fact.icon || 'mdi:information-outline'"
-                        class="text-lg text-primary"
+                        class="text-base sm:text-lg text-primary"
                       />
                     </span>
-                    <div class="min-w-0">
-                      <p class="text-xs font-medium uppercase tracking-wide text-gray-400">
+                    <div class="flex-1 min-w-0">
+                      <p class="text-xs font-medium uppercase tracking-wide text-gray-400 mb-1">
                         {{ fact.title }}
                       </p>
-                      <p class="text-sm font-semibold text-secondary truncate">{{ fact.value }}</p>
+                      <p class="text-sm font-semibold text-secondary break-words">{{ fact.value }}</p>
                     </div>
                   </li>
                 </ul>

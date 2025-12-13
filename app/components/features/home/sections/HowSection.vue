@@ -1,5 +1,5 @@
 <template>
-  <section id="how-it-works" v-scroll-reveal class="section-py bg-background">
+  <section id="how-it-works" class="section-py bg-background">
     <div class="container">
       <BaseSectionHeader
         :title="t(howNs('title'))"
@@ -13,8 +13,7 @@
         </div>
 
         <div
-          v-scroll-reveal
-          class="flex flex-col items-center text-center space-y-4 group hover:scale-105 transition-transform duration-300"
+          class="flex flex-col items-center text-center space-y-4 group"
         >
           <div class="flex flex-col items-center space-y-3">
             <div
@@ -23,7 +22,7 @@
               1
             </div>
             <div
-              class="w-16 h-16 rounded-full border border-blue-100 bg-blue-50 grid place-items-center mx-auto group-hover:bg-blue-100 transition-colors"
+              class="w-16 h-16 rounded-full border border-blue-100 bg-blue-50 grid place-items-center mx-auto"
             >
               <Icon name="mdi:magnify" class="text-blue-600 text-2xl" />
             </div>
@@ -35,7 +34,7 @@
         </div>
 
         <div
-          class="flex flex-col items-center text-center space-y-4 group hover:scale-105 transition-transform duration-300"
+          class="flex flex-col items-center text-center space-y-4 group"
         >
           <div class="flex flex-col items-center space-y-3">
             <div
@@ -44,7 +43,7 @@
               2
             </div>
             <div
-              class="w-16 h-16 rounded-full border border-green-100 bg-green-50 grid place-items-center mx-auto group-hover:bg-green-100 transition-colors"
+              class="w-16 h-16 rounded-full border border-green-100 bg-green-50 grid place-items-center mx-auto"
             >
               <Icon name="mdi:pencil" class="text-green-600 text-2xl" />
             </div>
@@ -56,7 +55,7 @@
         </div>
 
         <div
-          class="flex flex-col items-center text-center space-y-4 group hover:scale-105 transition-transform duration-300"
+          class="flex flex-col items-center text-center space-y-4 group"
         >
           <div class="flex flex-col items-center space-y-3">
             <div
@@ -65,7 +64,7 @@
               3
             </div>
             <div
-              class="w-16 h-16 rounded-full border border-purple-100 bg-purple-50 grid place-items-center mx-auto group-hover:bg-purple-100 transition-colors"
+              class="w-16 h-16 rounded-full border border-purple-100 bg-purple-50 grid place-items-center mx-auto"
             >
               <Icon name="mdi:email" class="text-purple-600 text-2xl" />
             </div>
@@ -77,7 +76,7 @@
         </div>
 
         <div
-          class="flex flex-col items-center text-center space-y-4 group hover:scale-105 transition-transform duration-300"
+          class="flex flex-col items-center text-center space-y-4 group"
         >
           <div class="flex flex-col items-center space-y-3">
             <div
@@ -86,7 +85,7 @@
               4
             </div>
             <div
-              class="w-16 h-16 rounded-full border border-orange-100 bg-orange-50 grid place-items-center mx-auto group-hover:bg-orange-100 transition-colors"
+              class="w-16 h-16 rounded-full border border-orange-100 bg-orange-50 grid place-items-center mx-auto"
             >
               <Icon name="mdi:airplane" class="text-orange-600 text-2xl" />
             </div>

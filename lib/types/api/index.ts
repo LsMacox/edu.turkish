@@ -22,7 +22,6 @@ export type {
 // Response types
 export type {
     UniversityListResponse,
-    UniversityResponse,
     BlogArticlesResponse,
     FaqResponse,
     DirectionResponse,

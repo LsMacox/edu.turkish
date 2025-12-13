@@ -1,5 +1,5 @@
 <template>
-  <section id="services" v-scroll-reveal class="section-py bg-gray-50">
+  <section id="services" class="section-py bg-gray-50">
     <div class="container">
       <BaseSectionHeader
         :title="t(servicesNs('title'))"
@@ -10,9 +10,8 @@
 
       <div class="flex flex-wrap justify-center gap-8 max-w-6xl mx-auto">
         <NuxtLink
-          v-for="(card, index) in cards"
+          v-for="card in cards"
           :key="card.slug"
-          v-scroll-reveal="index * 80"
           :to="localePath(`/services/${card.slug}`)"
           class="w-full sm:w-80 md:w-72 lg:w-80 focus:outline-none focus-visible:ring-2 focus-visible:ring-primary/60 rounded-xl"
         >
@@ -21,7 +20,7 @@
             :icon-color="card.color"
             :title="t(card.titleKey)"
             :description="t(card.descriptionKey)"
-            hover="scale"
+            :hover="false"
           >
             <template #footer>
               <div class="flex items-center text-primary font-medium">

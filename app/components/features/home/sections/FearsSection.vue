@@ -9,7 +9,7 @@
       />
 
       <div class="columns-1 md:columns-2 lg:columns-3 gap-8">
-        <div v-scroll-reveal class="card-surface break-inside-avoid mb-8">
+        <div class="card-surface break-inside-avoid mb-8">
           <BaseIconBadge icon="mdi:alert-circle" color="red" size="md" class="mb-6" />
           <div class="space-y-3">
             <button type="button" class="w-full text-left" @click="toggleFear(1)">
@@ -31,7 +31,7 @@
           </div>
         </div>
 
-        <div v-scroll-reveal class="card-surface break-inside-avoid mb-8">
+        <div class="card-surface break-inside-avoid mb-8">
           <BaseIconBadge icon="mdi:translate" color="blue" size="md" class="mb-6" />
           <div class="space-y-3">
             <button type="button" class="w-full text-left" @click="toggleFear(2)">
