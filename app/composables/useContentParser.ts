@@ -1,4 +1,5 @@
 import type { BlogArticleContentBlock } from '~~/lib/types'
+import { stripHtmlTags, slugify } from '~~/lib/utils/text'
 
 export type NormalizedBlock =
   | Exclude<BlogArticleContentBlock, { type: 'heading' }>
@@ -17,17 +18,8 @@ export interface ContentParserOptions {
   maxTocLevel?: number
 }
 
-export const stripHtmlTags = (html: string): string => html.replace(/<[^>]*>/g, '')
-
 export const createHeadingId = (text: string, counts: Map<string, number>): string => {
-  const sanitized =
-    stripHtmlTags(text)
-      .toLowerCase()
-      .trim()
-      .replace(/[^\p{L}\p{N}\s-]+/gu, '')
-      .replace(/\s+/g, '-')
-      .replace(/-+/g, '-')
-      .replace(/^-|-$/g, '') || 'section'
+  const sanitized = slugify(stripHtmlTags(text)) || 'section'
 
   const count = counts.get(sanitized) ?? 0
   counts.set(sanitized, count + 1)
@@ -83,7 +75,6 @@ export function useContentParser(
   return {
     normalizedContent,
     tableOfContents,
-    stripHtmlTags,
     getHeadingTag,
     isHeadingBlock,
   }

@@ -1,11 +1,11 @@
 <template>
   <div class="standard-article">
     <section
-      class="relative overflow-hidden bg-gradient-to-br from-primary/10 via-white to-secondary/10 py-20"
+      class="relative overflow-hidden bg-gradient-to-br from-primary/10 via-white to-secondary/10 py-8 md:py-20"
     >
       <div class="container mx-auto px-4 lg:px-6">
-        <div class="grid items-center gap-12 lg:grid-cols-[minmax(0,1.8fr)_minmax(0,1fr)]">
-          <div class="space-y-6">
+        <div class="grid items-center gap-6 md:gap-12 lg:grid-cols-[minmax(0,1.8fr)_minmax(0,1fr)]">
+          <div class="space-y-4 md:space-y-6">
             <span
               v-if="heroKicker"
               class="inline-flex items-center rounded-full bg-primary/10 px-4 py-1 text-sm font-semibold text-primary"
@@ -47,13 +47,13 @@
       </div>
     </section>
 
-    <section class="py-12 lg:py-20">
+    <section class="py-6 md:py-12 lg:py-20">
       <div class="container mx-auto px-4 lg:px-6">
-        <div class="grid gap-8 lg:gap-12 lg:grid-cols-[minmax(0,2.4fr)_minmax(0,1fr)]">
+        <div class="grid gap-4 md:gap-8 lg:gap-12 lg:grid-cols-[minmax(0,2.4fr)_minmax(0,1fr)]">
           <!-- Main content -->
-          <div class="order-2 lg:order-1">
+          <div class="order-1 lg:order-1">
             <article
-              class="prose-article rounded-3xl bg-white p-6 shadow-lg ring-1 ring-gray-100/50 lg:p-10 xl:p-12"
+              class="prose-article rounded-2xl md:rounded-3xl bg-white p-4 md:p-6 shadow-lg ring-1 ring-gray-100/50 lg:p-10 xl:p-12"
             >
               <BlogContentRenderer
                 :content="article.content"
@@ -65,7 +65,7 @@
           </div>
 
           <!-- Sticky sidebar -->
-          <aside class="order-1 lg:order-2 space-y-4 lg:space-y-6 lg:sticky lg:top-24 lg:self-start">
+          <aside class="order-3 lg:order-2 space-y-3 md:space-y-4 lg:space-y-6 lg:sticky lg:top-24 lg:self-start">
             <div
               v-if="tableOfContents.length"
               class="hidden md:block rounded-2xl bg-white p-5 shadow-lg ring-1 ring-gray-100/50"
@@ -111,7 +111,7 @@
 
             <div
               v-if="quickFacts.length"
-              class="overflow-hidden rounded-2xl bg-gradient-to-br from-primary to-secondary p-[2px] shadow-lg"
+              class="hidden lg:block overflow-hidden rounded-2xl bg-gradient-to-br from-primary to-secondary p-[2px] shadow-lg"
             >
               <div class="rounded-[14px] bg-white p-4 sm:p-5">
                 <h3
@@ -140,7 +140,7 @@
                 </ul>
               </div>
             </div>
-            <div class="rounded-2xl bg-gray-50 p-5">
+            <div class="order-2 lg:order-none rounded-xl md:rounded-2xl bg-gray-50 p-4 md:p-5">
               <h3
                 class="flex items-center gap-2 text-sm font-bold uppercase tracking-wide text-gray-400"
               >
@@ -175,7 +175,7 @@
 
             <div
               v-if="tags.length"
-              class="rounded-2xl bg-white p-5 shadow-lg ring-1 ring-gray-100/50"
+              class="hidden lg:block rounded-2xl bg-white p-5 shadow-lg ring-1 ring-gray-100/50"
             >
               <h3
                 class="flex items-center gap-2 text-sm font-bold uppercase tracking-wide text-gray-400"

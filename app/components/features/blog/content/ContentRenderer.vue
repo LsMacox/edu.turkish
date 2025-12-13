@@ -8,9 +8,9 @@
           :is="getHeadingTag(block.level)"
           :id="block.id"
           :class="styles.heading(block.level)"
-          v-html="block.text"
-        />
-        <!-- eslint-enable vue/no-v-html, vue/no-v-text-v-html-on-component -->
+        >
+          <span v-html="block.text" />
+        </component>
       </template>
 
       <!-- Paragraph with widget support -->
@@ -33,7 +33,7 @@
         <!-- Regular paragraph -->
         <!-- eslint-disable-next-line vue/no-v-html -->
         <p v-else :class="styles.paragraph" v-html="block.text" />
-      </template>
+      </template> 
 
       <!-- List -->
       <BlogContentList
@@ -124,10 +124,8 @@ const props = withDefaults(
 const contentRef = computed(() => props.content)
 const { normalizedContent } = useContentParser(contentRef)
 
-// Widget registry (created once)
 const widgetRegistry = createWidgetRegistry()
 
-// Cached widget detection - avoids repeated calls in template
 const widgetCache = computed(() => {
   const cache = new Map<string, WidgetMatch | null>()
   if (!props.enableWidgets) return cache
@@ -141,7 +139,6 @@ const widgetCache = computed(() => {
   return cache
 })
 
-// Cached text-before-widget extraction
 const widgetTextBeforeCache = computed(() => {
   const cache = new Map<string, string>()
   if (!props.enableWidgets) return cache
