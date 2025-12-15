@@ -1,40 +1,79 @@
-# Global options
+# Global options for origin server
 {
+    # Disable auto HTTPS for origin server (handled by Bunny CDN)
     auto_https off
 }
 
-# App (Nuxt) origin — ВАЖНО: это не публичный домен, а origin-хост
-http://{$APP_DOMAIN} {
+# Origin server for Bunny CDN (HTTP only)
+http://{$APP_DOMAIN:origin.edu-turkish.com} {
     encode zstd gzip
+
+    # Security headers for origin responses (HSTS will be added by Nuxt middleware)
+    header {
+        # HSTS header for responses going through Bunny CDN
+        Strict-Transport-Security "max-age=31536000; includeSubDomains; preload"
+        # Additional security headers
+        X-Content-Type-Options "nosniff"
+        X-Frame-Options "DENY"
+        X-XSS-Protection "1; mode=block"
+        Referrer-Policy "strict-origin-when-cross-origin"
+        # Remove server information
+        -Server
+    }
 
     @static path_regexp static \.\w{2,5}$
     header @static Cache-Control "public, max-age=31536000, immutable"
 
     reverse_proxy app:3000 {
         header_up Host {host}
+        header_up X-Forwarded-Proto https
+        header_up X-Real-IP {remote_host}
     }
 }
 
-# Directus origin
-http://{$DIRECTUS_DOMAIN} {
+# Directus origin server
+http://{$DIRECTUS_DOMAIN:cms.edu-turkish.com} {
     encode zstd gzip
+
+    # Security headers for Directus
+    header {
+        Strict-Transport-Security "max-age=31536000; includeSubDomains; preload"
+        X-Content-Type-Options "nosniff"
+        X-Frame-Options "SAMEORIGIN"
+        X-XSS-Protection "1; mode=block"
+        Referrer-Policy "strict-origin-when-cross-origin"
+        -Server
+    }
 
     reverse_proxy directus:8055 {
         header_up Host {host}
+        header_up X-Forwarded-Proto https
+        header_up X-Real-IP {remote_host}
     }
 }
 
-# EspoCRM origin
-http://{$CRM_DOMAIN} {
+# EspoCRM origin server
+http://{$CRM_DOMAIN:crm.edu-turkish.com} {
     encode zstd gzip
+
+    # Security headers for CRM
+    header {
+        Strict-Transport-Security "max-age=31536000; includeSubDomains; preload"
+        X-Content-Type-Options "nosniff"
+        X-Frame-Options "SAMEORIGIN"
+        X-XSS-Protection "1; mode=block"
+        Referrer-Policy "strict-origin-when-cross-origin"
+        -Server
+    }
 
     reverse_proxy espocrm:80 {
         header_up Host {host}
+        header_up X-Forwarded-Proto https
+        header_up X-Real-IP {remote_host}
     }
 }
 
-# НИКАКИХ редиректов с :80 на https здесь быть не должно
-# Если нужен healthcheck:
+# Health check endpoint
 :80 {
     @health path /health
     respond @health "ok" 200

@@ -48,6 +48,7 @@ export default defineNuxtConfig({
 
   nitro: {
     compressPublicAssets: true,
+    // Security headers handled by Caddy reverse proxy
   },
 
   hooks: {
