@@ -1,4 +1,3 @@
-import { withQuery } from 'ufo'
 import { contactChannels, type ContactChannelKey } from '~~/lib/domain/contact/channels'
 import { useReferral } from './useReferral'
 import { sanitizeUtm } from '~~/lib/domain/contact/utm'
@@ -26,8 +25,9 @@ export const useContactChannels = () => {
       if (hasTracking) {
         const query: Record<string, string> = { ref }
         if (utm) Object.assign(query, utm)
-        href = withQuery(routePaths[key as ContactChannelKey], query)
       }
+
+      href = routePaths[key as ContactChannelKey]
 
       result[key as ContactChannelKey] = { ...def, href, cta: def.defaultCta }
     }
