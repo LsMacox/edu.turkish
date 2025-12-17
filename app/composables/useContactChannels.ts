@@ -29,7 +29,7 @@ export const useContactChannels = () => {
 
       href = routePaths[key as ContactChannelKey]
 
-      result[key as ContactChannelKey] = { ...def, href, cta: def.defaultCta }
+      result[key as ContactChannelKey] = { ...def, href }
     }
 
     return result

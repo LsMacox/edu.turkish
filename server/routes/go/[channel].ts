@@ -7,47 +7,47 @@ import { getTelegramQueue } from '~~/server/services/telegram/queue'
 const validChannels = new Set<string>(Object.keys(contactChannels))
 
 export default defineEventHandler(async (event) => {
-    const channel = getRouterParam(event, 'channel')
+  const channel = getRouterParam(event, 'channel')
 
-    if (!channel || !validChannels.has(channel)) {
-        throw createError({ statusCode: 404, message: 'Channel not found' })
+  if (!channel || !validChannels.has(channel)) {
+    throw createError({ statusCode: 404, message: 'Channel not found' })
+  }
+
+  const channelKey = channel as ContactChannelKey
+  const channelDef = contactChannels[channelKey]
+
+  const query = getQuery(event)
+  const referralCode = getCookie(event, 'referral_code') || ''
+
+  const cookieFp = getCookie(event, 'fp')
+  const hasFp = cookieFp && cookieFp.length > 0;
+  const sessionId = hasFp ? cookieFp : undefined
+  const utm = sanitizeUtm(query as Record<string, any>)
+
+  if (hasFp) {
+    try {
+      const config = useRuntimeConfig()
+      const queue = getTelegramQueue()
+      const message = formatMessengerTouchNotification({
+        channel: channelKey,
+        referralCode,
+        sessionId,
+        utm,
+        timestamp: new Date().toISOString(),
+      })
+
+      await queue.add('sendNotification', {
+        channelId: config.telegramCallsChannelId,
+        message,
+        parseMode: 'HTML',
+        disableWebPagePreview: true,
+      })
+    } catch (error) {
+      console.error(`[go/${channel}] Failed to enqueue telegram notification`, error)
     }
+  }
 
-    const channelKey = channel as ContactChannelKey
-    const channelDef = contactChannels[channelKey]
-
-    const query = getQuery(event)
-    const referralCode = getCookie(event, 'referral_code') || ''
-    const hasReferralCode = referralCode.length > 0
-
-    const cookieFp = getCookie(event, 'fp')
-    const sessionId = cookieFp && cookieFp.length > 0 ? cookieFp : undefined
-    const utm = sanitizeUtm(query as Record<string, any>)
-
-    if (hasReferralCode) {
-        try {
-            const config = useRuntimeConfig()
-            const queue = getTelegramQueue()
-            const message = formatMessengerTouchNotification({
-                channel: channelKey,
-                referralCode,
-                sessionId,
-                utm,
-                timestamp: new Date().toISOString(),
-            })
-
-            await queue.add('sendNotification', {
-                channelId: config.telegramCallsChannelId,
-                message,
-                parseMode: 'HTML',
-                disableWebPagePreview: true,
-            })
-        } catch (error) {
-            console.error(`[go/${channel}] Failed to enqueue telegram notification`, error)
-        }
-    }
-
-    const html = `<!DOCTYPE html>
+  const html = `<!DOCTYPE html>
   <html lang="ru">
     <head>
       <meta charset="utf-8" />
@@ -61,9 +61,9 @@ export default defineEventHandler(async (event) => {
     </body>
   </html>`
 
-    return new Response(html, {
-        headers: {
-            'Content-Type': 'text/html; charset=utf-8',
-        },
-    })
+  return new Response(html, {
+    headers: {
+      'Content-Type': 'text/html; charset=utf-8',
+    },
+  })
 })
