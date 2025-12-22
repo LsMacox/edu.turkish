@@ -62,6 +62,7 @@
       },
       "card": {
         "details_button": "Толығырақ",
+        "apply_button": "Өтініш беру",
         "application_description": "Университет картасынан өтініш:",
         "year": "жыл",
         "price_on_request": "Бағасы сұраныс бойынша",

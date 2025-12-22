@@ -1,0 +1,62 @@
+@layer components {
+  /* Checkbox custom styling */
+  input[type="checkbox"] {
+    @apply accent-primary;
+  }
+
+  /* Range slider thumb styling */
+  .slider-thumb {
+    @apply outline-none;
+  }
+
+  .slider-thumb:focus {
+    @apply outline-none;
+  }
+
+  .slider-thumb::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    appearance: none;
+    height: var(--thumb-size, 20px);
+    width: var(--thumb-size, 20px);
+    border-radius: 50%;
+    background: theme('colors.primary');
+    border: 2px solid white;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+    cursor: pointer;
+    outline: none;
+  }
+
+  .slider-thumb::-webkit-slider-thumb:focus {
+    outline: none;
+    box-shadow: 0 2px 8px color-mix(in srgb, theme('colors.primary') 30%, transparent);
+  }
+
+  .slider-thumb::-moz-range-thumb {
+    height: var(--thumb-size, 20px);
+    width: var(--thumb-size, 20px);
+    border-radius: 50%;
+    background: theme('colors.primary');
+    border: 2px solid white;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+    cursor: pointer;
+    outline: none;
+  }
+
+  .slider-thumb::-moz-range-thumb:focus {
+    outline: none;
+    box-shadow: 0 2px 8px color-mix(in srgb, theme('colors.primary') 30%, transparent);
+  }
+
+  /* Input focus utilities */
+  .input-focus {
+    @apply focus:ring-2 focus:ring-primary focus:border-transparent transition-default-fast;
+  }
+
+  .input-focus-error {
+    @apply focus:ring-2 focus:ring-error focus:border-error transition-default-fast;
+  }
+
+  .input-focus-success {
+    @apply focus:ring-2 focus:ring-success focus:border-success transition-default-fast;
+  }
+}

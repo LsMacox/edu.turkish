@@ -26,5 +26,5 @@ const formattedPrice = computed(() => {
   return `${symbol}${Math.round(converted).toLocaleString('en-US')}`
 })
 
-const sizeClass = computed(() => ({ sm: 'text-sm', md: 'text-base', lg: 'text-lg' })[props.size])
+const sizeClass = computed(() => ({ sm: 'text-price-sm', md: 'text-price', lg: 'text-price-lg' })[props.size])
 </script>

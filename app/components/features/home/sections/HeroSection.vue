@@ -1,5 +1,5 @@
 <template>
-  <section id="hero" class="relative overflow-hidden pt-3 pb-10 md:py-20">
+  <section id="hero" class="relative overflow-hidden hero-py">
     <div class="absolute inset-0">
       <NuxtImg
         :src="ASSETS.home.heroBackground"
@@ -15,10 +15,8 @@
     <div class="container mx-auto max-w-7xl container-padding relative z-10">
       <div class="grid lg:grid-cols-2 gap-section-lg items-center">
         <div class="space-y-section-sm order-2 lg:order-1">
-          <div class="space-y-3 md:space-y-4">
-            <h1
-              class="text-hero text-xl xs:text-2xl md:text-3xl lg:text-4xl leading-tight lg:leading-tight"
-            >
+          <div class="space-component-md">
+            <h1 class="text-hero">
               <span class="block xs:inline">{{ t(heroNs('title')) }}</span>
               <span class="text-primary ml-2 xs:ml-3">{{ t(heroNs('title_accent')) }}</span>
             </h1>
@@ -28,45 +26,58 @@
           </div>
 
           <!-- Stats -->
-          <div class="flex flex-wrap gap-3 md:gap-4 pt-2 md:pt-3">
-            <div class="flex items-center space-x-1.5">
-              <Icon name="mdi:check-circle" class="text-green-500 text-lg md:text-xl" />
-              <span class="text-secondary font-medium text-sm md:text-base">{{
-                t(heroNs('stat_students'))
-              }}</span>
-            </div>
-            <div class="flex items-center space-x-1.5">
-              <Icon name="mdi:shield-check" class="text-blue-500 text-lg md:text-xl" />
-              <span class="text-secondary font-medium text-sm md:text-base">{{
-                t(heroNs('stat_verified'))
-              }}</span>
-            </div>
-            <div class="flex items-center space-x-1.5">
-              <Icon name="mdi:file-document" class="text-purple-500 text-lg md:text-xl" />
-              <span class="text-secondary font-medium text-sm md:text-base">{{
-                t(heroNs('stat_documents'))
-              }}</span>
-            </div>
+          <div class="flex flex-wrap gap-component-md pt-component-xs">
+            <BaseIconText
+              icon="mdi:check-circle"
+              :text="t(heroNs('stat_students'))"
+              size="sm"
+              color="secondary"
+              icon-color="success"
+              spacing="sm"
+              weight="medium"
+            />
+            <BaseIconText
+              icon="mdi:shield-check"
+              :text="t(heroNs('stat_verified'))"
+              size="sm"
+              color="secondary"
+              icon-color="info"
+              spacing="sm"
+              weight="medium"
+            />
+            <BaseIconText
+              icon="mdi:file-document"
+              :text="t(heroNs('stat_documents'))"
+              size="sm"
+              color="secondary"
+              icon-color="info"
+              spacing="sm"
+              weight="medium"
+              class="[&>svg]:text-purple-500"
+            />
           </div>
 
-          <div class="flex flex-col gap-2 md:gap-3 pt-2 md:pt-4">
-            <BaseButton variant="primary" size="lg" class="shadow-lg" @click="modal.openModal({ source: 'home_hero_cta', description: t(key('cta.consultation')) })">
+          <div class="flex flex-col sm:flex-row gap-component-md pt-component-md">
+            <BaseButton variant="primary" size="lg" class="shadow-card w-full sm:w-auto" @click="modal.openModal({ source: 'home_hero_cta', description: t(key('cta.consultation')) })">
               {{ t(key('cta.consultation')) }}
             </BaseButton>
           </div>
         </div>
 
         <div class="relative order-1 lg:order-2">
-          <div
+          <BaseCard
             ref="heroMediaRef"
-            class="bg-white rounded-2xl md:rounded-3xl shadow-custom card-padding relative overflow-hidden"
+            padding="lg"
+            shadow="md"
+            rounded="xl"
+            class="relative overflow-hidden"
             @mouseenter="handleMouseEnter"
             @mouseleave="handleMouseLeave"
           >
             <NuxtImg
               :src="ASSETS.home.heroStudents"
               alt="Group of happy international students"
-              class="w-full h-64 xs:h-72 md:h-80 object-cover rounded-xl md:rounded-2xl"
+              class="w-full h-hero-image object-cover rounded-responsive"
               fetchpriority="high"
               decoding="async"
               sizes="(max-width: 1024px) 100vw, 50vw"
@@ -75,7 +86,7 @@
             <video
               v-if="shouldLoadVideo && !videoError"
               ref="videoRef"
-              class="absolute inset-0 w-full h-full object-cover rounded-xl md:rounded-2xl transition-opacity duration-700"
+              class="absolute inset-0 w-full h-full object-cover rounded-responsive transition-opacity duration-700"
               :class="[isVideoLoaded ? 'opacity-100' : 'opacity-0']"
               autoplay
               loop
@@ -87,7 +98,7 @@
             >
               <source :src="getCdnUrl(ASSETS.home.heroVideo)" type="video/mp4" />
             </video>
-          </div>
+          </BaseCard>
         </div>
       </div>
     </div>
@@ -95,6 +106,7 @@
 </template>
 
 <script setup lang="ts">
+import BaseCard from '~/components/shared/BaseCard.vue'
 import { ASSETS } from '~~/lib/config/assets'
 import { namespace, key } from '~~/lib/i18n'
 
@@ -105,7 +117,7 @@ const modal = useApplicationModal()
 const { t } = useI18n()
 const { getCdnUrl } = useCdn()
 
-const heroMediaRef = ref<HTMLElement | null>(null)
+const heroMediaRef = useTemplateRef<typeof BaseCard>('heroMediaRef')
 const videoRef = ref<HTMLVideoElement | null>(null)
 const shouldLoadVideo = ref(false)
 const videoError = ref(false)
@@ -113,14 +125,18 @@ const isVideoLoaded = ref(false)
 
 let observer: IntersectionObserver | null = null
 
+const getHeroElement = () => heroMediaRef.value?.rootElement?.value ?? null
+
 onMounted(() => {
-  if (heroMediaRef.value && 'IntersectionObserver' in window) {
+  const heroElement = getHeroElement()
+  if (heroElement && 'IntersectionObserver' in window) {
     observer = new IntersectionObserver((entries) => {
       for (const entry of entries) {
         if (entry.isIntersecting) {
           shouldLoadVideo.value = true
-          if (heroMediaRef.value && observer) {
-            observer.unobserve(heroMediaRef.value)
+          const element = getHeroElement()
+          if (element && observer) {
+            observer.unobserve(element)
           }
           observer = null
           break
@@ -128,15 +144,16 @@ onMounted(() => {
       }
     })
 
-    observer.observe(heroMediaRef.value)
+    observer.observe(heroElement)
   } else {
     shouldLoadVideo.value = true
   }
 })
 
 onBeforeUnmount(() => {
-  if (heroMediaRef.value && observer) {
-    observer.unobserve(heroMediaRef.value)
+  const element = getHeroElement()
+  if (element && observer) {
+    observer.unobserve(element)
   }
   observer = null
 })

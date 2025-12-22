@@ -18,10 +18,10 @@
           @touchcancel="resetTouch"
         >
           <!-- Header -->
-          <div class="flex items-center justify-between px-4 h-14 border-b border-gray-100">
+          <div class="flex items-center justify-between px-4 h-14 border-b border-default">
             <NuxtLink
               :to="localePath('/')"
-              class="flex items-center gap-2"
+              class="flex items-center gap-component-sm"
               @click="closeDrawer"
             >
               <NuxtImg
@@ -37,13 +37,14 @@
               />
               <span class="text-base font-semibold text-secondary">Edu.turkish</span>
             </NuxtLink>
-            <button
-              class="w-9 h-9 flex items-center justify-center rounded-lg hover:bg-gray-100 transition-colors"
+            <BaseButton
+              variant="icon-close-md"
+              icon="mdi:close"
               aria-label="Close navigation"
+              no-focus-ring
+              class="w-9 h-9"
               @click="closeDrawer"
-            >
-              <Icon name="mdi:close" class="text-gray-400 text-xl" />
-            </button>
+            />
           </div>
 
           <!-- Navigation -->
@@ -51,22 +52,22 @@
             <!-- Services -->
             <button
               type="button"
-              class="w-full flex items-center justify-between px-3 py-3 rounded-xl transition-colors"
+              class="w-full flex items-center justify-between px-3 py-3 rounded-button transition-color font-semibold"
               :class="[
                 servicesMenuOpen || isServiceRouteActive
                   ? 'bg-primary/5 text-primary'
-                  : 'text-secondary hover:bg-gray-50',
+                  : 'text-secondary hover:bg-surface',
               ]"
               :aria-expanded="servicesMenuOpen"
               @click="toggleServicesOpen"
             >
-              <div class="flex items-center gap-3">
-                <Icon name="mdi:briefcase-outline" class="text-lg opacity-70" />
+              <div class="flex items-center gap-component-md">
+                <Icon name="mdi:briefcase-outline" class="text-icon-sm opacity-70" />
                 <span class="font-medium">{{ t(navNs('services')) }}</span>
               </div>
               <Icon
                 name="mdi:chevron-down"
-                class="text-lg transition-transform duration-200"
+                class="text-icon-sm transition-scale-fast"
                 :class="{ 'rotate-180': servicesMenuOpen }"
               />
             </button>
@@ -77,11 +78,11 @@
                   v-for="link in serviceLinks"
                   :key="link.path"
                   :to="link.path"
-                  class="block px-3 py-2.5 rounded-lg text-sm transition-colors"
+                  class="block px-3 py-2.5 rounded-lg text-sm transition-color"
                   :class="[
                     isServiceLinkActive(link.path)
                       ? 'text-primary font-medium bg-primary/5'
-                      : 'text-gray-500 hover:text-secondary hover:bg-gray-50',
+                      : 'text-meta hover:text-secondary hover:bg-surface',
                   ]"
                   @click="closeDrawer"
                 >
@@ -91,7 +92,7 @@
             </Transition>
 
             <!-- Divider -->
-            <div class="my-2 mx-3 h-px bg-gray-100" />
+            <div class="my-2 mx-3 h-px bg-surface-elevated" />
 
             <!-- Main Links -->
             <div class="space-y-0.5">
@@ -99,37 +100,34 @@
                 v-for="link in navLinks"
                 :key="link.path"
                 :to="localePath(link.path)"
-                class="flex items-center gap-3 px-3 py-3 rounded-xl transition-colors"
+                class="flex items-center gap-component-md px-3 py-3 rounded-button transition-color"
                 :class="[
                   isActive(link.path)
                     ? 'bg-primary/5 text-primary'
-                    : 'text-secondary hover:bg-gray-50',
+                    : 'text-secondary hover:bg-surface',
                 ]"
                 @click="closeDrawer"
               >
-                <Icon :name="link.icon" class="text-lg opacity-70" />
+                <Icon :name="link.icon" class="text-icon-sm opacity-70" />
                 <span class="font-medium">{{ link.label }}</span>
               </NuxtLink>
             </div>
           </nav>
 
           <!-- Language Switcher -->
-          <div class="px-4 py-4 border-t border-gray-100">
-            <div class="flex gap-2">
-              <button
+          <div class="px-4 py-4 border-t border-default">
+            <div class="flex gap-component-sm">
+              <BaseButton
                 v-for="opt in options"
                 :key="opt.code"
-                type="button"
-                class="flex-1 py-2 rounded-lg text-sm font-medium transition-colors"
-                :class="[
-                  opt.code === currentLocale
-                    ? 'bg-primary text-white'
-                    : 'bg-gray-100 text-gray-600 hover:bg-gray-200',
-                ]"
+                :variant="opt.code === currentLocale ? 'primary' : 'chip-pill'"
+                size="sm"
+                rounded="lg"
+                class="flex-1"
                 @click="changeLocale(opt.code)"
               >
                 {{ opt.shortLabel }}
-              </button>
+              </BaseButton>
             </div>
           </div>
         </div>

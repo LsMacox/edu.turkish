@@ -1,70 +1,67 @@
 <template>
-  <section id="team" class="section-py-lg bg-background">
-    <div class="container mx-auto container-padding-narrow">
-      <div class="max-w-6xl mx-auto">
-        <div class="text-center mb-16">
-          <h2 class="text-section-title mb-6">
-            {{ t(teamNs('title')) }}
-          </h2>
-          <p class="text-section-subtitle max-w-3xl mx-auto">
-            {{ t(teamNs('subtitle')) }}
-          </p>
-        </div>
+  <BaseSection id="team" padding="lg" max-width="6xl">
+        <BaseSectionHeader
+          :title="t(teamNs('title'))"
+          :subtitle="t(teamNs('subtitle'))"
+          align="center"
+          max-width="full"
+        />
 
-        <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-          <div
+        <BaseGrid :md="2" :lg="3" gap="lg">
+          <BaseCard
             v-for="member in teamMembers"
             :key="member.id"
-            class="bg-white rounded-2xl shadow-custom overflow-hidden hover-lift"
+            padding="none"
+            shadow="md"
+            rounded="2xl"
+            hover="lift"
           >
             <div class="relative">
               <NuxtImg
                 :src="member.photo"
                 :alt="member.name"
-                class="w-full h-64 object-cover"
+                class="w-full h-64 object-cover rounded-lg"
                 loading="lazy"
                 decoding="async"
                 sizes="(max-width: 1024px) 100vw, 33vw"
                 format="webp"
               />
-              <div class="absolute bottom-4 left-4 bg-white rounded-lg px-3 py-1">
-                <span class="text-sm font-medium text-primary">{{ member.role }}</span>
+              <div class="absolute bottom-4 left-4 bg-white rounded-button badge-padding-sm">
+                <span class="text-body-sm font-medium text-primary">{{ member.role }}</span>
               </div>
             </div>
             <div class="card-padding">
-              <h3 class="text-card-title mb-2">{{ member.name }}</h3>
-              <p class="text-card-subtitle mb-4">{{ member.position }}</p>
-              <p class="text-sm text-gray-500 leading-relaxed mb-4">
+              <h3 class="text-card-title mb-component-xs">{{ member.name }}</h3>
+              <p class="text-card-subtitle mb-component-sm">{{ member.position }}</p>
+              <p class="text-body-sm text-meta mb-component-sm">
                 {{ member.description }}
               </p>
-              <div v-if="member.linkedin || member.whatsapp" class="flex space-x-3">
+              <div v-if="member.linkedin || member.whatsapp" class="flex gap-component-sm">
                 <a
                   v-if="member.linkedin"
                   :href="member.linkedin"
                   target="_blank"
                   rel="noopener noreferrer"
-                  class="w-8 h-8 bg-blue-100 rounded-lg flex items-center justify-center cursor-pointer"
+                  class="step-badge-sm bg-info-light cursor-pointer"
                   :aria-label="t(linksNs('linkedin'), { name: member.name })"
                 >
-                  <Icon name="mdi:linkedin" class="text-blue-600" />
+                  <Icon name="mdi:linkedin" class="text-info-dark" />
                 </a>
                 <a
                   v-if="member.whatsapp"
                   :href="`https://wa.me/${member.whatsapp}`"
                   target="_blank"
                   rel="noopener noreferrer"
-                  class="w-8 h-8 bg-green-100 rounded-lg flex items-center justify-center cursor-pointer"
+                  class="step-badge-sm bg-success-light cursor-pointer"
                   :aria-label="t(linksNs('whatsapp'), { name: member.name })"
                 >
-                  <Icon name="mdi:whatsapp" class="text-green-600" />
+                  <Icon name="mdi:whatsapp" class="text-success-dark" />
                 </a>
               </div>
             </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
+          </BaseCard>
+        </BaseGrid>
+  </BaseSection>
 </template>
 
 <script setup lang="ts">

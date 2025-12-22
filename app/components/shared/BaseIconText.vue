@@ -1,7 +1,7 @@
 <template>
   <div :class="['flex items-center', alignClasses, spacingClasses]">
     <!-- Icon -->
-    <Icon :name="icon" :class="[iconColorClasses, iconSizeClasses, 'flex-shrink-0']" />
+    <Icon :name="icon" :class="[iconColorClasses, sizeClasses.icon, 'flex-shrink-0']" />
 
     <!-- Text content -->
     <span :class="textClasses">
@@ -12,6 +12,8 @@
 
 <script setup lang="ts">
 import type { BaseIconTextProps } from '~/types/ui'
+import { SEMANTIC_TEXT_COLORS } from '~/composables/ui'
+import { LABEL_LINE_HEIGHT } from '~/composables/ui/useSize/index'
 
 const props = withDefaults(defineProps<BaseIconTextProps>(), {
   size: 'md',
@@ -23,79 +25,27 @@ const props = withDefaults(defineProps<BaseIconTextProps>(), {
   weight: 'normal',
 })
 
-// Alignment classes
-const alignClasses = computed(() => {
-  switch (props.align) {
-    case 'start':
-      return 'items-start'
-    case 'end':
-      return 'items-end'
-    default: // center
-      return 'items-center'
-  }
-})
+const alignClasses = useAlignClasses(() => props.align, { context: 'items', defaultAlign: 'center' })
 
-// Spacing classes
-const spacingClasses = computed(() => {
-  switch (props.spacing) {
-    case 'sm':
-      return 'space-x-1'
-    case 'lg':
-      return 'space-x-3'
-    default: // md
-      return 'space-x-2'
-  }
-})
+const spacingClassMap: Record<string, string> = {
+  xs: 'space-x-0.5',
+  sm: 'space-x-1',
+  md: 'space-x-2',
+  lg: 'space-x-3',
+}
 
-// Icon size classes
-const iconSizeClasses = computed(() => {
-  switch (props.size) {
-    case 'sm':
-      return 'w-4 h-4'
-    case 'lg':
-      return 'w-6 h-6'
-    default: // md
-      return 'w-5 h-5'
-  }
-})
+const spacingClasses = computed(() => spacingClassMap[props.spacing] || spacingClassMap.md)
 
-// Icon color classes
+const sizeClasses = useIconTextSizeClasses(() => props.size)
+
+// Icon color classes - using shared utility
 const iconColorClasses = computed(() => {
   if (props.iconColor === 'inherit') return ''
-
-  const colorMap: Record<string, string> = {
-    primary: 'text-primary',
-    secondary: 'text-secondary',
-    gray: 'text-gray-400',
-    success: 'text-green-600',
-    warning: 'text-yellow-600',
-    error: 'text-red-600',
-    info: 'text-blue-600',
-    neutral: 'text-gray-600',
-  }
-
-  return colorMap[props.iconColor] || colorMap.primary
+  return SEMANTIC_TEXT_COLORS[props.iconColor] || SEMANTIC_TEXT_COLORS.primary
 })
 
-// Text classes
+// Text classes - using shared utility for colors
 const textClasses = computed(() => {
-  const sizeMap = {
-    sm: 'text-sm',
-    md: 'text-base',
-    lg: 'text-lg',
-  }
-
-  const colorMap: Record<string, string> = {
-    primary: 'text-primary',
-    secondary: 'text-secondary',
-    gray: 'text-gray-600',
-    success: 'text-green-600',
-    warning: 'text-yellow-600',
-    error: 'text-red-600',
-    info: 'text-blue-600',
-    neutral: 'text-gray-600',
-  }
-
   const weightMap = {
     normal: 'font-normal',
     medium: 'font-medium',
@@ -104,10 +54,10 @@ const textClasses = computed(() => {
   }
 
   return [
-    sizeMap[props.size] || sizeMap.md,
-    colorMap[props.color] || colorMap.secondary,
+    sizeClasses.value.text,
+    SEMANTIC_TEXT_COLORS[props.color] || SEMANTIC_TEXT_COLORS.secondary,
     weightMap[props.weight] || weightMap.normal,
-    props.truncate ? 'truncate' : 'leading-relaxed',
+    props.truncate ? 'truncate' : LABEL_LINE_HEIGHT,
   ].join(' ')
 })
 </script>

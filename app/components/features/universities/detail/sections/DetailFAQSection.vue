@@ -1,6 +1,6 @@
 <template>
-  <UiDisplayFAQ
-    class="py-16"
+  <DisplayFAQ
+    class="section-py-xl"
     :items="faqs"
     :title="t(ns('title'))"
     :subtitle="t(ns('subtitle'))"

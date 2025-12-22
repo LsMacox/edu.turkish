@@ -1,23 +1,26 @@
 <template>
   <div
-    class="fixed bottom-0 left-0 right-0 z-50 p-4 bg-white border-t border-gray-100 shadow-[0_-4px_20px_rgba(0,0,0,0.1)] md:hidden transform transition-transform duration-300"
+    class="fixed bottom-0 left-0 right-0 z-50 card-padding-sm bg-white border-t border-default shadow-fixed md:hidden transform transition-scale"
     :class="{ 'translate-y-full': !isVisible }"
   >
-    <div class="flex items-center gap-3">
+    <div class="flex items-center gap-component-md">
       <div class="flex-1">
-        <p class="text-xs font-medium text-gray-500 uppercase tracking-wider mb-0.5">
+        <p class="text-label-sm uppercase tracking-wider mb-0.5">
           {{ t(ns('mobile_label')) }}
         </p>
-        <p class="text-sm font-bold text-secondary leading-tight">
+        <p class="text-body-sm font-bold text-secondary leading-tight">
           {{ t(ns('mobile_title')) }}
         </p>
       </div>
-      <button
-        class="px-6 py-3 text-sm font-bold text-white bg-primary rounded-full shadow-lg hover:bg-primary-dark whitespace-nowrap"
+      <BaseButton
+        variant="primary"
+        size="sm"
+        rounded="full"
+        class="shadow-card"
         @click="onCtaClick"
       >
         {{ t(ns('consult')) }}
-      </button>
+      </BaseButton>
     </div>
   </div>
 </template>

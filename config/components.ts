@@ -20,6 +20,16 @@ export const componentsConfig: NuxtConfig['components'] = [
     global: true,
   },
 
+  // Global feature widgets (FloatingWhatsApp, etc.)
+  {
+    path: '~/components/features',
+    global: true,
+    pathPrefix: false,
+    extensions: ['vue'],
+    // Only include top-level .vue files, not subdirectories
+    pattern: '*.vue',
+  },
+
   // Feature: About
   {
     path: '~/components/features/about',
@@ -61,6 +71,11 @@ export const componentsConfig: NuxtConfig['components'] = [
   },
 
   // Feature: Home
+  {
+    path: '~/components/features/home',
+    prefix: 'Home',
+    pathPrefix: false,
+  },
   {
     path: '~/components/features/home/sections',
     prefix: 'Home',
@@ -110,16 +125,40 @@ export const componentsConfig: NuxtConfig['components'] = [
     pathPrefix: false,
   },
 
-  // UI components with Ui prefix
-  {
-    path: '~/components/ui',
-    prefix: 'Ui',
-  },
-
   // Shared components - globally available
   {
     path: '~/components/shared',
     global: true,
+    pathPrefix: false,
+    // Only include top-level .vue files, subdirectories are registered explicitly below
+    pattern: '*.vue',
+  },
+  {
+    path: '~/components/shared/display',
+    global: true,
+    prefix: 'Display',
+    pathPrefix: false,
+  },
+  {
+    path: '~/components/shared/feedback',
+    global: true,
+    prefix: 'Feedback',
+    pathPrefix: false,
+  },
+  {
+    path: '~/components/shared/lightbox',
+    global: true,
+    pathPrefix: false,
+  },
+  {
+    path: '~/components/shared/modals',
+    global: true,
+    pathPrefix: false,
+  },
+  {
+    path: '~/components/shared/sidebar',
+    global: true,
+    prefix: 'Sidebar',
     pathPrefix: false,
   },
 ]

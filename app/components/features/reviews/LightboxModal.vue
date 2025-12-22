@@ -1,12 +1,12 @@
 <template>
-  <UiLightbox v-model="currentIndex" :items="safeItems" @update:model-value="onIndexChange">
+  <LightboxLightbox v-model="currentIndex" :items="safeItems" @update:model-value="onIndexChange">
     <template #slide="{ item }">
       <!-- Image -->
       <NuxtImg
         v-if="item.mediaType === 'image' && item.imageUrl"
         :src="item.imageUrl"
         :alt="item.name || 'Image'"
-        class="max-h-[80vh] max-w-full w-auto h-auto object-contain rounded-lg"
+        class="max-h-[80vh] max-w-full w-auto h-auto object-contain rounded-button"
         format="webp"
         quality="90"
       />
@@ -19,12 +19,12 @@
         :poster="item.videoThumb || undefined"
         controls
         playsinline
-        class="max-h-[80vh] max-w-full w-auto h-auto rounded-lg"
+        class="max-h-[80vh] max-w-full w-auto h-auto rounded-button"
       />
 
       <!-- Fallback -->
       <div v-else class="h-[60vh] flex items-center justify-center text-white/70">
-        <Icon name="mdi:alert" class="text-2xl mr-2" />
+        <Icon name="mdi:alert" class="text-icon-lg mr-2" />
         <span>Media unavailable</span>
       </div>
     </template>
@@ -32,16 +32,17 @@
     <template #caption="{ item }">
       <template v-if="item">
         <h3 class="text-xl font-semibold text-white">{{ item.name }}</h3>
-        <p v-if="item.university" class="text-sm text-gray-300 mt-1">
+        <p v-if="item.university" class="text-body-sm text-white/70 mt-1">
           {{ item.university }}
         </p>
       </template>
     </template>
-  </UiLightbox>
+  </LightboxLightbox>
 </template>
 
 <script setup lang="ts">
 import type { MediaReview } from '~~/lib/types'
+import LightboxLightbox from '~/components/shared/lightbox/Lightbox.vue'
 
 const { getCdnUrl } = useCdn()
 

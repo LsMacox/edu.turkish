@@ -1,5 +1,5 @@
 <template>
-  <header class="sticky top-0 z-40 bg-white/90 backdrop-blur border-b border-gray-100">
+  <header class="sticky top-0 z-40 bg-white/90 backdrop-blur border-b border-default">
     <div class="container mx-auto container-padding-narrow">
       <div class="flex items-center justify-between h-14 md:h-16">
         <!-- Logo -->
@@ -28,7 +28,7 @@
           >
             <button
               type="button"
-              class="nav-link flex items-center gap-1"
+              class="nav-link flex items-center gap-component-xs"
               :class="
                 servicesDropdown.isOpen.value || isServiceRouteActive ? 'nav-link-active' : ''
               "
@@ -37,7 +37,7 @@
               {{ t(navNs('services')) }}
               <Icon
                 :name="servicesDropdown.isOpen.value ? 'mdi:chevron-up' : 'mdi:chevron-down'"
-                class="text-base"
+                class="text-icon-xs"
               />
             </button>
 
@@ -48,16 +48,16 @@
                 @mouseenter="servicesDropdown.open"
                 @mouseleave="servicesDropdown.scheduleClose"
               >
-                <div class="w-64 rounded-xl border border-gray-100 bg-white shadow-xl py-2">
+                <div class="w-64 rounded-button border border-default bg-white shadow-dropdown py-2">
                   <NuxtLink
                     v-for="link in serviceLinks"
                     :key="link.path"
                     :to="link.path"
-                    class="block px-4 py-2 text-sm transition-colors"
+                    class="block px-4 py-2 text-sm transition-color"
                     :class="
                       route.path === link.path
                         ? 'text-primary bg-primary/10'
-                        : 'text-secondary hover:bg-gray-50'
+                        : 'text-secondary hover:bg-surface'
                     "
                     @click="servicesDropdown.close"
                   >
@@ -86,33 +86,33 @@
           <div ref="localeElRef" class="relative hidden md:block">
             <button
               type="button"
-              class="flex items-center gap-2 px-3 py-2 rounded-lg bg-background hover:bg-gray-100 transition-colors text-sm font-medium text-secondary min-h-touch-44"
+              class="flex items-center gap-component-sm px-3 py-2 rounded-lg bg-background hover:bg-surface-elevated transition-color text-sm font-medium text-secondary min-h-touch-44"
               @click="localeDropdown.toggle"
             >
-              <Icon name="mdi:web" class="text-base" />
+              <Icon name="mdi:web" class="text-icon-xs" />
               {{ currentLocaleLabel }}
               <Icon
                 :name="localeDropdown.isOpen.value ? 'mdi:chevron-up' : 'mdi:chevron-down'"
-                class="text-base text-gray-400"
+                class="text-icon-xs text-hint"
               />
             </button>
 
             <Transition name="fade">
               <div v-if="localeDropdown.isOpen.value" class="absolute right-0 top-full z-50 pt-2">
-                <div class="min-w-[140px] rounded-xl border border-gray-100 bg-white shadow-xl py-1">
+                <div class="min-w-[140px] rounded-button border border-default bg-white shadow-dropdown py-1">
                   <button
                     v-for="opt in localeOptions"
                     :key="opt.code"
                     type="button"
-                    class="w-full flex items-center gap-3 px-4 py-2.5 text-sm transition-colors"
+                    class="w-full flex items-center gap-component-md px-4 py-2.5 text-sm transition-color"
                     :class="
                       opt.code === currentLocale
                         ? 'text-primary bg-primary/5 font-medium'
-                        : 'text-secondary hover:bg-gray-50'
+                        : 'text-secondary hover:bg-surface'
                     "
                     @click="changeLocale(opt.code)"
                   >
-                    <span class="w-5 text-center text-xs text-gray-400">{{ opt.code.toUpperCase() }}</span>
+                    <span class="w-5 text-center text-xs text-hint">{{ opt.code.toUpperCase() }}</span>
                     <span>{{ opt.fullLabel }}</span>
                     <Icon
                       v-if="opt.code === currentLocale"
@@ -129,28 +129,28 @@
           <div ref="currencyElRef" class="relative hidden md:block">
             <button
               type="button"
-              class="flex items-center gap-2 px-3 py-2 rounded-lg bg-background hover:bg-gray-100 transition-colors text-sm font-medium text-secondary min-h-touch-44"
+              class="flex items-center gap-component-sm px-3 py-2 rounded-lg bg-background hover:bg-surface-elevated transition-color text-sm font-medium text-secondary min-h-touch-44"
               @click="currencyDropdown.toggle"
             >
               {{ currencySymbol }}
               <Icon
                 :name="currencyDropdown.isOpen.value ? 'mdi:chevron-up' : 'mdi:chevron-down'"
-                class="text-base"
+                class="text-icon-xs"
               />
             </button>
 
             <Transition name="fade">
               <div v-if="currencyDropdown.isOpen.value" class="absolute right-0 top-full z-50 pt-2">
-                <div class="w-40 rounded-xl border border-gray-100 bg-white shadow-xl py-2">
+                <div class="w-40 rounded-button border border-default bg-white shadow-dropdown py-2">
                   <button
                     v-for="curr in currencyOptions"
                     :key="curr.code"
                     type="button"
-                    class="w-full text-left px-4 py-2 text-sm transition-colors"
+                    class="w-full text-left px-4 py-2 text-sm transition-color"
                     :class="
                       curr.code === currency
                         ? 'text-primary bg-primary/10'
-                        : 'text-secondary hover:bg-gray-50'
+                        : 'text-secondary hover:bg-surface'
                     "
                     @click="changeCurrency(curr.code)"
                   >
@@ -162,16 +162,14 @@
           </div>
 
           <!-- Mobile Menu Button -->
-          <button
-            class="lg:hidden flex items-center justify-center w-12 h-12 rounded-xl hover:bg-gray-100 transition-colors min-h-touch-44 min-w-touch-44"
+          <BaseButton
+            variant="icon"
+            :icon="isMobileNavOpen ? 'mdi:close' : 'mdi:menu'"
             aria-label="Toggle menu"
+            rounded="xl"
+            class="lg:hidden w-12 h-12"
             @click="toggleMobileNav"
-          >
-            <Icon
-              :name="isMobileNavOpen ? 'mdi:close' : 'mdi:menu'"
-              class="text-secondary text-xl"
-            />
-          </button>
+          />
         </div>
       </div>
     </div>
@@ -337,12 +335,3 @@ function isActive(path: string) {
 watch(() => route.path, closeMobileNav)
 watch(() => route.fullPath, servicesDropdown.close)
 </script>
-
-<style scoped>
-.nav-link {
-  @apply transition-colors font-medium cursor-pointer text-secondary hover:text-primary border-b-2 border-transparent;
-}
-.nav-link-active {
-  @apply text-primary border-primary;
-}
-</style>

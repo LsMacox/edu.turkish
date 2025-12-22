@@ -1,0 +1,10 @@
+@layer components {
+  /* Navigation link utilities */
+  .nav-link {
+    @apply transition-color font-medium cursor-pointer text-secondary hover:text-primary border-b-2 border-transparent;
+  }
+
+  .nav-link-active {
+    @apply text-primary border-primary;
+  }
+}

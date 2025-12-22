@@ -62,6 +62,7 @@
       },
       "card": {
         "details_button": "Details",
+        "apply_button": "Apply",
         "application_description": "Application from university card:",
         "year": "year",
         "price_on_request": "Price on request",

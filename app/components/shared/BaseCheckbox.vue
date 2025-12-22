@@ -1,50 +1,71 @@
 <template>
-  <label class="flex items-center cursor-pointer py-1 min-h-touch-24 md:min-h-auto">
-    <input
-      :id="checkboxId"
-      :name="checkboxName"
-      :checked="checked"
-      type="checkbox"
-      :value="value"
-      :class="[
-        'w-5 h-5 md:w-4 md:h-4 text-primary bg-white border-gray-300 rounded flex-shrink-0',
-        'focus:ring-2 focus:ring-primary focus:ring-offset-0',
-        'transition-colors duration-200',
-        disabled ? 'opacity-50 cursor-not-allowed' : 'cursor-pointer',
-      ]"
-      :disabled="disabled"
-      @change="$emit('update:checked', ($event.target as HTMLInputElement).checked)"
-    />
-    <span
-      :class="[
-        'ml-3 text-xs md:text-sm font-medium leading-snug',
-        disabled ? 'text-gray-400' : 'text-secondary',
-      ]"
-    >
-      <slot />
-    </span>
-  </label>
+  <div class="relative">
+    <!-- External label with required indicator (for form layout consistency) -->
+    <BaseFieldLabel v-if="!$slots.default" :label="label" :for-id="elementId" :required="required" :size="size" />
+
+    <label :class="['flex items-start cursor-pointer py-1 group', sizeClasses.container]">
+      <input
+        :id="elementId"
+        :name="elementName"
+        :checked="modelValue"
+        type="checkbox"
+        :value="value"
+        :class="[
+          'text-primary bg-white border border-gray-300 flex-shrink-0 mt-0.5 input-focus',
+          roundedClasses,
+          'transition-all duration-200',
+          'checked:bg-primary checked:border-primary',
+          'hover:border-primary',
+          sizeClasses.input,
+          disabled ? 'opacity-50 cursor-not-allowed hover:border-muted' : 'cursor-pointer',
+        ]"
+        :aria-describedby="
+          error ? `${elementId}-error` : helperText ? `${elementId}-helper` : undefined
+        "
+        :aria-required="required"
+        :aria-invalid="!!error"
+        :disabled="disabled"
+        @change="$emit('update:modelValue', ($event.target as HTMLInputElement).checked)"
+      />
+      <span
+        :class="[
+          `ml-3 font-medium ${LABEL_LINE_HEIGHT}`,
+          sizeClasses.text,
+          disabled ? 'text-hint' : 'text-secondary',
+        ]"
+      >
+        <!-- Use label prop if no slot content, otherwise use slot -->
+        <template v-if="$slots.default">
+          <slot />
+        </template>
+        <template v-else-if="label">
+          {{ label }}
+          <span v-if="required" class="text-error ml-1" aria-label="required">*</span>
+        </template>
+      </span>
+    </label>
+
+    <!-- Error and helper text -->
+    <BaseFieldMessage :error="error" :helper-text="helperText" :element-id="elementId" :size="size" />
+  </div>
 </template>
 
 <script setup lang="ts">
-const props = withDefaults(
-  defineProps<{
-    checked: boolean
-    value?: string
-    disabled?: boolean
-    id?: string
-    name?: string
-  }>(),
-  {
-    disabled: false,
-  },
-)
+import type { BaseCheckboxProps, BaseCheckboxEvents } from '~/types/ui'
+import { LABEL_LINE_HEIGHT } from '~/composables/ui/useSize'
+
+const props = withDefaults(defineProps<BaseCheckboxProps>(), {
+  disabled: false,
+  size: 'md',
+  required: false,
+})
 
 const generatedId = useId()
-const checkboxId = computed(() => props.id ?? generatedId)
-const checkboxName = computed(() => props.name ?? props.id ?? generatedId)
+const elementId = computed(() => props.id ?? generatedId)
+const elementName = computed(() => props.name ?? props.id ?? generatedId)
 
-defineEmits<{
-  (e: 'update:checked', value: boolean): void
-}>()
+const sizeClasses = useCheckboxSizeClasses(() => props.size)
+const roundedClasses = useRoundedClasses(() => props.rounded, { context: 'checkbox' })
+
+defineEmits<BaseCheckboxEvents>()
 </script>

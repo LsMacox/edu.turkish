@@ -23,7 +23,7 @@
           <p class="text-gray-600 mb-8">{{ t(key('errors.universityNotFoundDescription')) }}</p>
           <NuxtLink
             :to="localePath('/universities')"
-            class="bg-primary text-white px-6 py-3 rounded-xl font-semibold hover:bg-red-600 transition-colors"
+            class="bg-primary text-white px-6 py-3 rounded-button font-semibold hover:bg-red-600 transition-colors"
           >
             {{ t(key('backToUniversities')) }}
           </NuxtLink>

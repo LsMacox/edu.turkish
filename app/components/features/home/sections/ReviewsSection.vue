@@ -1,6 +1,5 @@
 <template>
-  <section id="reviews" class="section-py bg-background">
-    <div class="container mx-auto container-padding-narrow">
+  <BaseSection id="reviews">
       <BaseSectionHeader
         :title="t(reviewsNs('title'))"
         :subtitle="t(reviewsNs('subtitle'))"
@@ -8,49 +7,50 @@
         margin-bottom="lg"
       />
 
-      <div v-if="reviewsError" class="text-center text-red-500 mb-12">
+      <div v-if="reviewsError" class="text-center text-error mb-component-lg">
         {{ t(reviewsNs('error')) }}
       </div>
-      <div v-else-if="pending" class="text-center text-gray-500 mb-12">
+      <div v-else-if="pending" class="text-center text-meta mb-component-lg">
         {{ t(reviewsNs('loading')) }}
       </div>
-      <div v-else-if="!featuredReviews.length" class="text-center text-gray-500 mb-12">
+      <div v-else-if="!featuredReviews.length" class="text-center text-meta mb-component-lg">
         {{ t(reviewsNs('empty')) }}
       </div>
-      <div v-else class="grid md:grid-cols-2 lg:grid-cols-3 gap-8 mb-12">
-        <div
+      <BaseGrid v-else :md="2" :lg="3" gap="lg" class="mb-component-lg">
+        <BaseCard
           v-for="review in featuredReviews"
           :key="review.id"
-          class="card-surface flex flex-col"
+          variant="surface"
+          class="flex flex-col"
         >
-          <div class="mb-6">
+          <div class="mb-component-md">
             <h3 class="font-semibold text-secondary">{{ review.name }}</h3>
-            <p v-if="review.university" class="text-sm text-gray-500">{{ review.university }}</p>
+            <p v-if="review.university" class="text-body-sm text-meta">{{ review.university }}</p>
           </div>
 
-          <div class="flex mb-4">
+          <div class="flex mb-component-sm">
             <Icon
               v-for="i in 5"
               :key="i"
               name="mdi:star"
-              :class="i <= review.rating ? 'text-yellow-400' : 'text-gray-300'"
+              :class="i <= review.rating ? 'star-active' : 'star-inactive'"
             />
           </div>
 
           <p class="text-body">{{ review.quote }}</p>
-        </div>
-      </div>
+        </BaseCard>
+      </BaseGrid>
 
       <div class="text-center">
-        <NuxtLink
+        <BaseButton
+          variant="outline"
+          size="lg"
           :to="localePath('/reviews')"
-          class="inline-block bg-white border-2 border-primary text-primary px-8 py-3 rounded-xl font-semibold hover:bg-primary hover:text-white"
         >
           {{ t(reviewsNs('read_more')) }}
-        </NuxtLink>
+        </BaseButton>
       </div>
-    </div>
-  </section>
+  </BaseSection>
 </template>
 
 <script setup lang="ts">

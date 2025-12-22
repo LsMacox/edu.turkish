@@ -1,6 +1,6 @@
 <template>
-  <UiDisplayFAQ
-    class="py-8"
+  <DisplayFAQ
+    class="section-py-sm"
     :items="faqs"
     :title="title"
     :subtitle="subtitle"
@@ -12,9 +12,7 @@
 const props = defineProps<{
   title: string
   subtitle?: string
-  items: any[] // We really should import FaqApiItem or similar if available, using any for now to avoid specific type churn unless easy.
-               // Actually, let's use the type inferred or define a simple one.
-               // Looking at useI18nHelpers, it returns FaqItem.
+  items: any[]
 }>()
 
 // Schema handling likely needs a computed ref

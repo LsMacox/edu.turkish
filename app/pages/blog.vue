@@ -2,22 +2,18 @@
   <div class="bg-white">
     <BlogHeroSection v-model="searchInput" :hero="hero">
       <template #categories>
-        <div class="flex flex-wrap justify-center gap-2">
-          <button
+        <div class="flex flex-wrap justify-center gap-component-sm">
+          <BaseButton
             v-for="category in filterCategories"
             :key="category.key"
-            type="button"
-            class="px-3 py-1.5 text-sm rounded-full font-medium transition-all min-h-touch-44 flex items-center"
-            :class="
-              activeCategory === category.key
-                ? 'bg-primary text-white shadow-sm'
-                : 'bg-white/80 text-secondary border border-gray-200 hover:border-primary hover:text-primary'
-            "
+            variant="chip-pill"
+            size="sm"
+            :data-active="activeCategory === category.key ? 'true' : undefined"
             :aria-pressed="activeCategory === category.key"
             @click="setCategoryAndFetch(category.key)"
           >
             {{ category.label }}
-          </button>
+          </BaseButton>
         </div>
       </template>
     </BlogHeroSection>
@@ -39,7 +35,7 @@
             />
 
             <div class="mt-8">
-              <UiPagination
+              <BasePagination
                 :page="currentPage"
                 :page-count="pagination?.totalPages || 1"
                 :disabled="loading"

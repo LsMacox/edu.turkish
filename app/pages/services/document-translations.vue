@@ -7,12 +7,12 @@
       title-tag="h1"
     >
       <template #action>
-        <div class="flex flex-wrap justify-center gap-4 text-body-sm">
-          <span class="flex items-center gap-1.5">
+        <div class="flex flex-wrap justify-center gap-component-lg text-body-sm">
+          <span class="flex items-center gap-component-xs">
             <Icon name="mdi:shield-check" class="text-green-500" />
             {{ t(commonNs('workingSince')) }}
           </span>
-          <span class="flex items-center gap-1.5">
+          <span class="flex items-center gap-component-xs">
             <Icon name="mdi:file-document-check" class="text-primary" />
             {{ t(commonNs('documentsCount')) }}
           </span>

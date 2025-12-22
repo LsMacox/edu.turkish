@@ -1,0 +1,27 @@
+@layer components {
+
+  /* Transition utilities - centralized transition classes */
+  .transition-default {
+    @apply transition-all duration-300;
+  }
+
+  .transition-default-fast {
+    @apply transition-all duration-200;
+  }
+
+  .transition-color {
+    @apply transition-colors duration-200;
+  }
+
+  .transition-color-fast {
+    @apply transition-colors duration-200;
+  }
+
+  .transition-scale {
+    @apply transition-transform duration-300;
+  }
+
+  .transition-scale-fast {
+    @apply transition-transform duration-200;
+  }
+}

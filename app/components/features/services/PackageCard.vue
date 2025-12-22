@@ -1,24 +1,30 @@
 <template>
-  <div
-    :class="[
-      'package-card border rounded-lg p-6 transition-shadow bg-white',
-      isVip ? 'border-primary shadow-md' : 'border-gray-200 hover:shadow-lg',
-    ]"
+  <BaseCard
+    padding="lg"
+    :shadow="isVip ? 'md' : 'none'"
+    rounded="lg"
+    bordered
+    full-height
+    :hover="isVip ? false : 'shadow'"
+    :class="['package-card', isVip ? 'border-primary' : '']"
   >
     <div class="flex flex-col h-full">
       <!-- Header -->
-      <div class="mb-4 flex items-start justify-between">
-        <h3 class="text-xl font-bold text-secondary">{{ name }}</h3>
-        <span
+      <div class="mb-component-md flex items-start justify-between">
+        <h3 class="text-card-title">{{ name }}</h3>
+        <BaseBadge
           v-if="isVip"
-          class="px-3 py-1 text-xs font-semibold text-white bg-gradient-to-r from-red-500 to-red-600 rounded-full"
+          color="primary"
+          variant="gradient"
+          size="sm"
+          rounded="full"
         >
           VIP
-        </span>
+        </BaseBadge>
       </div>
 
       <!-- Price -->
-      <div class="mb-4">
+      <div class="mb-component-md">
         <ServicesPriceTag :price-usd="price" size="lg" />
       </div>
 
@@ -28,30 +34,30 @@
         <button
           v-if="isMobileAccordion"
           type="button"
-          class="w-full flex items-center justify-between text-left font-semibold text-gray-700 mb-2 md:hidden"
+          class="w-full flex items-center justify-between text-left font-semibold text-body mb-component-xs md:hidden"
           @click="isExpanded = !isExpanded"
         >
           <span>{{ t(key('services.common.whatIncluded')) }}</span>
           <Icon
             name="mdi:chevron-down"
-            :class="['w-5 h-5 transition-transform', isExpanded ? 'rotate-180' : '']"
+            :class="['text-icon transition-transform', isExpanded ? 'rotate-180' : '']"
           />
         </button>
 
         <!-- Services list (collapsible on mobile if accordion enabled) -->
         <div :class="{ hidden: isMobileAccordion && !isExpanded, 'md:block': isMobileAccordion }">
-          <p v-if="includesText" class="text-sm font-medium text-gray-700 mb-2">
+          <p v-if="includesText" class="text-body-sm font-medium mb-component-xs">
             {{ includesText }}
           </p>
-          <ul class="space-y-2">
+          <ul class="space-component-sm">
             <li
               v-for="(service, index) in displayServices"
               :key="index"
-              class="flex items-start text-sm text-gray-600"
+              class="flex items-start text-body-sm"
             >
               <Icon
                 name="mdi:check-circle"
-                class="w-5 h-5 text-green-500 mr-2 flex-shrink-0 mt-0.5"
+                class="text-icon-sm text-success mr-2 flex-shrink-0 mt-0.5"
               />
               <span>{{ service }}</span>
             </li>
@@ -60,20 +66,18 @@
       </div>
 
       <!-- CTA Button -->
-      <button
-        type="button"
-        :class="[
-          'mt-6 w-full rounded-lg py-3 px-4 font-semibold transition-colors',
-          isVip
-            ? 'bg-gradient-to-r from-red-500 to-red-600 text-white hover:from-red-600 hover:to-red-700'
-            : 'bg-primary text-white hover:bg-red-600 active:bg-red-700',
-        ]"
+      <BaseButton
+        :variant="isVip ? 'gradient' : 'primary'"
+        size="lg"
+        full-width
+        rounded="button"
+        class="mt-component-lg md:text-base"
         @click="handleApply"
       >
         {{ ctaText }}
-      </button>
+      </BaseButton>
     </div>
-  </div>
+  </BaseCard>
 </template>
 
 <script setup lang="ts">

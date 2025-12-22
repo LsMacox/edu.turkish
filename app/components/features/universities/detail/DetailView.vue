@@ -1,7 +1,7 @@
 <template>
   <div class="bg-white">
     <!-- Hero Section -->
-    <section class="relative h-[600px] bg-gradient-to-br from-blue-50 to-purple-50">
+    <section class="relative h-[600px] gradient-placeholder-media">
       <div class="absolute inset-0">
         <NuxtImg
           class="w-full h-full object-cover opacity-20"
@@ -12,43 +12,45 @@
           format="webp"
         />
       </div>
-      <div class="relative z-10 container mx-auto px-4 lg:px-6 h-full flex items-center">
+      <div class="relative z-10 container mx-auto container-padding h-full flex items-center">
         <div class="max-w-4xl">
-          <div class="mb-6">
+          <div class="mb-component-lg">
             <div
-              class="inline-flex items-center space-x-2 bg-white rounded-full px-4 py-2 shadow-sm"
+              class="inline-flex items-center gap-component-xs bg-white rounded-badge badge-padding-lg shadow-button"
             >
-              <div class="w-8 h-8 bg-blue-600 rounded-full flex items-center justify-center">
-                <Icon name="ph:building" class="text-white text-sm" />
-              </div>
-              <span class="text-sm font-medium text-secondary">{{ typeText }}</span>
+              <BaseStatusBadge icon="ph:building" color="info" size="md" />
+              <span class="text-body-sm font-medium text-secondary">{{ typeText }}</span>
             </div>
           </div>
 
-          <h1 class="text-4xl lg:text-6xl font-bold text-secondary mb-6">
+          <h1 class="text-hero mb-component-lg">
             {{ university.title }}
           </h1>
 
-          <p class="text-xl lg:text-2xl text-gray-600 mb-8 max-w-2xl">
+          <p class="text-hero-subtitle mb-component-lg max-w-2xl">
             {{ university.description }}
           </p>
 
-          <div class="flex flex-col sm:flex-row gap-4">
-            <button
-              class="bg-primary text-white px-8 py-4 rounded-xl font-semibold text-lg hover:bg-red-600 transition-all shadow-lg hover-lift"
+          <div class="flex flex-col sm:flex-row gap-component-md">
+            <BaseButton
+              variant="primary"
+              size="lg"
+              class="shadow-card w-full sm:w-auto"
               @click="handleApplyClick"
             >
               {{ t(ns('applyButton')) }}
-            </button>
-            <a
+            </BaseButton>
+            <BaseButton
+              variant="whatsapp-cta"
               :href="whatsapp.href"
-              target="_blank"
-              class="bg-green-500 text-white px-8 py-4 rounded-xl font-semibold text-lg hover:bg-green-600 transition-all shadow-lg flex items-center justify-center space-x-2"
+              icon="ph:whatsapp-logo"
+              size="lg"
+              no-focus-ring
+              class="w-full sm:w-auto"
               @click.prevent="handleWhatsappClick"
             >
-              <Icon name="ph:whatsapp-logo" />
-              <span>{{ t(ns('whatsappButton')) }}</span>
-            </a>
+              {{ t(ns('whatsappButton')) }}
+            </BaseButton>
           </div>
         </div>
       </div>

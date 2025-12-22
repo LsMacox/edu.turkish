@@ -1,0 +1,27 @@
+@layer components {
+  /* Button utilities */
+  .btn-hover-lift {
+    @apply transition-default-fast hover:-translate-y-0.5 hover:shadow-button-hover active:translate-y-0;
+  }
+
+  .btn-focus-ring {
+    @apply focus:outline-none focus:ring-2 focus:ring-offset-2 focus-visible:ring-2;
+  }
+
+  /* Button padding - mobile-first with larger touch targets */
+  .btn-padding-sm {
+    @apply px-4 py-2.5 md:px-4 md:py-2;
+  }
+
+  .btn-padding-md {
+    @apply px-4 py-3 md:px-6 md:py-3;
+  }
+
+  .btn-padding-lg {
+    @apply px-5 py-4 md:px-8 md:py-4;
+  }
+
+  .btn-padding-xl {
+    @apply px-6 py-5 md:px-10 md:py-5;
+  }
+}

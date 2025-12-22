@@ -2,17 +2,22 @@
   <div>
     <BaseSectionHeader :title="title" align="left" margin-bottom="lg" />
 
-    <div class="grid md:grid-cols-2 gap-8 mb-12">
+    <div class="grid md:grid-cols-2 gap-component-lg mb-component-lg">
       <article v-if="featured && showFeatured" class="md:col-span-2 h-full">
-        <NuxtLink
+        <BaseCard
           :to="articleLink(featured.slug)"
-          class="block bg-white rounded-2xl shadow-custom overflow-hidden hover-lift h-full"
+          padding="none"
+          shadow="md"
+          rounded="2xl"
+          hover="lift"
+          full-height
+          class="group"
         >
           <template v-if="featured.image && !failedFeatured">
             <NuxtImg
               :src="featured.image"
               :alt="featured.imageAlt || featured.title"
-              class="w-full h-64 object-cover"
+              class="w-full h-card-image-lg object-cover rounded-t-2xl"
               loading="lazy"
               decoding="async"
               sizes="100vw"
@@ -22,14 +27,14 @@
           </template>
           <div
             v-else
-            class="w-full h-64 bg-gradient-to-br from-blue-50 to-purple-50 flex items-center justify-center px-6 text-center"
+            class="w-full h-card-image-lg gradient-placeholder-media flex items-center justify-center card-padding text-center"
           >
-            <p class="text-secondary font-semibold text-lg">{{ featured.title }}</p>
+            <p class="text-card-title">{{ featured.title }}</p>
           </div>
-          <div class="p-8">
-            <div class="flex flex-wrap items-center gap-2 mb-4 text-sm text-gray-500">
+          <div class="card-padding-lg">
+            <div class="flex flex-wrap items-center gap-component-sm mb-component-sm text-body-sm text-meta">
               <span
-                class="inline-flex items-center px-3 py-1 rounded-full text-xs font-medium"
+                class="badge-category"
                 :class="categoryBadgeClass(featured.category?.key)"
               >
                 {{ featured.category?.label }}
@@ -39,26 +44,31 @@
                 >• {{ formatReadingTime(featured.readingTimeMinutes) }}</span
               >
             </div>
-            <h3 class="text-section-title mb-4">{{ featured.title }}</h3>
-            <p class="text-gray-600 leading-relaxed mb-6">{{ featured.excerpt }}</p>
-            <span class="text-primary font-semibold hover:underline">
+            <h3 class="text-section-title mb-component-sm">{{ featured.title }}</h3>
+            <p class="text-body-sm leading-relaxed mb-component-md">{{ featured.excerpt }}</p>
+            <span class="text-primary font-semibold">
               {{ readMoreLabel }}
             </span>
           </div>
-        </NuxtLink>
+        </BaseCard>
       </article>
 
       <article v-for="article in items" :key="article.id" class="h-full">
-        <NuxtLink
+        <BaseCard
           :to="articleLink(article.slug)"
-          class="bg-white rounded-2xl shadow-custom overflow-hidden hover-lift flex flex-col h-full"
+          padding="none"
+          shadow="md"
+          rounded="2xl"
+          hover="lift"
+          full-height
+          class="group flex flex-col"
         >
           <template v-if="article.image">
             <NuxtImg
               v-if="!failedCards[article.id]"
               :src="article.image"
               :alt="article.imageAlt || article.title"
-              class="w-full h-48 object-cover"
+              class="w-full h-card-image object-cover rounded-t-2xl"
               loading="lazy"
               decoding="async"
               sizes="(max-width: 768px) 100vw, 50vw"
@@ -68,42 +78,42 @@
           </template>
           <div
             v-else
-            class="w-full h-48 bg-gray-100 flex items-center justify-center px-4 text-center"
+            class="w-full h-card-image gradient-placeholder flex items-center justify-center card-padding-sm text-center"
           >
-            <span class="text-secondary text-sm font-semibold">{{ article.title }}</span>
+            <span class="text-secondary text-body-sm font-semibold">{{ article.title }}</span>
           </div>
-          <div class="p-6 flex flex-col flex-1">
-            <div class="flex flex-wrap items-center gap-2 mb-3 text-sm text-gray-500">
+          <div class="card-padding flex flex-col flex-1">
+            <div class="flex flex-wrap items-center gap-component-sm mb-component-sm text-body-sm text-meta">
               <span
-                class="inline-flex items-center px-3 py-1 rounded-full text-xs font-medium"
+                class="badge-category"
                 :class="categoryBadgeClass(article.category?.key)"
               >
                 {{ article.category?.label }}
               </span>
               <span>{{ formatDate(article.publishedAt) }}</span>
             </div>
-            <h3 class="text-card-title mb-3">{{ article.title }}</h3>
-            <p class="text-gray-600 text-sm mb-4">{{ article.excerpt }}</p>
-            <div class="mt-auto pt-2 flex items-center justify-between text-sm text-gray-500">
+            <h3 class="text-card-title mb-component-sm">{{ article.title }}</h3>
+            <p class="text-body-sm mb-component-sm">{{ article.excerpt }}</p>
+            <div class="mt-auto pt-component-xs flex items-center justify-between text-body-sm text-meta">
               <span v-if="formatReadingTime(article.readingTimeMinutes)">{{
                 formatReadingTime(article.readingTimeMinutes)
               }}</span>
-              <span class="text-primary font-semibold hover:underline">
+              <span class="text-primary font-semibold">
                 {{ readMoreLabel }}
               </span>
             </div>
           </div>
-        </NuxtLink>
+        </BaseCard>
       </article>
     </div>
 
-    <p v-if="!loading && items.length === 0 && !featured" class="text-center text-gray-500">
+    <p v-if="!loading && items.length === 0 && !featured" class="text-center text-meta">
       {{ emptyLabel }}
     </p>
 
     <p
       v-if="error"
-      class="mt-6 rounded-xl border border-red-100 bg-red-50 px-4 py-3 text-sm text-red-600"
+      class="mt-component-md rounded-button border border-error-light bg-error-light btn-padding-sm text-body-sm text-error"
     >
       {{ error }}
     </p>
@@ -114,6 +124,8 @@
 <script setup lang="ts">
 import type { BlogArticleListItem } from '~~/lib/types'
 import { key } from '~~/lib/i18n'
+import type { SemanticColor } from '~/types/ui'
+import { SEMANTIC_BADGE_COLORS } from '~/composables/ui'
 
 const { formatDate, t } = useI18nHelpers()
 
@@ -139,16 +151,18 @@ const articleLink = (slug: string) => localePath({ name: 'articles-slug', params
 const failedFeatured = ref(false)
 const failedCards = ref<Record<number, boolean>>({})
 
-const categoryStyles: Record<string, string> = {
-  visas: 'bg-blue-100 text-blue-800',
-  exams: 'bg-green-100 text-green-800',
-  scholarships: 'bg-yellow-100 text-yellow-800',
-  cost: 'bg-orange-100 text-orange-800',
-  life: 'bg-teal-100 text-teal-800',
-  applications: 'bg-indigo-100 text-indigo-800',
-  rankings: 'bg-purple-100 text-purple-800',
+const categoryColors: Record<string, SemanticColor> = {
+  visas: 'info',
+  exams: 'success',
+  scholarships: 'warning',
+  cost: 'warning',
+  life: 'success',
+  applications: 'info',
+  rankings: 'primary',
 }
 
-const categoryBadgeClass = (key?: string) =>
-  key ? (categoryStyles[key] ?? 'bg-gray-100 text-gray-600') : 'bg-gray-100 text-gray-600'
+const categoryBadgeClass = (key?: string) => {
+  const color = key ? (categoryColors[key] ?? 'neutral') : 'neutral'
+  return SEMANTIC_BADGE_COLORS[color].soft
+}
 </script>

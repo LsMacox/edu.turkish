@@ -24,96 +24,60 @@
 
 <script setup lang="ts">
 import type { BaseSectionHeaderProps } from '~/types/ui'
+import { MARGIN_BOTTOM_CLASSES } from '~/composables/ui'
 
 const props = withDefaults(defineProps<BaseSectionHeaderProps>(), {
   titleTag: 'h2',
   size: 'lg',
   align: 'center',
   marginBottom: 'lg',
+  maxWidth: '2xl',
+  balanced: true,
 })
-
-// Hardcoded defaults (previously props)
-const maxWidth = '2xl'
-const balanced = true
 
 const slots = useSlots()
 
-// Container classes
-const containerClasses = computed(() => {
-  const alignMap = {
-    left: 'text-left',
-    center: 'text-center',
-    right: 'text-right',
-  }
+const maxWidthClasses = useMaxWidthClasses(() => props.maxWidth, { defaultWidth: '2xl' })
+const alignClasses = useAlignClasses(() => props.align, { context: 'text', defaultAlign: 'center' })
 
-  const maxWidthMap = {
-    sm: 'max-w-sm',
-    md: 'max-w-md',
-    lg: 'max-w-lg',
-    xl: 'max-w-xl',
-    '2xl': 'max-w-2xl',
-    full: 'max-w-full',
-  }
+const containerClasses = computed(() => [
+  alignClasses.value,
+  maxWidthClasses.value
+].join(' '))
 
-  return [
-    alignMap[props.align] || alignMap.center,
-    props.align === 'center' ? 'mx-auto' : '',
-    maxWidthMap[maxWidth] || maxWidthMap['2xl'],
-  ]
-    .filter(Boolean)
-    .join(' ')
-})
-
-// Margin bottom classes
 const marginClasses = computed(() => {
-  const marginMap = {
-    none: '',
-    sm: 'mb-4 md:mb-6', // Mobile: 16px, Desktop: 24px
-    md: 'mb-6 md:mb-8', // Mobile: 24px, Desktop: 32px
-    lg: 'mb-8 md:mb-12', // Mobile: 32px, Desktop: 48px
-    xl: 'mb-10 md:mb-16', // Mobile: 40px, Desktop: 64px
-  }
-
-  return marginMap[props.marginBottom] || marginMap.lg
+  return MARGIN_BOTTOM_CLASSES[props.marginBottom] || MARGIN_BOTTOM_CLASSES.lg
 })
 
-// Pre-title classes
-const preTitleClasses = computed(() => {
-  const sizeMap = {
-    sm: 'text-xs',
-    md: 'text-sm',
-    lg: 'text-sm',
-    xl: 'text-base',
-  }
+const sizeClasses = useSectionHeaderSizeClasses(() => props.size)
 
+const preTitleClasses = computed(() => {
   return [
-    sizeMap[props.size] || sizeMap.lg,
+    sizeClasses.value.preTitle,
     'text-primary font-semibold uppercase tracking-wider mb-2',
   ].join(' ')
 })
 
-// Title classes
 const titleClasses = computed(() => {
   return [
-    'text-section-title',
-    balanced ? 'text-balance' : '',
+    sizeClasses.value.title,
+    props.balanced ? 'text-balance' : '',
     props.subtitle || slots.subtitle ? 'mb-4' : '',
   ]
     .filter(Boolean)
     .join(' ')
 })
 
-// Subtitle classes
 const subtitleClasses = computed(() => {
-  return ['text-section-subtitle', balanced ? 'text-balance' : ''].filter(Boolean).join(' ')
+  return ['text-section-subtitle', props.balanced ? 'text-balance' : ''].filter(Boolean).join(' ')
 })
 
-// Action classes
+const flexAlignClasses = useAlignClasses(() => props.align, { context: 'flex', defaultAlign: 'center' })
+
 const actionClasses = computed(() => {
   return [
     'mt-6',
-    props.align === 'center' ? 'flex justify-center' : '',
-    props.align === 'right' ? 'flex justify-end' : '',
+    props.align !== 'left' ? `flex ${flexAlignClasses.value}` : '',
   ]
     .filter(Boolean)
     .join(' ')

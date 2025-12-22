@@ -1,22 +1,22 @@
 <template>
-  <div class="mt-16">
+  <div class="mt-component-lg">
     <BaseSectionHeader :title="title" />
 
-    <div class="mt-8 bg-gray-50 rounded-lg p-8">
-      <dl class="grid gap-6 md:grid-cols-2">
+    <div class="mt-component-lg bg-surface rounded-card card-padding-lg">
+      <BaseGrid tag="dl" :md="2" gap="lg">
         <div
           v-for="detail in formatDetails"
           :key="detail.key"
           class="border-l-4 border-primary pl-4"
         >
-          <dt class="text-sm font-semibold text-gray-500 uppercase mb-1">
+          <dt class="text-body-sm font-semibold text-meta uppercase mb-1">
             {{ detail.label }}
           </dt>
-          <dd class="text-lg text-gray-900">
+          <dd class="text-body-lg text-secondary">
             {{ detail.value }}
           </dd>
         </div>
-      </dl>
+      </BaseGrid>
     </div>
   </div>
 </template>

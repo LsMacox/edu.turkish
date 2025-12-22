@@ -1,7 +1,7 @@
 <template>
   <footer class="bg-white section-py">
     <div class="container mx-auto container-padding-narrow">
-      <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8 mb-8">
+      <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-component-lg mb-8">
         <!-- About Us -->
         <div>
           <h3 class="text-xl font-semibold text-secondary mb-6">{{ t(footer('about_us')) }}</h3>
@@ -19,14 +19,14 @@
           <h3 class="text-xl font-semibold text-secondary mb-6">{{ t(footer('universities')) }}</h3>
           <ul class="space-y-3">
             <li v-for="city in cities" :key="city.value">
-              <button class="footer-link" @click="handleCityClick(city.value)">
+              <BaseButton variant="link" class="footer-link !p-0" @click="handleCityClick(city.value)">
                 {{ t(city.label) }}
-              </button>
+              </BaseButton>
             </li>
             <li>
-              <button class="footer-link" @click="handleAllUniversitiesClick">
+              <BaseButton variant="link" class="footer-link !p-0" @click="handleAllUniversitiesClick">
                 {{ t(footer('all_universities')) }}
-              </button>
+              </BaseButton>
             </li>
           </ul>
         </div>
@@ -44,7 +44,7 @@
 
           <!-- Social Links -->
           <div class="mt-6">
-            <p class="text-sm text-gray-700 mb-3">{{ t(footer('social_networks')) }}</p>
+            <p class="text-sm text-body mb-3">{{ t(footer('social_networks')) }}</p>
             <div class="flex space-x-3">
               <a
                 v-for="social in socialLinks"
@@ -52,7 +52,7 @@
                 :href="social.href"
                 target="_blank"
                 :class="[
-                  'w-10 h-10 rounded-xl flex items-center justify-center text-white transition-colors',
+                  'w-10 h-10 rounded-button flex items-center justify-center text-white transition-color',
                   social.bg,
                 ]"
                 :aria-label="social.name"
@@ -66,7 +66,7 @@
       </div>
 
       <!-- Bottom Section -->
-      <div class="border-t border-gray-300 pt-8">
+      <div class="border-t border-muted pt-8">
         <div class="flex flex-col md:flex-row justify-between items-center">
           <div class="flex items-center mb-4 md:mb-0">
             <NuxtImg
@@ -83,8 +83,8 @@
             <span class="text-xl font-bold text-secondary">Edu.turkish</span>
           </div>
           <div class="text-center md:text-right">
-            <p class="text-gray-700">{{ t(footer('copyright')) }}</p>
-            <p class="text-sm text-gray-600 mt-1">{{ t(footer('licensed_agency')) }}</p>
+            <p class="text-body">{{ t(footer('copyright')) }}</p>
+            <p class="text-body-sm mt-1">{{ t(footer('licensed_agency')) }}</p>
           </div>
         </div>
       </div>

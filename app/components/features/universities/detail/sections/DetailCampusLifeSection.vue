@@ -1,6 +1,5 @@
 <template>
-  <section v-if="hasContent" class="py-16 bg-white">
-    <div class="container mx-auto px-4 lg:px-6">
+  <BaseSection v-if="hasContent" padding="lg" bg="white">
       <!-- Gallery Carousel -->
       <template v-if="galleryItems.length">
         <BaseSectionHeader
@@ -35,7 +34,7 @@
               v-for="(item, index) in galleryItems"
               :key="index"
             >
-              <div class="aspect-video rounded-xl overflow-hidden relative group">
+              <div class="aspect-video rounded-button overflow-hidden relative group">
                 <!-- Video -->
                 <template v-if="item.type === 'video'">
                   <NuxtImg
@@ -45,23 +44,23 @@
                     :alt="item.alt"
                     loading="lazy"
                   />
-                  <div v-else class="w-full h-full bg-gray-200 flex items-center justify-center">
-                    <Icon name="ph:video" class="text-4xl text-gray-400" />
+                  <div v-else class="w-full h-full gradient-placeholder-media flex items-center justify-center">
+                    <Icon name="ph:video" class="text-icon-2xl text-hint" />
                   </div>
                   <div
-                    class="absolute inset-0 flex items-center justify-center bg-black/30 group-hover:bg-black/40 transition-colors"
+                    class="absolute inset-0 flex items-center justify-center bg-black/30 group-hover:bg-black/40 transition-color"
                   >
                     <div
-                      class="w-16 h-16 rounded-full bg-white/90 flex items-center justify-center"
+                      class="icon-container-md bg-white/90"
                     >
-                      <Icon name="ph:play-fill" class="text-3xl text-primary ml-1" />
+                      <Icon name="ph:play-fill" class="text-icon-xl text-primary ml-1" />
                     </div>
                   </div>
                 </template>
                 <!-- Image -->
                 <template v-else>
                   <NuxtImg
-                    class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
+                    :class="['w-full h-full object-cover', IMAGE_HOVER_CLASSES]"
                     :src="item.src"
                     :alt="item.alt"
                     loading="lazy"
@@ -69,18 +68,18 @@
                     format="webp"
                   />
                   <div
-                    class="absolute inset-0 bg-black/0 group-hover:bg-black/20 transition-colors flex items-center justify-center opacity-0 group-hover:opacity-100"
+                    class="absolute inset-0 bg-black/0 group-hover:bg-black/20 transition-color flex items-center justify-center opacity-0 group-hover:opacity-100"
                   >
-                    <Icon name="ph:magnifying-glass-plus" class="text-3xl text-white" />
+                    <Icon name="ph:magnifying-glass-plus" class="text-icon-xl text-white" />
                   </div>
                 </template>
               </div>
             </component>
           </component>
           <template #fallback>
-            <div class="text-center py-8">
+            <div class="text-center section-py-sm">
               <div
-                class="inline-block animate-spin rounded-full h-8 w-8 border-b-2 border-primary"
+                class="inline-block animate-spin rounded-badge h-8 w-8 border-b-2 border-primary"
               />
             </div>
           </template>
@@ -88,39 +87,43 @@
       </template>
 
       <!-- Facilities Grid -->
-      <div v-if="realFacilities.length" :class="{ 'mt-16': galleryItems.length }">
-        <h3 class="text-2xl font-bold text-secondary text-center mb-8">
+      <div v-if="realFacilities.length" :class="{ 'mt-component-lg': galleryItems.length }">
+        <h3 class="text-section-title text-center mb-component-md">
           {{ t(ns('infrastructure')) }}
         </h3>
-        <div class="grid grid-cols-2 md:grid-cols-2 lg:grid-cols-3 gap-3 md:gap-6">
-          <div
+        <BaseGrid :cols="2" :lg="3" gap="md">
+          <BaseCard
             v-for="(facility, i) in realFacilities"
             :key="`facility-${i}`"
-            class="bg-white rounded-xl shadow-custom p-3 md:p-6 text-center hover-lift"
+            padding="md"
+            shadow="md"
+            rounded="lg"
+            hover="lift"
+            class="text-center"
           >
             <div
-              class="w-10 h-10 md:w-16 md:h-16 rounded-xl md:rounded-2xl flex items-center justify-center mx-auto mb-2 md:mb-4"
+              class="w-10 h-10 md:w-16 md:h-16 rounded-responsive flex items-center justify-center mx-auto mb-component-xs md:mb-component-sm"
               :class="getFacilityStyleForItem(facility).bg"
             >
               <Icon
                 :name="getFacilityStyleForItem(facility).icon"
-                class="text-lg md:text-2xl"
+                class="text-icon-lg md:text-icon-lg"
                 :class="getFacilityStyleForItem(facility).color"
               />
             </div>
-            <h4 class="font-semibold text-secondary text-sm md:text-base mb-1 md:mb-2 line-clamp-2">{{ facility.name }}</h4>
-            <p class="text-gray-600 text-xs md:text-sm line-clamp-2 md:line-clamp-none">{{ facility.description }}</p>
-          </div>
-        </div>
+            <h4 class="text-card-title mb-inline-sm md:mb-component-xs line-clamp-2">{{ facility.name }}</h4>
+            <p class="text-body-sm line-clamp-2 md:line-clamp-none">{{ facility.description }}</p>
+          </BaseCard>
+        </BaseGrid>
       </div>
-    </div>
-  </section>
+  </BaseSection>
 </template>
 
 <script setup lang="ts">
 import type { UniversityDetail, UniversityCampusFacility } from '~~/lib/types'
-import { getFacilityStyleWithIcon } from '~~/lib/domain/universities/constants'
+import { getFacilityStyleWithIcon } from '~/composables/domain'
 import { namespace } from '~~/lib/i18n'
+import { IMAGE_HOVER_CLASSES } from '~/composables/ui/useHover'
 
 const ns = namespace('universities.detail.campusLife')
 

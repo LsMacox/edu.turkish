@@ -38,18 +38,22 @@
     </template>
 
     <template #why-choose-us>
-      <div class="bg-white rounded-2xl p-6 md:p-8 shadow-card border border-gray-100">
-        <div class="grid md:grid-cols-2 gap-6 md:gap-8">
-          <ServicesAlertCard
+      <div class="bg-white rounded-card p-6 md:p-8 shadow-card border border-gray-100">
+        <div class="grid md:grid-cols-2 gap-component-lg">
+          <BaseAlert
             :title="t(svc('benefits.title'))"
-            :content="t(svc('benefits.content'))"
             variant="success"
-          />
-          <ServicesAlertCard
+            layout="horizontal"
+          >
+            {{ t(svc('benefits.content')) }}
+          </BaseAlert>
+          <BaseAlert
             :title="t(svc('risks.title'))"
-            :content="t(svc('risks.content'))"
             variant="warning"
-          />
+            layout="horizontal"
+          >
+            {{ t(svc('risks.content')) }}
+          </BaseAlert>
         </div>
       </div>
     </template>
@@ -129,12 +133,10 @@ const vipAdditionalServices = computed(() => [
 ])
 
 const standardServices = computed(() => [
-  ...admissionServices.value,
   ...standardAdditionalServices.value,
 ])
 
 const vipServices = computed(() => [
-  ...standardServices.value,
   ...vipAdditionalServices.value,
 ])
 

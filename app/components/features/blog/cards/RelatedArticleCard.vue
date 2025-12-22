@@ -1,51 +1,56 @@
 <template>
-  <NuxtLink
+  <BaseCard
     :to="localePath({ name: 'articles-slug', params: { slug: article.slug } })"
-    class="group block"
+    padding="none"
+    shadow="md"
+    rounded="lg"
+    hover="lift"
+    full-height
+    class="group flex flex-col"
   >
-    <article
-      class="flex h-full flex-col overflow-hidden rounded-3xl bg-white shadow-custom transition-all duration-300 hover:-translate-y-1 hover:shadow-xl"
-    >
-      <div class="relative overflow-hidden">
+      <div class="relative overflow-hidden rounded-t-lg">
         <template v-if="article.image">
           <NuxtImg
             :src="article.image"
             :alt="article.imageAlt || article.title"
-            class="h-48 w-full object-cover transition-transform duration-300 group-hover:scale-105"
+            :class="['h-card-image w-full object-cover', IMAGE_HOVER_CLASSES]"
             format="webp"
           />
         </template>
         <div
           v-else
-          class="flex h-48 w-full items-center justify-center bg-gray-100 px-4 text-center"
+          class="flex h-card-image w-full items-center justify-center gradient-placeholder card-padding-sm text-center"
         >
-          <span class="text-secondary text-sm font-semibold">{{ article.title }}</span>
+          <span class="text-secondary text-body-sm font-semibold">{{ article.title }}</span>
         </div>
       </div>
-      <div class="flex flex-1 flex-col gap-4 p-6">
-        <span
-          class="inline-flex w-fit items-center rounded-full bg-primary/10 px-3 py-1 text-xs font-semibold text-primary"
+      <div class="flex flex-1 flex-col gap-component-lg card-padding">
+        <BaseBadge
+          color="primary"
+          variant="soft"
+          size="sm"
+          class="w-fit"
         >
           {{ article.category.label }}
-        </span>
-        <h3 class="text-card-title transition-colors group-hover:text-primary">
+        </BaseBadge>
+        <h3 :class="['text-card-title', TEXT_HOVER_CLASSES]">
           {{ article.title }}
         </h3>
-        <p class="flex-1 text-sm text-gray-600 line-clamp-3">{{ article.excerpt }}</p>
-        <div class="flex items-center justify-between text-xs text-gray-500">
+        <p class="flex-1 text-body-sm line-clamp-3">{{ article.excerpt }}</p>
+        <div class="flex items-center justify-between text-body-sm text-meta">
           <span>{{ formatDate(article.publishedAt) }}</span>
           <span v-if="formatReadingTime(article.readingTimeMinutes)">{{
             formatReadingTime(article.readingTimeMinutes)
           }}</span>
         </div>
       </div>
-    </article>
-  </NuxtLink>
+  </BaseCard>
 </template>
 
 <script setup lang="ts">
 import type { BlogArticleListItem } from '~~/lib/types'
 import { key } from '~~/lib/i18n'
+import { TEXT_HOVER_CLASSES, IMAGE_HOVER_CLASSES } from '~/composables/ui/useHover'
 
 const { formatDate, t } = useI18nHelpers()
 const localePath = useLocalePath()
@@ -58,18 +63,3 @@ defineProps<{
 }>()
 </script>
 
-<style scoped>
-.shadow-custom {
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
-}
-
-.hover\:-translate-y-1:hover {
-  transform: translateY(-0.25rem);
-}
-
-.hover\:-translate-y-1 {
-  transition:
-    transform 0.3s ease,
-    box-shadow 0.3s ease;
-}
-</style>

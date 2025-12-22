@@ -36,7 +36,7 @@
       </template> 
 
       <!-- List -->
-      <BlogContentList
+      <BaseList
         v-else-if="block.type === 'list'"
         :items="block.items"
         :ordered="block.ordered"
@@ -68,15 +68,15 @@
         <Icon
           v-if="variant === 'article'"
           name="mdi:format-quote-open"
-          class="absolute -left-1 -top-2 text-4xl text-primary/20"
+          class="absolute -left-1 -top-2 text-icon-2xl text-primary/20"
         />
-        <p v-if="variant === 'powerpage'" class="text-xl font-medium text-secondary italic mb-4">
+        <p v-if="variant === 'powerpage'" class="text-xl font-medium text-secondary italic mb-component-sm">
           "{{ block.text }}"
         </p>
         <!-- eslint-disable vue/no-v-html -->
         <p
           v-else
-          class="text-lg font-medium text-secondary italic leading-relaxed"
+          class="text-body-lg font-medium text-secondary italic leading-relaxed"
           v-html="block.text"
         />
         <!-- eslint-enable vue/no-v-html -->
@@ -99,7 +99,7 @@
 <script setup lang="ts">
 import type { BlogArticleContentBlock } from '~~/lib/types'
 import { useContentParser, getHeadingTag } from '~/composables/useContentParser'
-import { variantStyles, type ContentVariant } from '~~/lib/domain/blog/contentRendererStyles'
+import { CONTENT_VARIANT_STYLES, type ContentVariant } from '~/composables/domain'
 import {
   createWidgetRegistry,
   detectWidget as detectWidgetFn,
@@ -151,5 +151,5 @@ const widgetTextBeforeCache = computed(() => {
 })
 
 // Styles based on variant
-const styles = computed(() => variantStyles[props.variant])
+const styles = computed(() => CONTENT_VARIANT_STYLES[props.variant])
 </script>

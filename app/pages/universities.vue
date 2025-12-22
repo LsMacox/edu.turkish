@@ -28,7 +28,7 @@
 
     <!-- Results Section -->
     <section id="universities-results" class="bg-gray-50/50">
-      <div class="container mx-auto container-padding-narrow py-6 md:py-8">
+      <div class="container mx-auto container-padding-narrow section-py-sm">
         <!-- Sort Bar -->
         <div class="mb-6">
           <UniversitiesListSortBar
@@ -40,7 +40,7 @@
         </div>
 
         <!-- Universities Grid -->
-        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-6">
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-component-lg">
           <UniversitiesListCard
             v-for="u in paged"
             :key="u.id"

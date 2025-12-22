@@ -1,68 +1,68 @@
 <template>
-  <div class="space-y-6 lg:sticky lg:top-24 lg:self-start">
-    <div class="rounded-2xl bg-white p-5 shadow-lg ring-1 ring-gray-100/50">
+  <div class="space-component-lg lg:sticky lg:top-24 lg:self-start">
+    <BaseCard variant="bordered">
       <h3
-        class="flex items-center gap-2 text-sm font-bold uppercase tracking-wide text-gray-400"
+        class="flex items-center gap-component-sm text-body-sm font-bold uppercase tracking-wide text-hint"
       >
-        <Icon name="mdi:fire" class="text-lg text-orange-500" />
+        <Icon name="mdi:fire" class="text-icon-lg text-orange-500" />
         {{ popular.title }}
       </h3>
-      <nav class="mt-4 space-y-1">
+      <nav class="mt-component-md space-component-sm">
         <component
           :is="item.slug ? NuxtLink : 'div'"
           v-for="(item, index) in popular.items"
           :key="item.id"
           :to="item.slug ? articleLink(item.slug) : undefined"
-          class="group flex w-full items-center gap-3 rounded-xl px-3 py-2.5 text-sm text-left transition-all hover:bg-primary/5"
+          class="group flex w-full items-center gap-component-md rounded-button list-item-padding text-body-sm text-left transition-default hover:bg-primary/5"
           :class="{ 'cursor-default': !item.slug }"
         >
           <span
-            class="flex h-7 w-7 shrink-0 items-center justify-center rounded-lg text-xs font-bold bg-gray-100 text-gray-500 group-hover:bg-primary group-hover:text-white transition-colors"
+            class="toc-badge bg-surface-elevated text-meta group-hover:bg-primary group-hover:text-white transition-color"
           >
             {{ index + 1 }}
           </span>
           <div class="min-w-0 flex-1">
             <span
-              class="line-clamp-2 text-gray-600 group-hover:text-secondary transition-colors block"
+              class="line-clamp-2 text-body-sm group-hover:text-secondary transition-color block"
             >
               {{ item.title }}
             </span>
-            <span v-if="item.date" class="text-xs text-gray-400 block">
+            <span v-if="item.date" class="text-body-sm text-hint block">
               {{ item.date }}
             </span>
           </div>
         </component>
       </nav>
-    </div>
+    </BaseCard>
 
-    <div class="rounded-2xl bg-white p-5 shadow-lg ring-1 ring-gray-100/50">
+    <BaseCard variant="bordered">
       <h3
-        class="flex items-center gap-2 text-sm font-bold uppercase tracking-wide text-gray-400"
+        class="flex items-center gap-component-sm text-body-sm font-bold uppercase tracking-wide text-hint"
       >
-        <Icon name="mdi:link-variant" class="text-lg" />
+        <Icon name="mdi:link-variant" class="text-icon-lg" />
         {{ quickLinks.title }}
       </h3>
       <ClientOnly>
-        <div class="mt-4 space-y-1">
+        <div class="mt-component-md space-component-sm">
           <button
             v-for="link in quickLinks.items"
             :key="link.id"
             type="button"
-            class="group flex w-full items-center gap-3 rounded-xl px-3 py-2.5 text-sm text-left transition-all hover:bg-primary/5"
+            class="group flex w-full items-center gap-component-md rounded-button list-item-padding text-body-sm text-left transition-default hover:bg-primary/5"
             @click="$emit('quick-link', link.id)"
           >
             <span
-              class="flex h-7 w-7 shrink-0 items-center justify-center rounded-lg bg-gray-100 text-gray-500 group-hover:bg-primary group-hover:text-white transition-colors"
+              class="toc-badge bg-surface-elevated text-meta group-hover:bg-primary group-hover:text-white transition-color"
             >
-              <Icon :name="quickLinkIcon(link.id)" class="text-sm" />
+              <Icon :name="quickLinkIcon(link.id)" class="text-icon-sm" />
             </span>
-            <span class="text-gray-600 group-hover:text-secondary transition-colors">
+            <span class="text-body-sm group-hover:text-secondary transition-color">
               {{ link.label }}
             </span>
           </button>
         </div>
       </ClientOnly>
-    </div>
+    </BaseCard>
   </div>
 </template>
 

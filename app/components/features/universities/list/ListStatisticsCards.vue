@@ -1,33 +1,33 @@
 <template>
-  <div class="grid grid-cols-3 gap-3 md:gap-4 max-w-xl mx-auto">
-    <div class="bg-white/80 backdrop-blur-sm rounded-xl border border-gray-100 p-3 text-center">
-      <div class="text-xl md:text-2xl font-bold text-primary">
+  <div class="grid grid-cols-3 gap-component-md max-w-xl mx-auto">
+    <div class="stat-card">
+      <div class="text-card-title !text-primary">
         <ClientOnly>
           <span>{{ statisticsStore.formattedUniversities }}</span>
           <template #fallback>–</template>
         </ClientOnly>
       </div>
-      <p class="text-xs text-gray-600">{{ t(ns('universities')) }}</p>
+      <p class="text-body-sm">{{ t(ns('universities')) }}</p>
     </div>
 
-    <div class="bg-white/80 backdrop-blur-sm rounded-xl border border-gray-100 p-3 text-center">
-      <div class="text-xl md:text-2xl font-bold text-primary">
+    <div class="stat-card">
+      <div class="text-card-title !text-primary">
         <ClientOnly>
           <span>{{ statisticsStore.formattedCities }}</span>
           <template #fallback>–</template>
         </ClientOnly>
       </div>
-      <p class="text-xs text-gray-600">{{ t(ns('cities')) }}</p>
+      <p class="text-body-sm">{{ t(ns('cities')) }}</p>
     </div>
 
-    <div class="bg-white/80 backdrop-blur-sm rounded-xl border border-gray-100 p-3 text-center">
-      <div class="text-xl md:text-2xl font-bold text-primary">
+    <div class="stat-card">
+      <div class="text-card-title !text-primary">
         <ClientOnly>
           <span>{{ statisticsStore.formattedPrograms }}</span>
           <template #fallback>–</template>
         </ClientOnly>
       </div>
-      <p class="text-xs text-gray-600">{{ t(ns('programs')) }}</p>
+      <p class="text-body-sm">{{ t(ns('programs')) }}</p>
     </div>
   </div>
 </template>

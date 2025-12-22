@@ -1,0 +1,288 @@
+/* Typography System for edu.turkish */
+/* Based on research: thoughts/researches/font-system-analysis.md */
+
+@layer components {
+  /* ========================================
+     HERO TYPOGRAPHY
+     Usage: Main page headers (H1)
+     ======================================== */
+
+  .text-hero {
+    @apply text-2xl xs:text-3xl md:text-4xl lg:text-5xl;
+    @apply font-bold text-secondary leading-none lg:leading-[1.1];
+  }
+
+  .text-hero-subtitle {
+    @apply text-base md:text-lg lg:text-xl;
+    @apply text-gray-600 leading-snug lg:leading-[1.4];
+  }
+
+  /* ========================================
+     SECTION HEADERS
+     Usage: Section titles (H2)
+     ======================================== */
+
+  .text-section-title {
+    @apply text-xl md:text-2xl;
+    @apply font-bold text-secondary leading-tight;
+  }
+
+  .text-section-title-sm {
+    @apply text-lg md:text-xl;
+    @apply font-bold text-secondary leading-tight;
+  }
+
+  .text-section-title-lg {
+    @apply text-2xl md:text-3xl;
+    @apply font-bold text-secondary leading-tight;
+  }
+
+  .text-section-subtitle {
+    @apply text-sm md:text-base;
+    @apply text-gray-600 leading-relaxed;
+  }
+
+  .text-section-subtitle-sm {
+    @apply text-xs md:text-sm;
+    @apply text-gray-600 leading-relaxed;
+  }
+
+  .text-section-subtitle-lg {
+    @apply text-base md:text-lg;
+    @apply text-gray-600 leading-relaxed;
+  }
+
+  /* ========================================
+     CARD TYPOGRAPHY
+     Usage: Cards, features, services
+     ======================================== */
+
+  .text-card-title {
+    @apply text-lg md:text-xl;
+    @apply font-semibold text-secondary leading-snug;
+  }
+
+  .text-card-title-sm {
+    @apply text-base md:text-lg;
+    @apply font-semibold text-secondary leading-snug;
+  }
+
+  .text-card-title-lg {
+    @apply text-xl md:text-2xl;
+    @apply font-semibold text-secondary leading-snug;
+  }
+
+  .text-card-subtitle {
+    @apply text-sm md:text-base;
+    @apply text-gray-600 leading-normal;
+  }
+
+  .text-card-subtitle-sm {
+    @apply text-xs md:text-sm;
+    @apply text-gray-600 leading-normal;
+  }
+
+  .text-card-subtitle-lg {
+    @apply text-base md:text-lg;
+    @apply text-gray-600 leading-normal;
+  }
+
+  .text-card-body {
+    @apply text-sm md:text-base;
+    @apply text-gray-700 leading-relaxed;
+  }
+
+  .text-card-body-sm {
+    @apply text-xs md:text-sm;
+    @apply text-gray-700 leading-relaxed;
+  }
+
+  .text-card-body-lg {
+    @apply text-base md:text-lg;
+    @apply text-gray-700 leading-relaxed;
+  }
+
+  /* ========================================
+     BODY TEXT
+     Usage: Paragraphs, descriptions
+     ======================================== */
+
+  .text-body-lg {
+    @apply text-base md:text-lg;
+    @apply text-gray-700 leading-relaxed;
+  }
+
+  .text-body {
+    @apply text-sm md:text-base;
+    @apply text-gray-700 leading-normal;
+  }
+
+  .text-body-sm {
+    @apply text-xs md:text-sm;
+    @apply text-gray-600 leading-normal;
+  }
+
+  /* ========================================
+     SEMANTIC TEXT COLORS
+     Usage: Standalone color utilities for consistent grays
+     Replace raw gray-* classes with these semantic tokens.
+     ======================================== */
+
+  /* Primary content text (default body text) */
+  .text-content {
+    @apply text-gray-700;
+  }
+
+  /* Muted text: secondary content, descriptions */
+  .text-muted {
+    @apply text-gray-600;
+  }
+
+  /* Metadata: dates, reading time, counts */
+  .text-meta {
+    @apply text-gray-500;
+  }
+
+  /* Subtle hints: labels, placeholders */
+  .text-hint {
+    @apply text-gray-400;
+  }
+
+  /* Disabled/inactive text */
+  .text-disabled {
+    @apply text-gray-300;
+  }
+
+  /* ========================================
+     SEMANTIC BACKGROUND COLORS
+     Usage: Replace raw bg-gray-* with semantic tokens
+     ======================================== */
+
+  /* Surface: cards, containers on white background */
+  .bg-surface {
+    @apply bg-gray-50;
+  }
+
+  /* Elevated surface: hover states, nested containers */
+  .bg-surface-elevated {
+    @apply bg-gray-100;
+  }
+
+  /* Muted surface: inactive states, skeleton loaders */
+  .bg-surface-muted {
+    @apply bg-gray-200;
+  }
+
+  /* ========================================
+     FORM LABELS
+     Usage: Input labels, form field labels
+     ======================================== */
+
+  .text-label {
+    @apply text-sm font-semibold text-secondary;
+  }
+
+  .text-label-sm {
+    @apply text-xs font-medium text-meta;
+  }
+
+  /* ========================================
+     BADGE TYPOGRAPHY
+     Usage: Category badges with dynamic color classes
+     Note: For most badges, use BaseBadge component instead
+     ======================================== */
+
+  .badge-category {
+    @apply inline-flex items-center px-3 py-1 rounded-badge text-xs font-medium;
+  }
+
+  /* ========================================
+     PRICE TYPOGRAPHY
+     Usage: Price display in different sizes
+     ======================================== */
+
+  .text-price-sm {
+    @apply text-sm;
+  }
+
+  .text-price {
+    @apply text-base;
+  }
+
+  .text-price-lg {
+    @apply text-lg;
+  }
+
+  /* ========================================
+     ICON FONT SIZES (for font-based icons)
+     
+     Use these for icons rendered via font-size (iconify font mode).
+     For SVG icons (width/height), use ICON_SIZES from useSizeClasses.ts
+     
+     Scale:
+       text-icon-xs  - 12px (text-xs)  - inline, badges
+       text-icon-sm  - 16px (text-base) - buttons
+       text-icon     - 20px (text-xl)  - default
+       text-icon-lg  - 24px (text-2xl) - cards
+       text-icon-xl  - 30px (text-3xl) - features
+       text-icon-2xl - 36px (text-4xl) - section headers
+       text-icon-3xl - 48px (text-5xl) - hero icons
+     ======================================== */
+
+  .text-icon-xs {
+    @apply text-xs;
+  }
+
+  .text-icon-sm {
+    @apply text-base;
+  }
+
+  .text-icon {
+    @apply text-xl;
+  }
+
+  .text-icon-lg {
+    @apply text-2xl;
+  }
+
+  .text-icon-xl {
+    @apply text-3xl;
+  }
+
+  .text-icon-2xl {
+    @apply text-4xl;
+  }
+
+  .text-icon-3xl {
+    @apply text-5xl;
+  }
+
+  /* ========================================
+     TEXT GRADIENTS
+     Usage: Decorative gradient text effects
+     ======================================== */
+
+  .text-gradient {
+    @apply bg-gradient-to-r from-primary to-red-600 bg-clip-text text-transparent;
+  }
+
+  .text-gradient-success {
+    @apply bg-gradient-to-r from-success to-green-600 bg-clip-text text-transparent;
+  }
+
+  .text-gradient-info {
+    @apply bg-gradient-to-r from-info to-blue-600 bg-clip-text text-transparent;
+  }
+
+  /* ========================================
+     PROSE / ARTICLE
+     Usage: Article prose content
+     ======================================== */
+
+  /* Article prose content - prevent text overflow on mobile */
+  .prose-article {
+    @apply overflow-hidden;
+    word-break: break-word;
+    overflow-wrap: anywhere;
+  }
+}

@@ -1,27 +1,27 @@
 <template>
-  <div class="container pt-6 md:pt-8 pb-8 md:pb-10">
+  <div class="container section-py">
     <!-- Page Header -->
     <BaseSectionHeader :title="title" :subtitle="subtitle" />
 
     <!-- Sub-Services Grid -->
-    <div v-if="$slots['sub-services']" :class="['grid gap-6 mt-12', subServicesCols]">
+    <div v-if="$slots['sub-services']" :class="['grid gap-component-lg mt-section', subServicesCols]">
       <slot name="sub-services" />
     </div>
 
     <!-- Service Cards -->
-    <div v-if="$slots['service-cards']" class="mt-8">
+    <div v-if="$slots['service-cards']" class="mt-component-lg">
       <slot name="service-cards" />
     </div>
 
     <!-- All content sections with consistent spacing -->
     <template v-for="name in sectionSlots" :key="name">
-      <div v-if="$slots[name]" class="mt-16">
+      <div v-if="$slots[name]" class="mt-section-lg">
         <slot :name="name" />
       </div>
     </template>
 
     <!-- Final CTA -->
-    <div v-if="$slots['final-cta']" class="mt-16">
+    <div v-if="$slots['final-cta']" class="mt-section-lg">
       <slot name="final-cta" />
     </div>
   </div>

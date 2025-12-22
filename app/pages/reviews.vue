@@ -18,32 +18,32 @@
         </div>
 
         <!-- Stats Grid -->
-        <div class="grid grid-cols-2 md:grid-cols-4 gap-3 md:gap-4">
-          <div class="bg-white/80 backdrop-blur-sm rounded-xl border border-gray-100 p-4 text-center">
+        <div class="grid grid-cols-2 md:grid-cols-4 gap-component-md">
+          <div class="stat-card-lg">
             <div class="w-10 h-10 rounded-full bg-gradient-to-br from-primary to-red-600 flex items-center justify-center mx-auto mb-2">
               <Icon name="mdi:account-group" class="text-lg text-white" />
             </div>
             <div class="text-xl md:text-2xl font-bold text-primary">500+</div>
-            <p class="text-xs text-gray-600">{{ t(statsNs('students.title')) }}</p>
+            <p class="text-xs text-body-sm">{{ t(statsNs('students.title')) }}</p>
           </div>
 
-          <div class="bg-white/80 backdrop-blur-sm rounded-xl border border-gray-100 p-4 text-center">
+          <div class="stat-card-lg">
             <div class="w-10 h-10 rounded-full bg-gradient-to-br from-emerald-500 to-emerald-600 flex items-center justify-center mx-auto mb-2">
               <Icon name="mdi:check-circle" class="text-lg text-white" />
             </div>
             <div class="text-xl md:text-2xl font-bold text-emerald-500">98%</div>
-            <p class="text-xs text-gray-600">{{ t(statsNs('success.title')) }}</p>
+            <p class="text-xs text-body-sm">{{ t(statsNs('success.title')) }}</p>
           </div>
 
-          <div class="bg-white/80 backdrop-blur-sm rounded-xl border border-gray-100 p-4 text-center">
+          <div class="stat-card-lg">
             <div class="w-10 h-10 rounded-full bg-gradient-to-br from-blue-500 to-blue-600 flex items-center justify-center mx-auto mb-2">
               <Icon name="mdi:school" class="text-lg text-white" />
             </div>
             <div class="text-xl md:text-2xl font-bold text-blue-500">20+</div>
-            <p class="text-xs text-gray-600">{{ t(statsNs('universities.title')) }}</p>
+            <p class="text-xs text-body-sm">{{ t(statsNs('universities.title')) }}</p>
           </div>
 
-          <div class="bg-white/80 backdrop-blur-sm rounded-xl border border-gray-100 p-4 text-center">
+          <div class="stat-card-lg">
             <div class="w-10 h-10 rounded-full bg-gradient-to-br from-yellow-400 to-orange-500 flex items-center justify-center mx-auto mb-2">
               <Icon name="mdi:star" class="text-lg text-white" />
             </div>

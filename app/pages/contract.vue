@@ -10,7 +10,7 @@
         </div>
 
         <!-- Content -->
-        <div class="bg-white rounded-xl sm:rounded-2xl shadow-lg card-padding-lg">
+        <div class="bg-white rounded-button sm:rounded-card shadow-card-hover card-padding-lg">
           <div class="prose max-w-none space-y-6 sm:space-y-8">
             <section class="mb-6 sm:mb-8">
               <h2
@@ -18,7 +18,7 @@
               >
                 {{ t(contractNs('services_title')) }}
               </h2>
-              <p class="text-sm sm:text-base text-gray-700 leading-relaxed sm:leading-loose">
+              <p class="text-sm sm:text-base text-body leading-relaxed sm:leading-loose">
                 {{ t(contractNs('services')) }}
               </p>
             </section>
@@ -29,7 +29,7 @@
               >
                 {{ t(contractNs('payment_title')) }}
               </h2>
-              <p class="text-sm sm:text-base text-gray-700 leading-relaxed sm:leading-loose">
+              <p class="text-sm sm:text-base text-body leading-relaxed sm:leading-loose">
                 {{ t(contractNs('payment')) }}
               </p>
             </section>
@@ -40,7 +40,7 @@
               >
                 {{ t(contractNs('contact_title')) }}
               </h2>
-              <p class="text-sm sm:text-base text-gray-700 leading-relaxed sm:leading-loose">
+              <p class="text-sm sm:text-base text-body leading-relaxed sm:leading-loose">
                 {{ t(contractNs('contact')) }}
               </p>
             </section>
@@ -52,7 +52,7 @@
           <!-- Back to Home Button -->
           <NuxtLink
             :to="localePath('/')"
-            class="inline-flex items-center justify-center w-full sm:w-auto px-6 py-3 bg-primary text-white rounded-xl font-semibold hover:bg-red-600 transition-colors shadow-lg text-sm sm:text-base min-h-touch-48"
+            class="inline-flex items-center justify-center w-full sm:w-auto px-6 py-3 bg-primary text-white rounded-button font-semibold hover:bg-red-600 transition-colors shadow-card-hover text-sm sm:text-base min-h-touch-48"
           >
             <Icon name="mdi:arrow-left" class="mr-2" />
             {{ t(key('back_to_home')) }}

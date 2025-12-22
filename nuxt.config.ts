@@ -22,7 +22,7 @@ const cdnUrl = process.env.NUXT_PUBLIC_CDN_URL || ''
 export default defineNuxtConfig({
   ssr: true,
   compatibilityDate: '2025-07-15',
-  devtools: { enabled: true },
+  devtools: { enabled: false },
 
   vite: {
     build: {
@@ -37,7 +37,7 @@ export default defineNuxtConfig({
   components: componentsConfig,
 
   imports: {
-    dirs: ['stores'],
+    dirs: ['stores', 'composables', 'composables/ui'],
   },
 
   app: headConfig,

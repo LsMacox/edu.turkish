@@ -1,0 +1,107 @@
+@layer components {
+  /* ============================================================================
+     ICON CONTAINERS - Circular containers for icons
+     Sizes synchronized with useSizeClasses.ts ICON_CONTAINER_SIZE_MAP
+     ============================================================================ */
+
+  .icon-container-xs {
+    @apply w-10 h-10 rounded-full grid place-items-center;
+  }
+
+  .icon-container-sm {
+    @apply w-12 h-12 rounded-full grid place-items-center;
+  }
+
+  .icon-container-md {
+    @apply w-16 h-16 rounded-full grid place-items-center;
+  }
+
+  .icon-container-lg {
+    @apply w-20 h-20 rounded-full grid place-items-center;
+  }
+
+  .icon-container-xl {
+    @apply w-24 h-24 rounded-full grid place-items-center;
+  }
+
+  /* ============================================================================
+     ICON BOXES - Squared containers with rounded corners
+     Sizes synchronized with useSizeClasses.ts ICON_BADGE_SIZE_MAP
+     ============================================================================ */
+
+  .icon-box-sm {
+    @apply w-12 h-12 rounded-button flex items-center justify-center;
+  }
+
+  .icon-box-md {
+    @apply w-16 h-16 rounded-button flex items-center justify-center;
+  }
+
+  .icon-box-lg {
+    @apply w-20 h-20 rounded-card flex items-center justify-center;
+  }
+
+  .icon-box-xl {
+    @apply w-24 h-24 rounded-card flex items-center justify-center;
+  }
+
+  /* ============================================================================
+     STEP BADGES - Numbered indicators
+     ============================================================================ */
+
+  .step-badge {
+    @apply w-10 h-10 rounded-full flex items-center justify-center font-semibold text-xl;
+  }
+
+  .step-badge-sm {
+    @apply w-8 h-8 rounded-full flex items-center justify-center font-semibold text-base;
+  }
+
+  /* ============================================================================
+     AVATARS - User profile images
+     ============================================================================ */
+
+  .avatar-sm {
+    @apply w-9 h-9 rounded-lg overflow-hidden flex-shrink-0;
+  }
+
+  .avatar-md {
+    @apply w-11 h-11 rounded-button overflow-hidden flex-shrink-0;
+  }
+
+  .avatar-lg {
+    @apply w-14 h-14 rounded-button overflow-hidden flex-shrink-0;
+  }
+
+  /* ============================================================================
+     MEDIA BUTTONS - Play/zoom overlays on images/videos
+     ============================================================================ */
+
+  .media-btn-md {
+    @apply w-12 h-12 rounded-full flex items-center justify-center bg-white/95 backdrop-blur-sm shadow-card;
+  }
+
+  .media-btn-lg {
+    @apply w-14 h-14 rounded-full flex items-center justify-center bg-white/95 backdrop-blur-sm shadow-card;
+  }
+
+  /* ============================================================================
+     TOC BADGES - Table of contents / list item number badges
+     ============================================================================ */
+
+  .toc-badge {
+    @apply h-7 w-7 shrink-0 flex items-center justify-center rounded-lg text-xs font-bold;
+  }
+
+  .toc-badge-sm {
+    @apply h-5 w-5 shrink-0 flex items-center justify-center rounded-md;
+  }
+
+  /* ============================================================================
+     SECTION LABEL - Uppercase hint text with icon
+     ============================================================================ */
+
+  .section-label {
+    @apply flex items-center gap-component-sm text-body-sm font-bold uppercase tracking-wide text-hint;
+  }
+}

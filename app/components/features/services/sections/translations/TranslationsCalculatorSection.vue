@@ -1,11 +1,11 @@
 <template>
-  <div class="mt-16">
+  <div class="mt-component-lg">
     <BaseSectionHeader :title="title" />
 
-    <div class="mt-8 max-w-3xl mx-auto px-4 sm:px-6">
-      <div class="bg-white rounded-lg shadow-md p-4 sm:p-6 space-y-4 sm:space-y-6">
+    <div class="mt-component-lg max-w-3xl mx-auto container-padding-narrow">
+      <BaseCard padding="md" shadow="md" rounded="md" class="space-component-lg">
         <div>
-          <label class="block text-sm font-medium text-gray-700 mb-2">
+          <label class="block text-body-sm font-medium mb-component-xs">
             {{ labels.documentTypeLabel }}
           </label>
           <BaseSelect v-model="selectedDocType">
@@ -16,7 +16,7 @@
         </div>
 
         <div>
-          <label class="block text-sm font-medium text-gray-700 mb-2">
+          <label class="block text-body-sm font-medium mb-component-xs">
             {{ labels.languagePairLabel }}
           </label>
           <BaseSelect v-model="selectedLang">
@@ -27,7 +27,7 @@
         </div>
 
         <div>
-          <label class="block text-sm font-medium text-gray-700 mb-2">
+          <label class="block text-body-sm font-medium mb-component-xs">
             {{ labels.urgencyLabel }}
           </label>
           <BaseSelect v-model="selectedUrg">
@@ -37,8 +37,8 @@
           </BaseSelect>
         </div>
 
-        <div v-if="displayPrice" class="mt-6 p-4 bg-primary/10 rounded-lg text-center">
-          <div class="text-sm text-gray-600 mb-1">
+        <div v-if="displayPrice" class="mt-component-lg card-padding-sm bg-primary-soft rounded-button text-center">
+          <div class="text-body-sm mb-1">
             {{ labels.estimatedPrice }}
           </div>
           <div class="text-2xl sm:text-3xl font-bold text-primary break-words">
@@ -46,14 +46,17 @@
           </div>
         </div>
 
-        <button
-          type="button"
-          class="w-full mt-6 px-6 py-3 bg-primary text-white font-semibold rounded-lg hover:bg-primary-600 transition-colors shadow-md hover:shadow-lg"
+        <BaseButton
+          variant="primary"
+          size="md"
+          full-width
+          rounded="lg"
+          class="mt-component-lg shadow-button-lift"
           @click="handleSubmit"
         >
           {{ labels.submitButton }}
-        </button>
-      </div>
+        </BaseButton>
+      </BaseCard>
     </div>
   </div>
 </template>

@@ -1,22 +1,28 @@
 <template>
-  <div class="bg-white rounded-xl md:rounded-2xl shadow-custom p-4 md:p-6 text-center hover-lift">
-    <div
-      class="w-12 h-12 md:w-16 md:h-16 rounded-2xl flex items-center justify-center mx-auto mb-3 md:mb-4"
-      :class="iconBg"
-    >
-      <Icon :name="icon" class="text-xl md:text-2xl" :class="iconColor" />
-    </div>
-    <h3 class="text-card-title mb-1 md:mb-2">{{ title }}</h3>
-    <p class="text-gray-600 text-sm md:text-base">{{ value }}</p>
-  </div>
+  <BaseCard padding="md" shadow="md" rounded="xl" hover="lift" class="text-center">
+    <BaseIconBox
+      :icon="icon"
+      :color="color"
+      :size="iconSize"
+      variant="soft"
+      class="mx-auto mb-component-sm"
+    />
+    <h3 class="text-card-title mb-component-xs">{{ title }}</h3>
+    <p class="text-body-sm">{{ value }}</p>
+  </BaseCard>
 </template>
 
 <script setup lang="ts">
-defineProps<{
+import type { SemanticColor, Size5 } from '~/types/ui'
+
+withDefaults(defineProps<{
   icon: string
-  iconBg: string
-  iconColor: string
+  color?: SemanticColor
   title: string
   value: string
-}>()
+  iconSize?: Size5
+}>(), {
+  color: 'primary',
+  iconSize: 'md',
+})
 </script>

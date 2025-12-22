@@ -1,7 +1,11 @@
 <template>
-  <div
-    class="group bg-white rounded-2xl border border-gray-100 overflow-hidden h-full flex flex-col
-           transition-all duration-300 ease-out hover:shadow-xl hover:-translate-y-1 hover:border-gray-200"
+  <BaseCard
+    padding="none"
+    shadow="md"
+    rounded="2xl"
+    full-height
+    hover="lift"
+    class="group flex flex-col"
   >
     <!-- Video Review -->
     <div
@@ -9,39 +13,34 @@
       class="relative cursor-pointer"
       @click="handlePlayVideo"
     >
-      <div class="relative aspect-square bg-gray-100">
+      <div class="relative aspect-square gradient-placeholder rounded-t-2xl overflow-hidden">
         <NuxtImg
           v-if="isPageLoaded && displayThumb"
           :src="displayThumb"
           :alt="review.name"
-          class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+          :class="['w-full h-full object-cover', IMAGE_HOVER_CLASSES]"
           loading="lazy"
           format="webp"
           sizes="300px"
         />
         <div
           v-else
-          class="w-full h-full flex items-center justify-center bg-gradient-to-br from-blue-50 to-purple-50"
+          class="w-full h-full flex items-center justify-center gradient-placeholder-media"
         >
-          <Icon name="mdi:video" class="text-5xl text-gray-300" />
+          <Icon name="mdi:video" class="text-icon-3xl icon-placeholder" />
         </div>
 
         <!-- Play Button Overlay -->
         <div
-          class="absolute inset-0 flex items-center justify-center bg-gradient-to-t from-black/40 via-black/20 to-transparent"
+          class="absolute inset-0 flex items-center justify-center gradient-overlay-media"
         >
-          <div
-            class="w-14 h-14 bg-white/95 backdrop-blur-sm rounded-full flex items-center justify-center shadow-lg
-                   transition-all duration-300 group-hover:scale-110 group-hover:bg-primary"
-          >
-            <Icon name="mdi:play" class="text-2xl text-primary ml-0.5 group-hover:text-white transition-colors" />
-          </div>
+          <BaseMediaButton icon="mdi:play" size="lg" variant="play" />
         </div>
 
         <!-- Duration Badge -->
         <div
           v-if="review.videoDuration"
-          class="absolute bottom-3 right-3 bg-black/70 backdrop-blur-sm text-white text-xs font-medium px-2.5 py-1 rounded-lg"
+          class="absolute bottom-3 right-3 duration-badge"
         >
           {{ review.videoDuration }}
         </div>
@@ -50,58 +49,54 @@
 
     <!-- Image Review -->
     <div v-else-if="review.mediaType === 'image'" class="relative cursor-zoom-in">
-      <div class="aspect-square bg-gray-100" @click="handleOpenImage">
+      <div class="aspect-square gradient-placeholder rounded-t-2xl overflow-hidden" @click="handleOpenImage">
         <NuxtImg
           v-if="isPageLoaded && review.imageUrl"
           :src="review.imageUrl"
           :alt="review.name"
-          class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+          :class="['w-full h-full object-cover', IMAGE_HOVER_CLASSES]"
           loading="lazy"
           format="webp"
           sizes="300px"
         />
         <div
           v-else
-          class="w-full h-full flex items-center justify-center bg-gradient-to-br from-pink-50 to-orange-50"
+          class="w-full h-full flex items-center justify-center gradient-placeholder-image"
         >
-          <Icon name="mdi:image" class="text-5xl text-gray-300" />
+          <Icon name="mdi:image" class="text-icon-3xl icon-placeholder" />
         </div>
 
         <!-- Zoom Overlay -->
         <div
-          class="absolute inset-0 flex items-center justify-center bg-gradient-to-t from-black/30 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"
+          class="absolute inset-0 flex items-center justify-center gradient-overlay-media-hover opacity-0 group-hover:opacity-100 transition-default"
         >
-          <div
-            class="bg-white/95 backdrop-blur-sm text-secondary rounded-full w-12 h-12 flex items-center justify-center shadow-lg"
-          >
-            <Icon name="mdi:magnify-plus-outline" class="text-xl" />
-          </div>
+          <BaseMediaButton icon="mdi:magnify-plus-outline" size="md" variant="zoom" />
         </div>
       </div>
     </div>
 
     <!-- Content -->
-    <div class="p-5 flex-1 flex flex-col">
+    <div class="card-padding-lg flex-1 flex flex-col">
       <!-- Rating -->
-      <div v-if="review.rating" class="flex gap-0.5 mb-3">
+      <div v-if="review.rating" class="flex gap-0.5 mb-component-xs">
         <Icon
           v-for="star in 5"
           :key="star"
           name="mdi:star"
-          :class="star <= review.rating ? 'text-yellow-400' : 'text-gray-200'"
-          class="text-base"
+          :class="star <= review.rating ? 'star-active' : 'star-inactive'"
+          class="text-icon"
         />
       </div>
 
       <!-- Quote -->
-      <p v-if="review.quote" class="text-sm text-gray-600 leading-relaxed mb-4 line-clamp-3 flex-1">
+      <p v-if="review.quote" class="text-body-sm leading-relaxed mb-component-sm line-clamp-3 flex-1">
         "{{ review.quote }}"
       </p>
 
       <!-- Student Info -->
-      <div class="mt-auto pt-4 border-t border-gray-100">
-        <div class="flex items-center gap-3">
-          <div v-if="review.avatar" class="w-11 h-11 rounded-xl overflow-hidden flex-shrink-0 ring-2 ring-gray-100">
+      <div class="mt-auto pt-component-sm border-t border-default">
+        <div class="flex items-center gap-component-md">
+          <div v-if="review.avatar" :class="['avatar-md', RING_CLASSES.default]">
             <NuxtImg
               v-if="isPageLoaded"
               :src="review.avatar"
@@ -115,28 +110,29 @@
           </div>
           <div
             v-else
-            class="w-11 h-11 rounded-xl bg-gradient-to-br from-primary to-orange-500 flex items-center justify-center flex-shrink-0"
+            class="avatar-md gradient-avatar flex items-center justify-center"
           >
-            <span class="text-white font-semibold text-sm">{{ getInitials(review.name) }}</span>
+            <span class="text-white font-semibold text-body-sm">{{ getInitials(review.name) }}</span>
           </div>
 
           <div class="flex-1 min-w-0">
-            <p class="font-semibold text-secondary text-sm truncate group-hover:text-primary transition-colors">{{ review.name }}</p>
-            <p v-if="review.university" class="text-xs text-gray-500 truncate">
+            <p :class="['font-semibold text-secondary text-body-sm truncate', TEXT_HOVER_CLASSES]">{{ review.name }}</p>
+            <p v-if="review.university" class="text-body-sm text-meta truncate">
               {{ review.university }}
             </p>
-            <p v-if="review.year" class="text-xs text-gray-400">
+            <p v-if="review.year" class="text-body-sm text-hint">
               {{ review.year }}
             </p>
           </div>
         </div>
       </div>
     </div>
-  </div>
+  </BaseCard>
 </template>
 
 <script setup lang="ts">
 import type { MediaReview } from '~~/lib/types'
+import { TEXT_HOVER_CLASSES, IMAGE_HOVER_CLASSES, RING_CLASSES } from '~/composables/ui'
 
 interface Props {
   review: MediaReview
@@ -179,12 +175,3 @@ function getInitials(name: string): string {
 }
 </script>
 
-<style scoped>
-.line-clamp-3 {
-  display: -webkit-box;
-  -webkit-line-clamp: 3;
-  line-clamp: 3;
-  -webkit-box-orient: vertical;
-  overflow: hidden;
-}
-</style>

@@ -1,69 +1,57 @@
 <template>
-  <div class="my-8 rounded-2xl border border-gray-200 bg-white shadow-sm overflow-hidden">
+  <div class="my-8 rounded-card border border-default bg-white shadow-button overflow-hidden">
     <!-- Title -->
     <h3
       v-if="data.title"
-      class="px-6 py-4 text-xl font-bold text-secondary border-b border-gray-100"
+      class="table-cell text-card-title border-b border-default"
     >
       {{ data.title }}
     </h3>
 
     <!-- Tabs -->
-    <div class="flex border-b border-gray-200">
-      <button
-        :class="[
-          'flex-1 flex items-center justify-center gap-2 px-6 py-3 font-semibold transition-colors',
-          activeTab === 'pros'
-            ? 'bg-green-50 text-green-700 border-b-2 border-green-500'
-            : 'text-gray-500 hover:bg-gray-50',
-        ]"
+    <div class="flex border-b border-default">
+      <BaseButton
+        variant="tab-pros"
+        icon="mdi:check-circle"
+        class="flex-1"
+        :data-active="activeTab === 'pros' ? 'true' : undefined"
+        no-focus-ring
         @click="activeTab = 'pros'"
       >
-        <Icon name="mdi:check-circle" class="text-lg" />
         {{ t(ns('pros')) }}
-      </button>
-      <button
-        :class="[
-          'flex-1 flex items-center justify-center gap-2 px-6 py-3 font-semibold transition-colors',
-          activeTab === 'cons'
-            ? 'bg-amber-50 text-amber-700 border-b-2 border-amber-500'
-            : 'text-gray-500 hover:bg-gray-50',
-        ]"
+      </BaseButton>
+      <BaseButton
+        variant="tab-cons"
+        icon="mdi:alert"
+        class="flex-1"
+        :data-active="activeTab === 'cons' ? 'true' : undefined"
+        no-focus-ring
         @click="activeTab = 'cons'"
       >
-        <Icon name="mdi:alert" class="text-lg" />
         {{ t(ns('cons')) }}
-      </button>
+      </BaseButton>
     </div>
 
     <!-- Content -->
-    <div class="p-6">
+    <div class="card-padding">
       <!-- Pros -->
-      <div v-show="activeTab === 'pros'" class="space-y-4">
-        <div v-for="(item, index) in data.pros" :key="`pro-${index}`" class="flex gap-3">
-          <div
-            class="flex-shrink-0 w-6 h-6 rounded-full bg-green-100 flex items-center justify-center"
-          >
-            <Icon name="mdi:check" class="text-green-600 text-sm" />
-          </div>
+      <div v-show="activeTab === 'pros'" class="space-component-md">
+        <div v-for="(item, index) in data.pros" :key="`pro-${index}`" class="flex gap-component-md">
+          <BaseStatusBadge icon="mdi:check" color="success" size="sm" variant="soft" />
           <div>
-            <p class="font-semibold text-gray-800">{{ item.title }}</p>
-            <p v-if="item.description" class="text-gray-600 mt-1">{{ item.description }}</p>
+            <p class="font-semibold text-secondary">{{ item.title }}</p>
+            <p v-if="item.description" class="text-body-sm mt-1">{{ item.description }}</p>
           </div>
         </div>
       </div>
 
       <!-- Cons -->
-      <div v-show="activeTab === 'cons'" class="space-y-4">
-        <div v-for="(item, index) in data.cons" :key="`con-${index}`" class="flex gap-3">
-          <div
-            class="flex-shrink-0 w-6 h-6 rounded-full bg-amber-100 flex items-center justify-center"
-          >
-            <Icon name="mdi:alert" class="text-amber-600 text-sm" />
-          </div>
+      <div v-show="activeTab === 'cons'" class="space-component-md">
+        <div v-for="(item, index) in data.cons" :key="`con-${index}`" class="flex gap-component-md">
+          <BaseStatusBadge icon="mdi:alert" color="warning" size="sm" variant="soft" />
           <div>
-            <p class="font-semibold text-gray-800">{{ item.title }}</p>
-            <p v-if="item.description" class="text-gray-600 mt-1">{{ item.description }}</p>
+            <p class="font-semibold text-secondary">{{ item.title }}</p>
+            <p v-if="item.description" class="text-body-sm mt-1">{{ item.description }}</p>
           </div>
         </div>
       </div>

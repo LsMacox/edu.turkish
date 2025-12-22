@@ -1,6 +1,5 @@
 <template>
-  <section class="py-16 bg-white">
-    <div class="container mx-auto px-4 lg:px-6">
+  <BaseSection padding="lg" bg="white">
       <BaseSectionHeader
         :title="t(ns('title'))"
         :subtitle="t(ns('subtitle'))"
@@ -9,117 +8,93 @@
       />
 
       <!-- Program Tabs -->
-      <div class="flex justify-center mb-8">
-        <div class="bg-background rounded-xl p-1 flex space-x-1">
-          <button
+      <div class="flex justify-center mb-component-md">
+        <div class="bg-background rounded-button compact-padding-xs flex gap-1">
+          <BaseButton
             v-for="tab in tabs"
             :key="tab.key"
-            :class="[
-              'px-6 py-3 rounded-lg font-semibold transition-colors',
-              activeTab === tab.key
-                ? 'bg-primary text-white'
-                : 'text-gray-600 hover:text-secondary',
-            ]"
+            :variant="activeTab === tab.key ? 'tab-active' : 'tab-inactive'"
+            no-focus-ring
             @click="activeTab = tab.key"
           >
             {{ tab.label }}
-          </button>
+          </BaseButton>
         </div>
       </div>
 
       <!-- Program Tables -->
       <div v-if="filteredPrograms.length" class="relative">
-        <div
-          class="bg-white rounded-2xl shadow-custom overflow-hidden"
+        <BaseCard
+          padding="none"
+          shadow="md"
+          rounded="2xl"
           :class="{ 'max-h-[400px] overflow-hidden': !isExpanded && shouldShowToggle }"
         >
-          <div class="overflow-x-auto">
-            <table class="w-full">
-              <thead class="bg-background">
-                <tr>
-                  <th class="px-6 py-4 text-left font-semibold text-secondary">
-                    {{ t(ns('table.programName')) }}
-                  </th>
-                  <th class="px-6 py-4 text-center font-semibold text-secondary">
-                    {{ t(ns('table.language')) }}
-                  </th>
-                  <th class="px-6 py-4 text-center font-semibold text-secondary">
-                    {{ t(ns('table.duration')) }}
-                  </th>
-                  <th class="px-6 py-4 text-center font-semibold text-secondary">
-                    {{ t(ns('table.costPerYear')) }}
-                  </th>
-                </tr>
-              </thead>
-              <tbody class="divide-y divide-gray-200">
-                <tr
-                  v-for="(program, index) in filteredPrograms"
-                  :key="index"
-                  :class="[index % 2 === 1 ? 'bg-gray-50' : '']"
-                >
-                  <td class="px-6 py-4 font-medium text-secondary">{{ program.name }}</td>
-                  <td class="px-6 py-4 text-center">
-                    <span :class="getLanguageBadgeClass(program.language)">
-                      {{ program.language }}
-                    </span>
-                  </td>
-                  <td class="px-6 py-4 text-center text-gray-600">
-                    {{ formatDuration(program.durationYears) }}
-                  </td>
-                  <td class="px-6 py-4 text-center font-semibold text-primary">
-                    {{ formatPrice(program.tuitionPerYear) }}
-                  </td>
-                </tr>
-              </tbody>
-            </table>
-          </div>
-        </div>
+          <BaseTable
+            :columns="tableColumns"
+            :data="filteredPrograms"
+          >
+            <template #cell-name="{ value }">
+              <span class="font-medium text-secondary">{{ value }}</span>
+            </template>
+            <template #cell-language="{ row }">
+              <span :class="getLanguageBadgeClass(row.language)">
+                {{ row.language }}
+              </span>
+            </template>
+            <template #cell-durationYears="{ row }">
+              <span class="text-body-sm">{{ formatDuration(row.durationYears) }}</span>
+            </template>
+            <template #cell-tuitionPerYear="{ row }">
+              <span class="font-semibold text-primary">{{ formatPrice(row.tuitionPerYear) }}</span>
+            </template>
+          </BaseTable>
+        </BaseCard>
 
         <!-- Show All Overlay -->
         <div
           v-if="shouldShowToggle && !isExpanded"
-          class="absolute bottom-0 left-0 right-0 h-32 bg-gradient-to-t from-white via-white/90 to-transparent rounded-b-2xl flex items-end justify-center pb-4"
+          class="absolute bottom-0 left-0 right-0 h-32 gradient-fade-bottom rounded-b-2xl flex items-end justify-center pb-4"
         >
-          <button
-            class="bg-primary text-white px-6 py-3 rounded-xl font-semibold hover:bg-red-600 transition-colors shadow-lg flex items-center gap-2"
+          <BaseButton
+            variant="primary"
+            size="md"
+            icon="ph:caret-down"
+            icon-position="right"
+            class="shadow-card"
             @click="isExpanded = true"
           >
-            <span>{{ t(ns('showAll')) }}</span>
-            <Icon name="ph:caret-down" class="text-lg" />
-          </button>
+            {{ t(ns('showAll')) }}
+          </BaseButton>
         </div>
 
         <!-- Collapse Button -->
-        <div v-if="shouldShowToggle && isExpanded" class="flex justify-center mt-4">
-          <button
-            class="text-primary font-semibold hover:text-red-600 transition-colors flex items-center gap-2"
+        <div v-if="shouldShowToggle && isExpanded" class="flex justify-center mt-component-sm">
+          <BaseButton
+            variant="link"
+            icon="ph:caret-up"
+            icon-position="right"
+            class="text-primary hover:text-error-dark font-semibold"
             @click="isExpanded = false"
           >
-            <span>{{ t(ns('collapse')) }}</span>
-            <Icon name="ph:caret-up" class="text-lg" />
-          </button>
+            {{ t(ns('collapse')) }}
+          </BaseButton>
         </div>
       </div>
 
       <!-- Empty state -->
-      <div v-else class="text-center py-12">
-        <div
-          class="w-16 h-16 bg-gray-100 rounded-2xl flex items-center justify-center mx-auto mb-4"
-        >
-          <Icon name="ph:graduation-cap" class="text-gray-400 text-2xl" />
-        </div>
-        <h3 class="text-card-title mb-2">
-          {{ t(ns('emptyState.title')) }}
-        </h3>
-        <p class="text-gray-600">{{ t(ns('emptyState.description')) }}</p>
-      </div>
-    </div>
-  </section>
+      <FeedbackEmptyState
+        v-else
+        icon="ph:graduation-cap"
+        :title="t(ns('emptyState.title'))"
+        :text="t(ns('emptyState.description'))"
+      />
+  </BaseSection>
 </template>
 
 <script setup lang="ts">
 import type { UniversityProgram } from '~~/lib/types'
-import { getLanguageBadgeClass } from '~~/lib/domain/universities/constants'
+import { getLanguageBadgeClass } from '~/composables/domain'
 import { useUniversity } from '~/composables/useUniversityHelpers'
 import { namespace } from '~~/lib/i18n'
 
@@ -133,6 +108,13 @@ const props = defineProps<Props>()
 const { t } = useI18n()
 const { formatDuration, formatPrice } = useUniversity()
 
+const tableColumns = computed(() => [
+  { key: 'name', label: t(ns('table.programName')), align: 'left' as const },
+  { key: 'language', label: t(ns('table.language')), align: 'center' as const },
+  { key: 'durationYears', label: t(ns('table.duration')), align: 'center' as const },
+  { key: 'tuitionPerYear', label: t(ns('table.costPerYear')), align: 'center' as const },
+])
+
 const activeTab = ref<'bachelor' | 'master'>('bachelor')
 const isExpanded = ref(false)
 
@@ -145,10 +127,8 @@ const filteredPrograms = computed(() =>
   props.programs.filter((p) => p.degreeType === activeTab.value),
 )
 
-// Show toggle when more than 5 programs
 const shouldShowToggle = computed(() => filteredPrograms.value.length > 5)
 
-// Reset expanded state when tab changes
 watch(activeTab, () => {
   isExpanded.value = false
 })

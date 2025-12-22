@@ -1,6 +1,5 @@
 <template>
-  <section id="universities" class="section-py bg-gray-50">
-    <div class="container">
+  <BaseSection id="universities" bg="gray">
       <BaseSectionHeader
         :title="t(ns('title'))"
         :subtitle="t(ns('subtitle'))"
@@ -8,56 +7,44 @@
         margin-bottom="lg"
       />
 
-      <div class="flex flex-wrap justify-center gap-3 mb-10 md:gap-4 md:mb-12">
-        <button
-          :class="[
-            'px-4 py-2 text-sm rounded-xl font-medium md:px-6 md:text-base',
-            selectedCity === 'ALL_CITIES'
-              ? 'bg-primary text-white'
-              : 'bg-white border border-gray-300 text-secondary hover:border-primary hover:text-primary',
-          ]"
+      <div class="flex flex-wrap justify-center gap-component-md mb-component-lg">
+        <BaseButton
+          variant="chip"
+          size="md"
+          :data-active="selectedCity === 'ALL_CITIES' ? 'true' : undefined"
           @click="selectCity('ALL_CITIES')"
         >
           {{ t(ns('all_cities')) }}
-        </button>
-        <button
+        </BaseButton>
+        <BaseButton
           v-for="city in mainCities"
           :key="city.code"
-          :class="[
-            'px-4 py-2 text-sm rounded-xl font-medium md:px-6 md:text-base',
-            selectedCity === city.label
-              ? 'bg-primary text-white'
-              : 'bg-white border border-gray-300 text-secondary hover:border-primary hover:text-primary',
-          ]"
+          variant="chip"
+          size="md"
+          :data-active="selectedCity === city.label ? 'true' : undefined"
           @click="selectCity(city.label)"
         >
           {{ city.label }}
-        </button>
-        <button
-          :class="[
-            'px-4 py-2 text-sm rounded-xl font-medium md:px-6 md:text-base',
-            englishOnly
-              ? 'bg-primary text-white'
-              : 'bg-white border border-gray-300 text-secondary hover:border-primary hover:text-primary',
-          ]"
+        </BaseButton>
+        <BaseButton
+          variant="chip"
+          size="md"
+          :data-active="englishOnly ? 'true' : undefined"
           @click="toggleEnglishFilter"
         >
           {{ t(ns('english_language')) }}
-        </button>
-        <button
-          :class="[
-            'px-4 py-2 text-sm rounded-xl font-medium md:px-6 md:text-base',
-            budgetOnly
-              ? 'bg-primary text-white'
-              : 'bg-white border border-gray-300 text-secondary hover:border-primary hover:text-primary',
-          ]"
+        </BaseButton>
+        <BaseButton
+          variant="chip"
+          size="md"
+          :data-active="budgetOnly ? 'true' : undefined"
           @click="toggleBudgetFilter"
         >
           {{ t(ns('budget_filter')) }}
-        </button>
+        </BaseButton>
       </div>
 
-      <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+      <BaseGrid :md="2" :lg="3" gap="lg">
         <UniversitiesListCard
           v-for="university in displayedUniversities"
           :key="university.id"
@@ -70,18 +57,18 @@
           :type="university.type"
           :slug="university.slug"
         />
-      </div>
+      </BaseGrid>
 
-      <div class="text-center mt-12">
-        <NuxtLink
+      <div class="text-center mt-component-lg">
+        <BaseButton
+          variant="outline"
+          size="lg"
           :to="localePath('/universities')"
-          class="inline-block bg-white border-2 border-primary text-primary px-8 py-3 rounded-xl font-semibold hover:bg-primary hover:text-white"
         >
           {{ t(ns('view_all')) }}
-        </NuxtLink>
+        </BaseButton>
       </div>
-    </div>
-  </section>
+  </BaseSection>
 </template>
 
 <script setup lang="ts">

@@ -62,6 +62,7 @@
       },
       "card": {
         "details_button": "Подробнее",
+        "apply_button": "Подать заявку",
         "application_description": "Заявка с карточки университета:",
         "year": "год",
         "price_on_request": "Цена по запросу",

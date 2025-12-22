@@ -1,10 +1,10 @@
 <template>
-  <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-3">
-    <div class="flex items-center gap-2">
-      <div class="w-8 h-8 rounded-lg bg-primary/10 flex items-center justify-center">
-        <Icon name="mdi:school" class="w-4 h-4 text-primary" />
+  <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-component-md">
+    <div class="flex items-center gap-component-sm">
+      <div class="w-8 h-8 rounded-button bg-primary/10 flex items-center justify-center">
+        <Icon name="mdi:school" class="text-icon-sm text-primary" />
       </div>
-      <p class="text-sm text-gray-600">
+      <p class="text-body-sm">
         {{ t(sortNs('showing_text')) }}
         <span class="font-semibold text-secondary">{{ displayed }}</span>
         {{ t(sortNs('of_text')) }}
@@ -13,8 +13,8 @@
       </p>
     </div>
 
-    <div class="flex items-center gap-2">
-      <label :for="sortFieldId" class="text-xs font-medium text-gray-500 whitespace-nowrap">
+    <div class="flex items-center gap-component-sm">
+      <label :for="sortFieldId" class="text-label-sm whitespace-nowrap">
         {{ t(sortNs('sort_label')) }}
       </label>
       <BaseSelect :id="sortFieldId" :model-value="sort" class="min-w-[160px]" @update:model-value="onUpdateSort">

@@ -1,6 +1,5 @@
 <template>
-  <section class="py-12 md:py-16 bg-white">
-    <div class="container mx-auto px-4 lg:px-6">
+  <BaseSection padding="xl" bg="white">
       <BaseSectionHeader
         :title="t(ns('title'))"
         :subtitle="t(ns('subtitle'))"
@@ -8,25 +7,23 @@
         margin-bottom="lg"
       />
 
-      <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 md:gap-6">
+      <BaseGrid :cols="2" :md="3" :lg="4" gap="lg">
         <UniversitiesDetailInfoCard
           v-for="item in infoItems"
           :key="item.key"
           :icon="item.icon"
-          :icon-bg="item.iconBg"
-          :icon-color="item.iconColor"
+          :color="item.color"
           :title="item.title"
           :value="item.value"
         />
-      </div>
-    </div>
-  </section>
+      </BaseGrid>
+  </BaseSection>
 </template>
 
 <script setup lang="ts">
 import type { UniversityDetail } from '~~/lib/types'
 import { useUniversity } from '~/composables/useUniversityHelpers'
-import { getInfoItemStyle } from '~~/lib/domain/universities/constants'
+import { getInfoItemStyle } from '~/composables/domain'
 import { namespace } from '~~/lib/i18n'
 
 interface Props {
@@ -92,8 +89,7 @@ const infoItems = computed(() => {
     return {
       ...item,
       icon: style.icon,
-      iconBg: style.iconBg,
-      iconColor: style.iconColor,
+      color: style.color,
     }
   })
 })

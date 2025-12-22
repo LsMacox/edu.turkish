@@ -1,7 +1,7 @@
 <template>
   <section
     id="who-are-you"
-    :class="[!props.inModal ? 'section-py bg-background mt-10 md:mt-16' : '']"
+    :class="[!props.inModal ? 'section-py bg-background mt-section-lg' : '']"
   >
     <div :class="[props.inModal ? '' : 'container']">
       <div :class="[props.inModal ? '' : 'max-w-4xl mx-auto']">
@@ -12,189 +12,195 @@
           align="center"
           margin-bottom="lg"
         />
-        <div
+        <component
+          :is="props.inModal ? 'div' : BaseCard"
+          :variant="props.inModal ? undefined : 'surface'"
           :class="[
-            'space-y-5 md:space-y-8',
-            props.inModal ? 'flex flex-col min-h-[60vh]' : 'card-surface',
+            'space-component-xl',
+            props.inModal ? 'flex flex-col min-h-[60vh]' : '',
           ]"
         >
-          <div class="space-y-4">
+          <div class="space-component-md">
             <h3 v-if="!props.inModal" class="text-card-title hidden md:block">
               {{ t(whoNs('title')) }}
             </h3>
-            <div class="grid md:grid-cols-2 gap-2.5 md:gap-4">
-              <button
-                :class="[
-                  'p-3 md:p-4 border-2 rounded-xl md:hover:scale-105 transition-all text-left min-h-touch-44 md:min-h-auto',
-                  answers.userType === 'student'
-                    ? 'border-primary bg-red-50'
-                    : 'border-gray-200 hover:border-primary hover:bg-red-50',
-                ]"
+            <BaseGrid :md="2" gap="sm">
+              <BaseCard
+                :selected="answers.userType === 'student'"
+                hover="scale"
+                clickable
+                padding="sm"
+                shadow="none"
+                rounded="lg"
                 @click="selectOption('userType', 'student')"
               >
-                <div class="flex items-center gap-2 md:gap-3">
-                  <BaseIconBadge icon="mdi:school" color="blue" size="md" rounded="xl" />
+                <div class="flex items-center gap-component-sm">
+                  <BaseIconBox icon="mdi:school" color="info" size="md" rounded="xl" />
                   <div>
                     <p class="font-semibold text-secondary">{{ t(whoNs('student')) }}</p>
-                    <p class="text-sm text-gray-500">{{ t(whoNs('student_desc')) }}</p>
+                    <p class="text-body-sm text-meta">{{ t(whoNs('student_desc')) }}</p>
                   </div>
                 </div>
-              </button>
-              <button
-                :class="[
-                  'p-3 md:p-4 border-2 rounded-xl md:hover:scale-105 transition-all text-left min-h-touch-44 md:min-h-auto',
-                  answers.userType === 'parent'
-                    ? 'border-primary bg-red-50'
-                    : 'border-gray-200 hover:border-primary hover:bg-red-50',
-                ]"
+              </BaseCard>
+              <BaseCard
+                :selected="answers.userType === 'parent'"
+                hover="scale"
+                clickable
+                padding="sm"
+                shadow="none"
+                rounded="lg"
                 @click="selectOption('userType', 'parent')"
               >
-                <div class="flex items-center gap-2 md:gap-3">
-                  <BaseIconBadge icon="mdi:heart" color="purple" size="md" rounded="xl" />
+                <div class="flex items-center gap-component-sm">
+                  <BaseIconBox icon="mdi:heart" color="secondary" size="md" rounded="xl" />
                   <div>
                     <p class="font-semibold text-secondary">{{ t(whoNs('parent')) }}</p>
-                    <p class="text-sm text-gray-500">{{ t(whoNs('parent_desc')) }}</p>
+                    <p class="text-body-sm text-meta">{{ t(whoNs('parent_desc')) }}</p>
                   </div>
                 </div>
-              </button>
-            </div>
+              </BaseCard>
+            </BaseGrid>
           </div>
 
-          <div class="space-y-4">
+          <div class="space-component-md">
             <h3 class="text-card-title">
               {{ t(whoNs('university_chosen')) }}
             </h3>
-            <div class="grid md:grid-cols-2 gap-2.5 md:gap-4">
-              <button
-                :class="[
-                  'p-3 md:p-4 border-2 rounded-xl transition-all min-h-touch-44 md:min-h-auto text-sm md:text-base',
-                  answers.universityChosen === 'yes'
-                    ? 'border-primary bg-red-50'
-                    : 'border-gray-200 hover:border-primary hover:bg-red-50',
-                ]"
+            <BaseGrid :md="2" gap="sm">
+              <BaseCard
+                :selected="answers.universityChosen === 'yes'"
+                class="text-body"
+                clickable
+                padding="sm"
+                shadow="none"
+                rounded="lg"
                 @click="selectOption('universityChosen', 'yes')"
               >
                 {{ t(whoNs('yes_know')) }}
-              </button>
-              <button
-                :class="[
-                  'p-3 md:p-4 border-2 rounded-xl transition-all min-h-touch-44 md:min-h-auto text-sm md:text-base',
-                  answers.universityChosen === 'no'
-                    ? 'border-primary bg-red-50'
-                    : 'border-gray-200 hover:border-primary hover:bg-red-50',
-                ]"
+              </BaseCard>
+              <BaseCard
+                :selected="answers.universityChosen === 'no'"
+                class="text-body"
+                clickable
+                padding="sm"
+                shadow="none"
+                rounded="lg"
                 @click="selectOption('universityChosen', 'no')"
               >
                 {{ t(whoNs('no_help')) }}
-              </button>
-            </div>
+              </BaseCard>
+            </BaseGrid>
           </div>
 
-          <div class="space-y-4">
+          <div class="space-component-md">
             <h3 class="text-card-title">
               {{ t(whoNs('language_interest')) }}
             </h3>
-            <div class="grid md:grid-cols-2 gap-2.5 md:gap-4">
-              <button
-                :class="[
-                  'p-3 md:p-4 border-2 rounded-xl transition-all min-h-touch-44 md:min-h-auto text-sm md:text-base',
-                  answers.language === 'turkish'
-                    ? 'border-primary bg-red-50'
-                    : 'border-gray-200 hover:border-primary hover:bg-red-50',
-                ]"
+            <BaseGrid :md="2" gap="sm">
+              <BaseCard
+                :selected="answers.language === 'turkish'"
+                class="text-body"
+                clickable
+                padding="sm"
+                shadow="none"
+                rounded="lg"
                 @click="selectOption('language', 'turkish')"
               >
                 {{ t(whoNs('turkish')) }}
-              </button>
-              <button
-                :class="[
-                  'p-3 md:p-4 border-2 rounded-xl transition-all min-h-touch-44 md:min-h-auto text-sm md:text-base',
-                  answers.language === 'english'
-                    ? 'border-primary bg-red-50'
-                    : 'border-gray-200 hover:border-primary hover:bg-red-50',
-                ]"
+              </BaseCard>
+              <BaseCard
+                :selected="answers.language === 'english'"
+                class="text-body"
+                clickable
+                padding="sm"
+                shadow="none"
+                rounded="lg"
                 @click="selectOption('language', 'english')"
               >
                 {{ t(whoNs('english')) }}
-              </button>
-            </div>
+              </BaseCard>
+            </BaseGrid>
           </div>
 
-          <div class="space-y-4">
+          <div class="space-component-md">
             <h3 class="text-card-title">
               {{ t(whoNs('scholarship_help')) }}
             </h3>
-            <div class="grid md:grid-cols-2 gap-2.5 md:gap-4">
-              <button
-                :class="[
-                  'p-3 md:p-4 border-2 rounded-xl transition-all min-h-touch-44 md:min-h-auto text-sm md:text-base',
-                  answers.scholarship === 'yes'
-                    ? 'border-primary bg-red-50'
-                    : 'border-gray-200 hover:border-primary hover:bg-red-50',
-                ]"
+            <BaseGrid :md="2" gap="sm">
+              <BaseCard
+                :selected="answers.scholarship === 'yes'"
+                class="text-body"
+                clickable
+                padding="sm"
+                shadow="none"
+                rounded="lg"
                 @click="selectOption('scholarship', 'yes')"
               >
                 {{ t(whoNs('yes_important')) }}
-              </button>
-              <button
-                :class="[
-                  'p-3 md:p-4 border-2 rounded-xl transition-all min-h-touch-44 md:min-h-auto text-sm md:text-base',
-                  answers.scholarship === 'no'
-                    ? 'border-primary bg-red-50'
-                    : 'border-gray-200 hover:border-primary hover:bg-red-50',
-                ]"
+              </BaseCard>
+              <BaseCard
+                :selected="answers.scholarship === 'no'"
+                class="text-body"
+                clickable
+                padding="sm"
+                shadow="none"
+                rounded="lg"
                 @click="selectOption('scholarship', 'no')"
               >
                 {{ t(whoNs('no_ready_pay')) }}
-              </button>
-            </div>
+              </BaseCard>
+            </BaseGrid>
           </div>
 
-          <div v-if="isFormComplete" class="bg-green-50 border border-green-200 rounded-xl p-6">
-            <div class="flex items-center gap-3 mb-4">
-              <Icon name="mdi:check-circle" class="text-green-600 text-xl" />
-              <h4 class="text-lg font-semibold text-green-800">
-                {{ t(whoNs('profile_ready')) }}
-              </h4>
-            </div>
-            <div class="text-sm text-green-700 space-y-1">
+          <BaseAlert
+            v-if="isFormComplete"
+            variant="success"
+            :title="t(whoNs('profile_ready'))"
+            icon="mdi:check-circle"
+          >
+            <div class="space-component-sm">
               <p>• {{ t(whoNs('type')) }}: {{ getUserTypeText }}</p>
               <p>• {{ t(whoNs('university')) }}: {{ getUniversityText }}</p>
               <p>• {{ t(whoNs('language')) }}: {{ getLanguageText }}</p>
               <p>• {{ t(whoNs('scholarship')) }}: {{ getScholarshipText }}</p>
             </div>
-          </div>
+          </BaseAlert>
 
           <div
             :class="[
-              'flex flex-col sm:flex-row items-center justify-center gap-2 md:gap-2.5',
-              props.inModal ? 'mt-auto pt-3 md:pt-4' : 'pt-5',
+              'flex flex-col sm:flex-row items-center justify-center gap-component-sm',
+              props.inModal ? 'mt-auto pt-component-sm' : 'pt-component-md',
             ]"
           >
-            <button
+            <BaseButton
               v-if="isFormComplete"
-              class="bg-primary text-white px-4 py-2 md:px-6 md:py-3 rounded-xl font-semibold text-sm md:text-lg hover:bg-red-600 transition-all shadow-lg w-full sm:w-auto min-h-touch-44 md:min-h-touch-48"
+              variant="primary"
+              size="lg"
+              class="w-full sm:w-auto shadow-card"
               @click="openApplicationForm"
             >
               {{ t(whoNs('get_offer')) }}
-            </button>
-            <NuxtLink
+            </BaseButton>
+            <BaseButton
               v-if="!props.inModal"
+              variant="outline"
+              size="lg"
               to="#universities"
-              class="bg-white border-2 border-primary text-primary px-4 py-2 md:px-6 md:py-3 rounded-xl font-semibold text-sm md:text-lg hover:bg-primary hover:text-white transition-all w-full sm:w-auto min-h-touch-44 md:min-h-touch-48 text-center"
+              class="w-full sm:w-auto"
             >
               {{ t(whoNs('view_universities')) }}
-            </NuxtLink>
-            <button
+            </BaseButton>
+            <BaseButton
               v-else
-              type="button"
-              class="bg-white border-2 border-primary text-primary px-4 py-2 md:px-6 md:py-3 rounded-xl font-semibold text-sm md:text-lg hover:bg-primary hover:text-white transition-all w-full sm:w-auto min-h-touch-44 md:min-h-touch-48 text-center"
+              variant="outline"
+              size="lg"
+              class="w-full sm:w-auto"
               @click="handleViewUniversitiesClick"
             >
               {{ t(whoNs('view_universities')) }}
-            </button>
+            </BaseButton>
           </div>
-        </div>
+        </component>
       </div>
     </div>
   </section>
@@ -203,7 +209,7 @@
 <script setup lang="ts">
 import { namespace } from '~~/lib/i18n'
 
-// Step-by-step questionnaire section with logic
+const BaseCard = resolveComponent('BaseCard')
 const whoNs = namespace('home.who')
 
 const props = withDefaults(

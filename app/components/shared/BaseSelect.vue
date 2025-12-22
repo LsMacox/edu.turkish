@@ -1,47 +1,70 @@
 <template>
   <div class="relative">
-    <select
-      :id="selectId"
-      :name="selectName"
-      :value="modelValue"
-      :class="[
-        'w-full px-3 md:px-4 pr-10 md:pr-10 bg-white rounded-xl focus:outline-none appearance-none cursor-pointer text-secondary font-medium',
-        'py-3 md:py-3 text-sm md:text-sm min-h-touch-44 md:min-h-auto',
-        disabled ? 'opacity-50 cursor-not-allowed' : '',
-        error
-          ? 'border border-red-300 focus:ring-2 focus:ring-red-500 focus:border-red-500'
-          : 'border border-gray-300 focus:ring-2 focus:ring-primary focus:border-transparent',
-      ]"
-      :aria-invalid="!!error"
-      :disabled="disabled"
-      @change="$emit('update:modelValue', ($event.target as HTMLSelectElement).value)"
-    >
-      <slot />
-    </select>
-    <div class="absolute inset-y-0 right-0 flex items-center pr-3 md:pr-3 pointer-events-none">
-      <Icon name="mdi:chevron-down" class="w-5 h-5 md:w-5 md:h-5 text-gray-400" />
+    <!-- Label with required indicator -->
+    <BaseFieldLabel :label="label" :for-id="elementId" :required="required" :size="size" />
+
+    <div class="relative">
+      <select
+        :id="elementId"
+        :name="elementName"
+        :value="modelValue"
+        :class="[
+          'w-full px-3 md:px-4 pr-9 md:pr-9 bg-white focus:outline-none appearance-none cursor-pointer text-secondary font-medium border',
+          roundedClasses,
+          sizeClasses,
+          disabled ? 'opacity-50 cursor-not-allowed' : '',
+          validationClasses,
+        ]"
+        :aria-label="label"
+        :aria-describedby="
+          error ? `${elementId}-error` : helperText ? `${elementId}-helper` : undefined
+        "
+        :aria-required="required"
+        :aria-invalid="!!error"
+        :disabled="disabled"
+        @change="handleChange"
+        @focus="$emit('focus', $event)"
+        @blur="$emit('blur', $event)"
+      >
+        <slot />
+      </select>
+      <div class="absolute inset-y-0 right-0 flex items-center pr-2.5 pointer-events-none">
+        <Icon name="mdi:chevron-down" class="text-icon text-hint" />
+      </div>
     </div>
-    <p v-if="error" class="mt-1.5 md:mt-2 text-sm text-red-600">{{ error }}</p>
+
+    <!-- Error and helper text -->
+    <BaseFieldMessage :error="error" :helper-text="helperText" :element-id="elementId" :size="size" />
   </div>
 </template>
 
 <script setup lang="ts">
-const props = withDefaults(
-  defineProps<{
-    modelValue: string
-    disabled?: boolean
-    error?: string
-    id?: string
-    name?: string
-  }>(),
-  {},
-)
+import type { BaseSelectProps, BaseSelectEvents } from '~/types/ui'
+
+const props = withDefaults(defineProps<BaseSelectProps>(), {
+  size: 'md',
+  required: false,
+  disabled: false,
+})
+
+const roundedClasses = useRoundedClasses(() => props.rounded, { context: 'form' })
+
+const validationClasses = useValidationClasses({
+  error: () => props.error,
+})
 
 const generatedId = useId()
-const selectId = computed(() => props.id ?? generatedId)
-const selectName = computed(() => props.name ?? props.id ?? generatedId)
+const elementId = computed(() => props.id ?? generatedId)
+const elementName = computed(() => props.name ?? props.id ?? generatedId)
 
-defineEmits<{
-  (e: 'update:modelValue', value: string): void
-}>()
+// Size classes - using centralized form size classes
+const sizeClasses = useFormSizeClasses(() => props.size)
+
+const emit = defineEmits<BaseSelectEvents>()
+
+const handleChange = (event: Event) => {
+  const target = event.target as HTMLSelectElement
+  emit('update:modelValue', target.value)
+  emit('change', event)
+}
 </script>

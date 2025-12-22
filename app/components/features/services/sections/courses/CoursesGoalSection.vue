@@ -1,22 +1,22 @@
 <template>
-  <div class="mt-16">
+  <div class="mt-component-lg">
     <BaseSectionHeader :title="title" />
 
-    <div class="mt-8">
-      <p v-if="description" class="text-lg text-gray-700 mb-8">
+    <div class="mt-component-lg">
+      <p v-if="description" class="text-body-lg mb-component-lg">
         {{ description }}
       </p>
 
-      <div v-if="packages.length > 0" class="grid gap-6 md:grid-cols-3">
+      <BaseGrid v-if="packages.length > 0" :md="3" gap="lg">
         <div
           v-for="(pkg, index) in packages"
           :key="index"
-          class="border border-gray-200 rounded-lg p-6 hover:border-primary hover:shadow-md transition-all"
+          class="border border-default rounded-button card-padding hover:border-primary hover:shadow-card transition-default"
         >
-          <h3 class="text-xl font-semibold mb-2">{{ pkg.name }}</h3>
+          <h3 class="text-card-title mb-component-xs">{{ pkg.name }}</h3>
           <p class="text-2xl font-bold text-primary">{{ pkg.targetScore }}</p>
         </div>
-      </div>
+      </BaseGrid>
     </div>
   </div>
 </template>

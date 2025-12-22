@@ -21,13 +21,13 @@
     />
 
     <!-- Global Toasts -->
-    <UiFeedbackToast />
+    <FeedbackToast />
 
     <!-- Floating Action Button -->
     <FloatingWhatsApp />
 
     <!-- Page loading overlay -->
-    <UiFeedbackPageLoadingOverlay />
+    <FeedbackPageLoadingOverlay />
   </div>
 </template>
 

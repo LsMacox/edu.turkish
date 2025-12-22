@@ -1,5 +1,5 @@
 <template>
-  <UiDisplayFAQ class="py-16" :items="faqs" />
+  <DisplayFAQ class="section-py-xl" :items="faqs" :title="t(faqNs('title'))" :subtitle="t(faqNs('subtitle'))" />
 </template>
 
 <script setup lang="ts">

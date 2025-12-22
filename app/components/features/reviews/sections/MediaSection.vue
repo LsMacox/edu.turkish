@@ -1,27 +1,28 @@
 <template>
-  <section id="media-reviews" class="py-8 md:py-10 bg-white">
+  <BaseSection id="media-reviews" bg="white" :container="false">
     <div class="container mx-auto container-padding-narrow">
       <!-- Header -->
-      <div class="text-center mb-6 md:mb-8">
-        <h2 class="text-xl md:text-2xl font-bold text-secondary mb-2">
+      <BaseSectionHeader
+        :subtitle="t(mediaReviewsNs('description'))"
+        align="center"
+        margin-bottom="md"
+      >
+        <template #title>
           {{ t(mediaReviewsNs('title')) }}
           <span class="text-primary">{{ t(mediaReviewsNs('titleAccent')) }}</span>
-        </h2>
-        <p class="text-sm md:text-base text-gray-600 max-w-2xl mx-auto">
-          {{ t(mediaReviewsNs('description')) }}
-        </p>
-      </div>
+        </template>
+      </BaseSectionHeader>
 
       <!-- Loading State -->
-      <div v-if="loading" class="text-center py-12">
-        <div class="inline-block rounded-full h-12 w-12 border-b-2 border-primary" />
-        <p class="text-gray-500 mt-4">{{ t(key('common.loading')) }}</p>
+      <div v-if="loading" class="text-center section-py-sm">
+        <div class="inline-block rounded-badge h-12 w-12 border-b-2 border-primary" />
+        <p class="text-meta mt-component-sm">{{ t(key('common.loading')) }}</p>
       </div>
 
       <!-- Error State -->
-      <div v-else-if="error" class="text-center py-12">
-        <Icon name="mdi:alert-circle" class="text-5xl text-red-500 mb-4" />
-        <p class="text-red-500">{{ t(mediaReviewsNs('error')) }}</p>
+      <div v-else-if="error" class="text-center section-py-sm">
+        <Icon name="mdi:alert-circle" class="text-icon-3xl text-error mb-component-sm" />
+        <p class="text-error">{{ t(mediaReviewsNs('error')) }}</p>
       </div>
 
       <!-- Carousel -->
@@ -63,27 +64,27 @@
             />
           </component>
         </component>
-        <div v-else class="text-center py-12">
-          <p class="text-gray-500">{{ t(key('common.loading')) }}</p>
+        <div v-else class="text-center section-py-sm">
+          <p class="text-meta">{{ t(key('common.loading')) }}</p>
         </div>
 
         <template #fallback>
-          <div class="text-center py-12">
-            <p class="text-gray-500">{{ t(key('common.loading')) }}</p>
+          <div class="text-center section-py-sm">
+            <p class="text-meta">{{ t(key('common.loading')) }}</p>
           </div>
         </template>
       </ClientOnly>
 
       <!-- Empty State -->
-      <div v-else class="text-center py-12">
-        <Icon name="mdi:video-off" class="text-5xl text-gray-400 mb-4" />
-        <p class="text-gray-500">{{ t(mediaReviewsNs('empty')) }}</p>
+      <div v-else class="text-center section-py-lg">
+        <Icon name="mdi:video-off" class="text-5xl text-hint mb-component-sm" />
+        <p class="text-meta">{{ t(mediaReviewsNs('empty')) }}</p>
       </div>
     </div>
 
     <!-- Unified Media Lightbox (images + videos with navigation) -->
     <ReviewsLightboxModal :items="mediaReviewItems" :index="activeIndex" @close="closeLightbox" />
-  </section>
+  </BaseSection>
 </template>
 
 <script setup lang="ts">

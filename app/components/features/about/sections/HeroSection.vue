@@ -9,11 +9,11 @@
       loading="eager"
       aria-hidden="true"
     />
-    <div class="absolute inset-0 bg-gradient-to-br from-slate-50/80 via-blue-50/60 to-violet-50/50" />
+    <div class="absolute inset-0 gradient-hero-soft" />
     
-    <div class="relative container mx-auto container-padding-narrow pt-6 md:pt-8 pb-4">
-      <div class="text-center max-w-2xl mx-auto mb-6">
-        <h1 class="text-section-title mb-2">
+    <div class="relative container mx-auto container-padding-narrow hero-py-sm">
+      <div class="text-center max-w-2xl mx-auto mb-component-md">
+        <h1 class="text-section-title mb-component-xs">
           {{ t(heroNs('title')) }}
         </h1>
         <p class="text-section-subtitle">
@@ -22,18 +22,18 @@
       </div>
 
       <!-- Stats Grid -->
-      <div class="grid grid-cols-3 gap-3 md:gap-4 max-w-xl mx-auto">
-        <div class="bg-white/80 backdrop-blur-sm rounded-xl border border-gray-100 p-3 text-center">
-          <Icon name="mdi:account-group" class="text-xl md:text-2xl text-primary mb-1" />
-          <p class="text-xs text-gray-600">{{ t(heroNs('experienced_team')) }}</p>
+      <div class="grid grid-cols-3 gap-component-md max-w-xl mx-auto">
+        <div class="stat-card">
+          <Icon name="mdi:account-group" class="text-icon md:text-icon-lg text-primary mb-1" />
+          <p class="text-body-sm">{{ t(heroNs('experienced_team')) }}</p>
         </div>
-        <div class="bg-white/80 backdrop-blur-sm rounded-xl border border-gray-100 p-3 text-center">
-          <Icon name="mdi:check-circle" class="text-xl md:text-2xl text-green-500 mb-1" />
-          <p class="text-xs text-gray-600">{{ t(heroNs('students_enrolled')) }}</p>
+        <div class="stat-card">
+          <Icon name="mdi:check-circle" class="text-icon md:text-icon-lg text-success mb-1" />
+          <p class="text-body-sm">{{ t(heroNs('students_enrolled')) }}</p>
         </div>
-        <div class="bg-white/80 backdrop-blur-sm rounded-xl border border-gray-100 p-3 text-center">
-          <Icon name="mdi:shield-check" class="text-xl md:text-2xl text-blue-500 mb-1" />
-          <p class="text-xs text-gray-600">{{ t(heroNs('official_contracts')) }}</p>
+        <div class="stat-card">
+          <Icon name="mdi:shield-check" class="text-icon md:text-icon-lg text-info mb-1" />
+          <p class="text-body-sm">{{ t(heroNs('official_contracts')) }}</p>
         </div>
       </div>
     </div>

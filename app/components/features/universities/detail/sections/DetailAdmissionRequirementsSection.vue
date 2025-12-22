@@ -1,6 +1,5 @@
 <template>
-  <section class="py-16 bg-background">
-    <div class="container mx-auto px-4 lg:px-6">
+  <BaseSection padding="lg">
       <BaseSectionHeader
         :title="t(ns('title'))"
         :subtitle="t(ns('subtitle'))"
@@ -8,46 +7,44 @@
         margin-bottom="lg"
       />
 
-      <div class="grid lg:grid-cols-2 gap-12">
+      <BaseGrid :lg="2" gap="lg">
         <!-- Required Documents -->
-        <div class="bg-white rounded-2xl shadow-custom p-8">
-          <h3 class="text-2xl font-semibold text-secondary mb-6">
+        <BaseCard padding="xl" shadow="md" rounded="2xl">
+          <h3 class="text-section-title mb-component-md">
             {{ t(ns('requiredDocuments.title')) }}
           </h3>
-          <div class="space-y-4">
+          <div class="space-component-md">
             <div
               v-for="document in requiredDocuments"
-              :key="document.key"
-              class="flex items-start space-x-3"
+              :key="document.id"
+              class="flex items-start gap-component-sm"
             >
-              <div class="w-6 h-6 bg-green-500 rounded-full flex items-center justify-center mt-1">
-                <Icon name="ph:check" class="text-white text-xs" />
-              </div>
+              <BaseStatusBadge icon="ph:check" color="success" size="sm" class="mt-1" />
               <div>
                 <h5 class="font-semibold text-secondary">{{ document.title }}</h5>
-                <p class="text-sm text-gray-600">{{ document.description }}</p>
+                <p class="text-body-sm">{{ document.description }}</p>
                 <ul
                   v-if="document.formatRequirements?.length"
-                  class="mt-2 text-xs text-gray-500 list-disc list-inside"
+                  class="mt-2 text-body-sm text-meta list-disc list-inside"
                 >
                   <li v-for="req in document.formatRequirements" :key="req">{{ req }}</li>
                 </ul>
               </div>
             </div>
           </div>
-        </div>
+        </BaseCard>
 
         <!-- Exams and Language -->
-        <div class="space-y-8">
-          <div class="bg-white rounded-2xl shadow-custom p-8">
-            <h3 class="text-2xl font-semibold text-secondary mb-6">
+        <div class="space-component-xl">
+          <BaseCard padding="xl" shadow="md" rounded="2xl">
+            <h3 class="text-section-title mb-component-md">
               {{ t(ns('examsAndLanguage.title')) }}
             </h3>
 
-            <div class="bg-green-50 border-l-4 border-green-500 p-4 mb-6">
+            <div :class="[CALLOUT_CLASSES.success.container, 'card-padding-sm mb-component-md']">
               <div class="flex items-center">
-                <Icon name="ph:info" class="text-green-600 mr-2" />
-                <p class="text-green-800 font-semibold">
+                <Icon name="ph:info" :class="[CALLOUT_CLASSES.success.icon, 'mr-2']" />
+                <p :class="[CALLOUT_CLASSES.success.text, 'font-semibold']">
                   {{ t(ns('examsAndLanguage.goodNews')) }}
                 </p>
               </div>
@@ -56,69 +53,69 @@
               </p>
             </div>
 
-            <div class="space-y-4">
+            <div class="space-component-md">
               <div
                 v-for="requirement in examRequirements"
-                :key="requirement.key"
+                :key="requirement.id"
                 class="border-l-4 pl-4"
                 :class="requirement.borderColor"
               >
                 <h5 class="font-semibold text-secondary">{{ requirement.title }}</h5>
-                <p class="text-sm text-gray-600">{{ requirement.description }}</p>
+                <p class="text-body-sm">{{ requirement.description }}</p>
               </div>
             </div>
-          </div>
+          </BaseCard>
 
-          <div v-if="scholarships.length" class="bg-white rounded-2xl shadow-custom p-8">
-            <h3 class="text-card-title mb-4">
+          <BaseCard v-if="scholarships.length" padding="xl" shadow="md" rounded="2xl">
+            <h3 class="text-card-title mb-component-sm">
               {{ t(ns('scholarships.title')) }}
             </h3>
-            <div class="space-y-3">
+            <div class="space-component-sm">
               <div
                 v-for="scholarship in scholarships"
-                :key="scholarship.key"
-                class="flex justify-between items-center p-3 rounded-lg"
+                :key="scholarship.id"
+                class="flex justify-between items-center compact-padding rounded-button"
                 :class="scholarship.bgColor"
               >
                 <span class="font-medium text-secondary">{{ scholarship.name }}</span>
-                <span class="px-2 py-1 rounded text-sm" :class="scholarship.badgeColor">{{
+                <span class="badge-padding-sm rounded text-body-sm" :class="scholarship.badgeColor">{{
                   scholarship.discount
                 }}</span>
               </div>
             </div>
-          </div>
+          </BaseCard>
 
           <!-- Important Dates -->
-          <div v-if="importantDates.length" class="bg-white rounded-2xl shadow-custom p-8">
-            <h3 class="text-card-title mb-4">
+          <BaseCard v-if="importantDates.length" padding="xl" shadow="md" rounded="2xl">
+            <h3 class="text-card-title mb-component-sm">
               {{ t(ns('importantDates.title')) }}
             </h3>
-            <div class="space-y-3">
+            <div class="space-component-sm">
               <div
                 v-for="deadline in importantDates"
-                :key="deadline.key"
-                class="flex justify-between items-center p-3 border-l-4 border-red-500 bg-red-50 rounded-lg"
+                :key="deadline.id"
+                :class="[CALLOUT_CLASSES.error.container, 'flex justify-between items-center compact-padding rounded-button']"
               >
                 <div>
                   <span class="font-medium text-secondary">{{ deadline.event }}</span>
-                  <span class="text-xs text-gray-500 ml-2">({{ deadline.type }})</span>
+                  <span class="text-body-sm text-meta ml-2">({{ deadline.type }})</span>
                 </div>
-                <span class="px-2 py-1 bg-red-200 text-red-800 rounded text-sm font-medium">{{
+                <span class="badge-padding-sm bg-error-light text-red-800 rounded text-body-sm font-medium">{{
                   deadline.date
                 }}</span>
               </div>
             </div>
-          </div>
+          </BaseCard>
         </div>
-      </div>
-    </div>
-  </section>
+      </BaseGrid>
+  </BaseSection>
 </template>
 
 <script setup lang="ts">
 import type { UniversityDetail } from '~~/lib/types'
-import { BORDER_COLORS, SCHOLARSHIP_COLOR_SCHEMES } from '~~/lib/domain/universities/constants'
 import { namespace, key } from '~~/lib/i18n'
+import { CALLOUT_CLASSES } from '~/composables/ui'
+import { ADMISSION_BORDER_COLORS, SCHOLARSHIP_COLOR_SCHEMES } from '~/composables/domain'
 
 const ns = namespace('admissionRequirements')
 
@@ -138,8 +135,8 @@ const props = withDefaults(defineProps<Props>(), {
 const { t } = useI18n()
 
 const requiredDocuments = computed(() =>
-  props.admission.documents.map((doc, i) => ({
-    key: `doc_${i}`,
+  props.admission.documents.map((doc, _i) => ({
+    id: doc.id,
     title: doc.name,
     description: doc.description,
     formatRequirements: doc.formatRequirements ?? [],
@@ -150,10 +147,10 @@ const examRequirements = computed(() =>
   props.admission.requirements
     .filter((r) => r.category === 'exam' || r.category === 'language')
     .map((r, i) => ({
-      key: `req_${i}`,
+      id: r.id,
       title: r.requirement,
       description: r.details ?? '',
-      borderColor: BORDER_COLORS[i % BORDER_COLORS.length],
+      borderColor: ADMISSION_BORDER_COLORS[i % ADMISSION_BORDER_COLORS.length],
     })),
 )
 
@@ -161,7 +158,7 @@ const scholarships = computed(() =>
   props.admission.scholarships.map((s, i) => {
     const colorScheme = SCHOLARSHIP_COLOR_SCHEMES[i % SCHOLARSHIP_COLOR_SCHEMES.length]!
     return {
-      key: `scholarship_${i}`,
+      id: s.id,
       name: s.name,
       discount: `${t(key('range.to'))} ${s.coveragePercentage}%`,
       bgColor: colorScheme.bgColor,
@@ -171,8 +168,8 @@ const scholarships = computed(() =>
 )
 
 const importantDates = computed(() =>
-  props.admission.deadlines.map((d, i) => ({
-    key: `deadline_${i}`,
+  props.admission.deadlines.map((d) => ({
+    id: d.id,
     event: d.event,
     date: d.date,
     type: d.deadlineType,

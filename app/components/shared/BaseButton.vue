@@ -10,17 +10,15 @@
     :aria-label="ariaLabel"
     :tabindex="tabIndex"
     :class="[
-      'active:bg-red-700  inline-flex items-center justify-center font-semibold transition-all duration-200 touch-manipulation',
-      'focus:outline-none focus:ring-2 focus:ring-offset-2',
+      'inline-flex items-center justify-center transition-all duration-200 [touch-action:manipulation]',
+      'focus:outline-none',
+      !noFocusRing && 'focus:ring-2 focus:ring-offset-2 focus-visible:ring-2 focus-visible:ring-offset-2',
       'disabled:opacity-50 disabled:cursor-not-allowed',
-      // Enhanced keyboard focus styling
-      'focus-visible:ring-2 focus-visible:ring-offset-2',
       sizeClasses,
+      roundedClasses,
       variantClasses,
       fullWidth ? 'w-full' : '',
       loading ? 'cursor-wait' : '',
-      // Ensure minimum touch target size
-      'min-h-touch-44 min-w-touch-44',
     ]"
     @click="handleClick"
     @keydown="handleKeydown"
@@ -83,6 +81,7 @@ const props = withDefaults(defineProps<BaseButtonProps>(), {
   type: 'button',
   preventDefault: false,
   stopPropagation: false,
+  noFocusRing: false,
 })
 
 const emit = defineEmits<BaseButtonEvents>()
@@ -91,12 +90,10 @@ const slots = useSlots()
 
 const rootEl = ref<HTMLElement | ComponentPublicInstance | null>(null)
 
-// Determine if this is an icon-only button
 const iconOnly = computed(() => {
   return Boolean(props.icon) && !slots.default
 })
 
-// Determine which component/tag to render
 const tag = computed(() => {
   if (props.href) return 'a'
   if (props.to) return resolveComponent('NuxtLink')
@@ -105,22 +102,30 @@ const tag = computed(() => {
 
 const isButton = computed(() => tag.value === 'button')
 
-// Size-based classes
-const sizeClasses = computed(() => {
-  switch (props.size) {
-    case 'sm':
-      return 'btn-padding-sm text-xs md:text-sm rounded-lg'
-    case 'lg':
-      return 'btn-padding-lg text-base md:text-lg rounded-xl'
-    case 'xl':
-      return 'btn-padding-xl text-lg md:text-xl rounded-2xl min-h-touch-48'
-    default: // md
-      return 'btn-padding-md text-sm md:text-base rounded-xl'
-  }
-})
+const sizeClasses = useFormSizeClasses(() => props.size)
+const roundedClasses = useRoundedClasses(() => props.rounded, { context: 'form', defaultSize: 'md' })
 
-// Icon size based on button size
+// Variant classes now moved to useVariant.ts
+const variantClasses = useButtonVariantClasses(() => props.variant)
+
 const iconSizeClasses = computed(() => {
+  // Special cases for specific variants
+  switch (props.variant) {
+    case 'lightbox-close':
+    case 'lightbox-nav':
+      return 'text-2xl'
+    case 'toast-close':
+    case 'input-clear':
+      return 'w-5 h-5'
+    case 'icon-close-lg':
+      return 'text-2xl'
+    case 'icon-close-md':
+      return 'text-xl'
+    case 'icon-close-sm':
+      return 'w-5 h-5'
+  }
+  
+  // Default responsive icon sizes
   switch (props.size) {
     case 'sm':
       return 'w-4 h-4'
@@ -133,37 +138,6 @@ const iconSizeClasses = computed(() => {
   }
 })
 
-// Variant-based classes with enhanced focus states
-const variantClasses = computed(() => {
-  switch (props.variant) {
-    case 'secondary':
-      return [
-        'bg-white text-secondary border border-gray-300',
-        'hover:bg-gray-50 hover:border-gray-400',
-        'focus:ring-gray-500 focus-visible:ring-gray-500',
-      ].join(' ')
-    case 'outline':
-      return [
-        'bg-transparent text-primary border border-primary',
-        'hover:bg-primary hover:text-white',
-        'focus:ring-primary focus-visible:ring-primary',
-      ].join(' ')
-    case 'ghost':
-      return [
-        'bg-transparent text-primary border border-transparent',
-        'hover:bg-red-50 hover:text-red-600',
-        'focus:ring-primary focus-visible:ring-primary',
-      ].join(' ')
-    default: // primary
-      return [
-        'bg-primary text-white border border-primary',
-        'hover:bg-red-600 hover:border-red-600',
-        'focus:ring-primary focus-visible:ring-primary',
-      ].join(' ')
-  }
-})
-
-// Enhanced event handlers
 const handleClick = (event: Event) => {
   if (props.disabled || props.loading) {
     event.preventDefault()
@@ -183,7 +157,6 @@ const handleClick = (event: Event) => {
 }
 
 const handleKeydown = (event: KeyboardEvent) => {
-  // Activate button on Enter or Space
   if (event.key === 'Enter' || event.key === ' ') {
     if (!props.disabled && !props.loading) {
       event.preventDefault()
@@ -192,26 +165,21 @@ const handleKeydown = (event: KeyboardEvent) => {
   }
 }
 
-// Expose methods for parent component access
 const getElement = () => {
-  if (!rootEl.value) {
-    return null
-  }
-
-  if (rootEl.value instanceof HTMLElement) {
-    return rootEl.value
-  }
-
+  if (!rootEl.value) return null
+  if (rootEl.value instanceof HTMLElement) return rootEl.value
   const element = (rootEl.value as ComponentPublicInstance).$el
   return element instanceof HTMLElement ? element : null
 }
 
+const tabIndex = computed(() => {
+  if (props.tabIndex !== undefined) return props.tabIndex
+  if (props.disabled || props.loading) return -1
+  return 0
+})
+
 defineExpose({
-  focus: () => {
-    getElement()?.focus()
-  },
-  blur: () => {
-    getElement()?.blur()
-  },
+  focus: () => getElement()?.focus(),
+  blur: () => getElement()?.blur(),
 })
 </script>

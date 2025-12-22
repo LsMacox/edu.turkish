@@ -2,7 +2,7 @@
   <div class="bg-white">
     <section v-if="pending" class="py-20">
       <div class="container mx-auto px-4 lg:px-6">
-        <div class="rounded-3xl bg-white p-10 text-center shadow-custom">
+        <div class="rounded-card-lg bg-white p-10 text-center shadow-custom">
           <p class="text-lg font-semibold text-secondary">{{ t(articleNs('loading')) }}</p>
         </div>
       </div>
@@ -10,11 +10,11 @@
 
     <section v-else-if="errorMessage" class="py-20">
       <div class="container mx-auto px-4 lg:px-6">
-        <div class="space-y-6 rounded-3xl bg-white p-10 text-center shadow-custom">
+        <div class="space-y-6 rounded-card-lg bg-white p-10 text-center shadow-custom">
           <p class="text-2xl font-semibold text-secondary">{{ errorMessage }}</p>
           <NuxtLink
             :to="localePath('/')"
-            class="inline-flex items-center gap-2 rounded-full bg-secondary px-6 py-3 text-sm font-semibold text-white shadow-lg transition hover:bg-secondary/90"
+            class="inline-flex items-center gap-component-sm rounded-full bg-secondary px-6 py-3 text-sm font-semibold text-white shadow-card-hover transition hover:bg-secondary/90"
           >
             {{ t(key('back_to_home')) }}
             <Icon name="mdi:arrow-right" class="text-lg" />

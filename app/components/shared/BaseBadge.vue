@@ -1,14 +1,30 @@
 <template>
   <span
+    role="status"
+    :aria-label="ariaLabel"
     :class="[
-      'inline-flex items-center font-medium rounded-lg',
-      sizeClasses,
+      'inline-flex items-center font-medium',
+      roundedClasses,
+      sizeClasses.container,
       colorClasses,
+      outlined ? 'ring-1 ring-inset ring-current' : '',
       removable ? 'pr-1' : '',
     ]"
   >
+    <!-- Status dot indicator -->
+    <span
+      v-if="dot"
+      :class="[
+        'rounded-full',
+        sizeClasses.dot,
+        dotColorClasses,
+        pulse ? 'animate-pulse' : '',
+        $slots.default || icon ? 'mr-1.5' : '',
+      ]"
+    />
+
     <!-- Icon (if provided) -->
-    <Icon v-if="icon" :name="icon" :class="[iconSizeClasses, $slots.default ? 'mr-1' : '']" />
+    <Icon v-if="icon" :name="icon" :class="[sizeClasses.icon, $slots.default ? 'mr-1' : '']" />
 
     <!-- Badge content -->
     <slot />
@@ -19,128 +35,45 @@
       :class="[
         'ml-1 inline-flex items-center justify-center rounded-full',
         'hover:opacity-75 focus:outline-none transition-opacity',
-        removeButtonClasses,
+        sizeClasses.removeButton,
       ]"
       :aria-label="removeLabel"
       @click="handleRemove"
     >
-      <Icon name="mdi:close" :class="removeIconClasses" />
+      <Icon name="mdi:close" :class="sizeClasses.removeIcon" />
     </button>
   </span>
 </template>
 
 <script setup lang="ts">
-import type { BaseBadgeProps } from '~/types/ui'
+import type { BaseBadgeProps, BaseBadgeEvents } from '~/types/ui'
+import { SEMANTIC_BG_COLORS, SEMANTIC_BADGE_COLORS } from '~/composables/ui'
 
 const props = withDefaults(defineProps<BaseBadgeProps>(), {
   color: 'neutral',
   size: 'md',
   variant: 'soft',
+  rounded: 'xl',
   removable: false,
   removeLabel: 'Remove',
+  dot: false,
+  pulse: false,
+  outlined: false,
+  ariaLabel: undefined,
 })
 
-const emit = defineEmits<{
-  remove: []
-}>()
+const emit = defineEmits<BaseBadgeEvents>()
 
-// Size-based classes
-const sizeClasses = computed(() => {
-  switch (props.size) {
-    case 'sm':
-      return 'px-2 py-0.5 text-xs'
-    case 'lg':
-      return 'px-3 py-1 text-sm'
-    default: // md
-      return 'px-2 py-1 text-xs'
-  }
+const roundedClasses = useRoundedClasses(() => props.rounded, { context: 'badge' })
+const sizeClasses = useBadgeSizeClasses(() => props.size)
+
+const dotColorClasses = computed(() => {
+  return SEMANTIC_BG_COLORS[props.color] || SEMANTIC_BG_COLORS.neutral
 })
 
-// Icon size based on badge size
-const iconSizeClasses = computed(() => {
-  switch (props.size) {
-    case 'sm':
-      return 'w-3 h-3'
-    case 'lg':
-      return 'w-4 h-4'
-    default: // md
-      return 'w-3 h-3'
-  }
-})
-
-// Remove button classes based on size
-const removeButtonClasses = computed(() => {
-  switch (props.size) {
-    case 'sm':
-      return 'w-3 h-3'
-    case 'lg':
-      return 'w-4 h-4'
-    default: // md
-      return 'w-3 h-3'
-  }
-})
-
-// Remove icon classes based on size
-const removeIconClasses = computed(() => {
-  switch (props.size) {
-    case 'sm':
-      return 'w-2 h-2'
-    case 'lg':
-      return 'w-3 h-3'
-    default: // md
-      return 'w-2 h-2'
-  }
-})
-
-// Color and variant-based classes
 const colorClasses = computed(() => {
   const { color, variant } = props
-
-  // Color mappings for different variants
-  const colorMap = {
-    primary: {
-      solid: 'bg-primary text-white',
-      soft: 'bg-red-100 text-red-800',
-      outline: 'border border-primary text-primary bg-transparent',
-    },
-    secondary: {
-      solid: 'bg-secondary text-white',
-      soft: 'bg-gray-100 text-gray-800',
-      outline: 'border border-secondary text-secondary bg-transparent',
-    },
-    success: {
-      solid: 'bg-green-600 text-white',
-      soft: 'bg-green-100 text-green-800',
-      outline: 'border border-green-600 text-green-600 bg-transparent',
-    },
-    warning: {
-      solid: 'bg-yellow-600 text-white',
-      soft: 'bg-yellow-100 text-yellow-800',
-      outline: 'border border-yellow-600 text-yellow-600 bg-transparent',
-    },
-    error: {
-      solid: 'bg-red-600 text-white',
-      soft: 'bg-red-100 text-red-800',
-      outline: 'border border-red-600 text-red-600 bg-transparent',
-    },
-    info: {
-      solid: 'bg-blue-600 text-white',
-      soft: 'bg-blue-100 text-blue-800',
-      outline: 'border border-blue-600 text-blue-600 bg-transparent',
-    },
-    neutral: {
-      solid: 'bg-gray-600 text-white',
-      soft: 'bg-gray-100 text-gray-700',
-      outline: 'border border-gray-300 text-gray-700 bg-transparent',
-    },
-    gray: {
-      solid: 'bg-gray-600 text-white',
-      soft: 'bg-gray-100 text-gray-700',
-      outline: 'border border-gray-300 text-gray-700 bg-transparent',
-    },
-  }
-
-  return colorMap[color]?.[variant] || colorMap.neutral.soft
+  return SEMANTIC_BADGE_COLORS[color]?.[variant] || SEMANTIC_BADGE_COLORS.neutral.soft
 })
 
 const handleRemove = () => {

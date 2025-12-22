@@ -1,0 +1,269 @@
+/* ============================================================================
+   SPACING SYSTEM
+   ============================================================================
+   
+   RECOMMENDED TOKENS (use these primarily):
+   - space-component-{sm,md,lg} - vertical spacing between elements
+   - gap-component-{sm,md,lg}   - horizontal/grid gaps
+   - mb-component-{sm,md,lg}    - margin bottom
+   - section-py{,-sm,-lg}       - section vertical padding
+   
+   SPECIALIZED TOKENS:
+   - container-padding          - page container horizontal padding
+   - card-padding-{sm,,lg}      - card internal padding (in cards.css)
+   - badge-padding{,-sm,-lg}    - badge/tag padding
+   
+   ============================================================================ */
+
+@layer components {
+  /* ========================================
+     CONTAINER PADDING
+     ======================================== */
+  .container-padding {
+    @apply px-4 sm:px-5 md:px-6 lg:px-6;
+  }
+
+  .container-padding-narrow {
+    @apply px-4 md:px-6;
+  }
+
+  /* ========================================
+     SECTION VERTICAL PADDING
+     Primary: section-py (default), section-py-lg (spacious)
+     ======================================== */
+  .section-py {
+    @apply py-8 md:py-10;
+  }
+
+  .section-py-sm {
+    @apply py-6 md:py-8;
+  }
+
+  .section-py-lg {
+    @apply py-8 md:py-12;
+  }
+
+  .section-py-xl {
+    @apply py-12 md:py-16;
+  }
+
+  /* ========================================
+     SECTION MARGINS
+     ======================================== */
+  .mt-section {
+    @apply mt-10 md:mt-12;
+  }
+
+  .mt-section-lg {
+    @apply mt-12 md:mt-16;
+  }
+
+  /* ========================================
+     SECTION GAPS (for grid layouts)
+     ======================================== */
+  .gap-section {
+    @apply gap-4 md:gap-6 lg:gap-8;
+  }
+
+  .gap-section-sm {
+    @apply gap-3 md:gap-4 lg:gap-6;
+  }
+
+  .gap-section-lg {
+    @apply gap-6 md:gap-8 lg:gap-12;
+  }
+
+  /* ========================================
+     COMPONENT SPACING - VERTICAL (space-y)
+     Primary: sm, md, lg
+     ======================================== */
+  .space-component-xs {
+    @apply space-y-1 md:space-y-1.5;
+  }
+
+  .space-component-sm {
+    @apply space-y-2 md:space-y-3;
+  }
+
+  .space-component-md {
+    @apply space-y-3 md:space-y-4;
+  }
+
+  .space-component-lg {
+    @apply space-y-4 md:space-y-6;
+  }
+
+  .space-component-xl {
+    @apply space-y-5 md:space-y-8;
+  }
+
+  /* ========================================
+     COMPONENT GAPS - HORIZONTAL (gap)
+     Primary: sm, md, lg
+     ======================================== */
+  .gap-component-xs {
+    @apply gap-1.5 md:gap-2;
+  }
+
+  .gap-component-sm {
+    @apply gap-2 md:gap-3;
+  }
+
+  .gap-component-md {
+    @apply gap-3 md:gap-4;
+  }
+
+  .gap-component-lg {
+    @apply gap-4 md:gap-6;
+  }
+
+  .gap-component-xl {
+    @apply gap-5 md:gap-8;
+  }
+
+  /* ========================================
+     COMPONENT MARGINS - BOTTOM
+     Primary: sm, md, lg
+     ======================================== */
+  .mb-component-xs {
+    @apply mb-2 md:mb-3;
+  }
+
+  .mb-component-sm {
+    @apply mb-3 md:mb-4;
+  }
+
+  .mb-component-md {
+    @apply mb-4 md:mb-6;
+  }
+
+  .mb-component-lg {
+    @apply mb-6 md:mb-8;
+  }
+
+  .mb-component-xl {
+    @apply mb-8 md:mb-10;
+  }
+
+  /* ========================================
+     COMPONENT MARGINS - TOP
+     Primary: sm, md, lg
+     ======================================== */
+  .mt-component-xs {
+    @apply mt-2 md:mt-3;
+  }
+
+  .mt-component-sm {
+    @apply mt-3 md:mt-4;
+  }
+
+  .mt-component-md {
+    @apply mt-4 md:mt-6;
+  }
+
+  .mt-component-lg {
+    @apply mt-6 md:mt-8;
+  }
+
+  .mt-component-xl {
+    @apply mt-8 md:mt-10;
+  }
+
+  /* ========================================
+     COMPONENT PADDING - TOP
+     Primary: sm, md, lg
+     ======================================== */
+  .pt-component-xs {
+    @apply pt-2 md:pt-3;
+  }
+
+  .pt-component-sm {
+    @apply pt-3 md:pt-4;
+  }
+
+  .pt-component-md {
+    @apply pt-4 md:pt-6;
+  }
+
+  .pt-component-lg {
+    @apply pt-6 md:pt-8;
+  }
+
+  .pt-component-xl {
+    @apply pt-8 md:pt-10;
+  }
+
+  /* ========================================
+     MICRO SPACING (labels, inline elements)
+     ======================================== */
+  .mb-label {
+    @apply mb-1.5 md:mb-2;
+  }
+
+  .mt-inline {
+    @apply mt-0.5;
+  }
+
+  .mt-inline-sm {
+    @apply mt-1;
+  }
+
+  /* ========================================
+     SPECIALIZED PADDING
+     ======================================== */
+
+  /* Table cells */
+  .table-cell {
+    @apply px-3 py-3 md:px-6 md:py-4;
+  }
+
+  .table-cell-sm {
+    @apply px-2 py-2 md:px-4 md:py-3;
+  }
+
+  .table-cell-xs {
+    @apply px-2 py-1.5 md:px-3 md:py-2;
+  }
+
+  /* Badges/Tags */
+  .badge-padding {
+    @apply px-3 py-1.5;
+  }
+
+  .badge-padding-sm {
+    @apply px-2 py-1;
+  }
+
+  .badge-padding-lg {
+    @apply px-4 py-2;
+  }
+
+  /* List items */
+  .list-item-padding {
+    @apply px-3 py-2.5;
+  }
+
+  .list-item-padding-sm {
+    @apply px-2 py-2;
+  }
+
+  /* Compact containers */
+  .compact-padding {
+    @apply p-3;
+  }
+
+  .compact-padding-sm {
+    @apply p-2;
+  }
+
+  .compact-padding-xs {
+    @apply p-1;
+  }
+
+  /* ========================================
+     UTILITIES
+     ======================================== */
+  .ring-default {
+    @apply ring-1 ring-gray-100/50;
+  }
+}

@@ -1,0 +1,37 @@
+@layer components {
+
+  /* Semantic shadow utilities */
+  .shadow-elevated {
+    @apply shadow-custom;
+  }
+
+  .shadow-interactive {
+    @apply shadow-button hover:shadow-button-hover transition-shadow;
+  }
+
+  .shadow-card-interactive {
+    @apply shadow-card hover:shadow-card-hover transition-shadow;
+  }
+
+  .shadow-button-lift {
+    @apply shadow-button hover:shadow-card transition-shadow;
+  }
+
+  .shadow-dropdown {
+    @apply shadow-xl;
+  }
+
+  /* Floating elements: WhatsApp button, floating CTAs */
+  .shadow-floating {
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  }
+
+  .shadow-floating-hover {
+    box-shadow: 0 6px 16px rgba(0, 0, 0, 0.2);
+  }
+
+  /* Fixed bottom elements: sticky CTAs, mobile navigation */
+  .shadow-fixed {
+    box-shadow: 0 -4px 20px rgba(0, 0, 0, 0.1);
+  }
+}

@@ -1,39 +1,39 @@
 <template>
   <div class="standard-article">
     <section
-      class="relative overflow-hidden bg-gradient-to-br from-primary/10 via-white to-secondary/10 py-8 md:py-20"
+      class="relative overflow-hidden gradient-hero-primary section-py"
     >
-      <div class="container mx-auto px-4 lg:px-6">
-        <div class="grid items-center gap-6 md:gap-12 lg:grid-cols-[minmax(0,1.8fr)_minmax(0,1fr)]">
-          <div class="space-y-4 md:space-y-6">
-            <span
+      <div class="container mx-auto container-padding">
+        <div class="grid items-center gap-component-lg lg:grid-cols-[minmax(0,1.8fr)_minmax(0,1fr)]">
+          <div class="space-component-lg">
+            <BaseBadge
               v-if="heroKicker"
-              class="inline-flex items-center rounded-full bg-primary/10 px-4 py-1 text-sm font-semibold text-primary"
+              color="primary"
+              variant="soft"
             >
               {{ heroKicker }}
-            </span>
-            <h1 class="text-4xl font-bold leading-tight text-secondary lg:text-5xl">
+            </BaseBadge>
+            <h1 class="text-hero">
               {{ article.title }}
             </h1>
-            <p v-if="heroSubtitle" class="text-lg text-gray-600 lg:text-xl">
+            <p v-if="heroSubtitle" class="text-hero-subtitle">
               {{ heroSubtitle }}
             </p>
-            <div class="flex flex-wrap gap-4 text-sm text-gray-500">
-              <div
+            <div class="flex flex-wrap gap-component-lg text-body-sm text-meta">
+              <BaseIconText
                 v-for="metaItem in heroMeta"
                 :key="metaItem.label"
-                class="flex items-center gap-2"
-              >
-                <Icon :name="metaItem.icon" class="text-primary" />
-                {{ metaItem.label }}
-              </div>
+                :icon="metaItem.icon"
+                :text="metaItem.label"
+                size="sm"
+                color="neutral"
+                icon-color="primary"
+                spacing="sm"
+              />
             </div>
           </div>
           <div v-if="resolvedHeroImage" class="relative">
-            <div
-              class="absolute -top-8 -right-6 hidden h-40 w-40 rounded-full bg-primary/10 blur-3xl lg:block"
-            />
-            <div class="relative overflow-hidden rounded-3xl shadow-custom h-80 lg:h-96">
+            <div class="relative overflow-hidden rounded-card-lg shadow-elevated h-hero-image-lg">
               <NuxtImg
                 :src="resolvedHeroImage"
                 :alt="heroImageAlt"
@@ -47,13 +47,13 @@
       </div>
     </section>
 
-    <section class="py-6 md:py-12 lg:py-20">
-      <div class="container mx-auto px-4 lg:px-6">
-        <div class="grid gap-4 md:gap-8 lg:gap-12 lg:grid-cols-[minmax(0,2.4fr)_minmax(0,1fr)]">
+    <section class="section-py-lg">
+      <div class="container mx-auto container-padding">
+        <div class="grid gap-component-lg lg:grid-cols-[minmax(0,2.4fr)_minmax(0,1fr)]">
           <!-- Main content -->
           <div class="order-1 lg:order-1">
             <article
-              class="prose-article rounded-2xl md:rounded-3xl bg-white p-4 md:p-6 shadow-lg ring-1 ring-gray-100/50 lg:p-10 xl:p-12"
+              class="prose-article rounded-responsive-lg bg-white card-padding-article shadow-card ring-default"
             >
               <BlogContentRenderer
                 :content="article.content"
@@ -65,169 +65,66 @@
           </div>
 
           <!-- Sticky sidebar -->
-          <aside class="order-3 lg:order-2 space-y-3 md:space-y-4 lg:space-y-6 lg:sticky lg:top-24 lg:self-start">
-            <div
-              v-if="tableOfContents.length"
-              class="hidden md:block rounded-2xl bg-white p-5 shadow-lg ring-1 ring-gray-100/50"
-            >
-              <h3
-                class="flex items-center gap-2 text-sm font-bold uppercase tracking-wide text-gray-400"
-              >
-                <Icon name="mdi:format-list-bulleted" class="text-lg" />
-                {{ t(ns('tableOfContents')) }}
-              </h3>
-              <nav class="mt-4 space-y-1">
-                <button
-                  v-for="section in tableOfContents"
-                  :key="section.id"
-                  type="button"
-                  class="group flex w-full items-center gap-3 rounded-xl px-3 py-2.5 text-sm text-left transition-all hover:bg-primary/5"
-                  :class="{ 'bg-primary/10': activeSectionId === section.id }"
-                  @click="scrollToSection(section.id)"
-                >
-                  <span
-                    class="flex h-7 w-7 shrink-0 items-center justify-center rounded-lg text-xs font-bold transition-colors"
-                    :class="
-                      activeSectionId === section.id
-                        ? 'bg-primary text-white'
-                        : 'bg-gray-100 text-gray-500 group-hover:bg-primary group-hover:text-white'
-                    "
-                  >
-                    {{ section.order }}
-                  </span>
-                  <span
-                    class="line-clamp-2 transition-colors"
-                    :class="
-                      activeSectionId === section.id
-                        ? 'text-secondary font-medium'
-                        : 'text-gray-600 group-hover:text-secondary'
-                    "
-                  >
-                    {{ section.title }}
-                  </span>
-                </button>
-              </nav>
-            </div>
+          <aside class="order-3 lg:order-2 space-component-md lg:space-component-lg lg:sticky lg:top-24 lg:self-start">
+            <SidebarTableOfContents
+              :title="t(ns('tableOfContents'))"
+              :items="tableOfContents"
+              :active-id="activeSectionId"
+              @scroll-to="scrollToSection"
+            />
 
-            <div
-              v-if="quickFacts.length"
-              class="hidden lg:block overflow-hidden rounded-2xl bg-gradient-to-br from-primary to-secondary p-[2px] shadow-lg"
-            >
-              <div class="rounded-[14px] bg-white p-4 sm:p-5">
-                <h3
-                  class="flex items-center gap-2 text-sm font-bold uppercase tracking-wide text-gray-400"
-                >
-                  <Icon name="mdi:lightning-bolt" class="text-lg text-primary" />
-                  {{ t(ns('quickFacts.title')) }}
-                </h3>
-                <ul class="mt-4 space-y-3 sm:space-y-4">
-                  <li v-for="fact in quickFacts" :key="fact.title" class="flex gap-3">
-                    <span
-                      class="flex h-8 w-8 sm:h-9 sm:w-9 shrink-0 items-center justify-center rounded-xl bg-primary/10"
-                    >
-                      <Icon
-                        :name="fact.icon || 'mdi:information-outline'"
-                        class="text-base sm:text-lg text-primary"
-                      />
-                    </span>
-                    <div class="flex-1 min-w-0">
-                      <p class="text-xs font-medium uppercase tracking-wide text-gray-400 mb-1">
-                        {{ fact.title }}
-                      </p>
-                      <p class="text-sm font-semibold text-secondary break-words">{{ fact.value }}</p>
-                    </div>
-                  </li>
-                </ul>
-              </div>
-            </div>
-            <div class="order-2 lg:order-none rounded-xl md:rounded-2xl bg-gray-50 p-4 md:p-5">
-              <h3
-                class="flex items-center gap-2 text-sm font-bold uppercase tracking-wide text-gray-400"
-              >
-                <Icon name="mdi:share-variant" class="text-lg" />
-                {{ t(ns('share.title')) }}
-              </h3>
-              <p class="mt-2 text-sm text-gray-500">
-                {{ t(ns('share.description')) }}
-              </p>
-              <div class="mt-4 flex flex-wrap gap-2">
-                <a
-                  v-for="link in shareLinks"
-                  :key="link.label"
-                  :href="link.href"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  class="inline-flex items-center gap-2 rounded-xl border border-gray-200 bg-white px-3 py-2 text-sm font-medium text-gray-600 shadow-sm transition-all hover:border-primary hover:text-primary hover:shadow-md"
-                >
-                  <Icon :name="link.icon" class="text-base" />
-                  {{ link.label }}
-                </a>
-                <button
-                  type="button"
-                  class="inline-flex items-center gap-2 rounded-xl border border-gray-200 bg-white px-3 py-2 text-sm font-medium text-gray-600 shadow-sm transition-all hover:border-primary hover:text-primary hover:shadow-md"
-                  @click="copyShareLink"
-                >
-                  <Icon name="mdi:link-variant" class="text-base" />
-                  {{ t(ns('share.copyLink')) }}
-                </button>
-              </div>
-            </div>
+            <SidebarQuickFacts
+              :title="t(ns('quickFacts.title'))"
+              :items="quickFacts"
+            />
 
-            <div
-              v-if="tags.length"
-              class="hidden lg:block rounded-2xl bg-white p-5 shadow-lg ring-1 ring-gray-100/50"
-            >
-              <h3
-                class="flex items-center gap-2 text-sm font-bold uppercase tracking-wide text-gray-400"
-              >
-                <Icon name="mdi:tag-multiple" class="text-lg" />
-                {{ t(ns('tags.title')) }}
-              </h3>
-              <div class="mt-3 flex flex-wrap gap-2">
-                <span
-                  v-for="tag in tags"
-                  :key="tag"
-                  class="inline-flex items-center rounded-lg bg-primary/10 px-3 py-1.5 text-xs font-semibold text-primary transition-colors hover:bg-primary hover:text-white cursor-pointer"
-                >
-                  #{{ tag }}
-                </span>
-              </div>
-            </div>
+            <SidebarShareLinks
+              :title="t(ns('share.title'))"
+              :description="t(ns('share.description'))"
+              :links="shareLinks"
+              :copy-link-text="t(ns('share.copyLink'))"
+              container-class="order-2 lg:order-none"
+              @copy-link="copyShareLink"
+            />
+
+            <SidebarTags
+              :title="t(ns('tags.title'))"
+              :tags="tags"
+            />
           </aside>
         </div>
       </div>
     </section>
 
-    <section v-if="relatedArticles.length" class="border-t border-gray-100 bg-background py-16">
-      <div class="container mx-auto px-4 lg:px-6">
-        <div class="flex flex-col gap-8 lg:flex-row lg:items-center lg:justify-between">
-          <div>
-            <h2 class="text-section-title">
-              {{ t(ns('related.title')) }}
-            </h2>
-            <p class="text-section-subtitle max-w-2xl">
-              {{ t(ns('related.description')) }}
-            </p>
-          </div>
+    <section v-if="relatedArticles.length" class="border-t border-default bg-background section-py-lg">
+      <div class="container mx-auto container-padding">
+        <div class="flex flex-col gap-component-lg lg:flex-row lg:items-center lg:justify-between">
+          <BaseSectionHeader
+            :title="t(ns('related.title'))"
+            :subtitle="t(ns('related.description'))"
+            align="left"
+            max-width="full"
+            margin-bottom="none"
+          />
           <NuxtLink
             :to="localePath('/blog')"
-            class="inline-flex items-center gap-2 rounded-full bg-secondary px-6 py-3 text-sm font-semibold text-white shadow-lg transition-all duration-300 hover:bg-primary hover:shadow-primary/25"
+            class="inline-flex items-center gap-component-sm rounded-badge bg-secondary badge-padding-lg text-body-sm font-semibold text-white shadow-card transition-default hover:bg-primary hover:shadow-primary/25"
           >
             {{ t(ns('related.allArticles')) }}
             <Icon
               name="mdi:arrow-right"
-              class="text-lg transition-transform group-hover:translate-x-1"
+              class="text-icon-lg transition-scale group-hover:translate-x-1"
             />
           </NuxtLink>
         </div>
 
-        <div class="mt-10 grid gap-6 md:grid-cols-2 xl:grid-cols-3">
+        <BaseGrid :md="2" :xl="3" gap="lg" class="mt-component-lg">
           <BlogRelatedArticleCard
             v-for="related in relatedArticles"
             :key="related.id"
             :article="related"
           />
-        </div>
+        </BaseGrid>
       </div>
     </section>
   </div>
@@ -279,18 +176,3 @@ const {
 const { activeSectionId, scrollToSection } = useTableOfContentsScrollspy(tableOfContents)
 </script>
 
-<style scoped>
-.shadow-custom {
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
-}
-
-.hover\:-translate-y-1:hover {
-  transform: translateY(-0.25rem);
-}
-
-.hover\:-translate-y-1 {
-  transition:
-    transform 0.3s ease,
-    box-shadow 0.3s ease;
-}
-</style>

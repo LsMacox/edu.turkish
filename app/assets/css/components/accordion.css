@@ -1,0 +1,57 @@
+@layer components {
+  /* Accordion item container */
+  .accordion-item {
+    @apply rounded-card border transition-default;
+  }
+
+  .accordion-item-closed {
+    @apply border-gray-100 bg-white hover:border-gray-200;
+  }
+
+  .accordion-item-open {
+    @apply border-primary/20 bg-gradient-to-r from-primary/5 to-transparent shadow-button;
+  }
+
+  /* Accordion header/trigger */
+  .accordion-trigger {
+    @apply text-base sm:text-lg font-medium pr-4 transition-color;
+  }
+
+  .accordion-trigger-closed {
+    @apply text-secondary group-hover:text-primary;
+  }
+
+  .accordion-trigger-open {
+    @apply text-primary;
+  }
+
+  /* Accordion chevron icon */
+  .accordion-chevron {
+    @apply w-5 h-5 text-hint shrink-0 transition-scale;
+  }
+
+  /* Accordion content */
+  .accordion-answer {
+    @apply text-body-sm leading-relaxed;
+  }
+
+  .accordion-content {
+    @apply prose prose-gray max-w-none;
+  }
+
+  .accordion-content :deep(ul) {
+    @apply list-disc ml-6 space-y-1;
+  }
+
+  .accordion-content :deep(ol) {
+    @apply list-decimal ml-6 space-y-1;
+  }
+
+  .accordion-content :deep(h4) {
+    @apply font-medium text-gray-900 mb-2 mt-4 first:mt-0;
+  }
+
+  .accordion-content :deep(p) {
+    @apply text-gray-700 mb-3 last:mb-0;
+  }
+}

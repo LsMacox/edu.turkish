@@ -1,0 +1,182 @@
+@layer components {
+  /* Responsive rounded utilities - semantic tokens for responsive border-radius */
+  .rounded-responsive {
+    @apply rounded-button md:rounded-card;
+  }
+
+  .rounded-responsive-lg {
+    @apply rounded-card md:rounded-card-lg;
+  }
+
+  /* Glassmorphism patterns - common floating/overlay elements */
+  .glass-card {
+    @apply bg-white/80 backdrop-blur-sm rounded-button border border-default;
+  }
+
+  .glass-card-strong {
+    @apply bg-white/95 backdrop-blur-sm rounded-button;
+  }
+
+  /* Price tag - floating price/info badges on cards */
+  .price-tag {
+    @apply bg-white/95 backdrop-blur-sm rounded-button badge-padding shadow-button;
+  }
+
+  /* Stat card - statistics display in hero sections */
+  .stat-card {
+    @apply bg-white/80 backdrop-blur-sm rounded-button border border-default compact-padding text-center;
+  }
+
+  .stat-card-lg {
+    @apply bg-white/80 backdrop-blur-sm rounded-button border border-default p-4 text-center;
+  }
+
+  /* Category badge - floating category labels */
+  .category-badge {
+    @apply px-3 py-1 bg-white/90 backdrop-blur-sm text-xs font-medium rounded-full shadow-button;
+  }
+
+  /* ========================================
+     PLACEHOLDER GRADIENTS
+     Usage: Empty state backgrounds for images/media
+     ======================================== */
+
+  .gradient-placeholder {
+    @apply bg-gradient-to-br from-gray-100 to-gray-200;
+  }
+
+  .gradient-placeholder-media {
+    @apply bg-gradient-to-br from-blue-50 to-purple-50;
+  }
+
+  .gradient-placeholder-image {
+    @apply bg-gradient-to-br from-pink-50 to-orange-50;
+  }
+
+  .gradient-placeholder-price {
+    @apply bg-gradient-to-br from-green-50 to-emerald-50;
+  }
+
+  /* ========================================
+     OVERLAY GRADIENTS
+     Usage: Dark overlays for media/hero sections
+     ======================================== */
+
+  .gradient-overlay-media {
+    @apply bg-gradient-to-t from-black/40 via-black/20 to-transparent;
+  }
+
+  .gradient-overlay-media-hover {
+    @apply bg-gradient-to-t from-black/30 via-transparent to-transparent;
+  }
+
+  .gradient-overlay-hero {
+    @apply bg-gradient-to-t from-slate-900 via-transparent to-slate-900/50;
+  }
+
+  /* ========================================
+     HERO/SECTION GRADIENTS
+     Usage: Decorative backgrounds for hero sections
+     ======================================== */
+
+  .gradient-hero-primary {
+    @apply bg-gradient-to-br from-primary/10 via-white to-secondary/10;
+  }
+
+  .gradient-hero-soft {
+    @apply bg-gradient-to-br from-slate-50/80 via-blue-50/60 to-violet-50/50;
+  }
+
+  .gradient-hero-blog {
+    @apply bg-gradient-to-br from-slate-50 via-blue-50/50 to-violet-50/30;
+  }
+
+  /* ========================================
+     AVATAR GRADIENTS
+     Usage: Fallback backgrounds for avatars
+     ======================================== */
+
+  .gradient-avatar {
+    @apply bg-gradient-to-br from-primary to-orange-500;
+  }
+
+  /* ========================================
+     RATING STARS
+     Usage: Star rating colors
+     ======================================== */
+
+  .star-active {
+    @apply text-yellow-400;
+  }
+
+  .star-inactive {
+    @apply text-gray-200;
+  }
+
+  /* ========================================
+     SEMANTIC ICON COLORS
+     Usage: Placeholder/disabled icon colors
+     ======================================== */
+
+  .icon-placeholder {
+    @apply text-gray-300;
+  }
+
+  /* ========================================
+     FADE/EXPAND GRADIENTS
+     Usage: "Show more" fade overlays
+     ======================================== */
+
+  .gradient-fade-bottom {
+    @apply bg-gradient-to-t from-white via-white/90 to-transparent;
+  }
+
+  /* ========================================
+     DURATION/TIME BADGES
+     Usage: Video duration, reading time overlays
+     ======================================== */
+
+  .duration-badge {
+    @apply bg-black/70 backdrop-blur-sm text-white text-body-sm font-medium badge-padding-sm rounded-button;
+  }
+
+  /* ========================================
+     HERO IMAGE HEIGHTS
+     Usage: Responsive image heights in hero sections
+     ======================================== */
+
+  .h-hero-image {
+    @apply h-64 xs:h-72 md:h-80;
+  }
+
+  .h-hero-image-lg {
+    @apply h-80 lg:h-96;
+  }
+
+  /* ========================================
+     HERO SECTION PADDING
+     Usage: Consistent hero section padding
+     ======================================== */
+
+  .hero-py {
+    @apply pt-3 pb-10 md:py-20;
+  }
+
+  .hero-py-sm {
+    @apply pt-6 md:pt-8 pb-4;
+  }
+
+  /* ========================================
+     ASPECT RATIOS
+     Usage: Common aspect ratios for media
+     ======================================== */
+
+  .aspect-card {
+    @apply aspect-[4/3];
+  }
+
+  .aspect-hero {
+    @apply aspect-[16/9];
+  }
+
+}

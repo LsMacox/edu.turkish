@@ -1,21 +1,19 @@
 <template>
-  <section class="py-20 bg-gradient-to-r from-primary to-red-600">
-    <div class="container mx-auto px-4 lg:px-6">
-      <div class="max-w-4xl mx-auto">
-        <div class="text-center mb-12 text-white">
-          <h2 class="text-4xl lg:text-5xl font-bold mb-6">
+  <BaseSection padding="lg" bg="primary-gradient" max-width="4xl">
+        <div class="text-center mb-component-lg">
+          <h2 class="text-hero mb-component-md text-white">
             {{ t(ns('title'), { universityName: university.title }) }}
           </h2>
-          <p class="text-xl opacity-90">
+          <p class="text-hero-subtitle text-white/90">
             {{ t(ns('subtitle')) }}
           </p>
         </div>
 
-        <div class="bg-white rounded-2xl shadow-2xl p-8 lg:p-12">
-          <form class="space-y-6" @submit.prevent="submitApplication">
-            <div class="grid md:grid-cols-2 gap-6">
+        <BaseCard padding="xl" shadow="xl" rounded="2xl">
+          <form class="space-component-lg" @submit.prevent="submitApplication">
+            <div class="grid md:grid-cols-2 gap-component-lg">
               <div>
-                <label class="block text-sm font-semibold text-secondary mb-2" :for="nameFieldId">
+                <label class="block text-label mb-label" :for="nameFieldId">
                   {{ t(ns('form.name_label')) }}
                 </label>
                 <BaseTextField
@@ -28,37 +26,27 @@
                 />
               </div>
               <div>
-                <label class="block text-sm font-semibold text-secondary mb-2" :for="phoneFieldId">
+                <label class="block text-label mb-label" :for="phoneFieldId">
                   {{ t(ns('form.phone_label')) }}
                 </label>
-                <div class="relative">
-                  <input
-                    :id="phoneFieldId"
-                    v-model="form.phone"
-                    name="phone"
-                    type="tel"
-                    required
-                    :placeholder="t(ns('form.phone_placeholder'))"
-                    inputmode="tel"
-                    autocomplete="tel"
-                    maxlength="18"
-                    :class="[
-                      'w-full px-4 py-3 bg-white rounded-xl focus:outline-none font-medium text-secondary placeholder-gray-400 transition-all duration-200',
-                      phoneError
-                        ? 'border border-red-300 focus:ring-2 focus:ring-red-500 focus:border-red-500'
-                        : 'border border-gray-300 focus:ring-2 focus:ring-primary focus:border-transparent',
-                    ]"
-                    :aria-invalid="!!phoneError"
-                    @input="onPhoneInput"
-                    @keydown="onPhoneKeydown"
-                  />
-                </div>
-                <p v-if="phoneError" class="mt-2 text-sm text-red-600">{{ phoneError }}</p>
+                <BaseTextField
+                  :id="phoneFieldId"
+                  v-model="form.phone"
+                  name="phone"
+                  type="tel"
+                  required
+                  :placeholder="t(ns('form.phone_placeholder'))"
+                  autocomplete="tel"
+                  :maxlength="18"
+                  :error="phoneError"
+                  @input="onPhoneInput"
+                  @keydown="onPhoneKeydown"
+                />
               </div>
             </div>
 
             <div>
-              <label class="block text-sm font-semibold text-secondary mb-2" :for="emailFieldId">
+              <label class="block text-label mb-label" :for="emailFieldId">
                 {{ t(ns('form.email_label')) }}
               </label>
               <BaseTextField
@@ -71,10 +59,10 @@
               />
             </div>
 
-            <div class="grid md:grid-cols-2 gap-6">
+            <div class="grid md:grid-cols-2 gap-component-lg">
               <div>
                 <label
-                  class="block text-sm font-semibold text-secondary mb-2"
+                  class="block text-label mb-label"
                   :for="programFieldId"
                 >
                   {{ t(ns('form.program_label')) }} *
@@ -98,7 +86,7 @@
                 </BaseSelect>
               </div>
               <div>
-                <label class="block text-sm font-semibold text-secondary mb-2" :for="levelFieldId">
+                <label class="block text-label mb-label" :for="levelFieldId">
                   {{ t(ns('form.level_label')) }}
                 </label>
                 <BaseSelect :id="levelFieldId" v-model="form.level" name="level">
@@ -109,54 +97,41 @@
             </div>
 
             <div>
-              <label class="block text-sm font-semibold text-secondary mb-2" :for="commentFieldId">
+              <label class="block text-label mb-label" :for="commentFieldId">
                 {{ t(ns('form.comment_label')) }}
               </label>
-              <textarea
+              <BaseTextarea
                 :id="commentFieldId"
                 v-model="form.comment"
                 name="comment"
-                rows="4"
-                :class="[
-                  'w-full px-4 py-3 bg-white rounded-xl focus:outline-none font-medium text-secondary placeholder-gray-400 transition-all duration-200 resize-none',
-                  commentError
-                    ? 'border border-red-300 focus:ring-2 focus:ring-red-500 focus:border-red-500'
-                    : 'border border-gray-300 focus:ring-2 focus:ring-primary focus:border-transparent',
-                ]"
-                :aria-invalid="!!commentError"
+                :rows="4"
                 :placeholder="t(ns('form.comment_placeholder'))"
-              ></textarea>
-              <p v-if="commentError" class="mt-2 text-sm text-red-600">{{ commentError }}</p>
+                :error="commentError"
+              />
             </div>
 
-            <BaseCheckbox
-              :checked="form.privacyAgreed"
-              @update:checked="form.privacyAgreed = $event"
-            >
+            <BaseCheckbox v-model="form.privacyAgreed">
               {{ t(ns('form.privacy_agreement')) }}
             </BaseCheckbox>
 
             <div class="text-center">
-              <button
+              <BaseButton
                 type="submit"
+                variant="primary"
+                size="lg"
+                :loading="isSubmitting"
                 :disabled="isSubmitting || !form.privacyAgreed"
-                class="bg-primary text-white px-12 py-4 rounded-xl font-bold text-lg hover:bg-red-600 transition-all transform hover:scale-105 shadow-lg disabled:opacity-50 disabled:transform-none"
+                class="shadow-card hover:scale-105 transition-transform"
               >
-                <span v-if="!isSubmitting">{{ t(ns('form.submit_button')) }}</span>
-                <span v-else class="flex items-center justify-center space-x-2">
-                  <Icon name="ph:spinner" class="animate-spin" />
-                  <span>{{ t(ns('form.submitting')) }}</span>
-                </span>
-              </button>
-              <p class="text-sm text-gray-500 mt-3">
+                {{ isSubmitting ? t(ns('form.submitting')) : t(ns('form.submit_button')) }}
+              </BaseButton>
+              <p class="text-body-sm text-meta mt-component-sm">
                 {{ t(ns('form.response_time')) }}
               </p>
             </div>
           </form>
-        </div>
-      </div>
-    </div>
-  </section>
+        </BaseCard>
+  </BaseSection>
 </template>
 
 <script setup lang="ts">
