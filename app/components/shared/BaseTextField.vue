@@ -35,8 +35,8 @@
           // Size-based styling
           sizeClasses,
           // Icon padding (also account for clearable)
-          icon && iconPosition === 'left' ? 'pl-10' : 'pl-3 md:pl-4',
-          icon && iconPosition === 'right' ? 'pr-10' : clearable ? 'pr-10' : 'pr-3 md:pr-4',
+          icon && iconPosition === 'left' ? '!pl-10' : 'pl-3 md:pl-4',
+          icon && iconPosition === 'right' ? '!pr-10' : clearable ? '!pr-10' : 'pr-3 md:pr-4',
           // State-based styling
           disabled ? 'opacity-50 cursor-not-allowed bg-surface' : '',
           inputReadonly ? 'bg-surface cursor-default' : '',
