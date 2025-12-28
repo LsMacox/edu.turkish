@@ -182,6 +182,7 @@ import { FAQ_CATEGORY_ICONS, DEFAULT_FAQ_ICON } from '~~/lib/domain/faq'
 definePageMeta({ layout: 'default' })
 
 const faqNs = namespace('faq')
+const metaNs = namespace('faq.meta')
 const { t, locale } = useI18n()
 const searchInputId = useId()
 
@@ -260,12 +261,23 @@ watchRouteChanges((filters: { search: string; category: string }) => {
   fetchFAQ()
 })
 
-useHead({
-  script: [
-    {
-      type: 'application/ld+json',
-      innerHTML: computed(() =>
-        JSON.stringify({
+const runtimeConfig = useRuntimeConfig()
+const siteUrl = runtimeConfig.public.siteUrl || 'https://edu-turkish.com'
+const localePath = useLocalePath()
+
+useHead(() => {
+  return {
+    title: t(metaNs('title')),
+    meta: [
+      { name: 'description', content: t(metaNs('description')) },
+      { property: 'og:title', content: t(metaNs('title')) },
+      { property: 'og:description', content: t(metaNs('description')) },
+      { property: 'og:type', content: 'website' },
+    ],
+    script: [
+      {
+        type: 'application/ld+json',
+        innerHTML: JSON.stringify({
           '@context': 'https://schema.org',
           '@type': 'FAQPage',
           mainEntity: filteredFAQItems.value.map((item: any) => ({
@@ -277,9 +289,24 @@ useHead({
             },
           })),
         }),
-      ),
-    },
-  ],
+      },
+      {
+        type: 'application/ld+json',
+        innerHTML: JSON.stringify({
+          '@context': 'https://schema.org',
+          '@type': 'BreadcrumbList',
+          itemListElement: [
+            {
+              '@type': 'ListItem',
+              position: 1,
+              name: t(faqNs('title')),
+              item: `${siteUrl}${localePath('/faq')}`,
+            },
+          ],
+        }),
+      },
+    ],
+  }
 })
 
 const openItems = ref<Record<number, boolean>>({})

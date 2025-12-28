@@ -2,11 +2,11 @@
   "about": {
     "meta": {
       "title": "About us - Edu.turkish",
-      "description": "Edu.turkish is a team that helps students get admitted to universities in Turkey. 5+ years of experience, 1000+ successful admissions."
+      "description": "Edu.turkish is a team that helps students get admitted to universities in Turkey. 5+ years of experience, 500+ successful admissions."
     },
     "hero": {
       "title": "About us",
-      "subtitle": "Edu.turkish is a team that helps students get admitted to universities in Turkey",
+      "subtitle": "Your trusted partner in obtaining a quality education. We combine experience, expertise, and personalized guidance to make your admission to Turkey as simple and effective as possible.",
       "experienced_team": "Experienced team",
       "students_enrolled": "500+ students enrolled",
       "official_contracts": "Official work under contracts"
@@ -15,13 +15,13 @@
       "title": "Who we are",
       "subtitle": "We are an educational agency with years of experience specializing in admission to Turkish universities",
       "experienced_agency": "Experienced agency",
-      "experienced_agency_desc": "6+ years of successful work in educational consulting. We know all the nuances of admission to Turkish universities.",
-      "students_enrolled": "500+ students enrolled",
-      "students_enrolled_desc": "Over the years, we have helped more than 500 students from CIS countries get into the best universities in Turkey.",
-      "official_work": "Official work under contracts",
-      "official_work_desc": "All our services are provided on the basis of an official contract with clear guarantees and obligations.",
-      "comprehensive_help": "Relocation support in Turkey",
-      "comprehensive_help_desc": "Comprehensive support from document preparation to obtaining a residence permit."
+      "experienced_agency_desc": "We bring over 6 years of deep expertise in educational consulting. We have thoroughly mastered all the legal and academic nuances of the admission process, allowing us to successfully handle even the most non-standard challenges for our applicants.",
+      "students_enrolled": "500+ Successful Enrollments",
+      "students_enrolled_desc": "We are proud to have helped over 500 students from various countries start a new chapter of their lives in Turkey's top universities, providing them with a reliable foundation for their international careers.",
+      "official_work": "Legal Integrity and Transparency",
+      "official_work_desc": "Your peace of mind is our priority. All services are provided under an official contract that clearly outlines our obligations, admission guarantees, and the financial transparency of every transaction.",
+      "comprehensive_help": "Full Adaptation Cycle",
+      "comprehensive_help_desc": "We don't just help you get admitted; we accompany you every step of the way: from document apostille to finding comfortable housing and obtaining your residence permit (IKAMET) in Turkey."
     },
     "team": {
       "title": "Our team",
@@ -76,7 +76,7 @@
         },
         "step4": {
           "title": "Leadership (2023-2024)",
-          "description": "Became one of the leading agencies, helped more than 1000 students enroll"
+          "description": "Became one of the leading agencies, helped more than 500 students enroll"
         }
       },
       "stats": {

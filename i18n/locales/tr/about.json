@@ -2,11 +2,11 @@
   "about": {
     "meta": {
       "title": "Hakkımızda - Edu.turkish",
-      "description": "Edu.turkish, öğrencilerin Türkiye'deki üniversitelere kabul edilmelerine yardımcı olan bir ekiptir. 5+ yıl deneyim, 1000+ başarılı kabul."
+      "description": "Edu.turkish, öğrencilerin Türkiye'deki üniversitelere kabul edilmelerine yardımcı olan bir ekiptir. 5 yıldan fazla deneyim ve 500'den fazla başarılı kayıt."
     },
     "hero": {
       "title": "Hakkımızda",
-      "subtitle": "Edu.turkish, öğrencilerin Türkiye'deki üniversitelere kabul edilmelerine yardımcı olan bir ekiptir",
+      "subtitle": "Kaliteli eğitim alma yolunda güvenilir ortağınız. Türkiye'deki üniversite başvurunuzu mümkün olduğunca basit ve etkili hale getirmek için deneyim, uzmanlık ve kişisel rehberliği bir araya getiriyoruz.",
       "experienced_team": "Deneyimli ekip",
       "students_enrolled": "500+ öğrenci kabul edildi",
       "official_contracts": "Sözleşmeli resmi çalışma"
@@ -15,13 +15,13 @@
       "title": "Biz kimiz",
       "subtitle": "Türkiye'deki üniversitelere kabule uzmanlaşmış uzun yıllara dayanan deneyime sahip bir eğitim ajansıyız",
       "experienced_agency": "Deneyimli ajans",
-      "experienced_agency_desc": "Eğitim danışmanlığı alanında 6+ yıl başarılı çalışma. Türk üniversitelerine kaydın tüm inceliklerini biliyoruz.",
-      "students_enrolled": "500+ öğrenci kabul edildi",
-      "students_enrolled_desc": "Yıllar içinde BDT ülkelerinden 500'den fazla öğrencinin Türkiye'nin en iyi üniversitelerine girmesine yardımcı olduk.",
-      "official_work": "Sözleşmeli resmi çalışma",
-      "official_work_desc": "Tüm hizmetlerimiz net garantiler ve yükümlülükler içeren resmi sözleşme temelinde sağlanır.",
-      "comprehensive_help": "Türkiye'de yerleşim desteği",
-      "comprehensive_help_desc": "Belge hazırlamadan ikamet izni almaya kadar kapsamlı destek."
+      "experienced_agency_desc": "Eğitim danışmanlığı alanında 6 yılı aşkın derin bir uzmanlığa sahibiz. Başvuru sürecinin tüm yasal ve akademik inceliklerine hakimiz, bu da adaylarımız için en standart dışı zorlukları bile başarıyla yönetmemizi sağlıyor.",
+      "students_enrolled": "500+ Başarılı Kayıt",
+      "students_enrolled_desc": "Çeşitli ülkelerden 500'den fazla öğrencinin Türkiye'nin en iyi üniversitelerinde hayatlarının yeni bir sayfasını açmalarına yardımcı olmaktan ve onlara uluslararası kariyerleri için güvenilir bir temel sağlamaktan gurur duyuyoruz.",
+      "official_work": "Yasal Güvence ve Şeffaflık",
+      "official_work_desc": "Huzurunuz bizim önceliğimizdir. Tüm hizmetler, yükümlülüklerimizi, kabul garantilerimizi ve her işlemin finansal şeffaflığını açıkça belirten resmi bir sözleşme kapsamında sunulmaktadır.",
+      "comprehensive_help": "Tam Adaptasyon Döngüsü",
+      "comprehensive_help_desc": "Sadece kabul almanıza yardımcı olmakla kalmıyor, yolun her adımında size eşlik ediyoruz: belge apostil işlemlerinden konforlu konut bulmaya ve Türkiye'deki ikamet izninizi (İKAMET) almaya kadar."
     },
     "team": {
       "title": "Ekibimiz",
@@ -76,7 +76,7 @@
         },
         "step4": {
           "title": "Liderlik (2023-2024)",
-          "description": "Önde gelen ajanslardan biri olduk, 1000'den fazla öğrencinin kaydolmasına yardımcı olduk"
+          "description": "Önde gelen ajanslardan biri olduk, 500'den fazla öğrencinin kaydolmasına yardımcı olduk"
         }
       },
       "stats": {

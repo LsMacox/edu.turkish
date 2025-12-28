@@ -119,7 +119,7 @@ const { resolvedHeroImage, heroImageAlt, onHeroImageError, quickFacts } = useDet
 const scrollToConsultation = () => {
   openModal({
     source: 'blog_article_cta',
-    description: `${t(ctaNs('title'))} - ${props.article.title}`
+    description: `${t(ctaNs('mobile_title'))} - ${props.article.title}`
   })
 }
 </script>

@@ -2,11 +2,11 @@ import { computed, type MaybeRefOrGetter, toValue } from 'vue'
 import type { Size5 } from '~/types/ui'
 
 export const FORM_SIZE_MAP: Record<Size5, string> = {
-    xs: 'px-3 py-1.5 text-xs min-h-[40px]',
-    sm: 'px-4 py-2.5 text-sm min-h-[44px]',
-    md: 'px-4 py-3 md:px-5 text-base md:text-sm min-h-[48px] md:min-h-[44px]',
-    lg: 'px-5 py-4 md:px-6 md:py-4 text-lg md:text-base min-h-[52px] md:min-h-[48px]',
-    xl: 'px-6 py-5 md:px-8 md:py-5 text-xl md:text-lg min-h-[56px] md:min-h-[52px]',
+    xs: 'px-2.5 py-1 text-xs min-h-[36px] md:px-3 md:py-1.5 md:min-h-[40px]',
+    sm: 'px-3 py-1.5 text-xs min-h-[40px] md:px-4 md:py-2 md:text-sm md:min-h-[44px]',
+    md: 'px-3.5 py-2 text-sm min-h-[44px] md:px-5 md:py-3 md:min-h-[48px]',
+    lg: 'px-4 py-2.5 text-sm min-h-[48px] md:px-6 md:py-4 md:text-base md:min-h-[52px]',
+    xl: 'px-5 py-3 text-base min-h-[52px] md:px-8 md:py-5 md:text-lg md:min-h-[56px]',
 }
 
 export function useFormSizeClasses(

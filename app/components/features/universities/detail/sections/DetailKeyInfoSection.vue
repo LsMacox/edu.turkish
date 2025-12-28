@@ -1,5 +1,5 @@
 <template>
-  <BaseSection padding="xl" bg="white">
+  <BaseSection padding="md" bg="white">
       <BaseSectionHeader
         :title="t(ns('title'))"
         :subtitle="t(ns('subtitle'))"
@@ -7,7 +7,7 @@
         margin-bottom="lg"
       />
 
-      <BaseGrid :cols="2" :md="3" :lg="4" gap="lg">
+      <BaseGrid :cols="2" :md="3" :lg="4" gap="sm">
         <UniversitiesDetailInfoCard
           v-for="item in infoItems"
           :key="item.key"

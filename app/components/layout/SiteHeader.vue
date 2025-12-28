@@ -54,14 +54,16 @@
                     :key="link.path"
                     :to="link.path"
                     class="block px-4 py-2 text-sm transition-color"
-                    :class="
+                    :class="[
                       route.path === link.path
                         ? 'text-primary bg-primary/10'
-                        : 'text-secondary hover:bg-surface'
-                    "
+                        : 'text-secondary hover:bg-surface',
+                      link.highlight ? 'font-semibold' : ''
+                    ]"
                     @click="servicesDropdown.close"
                   >
                     {{ link.label }}
+                    <Icon v-if="link.highlight" name="mdi:star" class="inline text-icon-xs text-warning ml-1" />
                   </NuxtLink>
                 </div>
               </div>
@@ -256,6 +258,7 @@ const serviceLinks = computed(() => [
   {
     label: t(navNs('servicesDropdown.relocation')),
     path: localePath('/services/relocation-in-turkey'),
+    highlight: true,
   },
   { label: t(navNs('servicesDropdown.trYosCourses')), path: localePath('/services/tr-yos-courses') },
   { label: t(navNs('servicesDropdown.satCourses')), path: localePath('/services/sat-courses') },

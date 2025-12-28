@@ -1,6 +1,5 @@
 <template>
   <DisplayFAQ
-    class="section-py-sm"
     :items="faqs"
     :title="title"
     :subtitle="subtitle"

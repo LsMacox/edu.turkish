@@ -50,6 +50,7 @@ export interface BlogSchema {
         }
     }
     article: {
+        fallbackDescription: string
         loading: string
         notFound: string
         error: string
@@ -74,6 +75,11 @@ export interface BlogSchema {
             title: string
             description: string
             allArticles: string
+        }
+        relocationCta: {
+            title: string
+            description: string
+            button: string
         }
     }
     powerPage: {

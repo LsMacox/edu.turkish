@@ -1,6 +1,12 @@
 {
+  "breadcrumbs": {
+    "home": "Ana Sayfa",
+    "services": "Hizmetler",
+    "universities": "Üniversiteler",
+    "blog": "Blog"
+  },
   "site": {
-    "description": "Edu.turkish Türk üniversitelerine kayıt olmanıza yardımcı olur: program seçimi, belge hazırlığı, burslar ve her aşamada destek."
+    "description": "Türkiye'deki üniversitelere kayıt sürecinde profesyonel destek. Edu.turkish, yabancı öğrenciler için program seçimi, belge hazırlığı, konaklama bulma ve burs alma konularında uzman danışmanlık hizmeti sunar."
   },
   "common": {
     "clear": "Temizle",
@@ -32,15 +38,13 @@
     "collapse": "Daralt"
   },
   "footer": {
+    "home": "Ana Sayfa",
+    "relocation": "Türkiye'de Yerleşim",
     "about_us": "Hakkımızda",
     "who_we_are": "Biz kimiz",
     "our_team": "Ekibimiz",
     "contacts": "İletişim",
     "universities": "Üniversiteler",
-    "istanbul": "İstanbul",
-    "ankara": "Ankara",
-    "izmir": "İzmir",
-    "antalya": "Antalya",
     "all_universities": "Tüm üniversiteler",
     "support": "Destek",
     "faq": "SSS",
@@ -77,7 +81,6 @@
   },
   "back_to_home": "Ana Sayfaya Dön",
   "loading": "Yükleniyor...",
-  "universityInformation": "Üniversite bilgileri",
   "backToUniversities": "Üniversitelere geri dön",
   "nav": {
     "services": "Hizmetler",

@@ -1,13 +1,13 @@
 {
   "programs": {
     "meta": {
-      "title": "Bachelor's Programs in Turkey",
-      "description": "Learn about various bachelor's programs at Turkish universities. Medical, business, and engineering specializations."
+      "title": "Educational Programs in Turkey - Edu.turkish",
+      "description": "Catalog of bachelor's, master's, and doctorate programs in Turkish universities. Find your ideal major and get professional admission support."
     },
     "hero": {
       "title": "Study ",
       "titleAccent": "Programs",
-      "description": "Discover everything about bachelor's programs in Turkey",
+      "description": "Discover everything about the most sought-after study programs in Turkey: from medicine and engineering to design and business administration. We have prepared detailed overviews of specializations, career prospects, and admission requirements for you.",
       "stats": {
         "programs": "Programs",
         "categories": "Categories",
@@ -29,6 +29,7 @@
       "contact": "Contact us"
     },
     "detail": {
+      "fallbackDescription": "Program '{title}' in Turkish universities: admission requirements, career prospects, and study features.",
       "loading": "Loading...",
       "notFound": "Program not found",
       "error": "Error loading",

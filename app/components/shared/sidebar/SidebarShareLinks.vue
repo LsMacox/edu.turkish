@@ -13,7 +13,7 @@
         :key="link.label"
         :href="link.href"
         target="_blank"
-        rel="noopener noreferrer"
+        rel="noopener noreferrer nofollow"
         class="inline-flex items-center gap-component-sm rounded-button border border-gray-200 bg-white px-3 py-2 text-body-sm font-medium text-body-sm shadow-button transition-default hover:border-primary hover:text-primary hover:shadow-card"
       >
         <Icon :name="link.icon" class="text-icon" />

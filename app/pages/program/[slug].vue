@@ -35,6 +35,7 @@ import { namespace } from '~~/lib/i18n'
 
 const programsNs = namespace('programs')
 const detailNs = namespace('programs.detail')
+const metaNs = namespace('programs.meta')
 
 definePageMeta({ layout: 'default' })
 
@@ -73,9 +74,11 @@ const { data, pending, error } = await useAsyncData(
 const program = computed(() => data.value ?? null)
 
 const seoTitle = computed(() => program.value?.title ?? t(programsNs('meta.title')))
-const seoDescription = computed(
-  () => program.value?.seoDescription ?? program.value?.excerpt ?? t(programsNs('meta.description')),
-)
+const seoDescription = computed(() => {
+  if (program.value?.seoDescription) return program.value.seoDescription
+  if (program.value?.excerpt) return program.value.excerpt
+  return t(detailNs('fallbackDescription'), { title: program.value?.title })
+})
 
 useSeoMeta({
   title: seoTitle,
@@ -86,6 +89,52 @@ useSeoMeta({
   ogImage: computed(() => program.value?.heroImage ?? program.value?.image),
   twitterCard: 'summary_large_image',
 })
+
+const runtimeConfig = useRuntimeConfig()
+const siteUrl = runtimeConfig.public.siteUrl || 'https://edu-turkish.com'
+
+useHead(() => ({
+  script: program.value
+    ? [
+        {
+          type: 'application/ld+json',
+          children: JSON.stringify({
+            '@context': 'https://schema.org',
+            '@type': 'Course',
+            name: program.value.title,
+            description: program.value.seoDescription || program.value.excerpt,
+            image: program.value.heroImage || program.value.image,
+            provider: {
+              '@type': 'Organization',
+              name: 'Edu.turkish',
+              sameAs: siteUrl,
+            },
+          }),
+        },
+        {
+          type: 'application/ld+json',
+          children: JSON.stringify({
+            '@context': 'https://schema.org',
+            '@type': 'BreadcrumbList',
+            itemListElement: [
+              {
+                '@type': 'ListItem',
+                position: 1,
+                name: t(metaNs('title')),
+                item: `${siteUrl}${localePath('/programs')}`,
+              },
+              {
+                '@type': 'ListItem',
+                position: 2,
+                name: program.value.title,
+                item: `${siteUrl}${localePath(route.path)}`,
+              },
+            ],
+          }),
+        },
+      ]
+    : [],
+}))
 
 const errorMessage = computed(() => {
   if (error.value) {

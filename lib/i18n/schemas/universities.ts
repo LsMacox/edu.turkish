@@ -6,6 +6,11 @@
 import type { TipItem, ScholarshipType } from './types'
 
 export interface UniversitiesSchema {
+    meta: {
+        title: string
+        description: string
+        keywords: string
+    }
     list: {
         hero: {
             title: string
@@ -98,6 +103,7 @@ export interface UniversitiesSchema {
         tuitionFrom: string
     }
     detail: {
+        fallbackDescription: string
         applyButton: string
         whatsappButton: string
         /** @placeholder {name} - University name */

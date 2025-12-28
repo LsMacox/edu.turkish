@@ -12,12 +12,16 @@
       },
       "trustIndicators": {
         "workingSince": "Working since 2019",
-        "documentsCount": "1000+ documents translated"
+        "documentsCount": "500+ documents translated"
       }
     },
     "relocation-in-turkey": {
+      "meta": {
+        "title": "Relocation & Support in Turkey - Edu.turkish",
+        "description": "Full support for students moving to Turkey: airport transfer, residence permit (ikamet) assistance, housing search, and adaptation in the new country."
+      },
       "title": "Relocation & support",
-      "subtitle": "Full on-the-ground support: we meet you, help with visa, residence permit and adaptation.",
+      "subtitle": "Professional assistance in organizing your relocation: we handle all the details of meeting you, visa processing, obtaining a residence permit, and finding comfortable housing for a smooth transition.",
       "packages": {
         "admission": {
           "name": "University Admission",
@@ -64,12 +68,12 @@
         }
       },
       "benefits": {
-        "title": "Why Choose Us?",
-        "content": "We provide modern, trustworthy service. Unlike agencies that rush through processes, we handle everything properly with official documentation and transparent communication. Every step is tracked and you're always informed."
+        "title": "Why Choose Edu.turkish?",
+        "content": "We offer more than just services; we offer confidence in your future. Our team provides impeccable service built on deep knowledge of Turkish law and the educational system. Unlike intermediaries, we operate officially, guarantee transparency at every stage, and provide a personal advisor who is always available to resolve any issues."
       },
       "risks": {
-        "title": "Common Mistakes to Avoid",
-        "content": "Many students arrive unprepared and face fines for missed residence permit deadlines, rejected applications due to incorrect documents, or housing contract issues. Edu Turkish has been helping students navigate Turkish bureaucracy since 2018 with zero rejected applications."
+        "title": "What Challenges Might You Face?",
+        "content": "Relocating on your own often carries hidden risks: from critical errors in document translation leading to residency permit rejections, to heavy fines for missing migration deadlines. Since 2018, Edu.turkish has been helping students avoid these pitfalls, ensuring 100% success in documentation and safe adaptation without unnecessary financial losses."
       },
       "faq": {
         "title": "Frequently Asked Questions",
@@ -114,16 +118,20 @@
       }
     },
     "tr-yos-courses": {
+      "meta": {
+        "title": "TR-YÖS Exam Preparation Online - Edu.turkish",
+        "description": "TR-YÖS preparation courses for admission to state universities in Turkey. Mathematics, logic, and geometry with experienced instructors."
+      },
       "title": "TR-YÖS preparation",
       "subtitle": "Our expert courses and proven methods help you achieve a high score.",
       "subServices": {
         "basic": {
-          "name": "Basic",
-          "description": "Duration: 7+ months\nGroup: up to 10 people\nProgram: full preparation on all topics\nSchedule: 3 lessons per week"
+          "name": "Basic Package",
+          "description": "An ideal start for comprehensive preparation. The program covers all TR-YÖS topics (mathematics, logic, geometry). Lessons are held in mini-groups of up to 10 people 3 times a week, ensuring dynamic learning and the opportunity to ask questions to the instructor."
         },
         "individual": {
-          "name": "Individual",
-          "description": "Duration: 7+ months\nFormat: individual lessons\nProgram: same base + adaptation to your level\nSchedule: 3 lessons per week"
+          "name": "Individual Package",
+          "description": "Maximum focus on your personal results. The program is fully adapted to your current knowledge level and learning pace. A customized schedule (3 times a week) allows for a detailed breakdown of complex topics and addressing specific knowledge gaps."
         }
       },
       "courseGoal": {
@@ -226,18 +234,30 @@
       }
     },
     "sat-courses": {
+      "meta": {
+        "title": "SAT Preparation Courses - Edu.turkish",
+        "description": "SAT exam preparation courses for admission to top universities in Turkey and worldwide. Academic support from experts."
+      },
       "title": "SAT preparation",
-      "subtitle": "We train at the level of top international schools, opening doors to leading universities.",
+      "subtitle": "Comprehensive preparation for the SAT exam with a focus on developing critical thinking and language skills. We use the methodologies of the world's leading schools to provide you with a competitive edge when applying to the most prestigious universities worldwide.",
       "temporarilyUnavailable": "Service temporarily unavailable"
     },
     "turkish-english-course": {
+      "meta": {
+        "title": "Language Courses (TR/EN) - Edu.turkish",
+        "description": "Turkish and English language courses for study and life in Turkey. Quality preparation for TÖMER and IELTS exams."
+      },
       "title": "Language courses (TR/EN)",
-      "subtitle": "Speak with confidence! We help you pass TÖMER/IELTS and feel at home in Turkey.",
+      "subtitle": "Intensive Turkish and English language courses for successful TÖMER and IELTS examinations. Our program will help you overcome the language barrier, develop fluent communication skills, and adapt as quickly as possible to a new cultural and educational environment.",
       "temporarilyUnavailable": "Service temporarily unavailable"
     },
     "document-translations": {
+      "meta": {
+        "title": "Document Translation & Legalization in Turkey - Edu.turkish",
+        "description": "Professional document translation with notarial certification (yeminli tercüman) for universities and government institutions in Turkey."
+      },
       "title": "Translation & legalization",
-      "subtitle": "100% guarantee: your documents will be translated, certified (yeminli tercüman) and accepted by any university.",
+      "subtitle": "Professional translation and legalization of your documents by licensed translators (yeminli tercüman). We guarantee 100% accuracy, full compliance with Turkish legal requirements, and unconditional acceptance of your documents by all government institutions and universities in Turkey.",
       "calculatorData": {
         "documentTypes": {
           "passport": {

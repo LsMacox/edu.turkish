@@ -17,27 +17,15 @@
 
 <script setup lang="ts">
 import { namespace } from '~~/lib/i18n'
+import { useServiceHead } from '~/composables/useServiceHead'
 
 const svc = namespace('services.sat-courses')
+const metaNs = namespace('services.sat-courses.meta')
 const { t } = useI18n()
 
-useHead({
-  title: t(svc('title')),
-  script: [
-    {
-      type: 'application/ld+json',
-      innerHTML: JSON.stringify({
-        '@context': 'https://schema.org',
-        '@type': 'Course',
-        name: t(svc('title')),
-        description: t(svc('subtitle')),
-        provider: {
-          '@type': 'Organization',
-          name: 'Edu.turkish',
-          sameAs: 'https://edu-turkish.com',
-        },
-      }),
-    },
-  ],
+useServiceHead({
+  title: () => t(metaNs('title')),
+  description: () => t(metaNs('description')),
+  schemaType: ['Course'],
 })
 </script>

@@ -1,9 +1,14 @@
 {
   "universities": {
+    "meta": {
+      "title": "Turkish Universities - Help with Admission",
+      "description": "Full catalog of universities in Turkey: state and private institutions, tuition fees, admission requirements, dormitory availability, and English-taught programs.",
+      "keywords": "turkey universities, turkish universities for foreigners, study in turkey, universities in turkey"
+    },
     "list": {
       "hero": {
-        "title": "Universities Catalog",
-        "subtitle": "Find your dream university using filters or explore any card for details",
+        "title": "Turkish Universities for Foreigners",
+        "subtitle": "Find your ideal university in Turkey using our advanced filters or explore detailed information about academic programs, campus facilities, and exclusive opportunities for international students on each university page.",
         "stats": {
           "universities": "Universities",
           "cities": "Cities",
@@ -77,20 +82,20 @@
         "subtitle": "Info guide for making the right university choice",
         "tips": {
           "location": {
-            "title": "Check city and cost",
-            "description": "Consider living expenses, climate and distance from home"
+            "title": "Check the city and cost of living",
+            "description": "When choosing a city, consider not only the university's prestige but also monthly expenses for food, transport, and leisure. Istanbul and Ankara offer more opportunities, but living there is more expensive than in Izmir or Antalya."
           },
           "language": {
-            "title": "Pay attention to language of instruction",
-            "description": "Turkish is cheaper, English opens more opportunities"
+            "title": "Choose your language of instruction wisely",
+            "description": "Studying in Turkish is usually more affordable and provides better chances for government grants. Programs in English open doors to international companies but require a proven level of language proficiency."
           },
           "dormitory": {
-            "title": "Check dormitory availability",
-            "description": "State dormitories are cheaper, private ones more comfortable"
+            "title": "Clarify the availability and types of dormitories",
+            "description": "State dormitories (KYK) are very budget-friendly but have strict rules. Private dormitories and university-affiliated apartments offer hotel-level comfort, including fitness centers and lounge areas, but cost more."
           },
           "rating": {
-            "title": "Compare ratings",
-            "description": "International ratings affect employment after graduation"
+            "title": "Compare international rankings",
+            "description": "A university's position in global rankings (QS, THE) directly affects the recognition of your diploma in other countries and your chances of successful employment at major international corporations after graduation."
           }
         }
       },
@@ -99,23 +104,23 @@
         "subtitle": "Opportunities to receive financial support for education",
         "types": {
           "government": {
-            "title": "Türkiye Scholarships",
+            "title": "Türkiye Scholarships (YTB)",
             "badge": "Government",
-            "description": "Government scholarship covers 100% tuition + accommodation",
+            "description": "Turkey's most prestigious government program, which fully covers tuition fees, dormitory accommodation, health insurance, and provides a monthly stipend for personal expenses.",
             "benefits": {
-              "full_tuition": "Full tuition coverage",
-              "monthly_allowance": "Monthly stipend",
-              "health_insurance": "Health insurance"
+              "full_tuition": "100% tuition coverage",
+              "monthly_allowance": "Monthly payments",
+              "health_insurance": "Full insurance"
             }
           },
           "university": {
-            "title": "University Scholarships",
+            "title": "University Grants",
             "badge": "University",
-            "description": "Partial discounts from 25% to 75% on tuition",
+            "description": "Many private universities offer internal discounts from 25% to 75% to talented students for high academic performance, sporting achievements, or creative portfolios.",
             "benefits": {
               "tuition_discount": "Tuition discount",
-              "academic_merit": "Academic achievements",
-              "sports_achievement": "Sports achievements"
+              "academic_merit": "For academic success",
+              "sports_achievement": "For athletes"
             }
           }
         }
@@ -123,9 +128,10 @@
       "tuitionFrom": "from ${price}/year"
     },
     "detail": {
+      "fallbackDescription": "Learn everything about studying at '{name}': tuition fees, admission requirements for international students, and campus life.",
       "applyButton": "Apply to University",
       "whatsappButton": "Contact via WhatsApp",
-      "metaTitleTemplate": "{name} — Study in Turkey for International Students | Admission 2025",
+      "metaTitleTemplate": "{name} — Study in Turkey | Admission 2025",
       "keyInformation": {
         "title": "Key Information",
         "subtitle": "Everything you need to know about the university",

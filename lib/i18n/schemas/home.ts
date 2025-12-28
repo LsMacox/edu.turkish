@@ -6,6 +6,7 @@ export interface HomeSchema {
     seo: {
         title: string
         description: string
+        keywords: string
     }
     hero: {
         title: string

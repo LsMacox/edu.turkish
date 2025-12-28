@@ -5,6 +5,10 @@
 import type { AchievementStat, ReviewForm } from './types'
 
 export interface ReviewsSchema {
+    meta: {
+        title: string
+        description: string
+    }
     hero: {
         title: string
         titleAccent: string

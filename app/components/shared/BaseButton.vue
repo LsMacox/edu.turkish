@@ -174,8 +174,9 @@ const getElement = () => {
 
 const tabIndex = computed(() => {
   if (props.tabIndex !== undefined) return props.tabIndex
+  // Use undefined for default to avoid mismatch if server/client disagree on disabled state
   if (props.disabled || props.loading) return -1
-  return 0
+  return undefined
 })
 
 defineExpose({

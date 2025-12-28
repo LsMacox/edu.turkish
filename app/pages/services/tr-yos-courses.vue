@@ -53,6 +53,7 @@ import { useServiceHead } from '~/composables/useServiceHead'
 import { namespace } from '~~/lib/i18n'
 
 const svc = namespace('services.tr-yos-courses')
+const metaNs = namespace('services.tr-yos-courses.meta')
 const subSvcNs = namespace('services.tr-yos-courses.subServices')
 const formatNs = namespace('services.tr-yos-courses.formatSchedule')
 const goalNs = namespace('services.tr-yos-courses.courseGoal')
@@ -87,8 +88,8 @@ const handleApply = ({ name }: { serviceName: string; name: string }) => {
 }
 
 useServiceHead({
-  title: () => t(svc('title')),
-  description: () => t(svc('subtitle')),
+  title: () => t(metaNs('title')),
+  description: () => t(metaNs('description')),
   schemaType: ['Course'],
 })
 const formatScheduleData = computed(() => ({

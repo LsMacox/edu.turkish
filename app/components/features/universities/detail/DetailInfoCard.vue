@@ -1,14 +1,14 @@
 <template>
-  <BaseCard padding="md" shadow="md" rounded="xl" hover="lift" class="text-center">
+  <BaseCard padding="sm" shadow="md" rounded="xl" hover="lift" class="text-center">
     <BaseIconBox
       :icon="icon"
       :color="color"
       :size="iconSize"
       variant="soft"
-      class="mx-auto mb-component-sm"
+      class="mx-auto mb-1 md:mb-component-sm"
     />
-    <h3 class="text-card-title mb-component-xs">{{ title }}</h3>
-    <p class="text-body-sm">{{ value }}</p>
+    <h3 class="text-body-sm md:text-card-title font-semibold mb-0.5 md:mb-component-xs">{{ title }}</h3>
+    <p class="text-xs md:text-body-sm">{{ value }}</p>
   </BaseCard>
 </template>
 

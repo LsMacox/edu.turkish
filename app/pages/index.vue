@@ -20,32 +20,46 @@ const ns = namespace('home.seo')
 const applicationDeadline = '2026-11-01T23:59:59'
 
 const { t } = useI18n()
+const runtimeConfig = useRuntimeConfig()
+const siteUrl = runtimeConfig.public.siteUrl || 'https://edu-turkish.com'
 
-useHead(() => ({
-  title: t(ns('title')),
+useHead({
+  title: () => t(ns('title')),
   meta: [
     {
       name: 'description',
-      content: t(ns('description')),
+      content: () => t(ns('description')),
+    },
+    {
+      name: 'keywords',
+      content: () => t(ns('keywords')),
+    },
+    {
+      property: 'og:title',
+      content: () => t(ns('title')),
     },
     {
       property: 'og:description',
-      content: t(ns('description')),
+      content: () => t(ns('description')),
+    },
+    {
+      name: 'twitter:title',
+      content: () => t(ns('title')),
     },
     {
       name: 'twitter:description',
-      content: t(ns('description')),
+      content: () => t(ns('description')),
     },
   ],
   script: [
     {
       type: 'application/ld+json',
-      children: JSON.stringify({
+      innerHTML: JSON.stringify({
         '@context': 'https://schema.org',
         '@type': 'Organization',
         name: 'Edu.turkish',
-        url: 'https://edu-turkish.com',
-        logo: 'https://edu-turkish.com/android-chrome-512x512.png',
+        url: siteUrl,
+        logo: `${siteUrl}/android-chrome-512x512.png`,
         contactPoint: [
           {
             '@type': 'ContactPoint',
@@ -67,8 +81,25 @@ useHead(() => ({
         ],
       }),
     },
+    {
+      type: 'application/ld+json',
+      innerHTML: JSON.stringify({
+        '@context': 'https://schema.org',
+        '@type': 'WebSite',
+        name: 'Edu.turkish',
+        url: siteUrl,
+        potentialAction: {
+          '@type': 'SearchAction',
+          target: {
+            '@type': 'EntryPoint',
+            urlTemplate: `${siteUrl}/blog?q={search_term_string}`,
+          },
+          'query-input': 'required name=search_term_string',
+        },
+      }),
+    },
   ],
-}))
+})
 
 const universitiesStore = useUniversitiesStore()
 

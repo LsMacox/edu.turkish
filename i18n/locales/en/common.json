@@ -1,6 +1,12 @@
 {
+  "breadcrumbs": {
+    "home": "Home",
+    "services": "Services",
+    "universities": "Universities",
+    "blog": "Blog"
+  },
   "site": {
-    "description": "Edu.turkish helps you enroll in Turkish universities: program selection, document preparation, scholarships, and support at every step."
+    "description": "Professional support for admission to universities in Turkey. Edu.turkish offers expert assistance in selecting study programs, processing documents, finding housing, and securing scholarships for international students."
   },
   "common": {
     "clear": "Clear",
@@ -32,15 +38,13 @@
     "collapse": "Collapse"
   },
   "footer": {
+    "home": "Home",
+    "relocation": "Relocation in Turkey",
     "about_us": "About us",
     "who_we_are": "Who we are",
     "our_team": "Our team",
     "contacts": "Contacts",
-    "universities": "Universities",
-    "istanbul": "Istanbul",
-    "ankara": "Ankara",
-    "izmir": "Izmir",
-    "antalya": "Antalya",
+    "universities": "Sections",
     "all_universities": "All universities",
     "support": "Support",
     "faq": "FAQ",
@@ -77,7 +81,6 @@
   },
   "back_to_home": "Back to Home",
   "loading": "Loading...",
-  "universityInformation": "University information",
   "backToUniversities": "Back to universities",
   "nav": {
     "services": "Services",

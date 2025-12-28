@@ -22,11 +22,11 @@
           <div class="space-component-md">
             <div class="space-component-md">
               <BaseTimelineStep
-                v-for="i in 4"
-                :key="i"
-                :step="i"
-                :title="t(timelineNs(`step${i}.title`))"
-                :description="t(timelineNs(`step${i}.description`))"
+                v-for="step in steps"
+                :key="step"
+                :step="step"
+                :title="t(STEP_TITLE_KEYS[step])"
+                :description="t(STEP_DESC_KEYS[step])"
               />
             </div>
 
@@ -60,4 +60,21 @@ const timelineNs = namespace('about.story.timeline')
 const statsNs = namespace('about.story.stats')
 const { t } = useI18n()
 const localePath = useLocalePath()
+
+type StepId = 1 | 2 | 3 | 4
+const steps: StepId[] = [1, 2, 3, 4]
+
+const STEP_TITLE_KEYS: Record<StepId, ReturnType<typeof timelineNs>> = {
+  1: timelineNs('step1.title'),
+  2: timelineNs('step2.title'),
+  3: timelineNs('step3.title'),
+  4: timelineNs('step4.title'),
+}
+
+const STEP_DESC_KEYS: Record<StepId, ReturnType<typeof timelineNs>> = {
+  1: timelineNs('step1.description'),
+  2: timelineNs('step2.description'),
+  3: timelineNs('step3.description'),
+  4: timelineNs('step4.description'),
+}
 </script>

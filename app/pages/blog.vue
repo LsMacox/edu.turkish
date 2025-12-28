@@ -74,10 +74,12 @@ const heroNs = namespace('blog.hero')
 const articlesNs = namespace('blog.articles')
 const sidebarNs = namespace('blog.sidebar')
 const metaNs = namespace('blog.meta')
-const { t } = useI18n()
-const router = useRouter()
 const localePath = useLocalePath()
+const router = useRouter()
+const { t } = useI18n()
 const { openModal: openApplicationModal } = useApplicationModal()
+const runtimeConfig = useRuntimeConfig()
+const siteUrl = runtimeConfig.public.siteUrl || 'https://edu-turkish.com'
 
 const {
   articles,
@@ -102,22 +104,70 @@ const {
 useHead(() => ({
   title: t(metaNs('title')),
   meta: [
-    { name: 'description', content: t(metaNs('description')) },
-    { property: 'og:title', content: t(metaNs('title')) },
-    { property: 'og:description', content: t(metaNs('description')) },
-    { property: 'og:type', content: 'website' },
+    {
+      name: 'description',
+      content: t(metaNs('description')),
+    },
+    {
+      property: 'og:title',
+      content: t(metaNs('title')),
+    },
+    {
+      property: 'og:description',
+      content: t(metaNs('description')),
+    },
+    {
+      name: 'twitter:title',
+      content: t(metaNs('title')),
+    },
+    {
+      name: 'twitter:description',
+      content: t(metaNs('description')),
+    },
+  ],
+  script: [
+    {
+      type: 'application/ld+json',
+      children: JSON.stringify({
+        '@context': 'https://schema.org',
+        '@type': 'CollectionPage',
+        name: t(metaNs('title')),
+        description: t(metaNs('description')),
+        url: `${siteUrl}${localePath('/blog')}`,
+        isPartOf: {
+          '@type': 'WebSite',
+          name: 'Edu.turkish',
+          url: siteUrl,
+        },
+      }),
+    },
+    {
+      type: 'application/ld+json',
+      children: JSON.stringify({
+        '@context': 'https://schema.org',
+        '@type': 'BreadcrumbList',
+        itemListElement: [
+          {
+            '@type': 'ListItem',
+            position: 1,
+            name: t(metaNs('title')),
+            item: `${siteUrl}${localePath('/blog')}`,
+          },
+        ],
+      }),
+    },
   ],
 }))
 
-// SSR + client initialization
-if (import.meta.server) {
-  await initialize()
-}
-onMounted(() => {
-  initialize()
-  setupSearchWatcher()
+const { data: _blogData } = await useAsyncData('blog-initial-data', () => initialize(), {
+  server: true,
+  lazy: false,
 })
-watchRouteChanges()
+
+onMounted(() => {
+  setupSearchWatcher()
+  watchRouteChanges()
+})
 
 const hero = computed<HeroContent>(() => {
   const articleCount = totalArticles.value >= 150 ? `${totalArticles.value}+` : totalArticles.value

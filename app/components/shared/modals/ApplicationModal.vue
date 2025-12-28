@@ -6,7 +6,11 @@
     close-aria-label="Close modal"
     @close="closeModal"
   >
-    <form class="space-y-5 md:space-y-4 pb-3" @submit.prevent="submitForm">
+    <form
+      id="application-form"
+      class="space-y-5 md:space-y-4 pb-3"
+      @submit.prevent="submitForm"
+    >
       <div>
         <label
           class="block text-label mb-2.5"

@@ -2,12 +2,12 @@
   "blog": {
     "meta": {
       "title": "Blog & FAQ - Edu.turkish",
-      "description": "Fresh articles about admission, visas, scholarships, and student life in Turkey. Expert answers from Edu.turkish to popular questions."
+      "description": "Explore expert articles and guides about the education system in Turkey. We provide in-depth analysis of student visa processes, opportunities for government and university grants, and share real-life tips on living and studying for international students."
     },
     "hero": {
       "title": "Blog and",
       "titleAccent": "frequently asked questions",
-      "description": "Answers to important questions about admission, exams, scholarships and studying in Turkey",
+      "description": "Get comprehensive answers to the most relevant questions about 2025 admissions, the specifics of taking TR-YÖS and SAT exams, securing grants, and real-life experiences of international students living in various Turkish cities.",
       "searchPlaceholder": "Find an article or answer...",
       "imageAlt": "Blog and FAQ",
       "highlight": {
@@ -53,6 +53,7 @@
       }
     },
     "article": {
+      "fallbackDescription": "Article '{title}' in Edu.turkish blog: useful information about studying, living, and admission to Turkish universities.",
       "loading": "Loading article...",
       "notFound": "Article not found",
       "error": "We couldn't load the article. Please try refreshing the page.",
@@ -77,6 +78,11 @@
         "title": "You might also like",
         "description": "More stories and helpful tips from our students.",
         "allArticles": "All articles"
+      },
+      "relocationCta": {
+        "title": "Planning to move to Turkey?",
+        "description": "We help with admission, residence permit, housing and full relocation support.",
+        "button": "Learn more"
       }
     },
     "powerPage": {

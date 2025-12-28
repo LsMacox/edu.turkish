@@ -16,6 +16,7 @@
    ============================================================================ */
 
 @layer components {
+
   /* ========================================
      CONTAINER PADDING
      ======================================== */
@@ -102,19 +103,19 @@
      Primary: sm, md, lg
      ======================================== */
   .gap-component-xs {
-    @apply gap-1.5 md:gap-2;
+    @apply gap-1 md:gap-2;
   }
 
   .gap-component-sm {
-    @apply gap-2 md:gap-3;
+    @apply gap-1.5 md:gap-3;
   }
 
   .gap-component-md {
-    @apply gap-3 md:gap-4;
+    @apply gap-2 md:gap-4;
   }
 
   .gap-component-lg {
-    @apply gap-4 md:gap-6;
+    @apply gap-3 md:gap-6;
   }
 
   .gap-component-xl {

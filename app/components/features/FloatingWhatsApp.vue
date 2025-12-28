@@ -11,7 +11,7 @@
       v-if="isMounted"
       :href="whatsapp.href"
       target="_blank"
-      rel="noopener noreferrer"
+      rel="noopener noreferrer nofollow"
       aria-label="Написать в WhatsApp"
       class="floating-whatsapp fixed bottom-6 right-6 md:bottom-10 md:right-10 z-50 group icon-container-md bg-[#25D366] shadow-floating hover:shadow-[0_6px_16px_rgba(37,211,102,0.4)] hover:-translate-y-1 transition-default ease-out print:hidden"
       @click="trackClick"

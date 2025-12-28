@@ -1,16 +1,20 @@
 {
   "reviews": {
+    "meta": {
+      "title": "Student Reviews - Edu.turkish",
+      "description": "Read real reviews from students and parents about admission to Turkish universities through Edu.turkish. Success stories and honest study experiences."
+    },
     "mediaReviews": {
       "title": "Video and photo reviews",
       "titleAccent": "from our students",
-      "description": "Watch real success stories from our students. Video and photo reviews about admission and studying at Turkish universities.",
+      "description": "Discover inspiring success stories from our students who have already realized their dream of studying in Turkey. In these video and photo reviews, they share their genuine impressions of the admission process, their first days at university, and the unique aspects of living in a new country.",
       "error": "Failed to load reviews. Please try refreshing the page.",
       "empty": "No media reviews yet"
     },
     "achievements": {
       "title": "Our achievements",
       "titleAccent": "in numbers",
-      "description": "Results that speak for themselves. Every number is someone's dream come true.",
+      "description": "We take pride in the results of our work, which reflect real assistance provided to hundreds of future professionals. Every figure in our statistics represents a confirmed success, backed by our team's diligent efforts and our students' determination.",
       "stats": {
         "students": {
           "title": "Students"
@@ -29,7 +33,7 @@
     "shareExperience": {
       "title": "Share your",
       "titleAccent": "experience",
-      "description": "Your review will help other students make the right decision. Tell us about your path to successful admission.",
+      "description": "Your personal experience is an invaluable resource for those just beginning their journey toward education in Turkey. Tell us about your admission process, the challenges you faced, and what helped you succeed to inspire other applicants.",
       "form": {
         "name": {
           "label": "Your name *",

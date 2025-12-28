@@ -5,6 +5,10 @@
 import type { FaqItem, ServicePackage, ContentItem, CoursePackage } from './types'
 
 interface RelocationService {
+    meta: {
+        title: string
+        description: string
+    }
     title: string
     subtitle: string
     packages: {
@@ -68,6 +72,10 @@ interface RelocationService {
 }
 
 interface TrYosCourseService {
+    meta: {
+        title: string
+        description: string
+    }
     title: string
     subtitle: string
     subServices: {
@@ -126,6 +134,10 @@ interface TrYosCourseService {
 }
 
 interface SatCourseService {
+    meta: {
+        title: string
+        description: string
+    }
     title: string
     subtitle: string
     temporarilyUnavailable: string
@@ -179,6 +191,10 @@ interface SatCourseService {
 }
 
 interface LanguageCourseService {
+    meta: {
+        title: string
+        description: string
+    }
     title: string
     subtitle: string
     temporarilyUnavailable: string
@@ -238,6 +254,10 @@ interface LanguageCourseService {
 }
 
 interface DocumentTranslationService {
+    meta: {
+        title: string
+        description: string
+    }
     title: string
     subtitle: string
     shortTitle: string
@@ -341,6 +361,10 @@ export interface ServicesSchema {
             workingSince: string
             documentsCount: string
         }
+    }
+    meta: {
+        title: string
+        description: string
     }
     'relocation-in-turkey': RelocationService
     'tr-yos-courses': TrYosCourseService

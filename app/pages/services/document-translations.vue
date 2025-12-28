@@ -47,6 +47,7 @@ import { namespace } from '~~/lib/i18n'
 import type { CalculatorSubmitEvent } from '~/types/features/services'
 
 const svc = namespace('services.document-translations')
+const metaNs = namespace('services.document-translations.meta')
 const calcNs = namespace('services.document-translations.calculator')
 const calcDataNs = namespace('services.document-translations.calculatorData')
 const howNs = namespace('services.document-translations.howItWorks.steps')
@@ -149,7 +150,7 @@ const whyChooseUsFactors = computed(() => [
 
 
 useServiceHead({
-  title: () => t(svc('title')),
-  description: () => t(svc('subtitle')),
+  title: () => t(metaNs('title')),
+  description: () => t(metaNs('description')),
 })
 </script>

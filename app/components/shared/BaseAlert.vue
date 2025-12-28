@@ -12,7 +12,10 @@
       v-if="layout === 'horizontal' && effectiveIcon"
       :class="[
         'flex-shrink-0 step-badge',
-        variant === 'success' ? 'bg-success/10' : 'bg-warning/10',
+        variant === 'success' ? 'bg-green-100' :
+        variant === 'warning' ? 'bg-amber-100' :
+        variant === 'error' ? 'bg-red-100' :
+        'bg-blue-100'
       ]"
     >
       <Icon
@@ -23,10 +26,10 @@
 
     <!-- Horizontal layout: content -->
     <div v-if="layout === 'horizontal'" class="flex-grow min-w-0">
-      <h4 v-if="title" :class="['text-card-title mb-1', colorClasses.title]">
+      <h4 v-if="title" :class="['text-card-title-sm mb-1', colorClasses.title]">
         {{ title }}
       </h4>
-      <div :class="['text-body-sm', colorClasses.content]">
+      <div :class="['text-card-body-sm', colorClasses.content]">
         <slot />
       </div>
     </div>
@@ -39,11 +42,11 @@
           :name="icon"
           :class="['text-icon', colorClasses.icon]"
         />
-        <h4 v-if="title" :class="['text-card-title', colorClasses.title]">
+        <h4 v-if="title" :class="['text-card-title-sm', colorClasses.title]">
           {{ title }}
         </h4>
       </div>
-      <div :class="['text-body-sm', colorClasses.content]">
+      <div :class="['text-card-body-sm', colorClasses.content]">
         <slot />
       </div>
     </template>

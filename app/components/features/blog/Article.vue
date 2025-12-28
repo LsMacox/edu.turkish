@@ -3,7 +3,23 @@
     <section
       class="relative overflow-hidden gradient-hero-primary section-py"
     >
-      <div class="container mx-auto container-padding">
+      <!-- Mobile blur background -->
+      <div
+        v-if="resolvedHeroImage"
+        class="absolute inset-0 md:hidden"
+      >
+        <NuxtImg
+          :src="resolvedHeroImage"
+          :alt="''"
+          class="h-full w-full object-cover blur-xl scale-110 opacity-30"
+          format="webp"
+          loading="eager"
+        />
+        <div class="absolute inset-0 bg-gradient-to-b from-transparent via-white/30 to-white/60" />
+      </div>
+
+      <div class="container mx-auto container-padding relative">
+        <BaseBreadcrumbs :items="breadcrumbItems" class="mb-component-lg" />
         <div class="grid items-center gap-component-lg lg:grid-cols-[minmax(0,1.8fr)_minmax(0,1fr)]">
           <div class="space-component-lg">
             <BaseBadge
@@ -32,7 +48,7 @@
               />
             </div>
           </div>
-          <div v-if="resolvedHeroImage" class="relative">
+          <div v-if="resolvedHeroImage" class="relative hidden md:block">
             <div class="relative overflow-hidden rounded-card-lg shadow-elevated h-hero-image-lg">
               <NuxtImg
                 :src="resolvedHeroImage"
@@ -48,12 +64,12 @@
     </section>
 
     <section class="section-py-lg">
-      <div class="container mx-auto container-padding">
+      <div class="container mx-auto px-0 md:container-padding">
         <div class="grid gap-component-lg lg:grid-cols-[minmax(0,2.4fr)_minmax(0,1fr)]">
           <!-- Main content -->
           <div class="order-1 lg:order-1">
             <article
-              class="prose-article rounded-responsive-lg bg-white card-padding-article shadow-card ring-default"
+              class="prose-article rounded-none md:rounded-responsive-lg bg-white p-3 md:p-6 lg:p-10 xl:p-12 shadow-none md:shadow-card ring-0 md:ring-default"
             >
               <BlogContentRenderer
                 :content="article.content"
@@ -62,6 +78,8 @@
                 enable-widgets
               />
             </article>
+
+            <BlogRelocationCtaWidget class="mt-component-lg" />
           </div>
 
           <!-- Sticky sidebar -->
@@ -118,7 +136,7 @@
           </NuxtLink>
         </div>
 
-        <BaseGrid :md="2" :xl="3" gap="lg" class="mt-component-lg">
+        <BaseGrid :md="2" :xl="3" gap="md" class="mt-component-md">
           <BlogRelatedArticleCard
             v-for="related in relatedArticles"
             :key="related.id"
@@ -132,11 +150,13 @@
 
 <script setup lang="ts">
 import type { BlogArticleDetail, BlogArticleListItem } from '~~/lib/types'
+import type { BreadcrumbItem } from '~/components/shared/BaseBreadcrumbs.vue'
 import { useDetailPage } from '~/composables/useBlogDetailPage'
 import { useTableOfContentsScrollspy } from '~/composables/useBlogScrollspy'
 import { namespace, key } from '~~/lib/i18n'
 
 const ns = namespace('blog.article')
+const bcNs = namespace('breadcrumbs')
 
 const props = defineProps<{
   article: BlogArticleDetail
@@ -174,5 +194,11 @@ const {
 
 // Scrollspy
 const { activeSectionId, scrollToSection } = useTableOfContentsScrollspy(tableOfContents)
+
+// Breadcrumbs
+const breadcrumbItems = computed<BreadcrumbItem[]>(() => [
+  { label: t(bcNs('blog')), path: '/blog' },
+  { label: props.article.title },
+])
 </script>
 

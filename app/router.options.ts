@@ -35,7 +35,8 @@ export default <RouterConfig>{
 
     const el = getEl(to.hash)
     if (el) {
-      scrollToEl(el)
+      // Wait for layout to stabilize before scrolling
+      setTimeout(() => scrollToEl(el), 100)
       return
     }
 
@@ -44,8 +45,11 @@ export default <RouterConfig>{
       const check = () => {
         const el = getEl(to.hash)
         if (el) {
-          scrollToEl(el)
-          resolve(undefined)
+          // Wait for layout to stabilize before scrolling
+          setTimeout(() => {
+            scrollToEl(el)
+            resolve(undefined)
+          }, 100)
           return
         }
         if (performance.now() - start >= 1000) {

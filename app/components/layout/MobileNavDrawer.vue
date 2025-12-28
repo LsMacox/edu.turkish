@@ -83,10 +83,12 @@
                     isServiceLinkActive(link.path)
                       ? 'text-primary font-medium bg-primary/5'
                       : 'text-meta hover:text-secondary hover:bg-surface',
+                    link.highlight ? 'font-semibold' : ''
                   ]"
                   @click="closeDrawer"
                 >
                   {{ link.label }}
+                  <Icon v-if="link.highlight" name="mdi:star" class="inline text-icon-xs text-warning ml-1" />
                 </NuxtLink>
               </div>
             </Transition>
@@ -176,6 +178,7 @@ const serviceLinks = computed(() => [
   {
     label: t(navNs('servicesDropdown.relocation')),
     path: localePath('/services/relocation-in-turkey'),
+    highlight: true,
   },
   { label: t(navNs('servicesDropdown.trYosCourses')), path: localePath('/services/tr-yos-courses') },
   { label: t(navNs('servicesDropdown.satCourses')), path: localePath('/services/sat-courses') },

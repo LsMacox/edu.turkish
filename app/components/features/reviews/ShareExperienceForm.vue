@@ -15,7 +15,11 @@
         <div
           class="gradient-placeholder-media rounded-card-lg card-padding-xl shadow-elevated"
         >
-          <form class="space-component-xl" @submit.prevent.stop="submitReview">
+          <form
+            id="share-experience-form"
+            class="space-component-xl"
+            @submit.prevent.stop="submitReview"
+          >
             <div class="grid grid-cols-1 md:grid-cols-2 gap-component-lg">
               <!-- Name -->
               <div>

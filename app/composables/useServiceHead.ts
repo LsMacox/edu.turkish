@@ -7,24 +7,35 @@ interface ServiceHeadOptions {
 export function useServiceHead(options: ServiceHeadOptions) {
   const schemaType = options.schemaType ?? ['Product', 'Service']
 
-  useHead(() => ({
-    title: toValue(options.title),
-    meta: [{ name: 'description', content: toValue(options.description) }],
-    script: [
-      {
-        type: 'application/ld+json',
-        innerHTML: JSON.stringify({
-          '@context': 'https://schema.org',
-          '@type': schemaType,
-          name: toValue(options.title),
-          description: toValue(options.description),
-          provider: {
-            '@type': 'Organization',
-            name: 'Edu.turkish',
-            sameAs: 'https://edu-turkish.com',
-          },
-        }),
-      },
-    ],
-  }))
+  useHead(() => {
+    const title = toValue(options.title)
+    const description = toValue(options.description)
+
+    return {
+      title,
+      meta: [
+        { name: 'description', content: description },
+        { property: 'og:title', content: title },
+        { property: 'og:description', content: description },
+        { name: 'twitter:title', content: title },
+        { name: 'twitter:description', content: description },
+      ],
+      script: [
+        {
+          type: 'application/ld+json',
+          innerHTML: JSON.stringify({
+            '@context': 'https://schema.org',
+            '@type': schemaType,
+            name: title,
+            description,
+            provider: {
+              '@type': 'Organization',
+              name: 'Edu.turkish',
+              sameAs: 'https://edu-turkish.com',
+            },
+          }),
+        },
+      ],
+    }
+  })
 }

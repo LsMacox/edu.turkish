@@ -7,19 +7,18 @@ export interface ProgramsSchema {
         title: string
         description: string
     }
+    list: {
+        title: string
+        description: string
+    }
     hero: {
         title: string
         titleAccent: string
         description: string
-        badge: string
         stats: {
             programs: string
             categories: string
             support: string
-        }
-        card: {
-            title: string
-            subtitle: string
         }
     }
     learnMore: string
@@ -38,6 +37,7 @@ export interface ProgramsSchema {
         contact: string
     }
     detail: {
+        fallbackDescription: string
         loading: string
         notFound: string
         error: string

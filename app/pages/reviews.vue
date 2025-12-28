@@ -67,13 +67,64 @@ import { namespace } from '~~/lib/i18n'
 
 const achievementsNs = namespace('reviews.achievements')
 const statsNs = namespace('reviews.achievements.stats')
+const metaNs = namespace('reviews.meta')
 const { t } = useI18n()
+const localePath = useLocalePath()
+const runtimeConfig = useRuntimeConfig()
+const siteUrl = runtimeConfig.public.siteUrl || 'https://edu-turkish.com'
 
-// Reviews page meta
+useHead(() => ({
+  title: t(metaNs('title')),
+  meta: [
+    { name: 'description', content: t(metaNs('description')) },
+    { property: 'og:title', content: t(metaNs('title')) },
+    { property: 'og:description', content: t(metaNs('description')) },
+    { property: 'og:type', content: 'website' },
+    { name: 'twitter:title', content: t(metaNs('title')) },
+    { name: 'twitter:description', content: t(metaNs('description')) },
+  ],
+  script: [
+    {
+      type: 'application/ld+json',
+      children: JSON.stringify({
+        '@context': 'https://schema.org',
+        '@type': 'WebPage',
+        name: t(metaNs('title')),
+        description: t(metaNs('description')),
+        url: `${siteUrl}${localePath('/reviews')}`,
+        mainEntity: {
+          '@type': 'Organization',
+          name: 'Edu.turkish',
+          url: siteUrl,
+          aggregateRating: {
+            '@type': 'AggregateRating',
+            ratingValue: '4.9',
+            bestRating: '5',
+            worstRating: '1',
+            ratingCount: '500',
+          },
+        },
+      }),
+    },
+    {
+      type: 'application/ld+json',
+      children: JSON.stringify({
+        '@context': 'https://schema.org',
+        '@type': 'BreadcrumbList',
+        itemListElement: [
+          {
+            '@type': 'ListItem',
+            position: 1,
+            name: t(metaNs('title')),
+            item: `${siteUrl}${localePath('/reviews')}`,
+          },
+        ],
+      }),
+    },
+  ],
+}))
+
 definePageMeta({
-  title: 'Отзывы студентов - Edu.turkish',
-  description:
-    'Реальные отзывы студентов и родителей о поступлении в турецкие университеты через Edu.turkish',
   name: 'ReviewsPage',
 })
 </script>

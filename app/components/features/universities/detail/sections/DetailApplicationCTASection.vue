@@ -10,7 +10,11 @@
         </div>
 
         <BaseCard padding="xl" shadow="xl" rounded="2xl">
-          <form class="space-component-lg" @submit.prevent="submitApplication">
+          <form
+            id="university-cta-form"
+            class="space-component-lg"
+            @submit.prevent="submitApplication"
+          >
             <div class="grid md:grid-cols-2 gap-component-lg">
               <div>
                 <label class="block text-label mb-label" :for="nameFieldId">

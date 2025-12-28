@@ -1,24 +1,25 @@
 {
   "home": {
     "seo": {
-      "title": "Ana Sayfa",
-      "description": "Edu.turkish ile Türkiye üniversitelerine başvurun: program seçimi, evrak hazırlığı, burs fırsatları ve her adımda danışman desteği."
+      "title": "Türkiye'de Ücretsiz Eğitim — Başvuru Yardımı",
+      "description": "Türkiye'nin en iyi üniversitelerine giriş için profesyonel yardım. Üniversite seçimi, belge hazırlama, vize desteği ve Türkiye'de adaptasyon.",
+      "keywords": "türkiye'de ücretsiz eğitim, yabancılar için türkiye'de eğitim, istanbul'daki ucuz üniversiteler, yabancı öğrenciler için türkiye'de doktora, türkiye'de ingilizce eğitim"
     },
     "hero": {
-      "title": "Gelecek burada başlar:",
-      "title_accent": "Türkiye'deki eğitiminiz",
-      "subtitle": "Profesyonel üniversite seçimi ve belge tesliminden kayda kadar tam destek garantisi veriyoruz. Kendinizi evrak işlerinden kurtarın ve kabulünüzü uzmanlara emanet edin.",
+      "title": "Yabancılar için Türkiye'de Eğitim",
+      "title_accent": "bizimle birlikte",
+      "subtitle": "Yolculuğunuzun her aşamasında uçtan uca destek sağlıyoruz: ilk danışmanlıktan ideal üniversite seçimine, konforlu taşınmadan yeni bir ülkeye başarılı uyum sürecine kadar yanınızdayız.",
       "stat_students": "500'den fazla öğrenci halihazırda Türkiye'de eğitim görüyor",
       "stat_verified": "%98 başarılı kayıt",
       "stat_documents": "Resmi sözleşme ile çalışıyoruz"
     },
     "who": {
       "title": "Kimsiniz?",
-      "subtitle": "Birkaç soruya cevap verin, size mükemmel kabul planını bulalım",
-      "student": "Öğrenci",
-      "student_desc": "Kendim başvurmak istiyorum",
-      "parent": "Ebeveyn",
-      "parent_desc": "Çocuğuma yardım ediyorum",
+      "subtitle": "Kişiselleştirilmiş başvuru profilinizi oluşturabilmemiz ve size en uygun üniversiteleri ve eğitim programlarını önerebilmemiz için birkaç basit soruyu yanıtlayın.",
+      "student": "Ben Öğrenciyim",
+      "student_desc": "Kendi başıma başvurmayı planlıyorum",
+      "parent": "Ben Veliyim",
+      "parent_desc": "Çocuğuma seçiminde yardımcı oluyorum",
       "university_chosen": "Zaten bir üniversite seçtiniz mi?",
       "yes_know": "Evet, nereye gitmek istediğimi biliyorum",
       "no_help": "Hayır, yardıma ihtiyacım var",
@@ -42,7 +43,7 @@
     },
     "how": {
       "title": "Hayalden kabule sadece 4 adım",
-      "subtitle": "Siz en önemli olana odaklanın, tüm bürokrasiyi biz üstlenelim.",
+      "subtitle": "Tüm bürokratik yükü ve üniversitelerle olan görüşmeleri sizin adınıza üstlenerek, kayıt sürecini mümkün olduğunca basitleştirdik.",
       "step1_title": "20+ güvenilir üniversite",
       "step1_desc": "Kataloğumuzdan size en uygun programı ve üniversiteyi seçin.",
       "step2_title": "5 dakikalık başvuru",
@@ -54,7 +55,7 @@
     },
     "universities": {
       "title": "Popüler üniversiteler",
-      "subtitle": "Türkiye'nin yüksek dereceli ve uygun fiyatlı en iyi üniversiteleri",
+      "subtitle": "Kusursuz itibara, yüksek eğitim kalitesine ve uygun eğitim ücretlerine sahip Türkiye'nin önde gelen yükseköğretim kurumlarından seçilmiş bir liste.",
       "all_cities": "Tüm şehirler",
       "english_language": "İngilizce",
       "budget_filter": "5000$'a kadar",
@@ -62,11 +63,11 @@
     },
     "services": {
       "title": "Türkiye'de eğitim ve yaşam için ihtiyacınız olan her şey",
-      "subtitle": "Sınavlara hazırlıktan taşınma ve oturma iznine kadar tüm süreci biz üstleniyoruz."
+      "subtitle": "Geleceğinize yönelik kapsamlı bir yaklaşım: kaliteli giriş sınavı hazırlığından, Türkiye'ye taşınma ve yasallaşma sürecindeki tam desteğe kadar."
     },
     "reviews": {
       "title": "Öğrenci Yorumları",
-      "subtitle": "Müşterilerimizin başarı hikayeleri",
+      "subtitle": "Edu.turkish'in farklı ülkelerden gelen öğrencilerin hayallerini gerçekleştirmelerine ve en iyi Türk üniversitelerinde eğitime başlamalarına nasıl yardımcı olduğunu keşfedin.",
       "loading": "Yorumlar yükleniyor...",
       "error": "Yorumlar yüklenemedi. Lütfen daha sonra tekrar deneyin.",
       "empty": "Yakında burada öğrencilerimizin ve velilerimizin yorumları yer alacak.",
@@ -78,7 +79,7 @@
       "fear_label": "Korkunuz:",
       "fear1_title": "Kandırılmak",
       "fear1_quote": "\"Ya dolandırıcılarsa?\"",
-      "fear1_answer": "Resmi sözleşme ile çalışıyoruz.\nLisanslı bir ajansız.\n500+ başarılı kayıt tecrübemiz var.",
+      "fear1_answer": "Resmi sözleşme ile работаем.\nLisanslı bir ajansız.\n500+ başarılı kayıt tecrübemiz var.",
       "fear2_title": "Anlaşılmamak",
       "fear2_quote": "\"Türkçe bilmiyorum\"",
       "fear2_answer": "Türkçe ve İngilizce konuşuyoruz.\nTüm belgelerinizi tercüme ediyoruz.\nHer adımda yanınızdayız.",
@@ -97,7 +98,7 @@
     },
     "faq": {
       "title": "Sık Sorulan Sorular",
-      "subtitle": "Başvuru hakkında en popüler sorulara yanıtlar",
+      "subtitle": "Eğitim sistemi, burslar ve Türkiye'deki günlük yaşam hakkında adaylardan gelen en yaygın sorulara uzmanlarımızdan detaylı yanıtlar.",
       "question1": "Hizmetleriniz ne kadar?",
       "answer1": "Maliyet seçilen hizmet paketine bağlıdır. Temel paket $500'dan, tam destek $1200'dan. Taksit sağlıyoruz.",
       "question2": "Başvuru için hangi belgeler gerekli?",

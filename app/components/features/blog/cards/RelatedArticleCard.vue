@@ -13,18 +13,18 @@
           <NuxtImg
             :src="article.image"
             :alt="article.imageAlt || article.title"
-            :class="['h-card-image w-full object-cover', IMAGE_HOVER_CLASSES]"
+            :class="['h-28 md:h-card-image w-full object-cover', IMAGE_HOVER_CLASSES]"
             format="webp"
           />
         </template>
         <div
           v-else
-          class="flex h-card-image w-full items-center justify-center gradient-placeholder card-padding-sm text-center"
+          class="flex h-28 md:h-card-image w-full items-center justify-center gradient-placeholder card-padding-xs text-center"
         >
           <span class="text-secondary text-body-sm font-semibold">{{ article.title }}</span>
         </div>
       </div>
-      <div class="flex flex-1 flex-col gap-component-lg card-padding">
+      <div class="flex flex-1 flex-col gap-component-sm md:gap-component-lg card-padding-sm md:card-padding">
         <BaseBadge
           color="primary"
           variant="soft"

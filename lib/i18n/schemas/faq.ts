@@ -3,6 +3,10 @@
  */
 
 export interface FaqSchema {
+    meta: {
+        title: string
+        description: string
+    }
     title: string
     subtitle: string
     heroImageAlt: string

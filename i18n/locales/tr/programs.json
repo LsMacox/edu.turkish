@@ -1,13 +1,13 @@
 {
   "programs": {
     "meta": {
-      "title": "Türkiye'de Lisans Programları",
-      "description": "Türk üniversitelerindeki çeşitli lisans programları hakkında bilgi edinin. Tıp, işletme ve mühendislik uzmanlıkları."
+      "title": "Türkiye'deki Eğitim Programları - Edu.turkish",
+      "description": "Türkiye'deki üniversitelerde lisans, yüksek lisans ve doktora programları kataloğu. Bölüm seçimi ve kabul işlemleri desteği."
     },
     "hero": {
       "title": "Eğitim ",
       "titleAccent": "Programları",
-      "description": "Türkiye'deki çeşitli lisans programları hakkında en önemli bilgileri keşfedin",
+      "description": "Tıp ve mühendislikten tasarım ve işletmeye kadar Türkiye'deki en popüler eğitim programları hakkında her şeyi keşfedin. Sizin için bölümlerin detaylı incelemelerini, kariyer perspektiflerini ve başvuru koşullarını hazırladık.",
       "stats": {
         "programs": "Program",
         "categories": "Kategori",
@@ -29,6 +29,7 @@
       "contact": "Bize ulaşın"
     },
     "detail": {
+      "fallbackDescription": "Türkiye üniversitelerindeki '{title}' bölümü: kabul şartları, kariyer olanakları ve eğitim özellikleri.",
       "loading": "Yükleniyor...",
       "notFound": "Program bulunamadı",
       "error": "Yükleme hatası",

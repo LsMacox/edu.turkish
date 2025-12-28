@@ -12,7 +12,7 @@ export const CHIP_BUTTON_CLASSES: Record<ChipButtonVariant, string> = {
         'hover:bg-surface-muted',
         'focus:ring-primary focus-visible:ring-primary',
         'data-[active=true]:bg-primary data-[active=true]:text-white data-[active=true]:shadow-button',
-        '!px-3 !py-1.5 sm:!px-4 sm:!py-2 !text-xs sm:!text-sm !min-h-touch-36 sm:!min-h-touch-40',
+        '!px-2.5 !py-1 sm:!px-3.5 sm:!py-1.5 !text-[11px] sm:!text-xs !min-h-[32px] sm:!min-h-[36px]',
     ].join(' '),
     suggestion: [
         'bg-surface-elevated text-content border border-transparent',

@@ -30,12 +30,10 @@
     </template>
 
     <template #caption="{ item }">
-      <template v-if="item">
-        <h3 class="text-xl font-semibold text-white">{{ item.name }}</h3>
-        <p v-if="item.university" class="text-body-sm text-white/70 mt-1">
-          {{ item.university }}
-        </p>
-      </template>
+      <div v-if="item" class="bg-black/40 px-3 py-1.5 rounded-full">
+        <span class="font-medium text-white text-sm">{{ item.name }}</span>
+        <span v-if="item.university" class="text-white/70 text-sm"> · {{ item.university }}</span>
+      </div>
     </template>
   </LightboxLightbox>
 </template>

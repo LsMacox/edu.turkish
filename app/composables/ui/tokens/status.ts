@@ -105,27 +105,27 @@ export interface AlertColors {
 
 export const ALERT_COLORS: Record<AlertVariant, AlertColors> = {
     success: {
-        container: 'bg-green-50 border-green-200',
+        container: 'bg-green-50 border-green-200/60',
         icon: 'text-green-600',
-        title: 'text-green-800',
-        content: 'text-green-700',
+        title: 'text-secondary font-bold',
+        content: 'text-gray-700',
     },
     warning: {
-        container: 'bg-yellow-50 border-yellow-200',
-        icon: 'text-yellow-600',
-        title: 'text-yellow-800',
-        content: 'text-yellow-700',
+        container: 'bg-amber-50 border-amber-200/60',
+        icon: 'text-amber-600',
+        title: 'text-secondary font-bold',
+        content: 'text-gray-700',
     },
     error: {
-        container: 'bg-red-50 border-red-200',
+        container: 'bg-red-50 border-red-200/60',
         icon: 'text-red-600',
-        title: 'text-red-800',
-        content: 'text-red-700',
+        title: 'text-secondary font-bold',
+        content: 'text-gray-700',
     },
     info: {
-        container: 'bg-blue-50 border-blue-200',
+        container: 'bg-blue-50 border-blue-200/60',
         icon: 'text-blue-600',
-        title: 'text-blue-800',
-        content: 'text-blue-700',
+        title: 'text-secondary font-bold',
+        content: 'text-gray-700',
     },
 }

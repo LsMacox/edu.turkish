@@ -3,6 +3,10 @@
  */
 
 export interface ContractSchema {
+    meta: {
+        title: string
+        description: string
+    }
     title: string
     services_title: string
     services: string

@@ -1,5 +1,9 @@
 {
   "faq": {
+    "meta": {
+      "title": "Sıkça Sorulan Sorular - Edu.turkish",
+      "description": "Türkiye'de eğitim hakkında sıkça sorulan soruların yanıtları: belgeler, TR-YÖS ve SAT sınavları, eğitim ve yaşam maliyetleri, ikamet izni işlemleri."
+    },
     "title": "Sıkça Sorulan Sorular",
     "subtitle": "Öğrencilerimiz ve veliler tarafından en sık sorulan sorulara cevaplar",
     "searchPlaceholder": "Soru ara...",

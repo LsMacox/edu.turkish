@@ -163,6 +163,7 @@ export class BlogRepository {
         ...articleListInclude(locale),
       }),
       this.prisma.blogCategory.findMany({
+        where: { isProgram: false },
         orderBy: [{ order: 'asc' }, { id: 'asc' }],
         include: { translations: true },
       }),

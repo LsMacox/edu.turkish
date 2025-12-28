@@ -12,12 +12,16 @@
       },
       "trustIndicators": {
         "workingSince": "2019'dan beri çalışıyoruz",
-        "documentsCount": "1000+ belge çevrildi"
+        "documentsCount": "500+ belge çevrildi"
       }
     },
     "relocation-in-turkey": {
+      "meta": {
+        "title": "Refakat ve Taşınma Desteği - Edu.turkish",
+        "description": "Türkiye'ye taşınan öğrenciler için tam destek: havalimanı karşılama, ikamet izni desteği, konaklama bulma ve yeni bir ülkeye uyum."
+      },
       "title": "Refakat ve taşınma",
-      "subtitle": "Sahada tam destek: sizi karşılıyor, vize, oturma izni ve uyum sürecinde yanınızda oluyoruz.",
+      "subtitle": "Taşınma sürecinizi organize etmede profesyonel yardım: Karşılama, öğrenci vizesi işlemleri, ikamet izni alma ve kolay uyum için konforlu konut bulma gibi tüm detayları biz hallediyoruz.",
       "packages": {
         "admission": {
           "name": "Üniversiteye Giriş",
@@ -64,12 +68,12 @@
         }
       },
       "benefits": {
-        "title": "Neden Biz?",
-        "content": "Modern, güvenilir hizmet sunuyoruz. Acele eden acentelerin aksine, resmi belgelerle ve şeffaf iletişimle her şeyi doğru şekilde yapıyoruz. Her adım izlenir ve her zaman bilgilendirilirsiniz."
+        "title": "Neden Edu.turkish'i Seçmelisiniz?",
+        "content": "Size sadece hizmet değil, geleceğiniz için güven sunuyoruz. Ekibimiz, Türk hukuku ve eğitim sistemi hakkındaki derin bilgisine dayanarak kusursuz bir hizmet sağlar. Aracıların aksine resmi olarak çalışıyor, her aşamada şeffaflık garanti ediyor ve her türlü sorunuzu yanıtlamak için her zaman iletişimde olan kişisel bir danışman sağlıyoruz."
       },
       "risks": {
-        "title": "Yaygın Hatalar",
-        "content": "Çok öğrenci hazırlıksız gelir ve kaçırılan ikamet izni son tarihleri için para cezalarıyla, yanlış belgeler nedeniyle reddedilmelerle veya konut sözleşmesi sorunlarıyla karşılaşır. Edu Turkish 2018'den beri sıfır red ile öğrencilere yardım ediyor."
+        "title": "Hangi Zorluklarla Karşılaşabilirsiniz?",
+        "content": "Tek başına taşınmak genellikle gizli riskler barındırır: İkamet izni reddine yol açan kritik belge çeviri hatalarından, göçmenlik sürelerinin ihlali nedeniyle ağır para cezalarına kadar. 2018'den beri Edu.turkish, öğrencilerin bu tuzaklardan kaçınmasına yardımcı olarak, gereksiz finansal kayıplar olmadan %100 belge başarısı ve güvenli bir uyum süreci sağlar."
       },
       "faq": {
         "title": "Sık Sorulan Sorular",
@@ -114,16 +118,20 @@
       }
     },
     "tr-yos-courses": {
+      "meta": {
+        "title": "Online TR-YÖS Sınav Hazırlığı - Edu.turkish",
+        "description": "Türkiye'deki devlet üniversitelerine giriş için TR-YÖS hazırlık kursları. Deneyimli eğitmenlerle matematik, mantık ve geometri."
+      },
       "title": "TR-YÖS hazırlığı",
       "subtitle": "Uzman kurslarımız ve kanıtlanmış metodlarımız yüksek puan almanıza yardımcı olur.",
       "subServices": {
         "basic": {
-          "name": "Temel",
-          "description": "Süre: 7+ ay\nGrup: 10 kişiye kadar\nProgram: tüm konularda tam hazırlık\nProgram: haftada 3 ders"
+          "name": "Temel Paket",
+          "description": "Kapsamlı bir hazırlık için ideal bir başlangıç. Program tüm TR-YÖS konularını (matematik, mantık, geometri) kapsar. Dersler, haftada 3 kez en fazla 10 kişilik mini gruplar halinde işlenerek dinamik bir öğrenme ve eğitmene soru sorma imkanı sağlar."
         },
         "individual": {
-          "name": "Bireysel",
-          "description": "Süre: 7+ ay\nFormat: bireysel dersler\nProgram: aynı temel + seviyenize uyarlama\nProgram: haftada 3 ders"
+          "name": "Bireysel Paket",
+          "description": "Kişisel sonucunuza maksimum odaklanma. Program tamamen mevcut bilgi seviyenize ve öğrenme hızınıza göre uyarlanır. Haftada 3 kez düzenlenen kişiye özel ders programı, karmaşık konuların detaylı bir şekilde analiz edilmesine ve eksiklerin giderilmesine olanak tanır."
         }
       },
       "courseGoal": {
@@ -226,18 +234,30 @@
       }
     },
     "sat-courses": {
+      "meta": {
+        "title": "SAT Hazırlık Kursları - Edu.turkish",
+        "description": "Türkiye'deki ve dünyadaki en iyi üniversitelere giriş için SAT sınavı hazırlık kursları. Uzman eğitmenlerle akademik destek."
+      },
       "title": "SAT hazırlığı",
-      "subtitle": "Dünyanın en iyi okulları seviyesinde hazırlıyor, sizi önde gelen üniversitelere taşıyoruz.",
+      "subtitle": "Eleştirel düşünme ve dil becerilerini geliştirmeye odaklanan kapsamlı SAT sınav hazırlığı. Dünyanın en prestijli üniversitelerine başvururken size rekabet avantajı sağlamak için dünyanın önde gelen okullarının metodolojilerini kullanıyoruz.",
       "temporarilyUnavailable": "Hizmet geçici olarak kullanılamıyor"
     },
     "turkish-english-course": {
+      "meta": {
+        "title": "Dil Kursları (Türkçe/İngilizce) - Edu.turkish",
+        "description": "Türkiye'de eğitim ve yaşam için Türkçe ve İngilizce dil kursları. TÖMER ve IELTS sınavlarına kaliteli hazırlık."
+      },
       "title": "Dil kursları (TR/EN)",
-      "subtitle": "Kendinize güvenerek konuşun! TÖMER/IELTS sınavlarını geçmenize ve ülkede kendinizi rahat hissetmenize yardımcı oluyoruz.",
+      "subtitle": "TÖMER ve IELTS sınavlarında başarı için yoğun Türkçe ve İngilizce kursları. Programımız dil engelini aşmanıza, akıcı iletişim becerileri geliştirmenize ve yeni bir kültürel ve eğitim ortamına mümkün olduğunca çabuk uyum sağlamanıza yardımcı olacaktır.",
       "temporarilyUnavailable": "Hizmet geçici olarak kullanılamıyor"
     },
     "document-translations": {
+      "meta": {
+        "title": "Türkiye'de Belge Çevirisi ve Tasdiki - Edu.turkish",
+        "description": "Türkiye'deki üniversiteler ve resmi kurumlar için profesyonel yeminli tercüman onaylı belge çevirisi hizmetleri."
+      },
       "title": "Çeviri ve tasdik",
-      "subtitle": "%100 garanti: belgeleriniz çevrilir, onaylanır (yeminli tercüman) ve her üniversite tarafından kabul edilir.",
+      "subtitle": "Belgelerinizin yeminli tercümanlar tarafından profesyonel çevirisi ve yasallaştırılması. %100 doğruluk, Türk yasal gerekliliklerine tam uyum ve belgelerinizin Türkiye'deki tüm devlet kurumları ve üniversiteler tarafından koşulsuz kabul edilmesini garanti ediyoruz.",
       "calculatorData": {
         "documentTypes": {
           "passport": {

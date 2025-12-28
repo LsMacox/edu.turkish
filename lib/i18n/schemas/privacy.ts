@@ -3,6 +3,10 @@
  */
 
 export interface PrivacySchema {
+    meta: {
+        title: string
+        description: string
+    }
     title: string
     data_collection_title: string
     data_collection: string

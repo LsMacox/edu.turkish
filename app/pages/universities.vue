@@ -82,8 +82,57 @@ import { useUniversitiesStore } from '~/stores/universities'
 
 const listNs = namespace('universities.list')
 const heroNs = namespace('universities.list.hero')
+const metaNs = namespace('universities.meta')
 
 const { t } = useI18n()
+const localePath = useLocalePath()
+const runtimeConfig = useRuntimeConfig()
+const siteUrl = runtimeConfig.public.siteUrl || 'https://edu-turkish.com'
+
+useHead(() => ({
+  title: t(metaNs('title')),
+  meta: [
+    { name: 'description', content: t(metaNs('description')) },
+    { name: 'keywords', content: t(metaNs('keywords')) },
+    { property: 'og:title', content: t(metaNs('title')) },
+    { property: 'og:description', content: t(metaNs('description')) },
+    { property: 'og:type', content: 'website' },
+    { name: 'twitter:title', content: t(metaNs('title')) },
+    { name: 'twitter:description', content: t(metaNs('description')) },
+  ],
+  script: [
+    {
+      type: 'application/ld+json',
+      children: JSON.stringify({
+        '@context': 'https://schema.org',
+        '@type': 'CollectionPage',
+        name: t(metaNs('title')),
+        description: t(metaNs('description')),
+        url: `${siteUrl}${localePath('/universities')}`,
+        isPartOf: {
+          '@type': 'WebSite',
+          name: 'Edu.turkish',
+          url: siteUrl,
+        },
+      }),
+    },
+    {
+      type: 'application/ld+json',
+      children: JSON.stringify({
+        '@context': 'https://schema.org',
+        '@type': 'BreadcrumbList',
+        itemListElement: [
+          {
+            '@type': 'ListItem',
+            position: 1,
+            name: t(metaNs('title')),
+            item: `${siteUrl}${localePath('/universities')}`,
+          },
+        ],
+      }),
+    },
+  ],
+}))
 const route = useRoute()
 
 const universitiesStore = useUniversitiesStore()

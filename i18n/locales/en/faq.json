@@ -1,5 +1,9 @@
 {
   "faq": {
+    "meta": {
+      "title": "Frequently Asked Questions - Edu.turkish",
+      "description": "Answers to popular questions about admission to Turkey: documents, TR-YÖS and SAT exams, tuition and living costs, residence permit processing."
+    },
     "title": "Frequently Asked Questions",
     "subtitle": "Answers to questions most commonly asked by our students and parents",
     "searchPlaceholder": "Search questions...",

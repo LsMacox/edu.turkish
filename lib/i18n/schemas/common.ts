@@ -4,6 +4,14 @@
  */
 
 export interface CommonSchema {
+    breadcrumbs: {
+        home: string
+        services: string
+        relocation: string
+        universities: string
+        blog: string
+        articles: string
+    }
     site: {
         description: string
     }
@@ -38,15 +46,13 @@ export interface CommonSchema {
         collapse: string
     }
     footer: {
+        home: string
+        relocation: string
         about_us: string
         who_we_are: string
         our_team: string
         contacts: string
         universities: string
-        istanbul: string
-        ankara: string
-        izmir: string
-        antalya: string
         all_universities: string
         support: string
         faq: string

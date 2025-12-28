@@ -40,6 +40,7 @@ import { namespace } from '~~/lib/i18n'
 
 const articleNs = namespace('blog.article')
 const blogNs = namespace('blog')
+const metaNs = namespace('blog.meta')
 
 definePageMeta({ layout: 'default' })
 
@@ -109,9 +110,11 @@ const article = computed(() => data.value?.data ?? null)
 const relatedArticles = computed(() => data.value?.related ?? [])
 
 const seoTitle = computed(() => article.value?.title ?? t(blogNs('meta.title')))
-const seoDescription = computed(
-  () => article.value?.seoDescription ?? article.value?.excerpt ?? t(blogNs('meta.description')),
-)
+const seoDescription = computed(() => {
+  if (article.value?.seoDescription) return article.value.seoDescription
+  if (article.value?.excerpt) return article.value.excerpt
+  return t(articleNs('fallbackDescription'), { title: article.value?.title })
+})
 
 useSeoMeta({
   title: seoTitle,
@@ -122,6 +125,66 @@ useSeoMeta({
   ogImage: computed(() => article.value?.heroImage ?? article.value?.image),
   twitterCard: 'summary_large_image',
 })
+
+const runtimeConfig = useRuntimeConfig()
+const siteUrl = runtimeConfig.public.siteUrl || 'https://edu-turkish.com'
+
+useHead(() => ({
+  script: article.value
+    ? [
+        {
+          type: 'application/ld+json',
+          children: JSON.stringify({
+            '@context': 'https://schema.org',
+            '@type': 'Article',
+            headline: article.value.title,
+            description: article.value.seoDescription || article.value.excerpt,
+            image: article.value.heroImage || article.value.image,
+            datePublished: (article.value as any).date_created || (article.value as any).createdAt,
+            dateModified: (article.value as any).date_updated || (article.value as any).updatedAt,
+            author: {
+              '@type': 'Organization',
+              name: 'Edu.turkish',
+              url: siteUrl,
+            },
+            publisher: {
+              '@type': 'Organization',
+              name: 'Edu.turkish',
+              logo: {
+                '@type': 'ImageObject',
+                url: `${siteUrl}/android-chrome-512x512.png`,
+              },
+            },
+            mainEntityOfPage: {
+              '@type': 'WebPage',
+              '@id': `${siteUrl}${route.path}`,
+            },
+          }),
+        },
+        {
+          type: 'application/ld+json',
+          children: JSON.stringify({
+            '@context': 'https://schema.org',
+            '@type': 'BreadcrumbList',
+            itemListElement: [
+              {
+                '@type': 'ListItem',
+                position: 1,
+                name: t(metaNs('title')),
+                item: `${siteUrl}${localePath('/blog')}`,
+              },
+              {
+                '@type': 'ListItem',
+                position: 2,
+                name: article.value.title,
+                item: `${siteUrl}${route.path}`,
+              },
+            ],
+          }),
+        },
+      ]
+    : [],
+}))
 
 const errorMessage = computed(() => {
   if (error.value) {

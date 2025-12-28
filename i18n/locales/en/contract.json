@@ -1,5 +1,9 @@
 {
   "contract": {
+    "meta": {
+      "title": "Service Contract - Edu.turkish",
+      "description": "Terms of service, payment procedures, and guarantees for university admission in Turkey through Edu.turkish."
+    },
     "title": "Service Contract",
     "services_title": "Our Services",
     "services": "We provide comprehensive educational consultation services for applications to Turkish universities. Our services include guidance on university selection, application document preparation, visa assistance, and ongoing support throughout the admission process.",

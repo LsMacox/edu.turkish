@@ -1,5 +1,9 @@
 {
   "contract": {
+    "meta": {
+      "title": "Hizmet Sözleşmesi - Edu.turkish",
+      "description": "Edu.turkish üzerinden Türkiye'deki üniversitelere başvururken sunulan hizmetlerin şartları, ödeme prosedürleri ve garantiler hakkında bilgi edinin."
+    },
     "title": "Hizmet Sözleşmesi",
     "services_title": "Hizmetlerimiz",
     "services": "Türk üniversitelerine başvurular için kapsamlı eğitim danışmanlığı hizmetleri sunuyoruz. Hizmetlerimiz üniversite seçimi konusunda rehberlik, başvuru belgesi hazırlama, vize yardımı ve kabul süreci boyunca sürekli destek içerir.",

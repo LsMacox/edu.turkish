@@ -41,7 +41,7 @@
                   v-if="member.linkedin"
                   :href="member.linkedin"
                   target="_blank"
-                  rel="noopener noreferrer"
+                  rel="noopener noreferrer nofollow"
                   class="step-badge-sm bg-info-light cursor-pointer"
                   :aria-label="t(linksNs('linkedin'), { name: member.name })"
                 >
@@ -51,7 +51,7 @@
                   v-if="member.whatsapp"
                   :href="`https://wa.me/${member.whatsapp}`"
                   target="_blank"
-                  rel="noopener noreferrer"
+                  rel="noopener noreferrer nofollow"
                   class="step-badge-sm bg-success-light cursor-pointer"
                   :aria-label="t(linksNs('whatsapp'), { name: member.name })"
                 >

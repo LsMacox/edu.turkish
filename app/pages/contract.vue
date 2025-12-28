@@ -67,25 +67,68 @@
 import { namespace, key } from '~~/lib/i18n'
 
 const contractNs = namespace('contract')
+const metaNs = namespace('contract.meta')
 const { t } = useI18n()
 const localePath = useLocalePath()
+const runtimeConfig = useRuntimeConfig()
+const siteUrl = runtimeConfig.public.siteUrl || 'https://edu-turkish.com'
 
 // SEO Meta Tags
-useHead({
-  title: () => t(contractNs('title')),
+useHead(() => ({
+  title: t(metaNs('title')),
   meta: [
     {
       name: 'description',
-      content: () => t(contractNs('title')),
+      content: t(metaNs('description')),
     },
     {
       property: 'og:title',
-      content: () => t(contractNs('title')),
+      content: t(metaNs('title')),
     },
     {
       property: 'og:description',
-      content: () => t(contractNs('title')),
+      content: t(metaNs('description')),
+    },
+    {
+      name: 'twitter:title',
+      content: t(metaNs('title')),
+    },
+    {
+      name: 'twitter:description',
+      content: t(metaNs('description')),
     },
   ],
-})
+  script: [
+    {
+      type: 'application/ld+json',
+      children: JSON.stringify({
+        '@context': 'https://schema.org',
+        '@type': 'WebPage',
+        name: t(metaNs('title')),
+        description: t(metaNs('description')),
+        url: `${siteUrl}${localePath('/contract')}`,
+        isPartOf: {
+          '@type': 'WebSite',
+          name: 'Edu.turkish',
+          url: siteUrl,
+        },
+      }),
+    },
+    {
+      type: 'application/ld+json',
+      children: JSON.stringify({
+        '@context': 'https://schema.org',
+        '@type': 'BreadcrumbList',
+        itemListElement: [
+          {
+            '@type': 'ListItem',
+            position: 1,
+            name: t(metaNs('title')),
+            item: `${siteUrl}${localePath('/contract')}`,
+          },
+        ],
+      }),
+    },
+  ],
+}))
 </script>

@@ -21,8 +21,8 @@
           <BaseIconBox :icon="step.icon" variant="bordered" :color="step.color" size="md" />
         </div>
         <div class="space-component-sm">
-          <h3 class="text-card-title">{{ t(howNs(step.titleKey)) }}</h3>
-          <p class="text-card-body">{{ t(howNs(step.descKey)) }}</p>
+          <h3 class="text-card-title">{{ t(step.titleKey) }}</h3>
+          <p class="text-card-body">{{ t(step.descKey) }}</p>
         </div>
       </div>
     </div>
@@ -33,20 +33,20 @@
 import { namespace } from '~~/lib/i18n'
 import type { SemanticColor } from '~/types/ui'
 
+const howNs = namespace('home.how')
+
 interface Step {
   icon: string
   color: SemanticColor
-  titleKey: string
-  descKey: string
+  titleKey: ReturnType<typeof howNs>
+  descKey: ReturnType<typeof howNs>
 }
 
 const steps: Step[] = [
-  { icon: 'mdi:magnify', color: 'info', titleKey: 'step1_title', descKey: 'step1_desc' },
-  { icon: 'mdi:pencil', color: 'success', titleKey: 'step2_title', descKey: 'step2_desc' },
-  { icon: 'mdi:email', color: 'primary', titleKey: 'step3_title', descKey: 'step3_desc' },
-  { icon: 'mdi:airplane', color: 'warning', titleKey: 'step4_title', descKey: 'step4_desc' },
+  { icon: 'mdi:magnify', color: 'info', titleKey: howNs('step1_title'), descKey: howNs('step1_desc') },
+  { icon: 'mdi:pencil', color: 'success', titleKey: howNs('step2_title'), descKey: howNs('step2_desc') },
+  { icon: 'mdi:email', color: 'primary', titleKey: howNs('step3_title'), descKey: howNs('step3_desc') },
+  { icon: 'mdi:airplane', color: 'warning', titleKey: howNs('step4_title'), descKey: howNs('step4_desc') },
 ]
-
-const howNs = namespace('home.how')
 const { t } = useI18n()
 </script>

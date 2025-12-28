@@ -2,12 +2,12 @@
   "blog": {
     "meta": {
       "title": "Blog ve Sık Sorulan Sorular - Edu.turkish",
-      "description": "Türkiye'de eğitim, vizeler, burslar ve öğrenci yaşamı hakkında güncel yazılar. Edu.turkish uzmanlarından popüler sorulara yanıtlar."
+      "description": "Türkiye'de eğitim hakkında makaleler ve rehberler: vizeler, burslar, TR-YÖS ve SAT sınavları, öğrenci yaşamı ve adaptasyon."
     },
     "hero": {
       "title": "Blog ve",
       "titleAccent": "sık sorulan sorular",
-      "description": "Türkiye'de başvuru, sınavlar, burslar ve eğitim hakkında önemli sorulara yanıtlar",
+      "description": "2025 başvuruları, TR-YÖS ve SAT sınavlarının özellikleri, burs imkanları ve Türkiye'nin farklı şehirlerinde yaşayan uluslararası öğrencilerin gerçek deneyimleri hakkındaki en güncel sorulara kapsamlı yanıtlar alın.",
       "searchPlaceholder": "Makale veya yanıt ara...",
       "imageAlt": "Blog ve SSS",
       "highlight": {
@@ -53,6 +53,7 @@
       }
     },
     "article": {
+      "fallbackDescription": "Edu.turkish blogundaki '{title}' makalesi: Türkiye'de eğitim, yaşam ve üniversite başvuruları hakkında yararlı bilgiler.",
       "loading": "Makale yükleniyor...",
       "notFound": "Makale bulunamadı",
       "error": "Makaleyi yükleyemedik. Lütfen sayfayı yenileyin.",
@@ -77,6 +78,11 @@
         "title": "Bunları da oku",
         "description": "Öğrencilerimizden daha fazla hikâye ve faydalı ipuçları.",
         "allArticles": "Tüm makaleler"
+      },
+      "relocationCta": {
+        "title": "Türkiye'ye taşınmayı mı planlıyorsunuz?",
+        "description": "Kabul, oturma izni, konaklama ve tam yerleşim desteği konusunda yardımcı oluyoruz.",
+        "button": "Daha fazla bilgi"
       }
     },
     "powerPage": {

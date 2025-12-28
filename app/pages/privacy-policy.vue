@@ -67,25 +67,68 @@
 import { namespace, key } from '~~/lib/i18n'
 
 const privacyNs = namespace('privacy')
+const metaNs = namespace('privacy.meta')
 const { t } = useI18n()
 const localePath = useLocalePath()
+const runtimeConfig = useRuntimeConfig()
+const siteUrl = runtimeConfig.public.siteUrl || 'https://edu-turkish.com'
 
 // SEO Meta Tags
-useHead({
-  title: () => t(privacyNs('title')),
+useHead(() => ({
+  title: t(metaNs('title')),
   meta: [
     {
       name: 'description',
-      content: () => t(privacyNs('title')),
+      content: t(metaNs('description')),
     },
     {
       property: 'og:title',
-      content: () => t(privacyNs('title')),
+      content: t(metaNs('title')),
     },
     {
       property: 'og:description',
-      content: () => t(privacyNs('title')),
+      content: t(metaNs('description')),
+    },
+    {
+      name: 'twitter:title',
+      content: t(metaNs('title')),
+    },
+    {
+      name: 'twitter:description',
+      content: t(metaNs('description')),
     },
   ],
-})
+  script: [
+    {
+      type: 'application/ld+json',
+      children: JSON.stringify({
+        '@context': 'https://schema.org',
+        '@type': 'WebPage',
+        name: t(metaNs('title')),
+        description: t(metaNs('description')),
+        url: `${siteUrl}${localePath('/privacy-policy')}`,
+        isPartOf: {
+          '@type': 'WebSite',
+          name: 'Edu.turkish',
+          url: siteUrl,
+        },
+      }),
+    },
+    {
+      type: 'application/ld+json',
+      children: JSON.stringify({
+        '@context': 'https://schema.org',
+        '@type': 'BreadcrumbList',
+        itemListElement: [
+          {
+            '@type': 'ListItem',
+            position: 1,
+            name: t(metaNs('title')),
+            item: `${siteUrl}${localePath('/privacy-policy')}`,
+          },
+        ],
+      }),
+    },
+  ],
+}))
 </script>

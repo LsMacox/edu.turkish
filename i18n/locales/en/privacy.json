@@ -1,5 +1,9 @@
 {
   "privacy": {
+    "meta": {
+      "title": "Privacy Policy - Edu.turkish",
+      "description": "Privacy policy and personal data protection for Edu.turkish users. Learn how we collect and use your information."
+    },
     "title": "Privacy Policy",
     "data_collection_title": "Data Collection",
     "data_collection": "We collect basic contact information when you submit applications through our website. This includes your name, phone number, email address, and any additional information you provide in application forms.",

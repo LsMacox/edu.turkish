@@ -14,9 +14,9 @@
           :icon="fear.icon"
           :icon-color="fear.iconColor"
           :label="t(fearsNs('fear_label'))"
-          :title="t(fearsNs(`fear${fear.id}_title`))"
-          :quote="t(fearsNs(`fear${fear.id}_quote`))"
-          :answer="t(fearsNs(`fear${fear.id}_answer`))"
+          :title="t(FEAR_TITLE_KEYS[fear.id])"
+          :quote="t(FEAR_QUOTE_KEYS[fear.id])"
+          :answer="t(FEAR_ANSWER_KEYS[fear.id])"
           :is-open="openFearIndex === fear.id"
           @toggle="toggleFear(fear.id)"
         />
@@ -28,8 +28,10 @@
 import type { BaseIconBoxProps } from '~/types/ui'
 import { namespace } from '~~/lib/i18n'
 
+type FearId = 1 | 2 | 3 | 4 | 5 | 6
+
 interface FearItem {
-  id: number
+  id: FearId
   icon: string
   iconColor: BaseIconBoxProps['color']
 }
@@ -45,6 +47,33 @@ const fears: FearItem[] = [
 
 const fearsNs = namespace('home.fears')
 const { t } = useI18n()
+
+const FEAR_TITLE_KEYS: Record<FearId, ReturnType<typeof fearsNs>> = {
+  1: fearsNs('fear1_title'),
+  2: fearsNs('fear2_title'),
+  3: fearsNs('fear3_title'),
+  4: fearsNs('fear4_title'),
+  5: fearsNs('fear5_title'),
+  6: fearsNs('fear6_title'),
+}
+
+const FEAR_QUOTE_KEYS: Record<FearId, ReturnType<typeof fearsNs>> = {
+  1: fearsNs('fear1_quote'),
+  2: fearsNs('fear2_quote'),
+  3: fearsNs('fear3_quote'),
+  4: fearsNs('fear4_quote'),
+  5: fearsNs('fear5_quote'),
+  6: fearsNs('fear6_quote'),
+}
+
+const FEAR_ANSWER_KEYS: Record<FearId, ReturnType<typeof fearsNs>> = {
+  1: fearsNs('fear1_answer'),
+  2: fearsNs('fear2_answer'),
+  3: fearsNs('fear3_answer'),
+  4: fearsNs('fear4_answer'),
+  5: fearsNs('fear5_answer'),
+  6: fearsNs('fear6_answer'),
+}
 
 const openFearIndex = ref<number | null>(null)
 

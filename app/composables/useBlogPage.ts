@@ -8,6 +8,26 @@ export interface BlogFilters {
   page: number
 }
 
+interface BlogState {
+  articles: BlogArticlesResponse['data']
+  featured: BlogArticlesResponse['featured']
+  categories: BlogArticlesResponse['categories']
+  popular: BlogArticlesResponse['popular']
+  pagination: BlogArticlesResponse['meta'] | undefined
+  totalArticles: number
+  totalFAQs: number
+}
+
+const defaultState: BlogState = {
+  articles: [],
+  featured: null,
+  categories: [],
+  popular: [],
+  pagination: undefined,
+  totalArticles: 0,
+  totalFAQs: 0,
+}
+
 /**
  * Unified composable for blog page: handles URL sync, state, and data fetching.
  * Replaces complex useUrlFilters + store filter state pattern.
@@ -17,24 +37,25 @@ export function useBlogPage() {
   const router = useRouter()
   const { locale } = useI18n()
 
-  // --- State ---
-  const articles = ref<BlogArticlesResponse['data']>([])
-  const featured = ref<BlogArticlesResponse['featured']>(null)
-  const categories = ref<BlogArticlesResponse['categories']>([])
-  const popular = ref<BlogArticlesResponse['popular']>([])
-  const pagination = ref<BlogArticlesResponse['meta']>()
-  const loading = ref(false)
-  const error = ref<string | null>(null)
-  const totalArticles = ref(0)
-  const totalFAQs = ref(0)
+  // --- State (using useState for SSR hydration) ---
+  const blogState = useState<BlogState>('blog-page-state', () => ({ ...defaultState }))
+  const articles = computed(() => blogState.value.articles)
+  const featured = computed(() => blogState.value.featured)
+  const categories = computed(() => blogState.value.categories)
+  const popular = computed(() => blogState.value.popular)
+  const pagination = computed(() => blogState.value.pagination)
+  const totalArticles = computed(() => blogState.value.totalArticles)
+  const totalFAQs = computed(() => blogState.value.totalFAQs)
+  const loading = useState('blog-page-loading', () => false)
+  const error = useState<string | null>('blog-page-error', () => null)
 
   // Filter state (synced with URL)
-  const category = ref('all')
-  const search = ref('')
-  const page = ref(1)
+  const category = useState('blog-page-filter-category', () => 'all')
+  const search = useState('blog-page-filter-search', () => '')
+  const page = useState('blog-page-filter-page', () => 1)
 
   // Local search input (for debouncing)
-  const searchInput = ref('')
+  const searchInput = useState('blog-page-search-input', () => '')
 
   // Debounce timer
   let searchTimer: ReturnType<typeof setTimeout> | null = null
@@ -95,13 +116,15 @@ export function useBlogPage() {
 
     try {
       const res = await $fetch<BlogArticlesResponse>('/api/v1/blog/articles', { query })
-      articles.value = res.data
-      featured.value = res.featured ?? null
-      categories.value = res.categories ?? []
-      popular.value = res.popular ?? []
-      pagination.value = res.meta
-      totalArticles.value = res.totalArticles ?? 0
-      totalFAQs.value = res.totalFAQs ?? 0
+      blogState.value = {
+        articles: res.data,
+        featured: res.featured ?? null,
+        categories: res.categories ?? [],
+        popular: res.popular ?? [],
+        pagination: res.meta,
+        totalArticles: res.totalArticles ?? 0,
+        totalFAQs: res.totalFAQs ?? 0,
+      }
       page.value = targetPage
       return res
     } catch (err: unknown) {
@@ -156,7 +179,7 @@ export function useBlogPage() {
     search.value = filters.search
     searchInput.value = filters.search
     page.value = filters.page
-    await fetchArticles(filters)
+    return await fetchArticles(filters)
   }
 
   // --- Route Change Watcher ---

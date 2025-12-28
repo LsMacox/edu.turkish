@@ -205,15 +205,8 @@ const metaNs = namespace('programs.meta')
 const { t, locale } = useI18n()
 const localePath = useLocalePath()
 
-useHead(() => ({
-  title: t(metaNs('title')),
-  meta: [
-    { name: 'description', content: t(metaNs('description')) },
-    { property: 'og:title', content: t(metaNs('title')) },
-    { property: 'og:description', content: t(metaNs('description')) },
-    { property: 'og:type', content: 'website' },
-  ],
-}))
+const runtimeConfig = useRuntimeConfig()
+const siteUrl = runtimeConfig.public.siteUrl || 'https://edu-turkish.com'
 
 const { data, pending, error, refresh } = await useAsyncData(
   `programs-${locale.value}`,
@@ -227,6 +220,92 @@ const { data, pending, error, refresh } = await useAsyncData(
 const categories = computed<ProgramCategoryWithItems[]>(() => {
   return data.value?.data ?? []
 })
+
+useHead(() => ({
+  title: t(metaNs('title')),
+  meta: [
+    {
+      name: 'description',
+      content: t(metaNs('description')),
+    },
+    {
+      property: 'og:title',
+      content: t(metaNs('title')),
+    },
+    {
+      property: 'og:description',
+      content: t(metaNs('description')),
+    },
+    {
+      name: 'twitter:title',
+      content: t(metaNs('title')),
+    },
+    {
+      name: 'twitter:description',
+      content: t(metaNs('description')),
+    },
+  ],
+  script: [
+    {
+      type: 'application/ld+json',
+      children: JSON.stringify({
+        '@context': 'https://schema.org',
+        '@type': 'CollectionPage',
+        name: t(metaNs('title')),
+        description: t(metaNs('description')),
+        url: `${siteUrl}${localePath('/programs')}`,
+        isPartOf: {
+          '@type': 'WebSite',
+          name: 'Edu.turkish',
+          url: siteUrl,
+        },
+      }),
+    },
+    ...(categories.value.length > 0
+      ? [
+          {
+            type: 'application/ld+json',
+            children: JSON.stringify({
+              '@context': 'https://schema.org',
+              '@type': 'ItemList',
+              name: t(metaNs('title')),
+              numberOfItems: categories.value.reduce((sum, cat) => sum + cat.programs.length, 0),
+              itemListElement: categories.value.flatMap((cat, catIdx) =>
+                cat.programs.map((program, progIdx) => ({
+                  '@type': 'ListItem',
+                  position: catIdx * 100 + progIdx + 1,
+                  item: {
+                    '@type': 'Course',
+                    name: program.title,
+                    url: `${siteUrl}${localePath(`/program/${program.slug}`)}`,
+                    provider: {
+                      '@type': 'Organization',
+                      name: 'Edu.turkish',
+                    },
+                  },
+                })),
+              ),
+            }),
+          },
+        ]
+      : []),
+    {
+      type: 'application/ld+json',
+      children: JSON.stringify({
+        '@context': 'https://schema.org',
+        '@type': 'BreadcrumbList',
+        itemListElement: [
+          {
+            '@type': 'ListItem',
+            position: 1,
+            name: t(metaNs('title')),
+            item: `${siteUrl}${localePath('/programs')}`,
+          },
+        ],
+      }),
+    },
+  ],
+}))
 
 const activeCategory = ref<string>('')
 

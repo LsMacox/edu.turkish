@@ -1,9 +1,14 @@
 {
   "universities": {
+    "meta": {
+      "title": "Türkiye Üniversiteleri — Başvuru Yardımı",
+      "description": "Türkiye'deki üniversitelerin tam kataloğu: devlet ve vakıf üniversiteleri, eğitim ücretleri, kabul şartları, yurt imkanları ve İngilizce programlar.",
+      "keywords": "türkiye üniversiteleri, yabancılar için türkiye üniversiteleri, türkiye'de üniversite eğitimi, türkiye'deki üniversiteler"
+    },
     "list": {
       "hero": {
-        "title": "Üniversiteler Kataloğu",
-        "subtitle": "Filtrelerle hayalinizdeki üniversiteyi bulun veya detaylar için herhangi bir kartı açın",
+        "title": "Yabancılar için Türkiye Üniversiteleri",
+        "subtitle": "Türkiye'deki hayalinizdeki universityi gelişmiş filtrelerimizi kullanarak bulun veya her bir eğitim kurumunun sunduğu benzersiz imkanlar, akademik programlar ve kampüs yaşamı hakkında detaylı bilgi edinmek için kartları inceleyin.",
         "stats": {
           "universities": "Üniversite",
           "cities": "Şehir",
@@ -77,20 +82,20 @@
         "subtitle": "Doğru üniversite seçimi için bilgi rehberi",
         "tips": {
           "location": {
-            "title": "Şehir ve maliyeti kontrol edin",
-            "description": "Yaşam giderlerini, iklimi ve evden uzaklığı göz önünde bulundurun"
+            "title": "Şehir ve yaşam maliyetini kontrol edin",
+            "description": "Şehir seçerken sadece üniversitenin prestijini değil, yemek, ulaşım ve sosyal yaşam için aylık giderleri de göz önünde bulundurun. İstanbul ve Ankara daha fazla fırsat sunarken, bu şehirlerde yaşam İzmir veya Antalya'ya göre daha maliyetli olabilir."
           },
           "language": {
-            "title": "Eğitim diline dikkat edin",
-            "description": "Türkçe daha ucuz, İngilizce daha fazla fırsat sunar"
+            "title": "Eğitim dilini doğru seçin",
+            "description": "Türkçe eğitim genellikle daha ekonomiktir ve devlet bursu alma şansını artırır. İngilizce programlar uluslararası şirketlerin kapılarını açar ancak belirli bir dil yeterlilik seviyesi (IELTS/TOEFL) gerektirir."
           },
           "dormitory": {
-            "title": "Yurt imkanlarını araştırın",
-            "description": "Devlet yurtları daha ucuz, özel yurtlar daha konforlu"
+            "title": "Yurt imkanlarını ve türlerini araştırın",
+            "description": "Devlet yurtları (KYK) bütçe dostudur ancak katı kuralları vardır. Özel yurtlar ve üniversite rezidansları, fitness salonları ve sosyal alanlar dahil olmak üzere otel konforunda hizmet sunar ancak maliyeti daha yüksektir."
           },
           "rating": {
-            "title": "Sıralamaları karşılaştırın",
-            "description": "Uluslararası sıralamalar mezuniyet sonrası istihdamı etkiler"
+            "title": "Uluslararası sıralamaları karşılaştırın",
+            "description": "Bir üniversitenin dünya sıralamalarındaki (QS, THE) konumu, diplomanızın diğer ülkelerdeki tanınırlığını ve mezuniyet sonrası küresel şirketlerde iş bulma şansınızı doğrudan etkiler."
           }
         }
       },
@@ -99,23 +104,23 @@
         "subtitle": "Eğitim için finansal destek alma fırsatları",
         "types": {
           "government": {
-            "title": "Türkiye Bursları",
+            "title": "Türkiye Bursları (YTB)",
             "badge": "Devlet",
-            "description": "Devlet bursu %100 eğitim ücreti + konaklama sağlar",
+            "description": "Türkiye'nin en prestijli devlet programı olup; eğitim ücreti, yurt konaklaması, sağlık sigortası ve kişisel giderler için aylık nakdi bursun tamamını karşılar.",
             "benefits": {
-              "full_tuition": "Tam eğitim ücreti karşılama",
-              "monthly_allowance": "Aylık burs",
-              "health_insurance": "Sağlık sigortası"
+              "full_tuition": "%100 eğitim ücreti karşılama",
+              "monthly_allowance": "Aylık nakdi burs",
+              "health_insurance": "Tam sağlık sigortası"
             }
           },
           "university": {
-            "title": "Üniversite Bursları",
+            "title": "Üniversite Destek Bursları",
             "badge": "Üniversite",
-            "description": "Eğitim ücretinde %25'ten %75'e kadar kısmi indirimler",
+            "description": "Birçok vakıf üniversitesi, yüksek akademik başarı, sportif başarılar veya yaratıcı portfolyoları olan yetenekli öğrencilere %25'ten %75'e varan eğitim indirimi sunmaktadır.",
             "benefits": {
               "tuition_discount": "Eğitim ücreti indirimi",
-              "academic_merit": "Akademik başarılar",
-              "sports_achievement": "Sportif başarılar"
+              "academic_merit": "Akademik başarı için",
+              "sports_achievement": "Sporcular için"
             }
           }
         }
@@ -123,9 +128,10 @@
       "tuitionFrom": "${price}/yıldan itibaren"
     },
     "detail": {
+      "fallbackDescription": "'{name}' üniversitesindeki eğitim hakkında her şeyi öğrenin: program ücretleri, uluslararası öğrenciler için kabul şartları ve kampüs yaşamı.",
       "applyButton": "Üniversiteye Başvur",
       "whatsappButton": "WhatsApp ile İletişime Geç",
-      "metaTitleTemplate": "{name} — Uluslararası öğrenciler için Türkiye'de eğitim | 2025 Başvurusu",
+      "metaTitleTemplate": "{name} — Türkiye'de Eğitim | 2025 Başvurusu",
       "keyInformation": {
         "title": "Anahtar Bilgiler",
         "subtitle": "Üniversite hakkında bilmeniz gereken her şey",

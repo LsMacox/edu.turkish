@@ -2,7 +2,7 @@
   <div>
     <BaseSectionHeader :title="title" align="left" margin-bottom="lg" />
 
-    <div class="grid md:grid-cols-2 gap-component-lg mb-component-lg">
+    <div class="grid md:grid-cols-2 gap-component-md mb-component-md">
       <article v-if="featured && showFeatured" class="md:col-span-2 h-full">
         <BaseCard
           :to="articleLink(featured.slug)"
@@ -17,7 +17,7 @@
             <NuxtImg
               :src="featured.image"
               :alt="featured.imageAlt || featured.title"
-              class="w-full h-card-image-lg object-cover rounded-t-2xl"
+              class="w-full h-40 md:h-card-image-lg object-cover rounded-t-2xl"
               loading="lazy"
               decoding="async"
               sizes="100vw"
@@ -27,11 +27,11 @@
           </template>
           <div
             v-else
-            class="w-full h-card-image-lg gradient-placeholder-media flex items-center justify-center card-padding text-center"
+            class="w-full h-40 md:h-card-image-lg gradient-placeholder-media flex items-center justify-center card-padding-sm text-center"
           >
             <p class="text-card-title">{{ featured.title }}</p>
           </div>
-          <div class="card-padding-lg">
+          <div class="card-padding">
             <div class="flex flex-wrap items-center gap-component-sm mb-component-sm text-body-sm text-meta">
               <span
                 class="badge-category"
@@ -68,7 +68,7 @@
               v-if="!failedCards[article.id]"
               :src="article.image"
               :alt="article.imageAlt || article.title"
-              class="w-full h-card-image object-cover rounded-t-2xl"
+              class="w-full h-32 md:h-card-image object-cover rounded-t-2xl"
               loading="lazy"
               decoding="async"
               sizes="(max-width: 768px) 100vw, 50vw"
@@ -78,7 +78,7 @@
           </template>
           <div
             v-else
-            class="w-full h-card-image gradient-placeholder flex items-center justify-center card-padding-sm text-center"
+            class="w-full h-32 md:h-card-image gradient-placeholder flex items-center justify-center card-padding-xs text-center"
           >
             <span class="text-secondary text-body-sm font-semibold">{{ article.title }}</span>
           </div>

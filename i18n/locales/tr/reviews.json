@@ -1,16 +1,20 @@
 {
   "reviews": {
+    "meta": {
+      "title": "Müşteri Yorumları - Edu.turkish",
+      "description": "Edu.turkish aracılığıyla Türkiye'deki üniversitelere kayıt yaptıran öğrencilerin ve velilerin gerçek yorumlarını okuyun. Başarı hikayeleri ve dürüst deneyimler."
+    },
     "mediaReviews": {
       "title": "Video ve fotoğraf yorumlar",
       "titleAccent": "öğrencilerimizden",
-      "description": "Öğrencilerimizin gerçek başarı hikayelerini izleyin. Türk üniversitelerine kabul ve eğitim hakkında video ve fotoğraf yorumlar.",
+      "description": "Türkiye'de eğitim hayallerini gerçekleştiren öğrencilerimizin ilham verici başarı hikayelerini keşfedin. Bu video ve fotoğraf paylaşımlarında, öğrencilerimiz başvuru süreci, üniversitedeki ilk günleri ve yeni bir ülkedeki yaşam deneyimleri hakkındaki samimi görüşlerini paylaşıyorlar.",
       "error": "Yorumlar yüklenemedi. Lütfen sayfayı yenilemeyi deneyin.",
       "empty": "Henüz medya yorumu yok"
     },
     "achievements": {
       "title": "Başarılarımız",
       "titleAccent": "rakamlarla",
-      "description": "Kendiliğinden konuşan sonuçlar. Her rakam birinin gerçekleşen hayali.",
+      "description": "Yüzlerce geleceğin profesyoneline sağladığımız gerçek desteği yansıtan çalışma sonuçlarımızla gurur duyuyoruz. İstatistiklerimizdeki her bir rakam, ekibimizin titiz çalışması ve öğrencilerimizin kararlılığıyla desteklenen onaylanmış bir başarıyı temsil ediyor.",
       "stats": {
         "students": {
           "title": "Öğrenci"
@@ -29,7 +33,7 @@
     "shareExperience": {
       "title": "Deneyiminizi",
       "titleAccent": "paylaşın",
-      "description": "Yorumunuz diğer öğrencilerin doğru karar vermesine yardımcı olacak. Başarılı başvurunuza giden yolunuzu anlatın.",
+      "description": "Kişisel deneyiminiz, Türkiye'de eğitim yolculuğuna yeni başlayanlar için paha biçilemez bir kaynaktır. Başvuru sürecinizi, karşılaştığınız zorlukları ve başarılı olmanıza neyin yardımcı olduğunu anlatarak diğer adaylara ilham verin.",
       "form": {
         "name": {
           "label": "Adınız *",

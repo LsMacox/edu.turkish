@@ -38,23 +38,21 @@
     </template>
 
     <template #why-choose-us>
-      <div class="bg-white rounded-card p-6 md:p-8 shadow-card border border-gray-100">
-        <div class="grid md:grid-cols-2 gap-component-lg">
-          <BaseAlert
-            :title="t(svc('benefits.title'))"
-            variant="success"
-            layout="horizontal"
-          >
-            {{ t(svc('benefits.content')) }}
-          </BaseAlert>
-          <BaseAlert
-            :title="t(svc('risks.title'))"
-            variant="warning"
-            layout="horizontal"
-          >
-            {{ t(svc('risks.content')) }}
-          </BaseAlert>
-        </div>
+      <div class="grid md:grid-cols-2 gap-component-lg">
+        <BaseAlert
+          :title="t(svc('benefits.title'))"
+          variant="success"
+          layout="horizontal"
+        >
+          {{ t(svc('benefits.content')) }}
+        </BaseAlert>
+        <BaseAlert
+          :title="t(svc('risks.title'))"
+          variant="warning"
+          layout="horizontal"
+        >
+          {{ t(svc('risks.content')) }}
+        </BaseAlert>
       </div>
     </template>
 
@@ -73,6 +71,7 @@ import { useServiceHead } from '~/composables/useServiceHead'
 import { namespace } from '~~/lib/i18n'
 
 const svc = namespace('services.relocation-in-turkey')
+const metaNs = namespace('services.relocation-in-turkey.meta')
 const pkgAdmission = namespace('services.relocation-in-turkey.packages.admission')
 const pkgStandard = namespace('services.relocation-in-turkey.packages.standard')
 const pkgVip = namespace('services.relocation-in-turkey.packages.vip')
@@ -190,7 +189,7 @@ const handlePackageApply = ({ name }: { packageName: string; name: string }) => 
 }
 
 useServiceHead({
-  title: () => t(svc('title')),
-  description: () => t(svc('subtitle')),
+  title: () => t(metaNs('title')),
+  description: () => t(metaNs('description')),
 })
 </script>

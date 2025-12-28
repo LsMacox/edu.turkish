@@ -1,11 +1,11 @@
 <template>
   <BaseCard
     padding="none"
-    shadow="md"
+    shadow="none"
     rounded="2xl"
     full-height
     hover="lift"
-    class="group flex flex-col"
+    class="group flex flex-col border border-default md:shadow-md md:border-0"
   >
     <!-- Video Review -->
     <div
@@ -13,7 +13,7 @@
       class="relative cursor-pointer"
       @click="handlePlayVideo"
     >
-      <div class="relative aspect-square gradient-placeholder rounded-t-2xl overflow-hidden">
+      <div class="relative aspect-[4/3] gradient-placeholder rounded-t-2xl overflow-hidden">
         <NuxtImg
           v-if="isPageLoaded && displayThumb"
           :src="displayThumb"
@@ -49,7 +49,7 @@
 
     <!-- Image Review -->
     <div v-else-if="review.mediaType === 'image'" class="relative cursor-zoom-in">
-      <div class="aspect-square gradient-placeholder rounded-t-2xl overflow-hidden" @click="handleOpenImage">
+      <div class="aspect-[4/3] gradient-placeholder rounded-t-2xl overflow-hidden" @click="handleOpenImage">
         <NuxtImg
           v-if="isPageLoaded && review.imageUrl"
           :src="review.imageUrl"
@@ -76,54 +76,51 @@
     </div>
 
     <!-- Content -->
-    <div class="card-padding-lg flex-1 flex flex-col">
+    <div class="p-3 flex-1 flex flex-col">
       <!-- Rating -->
-      <div v-if="review.rating" class="flex gap-0.5 mb-component-xs">
+      <div v-if="review.rating" class="flex gap-0.5 mb-1.5">
         <Icon
           v-for="star in 5"
           :key="star"
           name="mdi:star"
           :class="star <= review.rating ? 'star-active' : 'star-inactive'"
-          class="text-icon"
+          class="text-icon-sm"
         />
       </div>
 
       <!-- Quote -->
-      <p v-if="review.quote" class="text-body-sm leading-relaxed mb-component-sm line-clamp-3 flex-1">
+      <p v-if="review.quote" class="text-body-xs leading-snug line-clamp-2 text-secondary flex-1">
         "{{ review.quote }}"
       </p>
 
       <!-- Student Info -->
-      <div class="mt-auto pt-component-sm border-t border-default">
-        <div class="flex items-center gap-component-md">
-          <div v-if="review.avatar" :class="['avatar-md', RING_CLASSES.default]">
-            <NuxtImg
-              v-if="isPageLoaded"
-              :src="review.avatar"
-              :alt="review.name"
-              class="w-full h-full object-cover"
-              loading="lazy"
-              format="webp"
-              width="44"
-              height="44"
-            />
-          </div>
-          <div
-            v-else
-            class="avatar-md gradient-avatar flex items-center justify-center"
-          >
-            <span class="text-white font-semibold text-body-sm">{{ getInitials(review.name) }}</span>
-          </div>
+      <div :class="['flex items-center gap-2 mt-auto', (review.rating || review.quote) && 'pt-2 border-t border-default']">
+        <div v-if="review.avatar" :class="['w-8 h-8 rounded-full overflow-hidden flex-shrink-0', RING_CLASSES.default]">
+          <NuxtImg
+            v-if="isPageLoaded"
+            :src="review.avatar"
+            :alt="review.name"
+            class="w-full h-full object-cover"
+            loading="lazy"
+            format="webp"
+            width="32"
+            height="32"
+          />
+        </div>
+        <div
+          v-else
+          class="w-8 h-8 rounded-full gradient-avatar flex items-center justify-center flex-shrink-0"
+        >
+          <span class="text-white font-semibold text-body-xs">{{ getInitials(review.name) }}</span>
+        </div>
 
-          <div class="flex-1 min-w-0">
-            <p :class="['font-semibold text-secondary text-body-sm truncate', TEXT_HOVER_CLASSES]">{{ review.name }}</p>
-            <p v-if="review.university" class="text-body-sm text-meta truncate">
-              {{ review.university }}
-            </p>
-            <p v-if="review.year" class="text-body-sm text-hint">
-              {{ review.year }}
-            </p>
-          </div>
+        <div class="flex-1 min-w-0">
+          <p :class="['font-medium text-secondary text-body-xs truncate', TEXT_HOVER_CLASSES]">{{ review.name }}</p>
+          <p v-if="review.university || review.year" class="text-body-xs text-meta truncate">
+            <template v-if="review.university">{{ review.university }}</template>
+            <span v-if="review.university && review.year" class="text-hint"> · </span>
+            <span v-if="review.year" class="text-hint">{{ review.year }}</span>
+          </p>
         </div>
       </div>
     </div>

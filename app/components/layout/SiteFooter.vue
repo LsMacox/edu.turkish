@@ -14,19 +14,29 @@
           </ul>
         </div>
 
-        <!-- Universities -->
+        <!-- Main Links -->
         <div>
           <h3 class="text-xl font-semibold text-secondary mb-6">{{ t(footer('universities')) }}</h3>
           <ul class="space-y-3">
-            <li v-for="city in cities" :key="city.value">
-              <BaseButton variant="link" class="footer-link !p-0" @click="handleCityClick(city.value)">
-                {{ t(city.label) }}
-              </BaseButton>
+            <li>
+              <NuxtLink :to="localePath('/')" class="footer-link">
+                {{ t(footer('home')) }}
+              </NuxtLink>
             </li>
             <li>
-              <BaseButton variant="link" class="footer-link !p-0" @click="handleAllUniversitiesClick">
+              <NuxtLink :to="localePath('/services/relocation-in-turkey')" class="footer-link">
+                {{ t(footer('relocation')) }}
+              </NuxtLink>
+            </li>
+            <li>
+              <NuxtLink :to="localePath('/universities')" class="footer-link">
                 {{ t(footer('all_universities')) }}
-              </BaseButton>
+              </NuxtLink>
+            </li>
+            <li>
+              <NuxtLink :to="localePath('/blog')" class="footer-link">
+                {{ t(navNs('blog')) }}
+              </NuxtLink>
             </li>
           </ul>
         </div>
@@ -56,6 +66,7 @@
                   social.bg,
                 ]"
                 :aria-label="social.name"
+                rel="noopener noreferrer nofollow"
                 @click.prevent="handleSocialClick(social.href)"
               >
                 <Icon :name="social.icon" />
@@ -94,15 +105,12 @@
 
 <script setup lang="ts">
 import { useContactChannels } from '~/composables/useContactChannels'
-import { useUniversitiesStore } from '~/stores/universities'
 import { useFingerprint } from '~/composables/useFingerprint'
 import { ASSETS } from '~~/lib/config/assets'
 import { namespace } from '~~/lib/i18n'
 
 const footer = namespace('footer')
 const { t } = useI18n()
-const route = useRoute()
-const router = useRouter()
 const localePath = useLocalePath()
 const { channels } = useContactChannels()
 const { openWithFingerprint } = useFingerprint()
@@ -113,12 +121,7 @@ const aboutLinks = [
   { hash: '#contacts', label: footer('contacts') },
 ]
 
-const cities = [
-  { value: 'Стамбул', label: footer('istanbul') },
-  { value: 'Анкара', label: footer('ankara') },
-  { value: 'Измир', label: footer('izmir') },
-  { value: 'Анталия', label: footer('antalya') },
-]
+const navNs = namespace('nav')
 
 const supportLinks = [
   { to: '/faq', label: footer('faq') },
@@ -148,23 +151,6 @@ const socialLinks = computed(() => [
   },
 ])
 
-const isUniversitiesPage = computed(() => route.path.startsWith(localePath('/universities')))
-
-const handleCityClick = async (city: string) => {
-  if (isUniversitiesPage.value) {
-    useUniversitiesStore().setCityFilter(city, { scrollToTop: true })
-  } else {
-    await router.push(localePath({ path: '/universities', query: { city } }))
-  }
-}
-
-const handleAllUniversitiesClick = async () => {
-  if (isUniversitiesPage.value) {
-    useUniversitiesStore().resetFilters({ scrollToTop: true })
-  } else {
-    await router.push(localePath('/universities'))
-  }
-}
 
 const handleSocialClick = (href: string) => openWithFingerprint(href, '_blank')
 </script>

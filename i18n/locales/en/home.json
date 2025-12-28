@@ -1,24 +1,25 @@
 {
   "home": {
     "seo": {
-      "title": "Home",
-      "description": "Edu.turkish guides international students into Turkish universities: program matching, application support, scholarships, and dedicated advisors throughout admission."
+      "title": "Study in Turkey for Free — Admission Help",
+      "description": "Expert guidance for admission to top Turkish universities. We handle program selection, document preparation, scholarship applications, and relocation support for international students.",
+      "keywords": "study in turkey for free, study in turkey for foreigners, cheap universities in istanbul, phd in turkey for international students, study in turkey in english"
     },
     "hero": {
-      "title": "The future starts here:",
-      "title_accent": "your education in Turkey",
-      "subtitle": "We guarantee professional university selection and full support — from document submission to enrollment. Free yourself from paperwork routine and trust the experts with your admission.",
+      "title": "Study in Turkey for Foreigners",
+      "title_accent": "with us",
+      "subtitle": "We provide end-to-end support at every stage of your journey: from the initial consultation and selecting the perfect university to comfortable relocation and successful adaptation in a new country.",
       "stat_students": "Over 500 students are already studying in Turkey",
       "stat_verified": "98% successful enrollments",
       "stat_documents": "We work under official contract"
     },
     "who": {
       "title": "Who are you?",
-      "subtitle": "Answer a few questions and we'll find the perfect admission plan",
-      "student": "Student",
-      "student_desc": "I want to apply myself",
-      "parent": "Parent",
-      "parent_desc": "Helping my child",
+      "subtitle": "Answer a few simple questions so we can build your personalized applicant profile and recommend the most suitable universities and study programs for you.",
+      "student": "I am a Student",
+      "student_desc": "I plan to apply on my own",
+      "parent": "I am a Parent",
+      "parent_desc": "Helping my child with the choice",
       "university_chosen": "Have you already chosen a university?",
       "yes_know": "Yes, I know where I want",
       "no_help": "No, need help",
@@ -42,7 +43,7 @@
     },
     "how": {
       "title": "From dream to enrollment in just 4 steps",
-      "subtitle": "Focus on what matters most while we handle all the bureaucracy.",
+      "subtitle": "We have simplified the enrollment process as much as possible, handling all the bureaucratic burden and negotiations with universities for you.",
       "step1_title": "20+ vetted universities",
       "step1_desc": "Find your perfect program and university in our catalog.",
       "step2_title": "Application in 5 minutes",
@@ -54,7 +55,7 @@
     },
     "universities": {
       "title": "Popular universities",
-      "subtitle": "Best universities in Turkey with high ratings and affordable prices",
+      "subtitle": "A curated selection of Turkey's leading higher education institutions with impeccable reputations, high-quality education, and affordable tuition fees.",
       "all_cities": "All cities",
       "english_language": "English language",
       "budget_filter": "Up to $5000",
@@ -62,11 +63,11 @@
     },
     "services": {
       "title": "Everything you need for studying and living in Turkey",
-      "subtitle": "We cover everything: from exam preparation to relocation and residence permit."
+      "subtitle": "A comprehensive approach to your future: from high-quality entrance exam preparation to full support during relocation and legalization in Turkey."
     },
     "reviews": {
       "title": "Student Reviews",
-      "subtitle": "Success stories of our clients",
+      "subtitle": "Discover how Edu.turkish has helped students from different countries realize their dreams and start studying at top Turkish universities.",
       "loading": "Loading reviews...",
       "error": "Failed to load reviews. Please try again later.",
       "empty": "Reviews from our students and parents will appear here soon.",
@@ -97,7 +98,7 @@
     },
     "faq": {
       "title": "Frequently Asked Questions",
-      "subtitle": "Answers to the most popular questions about admission",
+      "subtitle": "Detailed expert answers to the most common questions from applicants about the educational system, grants, and daily life aspects in Turkey.",
       "question1": "How much do your services cost?",
       "answer1": "The cost depends on the selected service package. Basic package from $500, full support from $1200. We provide installments.",
       "question2": "What documents are needed for admission?",

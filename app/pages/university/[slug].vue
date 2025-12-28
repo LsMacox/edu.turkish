@@ -1,17 +1,12 @@
 <template>
   <div>
-    <ClientOnly>
-      <UniversitiesDetailView v-if="university" :university="university" />
-      <template #fallback>
-        <div class="bg-white" />
-      </template>
-    </ClientOnly>
+    <UniversitiesDetailView v-if="university" :university="university" />
 
     <ClientOnly>
       <div v-if="loading" class="min-h-screen bg-white flex items-center justify-center">
         <div class="text-center">
           <div class="animate-spin rounded-full h-32 w-32 border-b-2 border-primary mx-auto mb-4" />
-          <h1 class="text-xl font-semibold text-secondary">{{ t(key('loading')) }}</h1>
+          <p class="text-xl font-semibold text-secondary">{{ t(key('loading')) }}</p>
         </div>
       </div>
       <div
@@ -19,7 +14,7 @@
         class="min-h-screen bg-white flex items-center justify-center"
       >
         <div class="text-center">
-          <h1 class="text-4xl font-bold text-secondary mb-4">{{ t(key('errors.universityNotFound')) }}</h1>
+          <p class="text-4xl font-bold text-secondary mb-4">{{ t(key('errors.universityNotFound')) }}</p>
           <p class="text-gray-600 mb-8">{{ t(key('errors.universityNotFoundDescription')) }}</p>
           <NuxtLink
             :to="localePath('/universities')"
@@ -93,21 +88,18 @@ watch(
 
 const headData = computed(() => {
   if (university.value && university.value.title) {
-    const defaultTitle = `${university.value.title} - Edu.turkish`
-    const metaTitleFromI18n = t(key('universities.detail.metaTitleTemplate'), {
+    const metaTitle = t(key('universities.detail.metaTitleTemplate'), {
       name: university.value.title,
     })
-    const metaTitle =
-      metaTitleFromI18n && metaTitleFromI18n !== 'universities.detail.metaTitleTemplate'
-        ? metaTitleFromI18n
-        : defaultTitle
 
     return {
       title: metaTitle,
       meta: [
         {
           name: 'description',
-          content: university.value.description || t(key('universityInformation')),
+          content:
+            university.value.description ||
+            t(key('universities.detail.fallbackDescription'), { name: university.value.title }),
         },
         {
           property: 'og:title',
@@ -115,7 +107,9 @@ const headData = computed(() => {
         },
         {
           property: 'og:description',
-          content: university.value.description || t(key('universityInformation')),
+          content:
+            university.value.description ||
+            t(key('universities.detail.fallbackDescription'), { name: university.value.title }),
         },
         {
           property: 'og:image',
@@ -138,7 +132,57 @@ const headData = computed(() => {
 
 watchEffect(() => {
   if (headData.value) {
-    useHead(headData.value)
+    const runtimeConfig = useRuntimeConfig()
+    const siteUrl = runtimeConfig.public.siteUrl || 'https://edu-turkish.com'
+
+    const scripts = []
+
+    if (university.value) {
+      scripts.push({
+        type: 'application/ld+json',
+        innerHTML: JSON.stringify({
+          '@context': 'https://schema.org',
+          '@type': 'EducationalOrganization',
+          name: university.value.title,
+          description: university.value.description,
+          image: university.value.heroImage,
+          url: `${siteUrl}${localePath(route.path)}`,
+          address: university.value.city
+            ? {
+                '@type': 'PostalAddress',
+                addressLocality: university.value.city,
+              }
+            : undefined,
+        }),
+      })
+
+      scripts.push({
+        type: 'application/ld+json',
+        innerHTML: JSON.stringify({
+          '@context': 'https://schema.org',
+          '@type': 'BreadcrumbList',
+          itemListElement: [
+            {
+              '@type': 'ListItem',
+              position: 1,
+              name: t(key('breadcrumbs.universities')),
+              item: `${siteUrl}${localePath('/universities')}`,
+            },
+            {
+              '@type': 'ListItem',
+              position: 2,
+              name: university.value.title,
+              item: `${siteUrl}${localePath(route.path)}`,
+            },
+          ],
+        }),
+      })
+    }
+
+    useHead({
+      ...headData.value,
+      script: scripts,
+    })
   }
 })
 </script>
