@@ -47,7 +47,7 @@ const modal = useApplicationModal()
 
 const { locale, t } = useI18n()
 const config = useRuntimeConfig()
-const gtmId = config.public.googleTagManagerId
+const gtmId = config.public.gtm_id
 
 // Set default site description from i18n (can be overridden by individual pages)
 useSeoMeta({

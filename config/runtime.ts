@@ -18,7 +18,7 @@ export function createRuntimeConfig(siteUrl: string): NuxtConfig['runtimeConfig'
       cdnUrl: process.env.NUXT_PUBLIC_CDN_URL || '',
       directusUrl: process.env.NUXT_PUBLIC_DIRECTUS_URL || 'http://localhost:8055',
       yandexMetrikaId: process.env.NUXT_PUBLIC_YANDEX_METRIKA_ID || '',
-      googleTagManagerId: process.env.NUXT_PUBLIC_GTM_ID || '',
+      gtmId: process.env.NUXT_PUBLIC_GTM_ID,
     },
   }
 }
