@@ -5,6 +5,7 @@ import { seedLocations } from './locations'
 import { seedReviews } from './reviews'
 import { seedBlog } from './blog'
 import { seedStudyDirections } from './study-directions'
+import { seedProgramArticles } from './program-articles'
 const { PrismaClient } = prismaPkg as any
 
 const prisma = new PrismaClient()
@@ -55,6 +56,13 @@ const seeders: Record<string, Seeder> = {
     description: 'Блог статьи и категории',
     tables: ['blogArticleTranslation', 'blogArticle', 'blogCategoryTranslation', 'blogCategory'],
     run: async (prisma) => await seedBlog(prisma),
+  },
+  'program-articles': {
+    name: 'program-articles',
+    description: 'Статьи о программах обучения (isProgram)',
+    tables: [], // Использует существующие таблицы blog
+    dependencies: ['blog'], // Требует категории из blog
+    run: async (prisma) => await seedProgramArticles(prisma),
   },
 }
 
@@ -205,6 +213,7 @@ function getEmoji(seederName: string): string {
     'faq-categories': '📂',
     faqs: '❓',
     blog: '📰',
+    'program-articles': '🎓',
   }
   return emojiMap[seederName] || '🌱'
 }

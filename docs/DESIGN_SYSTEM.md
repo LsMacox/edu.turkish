@@ -3,11 +3,12 @@
 ## Overview
 
 edu.turkish uses a unified design token system for consistent UI across the application.
-All design tokens are defined in `app/types/ui/tokens.ts` and should be used instead of hardcoded Tailwind classes.
+- **Types** are defined in `app/types/ui/`
+- **Token implementations** (class mappings) are in `app/composables/ui/tokens/`
 
 ## Key Principles
 
-1. **Single Source of Truth** - All design values in `tokens.ts`
+1. **Single Source of Truth** - Types in `types/ui/`, implementations in `composables/ui/tokens/`
 2. **Type-Safe Access** - TypeScript ensures correct token usage
 3. **Semantic Naming** - Use meaning-based names (e.g., `success`, `error`) not visual names (`green`, `red`)
 
@@ -15,27 +16,29 @@ All design tokens are defined in `app/types/ui/tokens.ts` and should be used ins
 
 ## Size System
 
-### Unified Size Types
+### Size Types (from `types/ui/common.ts`)
 
 ```typescript
-// Standard size scale - use for most UI elements
-type Size = 'xs' | 'sm' | 'md' | 'lg' | 'xl'
-
-// Size with 'none' option for disabling features
-type SizeOptional = Size | 'none'
-
-// Compact scale for form elements
-type FormSize = 'sm' | 'md' | 'lg'
+type Size = 'xs' | 'sm' | 'md' | 'lg' | 'xl' | '2xl'
+type Size5 = Exclude<Size, '2xl'>           // xs-xl (5 sizes)
+type Size3 = 'sm' | 'md' | 'lg'             // 3-size scale
+type SizeCompact = 'xs' | 'sm' | 'md'       // Compact scale
+type StatusSize = 'xs' | 'sm' | 'md'        // Status badges
+type FormSize = 'sm' | 'md' | 'lg'          // Form elements
+type WithNone<T> = T | 'none'               // Adds 'none' option
 ```
 
 ### Usage Examples
 
 | Component | Size Prop Type |
 |-----------|---------------|
-| `BaseCard` | `SizeOptional` for padding/shadow |
-| `BaseButton` | `FormSize` |
-| `BaseIconBox` | `Size` |
-| `BaseBadge` | `Size` |
+| `BaseCard` | `WithNone<Size5>` for padding/shadow |
+| `BaseButton` | `Size5` |
+| `BaseIconButton` | `Size5` |
+| `BaseIconBox` | `Size5` |
+| `BaseBadge` | `Size5` |
+| `BaseStatusBadge` | `SizeCompact` |
+| `BaseSection` | `Size3 \| 'xl'` |
 
 ---
 
@@ -47,45 +50,55 @@ type FormSize = 'sm' | 'md' | 'lg'
 type SemanticColor = 'primary' | 'secondary' | 'success' | 'warning' | 'error' | 'info' | 'neutral'
 ```
 
-### Extended Colors (for decorative elements)
+### Status Colors (for status badges, callouts)
 
 ```typescript
-type ExtendedColor = SemanticColor | 'blue' | 'green' | 'emerald' | 'purple' | 'orange' | 'yellow'
+type StatusColor = 'primary' | 'success' | 'warning' | 'error' | 'info' | 'neutral'
 ```
 
-### Available Mappings
+### Available Mappings (from `composables/ui/tokens/colors.ts`)
 
 | Import | Purpose |
 |--------|---------|
-| `semanticTextColors` | Text color classes (`text-primary`, etc.) |
-| `semanticBgColors` | Background color classes |
-| `semanticBadgeColors` | Badge variant colors |
-| `extendedColorTokens` | Full color tokens with `bg`, `text`, `border`, `ring` |
+| `SEMANTIC_TEXT_COLORS` | Text color classes (`text-primary`, etc.) |
+| `SEMANTIC_BG_COLORS` | Solid background classes |
+| `SEMANTIC_BG_SOFT_COLORS` | Soft/light background classes |
+| `SEMANTIC_BADGE_COLORS` | Badge colors by variant (solid/soft/outline/gradient) |
+| `SEMANTIC_COLOR_TOKENS` | Full color tokens with `bg`, `bgSoft`, `border`, `text`, `solid`, `ring` |
 
 ---
 
 ## Border Tokens
 
-### Semantic Borders
+### Border Color Types
 
 ```typescript
-import { borderColorClasses } from '~/types/ui'
+type BorderColor = 'default' | 'muted' | 'primary' | 'success' | 'warning' | 'error' | 'info'
+```
 
-// Use:
-<div class="border border-success">...</div>  // Green border
-<div class="border border-error">...</div>    // Red border
+### Semantic Borders (from `composables/ui/tokens/borders.ts`)
+
+```vue
+<script setup>
+import { BORDER_COLOR_CLASSES } from '~/composables/ui/tokens'
+</script>
+
+<template>
+  <div :class="['border', BORDER_COLOR_CLASSES.success]">...</div>
+</template>
 ```
 
 ### Border Accent (Left Border)
 
-```typescript
-import { borderAccentClasses } from '~/types/ui'
+```vue
+<script setup>
+import { BORDER_ACCENT_CLASSES } from '~/composables/ui/tokens'
+</script>
 
-// Instead of:
-<div class="border-l-4 border-l-green-500">...</div>
-
-// Use:
-<div :class="borderAccentClasses.success">...</div>
+<template>
+  <!-- Instead of: border-l-4 border-l-green-500 -->
+  <div :class="BORDER_ACCENT_CLASSES.success">...</div>
+</template>
 ```
 
 ---
@@ -114,29 +127,38 @@ Use `BaseStatusBadge` for check marks, numbered indicators, and status icons.
 | `icon` | `string` | - | Icon name |
 | `text` | `string` | - | Text content |
 | `color` | `StatusColor` | `'success'` | Color scheme |
-| `size` | `'xs' \| 'sm' \| 'md'` | `'sm'` | Badge size |
+| `size` | `SizeCompact` (`'xs' \| 'sm' \| 'md'`) | `'sm'` | Badge size |
 | `variant` | `'solid' \| 'soft'` | `'solid'` | Visual style |
+
+### Programmatic Usage
+
+```typescript
+import { getStatusBadgeClasses } from '~/composables/ui/tokens'
+
+const classes = getStatusBadgeClasses('success', 'sm', 'solid')
+// Returns: { container: '...', icon: '...' }
+```
 
 ---
 
 ## Callout/Alert Boxes
 
-Use callout tokens for info boxes with left border accent:
+Use `CALLOUT_CLASSES` for info boxes with left border accent:
 
 ```vue
+<script setup>
+import { CALLOUT_CLASSES } from '~/composables/ui/tokens'
+</script>
+
 <template>
-  <div :class="[calloutClasses.success.container, 'card-padding-sm']">
-    <Icon name="ph:info" :class="calloutClasses.success.icon" />
-    <p :class="calloutClasses.success.text">Good news message</p>
+  <div :class="[CALLOUT_CLASSES.success.container, 'card-padding-sm']">
+    <Icon name="ph:info" :class="CALLOUT_CLASSES.success.icon" />
+    <p :class="CALLOUT_CLASSES.success.text">Good news message</p>
   </div>
 </template>
-
-<script setup>
-import { calloutClasses } from '~/types/ui'
-</script>
 ```
 
-### Callout Colors
+### Callout Colors (`CalloutColor`)
 
 - `primary` - Brand color accent
 - `success` - Green accent for positive messages
@@ -149,21 +171,21 @@ import { calloutClasses } from '~/types/ui'
 
 ## Ring Tokens
 
-Use for focus states and selection indicators:
+Use `RING_CLASSES` for focus states and selection indicators:
 
 ```vue
+<script setup>
+import { RING_CLASSES } from '~/composables/ui/tokens'
+</script>
+
 <template>
-  <div :class="['avatar-md', ringClasses.default]">
+  <div :class="['avatar-md', RING_CLASSES.default]">
     <img ... />
   </div>
 </template>
-
-<script setup>
-import { ringClasses } from '~/types/ui'
-</script>
 ```
 
-### Available Rings
+### Available Rings (`RingColor`)
 
 - `default` - Gray ring (for avatars)
 - `primary` - Primary color ring (for selected states)
@@ -173,51 +195,90 @@ import { ringClasses } from '~/types/ui'
 
 ---
 
+## Shadow Tokens
+
+### Semantic Shadows
+
+```typescript
+type ShadowSemantic = 'none' | 'button' | 'card' | 'elevated' | 'hover'
+```
+
+### Usage (from `composables/ui/tokens/colors.ts`)
+
+```vue
+<script setup>
+import { SEMANTIC_SHADOW_CLASSES, SEMANTIC_SHADOW_INTERACTIVE } from '~/composables/ui/tokens'
+</script>
+
+<template>
+  <!-- Static shadow -->
+  <div :class="SEMANTIC_SHADOW_CLASSES.card">...</div>
+  
+  <!-- Interactive with hover -->
+  <div :class="SEMANTIC_SHADOW_INTERACTIVE.card">...</div>
+</template>
+```
+
+### Size-based Shadows
+
+```typescript
+import { SHADOW_SIZE_MAP } from '~/composables/ui/tokens'
+
+// SHADOW_SIZE_MAP: none | xs | sm | md | lg | xl
+```
+
+---
+
 ## Spacing Tokens
 
-### Component Spacing Classes
+### Component Spacing Classes (from `composables/ui/tokens/spacing.ts`)
 
-| CSS Class | Usage |
-|-----------|-------|
-| `space-component-{xs,sm,md,lg,xl}` | Vertical spacing between elements |
-| `gap-component-{xs,sm,md,lg,xl}` | Grid/flex gaps |
-| `mb-component-{xs,sm,md,lg,xl}` | Margin bottom |
-| `mt-component-{xs,sm,md,lg,xl}` | Margin top |
-| `pt-component-{xs,sm,md,lg,xl}` | Padding top |
+| Constant | CSS Classes |
+|----------|-------------|
+| `COMPONENT_SPACE_CLASSES` | `space-component-{xs,sm,md,lg,xl}` |
+| `COMPONENT_GAP_CLASSES` | `gap-component-{xs,sm,md,lg,xl}` |
+| `COMPONENT_MB_CLASSES` | `mb-component-{xs,sm,md,lg,xl}` |
+| `COMPONENT_MT_CLASSES` | `mt-component-{xs,sm,md,lg,xl}` |
+| `COMPONENT_PT_CLASSES` | `pt-component-{xs,sm,md,lg,xl}` |
 
 ### Card Padding
 
-| CSS Class | Approximate Size |
-|-----------|------------------|
-| `card-padding-sm` | 12-16px |
-| `card-padding` | 16-24px |
-| `card-padding-lg` | 20-32px |
-| `card-padding-xl` | 24-40px |
+| Constant | CSS Classes |
+|----------|-------------|
+| `CARD_PADDING_CLASSES` | `card-padding-xs`, `card-padding-sm`, `card-padding`, `card-padding-lg`, `card-padding-xl` |
 
 ### Section Padding
 
-| CSS Class | Usage |
-|-----------|-------|
-| `section-py-sm` | Compact sections |
-| `section-py` | Default sections |
-| `section-py-lg` | Spacious sections |
-| `section-py-xl` | Hero sections |
+| Constant | CSS Classes |
+|----------|-------------|
+| `SECTION_PADDING_CLASSES` | `section-py-sm`, `section-py`, `section-py-lg`, `section-py-xl` |
 
 ---
 
 ## Typography Tokens
 
-### Semantic Text Classes
+### Semantic Text Classes (from `composables/ui/tokens/typography.ts`)
+
+| Typography Map | Sizes | Properties |
+|----------------|-------|------------|
+| `HERO_TYPOGRAPHY` | default | `title`, `subtitle` |
+| `SECTION_TYPOGRAPHY_MAP` | sm, md, lg | `title`, `subtitle` |
+| `CARD_TYPOGRAPHY_MAP` | sm, md, lg | `title`, `subtitle`, `body` |
+| `BODY_TYPOGRAPHY_MAP` | sm, md, lg | `text` |
+| `LABEL_TYPOGRAPHY_MAP` | sm, md, lg | `text` |
+
+### Example CSS Classes
 
 | CSS Class | Usage |
 |-----------|-------|
 | `text-hero` | Page main headers |
-| `text-section-title` | Section headers |
+| `text-section-title` | Section headers (md) |
+| `text-section-title-sm/lg` | Section headers (sm/lg) |
 | `text-card-title` | Card titles |
 | `text-body` | Body text |
 | `text-body-sm` | Small text |
 
-### Semantic Text Colors
+### Semantic Text Colors (`SEMANTIC_TEXT_CLASSES`)
 
 | CSS Class | Usage |
 |-----------|-------|
@@ -226,6 +287,30 @@ import { ringClasses } from '~/types/ui'
 | `text-meta` | Metadata (dates, counts) |
 | `text-hint` | Subtle hints, placeholders |
 | `text-disabled` | Disabled text |
+
+---
+
+## Rounded Tokens
+
+### Rounded Types (from `types/ui/common.ts`)
+
+```typescript
+type Rounded = 'none' | 'sm' | 'md' | 'lg' | 'xl' | '2xl' | 'full'
+type CardRounded = Rounded
+type FormRounded = 'sm' | 'md' | 'lg' | 'xl' | '2xl' | 'full'
+type ButtonRounded = Rounded | 'button'
+```
+
+### Custom Border Radius (from `tailwind.config.ts`)
+
+| Class | Value | Usage |
+|-------|-------|-------|
+| `rounded-card` | 16px | Standard card radius |
+| `rounded-card-lg` | 24px | Large cards |
+| `rounded-card-inner` | 14px | Inner card elements |
+| `rounded-button` | 12px | Button radius |
+| `rounded-badge` | 9999px | Pill/badge radius |
+| `rounded-icon` | 8px | Icon containers |
 
 ---
 
@@ -246,26 +331,56 @@ import { ringClasses } from '~/types/ui'
 ### After (Using Tokens)
 
 ```vue
-<BaseStatusBadge icon="ph:check" color="success" size="sm" />
+<script setup>
+import { CALLOUT_CLASSES } from '~/composables/ui/tokens'
+</script>
 
-<div :class="[calloutClasses.success.container, 'card-padding-sm']">
-  <p :class="calloutClasses.success.text">Success message</p>
-</div>
+<template>
+  <BaseStatusBadge icon="ph:check" color="success" size="sm" />
+
+  <div :class="[CALLOUT_CLASSES.success.container, 'card-padding-sm']">
+    <p :class="CALLOUT_CLASSES.success.text">Success message</p>
+  </div>
+</template>
 ```
 
 ---
 
 ## Component API Consistency
 
-All base components with styling props follow this pattern:
+### BaseCard Props
 
 | Prop | Type | Description |
 |------|------|-------------|
-| `padding` | `SizeOptional` | Internal padding |
-| `shadow` | `SizeOptional` | Shadow depth |
-| `rounded` | Varies | Border radius |
-| `color` | `SemanticColor` | Color scheme |
-| `size` | `Size` or `FormSize` | Component size |
+| `variant` | `'default' \| 'surface' \| 'bordered'` | Card style |
+| `padding` | `WithNone<Size5>` | Internal padding |
+| `shadow` | `WithNone<Size5> \| ShadowSemantic` | Shadow depth |
+| `rounded` | `CardRounded` | Border radius |
+| `hover` | `boolean \| 'lift' \| 'shadow' \| 'scale'` | Hover effect |
+
+### BaseButton Props
+
+| Prop | Type | Description |
+|------|------|-------------|
+| `variant` | `ButtonVariant` | Button style (primary, secondary, ghost, etc.) |
+| `size` | `Size5` | Button size |
+| `rounded` | `ButtonRounded` | Border radius |
+
+### BaseBadge Props
+
+| Prop | Type | Description |
+|------|------|-------------|
+| `color` | `SemanticColor` | Badge color |
+| `size` | `Size5` | Badge size |
+| `variant` | `'solid' \| 'soft' \| 'outline' \| 'gradient'` | Visual style |
+
+### BaseSection Props
+
+| Prop | Type | Description |
+|------|------|-------------|
+| `padding` | `Size3 \| 'xl'` | Vertical padding |
+| `bg` | `SectionBackground` | Background style |
+| `maxWidth` | `'sm' \| 'md' \| 'lg' \| 'xl' \| '2xl' \| '4xl' \| '6xl' \| 'full'` | Container max width |
 
 ---
 
@@ -273,10 +388,32 @@ All base components with styling props follow this pattern:
 
 ```
 app/types/ui/
-├── common.ts         # Base types (Size, Color, shadows)
-├── tokens.ts         # Unified design tokens (NEW)
-├── spacing.ts        # Spacing type definitions
-├── card.ts           # Card component types
-├── button.ts         # Button component types
-└── index.ts          # Re-exports all types
+├── common.ts              # Base types (Size, Color, Rounded, Shadow)
+├── tokens.ts              # Token type definitions (BorderColor, StatusColor, etc.)
+├── components/            # Component-specific types
+│   ├── alert.ts
+│   ├── badge.ts
+│   ├── button.ts
+│   ├── card.ts
+│   ├── feature-card.ts
+│   ├── form.ts
+│   ├── grid.ts
+│   ├── list.ts
+│   ├── navigation.ts
+│   ├── section.ts
+│   ├── sidebar.ts
+│   ├── table.ts
+│   ├── text.ts
+│   └── timeline.ts
+└── index.ts               # Re-exports all types
+
+app/composables/ui/tokens/
+├── borders.ts             # BORDER_COLOR_CLASSES, BORDER_ACCENT_CLASSES
+├── colors.ts              # SEMANTIC_*_COLORS, SEMANTIC_COLOR_TOKENS
+├── shadows.ts             # SHADOW_SIZE_MAP
+├── spacing.ts             # COMPONENT_*_CLASSES, CARD/SECTION_PADDING_CLASSES
+├── status.ts              # CALLOUT_CLASSES, RING_CLASSES, ALERT_COLORS, getStatusBadgeClasses()
+├── typography.ts          # *_TYPOGRAPHY_MAP, SEMANTIC_TEXT_CLASSES
+├── variants.ts            # ICON_BUTTON_VARIANT_CLASSES
+└── index.ts               # Re-exports all tokens
 ```

@@ -12,7 +12,7 @@ RED='\033[0;31m'
 NC='\033[0m' # No Color
 
 # Directory containing university JSON files (inside container)
-UNIVERSITIES_DIR="/app/app/assets/json/universities"
+UNIVERSITIES_DIR="/app/prisma/seed/json/universities"
 
 echo -e "${BLUE}Starting bulk university import...${NC}"
 echo ""

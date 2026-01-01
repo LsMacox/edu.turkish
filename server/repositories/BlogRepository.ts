@@ -85,6 +85,7 @@ export class BlogRepository {
     const baseWhere: Prisma.BlogArticleWhereInput = {
       status: 'published',
       isPowerPage: false,
+      isProgram: false,
       publishedAt: {
         lte: new Date(),
       },
