@@ -1,13 +1,5 @@
 <template>
   <div class="min-h-dvh flex flex-col bg-white text-secondary font-sans">
-    <noscript v-if="gtmId">
-      <iframe
-        :src="`https://www.googletagmanager.com/ns.html?id=${gtmId}`"
-        height="0"
-        width="0"
-        style="display: none; visibility: hidden"
-      ></iframe>
-    </noscript>
     <SiteHeader />
     <main class="flex-1">
       <slot />
@@ -47,7 +39,6 @@ const modal = useApplicationModal()
 
 const { locale, t } = useI18n()
 const config = useRuntimeConfig()
-const gtmId = config.public.gtm_id
 
 // Set default site description from i18n (can be overridden by individual pages)
 useSeoMeta({
