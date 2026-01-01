@@ -2,9 +2,24 @@
   <div class="program-detail">
     <!-- Hero Section -->
     <section
-      class="relative overflow-hidden gradient-hero-primary section-py-lg"
+      class="relative overflow-hidden gradient-hero-primary section-py"
     >
-      <div class="container mx-auto container-padding">
+      <!-- Mobile blur background -->
+      <div
+        v-if="resolvedHeroImage"
+        class="absolute inset-0 md:hidden"
+      >
+        <NuxtImg
+          :src="resolvedHeroImage"
+          :alt="''"
+          class="h-full w-full object-cover blur-xl scale-110 opacity-30"
+          format="webp"
+          loading="eager"
+        />
+        <div class="absolute inset-0 bg-gradient-to-b from-transparent via-white/30 to-white/60" />
+      </div>
+
+      <div class="container mx-auto container-padding relative">
         <div class="grid items-center gap-component-lg lg:grid-cols-[minmax(0,1.8fr)_minmax(0,1fr)]">
           <div class="flex flex-col items-start gap-component-lg">
             <NuxtLink
@@ -39,7 +54,7 @@
               </div>
             </div>
           </div>
-          <div v-if="resolvedHeroImage" class="relative">
+          <div v-if="resolvedHeroImage" class="relative hidden md:block">
             <div class="relative overflow-hidden rounded-card-lg shadow-elevated h-80 lg:h-96">
               <NuxtImg
                 :src="resolvedHeroImage"
@@ -56,12 +71,12 @@
 
     <!-- Content Section -->
     <section class="section-py-lg">
-      <div class="container mx-auto container-padding">
+      <div class="container mx-auto px-0 md:container-padding">
         <div class="grid gap-component-lg lg:grid-cols-[minmax(0,2.4fr)_minmax(0,1fr)]">
           <!-- Main content -->
-          <div>
+          <div class="order-1 lg:order-1">
             <article
-              class="prose-article rounded-responsive-lg bg-white card-padding-article shadow-card ring-default"
+              class="prose-article rounded-none md:rounded-responsive-lg bg-white p-3 md:p-6 lg:p-10 xl:p-12 shadow-none md:shadow-card ring-0 md:ring-default"
             >
               <BlogContentRenderer
                 :content="program.content"
@@ -73,7 +88,7 @@
           </div>
 
           <!-- Sticky sidebar -->
-          <aside class="space-component-md lg:sticky lg:top-24 lg:self-start">
+          <aside class="order-3 lg:order-2 space-component-md lg:space-component-lg lg:sticky lg:top-24 lg:self-start">
             <SidebarTableOfContents
               :title="t(ns('tableOfContents'))"
               :items="tableOfContents"

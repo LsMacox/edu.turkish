@@ -40,7 +40,7 @@
               {{ t(channelsNs('telegram.description')) }}
             </p>
             <BaseButton
-              variant="social-telegram"
+              variant="primary"
               size="md"
               @click="handleSocialClick(channels.telegram.href)"
             >
