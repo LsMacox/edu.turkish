@@ -82,8 +82,8 @@ export function createRouteRulesConfig(enablePrerender: boolean): NuxtConfig['ro
       headers: { 'cache-control': 'public, max-age=31536000, immutable' },
     },
 
-    // Service pages: exclude from indexing (internal/UI pages)
-    '/*/services/**': {
+    // UI pages: exclude from indexing (internal/dev pages)
+    '/*/ui/**': {
       headers: { 'x-robots-tag': 'noindex, nofollow' },
     },
 
