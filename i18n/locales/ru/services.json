@@ -25,7 +25,6 @@
       "packages": {
         "admission": {
           "name": "Поступление в университет",
-          "priceUsd": 200,
           "ctaButton": "Заказать",
           "services": {
             "consultation": "Первичная консультация",
@@ -38,7 +37,6 @@
         },
         "standard": {
           "name": "Обустройство по Турции",
-          "priceUsd": 1500,
           "ctaButton": "Заказать",
           "includes": "Включает пакет «Поступление в Университет», а также:",
           "additionalServices": {
@@ -56,7 +54,6 @@
         },
         "vip": {
           "name": "VIP обустройство по Турции",
-          "priceUsd": 2200,
           "ctaButton": "Заказать",
           "includes": "Включает пакет «Поступление и обустройство», а также:",
           "additionalServices": {

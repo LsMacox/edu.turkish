@@ -8,7 +8,6 @@
       <ServicesPackageCard
         package-name="university-admission"
         :name="t(pkgAdmission('name'))"
-        :price="admissionPrice"
         :services="admissionServices"
         :cta-text="t(pkgAdmission('ctaButton'))"
         :is-mobile-accordion="isMobile"
@@ -17,7 +16,6 @@
       <ServicesPackageCard
         package-name="relocation-standard"
         :name="t(pkgStandard('name'))"
-        :price="standardPrice"
         :services="standardServices"
         :cta-text="t(pkgStandard('ctaButton'))"
         :includes-text="t(pkgStandard('includes'))"
@@ -27,7 +25,6 @@
       <ServicesPackageCard
         package-name="relocation-vip"
         :name="t(pkgVip('name'))"
-        :price="vipPrice"
         :services="vipServices"
         :cta-text="t(pkgVip('ctaButton'))"
         :includes-text="t(pkgVip('includes'))"
@@ -77,7 +74,7 @@ const pkgStandard = namespace('services.relocation-in-turkey.packages.standard')
 const pkgVip = namespace('services.relocation-in-turkey.packages.vip')
 const faqNs = namespace('services.relocation-in-turkey.faq')
 const faqItemsNs = namespace('services.relocation-in-turkey.faq.items')
-const { t, getNumber } = useI18nHelpers()
+const { t } = useI18nHelpers()
 const modal = useApplicationModal()
 const exchangeRatesStore = useExchangeRatesStore()
 
@@ -90,17 +87,6 @@ onMounted(() => {
 })
 
 onMounted(() => exchangeRatesStore.ensureFresh())
-
-// Prices from i18n (stored as numbers in JSON)
-const admissionPrice = computed(() =>
-  getNumber(pkgAdmission('priceUsd'), 200),
-)
-const standardPrice = computed(() =>
-  getNumber(pkgStandard('priceUsd'), 1500),
-)
-const vipPrice = computed(() =>
-  getNumber(pkgVip('priceUsd'), 2500),
-)
 
 const admissionServices = computed(() => [
   t(pkgAdmission('services.consultation')),

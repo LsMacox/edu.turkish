@@ -25,7 +25,6 @@
       "packages": {
         "admission": {
           "name": "University Admission",
-          "priceUsd": 200,
           "ctaButton": "Order",
           "services": {
             "consultation": "Initial consultation",
@@ -38,7 +37,6 @@
         },
         "standard": {
           "name": "Settlement in Turkey",
-          "priceUsd": 1500,
           "ctaButton": "Order",
           "includes": "Includes 'University Admission' package plus:",
           "additionalServices": {
@@ -56,7 +54,6 @@
         },
         "vip": {
           "name": "VIP Settlement in Turkey",
-          "priceUsd": 2200,
           "ctaButton": "Order",
           "includes": "Includes 'Admission and Settlement' packages plus:",
           "additionalServices": {

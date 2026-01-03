@@ -25,7 +25,6 @@
       "packages": {
         "admission": {
           "name": "Üniversiteye Giriş",
-          "priceUsd": 200,
           "ctaButton": "Sipariş Ver",
           "services": {
             "consultation": "İlk danışmanlık",
@@ -38,7 +37,6 @@
         },
         "standard": {
           "name": "Türkiye'de Yerleşim",
-          "priceUsd": 1500,
           "ctaButton": "Sipariş Ver",
           "includes": "'Üniversiteye Giriş' paketini içerir, ayrıca:",
           "additionalServices": {
@@ -56,7 +54,6 @@
         },
         "vip": {
           "name": "VIP Türkiye'de Yerleşim",
-          "priceUsd": 2200,
           "ctaButton": "Sipariş Ver",
           "includes": "'Giriş ve Yerleşim' paketlerini içerir, ayrıca:",
           "additionalServices": {

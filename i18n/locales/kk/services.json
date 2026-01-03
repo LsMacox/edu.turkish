@@ -25,7 +25,6 @@
       "packages": {
         "admission": {
           "name": "Университетке түсу",
-          "priceUsd": 200,
           "ctaButton": "Тапсырыс беру",
           "services": {
             "consultation": "Бастапқы кеңес беру",
@@ -38,7 +37,6 @@
         },
         "standard": {
           "name": "Түркиядағы орналастыру",
-          "priceUsd": 1500,
           "ctaButton": "Тапсырыс беру",
           "includes": "«Университетке түсу» пакетін қамтиды, сонымен қатар:",
           "additionalServices": {
@@ -56,7 +54,6 @@
         },
         "vip": {
           "name": "VIP Түркиядағы орналастыру",
-          "priceUsd": 2200,
           "ctaButton": "Тапсырыс беру",
           "includes": "«Университетке түсу және орналасу» пакеттерін қамтиды, сонымен қатар:",
           "additionalServices": {

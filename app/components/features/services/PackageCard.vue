@@ -24,7 +24,7 @@
       </div>
 
       <!-- Price -->
-      <div class="mb-component-md">
+      <div v-if="price !== undefined" class="mb-component-md">
         <ServicesPriceTag :price-usd="price" size="lg" />
       </div>
 
@@ -86,7 +86,7 @@ import { key } from '~~/lib/i18n'
 interface Props {
   packageName: string
   name: string
-  price: number
+  price?: number
   services: string[]
   ctaText?: string
   includesText?: string
@@ -105,7 +105,7 @@ const props = withDefaults(defineProps<Props>(), {
 const { t } = useI18n()
 
 const emit = defineEmits<{
-  apply: [payload: { packageName: string; name: string; price: number }]
+  apply: [payload: { packageName: string; name: string; price?: number }]
 }>()
 
 const isExpanded = ref(props.defaultExpanded)
