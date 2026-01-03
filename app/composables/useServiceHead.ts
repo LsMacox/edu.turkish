@@ -6,20 +6,25 @@ interface ServiceHeadOptions {
 
 export function useServiceHead(options: ServiceHeadOptions) {
   const schemaType = options.schemaType ?? ['Product', 'Service']
+  const runtimeConfig = useRuntimeConfig()
+  const siteUrl = runtimeConfig.public.siteUrl || 'https://edu-turkish.com'
+  const route = useRoute()
+  const localePath = useLocalePath()
+
+  useSeoMeta({
+    title: () => toValue(options.title),
+    description: () => toValue(options.description),
+    ogTitle: () => toValue(options.title),
+    ogDescription: () => toValue(options.description),
+    twitterTitle: () => toValue(options.title),
+    twitterDescription: () => toValue(options.description),
+  })
 
   useHead(() => {
     const title = toValue(options.title)
     const description = toValue(options.description)
 
     return {
-      title,
-      meta: [
-        { name: 'description', content: description },
-        { property: 'og:title', content: title },
-        { property: 'og:description', content: description },
-        { name: 'twitter:title', content: title },
-        { name: 'twitter:description', content: description },
-      ],
       script: [
         {
           type: 'application/ld+json',
@@ -31,8 +36,23 @@ export function useServiceHead(options: ServiceHeadOptions) {
             provider: {
               '@type': 'Organization',
               name: 'Edu.turkish',
-              sameAs: 'https://edu-turkish.com',
+              sameAs: siteUrl,
             },
+          }),
+        },
+        {
+          type: 'application/ld+json',
+          innerHTML: JSON.stringify({
+            '@context': 'https://schema.org',
+            '@type': 'BreadcrumbList',
+            itemListElement: [
+              {
+                '@type': 'ListItem',
+                position: 1,
+                name: title,
+                item: `${siteUrl}${localePath(route.path)}`,
+              },
+            ],
           }),
         },
       ],

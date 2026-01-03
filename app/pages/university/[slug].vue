@@ -2,11 +2,14 @@
   <div>
     <UniversitiesDetailView v-if="university" :university="university" />
 
+    <!-- SSR fallback h1 when university data not yet available -->
+    <h1 v-else-if="!university" class="sr-only">{{ slug }}</h1>
+
     <ClientOnly>
       <div v-if="loading" class="min-h-screen bg-white flex items-center justify-center">
         <div class="text-center">
           <div class="animate-spin rounded-full h-32 w-32 border-b-2 border-primary mx-auto mb-4" />
-          <p class="text-xl font-semibold text-secondary">{{ t(key('loading')) }}</p>
+          <h1 class="text-xl font-semibold text-secondary">{{ t(key('loading')) }}</h1>
         </div>
       </div>
       <div
@@ -14,7 +17,7 @@
         class="min-h-screen bg-white flex items-center justify-center"
       >
         <div class="text-center">
-          <p class="text-4xl font-bold text-secondary mb-4">{{ t(key('errors.universityNotFound')) }}</p>
+          <h1 class="text-4xl font-bold text-secondary mb-4">{{ t(key('errors.universityNotFound')) }}</h1>
           <p class="text-gray-600 mb-8">{{ t(key('errors.universityNotFoundDescription')) }}</p>
           <NuxtLink
             :to="localePath('/universities')"

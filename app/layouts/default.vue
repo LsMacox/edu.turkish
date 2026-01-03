@@ -85,9 +85,11 @@ onBeforeUnmount(() => {
   document.removeEventListener('mouseleave', handleExitIntent)
 })
 
+const siteUrl = config.public.siteUrl || 'https://edu-turkish.com'
+
 useHead(() => {
   const headFromLocale = localeHead.value
-  const canonicalHref = config.public.siteUrl + route.path
+  const canonicalHref = siteUrl + route.path
 
   const existingLinks = headFromLocale.link ?? []
   const links = [
@@ -102,6 +104,56 @@ useHead(() => {
       lang: locale.value,
     },
     link: links,
+    script: [
+      {
+        type: 'application/ld+json',
+        key: 'schema-organization',
+        innerHTML: JSON.stringify({
+          '@context': 'https://schema.org',
+          '@type': 'Organization',
+          name: 'Edu.turkish',
+          url: siteUrl,
+          logo: `${siteUrl}/android-chrome-512x512.png`,
+          contactPoint: [
+            {
+              '@type': 'ContactPoint',
+              contactType: 'customer service',
+              url: 'https://t.me/Hakim7292',
+              availableLanguage: ['Russian', 'Turkish', 'English', 'Kazakh'],
+            },
+            {
+              '@type': 'ContactPoint',
+              contactType: 'customer service',
+              telephone: '+90-543-867-99-50',
+              availableLanguage: ['Russian', 'Turkish', 'English', 'Kazakh'],
+            },
+          ],
+          sameAs: [
+            'https://www.instagram.com/edu.turkish/',
+            'https://t.me/Hakim7292',
+            'https://wa.me/905438679950',
+          ],
+        }),
+      },
+      {
+        type: 'application/ld+json',
+        key: 'schema-website',
+        innerHTML: JSON.stringify({
+          '@context': 'https://schema.org',
+          '@type': 'WebSite',
+          name: 'Edu.turkish',
+          url: siteUrl,
+          potentialAction: {
+            '@type': 'SearchAction',
+            target: {
+              '@type': 'EntryPoint',
+              urlTemplate: `${siteUrl}/blog?q={search_term_string}`,
+            },
+            'query-input': 'required name=search_term_string',
+          },
+        }),
+      },
+    ],
   } as Record<string, unknown>
 
   return head

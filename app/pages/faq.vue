@@ -265,15 +265,16 @@ const runtimeConfig = useRuntimeConfig()
 const siteUrl = runtimeConfig.public.siteUrl || 'https://edu-turkish.com'
 const localePath = useLocalePath()
 
+useSeoMeta({
+  title: () => t(metaNs('title')),
+  description: () => t(metaNs('description')),
+  ogTitle: () => t(metaNs('title')),
+  ogDescription: () => t(metaNs('description')),
+  ogType: 'website',
+})
+
 useHead(() => {
   return {
-    title: t(metaNs('title')),
-    meta: [
-      { name: 'description', content: t(metaNs('description')) },
-      { property: 'og:title', content: t(metaNs('title')) },
-      { property: 'og:description', content: t(metaNs('description')) },
-      { property: 'og:type', content: 'website' },
-    ],
     script: [
       {
         type: 'application/ld+json',

@@ -23,16 +23,17 @@ const localePath = useLocalePath()
 const runtimeConfig = useRuntimeConfig()
 const siteUrl = runtimeConfig.public.siteUrl || 'https://edu-turkish.com'
 
+useSeoMeta({
+  title: () => t(ns('title')),
+  description: () => t(ns('description')),
+  ogTitle: () => t(ns('title')),
+  ogDescription: () => t(ns('description')),
+  ogType: 'website',
+  twitterTitle: () => t(ns('title')),
+  twitterDescription: () => t(ns('description')),
+})
+
 useHead(() => ({
-  title: t(ns('title')),
-  meta: [
-    { name: 'description', content: t(ns('description')) },
-    { property: 'og:title', content: t(ns('title')) },
-    { property: 'og:description', content: t(ns('description')) },
-    { property: 'og:type', content: 'website' },
-    { name: 'twitter:title', content: t(ns('title')) },
-    { name: 'twitter:description', content: t(ns('description')) },
-  ],
   script: [
     {
       type: 'application/ld+json',
