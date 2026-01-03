@@ -408,14 +408,20 @@ async function translatePrograms(opts: CliOptions): Promise<void> {
           console.log(`[DryRun][Program ${rec.id}] => ${target}`, out)
           return
         }
-        await prisma.universityProgramTranslation.create({
-          data: {
+        await prisma.universityProgramTranslation.upsert({
+          where: {
+            programId_locale: { programId: rec.id, locale: target },
+          },
+          update: {
+            name: out.name || null,
+          },
+          create: {
             programId: rec.id,
             locale: target,
-            name: out.name || '',
+            name: out.name || null,
           },
         })
-        console.log(`[Created] program_translation id=${rec.id} ${sourceLocale}->${target}`)
+        console.log(`[Upserted] program_translation id=${rec.id} ${sourceLocale}->${target}`)
       })
     }
   }
@@ -673,28 +679,52 @@ async function translateArticles(opts: CliOptions): Promise<void> {
           return
         }
         const titleOut = out.title || base.title || `article-${rec.id}`
-        const slugBase = slugify(titleOut)
-        const unique = await uniqueArticleSlug(target, slugBase)
-        await (prisma as any).blogArticleTranslation.create({
-          data: {
-            articleId: rec.id,
-            locale: target,
-            slug: unique,
-            title: out.title || '',
-            excerpt: out.excerpt || '',
-            readingTime: out.readingTime || null,
-            heroKicker: out.heroKicker || null,
-            heroSubtitle: out.heroSubtitle || null,
-            heroLocation: out.heroLocation || null,
-            imageAlt: out.imageAlt || null,
-            heroImageAlt: out.heroImageAlt || null,
-            seoDescription: out.seoDescription || null,
-            content: tryParseJson(out.content),
-            quickFacts: tryParseJson(out.quickFacts),
-            tags: tryParseJson(out.tags),
-          },
+        const existingTranslation = await (prisma as any).blogArticleTranslation.findFirst({
+          where: { articleId: rec.id, locale: target },
         })
-        console.log(`[Created] blog_article_translation id=${rec.id} ${sourceLocale}->${target}`)
+        if (existingTranslation) {
+          await (prisma as any).blogArticleTranslation.update({
+            where: { id: existingTranslation.id },
+            data: {
+              title: out.title || existingTranslation.title,
+              excerpt: out.excerpt || null,
+              readingTime: out.readingTime || null,
+              heroKicker: out.heroKicker || null,
+              heroSubtitle: out.heroSubtitle || null,
+              heroLocation: out.heroLocation || null,
+              imageAlt: out.imageAlt || null,
+              heroImageAlt: out.heroImageAlt || null,
+              seoDescription: out.seoDescription || null,
+              content: tryParseJson(out.content) ?? existingTranslation.content,
+              quickFacts: tryParseJson(out.quickFacts) ?? existingTranslation.quickFacts,
+              tags: tryParseJson(out.tags) ?? existingTranslation.tags,
+            },
+          })
+          console.log(`[Updated] blog_article_translation id=${rec.id} ${sourceLocale}->${target}`)
+        } else {
+          const slugBase = slugify(titleOut)
+          const unique = await uniqueArticleSlug(target, slugBase)
+          await (prisma as any).blogArticleTranslation.create({
+            data: {
+              articleId: rec.id,
+              locale: target,
+              slug: unique,
+              title: out.title || '',
+              excerpt: out.excerpt || '',
+              readingTime: out.readingTime || null,
+              heroKicker: out.heroKicker || null,
+              heroSubtitle: out.heroSubtitle || null,
+              heroLocation: out.heroLocation || null,
+              imageAlt: out.imageAlt || null,
+              heroImageAlt: out.heroImageAlt || null,
+              seoDescription: out.seoDescription || null,
+              content: tryParseJson(out.content),
+              quickFacts: tryParseJson(out.quickFacts),
+              tags: tryParseJson(out.tags),
+            },
+          })
+          console.log(`[Created] blog_article_translation id=${rec.id} ${sourceLocale}->${target}`)
+        }
       })
     }
   }
