@@ -6,6 +6,15 @@ User-agent: *
 Disallow: /
 Host: origin.edu-turkish.com
 
+# Block CMS and CRM subdomains
+User-agent: *
+Disallow: /
+Host: cms.edu-turkish.com
+
+User-agent: *
+Disallow: /
+Host: crm.edu-turkish.com
+
 # Update this to your canonical domain if different
 Sitemap: https://edu.turkish/sitemap.xml
 
