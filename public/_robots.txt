@@ -1,6 +1,11 @@
 User-agent: *
 Allow: /
 
+# Block indexing of entire origin domain
+User-agent: *
+Disallow: /
+Host: origin.edu-turkish.com
+
 # Update this to your canonical domain if different
 Sitemap: https://edu.turkish/sitemap.xml
 
