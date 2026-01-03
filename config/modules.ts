@@ -87,6 +87,7 @@ export function createModulesConfig(options: {
       '@nuxtjs/sitemap',
       {
         autoLastmod: true,
+        exclude: ['/*/services/**'],
       },
     ],
   ]
