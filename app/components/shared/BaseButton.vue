@@ -3,6 +3,8 @@
     :is="tag"
     ref="rootEl"
     :href="href"
+    :rel="href ? rel : undefined"
+    :target="href ? target : undefined"
     :to="to"
     :type="isButton ? type : undefined"
     :disabled="isButton ? disabled || loading : undefined"

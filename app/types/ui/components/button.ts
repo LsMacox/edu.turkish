@@ -60,6 +60,8 @@ export interface BaseButtonProps {
   iconPosition?: 'left' | 'right'
   type?: 'button' | 'submit' | 'reset'
   href?: string
+  rel?: string
+  target?: string
   to?: string | object
   ariaLabel?: string
   tabIndex?: number

@@ -43,6 +43,8 @@
             <BaseButton
               variant="whatsapp-cta"
               :href="whatsapp.href"
+              rel="noopener noreferrer nofollow"
+              target="_blank"
               icon="ph:whatsapp-logo"
               size="lg"
               no-focus-ring
