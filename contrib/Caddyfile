@@ -1,23 +1,18 @@
-# Global options for origin server
+# Global options
 {
-    # Disable auto HTTPS for origin server (handled by Bunny CDN)
-    auto_https off
+    # Auto HTTPS is enabled by default
+    email info@edu-turkish.com
 }
 
-# Origin server for Bunny CDN (HTTP only)
-http://{$APP_DOMAIN:origin.edu-turkish.com} {
+{$APP_DOMAIN:origin.edu-turkish.com} {
     encode zstd gzip
 
-    # Security headers for origin responses (HSTS will be added by Nuxt middleware)
     header {
-        # HSTS header for responses going through Bunny CDN
         Strict-Transport-Security "max-age=31536000; includeSubDomains; preload"
-        # Additional security headers
         X-Content-Type-Options "nosniff"
         X-Frame-Options "DENY"
         X-XSS-Protection "1; mode=block"
         Referrer-Policy "strict-origin-when-cross-origin"
-        # Remove server information
         -Server
     }
 
@@ -31,11 +26,9 @@ http://{$APP_DOMAIN:origin.edu-turkish.com} {
     }
 }
 
-# Directus origin server
-http://{$DIRECTUS_DOMAIN:cms.edu-turkish.com} {
+{$DIRECTUS_DOMAIN:cms.edu-turkish.com} {
     encode zstd gzip
 
-    # Security headers for Directus
     header {
         Strict-Transport-Security "max-age=31536000; includeSubDomains; preload"
         X-Content-Type-Options "nosniff"
@@ -52,11 +45,9 @@ http://{$DIRECTUS_DOMAIN:cms.edu-turkish.com} {
     }
 }
 
-# EspoCRM origin server
-http://{$CRM_DOMAIN:crm.edu-turkish.com} {
+{$CRM_DOMAIN:crm.edu-turkish.com} {
     encode zstd gzip
 
-    # Security headers for CRM
     header {
         Strict-Transport-Security "max-age=31536000; includeSubDomains; preload"
         X-Content-Type-Options "nosniff"
@@ -73,7 +64,6 @@ http://{$CRM_DOMAIN:crm.edu-turkish.com} {
     }
 }
 
-# Health check endpoint
 :80 {
     @health path /health
     respond @health "ok" 200
