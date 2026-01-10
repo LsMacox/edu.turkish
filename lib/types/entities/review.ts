@@ -38,9 +38,7 @@ export interface MediaReview {
     rating: number | null
     year: number | null
     avatar: string | null
-    videoUrl: string | null
-    videoThumb: string | null
-    videoDuration: string | null
+    videoId: string | null
     imageUrl: string | null
 }
 

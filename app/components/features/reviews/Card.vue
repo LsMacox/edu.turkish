@@ -14,35 +14,13 @@
       @click="handlePlayVideo"
     >
       <div class="relative aspect-[4/3] gradient-placeholder rounded-t-2xl overflow-hidden">
-        <NuxtImg
-          v-if="isPageLoaded && displayThumb"
-          :src="displayThumb"
-          :alt="review.name"
-          :class="['w-full h-full object-cover', IMAGE_HOVER_CLASSES]"
-          loading="lazy"
-          format="webp"
-          sizes="300px"
-        />
-        <div
-          v-else
-          class="w-full h-full flex items-center justify-center gradient-placeholder-media"
-        >
+        <div class="w-full h-full flex items-center justify-center gradient-placeholder-media">
           <Icon name="mdi:video" class="text-icon-3xl icon-placeholder" />
         </div>
 
         <!-- Play Button Overlay -->
-        <div
-          class="absolute inset-0 flex items-center justify-center gradient-overlay-media"
-        >
+        <div class="absolute inset-0 flex items-center justify-center gradient-overlay-media">
           <BaseMediaButton icon="mdi:play" size="lg" variant="play" />
-        </div>
-
-        <!-- Duration Badge -->
-        <div
-          v-if="review.videoDuration"
-          class="absolute bottom-3 right-3 duration-badge"
-        >
-          {{ review.videoDuration }}
         </div>
       </div>
     </div>
@@ -159,8 +137,6 @@ function handleOpenImage() {
     emit('openImage', props.review)
   }
 }
-
-const displayThumb = computed(() => props.review.videoThumb || null)
 
 function getInitials(name: string): string {
   return name

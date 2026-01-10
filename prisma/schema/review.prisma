@@ -10,9 +10,7 @@ model UniversityReview {
   rating        Int?            @db.TinyInt
   avatar        String?         @db.VarChar(500)
   featured      Boolean         @default(false)
-  videoUrl      String?         @map("video_url") @db.VarChar(500)
-  videoThumb    String?         @map("video_thumb") @db.VarChar(500)
-  videoDuration String?         @map("video_duration") @db.VarChar(10)
+  videoId       String?         @map("video_id") @db.VarChar(100)
   imageUrl      String?         @map("image_url") @db.VarChar(500)
   createdAt     DateTime        @default(now()) @map("created_at")
   updatedAt     DateTime        @updatedAt @map("updated_at")

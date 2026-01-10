@@ -58,9 +58,7 @@ export function mapMediaReview(r: ReviewWithRelations, locale: NormalizedLocale)
     rating: r.rating,
     year: r.year,
     avatar: r.avatar,
-    videoUrl: r.videoUrl,
-    videoThumb: r.videoThumb,
-    videoDuration: r.videoDuration,
+    videoId: r.videoId,
     imageUrl: r.imageUrl,
   }
 }

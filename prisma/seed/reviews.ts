@@ -9,9 +9,7 @@ type SeedReview = {
   university: string
   quote: string
   avatar?: string
-  videoUrl?: string
-  videoThumb?: string
-  videoDuration?: string
+  videoId?: string
   imageUrl?: string
 }
 
@@ -34,8 +32,7 @@ const studentReviews: SeedReview[] = [
     name: 'Студент 1',
     university: 'İstanbul University',
     quote: 'Видео отзыв о поступлении и обучении',
-    videoUrl: '3629fa59-1d7c-426d-b037-d7f80abb6835.png',
-    videoThumb: '3629fa59-1d7c-426d-b037-d7f80abb6835.png',
+    videoId: 'fdcdeff1-8e0a-460c-b3a7-b01620f55e27', // Bunny Stream video ID
   },
   {
     type: 'student',
@@ -45,8 +42,7 @@ const studentReviews: SeedReview[] = [
     name: 'Студент 2',
     university: 'Marmara University',
     quote: 'Отзыв о процессе поступления',
-    videoUrl: '4364b897-252c-4884-8c67-66b1c747fa15.mp4',
-    videoThumb: '2c10c078-3aea-4ad4-8cc7-34cbb63b86b2.png',
+    videoId: 'ad839010-8dd8-44e3-8433-816904d16751', // Bunny Stream video ID
   },
   {
     type: 'student',
@@ -56,8 +52,7 @@ const studentReviews: SeedReview[] = [
     name: 'Студент 3',
     university: 'Bahçeşehir University',
     quote: 'Видео отзыв родителя о поступлении ребенка',
-    videoUrl: '4299609a-2d16-46ec-924b-a3408d8a7243.mp4',
-    videoThumb: '7d87526f-4983-4dac-9d29-75977b1c7b05.png',
+    videoId: '347c379e-28f1-43e4-b940-b98d216bf0dc', // Bunny Stream video ID
   },
   {
     type: 'student',
@@ -177,19 +172,7 @@ export async function seedReviews(prisma: PrismaClient) {
   const reviews = [...studentReviews, ...parentReviews]
 
   for (const review of reviews) {
-    // Auto-detect mediaType based on media fields
-    let mediaType: 'text' | 'video' | 'image' = review.mediaType || 'text'
-
-    // If has video, it's a video review
-    if (review.videoUrl) {
-      mediaType = 'video'
-    }
-    // If has image (but no video), it's an image review
-    else if (review.imageUrl) {
-      mediaType = 'image'
-    }
-
-    const isFeatured = true
+    const mediaType = review.mediaType || 'text'
 
     await prisma.universityReview.create({
       data: {
@@ -197,11 +180,9 @@ export async function seedReviews(prisma: PrismaClient) {
         mediaType,
         year: review.year,
         rating: review.rating,
-        featured: isFeatured,
+        featured: true,
         avatar: review.avatar,
-        videoUrl: review.videoUrl,
-        videoThumb: review.videoThumb,
-        videoDuration: review.videoDuration,
+        videoId: review.videoId,
         imageUrl: review.imageUrl,
         translations: {
           create: {

@@ -137,8 +137,8 @@ services:
       CORS_ORIGIN: 'http://localhost:3000,http://host.docker.internal:3000'
       PUBLIC_URL: ${NUXT_DIRECTUS_PUBLIC_URL}
       CACHE_ENABLED: 'false'
-      CACHE_STORE: redis
-      CACHE_REDIS: ${DIRECTUS_CACHE_REDIS_URL}
+      # CACHE_STORE: redis
+      # CACHE_REDIS: ${DIRECTUS_CACHE_REDIS_URL}
 
       # S3
       STORAGE_LOCATIONS: ${DIRECTUS_STORAGE_LOCATIONS}
@@ -152,8 +152,7 @@ services:
       STORAGE_S3_FORCE_PATH_STYLE: ${DIRECTUS_STORAGE_S3_FORCE_PATH_STYLE}
       STORAGE_S3_URL: ${DIRECTUS_STORAGE_S3_URL}
     volumes:
-      - directus_uploads:/project/directus/uploads
-      - ./contrib/directus:/project/directus
+      - directus_uploads:/directus/uploads
     depends_on:
       mysql:
         condition: service_healthy

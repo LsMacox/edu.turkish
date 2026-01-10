@@ -11,7 +11,7 @@ export const ASSETS = {
   home: {
     heroBackground: 'd837748f-0c70-4c7f-a6af-771cd41e8cfb.jpg',
     heroStudents: '8ec3658d-c21c-4843-bacf-f5ae1f830173.png',
-    heroVideo: '88212a29-9f40-4c01-89d0-7a522c61b8c5.mp4',
+    heroVideoId: 'cec3dd7d-3285-445a-861a-08da6174ce28', // Bunny Stream video ID
   },
 
   // Blog page

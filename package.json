@@ -62,13 +62,14 @@
     "schema": "prisma/schema"
   },
   "devDependencies": {
-    "@playwright/test": "^1.56.0",
     "@iconify-json/mdi": "^1.2.3",
     "@iconify-json/ph": "^1.2.2",
     "@nuxt/eslint": "^1.9.0",
+    "@playwright/test": "^1.56.0",
     "@types/node": "^24.7.0",
     "@vitejs/plugin-vue": "^6.0.1",
     "@vue/test-utils": "^2.4.6",
+    "baseline-browser-mapping": "^2.9.14",
     "dotenv-cli": "^11.0.0",
     "eslint": "^9.37.0",
     "eslint-config-prettier": "^10.1.8",
@@ -78,5 +79,6 @@
     "typescript": "^5.9.3",
     "vitest": "^3.2.4",
     "vue-tsc": "^3.1.1"
-  }
+  },
+  "packageManager": "pnpm@10.28.0+sha512.05df71d1421f21399e053fde567cea34d446fa02c76571441bfc1c7956e98e363088982d940465fd34480d4d90a0668bc12362f8aa88000a64e83d0b0e47be48"
 }

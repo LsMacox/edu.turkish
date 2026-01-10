@@ -12,15 +12,18 @@
       />
 
       <!-- Video -->
-      <video
-        v-else-if="item.mediaType === 'video' && getVideoSource(item)"
-        :ref="(el) => setVideoRef(el, item.id)"
-        :src="getVideoSource(item)!"
-        :poster="item.videoThumb || undefined"
-        controls
-        playsinline
-        class="max-h-[80vh] max-w-full w-auto h-auto rounded-button"
-      />
+      <div
+        v-else-if="item.mediaType === 'video' && item.videoId"
+        class="w-full max-w-4xl"
+      >
+        <BunnyVideoPlayer
+          :video-id="item.videoId"
+          :library-id="bunnyLibraryId"
+          aspect-ratio="16/9"
+          rounded="lg"
+          :title="item.name"
+        />
+      </div>
 
       <!-- Fallback -->
       <div v-else class="h-[60vh] flex items-center justify-center text-white/70">
@@ -42,8 +45,6 @@
 import type { MediaReview } from '~~/lib/types'
 import LightboxLightbox from '~/components/shared/lightbox/Lightbox.vue'
 
-const { getCdnUrl } = useCdn()
-
 const props = defineProps<{
   items: MediaReview[]
   index: number | null
@@ -51,10 +52,10 @@ const props = defineProps<{
 
 const emit = defineEmits<{ close: [] }>()
 
+const bunnyLibraryId = parseInt(useRuntimeConfig().public.bunnyLibraryId)
 const currentIndex = ref<number | null>(props.index)
 const safeItems = computed(() => props.items || [])
 
-// Sync with parent
 watch(
   () => props.index,
   (val) => {
@@ -66,46 +67,5 @@ function onIndexChange(val: number | null) {
   if (val === null) {
     emit('close')
   }
-}
-
-// Video refs for auto-play
-const videoRefs = ref<Map<number, HTMLVideoElement>>(new Map())
-
-function setVideoRef(el: Element | ComponentPublicInstance | null, id: number) {
-  if (el && el instanceof HTMLVideoElement) {
-    videoRefs.value.set(id, el)
-  } else {
-    videoRefs.value.delete(id)
-  }
-}
-
-// Auto-play current video
-watch(
-  currentIndex,
-  (newIdx, oldIdx) => {
-    // Pause previous
-    if (typeof oldIdx === 'number' && safeItems.value[oldIdx]) {
-      const prevVideo = videoRefs.value.get(safeItems.value[oldIdx].id)
-      prevVideo?.pause()
-    }
-    // Play current
-    if (typeof newIdx === 'number' && safeItems.value[newIdx]) {
-      nextTick(() => {
-        const item = safeItems.value[newIdx]
-        if (item) {
-          const currentVideo = videoRefs.value.get(item.id)
-          currentVideo?.play().catch(() => {})
-        }
-      })
-    }
-  },
-  { immediate: true },
-)
-
-// Video source helper
-function getVideoSource(item: MediaReview): string | null {
-  if (!item || item.mediaType !== 'video' || !item.videoUrl) return null
-  if (item.videoUrl.startsWith('youtube:') || item.videoUrl.startsWith('vimeo:')) return null
-  return getCdnUrl(item.videoUrl)
 }
 </script>

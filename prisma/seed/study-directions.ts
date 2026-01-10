@@ -9,7 +9,7 @@ interface DirectionSeedData {
   translations: Record<SupportedLocale, string>
 }
 
-const UNIVERSITIES_DIR = path.join(process.cwd(), 'app', 'assets', 'json', 'universities')
+const UNIVERSITIES_DIR = path.join(process.cwd(), 'prisma', 'seed', 'json', 'universities')
 const LOCALES: SupportedLocale[] = ['ru']
 
 function loadUniversityDirectionSlugs(): string[] {
