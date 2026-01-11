@@ -55,7 +55,7 @@
       {
         "name": "Главный кампус Kavacık",
         "description": "Основной кампус на азиатской стороне Стамбула",
-        "icon": "ph:university"
+        "icon": "ph:buildings"
       },
       {
         "name": "Лаборатории и IT-центры",
@@ -131,12 +131,16 @@
       {
         "name": "Аттестат/диплом",
         "description": "Апостиль и нотариальный перевод",
-        "format_requirements": ["PDF"]
+        "format_requirements": [
+          "PDF"
+        ]
       },
       {
         "name": "Загранпаспорт",
         "description": "Срок действия не менее 18 месяцев",
-        "format_requirements": ["PDF"]
+        "format_requirements": [
+          "PDF"
+        ]
       },
       {
         "name": "Фото",
@@ -152,14 +156,16 @@
         "name": "Скидка на обучение",
         "type": "university",
         "coverage_percentage": 50,
-        "eligibility_criteria": ["Скидка действует на все направления обучения"]
+        "eligibility_criteria": [
+          "Скидка действует на все направления обучения"
+        ]
       }
     ]
   },
   "programs": [
     {
       "degree_type": "master",
-      "name": "Бизнес — с тезисом",
+      "name": "Business - with Thesis",
       "language": "en",
       "tuition_per_year": 7000,
       "duration_years": 2,
@@ -167,7 +173,7 @@
     },
     {
       "degree_type": "master",
-      "name": "Бизнес — без тезиса",
+      "name": "Business - without Thesis",
       "language": "en",
       "tuition_per_year": 6000,
       "duration_years": 2,
@@ -175,7 +181,7 @@
     },
     {
       "degree_type": "master",
-      "name": "Бизнес — без тезиса — дистанционно",
+      "name": "Business - without Thesis - Distance Learning",
       "language": "en",
       "tuition_per_year": 4200,
       "duration_years": 2,
@@ -183,7 +189,7 @@
     },
     {
       "degree_type": "master",
-      "name": "Бизнес — с тезисом",
+      "name": "Business - with Thesis",
       "language": "tr",
       "tuition_per_year": 6000,
       "duration_years": 2,
@@ -191,7 +197,7 @@
     },
     {
       "degree_type": "master",
-      "name": "Бизнес — без тезиса",
+      "name": "Business - without Thesis",
       "language": "tr",
       "tuition_per_year": 5200,
       "duration_years": 2,
@@ -199,7 +205,7 @@
     },
     {
       "degree_type": "master",
-      "name": "Бизнес — без тезиса — дистанционно",
+      "name": "Business - without Thesis - Distance Learning",
       "language": "tr",
       "tuition_per_year": 4200,
       "duration_years": 2,
@@ -207,7 +213,7 @@
     },
     {
       "degree_type": "master",
-      "name": "Компьютерная инженерия — с тезисом",
+      "name": "Computer Engineering - with Thesis",
       "language": "en",
       "tuition_per_year": 7000,
       "duration_years": 2,
@@ -215,7 +221,7 @@
     },
     {
       "degree_type": "master",
-      "name": "Компьютерная инженерия — без тезиса",
+      "name": "Computer Engineering - without Thesis",
       "language": "en",
       "tuition_per_year": 6000,
       "duration_years": 2,
@@ -223,7 +229,7 @@
     },
     {
       "degree_type": "master",
-      "name": "Международная торговля и логистика — с тезисом",
+      "name": "International Trade and Logistics - with Thesis",
       "language": "tr",
       "tuition_per_year": 6000,
       "duration_years": 2,
@@ -231,7 +237,7 @@
     },
     {
       "degree_type": "master",
-      "name": "Международная торговля и логистика — без тезиса",
+      "name": "International Trade and Logistics - without Thesis",
       "language": "tr",
       "tuition_per_year": 5200,
       "duration_years": 2,
@@ -239,7 +245,7 @@
     },
     {
       "degree_type": "master",
-      "name": "Международная торговля и логистика — без тезиса — дистанционно",
+      "name": "International Trade and Logistics - without Thesis - Distance Learning",
       "language": "tr",
       "tuition_per_year": 4200,
       "duration_years": 2,
@@ -247,7 +253,7 @@
     },
     {
       "degree_type": "master",
-      "name": "Глобальная политика и международные отношения — с тезисом",
+      "name": "Global Politics and International Relations - with Thesis",
       "language": "en",
       "tuition_per_year": 7000,
       "duration_years": 2,
@@ -255,7 +261,7 @@
     },
     {
       "degree_type": "master",
-      "name": "Глобальная политика и международные отношения — без тезиса",
+      "name": "Global Politics and International Relations - without Thesis",
       "language": "en",
       "tuition_per_year": 6000,
       "duration_years": 2,
@@ -263,7 +269,7 @@
     },
     {
       "degree_type": "master",
-      "name": "Психология труда и организации — без тезиса",
+      "name": "Work and Organizational Psychology - without Thesis",
       "language": "tr",
       "tuition_per_year": 5200,
       "duration_years": 2,
@@ -271,7 +277,7 @@
     },
     {
       "degree_type": "master",
-      "name": "Психология — с тезисом",
+      "name": "Psychology - with Thesis",
       "language": "tr",
       "tuition_per_year": 6000,
       "duration_years": 2,
@@ -279,7 +285,7 @@
     },
     {
       "degree_type": "master",
-      "name": "Психология — без тезиса",
+      "name": "Psychology - without Thesis",
       "language": "tr",
       "tuition_per_year": 5200,
       "duration_years": 2,
@@ -287,7 +293,7 @@
     },
     {
       "degree_type": "master",
-      "name": "Визуальные искусства и коммуникации — с тезисом",
+      "name": "Visual Arts and Communication - with Thesis",
       "language": "tr",
       "tuition_per_year": 6000,
       "duration_years": 2,
@@ -295,7 +301,7 @@
     },
     {
       "degree_type": "master",
-      "name": "Визуальные искусства и коммуникации — без тезиса",
+      "name": "Visual Arts and Communication - without Thesis",
       "language": "tr",
       "tuition_per_year": 5200,
       "duration_years": 2,
@@ -303,7 +309,7 @@
     },
     {
       "degree_type": "master",
-      "name": "Финансовая экономика — с тезисом",
+      "name": "Financial Economics - with Thesis",
       "language": "tr",
       "tuition_per_year": 6000,
       "duration_years": 2,
@@ -311,7 +317,7 @@
     },
     {
       "degree_type": "master",
-      "name": "Финансовая экономика — без тезиса",
+      "name": "Financial Economics - without Thesis",
       "language": "tr",
       "tuition_per_year": 5200,
       "duration_years": 2,
@@ -319,7 +325,7 @@
     },
     {
       "degree_type": "master",
-      "name": "Бухгалтерский учет и аудит — без тезиса",
+      "name": "Accounting and Auditing - without Thesis",
       "language": "tr",
       "tuition_per_year": 5200,
       "duration_years": 2,
@@ -327,7 +333,7 @@
     },
     {
       "degree_type": "master",
-      "name": "Предпринимательство и инновационный менеджмент — без тезиса",
+      "name": "Entrepreneurship and Innovation Management - without Thesis",
       "language": "en",
       "tuition_per_year": 6000,
       "duration_years": 2,
@@ -335,7 +341,7 @@
     },
     {
       "degree_type": "master",
-      "name": "Маркетинг и бренд-менеджмент — без тезиса",
+      "name": "Marketing and Brand Management - without Thesis",
       "language": "tr",
       "tuition_per_year": 5200,
       "duration_years": 2,
@@ -343,7 +349,7 @@
     },
     {
       "degree_type": "master",
-      "name": "Маркетинг и бренд-менеджмент — без тезиса",
+      "name": "Marketing and Brand Management - without Thesis",
       "language": "en",
       "tuition_per_year": 6000,
       "duration_years": 2,
@@ -351,7 +357,7 @@
     },
     {
       "degree_type": "master",
-      "name": "Искусственный интеллект — с тезисом",
+      "name": "Artificial Intelligence - with Thesis",
       "language": "en",
       "tuition_per_year": 7000,
       "duration_years": 2,
@@ -359,7 +365,7 @@
     },
     {
       "degree_type": "master",
-      "name": "Искусственный интеллект — без тезиса",
+      "name": "Artificial Intelligence - without Thesis",
       "language": "en",
       "tuition_per_year": 6000,
       "duration_years": 2,
@@ -367,7 +373,7 @@
     },
     {
       "degree_type": "master",
-      "name": "Управление человеческими ресурсами — с тезисом",
+      "name": "Human Resources Management - with Thesis",
       "language": "tr",
       "tuition_per_year": 6000,
       "duration_years": 2,
@@ -375,7 +381,7 @@
     },
     {
       "degree_type": "bachelor",
-      "name": "Бизнес-администрирование",
+      "name": "Business Administration",
       "language": "tr",
       "tuition_per_year": 4600,
       "duration_years": 4,
@@ -383,7 +389,7 @@
     },
     {
       "degree_type": "bachelor",
-      "name": "Бизнес-администрирование",
+      "name": "Business Administration",
       "language": "en",
       "tuition_per_year": 6000,
       "duration_years": 4,
@@ -391,7 +397,7 @@
     },
     {
       "degree_type": "bachelor",
-      "name": "Управление логистикой",
+      "name": "Logistics Management",
       "language": "en",
       "tuition_per_year": 6000,
       "duration_years": 4,
@@ -399,7 +405,7 @@
     },
     {
       "degree_type": "bachelor",
-      "name": "Международная торговля и финансы",
+      "name": "International Trade and Finance",
       "language": "en",
       "tuition_per_year": 6000,
       "duration_years": 4,
@@ -407,7 +413,7 @@
     },
     {
       "degree_type": "bachelor",
-      "name": "Коммуникации и дизайн",
+      "name": "Communication and Design",
       "language": "tr",
       "tuition_per_year": 4600,
       "duration_years": 4,
@@ -415,7 +421,7 @@
     },
     {
       "degree_type": "bachelor",
-      "name": "Дизайн цифровых игр",
+      "name": "Digital Game Design",
       "language": "tr",
       "tuition_per_year": 4600,
       "duration_years": 4,
@@ -423,7 +429,7 @@
     },
     {
       "degree_type": "bachelor",
-      "name": "Графический дизайн",
+      "name": "Graphic Design",
       "language": "tr",
       "tuition_per_year": 4600,
       "duration_years": 4,
@@ -431,7 +437,7 @@
     },
     {
       "degree_type": "bachelor",
-      "name": "Дизайн интерьера",
+      "name": "Interior Design",
       "language": "tr",
       "tuition_per_year": 4600,
       "duration_years": 4,
@@ -439,7 +445,7 @@
     },
     {
       "degree_type": "bachelor",
-      "name": "Связи с общественностью и реклама",
+      "name": "Public Relations and Advertising",
       "language": "tr",
       "tuition_per_year": 4600,
       "duration_years": 4,
@@ -447,7 +453,7 @@
     },
     {
       "degree_type": "bachelor",
-      "name": "Гастрономия и кулинарное искусство",
+      "name": "Gastronomy and Culinary Arts",
       "language": "tr",
       "tuition_per_year": 4600,
       "duration_years": 4,
@@ -455,7 +461,7 @@
     },
     {
       "degree_type": "bachelor",
-      "name": "Анимация",
+      "name": "Cartoon and Animation",
       "language": "tr",
       "tuition_per_year": 4600,
       "duration_years": 4,
@@ -463,7 +469,7 @@
     },
     {
       "degree_type": "bachelor",
-      "name": "Радио, телевидение и кино",
+      "name": "Radio, Television and Cinema",
       "language": "tr",
       "tuition_per_year": 4600,
       "duration_years": 4,
@@ -471,7 +477,7 @@
     },
     {
       "degree_type": "bachelor",
-      "name": "Психология",
+      "name": "Psychology",
       "language": "tr",
       "tuition_per_year": 4600,
       "duration_years": 4,
@@ -479,7 +485,7 @@
     },
     {
       "degree_type": "bachelor",
-      "name": "Психология",
+      "name": "Psychology",
       "language": "en",
       "tuition_per_year": 6000,
       "duration_years": 4,
@@ -487,7 +493,7 @@
     },
     {
       "degree_type": "bachelor",
-      "name": "Политология и международные отношения",
+      "name": "Political Science and International Relations",
       "language": "en",
       "tuition_per_year": 6000,
       "duration_years": 4,
@@ -495,7 +501,7 @@
     },
     {
       "degree_type": "bachelor",
-      "name": "Компьютерная инженерия",
+      "name": "Computer Engineering",
       "language": "en",
       "tuition_per_year": 6600,
       "duration_years": 4,
@@ -503,7 +509,7 @@
     },
     {
       "degree_type": "bachelor",
-      "name": "Промышленная инженерия",
+      "name": "Industrial Engineering",
       "language": "en",
       "tuition_per_year": 6000,
       "duration_years": 4,
@@ -511,7 +517,7 @@
     },
     {
       "degree_type": "bachelor",
-      "name": "Архитектура",
+      "name": "Architecture",
       "language": "tr",
       "tuition_per_year": 4600,
       "duration_years": 4,
@@ -519,7 +525,7 @@
     },
     {
       "degree_type": "bachelor",
-      "name": "Программная инженерия",
+      "name": "Software Engineering",
       "language": "tr",
       "tuition_per_year": 4600,
       "duration_years": 4,
@@ -527,7 +533,7 @@
     },
     {
       "degree_type": "bachelor",
-      "name": "Управление авиацией",
+      "name": "Aviation Management",
       "language": "en",
       "tuition_per_year": 6000,
       "duration_years": 4,

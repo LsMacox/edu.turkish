@@ -12,7 +12,6 @@ import { prisma } from '../lib/infrastructure/prisma'
 type EntityType =
   | 'universities'
   | 'reviews'
-  | 'programs'
   | 'faqs'
   | 'facilities'
   | 'requirements'
@@ -61,7 +60,6 @@ function parseArgs(argv: string[]): CliOptions {
   const allowed: EntityType[] = [
     'universities',
     'reviews',
-    'programs',
     'faqs',
     'facilities',
     'requirements',
@@ -380,48 +378,6 @@ async function translateReviews(opts: CliOptions): Promise<void> {
           },
         })
         console.log(`[Created] review_translation r=${r.id} ${sourceLocale}->${target}`)
-      })
-    }
-  }
-  await runWithConcurrency(jobs, concurrency)
-}
-
-async function translatePrograms(opts: CliOptions): Promise<void> {
-  const { sourceLocale, targetLocales, limit, dryRun, concurrency } = opts
-  const rows = await prisma.universityProgram.findMany({
-    include: { translations: true },
-    take: limit,
-  })
-  const jobs: Array<() => Promise<void>> = []
-  for (const rec of rows as any[]) {
-    const existing = new Set(rec.translations.map((t: any) => t.locale))
-    const missing = targetLocales.filter((l) => !existing.has(l))
-    if (missing.length === 0) continue
-    const by = rec.translations.find((t: any) => t.locale === sourceLocale) || rec.translations[0]
-    const base = { name: by?.name || '' }
-    for (const target of missing) {
-      jobs.push(async () => {
-        const input = { name: base.name }
-        const ctx = 'Academic program fields.'
-        const out = await translateWithDryRun(input, sourceLocale, target, ctx, dryRun)
-        if (dryRun) {
-          console.log(`[DryRun][Program ${rec.id}] => ${target}`, out)
-          return
-        }
-        await prisma.universityProgramTranslation.upsert({
-          where: {
-            programId_locale: { programId: rec.id, locale: target },
-          },
-          update: {
-            name: out.name || null,
-          },
-          create: {
-            programId: rec.id,
-            locale: target,
-            name: out.name || null,
-          },
-        })
-        console.log(`[Upserted] program_translation id=${rec.id} ${sourceLocale}->${target}`)
       })
     }
   }
@@ -931,9 +887,6 @@ async function main() {
       case 'reviews':
         await translateReviews(opts)
         break
-      case 'programs':
-        await translatePrograms(opts)
-        break
       case 'faqs':
         await translateFaqs(opts)
         break
@@ -967,7 +920,6 @@ async function main() {
       case 'all':
         await translateUniversities(opts)
         await translateReviews(opts)
-        await translatePrograms(opts)
         await translateFaqs(opts)
         await translateFacilities(opts)
         await translateRequirements(opts)

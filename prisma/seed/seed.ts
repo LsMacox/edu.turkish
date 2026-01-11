@@ -6,6 +6,7 @@ import { seedReviews } from './reviews'
 import { seedBlog } from './blog'
 import { seedStudyDirections } from './study-directions'
 import { seedProgramArticles } from './program-articles'
+import { seedUniversities } from './university'
 const { PrismaClient } = prismaPkg as any
 
 const prisma = new PrismaClient()
@@ -37,6 +38,13 @@ const seeders: Record<string, Seeder> = {
     description: 'Отзывы университетов',
     tables: ['universityReviewTranslation', 'universityReview'],
     run: async (prisma) => await seedReviews(prisma),
+  },
+  university: {
+    name: 'university',
+    description: 'Университеты (апсерт из JSON)',
+    tables: [], // Апсерт без очистки
+    dependencies: ['locations', 'study-directions'],
+    run: async (prisma) => await seedUniversities(prisma),
   },
   'faq-categories': {
     name: 'faq-categories',
@@ -210,6 +218,7 @@ function getEmoji(seederName: string): string {
     locations: '🗺️',
     'study-directions': '📚',
     reviews: '⭐',
+    university: '🏫',
     'faq-categories': '📂',
     faqs: '❓',
     blog: '📰',

@@ -57,7 +57,7 @@
     "facilities": [
       {
         "name": "Главный кампус Altunizade",
-        "icon": "ph:university"
+        "icon": "ph:buildings"
       },
       {
         "name": "NP Brain Hospital (клиническая база)",
@@ -122,17 +122,24 @@
       {
         "name": "Аттестат/диплом",
         "description": "Апостиль и нотариальный перевод",
-        "format_requirements": ["PDF"]
+        "format_requirements": [
+          "PDF"
+        ]
       },
       {
         "name": "Загранпаспорт",
         "description": "Срок действия не менее 2 лет",
-        "format_requirements": ["PDF"]
+        "format_requirements": [
+          "PDF"
+        ]
       },
       {
         "name": "Фото",
         "description": "Фон белый",
-        "format_requirements": ["JPG", "PNG"]
+        "format_requirements": [
+          "JPG",
+          "PNG"
+        ]
       }
     ],
     "scholarships": [
@@ -140,21 +147,23 @@
         "name": "Скидка на обучение",
         "type": "university",
         "coverage_percentage": 5,
-        "eligibility_criteria": ["Скидка действует на все направления обучения"]
+        "eligibility_criteria": [
+          "Скидка действует на все направления обучения"
+        ]
       }
     ]
   },
   "programs": [
     {
       "degree_type": "bachelor",
-      "name": "Судебные науки",
+      "name": "Forensic Sciences",
       "language": "tr",
       "tuition_per_year": 3600,
       "duration_years": 4
     },
     {
       "degree_type": "bachelor",
-      "name": "Питание и диетология",
+      "name": "Nutrition and Dietetics",
       "language": "tr",
       "tuition_per_year": 3600,
       "duration_years": 4,
@@ -162,7 +171,7 @@
     },
     {
       "degree_type": "bachelor",
-      "name": "Компьютерная инженерия",
+      "name": "Computer Engineering",
       "language": "en",
       "tuition_per_year": 5600,
       "duration_years": 4,
@@ -170,7 +179,7 @@
     },
     {
       "degree_type": "bachelor",
-      "name": "Биомедицинская инженерия",
+      "name": "Biomedical Engineering",
       "language": "en",
       "tuition_per_year": 5000,
       "duration_years": 4,
@@ -178,7 +187,7 @@
     },
     {
       "degree_type": "bachelor",
-      "name": "Стоматология",
+      "name": "Dentistry",
       "language": "tr",
       "tuition_per_year": 16000,
       "duration_years": 5,
@@ -186,7 +195,7 @@
     },
     {
       "degree_type": "bachelor",
-      "name": "Стоматология",
+      "name": "Dentistry",
       "language": "en",
       "tuition_per_year": 22000,
       "duration_years": 5,
@@ -194,7 +203,7 @@
     },
     {
       "degree_type": "bachelor",
-      "name": "Акушерство",
+      "name": "Midwifery",
       "language": "tr",
       "tuition_per_year": 3600,
       "duration_years": 4,
@@ -202,7 +211,7 @@
     },
     {
       "degree_type": "bachelor",
-      "name": "Электротехника и электроника",
+      "name": "Electrical and Electronics Engineering",
       "language": "en",
       "tuition_per_year": 5000,
       "duration_years": 4,
@@ -210,7 +219,7 @@
     },
     {
       "degree_type": "bachelor",
-      "name": "Промышленная инженерия",
+      "name": "Industrial Engineering",
       "language": "en",
       "tuition_per_year": 4400,
       "duration_years": 4,
@@ -218,7 +227,7 @@
     },
     {
       "degree_type": "bachelor",
-      "name": "Философия",
+      "name": "Philosophy",
       "language": "tr",
       "tuition_per_year": 3600,
       "duration_years": 4,
@@ -226,7 +235,7 @@
     },
     {
       "degree_type": "bachelor",
-      "name": "Физиотерапия и реабилитация",
+      "name": "Physiotherapy and Rehabilitation",
       "language": "tr",
       "tuition_per_year": 3600,
       "duration_years": 4,
@@ -234,7 +243,7 @@
     },
     {
       "degree_type": "bachelor",
-      "name": "Журналистика",
+      "name": "Journalism",
       "language": "tr",
       "tuition_per_year": 3600,
       "duration_years": 4,
@@ -242,7 +251,7 @@
     },
     {
       "degree_type": "bachelor",
-      "name": "Дизайн визуальных коммуникаций",
+      "name": "Visual Communication Design",
       "language": "tr",
       "tuition_per_year": 3600,
       "duration_years": 4,
@@ -250,7 +259,7 @@
     },
     {
       "degree_type": "bachelor",
-      "name": "Связи с общественностью и реклама",
+      "name": "Public Relations and Advertising",
       "language": "tr",
       "tuition_per_year": 3600,
       "duration_years": 4,
@@ -258,7 +267,7 @@
     },
     {
       "degree_type": "bachelor",
-      "name": "Медсестринское дело",
+      "name": "Nursing",
       "language": "tr",
       "tuition_per_year": 3600,
       "duration_years": 4,
@@ -266,14 +275,14 @@
     },
     {
       "degree_type": "bachelor",
-      "name": "Логопедия и речевая терапия",
+      "name": "Speech and Language Therapy",
       "language": "tr",
       "tuition_per_year": 3600,
       "duration_years": 4
     },
     {
       "degree_type": "bachelor",
-      "name": "Молекулярная биология и генетика",
+      "name": "Molecular Biology and Genetics",
       "language": "tr",
       "tuition_per_year": 3600,
       "duration_years": 4,
@@ -281,7 +290,7 @@
     },
     {
       "degree_type": "bachelor",
-      "name": "Молекулярная биология и генетика",
+      "name": "Molecular Biology and Genetics",
       "language": "en",
       "tuition_per_year": 5000,
       "duration_years": 4,
@@ -289,21 +298,21 @@
     },
     {
       "degree_type": "bachelor",
-      "name": "Аудиология",
+      "name": "Audiology",
       "language": "tr",
       "tuition_per_year": 3600,
       "duration_years": 4
     },
     {
       "degree_type": "bachelor",
-      "name": "Перфузия",
+      "name": "Perfusion",
       "language": "tr",
       "tuition_per_year": 3600,
       "duration_years": 4
     },
     {
       "degree_type": "bachelor",
-      "name": "Психология",
+      "name": "Psychology",
       "language": "tr",
       "tuition_per_year": 3600,
       "duration_years": 4,
@@ -311,7 +320,7 @@
     },
     {
       "degree_type": "bachelor",
-      "name": "Психология",
+      "name": "Psychology",
       "language": "en",
       "tuition_per_year": 5600,
       "duration_years": 4,
@@ -319,7 +328,7 @@
     },
     {
       "degree_type": "bachelor",
-      "name": "Радио, телевидение и кино",
+      "name": "Radio, Television and Cinema",
       "language": "tr",
       "tuition_per_year": 3600,
       "duration_years": 4,
@@ -327,7 +336,7 @@
     },
     {
       "degree_type": "bachelor",
-      "name": "Реклама",
+      "name": "Advertising",
       "language": "tr",
       "tuition_per_year": 3600,
       "duration_years": 4,
@@ -335,7 +344,7 @@
     },
     {
       "degree_type": "bachelor",
-      "name": "Управление здравоохранением",
+      "name": "Healthcare Management",
       "language": "tr",
       "tuition_per_year": 3600,
       "duration_years": 4,
@@ -343,7 +352,7 @@
     },
     {
       "degree_type": "bachelor",
-      "name": "Политология и международные отношения",
+      "name": "Political Science and International Relations",
       "language": "tr",
       "tuition_per_year": 3600,
       "duration_years": 4,
@@ -351,7 +360,7 @@
     },
     {
       "degree_type": "bachelor",
-      "name": "Политология и международные отношения",
+      "name": "Political Science and International Relations",
       "language": "en",
       "tuition_per_year": 4400,
       "duration_years": 4,
@@ -359,14 +368,14 @@
     },
     {
       "degree_type": "bachelor",
-      "name": "Социальная работа",
+      "name": "Social Work",
       "language": "tr",
       "tuition_per_year": 3600,
       "duration_years": 4
     },
     {
       "degree_type": "bachelor",
-      "name": "Социология",
+      "name": "Sociology",
       "language": "tr",
       "tuition_per_year": 3600,
       "duration_years": 4,
@@ -374,7 +383,7 @@
     },
     {
       "degree_type": "bachelor",
-      "name": "История",
+      "name": "History",
       "language": "tr",
       "tuition_per_year": 3600,
       "duration_years": 4,
@@ -382,7 +391,7 @@
     },
     {
       "degree_type": "bachelor",
-      "name": "Медицина",
+      "name": "Medicine",
       "language": "tr",
       "tuition_per_year": 18000,
       "duration_years": 6,
@@ -390,7 +399,7 @@
     },
     {
       "degree_type": "bachelor",
-      "name": "Медицина",
+      "name": "Medicine",
       "language": "en",
       "tuition_per_year": 24000,
       "duration_years": 6,
@@ -398,7 +407,7 @@
     },
     {
       "degree_type": "bachelor",
-      "name": "Программная инженерия",
+      "name": "Software Engineering",
       "language": "en",
       "tuition_per_year": 5600,
       "duration_years": 4,
@@ -406,7 +415,7 @@
     },
     {
       "degree_type": "bachelor",
-      "name": "Новые медиа и коммуникации",
+      "name": "New Media and Communication",
       "language": "tr",
       "tuition_per_year": 3600,
       "duration_years": 4,
@@ -414,7 +423,7 @@
     },
     {
       "degree_type": "bachelor",
-      "name": "Мультфильм и анимация",
+      "name": "Cartoon and Animation",
       "language": "tr",
       "tuition_per_year": 3600,
       "duration_years": 4,
@@ -422,7 +431,7 @@
     },
     {
       "degree_type": "bachelor",
-      "name": "Детское развитие",
+      "name": "Child Development",
       "language": "tr",
       "tuition_per_year": 3600,
       "duration_years": 4,
@@ -430,7 +439,7 @@
     },
     {
       "degree_type": "bachelor",
-      "name": "Английский перевод и устный перевод",
+      "name": "English Translation and Interpreting",
       "language": "en",
       "tuition_per_year": 4400,
       "duration_years": 4,
@@ -438,7 +447,7 @@
     },
     {
       "degree_type": "bachelor",
-      "name": "Английский перевод и устный перевод",
+      "name": "English Translation and Interpreting",
       "language": "tr",
       "tuition_per_year": 4400,
       "duration_years": 4,
@@ -446,7 +455,7 @@
     },
     {
       "degree_type": "bachelor",
-      "name": "Охрана труда и техника безопасности",
+      "name": "Occupational Health and Safety",
       "language": "tr",
       "tuition_per_year": 3600,
       "duration_years": 4,

@@ -37,7 +37,7 @@
   "programs": [
     {
       "degree_type": "bachelor",
-      "name": "Пример программы",
+      "name": "Program Example",
       "language": "tr",
       "tuition_per_year": 5000,
       "duration_years": 4

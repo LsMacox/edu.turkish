@@ -1,0 +1,5039 @@
+{
+  "items": [
+    {
+      "name_original": "Питание и диетология",
+      "name_translated": "Nutrition and Dietetics",
+      "id": "atlas_university.json#bachelor|tr|4|4500|#0"
+    },
+    {
+      "name_original": "Компьютерная инженерия",
+      "name_translated": "Computer Engineering",
+      "id": "atlas_university.json#bachelor|tr|4|3250|computer-engineering#0"
+    },
+    {
+      "name_original": "Компьютерная инженерия",
+      "name_translated": "Computer Engineering",
+      "id": "atlas_university.json#bachelor|en|4|6300|computer-engineering#0"
+    },
+    {
+      "name_original": "Биомедицинская инженерия",
+      "name_translated": "Biomedical Engineering",
+      "id": "atlas_university.json#bachelor|en|4|6300|#0"
+    },
+    {
+      "name_original": "Дизайн цифровых игр",
+      "name_translated": "Digital Game Design",
+      "id": "atlas_university.json#bachelor|tr|4|4660|design#0"
+    },
+    {
+      "name_original": "Стоматология",
+      "name_translated": "Dentistry",
+      "id": "atlas_university.json#bachelor|tr|5|18530|dentistry#0"
+    },
+    {
+      "name_original": "Стоматология",
+      "name_translated": "Dentistry",
+      "id": "atlas_university.json#bachelor|en|5|23560|dentistry#0"
+    },
+    {
+      "name_original": "Акушерство",
+      "name_translated": "Midwifery",
+      "id": "atlas_university.json#bachelor|tr|4|4500|#1"
+    },
+    {
+      "name_original": "Электротехника и электроника",
+      "name_translated": "Electrical and Electronics Engineering",
+      "id": "atlas_university.json#bachelor|en|4|5550|electrical-electronics-engineering#0"
+    },
+    {
+      "name_original": "Промышленная инженерия",
+      "name_translated": "Industrial Engineering",
+      "id": "atlas_university.json#bachelor|en|4|5550|industrial-engineering#0"
+    },
+    {
+      "name_original": "Эрготерапия",
+      "name_translated": "Occupational Therapy",
+      "id": "atlas_university.json#bachelor|tr|4|4500|#2"
+    },
+    {
+      "name_original": "Физиотерапия и реабилитация",
+      "name_translated": "Physiotherapy and Rehabilitation",
+      "id": "atlas_university.json#bachelor|tr|4|5200|#0"
+    },
+    {
+      "name_original": "Физиотерапия и реабилитация",
+      "name_translated": "Physiotherapy and Rehabilitation",
+      "id": "atlas_university.json#bachelor|en|4|5900|#0"
+    },
+    {
+      "name_original": "Дизайн визуальных коммуникаций",
+      "name_translated": "Visual Communication Design",
+      "id": "atlas_university.json#bachelor|tr|4|4660|design#1"
+    },
+    {
+      "name_original": "Медсестринское дело",
+      "name_translated": "Nursing",
+      "id": "atlas_university.json#bachelor|tr|4|5200|nursing#0"
+    },
+    {
+      "name_original": "Медсестринское дело",
+      "name_translated": "Nursing",
+      "id": "atlas_university.json#bachelor|en|4|5900|nursing#0"
+    },
+    {
+      "name_original": "Логопедия и речевая терапия",
+      "name_translated": "Speech and Language Therapy",
+      "id": "atlas_university.json#bachelor|tr|4|4500|#3"
+    },
+    {
+      "name_original": "Логопедия и речевая терапия",
+      "name_translated": "Speech and Language Therapy",
+      "id": "atlas_university.json#bachelor|en|4|4500|#0"
+    },
+    {
+      "name_original": "Молекулярная биология и генетика",
+      "name_translated": "Molecular Biology and Genetics",
+      "id": "atlas_university.json#bachelor|en|4|5550|biology#0"
+    },
+    {
+      "name_original": "Психология",
+      "name_translated": "Psychology",
+      "id": "atlas_university.json#bachelor|tr|4|4765|psychology#0"
+    },
+    {
+      "name_original": "Психология",
+      "name_translated": "Psychology",
+      "id": "atlas_university.json#bachelor|en|4|5510|psychology#0"
+    },
+    {
+      "name_original": "Медицина",
+      "name_translated": "Medicine",
+      "id": "atlas_university.json#bachelor|tr|6|20000|medicine#0"
+    },
+    {
+      "name_original": "Медицина",
+      "name_translated": "Medicine",
+      "id": "atlas_university.json#bachelor|en|6|25000|medicine#0"
+    },
+    {
+      "name_original": "Программная инженерия",
+      "name_translated": "Software Engineering",
+      "id": "atlas_university.json#bachelor|en|4|6300|software-engineering#0"
+    },
+    {
+      "name_original": "Английский язык и литература",
+      "name_translated": "English Language and Literature",
+      "id": "atlas_university.json#bachelor|en|4|4660|languages-linguistics#0"
+    },
+    {
+      "name_original": "Перевод и устный перевод",
+      "name_translated": "Translation and Interpreting",
+      "id": "atlas_university.json#bachelor|en|4|4660|languages-linguistics#1"
+    },
+    {
+      "name_original": "Перевод и устный перевод",
+      "name_translated": "Translation and Interpreting",
+      "id": "atlas_university.json#bachelor|tr|4|4660|languages-linguistics#0"
+    },
+    {
+      "name_original": "Дизайн интерьера и архитектурной среды",
+      "name_translated": "Interior Architecture and Environmental Design",
+      "id": "atlas_university.json#bachelor|tr|4|5000|design#0"
+    },
+    {
+      "name_original": "Бизнес-администрирование",
+      "name_translated": "Business Administration",
+      "id": "atlas_university.json#bachelor|en|4|5510|business#0"
+    },
+    {
+      "name_original": "Анатомия — с тезисом",
+      "name_translated": "Anatomy - with Thesis",
+      "id": "atlas_university.json#master|tr|2|7415|#0"
+    },
+    {
+      "name_original": "Питание и диетология — с тезисом",
+      "name_translated": "Nutrition and Dietetics - with Thesis",
+      "id": "atlas_university.json#master|tr|2|7415|#1"
+    },
+    {
+      "name_original": "Питание и диетология — без тезиса",
+      "name_translated": "Nutrition and Dietetics - without Thesis",
+      "id": "atlas_university.json#master|tr|2|5295|#0"
+    },
+    {
+      "name_original": "Компьютерная инженерия — с тезисом",
+      "name_translated": "Computer Engineering - with Thesis",
+      "id": "atlas_university.json#master|tr|2|7415|computer-engineering#0"
+    },
+    {
+      "name_original": "Компьютерная инженерия — с тезисом",
+      "name_translated": "Computer Engineering - with Thesis",
+      "id": "atlas_university.json#master|en|2|7415|computer-engineering#0"
+    },
+    {
+      "name_original": "Информационные технологии — с тезисом",
+      "name_translated": "Information Technology - with Thesis",
+      "id": "atlas_university.json#master|en|2|7415|information-systems#0"
+    },
+    {
+      "name_original": "Когнитивная реабилитация — с тезисом",
+      "name_translated": "Cognitive Rehabilitation - with Thesis",
+      "id": "atlas_university.json#master|tr|2|5295|#1"
+    },
+    {
+      "name_original": "Сестринское дело в хирургии — с тезисом",
+      "name_translated": "Surgical Nursing - with Thesis",
+      "id": "atlas_university.json#master|tr|2|7415|#2"
+    },
+    {
+      "name_original": "Акушерство — с тезисом",
+      "name_translated": "Midwifery - with Thesis",
+      "id": "atlas_university.json#master|tr|2|7415|#3"
+    },
+    {
+      "name_original": "Акушерство — без тезиса",
+      "name_translated": "Midwifery - without Thesis",
+      "id": "atlas_university.json#master|tr|2|5295|#2"
+    },
+    {
+      "name_original": "Электротехника и электроника — с тезисом",
+      "name_translated": "Electrical and Electronics Engineering - with Thesis",
+      "id": "atlas_university.json#master|en|2|7415|electrical-electronics-engineering#0"
+    },
+    {
+      "name_original": "Промышленная инженерия — с тезисом",
+      "name_translated": "Industrial Engineering - with Thesis",
+      "id": "atlas_university.json#master|tr|2|7415|industrial-engineering#0"
+    },
+    {
+      "name_original": "Физиология — с тезисом",
+      "name_translated": "Physiology - with Thesis",
+      "id": "atlas_university.json#master|tr|2|7415|#4"
+    },
+    {
+      "name_original": "Физиотерапия и реабилитация — с тезисом",
+      "name_translated": "Physiotherapy and Rehabilitation - with Thesis",
+      "id": "atlas_university.json#master|tr|2|7415|#5"
+    },
+    {
+      "name_original": "Гистология и эмбриология — с тезисом",
+      "name_translated": "Histology and Embryology - with Thesis",
+      "id": "atlas_university.json#master|tr|2|7415|#6"
+    },
+    {
+      "name_original": "Сестринское дело в области акушерства и гинекологии — с тезисом",
+      "name_translated": "Obstetric and Gynecological Nursing - with Thesis",
+      "id": "atlas_university.json#master|tr|2|7415|#7"
+    },
+    {
+      "name_original": "Логопедия и речевая терапия — с тезисом",
+      "name_translated": "Speech and Language Therapy - with Thesis",
+      "id": "atlas_university.json#master|tr|2|15000|#0"
+    },
+    {
+      "name_original": "Эрготерапия — с тезисом",
+      "name_translated": "Occupational Therapy - with Thesis",
+      "id": "atlas_university.json#master|tr|2|7415|#8"
+    },
+    {
+      "name_original": "Молекулярная биология и генетика — с тезисом",
+      "name_translated": "Molecular Biology and Genetics - with Thesis",
+      "id": "atlas_university.json#master|tr|2|7415|biology#0"
+    },
+    {
+      "name_original": "Молекулярная биология и генетика — с тезисом",
+      "name_translated": "Molecular Biology and Genetics - with Thesis",
+      "id": "atlas_university.json#master|en|2|7415|biology#0"
+    },
+    {
+      "name_original": "Нейронаука — с тезисом",
+      "name_translated": "Neuroscience - with Thesis",
+      "id": "atlas_university.json#master|tr|2|7415|#9"
+    },
+    {
+      "name_original": "Психология — с тезисом",
+      "name_translated": "Psychology - with Thesis",
+      "id": "atlas_university.json#master|tr|2|8500|psychology#0"
+    },
+    {
+      "name_original": "Управление технологиями и инновациями — без тезиса",
+      "name_translated": "Technology and Innovation Management - without Thesis",
+      "id": "atlas_university.json#master|tr|2|5295|management#0"
+    },
+    {
+      "name_original": "Медицинская биохимия — с тезисом",
+      "name_translated": "Medical Biochemistry - with Thesis",
+      "id": "atlas_university.json#master|tr|2|7415|#10"
+    },
+    {
+      "name_original": "Медицинская биология и генетика — с тезисом",
+      "name_translated": "Medical Biology and Genetics - with Thesis",
+      "id": "atlas_university.json#master|tr|2|7415|#11"
+    },
+    {
+      "name_original": "Медицинская фармакология — с тезисом",
+      "name_translated": "Medical Pharmacology - with Thesis",
+      "id": "atlas_university.json#master|tr|2|7415|#12"
+    },
+    {
+      "name_original": "Сестринское дело во внутренней медицине — с тезисом",
+      "name_translated": "Internal Medicine Nursing - with Thesis",
+      "id": "atlas_university.json#master|tr|2|7415|#13"
+    },
+    {
+      "name_original": "Американская культура и литература",
+      "name_translated": "American Culture and Literature",
+      "id": "bahcesehir_university.json#bachelor|en|4|8200|#0"
+    },
+    {
+      "name_original": "Европейские отношения",
+      "name_translated": "European Relations",
+      "id": "bahcesehir_university.json#bachelor|en|4|8200|#1"
+    },
+    {
+      "name_original": "Питание и диетология",
+      "name_translated": "Nutrition and Dietetics",
+      "id": "bahcesehir_university.json#bachelor|tr|4|8500|#0"
+    },
+    {
+      "name_original": "Питание и диетология",
+      "name_translated": "Nutrition and Dietetics",
+      "id": "bahcesehir_university.json#bachelor|en|4|8500|#0"
+    },
+    {
+      "name_original": "Компьютерная инженерия",
+      "name_translated": "Computer Engineering",
+      "id": "bahcesehir_university.json#bachelor|en|4|9000|#0"
+    },
+    {
+      "name_original": "Компьютерные и образовательные технологии",
+      "name_translated": "Computer and Instructional Technologies",
+      "id": "bahcesehir_university.json#bachelor|en|4|8200|#2"
+    },
+    {
+      "name_original": "Биомедицинская инженерия",
+      "name_translated": "Biomedical Engineering",
+      "id": "bahcesehir_university.json#bachelor|en|4|9000|#1"
+    },
+    {
+      "name_original": "Дизайн цифровых игр",
+      "name_translated": "Digital Game Design",
+      "id": "bahcesehir_university.json#bachelor|en|4|8500|#1"
+    },
+    {
+      "name_original": "Стоматология",
+      "name_translated": "Dentistry",
+      "id": "bahcesehir_university.json#bachelor|en|5|24000|#0"
+    },
+    {
+      "name_original": "Фармация",
+      "name_translated": "Pharmacy",
+      "id": "bahcesehir_university.json#bachelor|en|5|15000|#0"
+    },
+    {
+      "name_original": "Экономика",
+      "name_translated": "Economics",
+      "id": "bahcesehir_university.json#bachelor|en|4|8500|#2"
+    },
+    {
+      "name_original": "Экономика и финансы",
+      "name_translated": "Economics and Finance",
+      "id": "bahcesehir_university.json#bachelor|en|4|8500|#3"
+    },
+    {
+      "name_original": "Электротехника и электроника",
+      "name_translated": "Electrical and Electronics Engineering",
+      "id": "bahcesehir_university.json#bachelor|en|4|9000|#2"
+    },
+    {
+      "name_original": "Инженерия управления",
+      "name_translated": "Control Engineering",
+      "id": "bahcesehir_university.json#bachelor|en|4|9000|#3"
+    },
+    {
+      "name_original": "Промышленный дизайн",
+      "name_translated": "Industrial Design",
+      "id": "bahcesehir_university.json#bachelor|en|4|8500|#4"
+    },
+    {
+      "name_original": "Энергетические системы и инженерия",
+      "name_translated": "Energy Systems Engineering",
+      "id": "bahcesehir_university.json#bachelor|en|4|9000|#4"
+    },
+    {
+      "name_original": "Кино и телевидение",
+      "name_translated": "Cinema and Television",
+      "id": "bahcesehir_university.json#bachelor|en|4|8500|#5"
+    },
+    {
+      "name_original": "Физиотерапия и реабилитация",
+      "name_translated": "Physiotherapy and Rehabilitation",
+      "id": "bahcesehir_university.json#bachelor|tr|4|8500|#1"
+    },
+    {
+      "name_original": "Физиотерапия и реабилитация",
+      "name_translated": "Physiotherapy and Rehabilitation",
+      "id": "bahcesehir_university.json#bachelor|en|4|8500|#6"
+    },
+    {
+      "name_original": "Гастрономия и кулинарное искусство",
+      "name_translated": "Gastronomy and Culinary Arts",
+      "id": "bahcesehir_university.json#bachelor|en|4|8200|#3"
+    },
+    {
+      "name_original": "Визуальная коммуникация и дизайн",
+      "name_translated": "Visual Communication and Design",
+      "id": "bahcesehir_university.json#bachelor|en|4|8500|#7"
+    },
+    {
+      "name_original": "Связи с общественностью и реклама",
+      "name_translated": "Public Relations and Advertising",
+      "id": "bahcesehir_university.json#bachelor|en|4|8500|#8"
+    },
+    {
+      "name_original": "Сестринское дело",
+      "name_translated": "Nursing",
+      "id": "bahcesehir_university.json#bachelor|tr|4|8500|#2"
+    },
+    {
+      "name_original": "Сестринское дело",
+      "name_translated": "Nursing",
+      "id": "bahcesehir_university.json#bachelor|en|4|8500|#9"
+    },
+    {
+      "name_original": "Право",
+      "name_translated": "Law",
+      "id": "bahcesehir_university.json#bachelor|tr|4|10000|#0"
+    },
+    {
+      "name_original": "Логопедия и речевая терапия",
+      "name_translated": "Speech and Language Therapy",
+      "id": "bahcesehir_university.json#bachelor|tr|4|8500|#3"
+    },
+    {
+      "name_original": "Логистика и управление цепями поставок",
+      "name_translated": "Logistics and Supply Chain Management",
+      "id": "bahcesehir_university.json#bachelor|en|4|8500|#10"
+    },
+    {
+      "name_original": "Математика",
+      "name_translated": "Mathematics",
+      "id": "bahcesehir_university.json#bachelor|en|4|8200|#4"
+    },
+    {
+      "name_original": "Мехатроника",
+      "name_translated": "Mechatronics",
+      "id": "bahcesehir_university.json#bachelor|en|4|9000|#5"
+    },
+    {
+      "name_original": "Архитектура",
+      "name_translated": "Architecture",
+      "id": "bahcesehir_university.json#bachelor|en|4|8500|#11"
+    },
+    {
+      "name_original": "Мода и дизайн текстиля",
+      "name_translated": "Fashion and Textile Design",
+      "id": "bahcesehir_university.json#bachelor|en|4|8500|#12"
+    },
+    {
+      "name_original": "Молекулярная биология и генетика",
+      "name_translated": "Molecular Biology and Genetics",
+      "id": "bahcesehir_university.json#bachelor|en|4|9000|#6"
+    },
+    {
+      "name_original": "Музыка",
+      "name_translated": "Music",
+      "id": "bahcesehir_university.json#bachelor|tr|4|8200|#0"
+    },
+    {
+      "name_original": "Музыкальные технологии",
+      "name_translated": "Music Technologies",
+      "id": "bahcesehir_university.json#bachelor|tr|4|8200|#1"
+    },
+    {
+      "name_original": "Аудиология",
+      "name_translated": "Audiology",
+      "id": "bahcesehir_university.json#bachelor|tr|4|8500|#4"
+    },
+    {
+      "name_original": "Пилотаж",
+      "name_translated": "Pilotage",
+      "id": "bahcesehir_university.json#bachelor|en|4|9000|#7"
+    },
+    {
+      "name_original": "Психология",
+      "name_translated": "Psychology",
+      "id": "bahcesehir_university.json#bachelor|en|4|8500|#13"
+    },
+    {
+      "name_original": "Реклама",
+      "name_translated": "Advertising",
+      "id": "bahcesehir_university.json#bachelor|en|4|8500|#14"
+    },
+    {
+      "name_original": "Сценические искусства",
+      "name_translated": "Performing Arts",
+      "id": "bahcesehir_university.json#bachelor|tr|4|8200|#2"
+    },
+    {
+      "name_original": "Кино и телевидение",
+      "name_translated": "Cinema and Television",
+      "id": "bahcesehir_university.json#bachelor|en|4|8200|#5"
+    },
+    {
+      "name_original": "Политология и международные отношения",
+      "name_translated": "Political Science and International Relations",
+      "id": "bahcesehir_university.json#bachelor|en|4|8500|#15"
+    },
+    {
+      "name_original": "Социология",
+      "name_translated": "Sociology",
+      "id": "bahcesehir_university.json#bachelor|en|4|8500|#16"
+    },
+    {
+      "name_original": "Медицина",
+      "name_translated": "Medicine",
+      "id": "bahcesehir_university.json#bachelor|en|6|28000|#0"
+    },
+    {
+      "name_original": "Международные финансы и банковское дело",
+      "name_translated": "International Finance and Banking",
+      "id": "bahcesehir_university.json#bachelor|en|4|8500|#17"
+    },
+    {
+      "name_original": "Международная торговля и бизнес",
+      "name_translated": "International Trade and Business",
+      "id": "bahcesehir_university.json#bachelor|en|4|8500|#18"
+    },
+    {
+      "name_original": "Инженерия искусственного интеллекта",
+      "name_translated": "Artificial Intelligence Engineering",
+      "id": "bahcesehir_university.json#bachelor|en|4|12000|#0"
+    },
+    {
+      "name_original": "Программная инженерия",
+      "name_translated": "Software Engineering",
+      "id": "bahcesehir_university.json#bachelor|en|4|9000|#8"
+    },
+    {
+      "name_original": "Новые медиа",
+      "name_translated": "New Media",
+      "id": "bahcesehir_university.json#bachelor|en|4|8500|#19"
+    },
+    {
+      "name_original": "Инженерия управления",
+      "name_translated": "Control Engineering",
+      "id": "bahcesehir_university.json#bachelor|en|4|9000|#9"
+    },
+    {
+      "name_original": "Рисунок и анимация",
+      "name_translated": "Cartoon and Animation",
+      "id": "bahcesehir_university.json#bachelor|en|4|8500|#20"
+    },
+    {
+      "name_original": "Дизайн коммуникаций",
+      "name_translated": "Communication Design",
+      "id": "bahcesehir_university.json#bachelor|en|4|8200|#6"
+    },
+    {
+      "name_original": "Преподавание английского языка",
+      "name_translated": "English Language Teaching",
+      "id": "bahcesehir_university.json#bachelor|en|4|8500|#21"
+    },
+    {
+      "name_original": "Перевод и устный перевод",
+      "name_translated": "Translation and Interpreting",
+      "id": "bahcesehir_university.json#bachelor|en|4|8500|#22"
+    },
+    {
+      "name_original": "Строительная инженерия",
+      "name_translated": "Civil Engineering",
+      "id": "bahcesehir_university.json#bachelor|en|4|9000|#10"
+    },
+    {
+      "name_original": "Дизайн интерьера и предметно-пространственной среды",
+      "name_translated": "Interior Architecture and Environmental Design",
+      "id": "bahcesehir_university.json#bachelor|en|4|8500|#23"
+    },
+    {
+      "name_original": "Бизнес-администрирование",
+      "name_translated": "Business Administration",
+      "id": "bahcesehir_university.json#bachelor|en|4|8500|#24"
+    },
+    {
+      "name_original": "Семейное консультирование — с тезисом",
+      "name_translated": "Family Counseling - with Thesis",
+      "id": "bahcesehir_university.json#master|tr|2|14000|#0"
+    },
+    {
+      "name_original": "Семейное консультирование — без тезиса",
+      "name_translated": "Family Counseling - without Thesis",
+      "id": "bahcesehir_university.json#master|tr|2|12000|#0"
+    },
+    {
+      "name_original": "Питание и диетология — с тезисом",
+      "name_translated": "Nutrition and Dietetics - with Thesis",
+      "id": "bahcesehir_university.json#master|tr|2|14000|#1"
+    },
+    {
+      "name_original": "Питание и диетология — без тезиса",
+      "name_translated": "Nutrition and Dietetics - without Thesis",
+      "id": "bahcesehir_university.json#master|tr|2|12000|#1"
+    },
+    {
+      "name_original": "Компьютерная инженерия — с тезисом",
+      "name_translated": "Computer Engineering - with Thesis",
+      "id": "bahcesehir_university.json#master|en|2|14000|#0"
+    },
+    {
+      "name_original": "Компьютерная инженерия — без тезиса",
+      "name_translated": "Computer Engineering - without Thesis",
+      "id": "bahcesehir_university.json#master|en|2|12000|#0"
+    },
+    {
+      "name_original": "Бизнес — с тезисом",
+      "name_translated": "Business - with Thesis",
+      "id": "beykoz_university.json#master|en|2|7000|business#0"
+    },
+    {
+      "name_original": "Бизнес — без тезиса",
+      "name_translated": "Business - without Thesis",
+      "id": "beykoz_university.json#master|en|2|6000|business#0"
+    },
+    {
+      "name_original": "Бизнес — без тезиса — дистанционно",
+      "name_translated": "Business - without Thesis - Distance Learning",
+      "id": "beykoz_university.json#master|en|2|4200|business#0"
+    },
+    {
+      "name_original": "Бизнес — с тезисом",
+      "name_translated": "Business - with Thesis",
+      "id": "beykoz_university.json#master|tr|2|6000|business#0"
+    },
+    {
+      "name_original": "Бизнес — без тезиса",
+      "name_translated": "Business - without Thesis",
+      "id": "beykoz_university.json#master|tr|2|5200|business#0"
+    },
+    {
+      "name_original": "Бизнес — без тезиса — дистанционно",
+      "name_translated": "Business - without Thesis - Distance Learning",
+      "id": "beykoz_university.json#master|tr|2|4200|business#0"
+    },
+    {
+      "name_original": "Компьютерная инженерия — с тезисом",
+      "name_translated": "Computer Engineering - with Thesis",
+      "id": "beykoz_university.json#master|en|2|7000|computer-engineering#0"
+    },
+    {
+      "name_original": "Компьютерная инженерия — без тезиса",
+      "name_translated": "Computer Engineering - without Thesis",
+      "id": "beykoz_university.json#master|en|2|6000|computer-engineering#0"
+    },
+    {
+      "name_original": "Международная торговля и логистика — с тезисом",
+      "name_translated": "International Trade and Logistics - with Thesis",
+      "id": "beykoz_university.json#master|tr|2|6000|business#1"
+    },
+    {
+      "name_original": "Международная торговля и логистика — без тезиса",
+      "name_translated": "International Trade and Logistics - without Thesis",
+      "id": "beykoz_university.json#master|tr|2|5200|business#1"
+    },
+    {
+      "name_original": "Международная торговля и логистика — без тезиса — дистанционно",
+      "name_translated": "International Trade and Logistics - without Thesis - Distance Learning",
+      "id": "beykoz_university.json#master|tr|2|4200|business#1"
+    },
+    {
+      "name_original": "Глобальная политика и международные отношения — с тезисом",
+      "name_translated": "Global Politics and International Relations - with Thesis",
+      "id": "beykoz_university.json#master|en|2|7000|international-relations#0"
+    },
+    {
+      "name_original": "Глобальная политика и международные отношения — без тезиса",
+      "name_translated": "Global Politics and International Relations - without Thesis",
+      "id": "beykoz_university.json#master|en|2|6000|international-relations#0"
+    },
+    {
+      "name_original": "Психология труда и организации — без тезиса",
+      "name_translated": "Work and Organizational Psychology - without Thesis",
+      "id": "beykoz_university.json#master|tr|2|5200|psychology#0"
+    },
+    {
+      "name_original": "Психология — с тезисом",
+      "name_translated": "Psychology - with Thesis",
+      "id": "beykoz_university.json#master|tr|2|6000|psychology#0"
+    },
+    {
+      "name_original": "Психология — без тезиса",
+      "name_translated": "Psychology - without Thesis",
+      "id": "beykoz_university.json#master|tr|2|5200|psychology#1"
+    },
+    {
+      "name_original": "Визуальные искусства и коммуникации — с тезисом",
+      "name_translated": "Visual Arts and Communication - with Thesis",
+      "id": "beykoz_university.json#master|tr|2|6000|design#0"
+    },
+    {
+      "name_original": "Визуальные искусства и коммуникации — без тезиса",
+      "name_translated": "Visual Arts and Communication - without Thesis",
+      "id": "beykoz_university.json#master|tr|2|5200|design#0"
+    },
+    {
+      "name_original": "Финансовая экономика — с тезисом",
+      "name_translated": "Financial Economics - with Thesis",
+      "id": "beykoz_university.json#master|tr|2|6000|finance#0"
+    },
+    {
+      "name_original": "Финансовая экономика — без тезиса",
+      "name_translated": "Financial Economics - without Thesis",
+      "id": "beykoz_university.json#master|tr|2|5200|finance#0"
+    },
+    {
+      "name_original": "Бухгалтерский учет и аудит — без тезиса",
+      "name_translated": "Accounting and Auditing - without Thesis",
+      "id": "beykoz_university.json#master|tr|2|5200|accounting#0"
+    },
+    {
+      "name_original": "Предпринимательство и инновационный менеджмент — без тезиса",
+      "name_translated": "Entrepreneurship and Innovation Management - without Thesis",
+      "id": "beykoz_university.json#master|en|2|6000|entrepreneurship#0"
+    },
+    {
+      "name_original": "Маркетинг и бренд-менеджмент — без тезиса",
+      "name_translated": "Marketing and Brand Management - without Thesis",
+      "id": "beykoz_university.json#master|tr|2|5200|marketing#0"
+    },
+    {
+      "name_original": "Маркетинг и бренд-менеджмент — без тезиса",
+      "name_translated": "Marketing and Brand Management - without Thesis",
+      "id": "beykoz_university.json#master|en|2|6000|marketing#0"
+    },
+    {
+      "name_original": "Искусственный интеллект — с тезисом",
+      "name_translated": "Artificial Intelligence - with Thesis",
+      "id": "beykoz_university.json#master|en|2|7000|artificial-intelligence#0"
+    },
+    {
+      "name_original": "Искусственный интеллект — без тезиса",
+      "name_translated": "Artificial Intelligence - without Thesis",
+      "id": "beykoz_university.json#master|en|2|6000|artificial-intelligence#0"
+    },
+    {
+      "name_original": "Управление человеческими ресурсами — с тезисом",
+      "name_translated": "Human Resources Management - with Thesis",
+      "id": "beykoz_university.json#master|tr|2|6000|management#0"
+    },
+    {
+      "name_original": "Бизнес-администрирование",
+      "name_translated": "Business Administration",
+      "id": "beykoz_university.json#bachelor|tr|4|4600|business#0"
+    },
+    {
+      "name_original": "Бизнес-администрирование",
+      "name_translated": "Business Administration",
+      "id": "beykoz_university.json#bachelor|en|4|6000|business#0"
+    },
+    {
+      "name_original": "Управление логистикой",
+      "name_translated": "Logistics Management",
+      "id": "beykoz_university.json#bachelor|en|4|6000|management#0"
+    },
+    {
+      "name_original": "Международная торговля и финансы",
+      "name_translated": "International Trade and Finance",
+      "id": "beykoz_university.json#bachelor|en|4|6000|finance#0"
+    },
+    {
+      "name_original": "Коммуникации и дизайн",
+      "name_translated": "Communication and Design",
+      "id": "beykoz_university.json#bachelor|tr|4|4600|communication#0"
+    },
+    {
+      "name_original": "Дизайн цифровых игр",
+      "name_translated": "Digital Game Design",
+      "id": "beykoz_university.json#bachelor|tr|4|4600|design#0"
+    },
+    {
+      "name_original": "Графический дизайн",
+      "name_translated": "Graphic Design",
+      "id": "beykoz_university.json#bachelor|tr|4|4600|design#1"
+    },
+    {
+      "name_original": "Дизайн интерьера",
+      "name_translated": "Interior Design",
+      "id": "beykoz_university.json#bachelor|tr|4|4600|design#2"
+    },
+    {
+      "name_original": "Связи с общественностью и реклама",
+      "name_translated": "Public Relations and Advertising",
+      "id": "beykoz_university.json#bachelor|tr|4|4600|communication#1"
+    },
+    {
+      "name_original": "Гастрономия и кулинарное искусство",
+      "name_translated": "Gastronomy and Culinary Arts",
+      "id": "beykoz_university.json#bachelor|tr|4|4600|tourism-hospitality#0"
+    },
+    {
+      "name_original": "Анимация",
+      "name_translated": "Cartoon and Animation",
+      "id": "beykoz_university.json#bachelor|tr|4|4600|fine-arts#0"
+    },
+    {
+      "name_original": "Радио, телевидение и кино",
+      "name_translated": "Radio, Television and Cinema",
+      "id": "beykoz_university.json#bachelor|tr|4|4600|journalism-media#0"
+    },
+    {
+      "name_original": "Психология",
+      "name_translated": "Psychology",
+      "id": "beykoz_university.json#bachelor|tr|4|4600|psychology#0"
+    },
+    {
+      "name_original": "Психология",
+      "name_translated": "Psychology",
+      "id": "beykoz_university.json#bachelor|en|4|6000|psychology#0"
+    },
+    {
+      "name_original": "Политология и международные отношения",
+      "name_translated": "Political Science and International Relations",
+      "id": "beykoz_university.json#bachelor|en|4|6000|international-relations#0"
+    },
+    {
+      "name_original": "Компьютерная инженерия",
+      "name_translated": "Computer Engineering",
+      "id": "beykoz_university.json#bachelor|en|4|6600|computer-engineering#0"
+    },
+    {
+      "name_original": "Промышленная инженерия",
+      "name_translated": "Industrial Engineering",
+      "id": "beykoz_university.json#bachelor|en|4|6000|industrial-engineering#0"
+    },
+    {
+      "name_original": "Архитектура",
+      "name_translated": "Architecture",
+      "id": "beykoz_university.json#bachelor|tr|4|4600|architecture#0"
+    },
+    {
+      "name_original": "Программная инженерия",
+      "name_translated": "Software Engineering",
+      "id": "beykoz_university.json#bachelor|tr|4|4600|software-engineering#0"
+    },
+    {
+      "name_original": "Управление авиацией",
+      "name_translated": "Aviation Management",
+      "id": "beykoz_university.json#bachelor|en|4|6000|management#1"
+    },
+    {
+      "name_original": "Питание и диетология",
+      "name_translated": "Nutrition and Dietetics",
+      "id": "biruni_university.json#bachelor|tr|4|4000|public-health#0"
+    },
+    {
+      "name_original": "Компьютерная инженерия",
+      "name_translated": "Computer Engineering",
+      "id": "biruni_university.json#bachelor|tr|4|4000|computer-engineering#0"
+    },
+    {
+      "name_original": "Компьютерная инженерия",
+      "name_translated": "Computer Engineering",
+      "id": "biruni_university.json#bachelor|en|4|7000|computer-engineering#0"
+    },
+    {
+      "name_original": "Биомедицинская инженерия",
+      "name_translated": "Biomedical Engineering",
+      "id": "biruni_university.json#bachelor|en|4|7000|#0"
+    },
+    {
+      "name_original": "Стоматология",
+      "name_translated": "Dentistry",
+      "id": "biruni_university.json#bachelor|tr|5|15000|dentistry#0"
+    },
+    {
+      "name_original": "Стоматология",
+      "name_translated": "Dentistry",
+      "id": "biruni_university.json#bachelor|en|5|17000|dentistry#0"
+    },
+    {
+      "name_original": "Акушерство",
+      "name_translated": "Midwifery",
+      "id": "biruni_university.json#bachelor|tr|4|4000|nursing#0"
+    },
+    {
+      "name_original": "Фармация",
+      "name_translated": "Pharmacy",
+      "id": "biruni_university.json#bachelor|tr|5|10000|pharmacy#0"
+    },
+    {
+      "name_original": "Фармация",
+      "name_translated": "Pharmacy",
+      "id": "biruni_university.json#bachelor|en|5|12000|pharmacy#0"
+    },
+    {
+      "name_original": "Сестринское дело",
+      "name_translated": "Nursing",
+      "id": "biruni_university.json#bachelor|tr|4|4000|nursing#1"
+    },
+    {
+      "name_original": "Сестринское дело",
+      "name_translated": "Nursing",
+      "id": "biruni_university.json#bachelor|en|4|6000|nursing#0"
+    },
+    {
+      "name_original": "Логопедия и речевая терапия",
+      "name_translated": "Speech and Language Therapy",
+      "id": "biruni_university.json#bachelor|tr|4|4000|#0"
+    },
+    {
+      "name_original": "Логопедия и речевая терапия",
+      "name_translated": "Speech and Language Therapy",
+      "id": "biruni_university.json#bachelor|en|4|6000|#0"
+    },
+    {
+      "name_original": "Эрготерапия",
+      "name_translated": "Occupational Therapy",
+      "id": "biruni_university.json#bachelor|tr|4|4000|#1"
+    },
+    {
+      "name_original": "Молекулярная биология и генетика",
+      "name_translated": "Molecular Biology and Genetics",
+      "id": "biruni_university.json#bachelor|tr|4|4000|biology#0"
+    },
+    {
+      "name_original": "Молекулярная биология и генетика",
+      "name_translated": "Molecular Biology and Genetics",
+      "id": "biruni_university.json#bachelor|en|4|7000|biology#0"
+    },
+    {
+      "name_original": "Аудиология",
+      "name_translated": "Audiology",
+      "id": "biruni_university.json#bachelor|tr|4|4000|#2"
+    },
+    {
+      "name_original": "Дошкольное образование",
+      "name_translated": "Pre-School Education",
+      "id": "biruni_university.json#bachelor|tr|4|4000|education#0"
+    },
+    {
+      "name_original": "Психологическое консультирование и руководство",
+      "name_translated": "Psychological Counseling and Guidance",
+      "id": "biruni_university.json#bachelor|tr|4|4000|education#1"
+    },
+    {
+      "name_original": "Медицина",
+      "name_translated": "Medicine",
+      "id": "biruni_university.json#bachelor|tr|6|17000|medicine#0"
+    },
+    {
+      "name_original": "Медицина",
+      "name_translated": "Medicine",
+      "id": "biruni_university.json#bachelor|en|6|20000|medicine#0"
+    },
+    {
+      "name_original": "Развитие ребёнка",
+      "name_translated": "Child Development",
+      "id": "biruni_university.json#bachelor|tr|4|4000|education#2"
+    },
+    {
+      "name_original": "Специальное образование",
+      "name_translated": "Special Education",
+      "id": "biruni_university.json#bachelor|tr|4|4000|education#3"
+    },
+    {
+      "name_original": "Преподавание математики в начальной школе",
+      "name_translated": "Elementary Mathematics Teaching",
+      "id": "biruni_university.json#bachelor|tr|4|4000|education#4"
+    },
+    {
+      "name_original": "Преподавание английского языка",
+      "name_translated": "English Language Teaching",
+      "id": "biruni_university.json#bachelor|en|4|4000|languages-linguistics#0"
+    },
+    {
+      "name_original": "Дизайн интерьера и предметно-пространственной среды",
+      "name_translated": "Interior Architecture and Environmental Design",
+      "id": "biruni_university.json#bachelor|tr|4|4000|design#0"
+    },
+    {
+      "name_original": "Economics and Finance",
+      "name_translated": "Economics and Finance",
+      "id": "fenerbahce_university.json#bachelor|en|4|4200|#0"
+    },
+    {
+      "name_original": "English Language and Literature",
+      "name_translated": "English Language and Literature",
+      "id": "fenerbahce_university.json#bachelor|en|4|4200|#1"
+    },
+    {
+      "name_original": "Management Information Systems",
+      "name_translated": "Management Information Systems",
+      "id": "fenerbahce_university.json#bachelor|en|4|4200|#2"
+    },
+    {
+      "name_original": "Political Science and International Relations",
+      "name_translated": "Political Science and International Relations",
+      "id": "fenerbahce_university.json#bachelor|en|4|4200|#3"
+    },
+    {
+      "name_original": "Business Administration",
+      "name_translated": "Business Administration",
+      "id": "fenerbahce_university.json#bachelor|en|4|4200|#4"
+    },
+    {
+      "name_original": "Psychology",
+      "name_translated": "Psychology",
+      "id": "fenerbahce_university.json#bachelor|en|4|4200|#5"
+    },
+    {
+      "name_original": "Psychology",
+      "name_translated": "Psychology",
+      "id": "fenerbahce_university.json#bachelor|tr|4|3150|#0"
+    },
+    {
+      "name_original": "Computer Engineering",
+      "name_translated": "Computer Engineering",
+      "id": "fenerbahce_university.json#bachelor|en|4|4200|#6"
+    },
+    {
+      "name_original": "Software Engineering",
+      "name_translated": "Software Engineering",
+      "id": "fenerbahce_university.json#bachelor|en|4|4200|#7"
+    },
+    {
+      "name_original": "Industrial Engineering",
+      "name_translated": "Industrial Engineering",
+      "id": "fenerbahce_university.json#bachelor|en|4|4200|#8"
+    },
+    {
+      "name_original": "Electrical and Electronics Engineering",
+      "name_translated": "Electrical and Electronics Engineering",
+      "id": "fenerbahce_university.json#bachelor|en|4|4200|#9"
+    },
+    {
+      "name_original": "Interior Architecture and Environmental Design",
+      "name_translated": "Interior Architecture and Environmental Design",
+      "id": "fenerbahce_university.json#bachelor|en|4|4200|#10"
+    },
+    {
+      "name_original": "Interior Architecture and Environmental Design",
+      "name_translated": "Interior Architecture and Environmental Design",
+      "id": "fenerbahce_university.json#bachelor|tr|4|3150|#1"
+    },
+    {
+      "name_original": "Architecture",
+      "name_translated": "Architecture",
+      "id": "fenerbahce_university.json#bachelor|tr|4|3150|#2"
+    },
+    {
+      "name_original": "New Media and Communication",
+      "name_translated": "New Media and Communication",
+      "id": "fenerbahce_university.json#bachelor|tr|4|3150|#3"
+    },
+    {
+      "name_original": "Public Relations and Advertising",
+      "name_translated": "Public Relations and Advertising",
+      "id": "fenerbahce_university.json#bachelor|tr|4|3150|#4"
+    },
+    {
+      "name_original": "Radio, Television and Cinema",
+      "name_translated": "Radio, Television and Cinema",
+      "id": "fenerbahce_university.json#bachelor|tr|4|3150|#5"
+    },
+    {
+      "name_original": "Ergotherapy",
+      "name_translated": "Occupational Therapy",
+      "id": "fenerbahce_university.json#bachelor|tr|4|3150|#6"
+    },
+    {
+      "name_original": "Nursing",
+      "name_translated": "Nursing",
+      "id": "fenerbahce_university.json#bachelor|tr|4|3150|#7"
+    },
+    {
+      "name_original": "Nursing",
+      "name_translated": "Nursing",
+      "id": "fenerbahce_university.json#bachelor|en|4|3150|#0"
+    },
+    {
+      "name_original": "Nutrition and Dietetics",
+      "name_translated": "Nutrition and Dietetics",
+      "id": "fenerbahce_university.json#bachelor|tr|4|3150|#8"
+    },
+    {
+      "name_original": "Midwifery",
+      "name_translated": "Midwifery",
+      "id": "fenerbahce_university.json#bachelor|tr|4|3150|#9"
+    },
+    {
+      "name_original": "Physiotherapy and Rehabilitation",
+      "name_translated": "Physiotherapy and Rehabilitation",
+      "id": "fenerbahce_university.json#bachelor|en|4|4200|#11"
+    },
+    {
+      "name_original": "Physiotherapy and Rehabilitation",
+      "name_translated": "Physiotherapy and Rehabilitation",
+      "id": "fenerbahce_university.json#bachelor|tr|4|3150|#10"
+    },
+    {
+      "name_original": "Speech and Language Therapy",
+      "name_translated": "Speech and Language Therapy",
+      "id": "fenerbahce_university.json#bachelor|tr|4|3150|#11"
+    },
+    {
+      "name_original": "Pharmacy",
+      "name_translated": "Pharmacy",
+      "id": "fenerbahce_university.json#bachelor|en|5|8000|#0"
+    },
+    {
+      "name_original": "Pharmacy",
+      "name_translated": "Pharmacy",
+      "id": "fenerbahce_university.json#bachelor|tr|5|6500|#0"
+    },
+    {
+      "name_original": "Sport and Exercise Sciences",
+      "name_translated": "Sport and Exercise Sciences",
+      "id": "fenerbahce_university.json#bachelor|tr|4|3150|#12"
+    },
+    {
+      "name_original": "Physical Education and Sports",
+      "name_translated": "Physical Education and Sports",
+      "id": "fenerbahce_university.json#bachelor|tr|4|3150|#13"
+    },
+    {
+      "name_original": "Sports Coaching",
+      "name_translated": "Sports Coaching",
+      "id": "fenerbahce_university.json#bachelor|tr|4|3150|#14"
+    },
+    {
+      "name_original": "Sports Management",
+      "name_translated": "Sports Management",
+      "id": "fenerbahce_university.json#bachelor|tr|4|3150|#15"
+    },
+    {
+      "name_original": "MBA",
+      "name_translated": "MBA",
+      "id": "fenerbahce_university.json#master|en|2|3300|#0"
+    },
+    {
+      "name_original": "MBA",
+      "name_translated": "MBA",
+      "id": "fenerbahce_university.json#master|en|2|2250|#0"
+    },
+    {
+      "name_original": "MBA",
+      "name_translated": "MBA",
+      "id": "fenerbahce_university.json#master|tr|2|3300|#0"
+    },
+    {
+      "name_original": "MBA",
+      "name_translated": "MBA",
+      "id": "fenerbahce_university.json#master|tr|2|2250|#0"
+    },
+    {
+      "name_original": "Political Science and International Relations",
+      "name_translated": "Political Science and International Relations",
+      "id": "fenerbahce_university.json#master|en|2|3300|#1"
+    },
+    {
+      "name_original": "Political Science and International Relations",
+      "name_translated": "Political Science and International Relations",
+      "id": "fenerbahce_university.json#master|en|2|2250|#1"
+    },
+    {
+      "name_original": "Sport Sciences",
+      "name_translated": "Sport Sciences",
+      "id": "fenerbahce_university.json#master|tr|2|3300|#1"
+    },
+    {
+      "name_original": "Sport Sciences",
+      "name_translated": "Sport Sciences",
+      "id": "fenerbahce_university.json#master|tr|2|2250|#1"
+    },
+    {
+      "name_original": "Clinical Pharmacy",
+      "name_translated": "Clinical Pharmacy",
+      "id": "fenerbahce_university.json#master|tr|2|2250|#2"
+    },
+    {
+      "name_original": "Internal Medicine Nursing",
+      "name_translated": "Internal Medicine Nursing",
+      "id": "fenerbahce_university.json#master|tr|2|3300|#2"
+    },
+    {
+      "name_original": "Organizational Behavior",
+      "name_translated": "Organizational Behavior",
+      "id": "fenerbahce_university.json#master|tr|2|3300|#3"
+    },
+    {
+      "name_original": "Organizational Behavior",
+      "name_translated": "Organizational Behavior",
+      "id": "fenerbahce_university.json#master|tr|2|2250|#3"
+    },
+    {
+      "name_original": "Американская культура и литература",
+      "name_translated": "American Culture and Literature",
+      "id": "halic_university.json#bachelor|en|4|4500|#0"
+    },
+    {
+      "name_original": "Переводчик и переводческое дело",
+      "name_translated": "Translation and Interpreting",
+      "id": "halic_university.json#bachelor|en|4|4500|#1"
+    },
+    {
+      "name_original": "Переводчик и переводческое дело",
+      "name_translated": "Translation and Interpreting",
+      "id": "halic_university.json#bachelor|tr|4|4500|#0"
+    },
+    {
+      "name_original": "Математика",
+      "name_translated": "Mathematics",
+      "id": "halic_university.json#bachelor|tr|4|4000|#0"
+    },
+    {
+      "name_original": "Молекулярная биология и генетика",
+      "name_translated": "Molecular Biology and Genetics",
+      "id": "halic_university.json#bachelor|en|4|4500|#2"
+    },
+    {
+      "name_original": "Психология",
+      "name_translated": "Psychology",
+      "id": "halic_university.json#bachelor|tr|4|4500|#1"
+    },
+    {
+      "name_original": "Психология",
+      "name_translated": "Psychology",
+      "id": "halic_university.json#bachelor|en|4|5000|#0"
+    },
+    {
+      "name_original": "Турецкий язык и литература",
+      "name_translated": "Turkish Language and Literature",
+      "id": "halic_university.json#bachelor|tr|4|4000|#1"
+    },
+    {
+      "name_original": "Мультфильм и анимация",
+      "name_translated": "Cartoon and Animation",
+      "id": "halic_university.json#bachelor|tr|4|4200|#0"
+    },
+    {
+      "name_original": "Дизайн цифровых игр",
+      "name_translated": "Digital Game Design",
+      "id": "halic_university.json#bachelor|tr|4|4000|#2"
+    },
+    {
+      "name_original": "Гастрономия и кулинарное искусство",
+      "name_translated": "Gastronomy and Culinary Arts",
+      "id": "halic_university.json#bachelor|tr|4|4500|#2"
+    },
+    {
+      "name_original": "Визуальный коммуникационный дизайн",
+      "name_translated": "Visual Communication Design",
+      "id": "halic_university.json#bachelor|tr|4|4000|#3"
+    },
+    {
+      "name_original": "Графический дизайн",
+      "name_translated": "Graphic Design",
+      "id": "halic_university.json#bachelor|tr|4|4000|#4"
+    },
+    {
+      "name_original": "Текстиль и дизайн моды",
+      "name_translated": "Textile and Fashion Design",
+      "id": "halic_university.json#bachelor|tr|4|4500|#3"
+    },
+    {
+      "name_original": "Связи с общественностью и реклама",
+      "name_translated": "Public Relations and Advertising",
+      "id": "halic_university.json#bachelor|tr|4|4200|#1"
+    },
+    {
+      "name_original": "Бизнес-администрирование",
+      "name_translated": "Business Administration",
+      "id": "halic_university.json#bachelor|tr|4|4500|#4"
+    },
+    {
+      "name_original": "Бизнес-администрирование",
+      "name_translated": "Business Administration",
+      "id": "halic_university.json#bachelor|en|4|5000|#1"
+    },
+    {
+      "name_original": "Политология и международные отношения",
+      "name_translated": "Political Science and International Relations",
+      "id": "halic_university.json#bachelor|tr|4|4200|#2"
+    },
+    {
+      "name_original": "Международная торговля и менеджмент",
+      "name_translated": "International Trade and Management",
+      "id": "halic_university.json#bachelor|en|4|5000|#2"
+    },
+    {
+      "name_original": "Информационные системы управления",
+      "name_translated": "Management Information Systems",
+      "id": "halic_university.json#bachelor|en|4|5000|#3"
+    },
+    {
+      "name_original": "Индустриальный дизайн",
+      "name_translated": "Industrial Design",
+      "id": "halic_university.json#bachelor|tr|4|4000|#5"
+    },
+    {
+      "name_original": "Дизайн интерьера и среды",
+      "name_translated": "Interior and Environmental Design",
+      "id": "halic_university.json#bachelor|tr|4|4200|#3"
+    },
+    {
+      "name_original": "Архитектура",
+      "name_translated": "Architecture",
+      "id": "halic_university.json#bachelor|tr|4|4500|#5"
+    },
+    {
+      "name_original": "Компьютерная инженерия",
+      "name_translated": "Computer Engineering",
+      "id": "halic_university.json#bachelor|en|4|5000|#4"
+    },
+    {
+      "name_original": "Электротехника и электроника",
+      "name_translated": "Electrical and Electronics Engineering",
+      "id": "halic_university.json#bachelor|en|4|4500|#3"
+    },
+    {
+      "name_original": "Индустриальная инженерия",
+      "name_translated": "Industrial Engineering",
+      "id": "halic_university.json#bachelor|en|4|4200|#0"
+    },
+    {
+      "name_original": "Механическая инженерия",
+      "name_translated": "Mechanical Engineering",
+      "id": "halic_university.json#bachelor|en|4|4200|#1"
+    },
+    {
+      "name_original": "Программная инженерия",
+      "name_translated": "Software Engineering",
+      "id": "halic_university.json#bachelor|en|4|5000|#5"
+    },
+    {
+      "name_original": "Питание и диетология",
+      "name_translated": "Nutrition and Dietetics",
+      "id": "halic_university.json#bachelor|tr|4|4500|#6"
+    },
+    {
+      "name_original": "Питание и диетология",
+      "name_translated": "Nutrition and Dietetics",
+      "id": "halic_university.json#bachelor|en|4|5000|#6"
+    },
+    {
+      "name_original": "Акушерство",
+      "name_translated": "Midwifery",
+      "id": "halic_university.json#bachelor|tr|4|4500|#7"
+    },
+    {
+      "name_original": "Физиотерапия и реабилитация",
+      "name_translated": "Physiotherapy and Rehabilitation",
+      "id": "halic_university.json#bachelor|tr|4|4500|#8"
+    },
+    {
+      "name_original": "Физиотерапия и реабилитация",
+      "name_translated": "Physiotherapy and Rehabilitation",
+      "id": "halic_university.json#bachelor|en|4|5000|#7"
+    },
+    {
+      "name_original": "Сестринское дело",
+      "name_translated": "Nursing",
+      "id": "halic_university.json#bachelor|tr|4|4500|#9"
+    },
+    {
+      "name_original": "Сестринское дело",
+      "name_translated": "Nursing",
+      "id": "halic_university.json#bachelor|en|4|5000|#8"
+    },
+    {
+      "name_original": "Подготовка тренеров",
+      "name_translated": "Coaching Education",
+      "id": "halic_university.json#bachelor|tr|4|4000|#6"
+    },
+    {
+      "name_original": "Физическое воспитание и спорт",
+      "name_translated": "Physical Education and Sports",
+      "id": "halic_university.json#bachelor|tr|4|4000|#7"
+    },
+    {
+      "name_original": "Рекреация",
+      "name_translated": "Recreation",
+      "id": "halic_university.json#bachelor|tr|4|4000|#8"
+    },
+    {
+      "name_original": "Спортивный менеджмент",
+      "name_translated": "Sports Management",
+      "id": "halic_university.json#bachelor|tr|4|4000|#9"
+    },
+    {
+      "name_original": "Спортивный менеджмент",
+      "name_translated": "Sports Management",
+      "id": "halic_university.json#bachelor|en|4|4200|#2"
+    },
+    {
+      "name_original": "Опера",
+      "name_translated": "Opera",
+      "id": "halic_university.json#bachelor|tr|4|4000|#10"
+    },
+    {
+      "name_original": "Театр",
+      "name_translated": "Theatre",
+      "id": "halic_university.json#bachelor|tr|4|4000|#11"
+    },
+    {
+      "name_original": "Турецкая музыка",
+      "name_translated": "Turkish Music",
+      "id": "halic_university.json#bachelor|tr|4|4000|#12"
+    },
+    {
+      "name_original": "Медицина",
+      "name_translated": "Medicine",
+      "id": "halic_university.json#bachelor|tr|6|18000|#0"
+    },
+    {
+      "name_original": "Медицина",
+      "name_translated": "Medicine",
+      "id": "halic_university.json#bachelor|en|6|20000|#0"
+    },
+    {
+      "name_original": "Физическая культура и спорт",
+      "name_translated": "Physical Education and Sports",
+      "id": "halic_university.json#master|tr|2|4000|#0"
+    },
+    {
+      "name_original": "Питание и диетология",
+      "name_translated": "Nutrition and Dietetics",
+      "id": "halic_university.json#master|tr|2|4000|#1"
+    },
+    {
+      "name_original": "Компьютерная инженерия",
+      "name_translated": "Computer Engineering",
+      "id": "halic_university.json#master|tr|2|4000|#2"
+    },
+    {
+      "name_original": "Компьютерная инженерия",
+      "name_translated": "Computer Engineering",
+      "id": "halic_university.json#master|tr|2|3500|#0"
+    },
+    {
+      "name_original": "Электротехника и электроника",
+      "name_translated": "Electrical and Electronics Engineering",
+      "id": "halic_university.json#master|tr|2|4000|#3"
+    },
+    {
+      "name_original": "Электротехника и электроника",
+      "name_translated": "Electrical and Electronics Engineering",
+      "id": "halic_university.json#master|tr|2|3500|#1"
+    },
+    {
+      "name_original": "Индустриальная инженерия",
+      "name_translated": "Industrial Engineering",
+      "id": "halic_university.json#master|tr|2|4000|#4"
+    },
+    {
+      "name_original": "Индустриальная инженерия",
+      "name_translated": "Industrial Engineering",
+      "id": "halic_university.json#master|tr|2|3500|#2"
+    },
+    {
+      "name_original": "Индустриальная инженерия",
+      "name_translated": "Industrial Engineering",
+      "id": "halic_university.json#master|en|2|4000|#0"
+    },
+    {
+      "name_original": "Индустриальная инженерия",
+      "name_translated": "Industrial Engineering",
+      "id": "halic_university.json#master|en|2|3500|#0"
+    },
+    {
+      "name_original": "Машиностроение",
+      "name_translated": "Mechanical Engineering",
+      "id": "halic_university.json#master|tr|2|4000|#5"
+    },
+    {
+      "name_original": "Индустриальный дизайн",
+      "name_translated": "Industrial Design",
+      "id": "halic_university.json#master|tr|2|4000|#6"
+    },
+    {
+      "name_original": "Индустриальный дизайн",
+      "name_translated": "Industrial Design",
+      "id": "halic_university.json#master|tr|2|3500|#3"
+    },
+    {
+      "name_original": "Физиотерапия и реабилитация",
+      "name_translated": "Physiotherapy and Rehabilitation",
+      "id": "halic_university.json#master|tr|2|4000|#7"
+    },
+    {
+      "name_original": "Графический дизайн",
+      "name_translated": "Graphic Design",
+      "id": "halic_university.json#master|tr|2|4000|#8"
+    },
+    {
+      "name_original": "Графический дизайн",
+      "name_translated": "Graphic Design",
+      "id": "halic_university.json#master|tr|2|3500|#4"
+    },
+    {
+      "name_original": "Управление больницами и учреждениями здравоохранения",
+      "name_translated": "Hospital and Healthcare Management",
+      "id": "halic_university.json#master|tr|2|4000|#9"
+    },
+    {
+      "name_original": "Управление больницами и учреждениями здравоохранения",
+      "name_translated": "Hospital and Healthcare Management",
+      "id": "halic_university.json#master|tr|2|3500|#5"
+    },
+    {
+      "name_original": "Сестринское дело",
+      "name_translated": "Nursing",
+      "id": "halic_university.json#master|tr|2|4000|#10"
+    },
+    {
+      "name_original": "Сестринское дело",
+      "name_translated": "Nursing",
+      "id": "halic_university.json#master|tr|2|3500|#6"
+    },
+    {
+      "name_original": "Дизайн интерьера",
+      "name_translated": "Interior Design",
+      "id": "halic_university.json#master|tr|2|4000|#11"
+    },
+    {
+      "name_original": "Дизайн интерьера",
+      "name_translated": "Interior Design",
+      "id": "halic_university.json#master|tr|2|3500|#7"
+    },
+    {
+      "name_original": "Бизнес-администрирование",
+      "name_translated": "Business Administration",
+      "id": "halic_university.json#master|tr|2|4000|#12"
+    },
+    {
+      "name_original": "Бизнес-администрирование",
+      "name_translated": "Business Administration",
+      "id": "halic_university.json#master|tr|2|3500|#8"
+    },
+    {
+      "name_original": "Бизнес-администрирование",
+      "name_translated": "Business Administration",
+      "id": "halic_university.json#master|en|2|4000|#1"
+    },
+    {
+      "name_original": "Бизнес-администрирование",
+      "name_translated": "Business Administration",
+      "id": "halic_university.json#master|en|2|3500|#1"
+    },
+    {
+      "name_original": "Клиническая психология",
+      "name_translated": "Clinical Psychology",
+      "id": "halic_university.json#master|tr|2|15000|#0"
+    },
+    {
+      "name_original": "Архитектура",
+      "name_translated": "Architecture",
+      "id": "halic_university.json#master|tr|2|4000|#13"
+    },
+    {
+      "name_original": "Архитектура",
+      "name_translated": "Architecture",
+      "id": "halic_university.json#master|tr|2|3500|#9"
+    },
+    {
+      "name_original": "Молекулярная биология и генетика",
+      "name_translated": "Molecular Biology and Genetics",
+      "id": "halic_university.json#master|tr|2|4000|#14"
+    },
+    {
+      "name_original": "Молекулярная биология и генетика",
+      "name_translated": "Molecular Biology and Genetics",
+      "id": "halic_university.json#master|tr|2|3500|#10"
+    },
+    {
+      "name_original": "Бухгалтерский учет и аудит",
+      "name_translated": "Accounting and Auditing",
+      "id": "halic_university.json#master|tr|2|4000|#15"
+    },
+    {
+      "name_original": "Бухгалтерский учет и аудит",
+      "name_translated": "Accounting and Auditing",
+      "id": "halic_university.json#master|tr|2|3500|#11"
+    },
+    {
+      "name_original": "Психология",
+      "name_translated": "Psychology",
+      "id": "halic_university.json#master|tr|2|4000|#16"
+    },
+    {
+      "name_original": "Психология",
+      "name_translated": "Psychology",
+      "id": "halic_university.json#master|tr|2|3500|#12"
+    },
+    {
+      "name_original": "Текстиль и дизайн моды",
+      "name_translated": "Textile and Fashion Design",
+      "id": "halic_university.json#master|tr|2|4000|#17"
+    },
+    {
+      "name_original": "Текстиль и дизайн моды",
+      "name_translated": "Textile and Fashion Design",
+      "id": "halic_university.json#master|tr|2|3500|#13"
+    },
+    {
+      "name_original": "Театр",
+      "name_translated": "Theatre",
+      "id": "halic_university.json#master|tr|2|4000|#18"
+    },
+    {
+      "name_original": "Театр",
+      "name_translated": "Theatre",
+      "id": "halic_university.json#master|tr|2|3500|#14"
+    },
+    {
+      "name_original": "Туристический менеджмент",
+      "name_translated": "Tourism Management",
+      "id": "halic_university.json#master|tr|2|4000|#19"
+    },
+    {
+      "name_original": "Туристический менеджмент",
+      "name_translated": "Tourism Management",
+      "id": "halic_university.json#master|tr|2|3500|#15"
+    },
+    {
+      "name_original": "Турецкий язык и литература",
+      "name_translated": "Turkish Language and Literature",
+      "id": "halic_university.json#master|tr|2|4000|#20"
+    },
+    {
+      "name_original": "Турецкий язык и литература",
+      "name_translated": "Turkish Language and Literature",
+      "id": "halic_university.json#master|tr|2|3500|#16"
+    },
+    {
+      "name_original": "Турецкая музыка",
+      "name_translated": "Turkish Music",
+      "id": "halic_university.json#master|tr|2|4000|#21"
+    },
+    {
+      "name_original": "Турецкая музыка",
+      "name_translated": "Turkish Music",
+      "id": "halic_university.json#master|tr|2|3500|#17"
+    },
+    {
+      "name_original": "Международная торговля и менеджмент",
+      "name_translated": "International Trade and Management",
+      "id": "halic_university.json#master|tr|2|4000|#22"
+    },
+    {
+      "name_original": "Международная торговля и менеджмент",
+      "name_translated": "International Trade and Management",
+      "id": "halic_university.json#master|tr|2|3500|#18"
+    },
+    {
+      "name_original": "Международный бизнес-управление",
+      "name_translated": "International Business Management",
+      "id": "halic_university.json#master|en|2|4000|#2"
+    },
+    {
+      "name_original": "Международный бизнес-управление",
+      "name_translated": "International Business Management",
+      "id": "halic_university.json#master|en|2|3500|#2"
+    },
+    {
+      "name_original": "Прикладная математика",
+      "name_translated": "Applied Mathematics",
+      "id": "halic_university.json#master|tr|2|4000|#23"
+    },
+    {
+      "name_original": "Прикладная математика",
+      "name_translated": "Applied Mathematics",
+      "id": "halic_university.json#master|tr|2|3500|#19"
+    },
+    {
+      "name_original": "Прикладная психология",
+      "name_translated": "Applied Psychology",
+      "id": "halic_university.json#master|tr|2|4000|#24"
+    },
+    {
+      "name_original": "Прикладная психология",
+      "name_translated": "Applied Psychology",
+      "id": "halic_university.json#master|tr|2|3500|#20"
+    },
+    {
+      "name_original": "Информационные системы управления",
+      "name_translated": "Management Information Systems",
+      "id": "halic_university.json#master|tr|2|4000|#25"
+    },
+    {
+      "name_original": "Информационные системы управления",
+      "name_translated": "Management Information Systems",
+      "id": "halic_university.json#master|tr|2|3500|#21"
+    },
+    {
+      "name_original": "Стоматология",
+      "name_translated": "Dentistry",
+      "id": "istanbul_aydin_university.json#bachelor|tr|5|23000|dentistry#0"
+    },
+    {
+      "name_original": "Стоматология",
+      "name_translated": "Dentistry",
+      "id": "istanbul_aydin_university.json#bachelor|en|5|23000|dentistry#0"
+    },
+    {
+      "name_original": "Фармация",
+      "name_translated": "Pharmacy",
+      "id": "istanbul_aydin_university.json#bachelor|tr|5|11000|pharmacy#0"
+    },
+    {
+      "name_original": "Преподавание арабского языка",
+      "name_translated": "Arabic Language Teaching",
+      "id": "istanbul_aydin_university.json#bachelor|tr|4|5000|education#0"
+    },
+    {
+      "name_original": "Преподавание математики в начальной школе",
+      "name_translated": "Elementary Mathematics Teaching",
+      "id": "istanbul_aydin_university.json#bachelor|tr|4|5000|education#1"
+    },
+    {
+      "name_original": "Преподавание английского языка",
+      "name_translated": "English Language Teaching",
+      "id": "istanbul_aydin_university.json#bachelor|tr|4|5000|education#2"
+    },
+    {
+      "name_original": "Дошкольное образование",
+      "name_translated": "Pre-School Education",
+      "id": "istanbul_aydin_university.json#bachelor|tr|4|5000|education#3"
+    },
+    {
+      "name_original": "Специальное образование",
+      "name_translated": "Special Education",
+      "id": "istanbul_aydin_university.json#bachelor|tr|4|5000|education#4"
+    },
+    {
+      "name_original": "Психологическое консультирование и наставничество",
+      "name_translated": "Psychological Counseling and Guidance",
+      "id": "istanbul_aydin_university.json#bachelor|tr|4|5000|education#5"
+    },
+    {
+      "name_original": "Преподавание в начальной школе",
+      "name_translated": "Primary School Teaching",
+      "id": "istanbul_aydin_university.json#bachelor|tr|4|5000|education#6"
+    },
+    {
+      "name_original": "Преподавание турецкого языка",
+      "name_translated": "Turkish Language Teaching",
+      "id": "istanbul_aydin_university.json#bachelor|tr|4|5000|education#7"
+    },
+    {
+      "name_original": "Английский язык и литература",
+      "name_translated": "English Language and Literature",
+      "id": "istanbul_aydin_university.json#bachelor|tr|4|5000|languages-linguistics#0"
+    },
+    {
+      "name_original": "Психология",
+      "name_translated": "Psychology",
+      "id": "istanbul_aydin_university.json#bachelor|tr|4|5000|psychology#0"
+    },
+    {
+      "name_original": "Социология",
+      "name_translated": "Sociology",
+      "id": "istanbul_aydin_university.json#bachelor|tr|4|5000|sociology#0"
+    },
+    {
+      "name_original": "История",
+      "name_translated": "History",
+      "id": "istanbul_aydin_university.json#bachelor|tr|4|5000|history#0"
+    },
+    {
+      "name_original": "Турецкий язык и литература",
+      "name_translated": "Turkish Language and Literature",
+      "id": "istanbul_aydin_university.json#bachelor|tr|4|5000|languages-linguistics#1"
+    },
+    {
+      "name_original": "Письменный и устный перевод — арабский",
+      "name_translated": "Translation and Interpreting - Arabic",
+      "id": "istanbul_aydin_university.json#bachelor|tr|4|5000|languages-linguistics#2"
+    },
+    {
+      "name_original": "Письменный и устный перевод — английский",
+      "name_translated": "Translation and Interpreting - English",
+      "id": "istanbul_aydin_university.json#bachelor|tr|4|5000|languages-linguistics#3"
+    },
+    {
+      "name_original": "Письменный и устный перевод — русский",
+      "name_translated": "Translation and Interpreting - Russian",
+      "id": "istanbul_aydin_university.json#bachelor|tr|4|5000|languages-linguistics#4"
+    },
+    {
+      "name_original": "Гастрономия и кулинарное искусство",
+      "name_translated": "Gastronomy and Culinary Arts",
+      "id": "istanbul_aydin_university.json#bachelor|tr|4|5000|#0"
+    },
+    {
+      "name_original": "Менеджмент в искусстве",
+      "name_translated": "Arts Management",
+      "id": "istanbul_aydin_university.json#bachelor|tr|4|5000|#1"
+    },
+    {
+      "name_original": "Мультфильмы и анимация",
+      "name_translated": "Cartoon and Animation",
+      "id": "istanbul_aydin_university.json#bachelor|tr|4|5000|design#0"
+    },
+    {
+      "name_original": "Драма и актёрское мастерство",
+      "name_translated": "Drama and Acting",
+      "id": "istanbul_aydin_university.json#bachelor|tr|4|5000|theatre#0"
+    },
+    {
+      "name_original": "Графический дизайн",
+      "name_translated": "Graphic Design",
+      "id": "istanbul_aydin_university.json#bachelor|tr|4|5000|design#1"
+    },
+    {
+      "name_original": "Модный и текстильный дизайн",
+      "name_translated": "Fashion and Textile Design",
+      "id": "istanbul_aydin_university.json#bachelor|tr|4|5000|design#2"
+    },
+    {
+      "name_original": "Юриспруденция",
+      "name_translated": "Law",
+      "id": "istanbul_aydin_university.json#bachelor|tr|4|6500|law#0"
+    },
+    {
+      "name_original": "Экономика и финансы",
+      "name_translated": "Economics and Finance",
+      "id": "istanbul_aydin_university.json#bachelor|tr|4|5000|economics#0"
+    },
+    {
+      "name_original": "Экономика и финансы",
+      "name_translated": "Economics and Finance",
+      "id": "istanbul_aydin_university.json#bachelor|en|4|6000|economics#0"
+    },
+    {
+      "name_original": "Управление в авиации",
+      "name_translated": "Aviation Management",
+      "id": "istanbul_aydin_university.json#bachelor|en|4|6000|management#0"
+    },
+    {
+      "name_original": "Бизнес / Менеджмент",
+      "name_translated": "Business / Management",
+      "id": "istanbul_aydin_university.json#bachelor|en|4|6000|management#1"
+    },
+    {
+      "name_original": "Бизнес / Менеджмент",
+      "name_translated": "Business / Management",
+      "id": "istanbul_aydin_university.json#bachelor|tr|4|5000|business#0"
+    },
+    {
+      "name_original": "Государственное управление",
+      "name_translated": "Public Administration",
+      "id": "istanbul_aydin_university.json#bachelor|tr|4|5000|political-science#0"
+    },
+    {
+      "name_original": "Бухгалтерский учет и управление финансами",
+      "name_translated": "Accounting and Financial Management",
+      "id": "istanbul_aydin_university.json#bachelor|tr|4|5000|accounting#0"
+    },
+    {
+      "name_original": "Политология и международные отношения",
+      "name_translated": "Political Science and International Relations",
+      "id": "istanbul_aydin_university.json#bachelor|en|4|6000|international-relations#0"
+    },
+    {
+      "name_original": "Международная торговля",
+      "name_translated": "International Trade",
+      "id": "istanbul_aydin_university.json#bachelor|en|4|6000|business#0"
+    },
+    {
+      "name_original": "Журналистика",
+      "name_translated": "Journalism",
+      "id": "istanbul_aydin_university.json#bachelor|tr|4|5000|journalism-media#0"
+    },
+    {
+      "name_original": "Дизайн визуальных коммуникаций",
+      "name_translated": "Visual Communication Design",
+      "id": "istanbul_aydin_university.json#bachelor|tr|4|5000|design#3"
+    },
+    {
+      "name_original": "Связи с общественностью и реклама",
+      "name_translated": "Public Relations and Advertising",
+      "id": "istanbul_aydin_university.json#bachelor|tr|4|5000|communication#0"
+    },
+    {
+      "name_original": "Радио, телевидение и кино",
+      "name_translated": "Radio, Television and Cinema",
+      "id": "istanbul_aydin_university.json#bachelor|tr|4|5000|journalism-media#1"
+    },
+    {
+      "name_original": "Реклама",
+      "name_translated": "Advertising",
+      "id": "istanbul_aydin_university.json#bachelor|tr|4|5000|marketing#0"
+    },
+    {
+      "name_original": "Телевизионная журналистика и программирование",
+      "name_translated": "Television Journalism and Programming",
+      "id": "istanbul_aydin_university.json#bachelor|tr|4|5000|journalism-media#2"
+    },
+    {
+      "name_original": "Новые медиа и коммуникации",
+      "name_translated": "New Media and Communication",
+      "id": "istanbul_aydin_university.json#bachelor|tr|4|5000|communication#1"
+    },
+    {
+      "name_original": "Промышленный дизайн изделий",
+      "name_translated": "Industrial Product Design",
+      "id": "istanbul_aydin_university.json#bachelor|tr|4|5000|design#4"
+    },
+    {
+      "name_original": "Дизайн интерьера",
+      "name_translated": "Interior Design",
+      "id": "istanbul_aydin_university.json#bachelor|tr|4|5000|design#5"
+    },
+    {
+      "name_original": "Архитектура",
+      "name_translated": "Architecture",
+      "id": "istanbul_aydin_university.json#bachelor|tr|4|5000|architecture#0"
+    },
+    {
+      "name_original": "Архитектура",
+      "name_translated": "Architecture",
+      "id": "istanbul_aydin_university.json#bachelor|en|4|6500|architecture#0"
+    },
+    {
+      "name_original": "Компьютерная инженерия",
+      "name_translated": "Computer Engineering",
+      "id": "istanbul_aydin_university.json#bachelor|en|4|6500|computer-engineering#0"
+    },
+    {
+      "name_original": "Электротехника и электроника",
+      "name_translated": "Electrical and Electronics Engineering",
+      "id": "istanbul_aydin_university.json#bachelor|en|4|6500|electrical-electronics-engineering#0"
+    },
+    {
+      "name_original": "Промышленная инженерия",
+      "name_translated": "Industrial Engineering",
+      "id": "istanbul_aydin_university.json#bachelor|en|4|6500|industrial-engineering#0"
+    },
+    {
+      "name_original": "Строительная инженерия",
+      "name_translated": "Civil Engineering",
+      "id": "istanbul_aydin_university.json#bachelor|tr|4|5000|civil-engineering#0"
+    },
+    {
+      "name_original": "Строительная инженерия",
+      "name_translated": "Civil Engineering",
+      "id": "istanbul_aydin_university.json#bachelor|en|4|6500|civil-engineering#0"
+    },
+    {
+      "name_original": "Машиностроение",
+      "name_translated": "Mechanical Engineering",
+      "id": "istanbul_aydin_university.json#bachelor|tr|4|5000|mechanical-engineering#0"
+    },
+    {
+      "name_original": "Машиностроение",
+      "name_translated": "Mechanical Engineering",
+      "id": "istanbul_aydin_university.json#bachelor|en|4|6500|mechanical-engineering#0"
+    },
+    {
+      "name_original": "Авиакосмическая инженерия",
+      "name_translated": "Aerospace Engineering",
+      "id": "istanbul_aydin_university.json#bachelor|en|4|6500|aerospace-engineering#0"
+    },
+    {
+      "name_original": "Программная инженерия",
+      "name_translated": "Software Engineering",
+      "id": "istanbul_aydin_university.json#bachelor|en|4|6500|software-engineering#0"
+    },
+    {
+      "name_original": "Питание и диетология",
+      "name_translated": "Nutrition and Dietetics",
+      "id": "istanbul_aydin_university.json#bachelor|tr|4|6500|#0"
+    },
+    {
+      "name_original": "Питание и диетология",
+      "name_translated": "Nutrition and Dietetics",
+      "id": "istanbul_aydin_university.json#bachelor|en|4|8000|#0"
+    },
+    {
+      "name_original": "Развитие ребенка",
+      "name_translated": "Child Development",
+      "id": "istanbul_aydin_university.json#bachelor|tr|4|6500|#1"
+    },
+    {
+      "name_original": "Физиотерапия и реабилитация",
+      "name_translated": "Physiotherapy and Rehabilitation",
+      "id": "istanbul_aydin_university.json#bachelor|tr|4|6500|#2"
+    },
+    {
+      "name_original": "Сестринское дело",
+      "name_translated": "Nursing",
+      "id": "istanbul_aydin_university.json#bachelor|tr|4|6500|nursing#0"
+    },
+    {
+      "name_original": "Аудиология",
+      "name_translated": "Audiology",
+      "id": "istanbul_aydin_university.json#bachelor|tr|4|6500|#3"
+    },
+    {
+      "name_original": "Управление здравоохранением",
+      "name_translated": "Healthcare Management",
+      "id": "istanbul_aydin_university.json#bachelor|tr|4|6500|#4"
+    },
+    {
+      "name_original": "Социальная работа",
+      "name_translated": "Social Work",
+      "id": "istanbul_aydin_university.json#bachelor|tr|4|6500|#5"
+    },
+    {
+      "name_original": "Преподавание физической культуры и спорта",
+      "name_translated": "Physical Education and Sports Teaching",
+      "id": "istanbul_aydin_university.json#bachelor|tr|4|5000|#2"
+    },
+    {
+      "name_original": "Рекреация",
+      "name_translated": "Recreation",
+      "id": "istanbul_aydin_university.json#bachelor|tr|4|5000|#3"
+    },
+    {
+      "name_original": "Подготовка тренеров",
+      "name_translated": "Coaching Education",
+      "id": "istanbul_aydin_university.json#bachelor|tr|4|5000|#4"
+    },
+    {
+      "name_original": "Спортивный менеджмент",
+      "name_translated": "Sports Management",
+      "id": "istanbul_aydin_university.json#bachelor|tr|4|5000|#5"
+    },
+    {
+      "name_original": "Медицина",
+      "name_translated": "Medicine",
+      "id": "istanbul_aydin_university.json#bachelor|tr|6|25000|medicine#0"
+    },
+    {
+      "name_original": "Медицина",
+      "name_translated": "Medicine",
+      "id": "istanbul_aydin_university.json#bachelor|en|6|25000|medicine#0"
+    },
+    {
+      "name_original": "Информационные системы управления",
+      "name_translated": "Management Information Systems",
+      "id": "istanbul_aydin_university.json#bachelor|tr|4|5000|information-systems#0"
+    },
+    {
+      "name_original": "Информационные системы управления",
+      "name_translated": "Management Information Systems",
+      "id": "istanbul_aydin_university.json#bachelor|en|4|6500|information-systems#0"
+    },
+    {
+      "name_original": "Разработка программного обеспечения",
+      "name_translated": "Software Engineering",
+      "id": "istanbul_aydin_university.json#bachelor|en|4|6500|software-engineering#1"
+    },
+    {
+      "name_original": "Клиническая психология с тезисом",
+      "name_translated": "Clinical Psychology with Thesis",
+      "id": "istanbul_aydin_university.json#master|tr|2|11000|psychology#0"
+    },
+    {
+      "name_original": "Клиническая психология без тезиса",
+      "name_translated": "Clinical Psychology without Thesis",
+      "id": "istanbul_aydin_university.json#master|tr|2|11000|psychology#1"
+    },
+    {
+      "name_original": "Аудит и бухгалтерский учет с тезисом",
+      "name_translated": "Auditing and Accounting with Thesis",
+      "id": "istanbul_aydin_university.json#master|tr|2|9000|accounting#0"
+    },
+    {
+      "name_original": "Аудит и бухгалтерский учет без тезиса",
+      "name_translated": "Auditing and Accounting without Thesis",
+      "id": "istanbul_aydin_university.json#master|tr|2|8000|accounting#0"
+    },
+    {
+      "name_original": "Политология и международные отношения с тезисом",
+      "name_translated": "Political Science and International Relations with Thesis",
+      "id": "istanbul_aydin_university.json#master|tr|2|12000|international-relations#0"
+    },
+    {
+      "name_original": "Политология и международные отношения без тезиса",
+      "name_translated": "Political Science and International Relations without Thesis",
+      "id": "istanbul_aydin_university.json#master|tr|2|10000|international-relations#0"
+    },
+    {
+      "name_original": "Компьютерная инженерия с тезисом",
+      "name_translated": "Computer Engineering with Thesis",
+      "id": "istanbul_aydin_university.json#master|tr|2|9000|computer-engineering#0"
+    },
+    {
+      "name_original": "Компьютерная инженерия с тезисом",
+      "name_translated": "Computer Engineering with Thesis",
+      "id": "istanbul_aydin_university.json#master|en|2|12000|computer-engineering#0"
+    },
+    {
+      "name_original": "Электротехника и электроника с тезисом",
+      "name_translated": "Electrical and Electronics Engineering with Thesis",
+      "id": "istanbul_aydin_university.json#master|tr|2|9000|electrical-electronics-engineering#0"
+    },
+    {
+      "name_original": "Машиностроение с тезисом",
+      "name_translated": "Mechanical Engineering with Thesis",
+      "id": "istanbul_aydin_university.json#master|tr|2|9000|mechanical-engineering#0"
+    },
+    {
+      "name_original": "Стоматология",
+      "name_translated": "Dentistry",
+      "id": "istanbul_gelisim_university.json#bachelor|en|5|17250|#0"
+    },
+    {
+      "name_original": "Стоматология",
+      "name_translated": "Dentistry",
+      "id": "istanbul_gelisim_university.json#bachelor|tr|5|13000|#0"
+    },
+    {
+      "name_original": "Управление авиацией",
+      "name_translated": "Aviation Management",
+      "id": "istanbul_gelisim_university.json#bachelor|en|4|4000|#0"
+    },
+    {
+      "name_original": "Управление авиацией",
+      "name_translated": "Aviation Management",
+      "id": "istanbul_gelisim_university.json#bachelor|tr|4|3500|#0"
+    },
+    {
+      "name_original": "Бизнес-администрирование",
+      "name_translated": "Business Administration",
+      "id": "istanbul_gelisim_university.json#bachelor|en|4|4250|#0"
+    },
+    {
+      "name_original": "Бизнес-администрирование",
+      "name_translated": "Business Administration",
+      "id": "istanbul_gelisim_university.json#bachelor|tr|4|3500|#1"
+    },
+    {
+      "name_original": "Экономика и финансы",
+      "name_translated": "Economics and Finance",
+      "id": "istanbul_gelisim_university.json#bachelor|en|4|4000|#1"
+    },
+    {
+      "name_original": "Экономика и финансы",
+      "name_translated": "Economics and Finance",
+      "id": "istanbul_gelisim_university.json#bachelor|tr|4|3500|#2"
+    },
+    {
+      "name_original": "Английский язык и литература",
+      "name_translated": "English Language and Literature",
+      "id": "istanbul_gelisim_university.json#bachelor|en|4|4000|#2"
+    },
+    {
+      "name_original": "Связи с общественностью и реклама",
+      "name_translated": "Public Relations and Advertising",
+      "id": "istanbul_gelisim_university.json#bachelor|tr|4|3500|#3"
+    },
+    {
+      "name_original": "Психология",
+      "name_translated": "Psychology",
+      "id": "istanbul_gelisim_university.json#bachelor|en|4|4000|#3"
+    },
+    {
+      "name_original": "Психология",
+      "name_translated": "Psychology",
+      "id": "istanbul_gelisim_university.json#bachelor|tr|4|3500|#4"
+    },
+    {
+      "name_original": "Международная торговля и бизнес",
+      "name_translated": "International Trade and Business",
+      "id": "istanbul_gelisim_university.json#bachelor|en|4|4000|#4"
+    },
+    {
+      "name_original": "Международная торговля и бизнес",
+      "name_translated": "International Trade and Business",
+      "id": "istanbul_gelisim_university.json#bachelor|tr|4|3500|#5"
+    },
+    {
+      "name_original": "Международная торговля и финансы",
+      "name_translated": "International Trade and Finance",
+      "id": "istanbul_gelisim_university.json#bachelor|en|4|4000|#5"
+    },
+    {
+      "name_original": "Международная торговля и финансы",
+      "name_translated": "International Trade and Finance",
+      "id": "istanbul_gelisim_university.json#bachelor|tr|4|3500|#6"
+    },
+    {
+      "name_original": "Логистика",
+      "name_translated": "Logistics",
+      "id": "istanbul_gelisim_university.json#bachelor|en|4|4000|#6"
+    },
+    {
+      "name_original": "Логистика",
+      "name_translated": "Logistics",
+      "id": "istanbul_gelisim_university.json#bachelor|tr|4|3500|#7"
+    },
+    {
+      "name_original": "Политология и международные отношения",
+      "name_translated": "Political Science and International Relations",
+      "id": "istanbul_gelisim_university.json#bachelor|en|4|4000|#7"
+    },
+    {
+      "name_original": "Политология и международные отношения",
+      "name_translated": "Political Science and International Relations",
+      "id": "istanbul_gelisim_university.json#bachelor|tr|4|3500|#8"
+    },
+    {
+      "name_original": "Политология и государственное управление",
+      "name_translated": "Political Science and Public Administration",
+      "id": "istanbul_gelisim_university.json#bachelor|tr|4|3500|#9"
+    },
+    {
+      "name_original": "Радио, телевидение и кино",
+      "name_translated": "Radio, Television and Cinema",
+      "id": "istanbul_gelisim_university.json#bachelor|tr|4|3500|#10"
+    },
+    {
+      "name_original": "Реклама",
+      "name_translated": "Advertising",
+      "id": "istanbul_gelisim_university.json#bachelor|tr|4|3500|#11"
+    },
+    {
+      "name_original": "Социология",
+      "name_translated": "Sociology",
+      "id": "istanbul_gelisim_university.json#bachelor|tr|4|3500|#12"
+    },
+    {
+      "name_original": "Туристическое сопровождение",
+      "name_translated": "Tourism Guidance",
+      "id": "istanbul_gelisim_university.json#bachelor|tr|4|3500|#13"
+    },
+    {
+      "name_original": "Новые медиа и коммуникации",
+      "name_translated": "New Media and Communication",
+      "id": "istanbul_gelisim_university.json#bachelor|en|4|4000|#8"
+    },
+    {
+      "name_original": "Новые медиа и коммуникации",
+      "name_translated": "New Media and Communication",
+      "id": "istanbul_gelisim_university.json#bachelor|tr|4|3500|#14"
+    },
+    {
+      "name_original": "Турецкий язык и литература",
+      "name_translated": "Turkish Language and Literature",
+      "id": "istanbul_gelisim_university.json#bachelor|tr|4|3500|#15"
+    },
+    {
+      "name_original": "Информационные системы управления",
+      "name_translated": "Management Information Systems",
+      "id": "istanbul_gelisim_university.json#bachelor|tr|4|3500|#16"
+    },
+    {
+      "name_original": "Авиакосмическая инженерия",
+      "name_translated": "Aerospace Engineering",
+      "id": "istanbul_gelisim_university.json#bachelor|en|4|6000|#0"
+    },
+    {
+      "name_original": "Авиакосмическая инженерия",
+      "name_translated": "Aerospace Engineering",
+      "id": "istanbul_gelisim_university.json#bachelor|tr|4|4000|#0"
+    },
+    {
+      "name_original": "Компьютерная инженерия",
+      "name_translated": "Computer Engineering",
+      "id": "istanbul_gelisim_university.json#bachelor|en|4|5500|#0"
+    },
+    {
+      "name_original": "Компьютерная инженерия",
+      "name_translated": "Computer Engineering",
+      "id": "istanbul_gelisim_university.json#bachelor|tr|4|4000|#1"
+    },
+    {
+      "name_original": "Программная инженерия",
+      "name_translated": "Software Engineering",
+      "id": "istanbul_gelisim_university.json#bachelor|en|4|5500|#1"
+    },
+    {
+      "name_original": "Программная инженерия",
+      "name_translated": "Software Engineering",
+      "id": "istanbul_gelisim_university.json#bachelor|tr|4|4000|#2"
+    },
+    {
+      "name_original": "Строительная инженерия",
+      "name_translated": "Civil Engineering",
+      "id": "istanbul_gelisim_university.json#bachelor|en|4|4500|#0"
+    },
+    {
+      "name_original": "Строительная инженерия",
+      "name_translated": "Civil Engineering",
+      "id": "istanbul_gelisim_university.json#bachelor|tr|4|4000|#3"
+    },
+    {
+      "name_original": "Архитектура",
+      "name_translated": "Architecture",
+      "id": "istanbul_gelisim_university.json#bachelor|en|4|4500|#1"
+    },
+    {
+      "name_original": "Архитектура",
+      "name_translated": "Architecture",
+      "id": "istanbul_gelisim_university.json#bachelor|tr|4|4000|#4"
+    },
+    {
+      "name_original": "Электроника и электротехника",
+      "name_translated": "Electrical and Electronics Engineering",
+      "id": "istanbul_gelisim_university.json#bachelor|en|4|4500|#2"
+    },
+    {
+      "name_original": "Электроника и электротехника",
+      "name_translated": "Electrical and Electronics Engineering",
+      "id": "istanbul_gelisim_university.json#bachelor|tr|4|4000|#5"
+    },
+    {
+      "name_original": "Индустриальная инженерия",
+      "name_translated": "Industrial Engineering",
+      "id": "istanbul_gelisim_university.json#bachelor|tr|4|4000|#6"
+    },
+    {
+      "name_original": "Мехатроника",
+      "name_translated": "Mechatronics",
+      "id": "istanbul_gelisim_university.json#bachelor|tr|4|4000|#7"
+    },
+    {
+      "name_original": "Дизайн интерьера и окружающей среды",
+      "name_translated": "Interior Architecture and Environmental Design",
+      "id": "istanbul_gelisim_university.json#bachelor|en|4|4000|#9"
+    },
+    {
+      "name_original": "Дизайн интерьера и окружающей среды",
+      "name_translated": "Interior Architecture and Environmental Design",
+      "id": "istanbul_gelisim_university.json#bachelor|tr|4|3500|#17"
+    },
+    {
+      "name_original": "Гастрономия и кулинарное искусство",
+      "name_translated": "Gastronomy and Culinary Arts",
+      "id": "istanbul_gelisim_university.json#bachelor|tr|4|3500|#18"
+    },
+    {
+      "name_original": "Графический дизайн",
+      "name_translated": "Graphic Design",
+      "id": "istanbul_gelisim_university.json#bachelor|tr|4|3500|#19"
+    },
+    {
+      "name_original": "Дизайн интерьера",
+      "name_translated": "Interior Design",
+      "id": "istanbul_gelisim_university.json#bachelor|tr|4|3500|#20"
+    },
+    {
+      "name_original": "Коммуникации и дизайн",
+      "name_translated": "Communication and Design",
+      "id": "istanbul_gelisim_university.json#bachelor|tr|4|3500|#21"
+    },
+    {
+      "name_original": "Сестринское дело",
+      "name_translated": "Nursing",
+      "id": "istanbul_gelisim_university.json#bachelor|en|4|4000|#10"
+    },
+    {
+      "name_original": "Сестринское дело",
+      "name_translated": "Nursing",
+      "id": "istanbul_gelisim_university.json#bachelor|tr|4|3500|#22"
+    },
+    {
+      "name_original": "Физиотерапия и реабилитация",
+      "name_translated": "Physiotherapy and Rehabilitation",
+      "id": "istanbul_gelisim_university.json#bachelor|en|4|4250|#1"
+    },
+    {
+      "name_original": "Физиотерапия и реабилитация",
+      "name_translated": "Physiotherapy and Rehabilitation",
+      "id": "istanbul_gelisim_university.json#bachelor|tr|4|3500|#23"
+    },
+    {
+      "name_original": "Развитие ребёнка",
+      "name_translated": "Child Development",
+      "id": "istanbul_gelisim_university.json#bachelor|en|4|4000|#11"
+    },
+    {
+      "name_original": "Развитие ребёнка",
+      "name_translated": "Child Development",
+      "id": "istanbul_gelisim_university.json#bachelor|tr|4|3500|#24"
+    },
+    {
+      "name_original": "Питание и диетология",
+      "name_translated": "Nutrition and Dietetics",
+      "id": "istanbul_gelisim_university.json#bachelor|en|4|4000|#12"
+    },
+    {
+      "name_original": "Питание и диетология",
+      "name_translated": "Nutrition and Dietetics",
+      "id": "istanbul_gelisim_university.json#bachelor|tr|4|3500|#25"
+    },
+    {
+      "name_original": "Логопедия",
+      "name_translated": "Speech and Language Therapy",
+      "id": "istanbul_gelisim_university.json#bachelor|tr|4|3500|#26"
+    },
+    {
+      "name_original": "Эрготерапия",
+      "name_translated": "Occupational Therapy",
+      "id": "istanbul_gelisim_university.json#bachelor|tr|4|3500|#27"
+    },
+    {
+      "name_original": "Аудиология",
+      "name_translated": "Audiology",
+      "id": "istanbul_gelisim_university.json#bachelor|tr|4|3500|#28"
+    },
+    {
+      "name_original": "Перфузия",
+      "name_translated": "Perfusion",
+      "id": "istanbul_gelisim_university.json#bachelor|tr|4|3500|#29"
+    },
+    {
+      "name_original": "Управление здравоохранением",
+      "name_translated": "Healthcare Management",
+      "id": "istanbul_gelisim_university.json#bachelor|tr|4|3500|#30"
+    },
+    {
+      "name_original": "Социальная работа",
+      "name_translated": "Social Work",
+      "id": "istanbul_gelisim_university.json#bachelor|tr|4|3500|#31"
+    },
+    {
+      "name_original": "Перевод и устный перевод (англо-турецкий)",
+      "name_translated": "Translation and Interpreting (English-Turkish)",
+      "id": "istanbul_gelisim_university.json#bachelor|en|4|4000|#13"
+    },
+    {
+      "name_original": "Гастрономия и кулинарное искусство",
+      "name_translated": "Gastronomy and Culinary Arts",
+      "id": "istanbul_gelisim_university.json#bachelor|en|4|4000|#14"
+    },
+    {
+      "name_original": "Банковское дело и страхование",
+      "name_translated": "Banking and Insurance",
+      "id": "istanbul_gelisim_university.json#bachelor|tr|4|3500|#32"
+    },
+    {
+      "name_original": "Телевизионная журналистика и программирование",
+      "name_translated": "Television Journalism and Programming",
+      "id": "istanbul_gelisim_university.json#bachelor|tr|4|3500|#33"
+    },
+    {
+      "name_original": "Техническое обслуживание и ремонт самолётов",
+      "name_translated": "Aircraft Maintenance and Repair",
+      "id": "istanbul_gelisim_university.json#bachelor|tr|4|3500|#34"
+    },
+    {
+      "name_original": "Авионика",
+      "name_translated": "Avionics",
+      "id": "istanbul_gelisim_university.json#bachelor|tr|4|3500|#35"
+    },
+    {
+      "name_original": "Подготовка тренеров",
+      "name_translated": "Coaching Education",
+      "id": "istanbul_gelisim_university.json#bachelor|tr|4|3500|#36"
+    },
+    {
+      "name_original": "Подготовка тренеров",
+      "name_translated": "Coaching Education",
+      "id": "istanbul_gelisim_university.json#bachelor|en|4|4000|#15"
+    },
+    {
+      "name_original": "Науки о спорте и упражнениях",
+      "name_translated": "Sport and Exercise Sciences",
+      "id": "istanbul_gelisim_university.json#bachelor|tr|4|3500|#37"
+    },
+    {
+      "name_original": "Физическая активность и спорт для лиц с ОВЗ",
+      "name_translated": "Physical Activity and Sport for People with Disabilities",
+      "id": "istanbul_gelisim_university.json#bachelor|tr|4|3500|#38"
+    },
+    {
+      "name_original": "Рекреация",
+      "name_translated": "Recreation",
+      "id": "istanbul_gelisim_university.json#bachelor|tr|4|3500|#39"
+    },
+    {
+      "name_original": "Спортивный менеджмент",
+      "name_translated": "Sports Management",
+      "id": "istanbul_gelisim_university.json#bachelor|tr|4|3500|#40"
+    },
+    {
+      "name_original": "Преподавание английского языка",
+      "name_translated": "English Language Teaching",
+      "id": "istanbul_kultur_university.json#bachelor|en|4|6900|#0"
+    },
+    {
+      "name_original": "Дошкольное образование",
+      "name_translated": "Pre-School Education",
+      "id": "istanbul_kultur_university.json#bachelor|tr|4|5950|#0"
+    },
+    {
+      "name_original": "Психологическое консультирование и руководство",
+      "name_translated": "Psychological Counseling and Guidance",
+      "id": "istanbul_kultur_university.json#bachelor|tr|4|5950|#1"
+    },
+    {
+      "name_original": "Английский язык и литература",
+      "name_translated": "English Language and Literature",
+      "id": "istanbul_kultur_university.json#bachelor|en|4|6900|#1"
+    },
+    {
+      "name_original": "Математика и информатика",
+      "name_translated": "Mathematics and Computer Science",
+      "id": "istanbul_kultur_university.json#bachelor|tr|4|5950|#2"
+    },
+    {
+      "name_original": "Молекулярная биология и генетика",
+      "name_translated": "Molecular Biology and Genetics",
+      "id": "istanbul_kultur_university.json#bachelor|tr|4|5950|#3"
+    },
+    {
+      "name_original": "Психология",
+      "name_translated": "Psychology",
+      "id": "istanbul_kultur_university.json#bachelor|tr|4|5950|#4"
+    },
+    {
+      "name_original": "Турецкий язык и литература",
+      "name_translated": "Turkish Language and Literature",
+      "id": "istanbul_kultur_university.json#bachelor|tr|4|5950|#5"
+    },
+    {
+      "name_original": "Право",
+      "name_translated": "Law",
+      "id": "istanbul_kultur_university.json#bachelor|tr|4|12580|#0"
+    },
+    {
+      "name_original": "Предпринимательство",
+      "name_translated": "Entrepreneurship",
+      "id": "istanbul_kultur_university.json#bachelor|tr|4|5950|#6"
+    },
+    {
+      "name_original": "Экономика",
+      "name_translated": "Economics",
+      "id": "istanbul_kultur_university.json#bachelor|en|4|6900|#2"
+    },
+    {
+      "name_original": "Экономика",
+      "name_translated": "Economics",
+      "id": "istanbul_kultur_university.json#bachelor|tr|4|5950|#7"
+    },
+    {
+      "name_original": "Бизнес-администрирование",
+      "name_translated": "Business Administration",
+      "id": "istanbul_kultur_university.json#bachelor|tr|4|5950|#8"
+    },
+    {
+      "name_original": "Бизнес-администрирование",
+      "name_translated": "Business Administration",
+      "id": "istanbul_kultur_university.json#bachelor|en|4|6900|#3"
+    },
+    {
+      "name_original": "Международные отношения",
+      "name_translated": "International Relations",
+      "id": "istanbul_kultur_university.json#bachelor|en|4|6900|#4"
+    },
+    {
+      "name_original": "Международная торговля и финансы",
+      "name_translated": "International Trade and Finance",
+      "id": "istanbul_kultur_university.json#bachelor|en|4|6900|#5"
+    },
+    {
+      "name_original": "Международная торговля и финансы",
+      "name_translated": "International Trade and Finance",
+      "id": "istanbul_kultur_university.json#bachelor|tr|4|5950|#9"
+    },
+    {
+      "name_original": "Архитектура",
+      "name_translated": "Architecture",
+      "id": "istanbul_kultur_university.json#bachelor|en|4|7500|#0"
+    },
+    {
+      "name_original": "Дизайн интерьера и среды",
+      "name_translated": "Interior Architecture and Environmental Design",
+      "id": "istanbul_kultur_university.json#bachelor|tr|4|5950|#10"
+    },
+    {
+      "name_original": "Дизайн интерьера и среды",
+      "name_translated": "Interior Architecture and Environmental Design",
+      "id": "istanbul_kultur_university.json#bachelor|en|4|7300|#0"
+    },
+    {
+      "name_original": "Компьютерная инженерия",
+      "name_translated": "Computer Engineering",
+      "id": "istanbul_kultur_university.json#bachelor|en|4|6900|#6"
+    },
+    {
+      "name_original": "Программная инженерия",
+      "name_translated": "Software Engineering",
+      "id": "istanbul_kultur_university.json#bachelor|en|4|7600|#0"
+    },
+    {
+      "name_original": "Электротехника и электроника",
+      "name_translated": "Electrical and Electronics Engineering",
+      "id": "istanbul_kultur_university.json#bachelor|en|4|6900|#7"
+    },
+    {
+      "name_original": "Промышленная инженерия",
+      "name_translated": "Industrial Engineering",
+      "id": "istanbul_kultur_university.json#bachelor|en|4|6900|#8"
+    },
+    {
+      "name_original": "Строительная инженерия",
+      "name_translated": "Civil Engineering",
+      "id": "istanbul_kultur_university.json#bachelor|en|4|6900|#9"
+    },
+    {
+      "name_original": "Анимация",
+      "name_translated": "Cartoon and Animation",
+      "id": "istanbul_kultur_university.json#bachelor|tr|4|5950|#11"
+    },
+    {
+      "name_original": "Дизайн коммуникаций",
+      "name_translated": "Communication Design",
+      "id": "istanbul_kultur_university.json#bachelor|tr|4|5950|#12"
+    },
+    {
+      "name_original": "Коммуникационные искусства",
+      "name_translated": "Communication Arts",
+      "id": "istanbul_kultur_university.json#bachelor|tr|4|5950|#13"
+    },
+    {
+      "name_original": "Радио, телевидение и кино",
+      "name_translated": "Radio, Television and Cinema",
+      "id": "istanbul_kultur_university.json#bachelor|tr|4|5950|#14"
+    },
+    {
+      "name_original": "Новые медиа и коммуникации",
+      "name_translated": "New Media and Communication",
+      "id": "istanbul_kultur_university.json#bachelor|tr|4|5950|#15"
+    },
+    {
+      "name_original": "Дизайн цифровых игр",
+      "name_translated": "Digital Game Design",
+      "id": "istanbul_kultur_university.json#bachelor|en|4|6900|#10"
+    },
+    {
+      "name_original": "Питание и диетология",
+      "name_translated": "Nutrition and Dietetics",
+      "id": "istanbul_kultur_university.json#bachelor|tr|4|5950|#16"
+    },
+    {
+      "name_original": "Физиотерапия и реабилитация",
+      "name_translated": "Physiotherapy and Rehabilitation",
+      "id": "istanbul_kultur_university.json#bachelor|tr|4|5950|#17"
+    },
+    {
+      "name_original": "Медсестринское дело",
+      "name_translated": "Nursing",
+      "id": "istanbul_kultur_university.json#bachelor|tr|4|5950|#18"
+    },
+    {
+      "name_original": "Компьютерная инженерия",
+      "name_translated": "Computer Engineering",
+      "id": "istanbul_kultur_university.json#master|tr|2|5200|#0"
+    },
+    {
+      "name_original": "Управление инновациями",
+      "name_translated": "Innovation Management",
+      "id": "istanbul_kultur_university.json#master|tr|2|4000|#0"
+    },
+    {
+      "name_original": "Управление и планирование образования",
+      "name_translated": "Educational Management and Planning",
+      "id": "istanbul_kultur_university.json#master|tr|2|5200|#1"
+    },
+    {
+      "name_original": "Дошкольное образование",
+      "name_translated": "Pre-School Education",
+      "id": "istanbul_kultur_university.json#master|tr|2|5200|#2"
+    },
+    {
+      "name_original": "Электротехника и электроника",
+      "name_translated": "Electrical and Electronics Engineering",
+      "id": "istanbul_kultur_university.json#master|tr|2|5200|#3"
+    },
+    {
+      "name_original": "Инженерный менеджмент",
+      "name_translated": "Engineering Management",
+      "id": "istanbul_kultur_university.json#master|tr|2|5200|#4"
+    },
+    {
+      "name_original": "Инженерный менеджмент",
+      "name_translated": "Engineering Management",
+      "id": "istanbul_kultur_university.json#master|en|2|6240|#0"
+    },
+    {
+      "name_original": "Физика",
+      "name_translated": "Physics",
+      "id": "istanbul_kultur_university.json#master|tr|2|5200|#5"
+    },
+    {
+      "name_original": "Дизайн интерьера и среды",
+      "name_translated": "Interior Architecture and Environmental Design",
+      "id": "istanbul_kultur_university.json#master|tr|2|4550|#0"
+    },
+    {
+      "name_original": "Дизайн интерьера",
+      "name_translated": "Interior Design",
+      "id": "istanbul_kultur_university.json#master|tr|2|6240|#0"
+    },
+    {
+      "name_original": "Дизайн среды",
+      "name_translated": "Environmental Design",
+      "id": "istanbul_kultur_university.json#master|tr|2|5200|#6"
+    },
+    {
+      "name_original": "Управленческая экономика",
+      "name_translated": "Managerial Economics",
+      "id": "istanbul_kultur_university.json#master|tr|2|5200|#7"
+    },
+    {
+      "name_original": "Денежные и капитальные рынки",
+      "name_translated": "Money and Capital Markets",
+      "id": "istanbul_kultur_university.json#master|tr|2|5200|#8"
+    },
+    {
+      "name_original": "Экономика производства",
+      "name_translated": "Production Economics",
+      "id": "istanbul_kultur_university.json#master|tr|2|4550|#1"
+    },
+    {
+      "name_original": "Международная экономика и финансы",
+      "name_translated": "International Economics and Finance",
+      "id": "istanbul_kultur_university.json#master|en|2|6240|#1"
+    },
+    {
+      "name_original": "Коммуникационные искусства",
+      "name_translated": "Communication Arts",
+      "id": "istanbul_kultur_university.json#master|tr|2|5200|#9"
+    },
+    {
+      "name_original": "Коммуникации и дизайн",
+      "name_translated": "Communication and Design",
+      "id": "istanbul_kultur_university.json#master|tr|2|5200|#10"
+    },
+    {
+      "name_original": "Английский язык и литература",
+      "name_translated": "English Language and Literature",
+      "id": "istanbul_kultur_university.json#master|en|2|5000|#0"
+    },
+    {
+      "name_original": "Геотехника",
+      "name_translated": "Geotechnics",
+      "id": "istanbul_kultur_university.json#master|tr|2|6240|#1"
+    },
+    {
+      "name_original": "Геоматика",
+      "name_translated": "Geomatics",
+      "id": "istanbul_kultur_university.json#master|tr|2|5200|#11"
+    },
+    {
+      "name_original": "Управление проектами",
+      "name_translated": "Project Management",
+      "id": "istanbul_kultur_university.json#master|tr|2|5200|#12"
+    },
+    {
+      "name_original": "Строительная инженерия",
+      "name_translated": "Civil Engineering",
+      "id": "istanbul_kultur_university.json#master|tr|2|5200|#13"
+    },
+    {
+      "name_original": "Недвижимость и девелопмент",
+      "name_translated": "Real Estate and Development",
+      "id": "istanbul_kultur_university.json#master|tr|2|5000|#0"
+    },
+    {
+      "name_original": "Строительная инженерия",
+      "name_translated": "Civil Engineering",
+      "id": "istanbul_kultur_university.json#master|en|2|5200|#0"
+    },
+    {
+      "name_original": "Бизнес-администрирование",
+      "name_translated": "Business Administration",
+      "id": "istanbul_kultur_university.json#master|tr|2|6500|#0"
+    },
+    {
+      "name_original": "MBA",
+      "name_translated": "MBA",
+      "id": "istanbul_kultur_university.json#master|en|2|7800|#0"
+    },
+    {
+      "name_original": "Управление качеством и производством",
+      "name_translated": "Quality and Production Management",
+      "id": "istanbul_kultur_university.json#master|tr|2|5200|#14"
+    },
+    {
+      "name_original": "Охрана труда и техника безопасности",
+      "name_translated": "Occupational Health and Safety",
+      "id": "istanbul_kultur_university.json#master|tr|2|4680|#0"
+    },
+    {
+      "name_original": "Менеджмент",
+      "name_translated": "Management",
+      "id": "istanbul_kultur_university.json#master|tr|2|5200|#15"
+    },
+    {
+      "name_original": "Публичное право",
+      "name_translated": "Public Law",
+      "id": "istanbul_kultur_university.json#master|tr|2|7500|#0"
+    },
+    {
+      "name_original": "Европейское право прав человека",
+      "name_translated": "European Human Rights Law",
+      "id": "istanbul_kultur_university.json#master|tr|2|5200|#16"
+    },
+    {
+      "name_original": "Математика и информатика",
+      "name_translated": "Mathematics and Computer Science",
+      "id": "istanbul_kultur_university.json#master|tr|2|5200|#17"
+    },
+    {
+      "name_original": "Архитектура",
+      "name_translated": "Architecture",
+      "id": "istanbul_kultur_university.json#master|tr|2|5200|#18"
+    },
+    {
+      "name_original": "Архитектурная инженерия",
+      "name_translated": "Architectural Engineering",
+      "id": "istanbul_kultur_university.json#master|tr|2|5200|#19"
+    },
+    {
+      "name_original": "Архитектурное проектирование",
+      "name_translated": "Architectural Design",
+      "id": "istanbul_kultur_university.json#master|tr|2|5200|#20"
+    },
+    {
+      "name_original": "Управление строительством и технологии",
+      "name_translated": "Construction Management and Technology",
+      "id": "istanbul_kultur_university.json#master|tr|2|5200|#21"
+    },
+    {
+      "name_original": "Градостроительство",
+      "name_translated": "Urban Planning",
+      "id": "istanbul_kultur_university.json#master|tr|2|5200|#22"
+    },
+    {
+      "name_original": "История архитектуры и реставрация",
+      "name_translated": "Architectural History and Restoration",
+      "id": "istanbul_kultur_university.json#master|tr|2|5200|#23"
+    },
+    {
+      "name_original": "Урбан-дизайн",
+      "name_translated": "Urban Design",
+      "id": "istanbul_kultur_university.json#master|tr|2|4550|#2"
+    },
+    {
+      "name_original": "Молекулярная биология и генетика",
+      "name_translated": "Molecular Biology and Genetics",
+      "id": "istanbul_kultur_university.json#master|tr|2|5200|#24"
+    },
+    {
+      "name_original": "Частное право",
+      "name_translated": "Private Law",
+      "id": "istanbul_kultur_university.json#master|tr|2|7500|#1"
+    },
+    {
+      "name_original": "Спортивное право",
+      "name_translated": "Sports Law",
+      "id": "istanbul_kultur_university.json#master|tr|2|4550|#3"
+    },
+    {
+      "name_original": "Индустриальная и организационная психология",
+      "name_translated": "Industrial and Organizational Psychology",
+      "id": "istanbul_kultur_university.json#master|tr|2|5200|#25"
+    },
+    {
+      "name_original": "Клиническая психология",
+      "name_translated": "Clinical Psychology",
+      "id": "istanbul_kultur_university.json#master|tr|2|13500|#0"
+    },
+    {
+      "name_original": "Турецкий язык и литература",
+      "name_translated": "Turkish Language and Literature",
+      "id": "istanbul_kultur_university.json#master|tr|2|5000|#1"
+    },
+    {
+      "name_original": "Международные отношения",
+      "name_translated": "International Relations",
+      "id": "istanbul_kultur_university.json#master|en|2|6240|#2"
+    },
+    {
+      "name_original": "Европейские исследования",
+      "name_translated": "European Studies",
+      "id": "istanbul_kultur_university.json#master|en|2|5200|#1"
+    },
+    {
+      "name_original": "Физиотерапия и реабилитация",
+      "name_translated": "Physiotherapy and Rehabilitation",
+      "id": "istanbul_kultur_university.json#master|tr|2|5200|#26"
+    },
+    {
+      "name_original": "Новые медиа и коммуникации",
+      "name_translated": "New Media and Communication",
+      "id": "istanbul_kultur_university.json#master|tr|2|5200|#27"
+    },
+    {
+      "name_original": "Управление инновациями",
+      "name_translated": "Innovation Management",
+      "id": "istanbul_kultur_university.json#master|tr|2|5200|#28"
+    },
+    {
+      "name_original": "Логистика (дистанционно)",
+      "name_translated": "Logistics (Distance Learning)",
+      "id": "istanbul_kultur_university.json#master|tr|2|4680|#1"
+    },
+    {
+      "name_original": "Радио, телевидение и кино",
+      "name_translated": "Radio, Television and Cinema",
+      "id": "istanbul_kultur_university.json#master|tr|2|5200|#29"
+    },
+    {
+      "name_original": "Арт-менеджмент",
+      "name_translated": "Arts Management",
+      "id": "istanbul_kultur_university.json#master|tr|2|4550|#4"
+    },
+    {
+      "name_original": "Режиссура",
+      "name_translated": "Directing",
+      "id": "istanbul_kultur_university.json#master|tr|2|4550|#5"
+    },
+    {
+      "name_original": "Международная медицина",
+      "name_translated": "International Medicine",
+      "id": "istanbul_medipol_university.json#bachelor|en|6|39600|medicine#0"
+    },
+    {
+      "name_original": "Медицина",
+      "name_translated": "Medicine",
+      "id": "istanbul_medipol_university.json#bachelor|tr|6|30600|medicine#0"
+    },
+    {
+      "name_original": "Стоматология",
+      "name_translated": "Dentistry",
+      "id": "istanbul_medipol_university.json#bachelor|en|5|32400|dentistry#0"
+    },
+    {
+      "name_original": "Стоматология",
+      "name_translated": "Dentistry",
+      "id": "istanbul_medipol_university.json#bachelor|tr|5|29700|dentistry#0"
+    },
+    {
+      "name_original": "Фармацевтика",
+      "name_translated": "Pharmacy",
+      "id": "istanbul_medipol_university.json#bachelor|en|5|16200|pharmacy#0"
+    },
+    {
+      "name_original": "Фармацевтика",
+      "name_translated": "Pharmacy",
+      "id": "istanbul_medipol_university.json#bachelor|tr|5|13500|pharmacy#0"
+    },
+    {
+      "name_original": "Юриспруденция",
+      "name_translated": "Law",
+      "id": "istanbul_medipol_university.json#bachelor|tr|4|7200|law#0"
+    },
+    {
+      "name_original": "Сестринское дело",
+      "name_translated": "Nursing",
+      "id": "istanbul_medipol_university.json#bachelor|en|4|6930|nursing#0"
+    },
+    {
+      "name_original": "Сестринское дело",
+      "name_translated": "Nursing",
+      "id": "istanbul_medipol_university.json#bachelor|tr|4|6930|nursing#0"
+    },
+    {
+      "name_original": "Физиотерапия и реабилитация",
+      "name_translated": "Physiotherapy and Rehabilitation",
+      "id": "istanbul_medipol_university.json#bachelor|en|4|7200|#0"
+    },
+    {
+      "name_original": "Физиотерапия и реабилитация",
+      "name_translated": "Physiotherapy and Rehabilitation",
+      "id": "istanbul_medipol_university.json#bachelor|tr|4|7200|#0"
+    },
+    {
+      "name_original": "Питание и диетология",
+      "name_translated": "Nutrition and Dietetics",
+      "id": "istanbul_medipol_university.json#bachelor|tr|4|5400|#0"
+    },
+    {
+      "name_original": "Управление здравоохранением",
+      "name_translated": "Healthcare Management",
+      "id": "istanbul_medipol_university.json#bachelor|en|4|4950|#0"
+    },
+    {
+      "name_original": "Управление здравоохранением",
+      "name_translated": "Healthcare Management",
+      "id": "istanbul_medipol_university.json#bachelor|tr|4|4950|#0"
+    },
+    {
+      "name_original": "Аудиология",
+      "name_translated": "Audiology",
+      "id": "istanbul_medipol_university.json#bachelor|tr|4|5850|#0"
+    },
+    {
+      "name_original": "Ортезирование и протезирование",
+      "name_translated": "Orthotics and Prosthetics",
+      "id": "istanbul_medipol_university.json#bachelor|tr|4|4950|#1"
+    },
+    {
+      "name_original": "Развитие ребёнка",
+      "name_translated": "Child Development",
+      "id": "istanbul_medipol_university.json#bachelor|tr|4|4950|#2"
+    },
+    {
+      "name_original": "Акушерство",
+      "name_translated": "Midwifery",
+      "id": "istanbul_medipol_university.json#bachelor|tr|4|6300|#0"
+    },
+    {
+      "name_original": "Эрготерапия",
+      "name_translated": "Occupational Therapy",
+      "id": "istanbul_medipol_university.json#bachelor|tr|4|4500|#0"
+    },
+    {
+      "name_original": "Социальная служба",
+      "name_translated": "Social Work",
+      "id": "istanbul_medipol_university.json#bachelor|tr|4|4950|#3"
+    },
+    {
+      "name_original": "Логопедия",
+      "name_translated": "Speech and Language Therapy",
+      "id": "istanbul_medipol_university.json#bachelor|en|4|4950|#1"
+    },
+    {
+      "name_original": "Логопедия",
+      "name_translated": "Speech and Language Therapy",
+      "id": "istanbul_medipol_university.json#bachelor|tr|4|4950|#4"
+    },
+    {
+      "name_original": "Электротехника и электроника",
+      "name_translated": "Electrical and Electronics Engineering",
+      "id": "istanbul_medipol_university.json#bachelor|en|4|5850|electrical-electronics-engineering#0"
+    },
+    {
+      "name_original": "Индустриальная инженерия",
+      "name_translated": "Industrial Engineering",
+      "id": "istanbul_medipol_university.json#bachelor|en|4|4500|industrial-engineering#0"
+    },
+    {
+      "name_original": "Строительная инженерия",
+      "name_translated": "Civil Engineering",
+      "id": "istanbul_medipol_university.json#bachelor|en|4|6300|civil-engineering#0"
+    },
+    {
+      "name_original": "Строительная инженерия",
+      "name_translated": "Civil Engineering",
+      "id": "istanbul_medipol_university.json#bachelor|tr|4|5400|civil-engineering#0"
+    },
+    {
+      "name_original": "Компьютерная инженерия",
+      "name_translated": "Computer Engineering",
+      "id": "istanbul_medipol_university.json#bachelor|en|4|6300|computer-engineering#0"
+    },
+    {
+      "name_original": "Биомедицинская инженерия",
+      "name_translated": "Biomedical Engineering",
+      "id": "istanbul_medipol_university.json#bachelor|en|4|6300|#0"
+    },
+    {
+      "name_original": "Бизнес-администрирование",
+      "name_translated": "Business Administration",
+      "id": "istanbul_medipol_university.json#bachelor|en|4|4950|business#0"
+    },
+    {
+      "name_original": "Экономика и финансы",
+      "name_translated": "Economics and Finance",
+      "id": "istanbul_medipol_university.json#bachelor|en|4|4950|economics#0"
+    },
+    {
+      "name_original": "Международная торговля и финансы",
+      "name_translated": "International Trade and Finance",
+      "id": "istanbul_medipol_university.json#bachelor|en|4|4950|business#1"
+    },
+    {
+      "name_original": "Международная торговля и финансы",
+      "name_translated": "International Trade and Finance",
+      "id": "istanbul_medipol_university.json#bachelor|tr|4|4950|business#0"
+    },
+    {
+      "name_original": "Информационные системы управления",
+      "name_translated": "Management Information Systems",
+      "id": "istanbul_medipol_university.json#bachelor|en|4|4950|information-systems#0"
+    },
+    {
+      "name_original": "Информационные системы управления",
+      "name_translated": "Management Information Systems",
+      "id": "istanbul_medipol_university.json#bachelor|tr|4|4950|information-systems#0"
+    },
+    {
+      "name_original": "Логистика",
+      "name_translated": "Logistics",
+      "id": "istanbul_medipol_university.json#bachelor|en|4|4950|management#0"
+    },
+    {
+      "name_original": "Логистика",
+      "name_translated": "Logistics",
+      "id": "istanbul_medipol_university.json#bachelor|tr|4|4950|management#0"
+    },
+    {
+      "name_original": "Управление человеческими ресурсами",
+      "name_translated": "Human Resources Management",
+      "id": "istanbul_medipol_university.json#bachelor|tr|4|4950|management#1"
+    },
+    {
+      "name_original": "Управление авиацией",
+      "name_translated": "Aviation Management",
+      "id": "istanbul_medipol_university.json#bachelor|tr|4|4950|management#2"
+    },
+    {
+      "name_original": "Банковское дело и страхование",
+      "name_translated": "Banking and Insurance",
+      "id": "istanbul_medipol_university.json#bachelor|tr|4|4950|finance#0"
+    },
+    {
+      "name_original": "Психология",
+      "name_translated": "Psychology",
+      "id": "istanbul_medipol_university.json#bachelor|en|4|5400|psychology#0"
+    },
+    {
+      "name_original": "Психология",
+      "name_translated": "Psychology",
+      "id": "istanbul_medipol_university.json#bachelor|tr|4|5400|psychology#0"
+    },
+    {
+      "name_original": "Политология и международные отношения",
+      "name_translated": "Political Science and International Relations",
+      "id": "istanbul_medipol_university.json#bachelor|en|4|4950|international-relations#0"
+    },
+    {
+      "name_original": "Политология и государственное управление",
+      "name_translated": "Political Science and Public Administration",
+      "id": "istanbul_medipol_university.json#bachelor|en|4|4950|political-science#0"
+    },
+    {
+      "name_original": "Политология и государственное управление",
+      "name_translated": "Political Science and Public Administration",
+      "id": "istanbul_medipol_university.json#bachelor|tr|4|4950|political-science#0"
+    },
+    {
+      "name_original": "Архитектура",
+      "name_translated": "Architecture",
+      "id": "istanbul_medipol_university.json#bachelor|en|4|4950|architecture#0"
+    },
+    {
+      "name_original": "Архитектура",
+      "name_translated": "Architecture",
+      "id": "istanbul_medipol_university.json#bachelor|tr|4|4950|architecture#0"
+    },
+    {
+      "name_original": "Промышленный дизайн",
+      "name_translated": "Industrial Design",
+      "id": "istanbul_medipol_university.json#bachelor|tr|4|4500|design#0"
+    },
+    {
+      "name_original": "Дизайн интерьеров и окружающей среды",
+      "name_translated": "Interior Architecture and Environmental Design",
+      "id": "istanbul_medipol_university.json#bachelor|en|4|4500|design#0"
+    },
+    {
+      "name_original": "Дизайн интерьеров и окружающей среды",
+      "name_translated": "Interior Architecture and Environmental Design",
+      "id": "istanbul_medipol_university.json#bachelor|tr|4|4950|design#0"
+    },
+    {
+      "name_original": "Визуальный коммуникационный дизайн",
+      "name_translated": "Visual Communication Design",
+      "id": "istanbul_medipol_university.json#bachelor|tr|4|4500|design#1"
+    },
+    {
+      "name_original": "Турецкое музыкальное искусство",
+      "name_translated": "Turkish Music Art",
+      "id": "istanbul_medipol_university.json#bachelor|tr|4|4500|music#0"
+    },
+    {
+      "name_original": "Гастрономия и кулинарное искусство",
+      "name_translated": "Gastronomy and Culinary Arts",
+      "id": "istanbul_medipol_university.json#bachelor|tr|4|5400|#1"
+    },
+    {
+      "name_original": "Градостроительство и ландшафтная архитектура",
+      "name_translated": "Urban Planning and Landscape Architecture",
+      "id": "istanbul_medipol_university.json#bachelor|tr|4|4500|architecture#0"
+    },
+    {
+      "name_original": "Психологическое консультирование и руководство",
+      "name_translated": "Psychological Counseling and Guidance",
+      "id": "istanbul_medipol_university.json#bachelor|en|4|4500|education#0"
+    },
+    {
+      "name_original": "Психологическое консультирование и руководство",
+      "name_translated": "Psychological Counseling and Guidance",
+      "id": "istanbul_medipol_university.json#bachelor|tr|4|4500|education#0"
+    },
+    {
+      "name_original": "Учитель английского языка",
+      "name_translated": "English Language Teaching",
+      "id": "istanbul_medipol_university.json#bachelor|en|4|4500|education#1"
+    },
+    {
+      "name_original": "Преподавание математики в начальной школе",
+      "name_translated": "Elementary Mathematics Teaching",
+      "id": "istanbul_medipol_university.json#bachelor|tr|4|4500|education#1"
+    },
+    {
+      "name_original": "Специальное образование",
+      "name_translated": "Special Education",
+      "id": "istanbul_medipol_university.json#bachelor|tr|4|4500|education#2"
+    },
+    {
+      "name_original": "Дошкольное образование",
+      "name_translated": "Pre-School Education",
+      "id": "istanbul_medipol_university.json#bachelor|tr|4|4500|education#3"
+    },
+    {
+      "name_original": "Журналистика",
+      "name_translated": "Journalism",
+      "id": "istanbul_medipol_university.json#bachelor|tr|4|4500|journalism-media#0"
+    },
+    {
+      "name_original": "Связи с общественностью и реклама",
+      "name_translated": "Public Relations and Advertising",
+      "id": "istanbul_medipol_university.json#bachelor|en|4|4500|communication#0"
+    },
+    {
+      "name_original": "Связи с общественностью и реклама",
+      "name_translated": "Public Relations and Advertising",
+      "id": "istanbul_medipol_university.json#bachelor|tr|4|4500|communication#0"
+    },
+    {
+      "name_original": "Новые медиа и системы коммуникаций",
+      "name_translated": "New Media and Communication Systems",
+      "id": "istanbul_medipol_university.json#bachelor|tr|4|4950|communication#0"
+    },
+    {
+      "name_original": "Радио, телевидение и кино",
+      "name_translated": "Radio, Television and Cinema",
+      "id": "istanbul_medipol_university.json#bachelor|tr|4|4950|journalism-media#0"
+    },
+    {
+      "name_original": "Пример программы",
+      "name_translated": "Program Example",
+      "id": "istinye_university.json#bachelor|tr|4|5000|#0"
+    },
+    {
+      "name_original": "Юриспруденция",
+      "name_translated": "Law",
+      "id": "kadir_has_university.json#bachelor|en|4|5800|#0"
+    },
+    {
+      "name_original": "Экономика",
+      "name_translated": "Economics",
+      "id": "kadir_has_university.json#bachelor|en|4|5800|#1"
+    },
+    {
+      "name_original": "Менеджмент и бизнес",
+      "name_translated": "Management and Business",
+      "id": "kadir_has_university.json#bachelor|en|4|5800|#2"
+    },
+    {
+      "name_original": "Психология",
+      "name_translated": "Psychology",
+      "id": "kadir_has_university.json#bachelor|en|4|5800|#3"
+    },
+    {
+      "name_original": "Политология и международные отношения",
+      "name_translated": "Political Science and International Relations",
+      "id": "kadir_has_university.json#bachelor|en|4|5800|#4"
+    },
+    {
+      "name_original": "Международная торговля и финансы",
+      "name_translated": "International Trade and Finance",
+      "id": "kadir_has_university.json#bachelor|en|4|5800|#5"
+    },
+    {
+      "name_original": "Информационные системы управления",
+      "name_translated": "Management Information Systems",
+      "id": "kadir_has_university.json#bachelor|en|4|5800|#6"
+    },
+    {
+      "name_original": "Дизайн визуальных коммуникаций",
+      "name_translated": "Visual Communication Design",
+      "id": "kadir_has_university.json#bachelor|en|4|5800|#7"
+    },
+    {
+      "name_original": "PR и реклама",
+      "name_translated": "PR and Advertising",
+      "id": "kadir_has_university.json#bachelor|en|4|5800|#8"
+    },
+    {
+      "name_original": "Радио, телевидение и кино",
+      "name_translated": "Radio, Television and Cinema",
+      "id": "kadir_has_university.json#bachelor|en|4|5800|#9"
+    },
+    {
+      "name_original": "Реклама",
+      "name_translated": "Advertising",
+      "id": "kadir_has_university.json#bachelor|en|4|5800|#10"
+    },
+    {
+      "name_original": "Новые медиа",
+      "name_translated": "New Media",
+      "id": "kadir_has_university.json#bachelor|en|4|5800|#11"
+    },
+    {
+      "name_original": "Компьютерная инженерия",
+      "name_translated": "Computer Engineering",
+      "id": "kadir_has_university.json#bachelor|en|4|5800|#12"
+    },
+    {
+      "name_original": "Электротехника и электроника",
+      "name_translated": "Electrical and Electronics Engineering",
+      "id": "kadir_has_university.json#bachelor|en|4|5800|#13"
+    },
+    {
+      "name_original": "Промышленная инженерия",
+      "name_translated": "Industrial Engineering",
+      "id": "kadir_has_university.json#bachelor|en|4|5800|#14"
+    },
+    {
+      "name_original": "Строительная инженерия",
+      "name_translated": "Civil Engineering",
+      "id": "kadir_has_university.json#bachelor|en|4|5800|#15"
+    },
+    {
+      "name_original": "Мехатроника",
+      "name_translated": "Mechatronics",
+      "id": "kadir_has_university.json#bachelor|en|4|5800|#16"
+    },
+    {
+      "name_original": "Молекулярная биология и генетика",
+      "name_translated": "Molecular Biology and Genetics",
+      "id": "kadir_has_university.json#bachelor|en|4|5800|#17"
+    },
+    {
+      "name_original": "Промышленный дизайн",
+      "name_translated": "Industrial Design",
+      "id": "kadir_has_university.json#bachelor|en|4|5800|#18"
+    },
+    {
+      "name_original": "Дизайн интерьера",
+      "name_translated": "Interior Design",
+      "id": "kadir_has_university.json#bachelor|en|4|5800|#19"
+    },
+    {
+      "name_original": "Архитектура",
+      "name_translated": "Architecture",
+      "id": "kadir_has_university.json#bachelor|en|4|5800|#20"
+    },
+    {
+      "name_original": "Театр",
+      "name_translated": "Theatre",
+      "id": "kadir_has_university.json#bachelor|en|4|5800|#21"
+    },
+    {
+      "name_original": "Стоматология",
+      "name_translated": "Dentistry",
+      "id": "kent_university.json#bachelor|tr|6|5833|#0"
+    },
+    {
+      "name_original": "Стоматология",
+      "name_translated": "Dentistry",
+      "id": "kent_university.json#bachelor|en|6|5833|#0"
+    },
+    {
+      "name_original": "Фармация",
+      "name_translated": "Pharmacy",
+      "id": "kent_university.json#bachelor|tr|6|3000|#0"
+    },
+    {
+      "name_original": "Фармация",
+      "name_translated": "Pharmacy",
+      "id": "kent_university.json#bachelor|en|6|3000|#0"
+    },
+    {
+      "name_original": "Гастрономия и кулинарное искусство",
+      "name_translated": "Gastronomy and Culinary Arts",
+      "id": "kent_university.json#bachelor|tr|4|2200|#0"
+    },
+    {
+      "name_original": "Гастрономия и кулинарное искусство",
+      "name_translated": "Gastronomy and Culinary Arts",
+      "id": "kent_university.json#bachelor|en|4|2900|#0"
+    },
+    {
+      "name_original": "Внутренний дизайн",
+      "name_translated": "Interior Design",
+      "id": "kent_university.json#bachelor|tr|4|2200|#1"
+    },
+    {
+      "name_original": "Дизайн цифровых игр",
+      "name_translated": "Digital Game Design",
+      "id": "kent_university.json#bachelor|en|4|2900|#1"
+    },
+    {
+      "name_original": "Визуальная коммуникация и дизайн",
+      "name_translated": "Visual Communication and Design",
+      "id": "kent_university.json#bachelor|en|4|2900|#2"
+    },
+    {
+      "name_original": "Градостроительство и ландшафт",
+      "name_translated": "Urban Planning and Landscape",
+      "id": "kent_university.json#bachelor|tr|4|2200|#2"
+    },
+    {
+      "name_original": "Радио, ТВ и кино",
+      "name_translated": "Radio, TV and Cinema",
+      "id": "kent_university.json#bachelor|tr|4|2200|#3"
+    },
+    {
+      "name_original": "Промышленная инженерия",
+      "name_translated": "Industrial Engineering",
+      "id": "kent_university.json#bachelor|tr|4|2200|#4"
+    },
+    {
+      "name_original": "Компьютерная инженерия",
+      "name_translated": "Computer Engineering",
+      "id": "kent_university.json#bachelor|tr|4|2200|#5"
+    },
+    {
+      "name_original": "Экономика и финансы",
+      "name_translated": "Economics and Finance",
+      "id": "kent_university.json#bachelor|en|4|2900|#3"
+    },
+    {
+      "name_original": "Международные отношения",
+      "name_translated": "International Relations",
+      "id": "kent_university.json#bachelor|en|4|2900|#4"
+    },
+    {
+      "name_original": "PR и реклама",
+      "name_translated": "PR and Advertising",
+      "id": "kent_university.json#bachelor|tr|4|2200|#6"
+    },
+    {
+      "name_original": "Бизнес",
+      "name_translated": "Business",
+      "id": "kent_university.json#bachelor|tr|4|2200|#7"
+    },
+    {
+      "name_original": "Бизнес",
+      "name_translated": "Business",
+      "id": "kent_university.json#bachelor|en|4|2900|#5"
+    },
+    {
+      "name_original": "Психология",
+      "name_translated": "Psychology",
+      "id": "kent_university.json#bachelor|tr|4|2200|#8"
+    },
+    {
+      "name_original": "Психология",
+      "name_translated": "Psychology",
+      "id": "kent_university.json#bachelor|en|4|2900|#6"
+    },
+    {
+      "name_original": "Политология и государственное управление",
+      "name_translated": "Political Science and Public Administration",
+      "id": "kent_university.json#bachelor|tr|4|2200|#9"
+    },
+    {
+      "name_original": "Политология и государственное управление",
+      "name_translated": "Political Science and Public Administration",
+      "id": "kent_university.json#bachelor|en|4|2900|#7"
+    },
+    {
+      "name_original": "Социальная работа",
+      "name_translated": "Social Work",
+      "id": "kent_university.json#bachelor|tr|4|2200|#10"
+    },
+    {
+      "name_original": "Международная торговля и логистика",
+      "name_translated": "International Trade and Logistics",
+      "id": "kent_university.json#bachelor|tr|4|2200|#11"
+    },
+    {
+      "name_original": "Международная торговля и управление",
+      "name_translated": "International Trade and Management",
+      "id": "kent_university.json#bachelor|en|4|2900|#8"
+    },
+    {
+      "name_original": "Управление здравоохранением",
+      "name_translated": "Healthcare Management",
+      "id": "kent_university.json#bachelor|tr|4|2200|#12"
+    },
+    {
+      "name_original": "Диетология",
+      "name_translated": "Nutrition and Dietetics",
+      "id": "kent_university.json#bachelor|tr|4|2200|#13"
+    },
+    {
+      "name_original": "Диетология",
+      "name_translated": "Nutrition and Dietetics",
+      "id": "kent_university.json#bachelor|en|4|2900|#9"
+    },
+    {
+      "name_original": "Детское развитие",
+      "name_translated": "Child Development",
+      "id": "kent_university.json#bachelor|tr|4|2200|#14"
+    },
+    {
+      "name_original": "Физиотерапия и реабилитация",
+      "name_translated": "Physiotherapy and Rehabilitation",
+      "id": "kent_university.json#bachelor|tr|4|2200|#15"
+    },
+    {
+      "name_original": "Физиотерапия и реабилитация",
+      "name_translated": "Physiotherapy and Rehabilitation",
+      "id": "kent_university.json#bachelor|en|4|2900|#10"
+    },
+    {
+      "name_original": "Сестринское дело",
+      "name_translated": "Nursing",
+      "id": "kent_university.json#bachelor|tr|4|2200|#16"
+    },
+    {
+      "name_original": "Сестринское дело",
+      "name_translated": "Nursing",
+      "id": "kent_university.json#bachelor|en|4|2900|#11"
+    },
+    {
+      "name_original": "Акушерство",
+      "name_translated": "Midwifery",
+      "id": "kent_university.json#bachelor|tr|4|2200|#17"
+    },
+    {
+      "name_original": "Логопедия",
+      "name_translated": "Speech and Language Therapy",
+      "id": "kent_university.json#bachelor|tr|4|2200|#18"
+    },
+    {
+      "name_original": "Развитие ребёнка с тезисом",
+      "name_translated": "Child Development with Thesis",
+      "id": "kent_university.json#master|tr|2|3500|#0"
+    },
+    {
+      "name_original": "Гастрономия и кулинарное искусство с тезисом",
+      "name_translated": "Gastronomy and Culinary Arts with Thesis",
+      "id": "kent_university.json#master|tr|2|3500|#1"
+    },
+    {
+      "name_original": "Гастрономия и кулинарное искусство без тезиса",
+      "name_translated": "Gastronomy and Culinary Arts without Thesis",
+      "id": "kent_university.json#master|tr|2|2500|#0"
+    },
+    {
+      "name_original": "Питание и диетология с тезисом",
+      "name_translated": "Nutrition and Dietetics with Thesis",
+      "id": "kent_university.json#master|tr|2|3500|#2"
+    },
+    {
+      "name_original": "Питание и диетология без тезиса",
+      "name_translated": "Nutrition and Dietetics without Thesis",
+      "id": "kent_university.json#master|tr|2|2500|#1"
+    },
+    {
+      "name_original": "Международный менеджмент без тезиса",
+      "name_translated": "International Management without Thesis",
+      "id": "kent_university.json#master|tr|2|2500|#2"
+    },
+    {
+      "name_original": "Управление бизнесом с тезисом",
+      "name_translated": "Business Management with Thesis",
+      "id": "kent_university.json#master|tr|2|3500|#3"
+    },
+    {
+      "name_original": "Политология и международные отношения с тезисом",
+      "name_translated": "Political Science and International Relations with Thesis",
+      "id": "kent_university.json#master|tr|2|3500|#4"
+    },
+    {
+      "name_original": "Клиническая психология без тезиса",
+      "name_translated": "Clinical Psychology without Thesis",
+      "id": "kent_university.json#master|tr|2|20000|#0"
+    },
+    {
+      "name_original": "Клиническая психология с тезисом",
+      "name_translated": "Clinical Psychology with Thesis",
+      "id": "kent_university.json#master|tr|2|20000|#1"
+    },
+    {
+      "name_original": "Медицина",
+      "name_translated": "Medicine",
+      "id": "nisantasi_university.json#bachelor|tr|6|14500|#0"
+    },
+    {
+      "name_original": "Медицина",
+      "name_translated": "Medicine",
+      "id": "nisantasi_university.json#bachelor|tr|5|13500|#0"
+    },
+    {
+      "name_original": "Стоматология",
+      "name_translated": "Dentistry",
+      "id": "nisantasi_university.json#bachelor|en|5|17500|#0"
+    },
+    {
+      "name_original": "Стоматология",
+      "name_translated": "Dentistry",
+      "id": "nisantasi_university.json#bachelor|tr|4|3250|#0"
+    },
+    {
+      "name_original": "Архитектура",
+      "name_translated": "Architecture",
+      "id": "nisantasi_university.json#bachelor|en|4|4400|#0"
+    },
+    {
+      "name_original": "Архитектура",
+      "name_translated": "Architecture",
+      "id": "nisantasi_university.json#bachelor|tr|4|3250|#1"
+    },
+    {
+      "name_original": "Строительная инженерия",
+      "name_translated": "Civil Engineering",
+      "id": "nisantasi_university.json#bachelor|en|4|3800|#0"
+    },
+    {
+      "name_original": "Компьютерная инженерия",
+      "name_translated": "Computer Engineering",
+      "id": "nisantasi_university.json#bachelor|tr|4|3250|#2"
+    },
+    {
+      "name_original": "Электротехника и электроника",
+      "name_translated": "Electrical and Electronics Engineering",
+      "id": "nisantasi_university.json#bachelor|en|4|3800|#1"
+    },
+    {
+      "name_original": "Промышленная инженерия",
+      "name_translated": "Industrial Engineering",
+      "id": "nisantasi_university.json#bachelor|tr|4|3250|#3"
+    },
+    {
+      "name_original": "Мехатроника",
+      "name_translated": "Mechatronics",
+      "id": "nisantasi_university.json#bachelor|tr|4|3250|#4"
+    },
+    {
+      "name_original": "Программная инженерия",
+      "name_translated": "Software Engineering",
+      "id": "nisantasi_university.json#bachelor|en|4|4400|#1"
+    },
+    {
+      "name_original": "Учёт и финансовый менеджмент",
+      "name_translated": "Accounting and Financial Management",
+      "id": "nisantasi_university.json#bachelor|tr|4|2950|#0"
+    },
+    {
+      "name_original": "Учёт и финансовый менеджмент",
+      "name_translated": "Accounting and Financial Management",
+      "id": "nisantasi_university.json#bachelor|tr|4|3250|#5"
+    },
+    {
+      "name_original": "Авиационный менеджмент",
+      "name_translated": "Aviation Management",
+      "id": "nisantasi_university.json#bachelor|en|4|3800|#2"
+    },
+    {
+      "name_original": "Авиационный менеджмент",
+      "name_translated": "Aviation Management",
+      "id": "nisantasi_university.json#bachelor|tr|4|3250|#6"
+    },
+    {
+      "name_original": "Бизнес-администрирование",
+      "name_translated": "Business Administration",
+      "id": "nisantasi_university.json#bachelor|en|4|4400|#2"
+    },
+    {
+      "name_original": "Рынок капитала",
+      "name_translated": "Capital Markets",
+      "id": "nisantasi_university.json#bachelor|tr|4|2950|#1"
+    },
+    {
+      "name_original": "Экономика",
+      "name_translated": "Economics",
+      "id": "nisantasi_university.json#bachelor|tr|4|2950|#2"
+    },
+    {
+      "name_original": "Экономика и финансы",
+      "name_translated": "Economics and Finance",
+      "id": "nisantasi_university.json#bachelor|en|4|3800|#3"
+    },
+    {
+      "name_original": "Английский язык и литература",
+      "name_translated": "English Language and Literature",
+      "id": "nisantasi_university.json#bachelor|en|4|3800|#4"
+    },
+    {
+      "name_original": "Переводчик и переводоведение англ.-тур.",
+      "name_translated": "English-Turkish Translation and Interpreting",
+      "id": "nisantasi_university.json#bachelor|en|4|3800|#5"
+    },
+    {
+      "name_original": "Переводчик и переводоведение англ.-тур.",
+      "name_translated": "English-Turkish Translation and Interpreting",
+      "id": "nisantasi_university.json#bachelor|tr|4|3800|#0"
+    },
+    {
+      "name_original": "Финансы и банковское дело",
+      "name_translated": "Finance and Banking",
+      "id": "nisantasi_university.json#bachelor|tr|4|2950|#3"
+    },
+    {
+      "name_original": "Международные отношения",
+      "name_translated": "International Relations",
+      "id": "nisantasi_university.json#bachelor|en|4|3800|#6"
+    },
+    {
+      "name_original": "Международная торговля и логистика",
+      "name_translated": "International Trade and Logistics",
+      "id": "nisantasi_university.json#bachelor|tr|4|3250|#7"
+    },
+    {
+      "name_original": "Информационные системы управления",
+      "name_translated": "Management Information Systems",
+      "id": "nisantasi_university.json#bachelor|en|4|3800|#7"
+    },
+    {
+      "name_original": "Информационные системы управления",
+      "name_translated": "Management Information Systems",
+      "id": "nisantasi_university.json#bachelor|tr|4|3250|#8"
+    },
+    {
+      "name_original": "Новые медиа и коммуникации",
+      "name_translated": "New Media and Communication",
+      "id": "nisantasi_university.json#bachelor|en|4|3800|#8"
+    },
+    {
+      "name_original": "Политология и госуправление",
+      "name_translated": "Political Science and Public Administration",
+      "id": "nisantasi_university.json#bachelor|tr|4|2950|#4"
+    },
+    {
+      "name_original": "Политология и госуправление",
+      "name_translated": "Political Science and Public Administration",
+      "id": "nisantasi_university.json#bachelor|tr|4|3250|#9"
+    },
+    {
+      "name_original": "Психология",
+      "name_translated": "Psychology",
+      "id": "nisantasi_university.json#bachelor|en|4|3800|#9"
+    },
+    {
+      "name_original": "Связи с общественностью и реклама",
+      "name_translated": "Public Relations and Advertising",
+      "id": "nisantasi_university.json#bachelor|tr|4|3250|#10"
+    },
+    {
+      "name_original": "Социальная работа",
+      "name_translated": "Social Work",
+      "id": "nisantasi_university.json#bachelor|tr|4|2950|#5"
+    },
+    {
+      "name_original": "Социология",
+      "name_translated": "Sociology",
+      "id": "nisantasi_university.json#bachelor|tr|4|2950|#6"
+    },
+    {
+      "name_original": "Туризм и гостиничное дело",
+      "name_translated": "Tourism and Hotel Management",
+      "id": "nisantasi_university.json#bachelor|tr|4|2950|#7"
+    },
+    {
+      "name_original": "Коммуникационный дизайн",
+      "name_translated": "Communication Design",
+      "id": "nisantasi_university.json#bachelor|tr|4|2950|#8"
+    },
+    {
+      "name_original": "Дизайн цифровых игр",
+      "name_translated": "Digital Game Design",
+      "id": "nisantasi_university.json#bachelor|tr|4|3250|#11"
+    },
+    {
+      "name_original": "Текстиль и мода",
+      "name_translated": "Textile and Fashion Design",
+      "id": "nisantasi_university.json#bachelor|tr|4|3250|#12"
+    },
+    {
+      "name_original": "Гастрономия и кулинарное искусство",
+      "name_translated": "Gastronomy and Culinary Arts",
+      "id": "nisantasi_university.json#bachelor|tr|4|3250|#13"
+    },
+    {
+      "name_original": "Графический дизайн",
+      "name_translated": "Graphic Design",
+      "id": "nisantasi_university.json#bachelor|tr|4|3250|#14"
+    },
+    {
+      "name_original": "Промышленный дизайн",
+      "name_translated": "Industrial Design",
+      "id": "nisantasi_university.json#bachelor|tr|4|3250|#15"
+    },
+    {
+      "name_original": "Дизайн интерьера",
+      "name_translated": "Interior Design",
+      "id": "nisantasi_university.json#bachelor|en|4|3800|#10"
+    },
+    {
+      "name_original": "Радио, ТВ и кино",
+      "name_translated": "Radio, TV and Cinema",
+      "id": "nisantasi_university.json#bachelor|tr|4|3250|#16"
+    },
+    {
+      "name_original": "Сестринское дело",
+      "name_translated": "Nursing",
+      "id": "nisantasi_university.json#bachelor|tr|4|3250|#17"
+    },
+    {
+      "name_original": "Питание и диетология",
+      "name_translated": "Nutrition and Dietetics",
+      "id": "nisantasi_university.json#bachelor|tr|4|3250|#18"
+    },
+    {
+      "name_original": "Физиотерапия и реабилитация",
+      "name_translated": "Physiotherapy and Rehabilitation",
+      "id": "nisantasi_university.json#bachelor|tr|4|3250|#19"
+    },
+    {
+      "name_original": "Логопедия",
+      "name_translated": "Speech and Language Therapy",
+      "id": "nisantasi_university.json#bachelor|tr|4|3250|#20"
+    },
+    {
+      "name_original": "Международная торговля и бизнес",
+      "name_translated": "International Trade and Business",
+      "id": "nisantasi_university.json#bachelor|tr|4|3250|#21"
+    },
+    {
+      "name_original": "Гид по туризму",
+      "name_translated": "Tourism Guidance",
+      "id": "nisantasi_university.json#bachelor|tr|4|2950|#9"
+    },
+    {
+      "name_original": "Подготовка тренеров",
+      "name_translated": "Coaching Education",
+      "id": "nisantasi_university.json#bachelor|tr|4|2950|#10"
+    },
+    {
+      "name_original": "Спортивные науки",
+      "name_translated": "Sport Sciences",
+      "id": "nisantasi_university.json#bachelor|tr|4|2950|#11"
+    },
+    {
+      "name_original": "Рекреация",
+      "name_translated": "Recreation",
+      "id": "nisantasi_university.json#bachelor|tr|4|2950|#12"
+    },
+    {
+      "name_original": "Спортивный менеджмент",
+      "name_translated": "Sports Management",
+      "id": "nisantasi_university.json#bachelor|tr|4|2950|#13"
+    },
+    {
+      "name_original": "Музыка",
+      "name_translated": "Music",
+      "id": "nisantasi_university.json#bachelor|tr|4|3250|#22"
+    },
+    {
+      "name_original": "Сценическое искусство театр",
+      "name_translated": "Performing Arts - Theatre",
+      "id": "nisantasi_university.json#bachelor|tr|4|3250|#23"
+    },
+    {
+      "name_original": "Управление воздушным движением",
+      "name_translated": "Air Traffic Control",
+      "id": "nisantasi_university.json#bachelor|tr|4|8000|#0"
+    },
+    {
+      "name_original": "Обслуживание и ремонт самолётов",
+      "name_translated": "Aircraft Maintenance and Repair",
+      "id": "nisantasi_university.json#bachelor|tr|4|3250|#24"
+    },
+    {
+      "name_original": "Авионика авиац. электр. и электроника",
+      "name_translated": "Avionics - Aviation Electricity and Electronics",
+      "id": "nisantasi_university.json#bachelor|tr|4|3250|#25"
+    },
+    {
+      "name_original": "Подготовка пилотов",
+      "name_translated": "Pilot Training",
+      "id": "nisantasi_university.json#bachelor|en|4|10000|#0"
+    },
+    {
+      "name_original": "Бухгалтерский учет и аудит Без диссертации",
+      "name_translated": "Accounting and Auditing - without Thesis",
+      "id": "nisantasi_university.json#master|tr|2|3300|#0"
+    },
+    {
+      "name_original": "Бухгалтерский учет и аудит Без диссертации, дистанционно",
+      "name_translated": "Accounting and Auditing - without Thesis (Distance Learning)",
+      "id": "nisantasi_university.json#master|tr|2|3300|#1"
+    },
+    {
+      "name_original": "Бухгалтерский учет и аудит С диссертацией",
+      "name_translated": "Accounting and Auditing - with Thesis",
+      "id": "nisantasi_university.json#master|tr|2|3850|#0"
+    },
+    {
+      "name_original": "Реклама и брендинг Без диссертации",
+      "name_translated": "Advertising and Branding - without Thesis",
+      "id": "nisantasi_university.json#master|tr|2|4500|#0"
+    },
+    {
+      "name_original": "Реклама и брендинг Без диссертации, дистанционно",
+      "name_translated": "Advertising and Branding - without Thesis (Distance Learning)",
+      "id": "nisantasi_university.json#master|tr|2|4500|#1"
+    },
+    {
+      "name_original": "Реклама и брендинг С диссертацией",
+      "name_translated": "Advertising and Branding - with Thesis",
+      "id": "nisantasi_university.json#master|tr|2|5000|#0"
+    },
+    {
+      "name_original": "Архитектурный дизайн Без диссертации",
+      "name_translated": "Architectural Design - without Thesis",
+      "id": "nisantasi_university.json#master|tr|2|3300|#2"
+    },
+    {
+      "name_original": "Архитектурный дизайн С диссертацией",
+      "name_translated": "Architectural Design - with Thesis",
+      "id": "nisantasi_university.json#master|tr|2|3850|#1"
+    },
+    {
+      "name_original": "Инженерия искусственного интеллекта Без диссертации",
+      "name_translated": "Artificial Intelligence Engineering - without Thesis",
+      "id": "nisantasi_university.json#master|tr|2|3300|#3"
+    },
+    {
+      "name_original": "Инженерия искусственного интеллекта С диссертацией",
+      "name_translated": "Artificial Intelligence Engineering - with Thesis",
+      "id": "nisantasi_university.json#master|tr|2|3850|#2"
+    },
+    {
+      "name_original": "Большие данные и управление Без диссертации",
+      "name_translated": "Big Data and Management - without Thesis",
+      "id": "nisantasi_university.json#master|tr|2|3300|#4"
+    },
+    {
+      "name_original": "Большие данные и управление С диссертацией",
+      "name_translated": "Big Data and Management - with Thesis",
+      "id": "nisantasi_university.json#master|tr|2|3850|#3"
+    },
+    {
+      "name_original": "Биотехнология С диссертацией",
+      "name_translated": "Biotechnology - with Thesis",
+      "id": "nisantasi_university.json#master|tr|2|3850|#4"
+    },
+    {
+      "name_original": "Биотехнология Без диссертации",
+      "name_translated": "Biotechnology - without Thesis",
+      "id": "nisantasi_university.json#master|en|2|4500|#0"
+    },
+    {
+      "name_original": "Бизнес-администрирование Без диссертации",
+      "name_translated": "Business Administration - without Thesis",
+      "id": "nisantasi_university.json#master|tr|2|3300|#5"
+    },
+    {
+      "name_original": "Бизнес-администрирование Без диссертации, дистанционно",
+      "name_translated": "Business Administration - without Thesis (Distance Learning)",
+      "id": "nisantasi_university.json#master|tr|2|3300|#6"
+    },
+    {
+      "name_original": "Бизнес-администрирование С диссертацией",
+      "name_translated": "Business Administration - with Thesis",
+      "id": "nisantasi_university.json#master|tr|2|3850|#5"
+    },
+    {
+      "name_original": "Бизнес-администрирование С диссертацией",
+      "name_translated": "Business Administration - with Thesis",
+      "id": "nisantasi_university.json#master|en|2|5000|#0"
+    },
+    {
+      "name_original": "Хиропрактика С диссертацией",
+      "name_translated": "Chiropractic - with Thesis",
+      "id": "nisantasi_university.json#master|tr|2|3850|#6"
+    },
+    {
+      "name_original": "Строительная инженерия Без диссертации",
+      "name_translated": "Civil Engineering - without Thesis",
+      "id": "nisantasi_university.json#master|tr|2|3300|#7"
+    },
+    {
+      "name_original": "Строительная инженерия С диссертацией",
+      "name_translated": "Civil Engineering - with Thesis",
+      "id": "nisantasi_university.json#master|tr|2|3850|#7"
+    },
+    {
+      "name_original": "Клиническая психология Без диссертации",
+      "name_translated": "Clinical Psychology - without Thesis",
+      "id": "nisantasi_university.json#master|tr|2|17000|#0"
+    },
+    {
+      "name_original": "Клиническая психология С диссертацией",
+      "name_translated": "Clinical Psychology - with Thesis",
+      "id": "nisantasi_university.json#master|tr|2|18500|#0"
+    },
+    {
+      "name_original": "Компьютерная инженерия Без диссертации",
+      "name_translated": "Computer Engineering - without Thesis",
+      "id": "nisantasi_university.json#master|tr|2|3300|#8"
+    },
+    {
+      "name_original": "Компьютерная инженерия С диссертацией",
+      "name_translated": "Computer Engineering - with Thesis",
+      "id": "nisantasi_university.json#master|tr|2|3850|#8"
+    },
+    {
+      "name_original": "Управление в инженерии Без диссертации",
+      "name_translated": "Engineering Management - without Thesis",
+      "id": "nisantasi_university.json#master|tr|2|3300|#9"
+    },
+    {
+      "name_original": "Управление в инженерии С диссертацией",
+      "name_translated": "Engineering Management - with Thesis",
+      "id": "nisantasi_university.json#master|tr|2|3850|#9"
+    },
+    {
+      "name_original": "Науки о движении и тренировках в спорте Без диссертации",
+      "name_translated": "Movement and Training Sciences in Sports - without Thesis",
+      "id": "nisantasi_university.json#master|tr|2|3300|#10"
+    },
+    {
+      "name_original": "Науки о движении и тренировках в спорте С диссертацией",
+      "name_translated": "Movement and Training Sciences in Sports - with Thesis",
+      "id": "nisantasi_university.json#master|tr|2|3850|#10"
+    },
+    {
+      "name_original": "Текстиль и модный дизайн Без диссертации",
+      "name_translated": "Textile and Fashion Design - without Thesis",
+      "id": "nisantasi_university.json#master|tr|2|3300|#11"
+    },
+    {
+      "name_original": "Текстиль и модный дизайн С диссертацией",
+      "name_translated": "Textile and Fashion Design - with Thesis",
+      "id": "nisantasi_university.json#master|tr|2|3850|#11"
+    },
+    {
+      "name_original": "Финансы и банковское дело Без диссертации",
+      "name_translated": "Finance and Banking - without Thesis",
+      "id": "nisantasi_university.json#master|tr|2|3300|#12"
+    },
+    {
+      "name_original": "Финансы и банковское дело Без диссертации, дистанционно",
+      "name_translated": "Finance and Banking - without Thesis (Distance Learning)",
+      "id": "nisantasi_university.json#master|tr|2|3300|#13"
+    },
+    {
+      "name_original": "Финансы и банковское дело С диссертацией",
+      "name_translated": "Finance and Banking - with Thesis",
+      "id": "nisantasi_university.json#master|tr|2|3850|#12"
+    },
+    {
+      "name_original": "Гастрономия и кулинарное искусство Без диссертации",
+      "name_translated": "Gastronomy and Culinary Arts - without Thesis",
+      "id": "nisantasi_university.json#master|tr|2|3300|#14"
+    },
+    {
+      "name_original": "Гастрономия и кулинарное искусство С диссертацией",
+      "name_translated": "Gastronomy and Culinary Arts - with Thesis",
+      "id": "nisantasi_university.json#master|tr|2|3850|#13"
+    },
+    {
+      "name_original": "Управление здравоохранением Без диссертации",
+      "name_translated": "Healthcare Management - without Thesis",
+      "id": "nisantasi_university.json#master|tr|2|3300|#15"
+    },
+    {
+      "name_original": "Управление здравоохранением С диссертацией",
+      "name_translated": "Healthcare Management - with Thesis",
+      "id": "nisantasi_university.json#master|tr|2|3850|#14"
+    },
+    {
+      "name_original": "Управление человеческими ресурсами Без диссертации",
+      "name_translated": "Human Resources Management - without Thesis",
+      "id": "nisantasi_university.json#master|tr|2|3300|#16"
+    },
+    {
+      "name_original": "Управление человеческими ресурсами С диссертацией",
+      "name_translated": "Human Resources Management - with Thesis",
+      "id": "nisantasi_university.json#master|tr|2|3850|#15"
+    },
+    {
+      "name_original": "Информационные технологии Без диссертации",
+      "name_translated": "Information Technologies - without Thesis",
+      "id": "nisantasi_university.json#master|tr|2|3300|#17"
+    },
+    {
+      "name_original": "Информационные технологии С диссертацией",
+      "name_translated": "Information Technologies - with Thesis",
+      "id": "nisantasi_university.json#master|tr|2|3850|#16"
+    },
+    {
+      "name_original": "Международная финансовая отчетность и аудит Без диссертации",
+      "name_translated": "International Financial Reporting and Auditing - without Thesis",
+      "id": "nisantasi_university.json#master|tr|2|3300|#18"
+    },
+    {
+      "name_original": "Международное бизнес-администрирование Без диссертации",
+      "name_translated": "International Business Administration - without Thesis",
+      "id": "nisantasi_university.json#master|en|2|4500|#1"
+    },
+    {
+      "name_original": "Международное бизнес-администрирование Без диссертации, дистанционно",
+      "name_translated": "International Business Administration - without Thesis (Distance Learning)",
+      "id": "nisantasi_university.json#master|tr|2|3300|#19"
+    },
+    {
+      "name_original": "Международное бизнес-администрирование С диссертацией",
+      "name_translated": "International Business Administration - with Thesis",
+      "id": "nisantasi_university.json#master|tr|2|3850|#17"
+    },
+    {
+      "name_original": "Международное бизнес-администрирование С диссертацией",
+      "name_translated": "International Business Administration - with Thesis",
+      "id": "nisantasi_university.json#master|en|2|5000|#1"
+    },
+    {
+      "name_original": "Международная торговля и финансы Без диссертации",
+      "name_translated": "International Trade and Finance - without Thesis",
+      "id": "nisantasi_university.json#master|tr|2|3300|#20"
+    },
+    {
+      "name_original": "Местное самоуправление С диссертацией",
+      "name_translated": "Local Government - with Thesis",
+      "id": "nisantasi_university.json#master|tr|2|3850|#18"
+    },
+    {
+      "name_original": "Музыка и исполнительские искусства Без диссертации",
+      "name_translated": "Music and Performing Arts - without Thesis",
+      "id": "nisantasi_university.json#master|tr|2|3300|#21"
+    },
+    {
+      "name_original": "Музыка и исполнительские искусства С диссертацией",
+      "name_translated": "Music and Performing Arts - with Thesis",
+      "id": "nisantasi_university.json#master|tr|2|3850|#19"
+    },
+    {
+      "name_original": "Новые медиа и журналистика Без диссертации",
+      "name_translated": "New Media and Journalism - without Thesis",
+      "id": "nisantasi_university.json#master|tr|2|3300|#22"
+    },
+    {
+      "name_original": "Питание и диетология Без диссертации",
+      "name_translated": "Nutrition and Dietetics - without Thesis",
+      "id": "nisantasi_university.json#master|tr|2|3300|#23"
+    },
+    {
+      "name_original": "Питание и диетология С диссертацией",
+      "name_translated": "Nutrition and Dietetics - with Thesis",
+      "id": "nisantasi_university.json#master|tr|2|3850|#20"
+    },
+    {
+      "name_original": "Политология и международные отношения Без диссертации",
+      "name_translated": "Political Science and International Relations - without Thesis",
+      "id": "nisantasi_university.json#master|tr|2|3300|#24"
+    },
+    {
+      "name_original": "Политология и международные отношения Без диссертации",
+      "name_translated": "Political Science and International Relations - without Thesis",
+      "id": "nisantasi_university.json#master|en|2|3800|#0"
+    },
+    {
+      "name_original": "Политология и международные отношения Без диссертации, дистанционно",
+      "name_translated": "Political Science and International Relations - without Thesis (Distance Learning)",
+      "id": "nisantasi_university.json#master|tr|2|3300|#25"
+    },
+    {
+      "name_original": "Политология и международные отношения С диссертацией",
+      "name_translated": "Political Science and International Relations - with Thesis",
+      "id": "nisantasi_university.json#master|tr|2|3850|#21"
+    },
+    {
+      "name_original": "Психология С диссертацией",
+      "name_translated": "Psychology - with Thesis",
+      "id": "nisantasi_university.json#master|tr|2|3850|#22"
+    },
+    {
+      "name_original": "Радио, телевидение и кино Без диссертации",
+      "name_translated": "Radio, Television and Cinema - without Thesis",
+      "id": "nisantasi_university.json#master|tr|2|3300|#26"
+    },
+    {
+      "name_original": "Радио, телевидение и кино С диссертацией",
+      "name_translated": "Radio, Television and Cinema - with Thesis",
+      "id": "nisantasi_university.json#master|tr|2|3850|#23"
+    },
+    {
+      "name_original": "Управление спортом Без диссертации",
+      "name_translated": "Sports Management - without Thesis",
+      "id": "nisantasi_university.json#master|tr|2|3300|#27"
+    },
+    {
+      "name_original": "Управление спортом С диссертацией",
+      "name_translated": "Sports Management - with Thesis",
+      "id": "nisantasi_university.json#master|tr|2|3850|#24"
+    },
+    {
+      "name_original": "Стратегический маркетинг и бренд-менеджмент Без диссертацией",
+      "name_translated": "Strategic Marketing and Brand Management - without Thesis",
+      "id": "nisantasi_university.json#master|tr|2|3300|#28"
+    },
+    {
+      "name_original": "Стратегический маркетинг и бренд-менеджмент С диссертацией",
+      "name_translated": "Strategic Marketing and Brand Management - with Thesis",
+      "id": "nisantasi_university.json#master|tr|2|3850|#25"
+    },
+    {
+      "name_original": "Инженерия мехатроники",
+      "name_translated": "Mechatronics Engineering",
+      "id": "ostim_tekinik_university.json#bachelor|en|4|4800|mechatronics#0"
+    },
+    {
+      "name_original": "Компьютерная инженерия",
+      "name_translated": "Computer Engineering",
+      "id": "ostim_tekinik_university.json#bachelor|en|4|4500|computer-engineering#0"
+    },
+    {
+      "name_original": "Программная инженерия",
+      "name_translated": "Software Engineering",
+      "id": "ostim_tekinik_university.json#bachelor|en|4|4500|software-engineering#0"
+    },
+    {
+      "name_original": "Инженерия промышленных систем",
+      "name_translated": "Industrial Systems Engineering",
+      "id": "ostim_tekinik_university.json#bachelor|tr|4|3200|industrial-engineering#0"
+    },
+    {
+      "name_original": "Электроника и встраиваемые системы",
+      "name_translated": "Electronics and Embedded Systems",
+      "id": "ostim_tekinik_university.json#bachelor|tr|4|3200|electrical-electronics-engineering#0"
+    },
+    {
+      "name_original": "Аэрокосмическая инженерия",
+      "name_translated": "Aerospace Engineering",
+      "id": "ostim_tekinik_university.json#bachelor|en|4|5200|aerospace-engineering#0"
+    },
+    {
+      "name_original": "Кибербезопасность",
+      "name_translated": "Cybersecurity",
+      "id": "ostim_tekinik_university.json#bachelor|en|4|4200|cybersecurity#0"
+    },
+    {
+      "name_original": "Логистика и управление цепями поставок",
+      "name_translated": "Logistics and Supply Chain Management",
+      "id": "ostim_tekinik_university.json#bachelor|tr|4|3000|management#0"
+    },
+    {
+      "name_original": "Международная торговля и финансы",
+      "name_translated": "International Trade and Finance",
+      "id": "ostim_tekinik_university.json#bachelor|en|4|3200|business#0"
+    },
+    {
+      "name_original": "Бизнес-администрирование",
+      "name_translated": "Business Administration",
+      "id": "ostim_tekinik_university.json#bachelor|tr|4|3000|business#0"
+    },
+    {
+      "name_original": "Маркетинг и цифровые медиа",
+      "name_translated": "Marketing and Digital Media",
+      "id": "ostim_tekinik_university.json#bachelor|tr|4|3000|marketing#0"
+    },
+    {
+      "name_original": "Промышленный дизайн",
+      "name_translated": "Industrial Design",
+      "id": "ostim_tekinik_university.json#bachelor|tr|4|3000|design#0"
+    },
+    {
+      "name_original": "Мультимедиа и коммуникационный дизайн",
+      "name_translated": "Multimedia and Communication Design",
+      "id": "ostim_tekinik_university.json#bachelor|en|4|3200|design#0"
+    },
+    {
+      "name_original": "International Relations",
+      "name_translated": "International Relations",
+      "id": "ozyegin_university.json#bachelor|en|4|22000|international-relations#0"
+    },
+    {
+      "name_original": "Psychology",
+      "name_translated": "Psychology",
+      "id": "ozyegin_university.json#bachelor|en|4|22000|psychology#0"
+    },
+    {
+      "name_original": "Anthropology",
+      "name_translated": "Anthropology",
+      "id": "ozyegin_university.json#bachelor|en|4|22000|#0"
+    },
+    {
+      "name_original": "Business Administration",
+      "name_translated": "Business Administration",
+      "id": "ozyegin_university.json#bachelor|en|4|22000|business#0"
+    },
+    {
+      "name_original": "International Finance",
+      "name_translated": "International Finance",
+      "id": "ozyegin_university.json#bachelor|en|4|22000|finance#0"
+    },
+    {
+      "name_original": "Management Information Systems",
+      "name_translated": "Management Information Systems",
+      "id": "ozyegin_university.json#bachelor|en|4|22000|information-systems#0"
+    },
+    {
+      "name_original": "International Business and Trade",
+      "name_translated": "International Business and Trade",
+      "id": "ozyegin_university.json#bachelor|en|4|22000|business#1"
+    },
+    {
+      "name_original": "Economics",
+      "name_translated": "Economics",
+      "id": "ozyegin_university.json#bachelor|en|4|22000|economics#0"
+    },
+    {
+      "name_original": "Entrepreneurship",
+      "name_translated": "Entrepreneurship",
+      "id": "ozyegin_university.json#bachelor|en|4|22000|entrepreneurship#0"
+    },
+    {
+      "name_original": "Hospitality Management",
+      "name_translated": "Hospitality Management",
+      "id": "ozyegin_university.json#bachelor|en|4|22000|tourism-hospitality#0"
+    },
+    {
+      "name_original": "Gastronomy and Culinary Arts",
+      "name_translated": "Gastronomy and Culinary Arts",
+      "id": "ozyegin_university.json#bachelor|en|4|22000|tourism-hospitality#1"
+    },
+    {
+      "name_original": "Artificial Intelligence and Data Engineering",
+      "name_translated": "Artificial Intelligence and Data Engineering",
+      "id": "ozyegin_university.json#bachelor|en|4|22000|artificial-intelligence#0"
+    },
+    {
+      "name_original": "Computer Science",
+      "name_translated": "Computer Science",
+      "id": "ozyegin_university.json#bachelor|en|4|22000|computer-science#0"
+    },
+    {
+      "name_original": "Industrial Engineering",
+      "name_translated": "Industrial Engineering",
+      "id": "ozyegin_university.json#bachelor|en|4|22000|industrial-engineering#0"
+    },
+    {
+      "name_original": "Mechanical Engineering",
+      "name_translated": "Mechanical Engineering",
+      "id": "ozyegin_university.json#bachelor|en|4|22000|mechanical-engineering#0"
+    },
+    {
+      "name_original": "Civil Engineering",
+      "name_translated": "Civil Engineering",
+      "id": "ozyegin_university.json#bachelor|en|4|22000|civil-engineering#0"
+    },
+    {
+      "name_original": "Electrical and Electronics Engineering",
+      "name_translated": "Electrical and Electronics Engineering",
+      "id": "ozyegin_university.json#bachelor|en|4|22000|electrical-electronics-engineering#0"
+    },
+    {
+      "name_original": "Architecture",
+      "name_translated": "Architecture",
+      "id": "ozyegin_university.json#bachelor|en|4|22000|architecture#0"
+    },
+    {
+      "name_original": "Architecture",
+      "name_translated": "Architecture",
+      "id": "ozyegin_university.json#bachelor|tr|4|22000|architecture#0"
+    },
+    {
+      "name_original": "Industrial Design",
+      "name_translated": "Industrial Design",
+      "id": "ozyegin_university.json#bachelor|en|4|22000|design#0"
+    },
+    {
+      "name_original": "Communication Design",
+      "name_translated": "Communication Design",
+      "id": "ozyegin_university.json#bachelor|en|4|22000|design#1"
+    },
+    {
+      "name_original": "Interior Architecture and Environmental Design",
+      "name_translated": "Interior Architecture and Environmental Design",
+      "id": "ozyegin_university.json#bachelor|en|4|22000|design#2"
+    },
+    {
+      "name_original": "Law",
+      "name_translated": "Law",
+      "id": "ozyegin_university.json#bachelor|tr|4|22000|law#0"
+    },
+    {
+      "name_original": "Aviation Management",
+      "name_translated": "Aviation Management",
+      "id": "ozyegin_university.json#bachelor|en|4|22000|#1"
+    },
+    {
+      "name_original": "Professional Pilot",
+      "name_translated": "Professional Pilot",
+      "id": "ozyegin_university.json#bachelor|en|4|22000|aerospace-engineering#0"
+    },
+    {
+      "name_original": "Цифровой дизайн игр",
+      "name_translated": "Digital Game Design",
+      "id": "topkapi_university.json#bachelor|tr|4|1950|#0"
+    },
+    {
+      "name_original": "Гастрономия и кулинарное искусство",
+      "name_translated": "Gastronomy and Culinary Arts",
+      "id": "topkapi_university.json#bachelor|tr|4|2500|#0"
+    },
+    {
+      "name_original": "Архитектура интерьера и дизайн среды",
+      "name_translated": "Interior Architecture and Environmental Design",
+      "id": "topkapi_university.json#bachelor|tr|4|2500|#1"
+    },
+    {
+      "name_original": "Архитектура",
+      "name_translated": "Architecture",
+      "id": "topkapi_university.json#bachelor|tr|4|2500|#2"
+    },
+    {
+      "name_original": "Мультфильм и анимация",
+      "name_translated": "Cartoon and Animation",
+      "id": "topkapi_university.json#bachelor|tr|4|1950|#1"
+    },
+    {
+      "name_original": "Графический дизайн",
+      "name_translated": "Graphic Design",
+      "id": "topkapi_university.json#bachelor|tr|4|2250|#0"
+    },
+    {
+      "name_original": "Музыка",
+      "name_translated": "Music",
+      "id": "topkapi_university.json#bachelor|tr|4|1950|#2"
+    },
+    {
+      "name_original": "Рисование",
+      "name_translated": "Painting",
+      "id": "topkapi_university.json#bachelor|tr|4|1750|#0"
+    },
+    {
+      "name_original": "Текстиль и модный дизайн",
+      "name_translated": "Textile and Fashion Design",
+      "id": "topkapi_university.json#bachelor|tr|4|1950|#3"
+    },
+    {
+      "name_original": "Театр",
+      "name_translated": "Theatre",
+      "id": "topkapi_university.json#bachelor|tr|4|1950|#4"
+    },
+    {
+      "name_original": "Экономика",
+      "name_translated": "Economics",
+      "id": "topkapi_university.json#bachelor|tr|4|2250|#1"
+    },
+    {
+      "name_original": "Экономика",
+      "name_translated": "Economics",
+      "id": "topkapi_university.json#bachelor|en|4|2500|#0"
+    },
+    {
+      "name_original": "Авиа-менеджмент",
+      "name_translated": "Aviation Management",
+      "id": "topkapi_university.json#bachelor|tr|4|1950|#5"
+    },
+    {
+      "name_original": "Английский язык и литература",
+      "name_translated": "English Language and Literature",
+      "id": "topkapi_university.json#bachelor|en|4|2500|#1"
+    },
+    {
+      "name_original": "Устный и письменный перевод английского",
+      "name_translated": "English Translation and Interpreting",
+      "id": "topkapi_university.json#bachelor|en|4|2500|#2"
+    },
+    {
+      "name_original": "Бизнес-администрирование",
+      "name_translated": "Business Administration",
+      "id": "topkapi_university.json#bachelor|tr|4|2250|#2"
+    },
+    {
+      "name_original": "Бизнес-администрирование",
+      "name_translated": "Business Administration",
+      "id": "topkapi_university.json#bachelor|en|4|2500|#3"
+    },
+    {
+      "name_original": "Психология",
+      "name_translated": "Psychology",
+      "id": "topkapi_university.json#bachelor|tr|4|2250|#3"
+    },
+    {
+      "name_original": "Психология",
+      "name_translated": "Psychology",
+      "id": "topkapi_university.json#bachelor|en|4|2500|#4"
+    },
+    {
+      "name_original": "Политология и международные отношения",
+      "name_translated": "Political Science and International Relations",
+      "id": "topkapi_university.json#bachelor|en|4|2500|#5"
+    },
+    {
+      "name_original": "История",
+      "name_translated": "History",
+      "id": "topkapi_university.json#bachelor|tr|4|1950|#6"
+    },
+    {
+      "name_original": "Международная торговля и бизнес",
+      "name_translated": "International Trade and Business",
+      "id": "topkapi_university.json#bachelor|tr|4|2250|#4"
+    },
+    {
+      "name_original": "Международная торговля и бизнес",
+      "name_translated": "International Trade and Business",
+      "id": "topkapi_university.json#bachelor|en|4|2500|#6"
+    },
+    {
+      "name_original": "Управление информационными системами",
+      "name_translated": "Management Information Systems",
+      "id": "topkapi_university.json#bachelor|tr|4|2250|#5"
+    },
+    {
+      "name_original": "Управление информационными системами",
+      "name_translated": "Management Information Systems",
+      "id": "topkapi_university.json#bachelor|en|4|2500|#7"
+    },
+    {
+      "name_original": "Кинодизайн и режиссура",
+      "name_translated": "Film Design and Directing",
+      "id": "topkapi_university.json#bachelor|tr|4|1750|#1"
+    },
+    {
+      "name_original": "Связь с общественностью и реклама",
+      "name_translated": "Public Relations and Advertising",
+      "id": "topkapi_university.json#bachelor|tr|4|1950|#7"
+    },
+    {
+      "name_original": "Дизайн визуальных коммуникаций",
+      "name_translated": "Visual Communication Design",
+      "id": "topkapi_university.json#bachelor|tr|4|1750|#2"
+    },
+    {
+      "name_original": "Радио, телевидение и кино",
+      "name_translated": "Radio, Television and Cinema",
+      "id": "topkapi_university.json#bachelor|tr|4|1950|#8"
+    },
+    {
+      "name_original": "Новые медиа и коммуникации",
+      "name_translated": "New Media and Communication",
+      "id": "topkapi_university.json#bachelor|tr|4|1950|#9"
+    },
+    {
+      "name_original": "Философия",
+      "name_translated": "Philosophy",
+      "id": "topkapi_university.json#bachelor|en|4|1750|#0"
+    },
+    {
+      "name_original": "Социология",
+      "name_translated": "Sociology",
+      "id": "topkapi_university.json#bachelor|en|4|1750|#1"
+    },
+    {
+      "name_original": "Компьютерная инженерия",
+      "name_translated": "Computer Engineering",
+      "id": "topkapi_university.json#bachelor|tr|4|3000|#0"
+    },
+    {
+      "name_original": "Компьютерная инженерия",
+      "name_translated": "Computer Engineering",
+      "id": "topkapi_university.json#bachelor|en|4|3250|#0"
+    },
+    {
+      "name_original": "Инженерия информационных систем",
+      "name_translated": "Information Systems Engineering",
+      "id": "topkapi_university.json#bachelor|tr|4|3000|#1"
+    },
+    {
+      "name_original": "Электро-электротехника",
+      "name_translated": "Electrical and Electronics Engineering",
+      "id": "topkapi_university.json#bachelor|tr|4|3000|#2"
+    },
+    {
+      "name_original": "Электро-электротехника",
+      "name_translated": "Electrical and Electronics Engineering",
+      "id": "topkapi_university.json#bachelor|en|4|3250|#1"
+    },
+    {
+      "name_original": "Инженерия промышленного производства",
+      "name_translated": "Industrial Production Engineering",
+      "id": "topkapi_university.json#bachelor|tr|4|3000|#3"
+    },
+    {
+      "name_original": "Программная инженерия",
+      "name_translated": "Software Engineering",
+      "id": "topkapi_university.json#bachelor|tr|4|3000|#4"
+    },
+    {
+      "name_original": "Медсестринское дело",
+      "name_translated": "Nursing",
+      "id": "topkapi_university.json#bachelor|tr|4|3250|#0"
+    },
+    {
+      "name_original": "Коуч-тренинг",
+      "name_translated": "Coaching Training",
+      "id": "topkapi_university.json#bachelor|tr|4|1950|#10"
+    },
+    {
+      "name_original": "Рекреация",
+      "name_translated": "Recreation",
+      "id": "topkapi_university.json#bachelor|tr|4|1950|#11"
+    },
+    {
+      "name_original": "Спортивный менеджмент",
+      "name_translated": "Sports Management",
+      "id": "topkapi_university.json#bachelor|tr|4|1950|#12"
+    },
+    {
+      "name_original": "Судебные науки",
+      "name_translated": "Forensic Sciences",
+      "id": "uskudar_university.json#bachelor|tr|4|3600|#0"
+    },
+    {
+      "name_original": "Питание и диетология",
+      "name_translated": "Nutrition and Dietetics",
+      "id": "uskudar_university.json#bachelor|tr|4|3600|public-health#0"
+    },
+    {
+      "name_original": "Компьютерная инженерия",
+      "name_translated": "Computer Engineering",
+      "id": "uskudar_university.json#bachelor|en|4|5600|computer-engineering#0"
+    },
+    {
+      "name_original": "Биомедицинская инженерия",
+      "name_translated": "Biomedical Engineering",
+      "id": "uskudar_university.json#bachelor|en|4|5000|biotechnology#0"
+    },
+    {
+      "name_original": "Стоматология",
+      "name_translated": "Dentistry",
+      "id": "uskudar_university.json#bachelor|tr|5|16000|dentistry#0"
+    },
+    {
+      "name_original": "Стоматология",
+      "name_translated": "Dentistry",
+      "id": "uskudar_university.json#bachelor|en|5|22000|dentistry#0"
+    },
+    {
+      "name_original": "Акушерство",
+      "name_translated": "Midwifery",
+      "id": "uskudar_university.json#bachelor|tr|4|3600|public-health#1"
+    },
+    {
+      "name_original": "Электротехника и электроника",
+      "name_translated": "Electrical and Electronics Engineering",
+      "id": "uskudar_university.json#bachelor|en|4|5000|electrical-electronics-engineering#0"
+    },
+    {
+      "name_original": "Промышленная инженерия",
+      "name_translated": "Industrial Engineering",
+      "id": "uskudar_university.json#bachelor|en|4|4400|industrial-engineering#0"
+    },
+    {
+      "name_original": "Философия",
+      "name_translated": "Philosophy",
+      "id": "uskudar_university.json#bachelor|tr|4|3600|philosophy#0"
+    },
+    {
+      "name_original": "Физиотерапия и реабилитация",
+      "name_translated": "Physiotherapy and Rehabilitation",
+      "id": "uskudar_university.json#bachelor|tr|4|3600|public-health#2"
+    },
+    {
+      "name_original": "Журналистика",
+      "name_translated": "Journalism",
+      "id": "uskudar_university.json#bachelor|tr|4|3600|journalism-media#0"
+    },
+    {
+      "name_original": "Дизайн визуальных коммуникаций",
+      "name_translated": "Visual Communication Design",
+      "id": "uskudar_university.json#bachelor|tr|4|3600|design#0"
+    },
+    {
+      "name_original": "Связи с общественностью и реклама",
+      "name_translated": "Public Relations and Advertising",
+      "id": "uskudar_university.json#bachelor|tr|4|3600|communication#0"
+    },
+    {
+      "name_original": "Медсестринское дело",
+      "name_translated": "Nursing",
+      "id": "uskudar_university.json#bachelor|tr|4|3600|nursing#0"
+    },
+    {
+      "name_original": "Логопедия и речевая терапия",
+      "name_translated": "Speech and Language Therapy",
+      "id": "uskudar_university.json#bachelor|tr|4|3600|#1"
+    },
+    {
+      "name_original": "Молекулярная биология и генетика",
+      "name_translated": "Molecular Biology and Genetics",
+      "id": "uskudar_university.json#bachelor|tr|4|3600|biology#0"
+    },
+    {
+      "name_original": "Молекулярная биология и генетика",
+      "name_translated": "Molecular Biology and Genetics",
+      "id": "uskudar_university.json#bachelor|en|4|5000|biology#0"
+    },
+    {
+      "name_original": "Аудиология",
+      "name_translated": "Audiology",
+      "id": "uskudar_university.json#bachelor|tr|4|3600|#2"
+    },
+    {
+      "name_original": "Перфузия",
+      "name_translated": "Perfusion",
+      "id": "uskudar_university.json#bachelor|tr|4|3600|#3"
+    },
+    {
+      "name_original": "Психология",
+      "name_translated": "Psychology",
+      "id": "uskudar_university.json#bachelor|tr|4|3600|psychology#0"
+    },
+    {
+      "name_original": "Психология",
+      "name_translated": "Psychology",
+      "id": "uskudar_university.json#bachelor|en|4|5600|psychology#0"
+    },
+    {
+      "name_original": "Радио, телевидение и кино",
+      "name_translated": "Radio, Television and Cinema",
+      "id": "uskudar_university.json#bachelor|tr|4|3600|journalism-media#1"
+    },
+    {
+      "name_original": "Реклама",
+      "name_translated": "Advertising",
+      "id": "uskudar_university.json#bachelor|tr|4|3600|marketing#0"
+    },
+    {
+      "name_original": "Управление здравоохранением",
+      "name_translated": "Healthcare Management",
+      "id": "uskudar_university.json#bachelor|tr|4|3600|public-health#3"
+    },
+    {
+      "name_original": "Политология и международные отношения",
+      "name_translated": "Political Science and International Relations",
+      "id": "uskudar_university.json#bachelor|tr|4|3600|international-relations#0"
+    },
+    {
+      "name_original": "Политология и международные отношения",
+      "name_translated": "Political Science and International Relations",
+      "id": "uskudar_university.json#bachelor|en|4|4400|international-relations#0"
+    },
+    {
+      "name_original": "Социальная работа",
+      "name_translated": "Social Work",
+      "id": "uskudar_university.json#bachelor|tr|4|3600|#4"
+    },
+    {
+      "name_original": "Социология",
+      "name_translated": "Sociology",
+      "id": "uskudar_university.json#bachelor|tr|4|3600|sociology#0"
+    },
+    {
+      "name_original": "История",
+      "name_translated": "History",
+      "id": "uskudar_university.json#bachelor|tr|4|3600|history#0"
+    },
+    {
+      "name_original": "Медицина",
+      "name_translated": "Medicine",
+      "id": "uskudar_university.json#bachelor|tr|6|18000|medicine#0"
+    },
+    {
+      "name_original": "Медицина",
+      "name_translated": "Medicine",
+      "id": "uskudar_university.json#bachelor|en|6|24000|medicine#0"
+    },
+    {
+      "name_original": "Программная инженерия",
+      "name_translated": "Software Engineering",
+      "id": "uskudar_university.json#bachelor|en|4|5600|software-engineering#0"
+    },
+    {
+      "name_original": "Новые медиа и коммуникации",
+      "name_translated": "New Media and Communication",
+      "id": "uskudar_university.json#bachelor|tr|4|3600|communication#1"
+    },
+    {
+      "name_original": "Мультфильм и анимация",
+      "name_translated": "Cartoon and Animation",
+      "id": "uskudar_university.json#bachelor|tr|4|3600|design#1"
+    },
+    {
+      "name_original": "Детское развитие",
+      "name_translated": "Child Development",
+      "id": "uskudar_university.json#bachelor|tr|4|3600|education#0"
+    },
+    {
+      "name_original": "Английский перевод и устный перевод",
+      "name_translated": "English Translation and Interpreting",
+      "id": "uskudar_university.json#bachelor|en|4|4400|languages-linguistics#0"
+    },
+    {
+      "name_original": "Английский перевод и устный перевод",
+      "name_translated": "English Translation and Interpreting",
+      "id": "uskudar_university.json#bachelor|tr|4|4400|languages-linguistics#0"
+    },
+    {
+      "name_original": "Охрана труда и техника безопасности",
+      "name_translated": "Occupational Health and Safety",
+      "id": "uskudar_university.json#bachelor|tr|4|3600|public-health#4"
+    },
+    {
+      "name_original": "Медицина",
+      "name_translated": "Medicine",
+      "id": "yeni_yuzyil_university.json#bachelor|tr|6|13000|medicine#0"
+    },
+    {
+      "name_original": "Стоматология",
+      "name_translated": "Dentistry",
+      "id": "yeni_yuzyil_university.json#bachelor|tr|5|13000|dentistry#0"
+    },
+    {
+      "name_original": "Фармация",
+      "name_translated": "Pharmacy",
+      "id": "yeni_yuzyil_university.json#bachelor|tr|5|7500|pharmacy#0"
+    },
+    {
+      "name_original": "Биомедицинская инженерия",
+      "name_translated": "Biomedical Engineering",
+      "id": "yeni_yuzyil_university.json#bachelor|tr|4|2500|biotechnology#0"
+    },
+    {
+      "name_original": "Электротехника и электроника",
+      "name_translated": "Electrical and Electronics Engineering",
+      "id": "yeni_yuzyil_university.json#bachelor|tr|4|2500|electrical-electronics-engineering#0"
+    },
+    {
+      "name_original": "Дизайн интерьера и предметно-пространственной среды",
+      "name_translated": "Interior Architecture and Environmental Design",
+      "id": "yeni_yuzyil_university.json#bachelor|tr|4|2500|design#0"
+    },
+    {
+      "name_original": "Архитектура",
+      "name_translated": "Architecture",
+      "id": "yeni_yuzyil_university.json#bachelor|tr|4|2500|architecture#0"
+    },
+    {
+      "name_original": "Питание и диетология",
+      "name_translated": "Nutrition and Dietetics",
+      "id": "yeni_yuzyil_university.json#bachelor|en|4|2500|public-health#0"
+    },
+    {
+      "name_original": "Физиотерапия и реабилитация",
+      "name_translated": "Physiotherapy and Rehabilitation",
+      "id": "yeni_yuzyil_university.json#bachelor|tr|4|2500|public-health#0"
+    },
+    {
+      "name_original": "Медсестринское дело",
+      "name_translated": "Nursing",
+      "id": "yeni_yuzyil_university.json#bachelor|tr|4|2500|nursing#0"
+    },
+    {
+      "name_original": "Охрана труда и техника безопасности",
+      "name_translated": "Occupational Health and Safety",
+      "id": "yeni_yuzyil_university.json#bachelor|tr|4|2500|#0"
+    },
+    {
+      "name_original": "Управление здравоохранением",
+      "name_translated": "Healthcare Management",
+      "id": "yeni_yuzyil_university.json#bachelor|tr|4|2500|management#0"
+    },
+    {
+      "name_original": "Право",
+      "name_translated": "Law",
+      "id": "yeni_yuzyil_university.json#bachelor|tr|4|2500|law#0"
+    },
+    {
+      "name_original": "Бизнес-администрирование",
+      "name_translated": "Business Administration",
+      "id": "yeni_yuzyil_university.json#bachelor|tr|4|2500|business#0"
+    },
+    {
+      "name_original": "Политология и международные отношения",
+      "name_translated": "Political Science and International Relations",
+      "id": "yeni_yuzyil_university.json#bachelor|tr|4|2500|international-relations#0"
+    },
+    {
+      "name_original": "Международная торговля и логистика",
+      "name_translated": "International Trade and Logistics",
+      "id": "yeni_yuzyil_university.json#bachelor|tr|4|2500|business#1"
+    },
+    {
+      "name_original": "Английский язык и литература",
+      "name_translated": "English Language and Literature",
+      "id": "yeni_yuzyil_university.json#bachelor|en|4|2300|languages-linguistics#0"
+    },
+    {
+      "name_original": "Перевод и устный перевод — английский",
+      "name_translated": "Translation and Interpreting - English",
+      "id": "yeni_yuzyil_university.json#bachelor|en|4|2300|languages-linguistics#1"
+    },
+    {
+      "name_original": "Молекулярная биология и генетика",
+      "name_translated": "Molecular Biology and Genetics",
+      "id": "yeni_yuzyil_university.json#bachelor|tr|4|2300|biology#0"
+    },
+    {
+      "name_original": "Психология",
+      "name_translated": "Psychology",
+      "id": "yeni_yuzyil_university.json#bachelor|tr|4|2300|psychology#0"
+    },
+    {
+      "name_original": "Турецкий язык и литература",
+      "name_translated": "Turkish Language and Literature",
+      "id": "yeni_yuzyil_university.json#bachelor|tr|4|2300|#0"
+    },
+    {
+      "name_original": "Графический дизайн",
+      "name_translated": "Graphic Design",
+      "id": "yeni_yuzyil_university.json#bachelor|tr|4|2300|design#0"
+    },
+    {
+      "name_original": "Сценическое искусство",
+      "name_translated": "Performing Arts",
+      "id": "yeni_yuzyil_university.json#bachelor|tr|4|2300|theatre#0"
+    },
+    {
+      "name_original": "Визуальная коммуникация и дизайн",
+      "name_translated": "Visual Communication and Design",
+      "id": "yeni_yuzyil_university.json#bachelor|tr|4|2300|design#1"
+    },
+    {
+      "name_original": "Связи с общественностью и реклама",
+      "name_translated": "Public Relations and Advertising",
+      "id": "yeni_yuzyil_university.json#bachelor|tr|4|2300|communication#0"
+    },
+    {
+      "name_original": "Радио, кино и телевидение",
+      "name_translated": "Radio, Cinema and Television",
+      "id": "yeni_yuzyil_university.json#bachelor|tr|4|2300|journalism-media#0"
+    },
+    {
+      "name_original": "Новые медиа и коммуникации",
+      "name_translated": "New Media and Communication",
+      "id": "yeni_yuzyil_university.json#bachelor|tr|4|2300|journalism-media#1"
+    },
+    {
+      "name_original": "Тренерское образование",
+      "name_translated": "Coaching Education",
+      "id": "yeni_yuzyil_university.json#bachelor|tr|4|2300|#1"
+    },
+    {
+      "name_original": "Биомедицинская инженерия — с тезисом",
+      "name_translated": "Biomedical Engineering - with Thesis",
+      "id": "yeni_yuzyil_university.json#master|tr|2|4000|biotechnology#0"
+    },
+    {
+      "name_original": "Биомедицинская инженерия — без тезиса",
+      "name_translated": "Biomedical Engineering - without Thesis",
+      "id": "yeni_yuzyil_university.json#master|tr|2|3500|biotechnology#0"
+    },
+    {
+      "name_original": "Охрана труда и техника безопасности — с тезисом",
+      "name_translated": "Occupational Health and Safety - with Thesis",
+      "id": "yeni_yuzyil_university.json#master|tr|2|4000|#0"
+    },
+    {
+      "name_original": "Охрана труда и техника безопасности — без тезиса",
+      "name_translated": "Occupational Health and Safety - without Thesis",
+      "id": "yeni_yuzyil_university.json#master|tr|2|3500|#0"
+    },
+    {
+      "name_original": "Управление здравоохранением — с тезисом",
+      "name_translated": "Healthcare Management - with Thesis",
+      "id": "yeni_yuzyil_university.json#master|tr|2|4000|management#0"
+    },
+    {
+      "name_original": "Управление здравоохранением — без тезиса",
+      "name_translated": "Healthcare Management - without Thesis",
+      "id": "yeni_yuzyil_university.json#master|tr|2|3500|management#0"
+    },
+    {
+      "name_original": "Клиническая эмбриология — с тезисом",
+      "name_translated": "Clinical Embryology - with Thesis",
+      "id": "yeni_yuzyil_university.json#master|tr|2|4000|#1"
+    },
+    {
+      "name_original": "Физическое воспитание и спорт — с тезисом",
+      "name_translated": "Physical Education and Sports - with Thesis",
+      "id": "yeni_yuzyil_university.json#master|tr|2|4000|#2"
+    },
+    {
+      "name_original": "Экономика и финансы — с тезисом",
+      "name_translated": "Economics and Finance - with Thesis",
+      "id": "yeni_yuzyil_university.json#master|tr|2|4000|finance#0"
+    },
+    {
+      "name_original": "Экономика и финансы — без тезиса",
+      "name_translated": "Economics and Finance - without Thesis",
+      "id": "yeni_yuzyil_university.json#master|tr|2|3500|finance#0"
+    },
+    {
+      "name_original": "Управление коммуникациями — с тезисом",
+      "name_translated": "Communication Management - with Thesis",
+      "id": "yeni_yuzyil_university.json#master|tr|2|4000|communication#0"
+    },
+    {
+      "name_original": "Управление коммуникациями — без тезиса",
+      "name_translated": "Communication Management - without Thesis",
+      "id": "yeni_yuzyil_university.json#master|tr|2|3500|communication#0"
+    },
+    {
+      "name_original": "Английский язык и литература — с тезисом",
+      "name_translated": "English Language and Literature - with Thesis",
+      "id": "yeni_yuzyil_university.json#master|en|2|4000|languages-linguistics#0"
+    },
+    {
+      "name_original": "Бизнес-администрирование — с тезисом",
+      "name_translated": "Business Administration - with Thesis",
+      "id": "yeni_yuzyil_university.json#master|tr|2|4000|business#0"
+    },
+    {
+      "name_original": "Бизнес-администрирование — без тезиса",
+      "name_translated": "Business Administration - without Thesis",
+      "id": "yeni_yuzyil_university.json#master|tr|2|3500|business#0"
+    },
+    {
+      "name_original": "Публичное право — без тезиса",
+      "name_translated": "Public Law - without Thesis",
+      "id": "yeni_yuzyil_university.json#master|tr|2|3500|law#0"
+    },
+    {
+      "name_original": "Частное право — без тезиса",
+      "name_translated": "Private Law - without Thesis",
+      "id": "yeni_yuzyil_university.json#master|tr|2|3500|law#1"
+    },
+    {
+      "name_original": "Реставрация и технология живописи — с тезисом",
+      "name_translated": "Restoration and Painting Technology - with Thesis",
+      "id": "yeni_yuzyil_university.json#master|tr|2|4000|fine-arts#0"
+    },
+    {
+      "name_original": "Реставрация и технология живописи — без тезиса",
+      "name_translated": "Restoration and Painting Technology - without Thesis",
+      "id": "yeni_yuzyil_university.json#master|tr|2|3500|fine-arts#0"
+    },
+    {
+      "name_original": "Политология и международные отношения — с тезисом",
+      "name_translated": "Political Science and International Relations - with Thesis",
+      "id": "yeni_yuzyil_university.json#master|tr|2|4000|international-relations#0"
+    },
+    {
+      "name_original": "Политология и международные отношения — без тезиса",
+      "name_translated": "Political Science and International Relations - without Thesis",
+      "id": "yeni_yuzyil_university.json#master|tr|2|3500|international-relations#0"
+    },
+    {
+      "name_original": "Англо‑американская литература и креативное письмо — с тезисом",
+      "name_translated": "Anglo-American Literature and Creative Writing - with Thesis",
+      "id": "yeni_yuzyil_university.json#master|en|2|4000|languages-linguistics#1"
+    },
+    {
+      "name_original": "Англо‑американская литература и креативное письмо — без тезиса",
+      "name_translated": "Anglo-American Literature and Creative Writing - without Thesis",
+      "id": "yeni_yuzyil_university.json#master|en|2|3500|languages-linguistics#0"
+    }
+  ]
+}

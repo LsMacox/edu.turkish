@@ -1,0 +1,86 @@
+[
+  { "code": "visas", "order": 1, "translations": [{ "locale": "ru", "title": "Визы" }] },
+  { "code": "applications", "order": 2, "translations": [{ "locale": "ru", "title": "Заявки" }] },
+  { "code": "scholarships", "order": 3, "translations": [{ "locale": "ru", "title": "Стипендии" }] },
+  { "code": "cost", "order": 4, "translations": [{ "locale": "ru", "title": "Стоимость" }] },
+  { "code": "life", "order": 5, "translations": [{ "locale": "ru", "title": "Жизнь в Турции" }] },
+  { "code": "exams", "order": 6, "translations": [{ "locale": "ru", "title": "Экзамены" }] },
+  {
+    "code": "medical",
+    "order": 10,
+    "isProgram": true,
+    "translations": [
+      { "locale": "ru", "title": "Медицинские специальности" },
+      { "locale": "en", "title": "Medical Specialties" },
+      { "locale": "kk", "title": "Медициналық мамандықтар" },
+      { "locale": "tr", "title": "Tıp Bölümleri" }
+    ]
+  },
+  {
+    "code": "business",
+    "order": 11,
+    "isProgram": true,
+    "translations": [
+      { "locale": "ru", "title": "Бизнес специальности" },
+      { "locale": "en", "title": "Business Specialties" },
+      { "locale": "kk", "title": "Бизнес мамандықтары" },
+      { "locale": "tr", "title": "İşletme Bölümleri" }
+    ]
+  },
+  {
+    "code": "engineering",
+    "order": 12,
+    "isProgram": true,
+    "translations": [
+      { "locale": "ru", "title": "Инженерные специальности" },
+      { "locale": "en", "title": "Engineering Specialties" },
+      { "locale": "kk", "title": "Инженерлік мамандықтар" },
+      { "locale": "tr", "title": "Mühendislik Bölümleri" }
+    ]
+  },
+  {
+    "code": "social",
+    "order": 13,
+    "isProgram": true,
+    "translations": [
+      { "locale": "ru", "title": "Социальные науки" },
+      { "locale": "en", "title": "Social Sciences" },
+      { "locale": "kk", "title": "Әлеуметтік ғылымдар" },
+      { "locale": "tr", "title": "Sosyal Bilimler" }
+    ]
+  },
+  {
+    "code": "creative",
+    "order": 14,
+    "isProgram": true,
+    "translations": [
+      { "locale": "ru", "title": "Творческие специальности" },
+      { "locale": "en", "title": "Creative Specialties" },
+      { "locale": "kk", "title": "Шығармашылық мамандықтар" },
+      { "locale": "tr", "title": "Yaratıcı Bölümler" }
+    ]
+  },
+  {
+    "code": "aviation",
+    "order": 15,
+    "isProgram": true,
+    "translations": [
+      { "locale": "ru", "title": "Лётные специальности" },
+      { "locale": "en", "title": "Aviation Specialties" },
+      { "locale": "kk", "title": "Ұшу мамандықтары" },
+      { "locale": "tr", "title": "Havacılık Bölümleri" }
+    ]
+  },
+  {
+    "code": "applied",
+    "order": 16,
+    "isProgram": true,
+    "translations": [
+      { "locale": "ru", "title": "Прикладные специальности" },
+      { "locale": "en", "title": "Applied Specialties" },
+      { "locale": "kk", "title": "Қолданбалы мамандықтар" },
+      { "locale": "tr", "title": "Uygulamalı Bölümler" }
+    ]
+  }
+]
+

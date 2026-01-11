@@ -52,55 +52,55 @@
       {
         "name": "Библиотека",
         "description": "Современная библиотека с читальными залами и доступом к электронным ресурсам.",
-        "icon": "mdi-library",
+        "icon": "ph:books",
         "is_active": true
       },
       {
         "name": "Лаборатории",
         "description": "Учебные и исследовательские лаборатории для инженерных и медицинских направлений.",
-        "icon": "mdi-flask",
+        "icon": "ph:flask",
         "is_active": true
       },
       {
         "name": "Спортивный центр",
         "description": "Залы, фитнес, игровые площадки, инфраструктура для спортивных программ.",
-        "icon": "mdi-dumbbell",
+        "icon": "ph:barbell",
         "is_active": true
       },
       {
         "name": "Медицинские клиники-партнёры",
         "description": "Практика и стажировки на базе клиник и медицинских учреждений-партнёров.",
-        "icon": "mdi-hospital-building",
+        "icon": "ph:first-aid",
         "is_active": true
       },
       {
         "name": "Общежития и резиденции",
         "description": "Общежития и партнёрские резиденции рядом с кампусом.",
-        "icon": "mdi-home-city",
+        "icon": "ph:buildings",
         "is_active": true
       },
       {
         "name": "Кафе и столовые",
         "description": "Питание на кампусе, зоны отдыха и пространства для общения.",
-        "icon": "mdi-silverware-fork-knife",
+        "icon": "ph:fork-knife",
         "is_active": true
       },
       {
         "name": "Зоны для групповой работы",
         "description": "Коворкинги, пространства для коллаборации и самостоятельной работы.",
-        "icon": "mdi-account-group",
+        "icon": "ph:users-three",
         "is_active": true
       },
       {
         "name": "Высокоскоростной Wi‑Fi",
         "description": "Быстрый интернет по всему кампусу.",
-        "icon": "mdi-wifi",
+        "icon": "ph:wifi-high",
         "is_active": true
       },
       {
         "name": "Студенческие клубы",
         "description": "Объединения по интересам, мероприятия и студенческие инициативы.",
-        "icon": "mdi-account-multiple-outline",
+        "icon": "ph:users-three",
         "is_active": true
       }
     ]
@@ -122,30 +122,42 @@
       {
         "name": "Паспорт",
         "description": "Страница с данными",
-        "format_requirements": ["скан PDF/JPEG"]
+        "format_requirements": [
+          "скан PDF/JPEG"
+        ]
       },
       {
         "name": "Аттестат о среднем образовании",
         "description": "С переводом на турецкий или английский (при необходимости)",
-        "format_requirements": ["PDF"]
+        "format_requirements": [
+          "PDF"
+        ]
       },
       {
         "name": "Выписка оценок/транскрипт",
         "description": "За все годы обучения",
-        "format_requirements": ["PDF"]
+        "format_requirements": [
+          "PDF"
+        ]
       },
       {
         "name": "Сертификат владения языком",
         "description": "TOEFL/другой сертификат или справка об уровне",
-        "format_requirements": ["PDF"]
+        "format_requirements": [
+          "PDF"
+        ]
       },
       {
         "name": "Фотография 3×4",
-        "format_requirements": ["JPEG/PNG"]
+        "format_requirements": [
+          "JPEG/PNG"
+        ]
       },
       {
         "name": "Резюме (для магистратуры)",
-        "format_requirements": ["PDF"]
+        "format_requirements": [
+          "PDF"
+        ]
       }
     ],
     "scholarships": [
@@ -153,224 +165,226 @@
         "name": "Скидка на обучение",
         "type": "university",
         "coverage_percentage": 55,
-        "eligibility_criteria": ["Скидка действует на все направления обучения"]
+        "eligibility_criteria": [
+          "Скидка действует на все направления обучения"
+        ]
       }
     ]
   },
   "programs": [
     {
       "degree_type": "bachelor",
-      "name": "Экономика и финансы",
+      "name": "Economics and Finance",
       "language": "en",
       "tuition_per_year": 4200,
       "duration_years": 4
     },
     {
       "degree_type": "bachelor",
-      "name": "Английский язык и литература",
+      "name": "English Language and Literature",
       "language": "en",
       "tuition_per_year": 4200,
       "duration_years": 4
     },
     {
       "degree_type": "bachelor",
-      "name": "Информационные системы управления",
+      "name": "Management Information Systems",
       "language": "en",
       "tuition_per_year": 4200,
       "duration_years": 4
     },
     {
       "degree_type": "bachelor",
-      "name": "Политология и международные отношения",
+      "name": "Political Science and International Relations",
       "language": "en",
       "tuition_per_year": 4200,
       "duration_years": 4
     },
     {
       "degree_type": "bachelor",
-      "name": "Бизнес-администрирование",
+      "name": "Business Administration",
       "language": "en",
       "tuition_per_year": 4200,
       "duration_years": 4
     },
     {
       "degree_type": "bachelor",
-      "name": "Психология",
+      "name": "Psychology",
       "language": "en",
       "tuition_per_year": 4200,
       "duration_years": 4
     },
     {
       "degree_type": "bachelor",
-      "name": "Психология",
+      "name": "Psychology",
       "language": "tr",
       "tuition_per_year": 3150,
       "duration_years": 4
     },
     {
       "degree_type": "bachelor",
-      "name": "Компьютерная инженерия",
+      "name": "Computer Engineering",
       "language": "en",
       "tuition_per_year": 4200,
       "duration_years": 4
     },
     {
       "degree_type": "bachelor",
-      "name": "Программная инженерия",
+      "name": "Software Engineering",
       "language": "en",
       "tuition_per_year": 4200,
       "duration_years": 4
     },
     {
       "degree_type": "bachelor",
-      "name": "Индустриальная инженерия",
+      "name": "Industrial Engineering",
       "language": "en",
       "tuition_per_year": 4200,
       "duration_years": 4
     },
     {
       "degree_type": "bachelor",
-      "name": "Электро- и электроника-инженерия",
+      "name": "Electrical and Electronics Engineering",
       "language": "en",
       "tuition_per_year": 4200,
       "duration_years": 4
     },
     {
       "degree_type": "bachelor",
-      "name": "Дизайн интерьера и окружающей среды",
+      "name": "Interior Architecture and Environmental Design",
       "language": "en",
       "tuition_per_year": 4200,
       "duration_years": 4
     },
     {
       "degree_type": "bachelor",
-      "name": "Дизайн интерьера и окружающей среды",
+      "name": "Interior Architecture and Environmental Design",
       "language": "tr",
       "tuition_per_year": 3150,
       "duration_years": 4
     },
     {
       "degree_type": "bachelor",
-      "name": "Архитектура",
+      "name": "Architecture",
       "language": "tr",
       "tuition_per_year": 3150,
       "duration_years": 4
     },
     {
       "degree_type": "bachelor",
-      "name": "Новые медиа и коммуникация",
+      "name": "New Media and Communication",
       "language": "tr",
       "tuition_per_year": 3150,
       "duration_years": 4
     },
     {
       "degree_type": "bachelor",
-      "name": "Связи с общественностью и реклама",
+      "name": "Public Relations and Advertising",
       "language": "tr",
       "tuition_per_year": 3150,
       "duration_years": 4
     },
     {
       "degree_type": "bachelor",
-      "name": "Радио, телевидение и кино",
+      "name": "Radio, Television and Cinema",
       "language": "tr",
       "tuition_per_year": 3150,
       "duration_years": 4
     },
     {
       "degree_type": "bachelor",
-      "name": "Эрготерапия",
+      "name": "Occupational Therapy",
       "language": "tr",
       "tuition_per_year": 3150,
       "duration_years": 4
     },
     {
       "degree_type": "bachelor",
-      "name": "Медсестринское дело",
+      "name": "Nursing",
       "language": "tr",
       "tuition_per_year": 3150,
       "duration_years": 4
     },
     {
       "degree_type": "bachelor",
-      "name": "Медсестринское дело",
+      "name": "Nursing",
       "language": "en",
       "tuition_per_year": 3150,
       "duration_years": 4
     },
     {
       "degree_type": "bachelor",
-      "name": "Питание и диетология",
+      "name": "Nutrition and Dietetics",
       "language": "tr",
       "tuition_per_year": 3150,
       "duration_years": 4
     },
     {
       "degree_type": "bachelor",
-      "name": "Акушерство",
+      "name": "Midwifery",
       "language": "tr",
       "tuition_per_year": 3150,
       "duration_years": 4
     },
     {
       "degree_type": "bachelor",
-      "name": "Физиотерапия и реабилитация",
+      "name": "Physiotherapy and Rehabilitation",
       "language": "en",
       "tuition_per_year": 4200,
       "duration_years": 4
     },
     {
       "degree_type": "bachelor",
-      "name": "Физиотерапия и реабилитация",
+      "name": "Physiotherapy and Rehabilitation",
       "language": "tr",
       "tuition_per_year": 3150,
       "duration_years": 4
     },
     {
       "degree_type": "bachelor",
-      "name": "Логопедия",
+      "name": "Speech and Language Therapy",
       "language": "tr",
       "tuition_per_year": 3150,
       "duration_years": 4
     },
     {
       "degree_type": "bachelor",
-      "name": "Фармация",
+      "name": "Pharmacy",
       "language": "en",
       "tuition_per_year": 8000,
       "duration_years": 5
     },
     {
       "degree_type": "bachelor",
-      "name": "Фармация",
+      "name": "Pharmacy",
       "language": "tr",
       "tuition_per_year": 6500,
       "duration_years": 5
     },
     {
       "degree_type": "bachelor",
-      "name": "Науки о спорте и упражнениях",
+      "name": "Sport and Exercise Sciences",
       "language": "tr",
       "tuition_per_year": 3150,
       "duration_years": 4
     },
     {
       "degree_type": "bachelor",
-      "name": "Физическое воспитание и спорт",
+      "name": "Physical Education and Sports",
       "language": "tr",
       "tuition_per_year": 3150,
       "duration_years": 4
     },
     {
       "degree_type": "bachelor",
-      "name": "Спортивный коучинг",
+      "name": "Sports Coaching",
       "language": "tr",
       "tuition_per_year": 3150,
       "duration_years": 4
     },
     {
       "degree_type": "bachelor",
-      "name": "Спортивный менеджмент",
+      "name": "Sports Management",
       "language": "tr",
       "tuition_per_year": 3150,
       "duration_years": 4
@@ -378,7 +392,7 @@
     {
       "degree_type": "master",
       "name": "MBA",
-      "description": "с диссертацией",
+      "description": "with thesis",
       "language": "en",
       "tuition_per_year": 3300,
       "duration_years": 2
@@ -386,7 +400,7 @@
     {
       "degree_type": "master",
       "name": "MBA",
-      "description": "без диссертации",
+      "description": "without thesis",
       "language": "en",
       "tuition_per_year": 2250,
       "duration_years": 2
@@ -394,7 +408,7 @@
     {
       "degree_type": "master",
       "name": "MBA",
-      "description": "с диссертацией",
+      "description": "with thesis",
       "language": "tr",
       "tuition_per_year": 3300,
       "duration_years": 2
@@ -402,71 +416,71 @@
     {
       "degree_type": "master",
       "name": "MBA",
-      "description": "без диссертации",
+      "description": "without thesis",
       "language": "tr",
       "tuition_per_year": 2250,
       "duration_years": 2
     },
     {
       "degree_type": "master",
-      "name": "Политология и международные отношения",
-      "description": "с диссертацией",
+      "name": "Political Science and International Relations",
+      "description": "with thesis",
       "language": "en",
       "tuition_per_year": 3300,
       "duration_years": 2
     },
     {
       "degree_type": "master",
-      "name": "Политология и международные отношения",
-      "description": "без диссертации",
+      "name": "Political Science and International Relations",
+      "description": "without thesis",
       "language": "en",
       "tuition_per_year": 2250,
       "duration_years": 2
     },
     {
       "degree_type": "master",
-      "name": "Спортивные науки",
-      "description": "с диссертацией",
+      "name": "Sport Sciences",
+      "description": "with thesis",
       "language": "tr",
       "tuition_per_year": 3300,
       "duration_years": 2
     },
     {
       "degree_type": "master",
-      "name": "Спортивные науки",
-      "description": "без диссертации",
+      "name": "Sport Sciences",
+      "description": "without thesis",
       "language": "tr",
       "tuition_per_year": 2250,
       "duration_years": 2
     },
     {
       "degree_type": "master",
-      "name": "Клиническая фармация",
-      "description": "без диссертации",
+      "name": "Clinical Pharmacy",
+      "description": "without thesis",
       "language": "tr",
       "tuition_per_year": 2250,
       "duration_years": 2
     },
     {
       "degree_type": "master",
-      "name": "Медсестринское дело внутренних болезней",
-      "description": "с диссертацией",
+      "name": "Internal Medicine Nursing",
+      "description": "with thesis",
       "language": "tr",
       "tuition_per_year": 3300,
       "duration_years": 2
     },
     {
       "degree_type": "master",
-      "name": "Организационное поведение",
-      "description": "с диссертацией",
+      "name": "Organizational Behavior",
+      "description": "with thesis",
       "language": "tr",
       "tuition_per_year": 3300,
       "duration_years": 2
     },
     {
       "degree_type": "master",
-      "name": "Организационное поведение",
-      "description": "без диссертации",
+      "name": "Organizational Behavior",
+      "description": "without thesis",
       "language": "tr",
       "tuition_per_year": 2250,
       "duration_years": 2

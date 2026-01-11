@@ -65,7 +65,7 @@ Nuxt 4‑приложение с каталогом вузов, заявками
 | `npm run format` / `npm run format:check`                            | форматирование Prettier                                                          |
 | `npm run test` / `npm run test:watch`                                | запуск тестов Vitest                                                             |
 | `npm run translate`                                                  | LLM‑перевод недостающих локализаций (см. `docs/scripts/TRANSLATE.md`)            |
-| `npm run import:university`                                          | импорт/обновление университета из JSON (см. `docs/scripts/IMPORT_UNIVERSITY.md`) |
+| `npm run db:seed -- university`                                      | апсерт всех университетов из `prisma/seed/json/universities`                    |
 | `npm run i18n:check`                                                 | проверка качества переводов (см. `docs/scripts/I18N_CHECK.md`)                   |
 | `npm run directus:schema:snapshot` / `npm run directus:schema:apply` | экспорт и применение схемы Directus                                              |
 

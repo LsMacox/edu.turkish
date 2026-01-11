@@ -51,47 +51,47 @@
       {
         "name": "Университетская больница (Biruni University Hospital)",
         "description": "Клиническая база для обучения и практики студентов медицинских направлений.",
-        "icon": "mdi-hospital-building"
+        "icon": "ph:first-aid"
       },
       {
         "name": "Стоматологический госпиталь",
         "description": "Практическая подготовка студентов-стоматологов на реальных кейсах.",
-        "icon": "mdi-tooth-outline"
+        "icon": "ph:tooth"
       },
       {
         "name": "Симуляционные центры",
         "description": "Современные симуляторы и практические лаборатории для медицины и сестринского дела.",
-        "icon": "mdi-stethoscope"
+        "icon": "ph:stethoscope"
       },
       {
         "name": "Лаборатории",
         "description": "Исследовательские и учебные лаборатории по биомедицине, инженерии и биологии.",
-        "icon": "mdi-flask"
+        "icon": "ph:flask"
       },
       {
         "name": "Библиотека и e-ресурсы",
         "description": "Круглосуточный доступ к электронным каталогам и академическим базам данных.",
-        "icon": "mdi-library"
+        "icon": "ph:books"
       },
       {
         "name": "Общежития и резиденции",
         "description": "Общежития и партнёрские резиденции в пешей доступности от кампуса.",
-        "icon": "mdi-bed"
+        "icon": "ph:bed"
       },
       {
         "name": "Студенческие клубы и спорт",
         "description": "Культурные и спортивные мероприятия, активные студенческие сообщества.",
-        "icon": "mdi-basketball"
+        "icon": "ph:basketball"
       },
       {
         "name": "Кампус Topkapı",
         "description": "Современные аудитории, лаборатории и инфраструктура в центральном районе Стамбула.",
-        "icon": "mdi-office-building"
+        "icon": "ph:buildings"
       },
       {
         "name": "Кафетерии и столовые",
         "description": "Разнообразное питание на территории кампуса.",
-        "icon": "mdi-silverware-fork-knife"
+        "icon": "ph:fork-knife"
       }
     ]
   },
@@ -126,7 +126,9 @@
       {
         "name": "Сертификат владения английским языком",
         "description": "TOEFL iBT ≥ 84 (для англоязычных программ)",
-        "format_requirements": ["PDF"]
+        "format_requirements": [
+          "PDF"
+        ]
       }
     ],
     "scholarships": [
@@ -145,7 +147,7 @@
   "programs": [
     {
       "degree_type": "bachelor",
-      "name": "Питание и диетология",
+      "name": "Nutrition and Dietetics",
       "language": "tr",
       "tuition_per_year": 4000,
       "duration_years": 4,
@@ -153,7 +155,7 @@
     },
     {
       "degree_type": "bachelor",
-      "name": "Компьютерная инженерия",
+      "name": "Computer Engineering",
       "language": "tr",
       "tuition_per_year": 4000,
       "duration_years": 4,
@@ -161,7 +163,7 @@
     },
     {
       "degree_type": "bachelor",
-      "name": "Компьютерная инженерия",
+      "name": "Computer Engineering",
       "language": "en",
       "tuition_per_year": 7000,
       "duration_years": 4,
@@ -169,14 +171,14 @@
     },
     {
       "degree_type": "bachelor",
-      "name": "Биомедицинская инженерия",
+      "name": "Biomedical Engineering",
       "language": "en",
       "tuition_per_year": 7000,
       "duration_years": 4
     },
     {
       "degree_type": "bachelor",
-      "name": "Стоматология",
+      "name": "Dentistry",
       "language": "tr",
       "tuition_per_year": 15000,
       "duration_years": 5,
@@ -184,7 +186,7 @@
     },
     {
       "degree_type": "bachelor",
-      "name": "Стоматология",
+      "name": "Dentistry",
       "language": "en",
       "tuition_per_year": 17000,
       "duration_years": 5,
@@ -192,7 +194,7 @@
     },
     {
       "degree_type": "bachelor",
-      "name": "Акушерство",
+      "name": "Midwifery",
       "language": "tr",
       "tuition_per_year": 4000,
       "duration_years": 4,
@@ -200,7 +202,7 @@
     },
     {
       "degree_type": "bachelor",
-      "name": "Фармация",
+      "name": "Pharmacy",
       "language": "tr",
       "tuition_per_year": 10000,
       "duration_years": 5,
@@ -208,7 +210,7 @@
     },
     {
       "degree_type": "bachelor",
-      "name": "Фармация",
+      "name": "Pharmacy",
       "language": "en",
       "tuition_per_year": 12000,
       "duration_years": 5,
@@ -216,7 +218,7 @@
     },
     {
       "degree_type": "bachelor",
-      "name": "Сестринское дело",
+      "name": "Nursing",
       "language": "tr",
       "tuition_per_year": 4000,
       "duration_years": 4,
@@ -224,7 +226,7 @@
     },
     {
       "degree_type": "bachelor",
-      "name": "Сестринское дело",
+      "name": "Nursing",
       "language": "en",
       "tuition_per_year": 6000,
       "duration_years": 4,
@@ -232,28 +234,28 @@
     },
     {
       "degree_type": "bachelor",
-      "name": "Логопедия и речевая терапия",
+      "name": "Speech and Language Therapy",
       "language": "tr",
       "tuition_per_year": 4000,
       "duration_years": 4
     },
     {
       "degree_type": "bachelor",
-      "name": "Логопедия и речевая терапия",
+      "name": "Speech and Language Therapy",
       "language": "en",
       "tuition_per_year": 6000,
       "duration_years": 4
     },
     {
       "degree_type": "bachelor",
-      "name": "Эрготерапия",
+      "name": "Occupational Therapy",
       "language": "tr",
       "tuition_per_year": 4000,
       "duration_years": 4
     },
     {
       "degree_type": "bachelor",
-      "name": "Молекулярная биология и генетика",
+      "name": "Molecular Biology and Genetics",
       "language": "tr",
       "tuition_per_year": 4000,
       "duration_years": 4,
@@ -261,7 +263,7 @@
     },
     {
       "degree_type": "bachelor",
-      "name": "Молекулярная биология и генетика",
+      "name": "Molecular Biology and Genetics",
       "language": "en",
       "tuition_per_year": 7000,
       "duration_years": 4,
@@ -269,14 +271,14 @@
     },
     {
       "degree_type": "bachelor",
-      "name": "Аудиология",
+      "name": "Audiology",
       "language": "tr",
       "tuition_per_year": 4000,
       "duration_years": 4
     },
     {
       "degree_type": "bachelor",
-      "name": "Дошкольное образование",
+      "name": "Pre-School Education",
       "language": "tr",
       "tuition_per_year": 4000,
       "duration_years": 4,
@@ -284,7 +286,7 @@
     },
     {
       "degree_type": "bachelor",
-      "name": "Психологическое консультирование и руководство",
+      "name": "Psychological Counseling and Guidance",
       "language": "tr",
       "tuition_per_year": 4000,
       "duration_years": 4,
@@ -292,7 +294,7 @@
     },
     {
       "degree_type": "bachelor",
-      "name": "Медицина",
+      "name": "Medicine",
       "language": "tr",
       "tuition_per_year": 17000,
       "duration_years": 6,
@@ -300,7 +302,7 @@
     },
     {
       "degree_type": "bachelor",
-      "name": "Медицина",
+      "name": "Medicine",
       "language": "en",
       "tuition_per_year": 20000,
       "duration_years": 6,
@@ -308,7 +310,7 @@
     },
     {
       "degree_type": "bachelor",
-      "name": "Развитие ребёнка",
+      "name": "Child Development",
       "language": "tr",
       "tuition_per_year": 4000,
       "duration_years": 4,
@@ -316,7 +318,7 @@
     },
     {
       "degree_type": "bachelor",
-      "name": "Специальное образование",
+      "name": "Special Education",
       "language": "tr",
       "tuition_per_year": 4000,
       "duration_years": 4,
@@ -324,7 +326,7 @@
     },
     {
       "degree_type": "bachelor",
-      "name": "Преподавание математики в начальной школе",
+      "name": "Elementary Mathematics Teaching",
       "language": "tr",
       "tuition_per_year": 4000,
       "duration_years": 4,
@@ -332,7 +334,7 @@
     },
     {
       "degree_type": "bachelor",
-      "name": "Преподавание английского языка",
+      "name": "English Language Teaching",
       "language": "en",
       "tuition_per_year": 4000,
       "duration_years": 4,
@@ -340,7 +342,7 @@
     },
     {
       "degree_type": "bachelor",
-      "name": "Дизайн интерьера и предметно-пространственной среды",
+      "name": "Interior Architecture and Environmental Design",
       "language": "tr",
       "tuition_per_year": 4000,
       "duration_years": 4,

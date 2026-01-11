@@ -28,7 +28,6 @@
     "test": "vitest run",
     "test:watch": "vitest --watch",
     "translate": "docker compose exec app npx tsx scripts/translate.ts",
-    "import:university": "docker compose exec app npx tsx scripts/import-university.ts",
     "find:unused": "npx knip",
     "i18n:validate": "tsx scripts/check-i18n.ts",
     "lint:all": "npm run lint && npm run i18n:validate"

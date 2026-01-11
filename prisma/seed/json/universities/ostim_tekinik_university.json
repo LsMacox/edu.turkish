@@ -52,27 +52,27 @@
       {
         "name": "OSTİM Teknopark",
         "description": "Технопарк и R&D-центры, где студенты работают над индустриальными проектами",
-        "icon": "mdi-factory"
+        "icon": "ph:factory"
       },
       {
         "name": "Лаборатории Industry 4.0",
         "description": "Лаборатории робототехники, автоматизации, IoT и 3D-печати",
-        "icon": "mdi-robot"
+        "icon": "ph:cpu"
       },
       {
         "name": "Центр предпринимательства",
         "description": "Инкубатор стартапов, менторские программы и доступ к инвесторам",
-        "icon": "mdi-lightbulb-on-outline"
+        "icon": "ph:lightbulb"
       },
       {
         "name": "Библиотека и медиа-центр",
         "description": "Современная библиотека, e-ресурсы и co-working зоны",
-        "icon": "mdi-library"
+        "icon": "ph:books"
       },
       {
         "name": "Спортивные площадки",
         "description": "Фитнес-зал, баскетбол, мини-футбол, беговые дорожки",
-        "icon": "mdi-basketball"
+        "icon": "ph:basketball"
       }
     ],
     "gallery": [
@@ -137,14 +137,16 @@
         "name": "Скидка на обучение",
         "type": "university",
         "coverage_percentage": 80,
-        "eligibility_criteria": ["Максимальная скидка до 80% действует на все направления обучения"]
+        "eligibility_criteria": [
+          "Максимальная скидка до 80% действует на все направления обучения"
+        ]
       }
     ]
   },
   "programs": [
     {
       "degree_type": "bachelor",
-      "name": "Инженерия мехатроники",
+      "name": "Mechatronics Engineering",
       "language": "en",
       "tuition_per_year": 4800,
       "duration_years": 4,
@@ -152,7 +154,7 @@
     },
     {
       "degree_type": "bachelor",
-      "name": "Компьютерная инженерия",
+      "name": "Computer Engineering",
       "language": "en",
       "tuition_per_year": 4500,
       "duration_years": 4,
@@ -160,7 +162,7 @@
     },
     {
       "degree_type": "bachelor",
-      "name": "Программная инженерия",
+      "name": "Software Engineering",
       "language": "en",
       "tuition_per_year": 4500,
       "duration_years": 4,
@@ -168,7 +170,7 @@
     },
     {
       "degree_type": "bachelor",
-      "name": "Инженерия промышленных систем",
+      "name": "Industrial Systems Engineering",
       "language": "tr",
       "tuition_per_year": 3200,
       "duration_years": 4,
@@ -176,7 +178,7 @@
     },
     {
       "degree_type": "bachelor",
-      "name": "Электроника и встраиваемые системы",
+      "name": "Electronics and Embedded Systems",
       "language": "tr",
       "tuition_per_year": 3200,
       "duration_years": 4,
@@ -184,7 +186,7 @@
     },
     {
       "degree_type": "bachelor",
-      "name": "Аэрокосмическая инженерия",
+      "name": "Aerospace Engineering",
       "language": "en",
       "tuition_per_year": 5200,
       "duration_years": 4,
@@ -192,7 +194,7 @@
     },
     {
       "degree_type": "bachelor",
-      "name": "Кибербезопасность",
+      "name": "Cybersecurity",
       "language": "en",
       "tuition_per_year": 4200,
       "duration_years": 4,
@@ -200,7 +202,7 @@
     },
     {
       "degree_type": "bachelor",
-      "name": "Логистика и управление цепями поставок",
+      "name": "Logistics and Supply Chain Management",
       "language": "tr",
       "tuition_per_year": 3000,
       "duration_years": 4,
@@ -208,7 +210,7 @@
     },
     {
       "degree_type": "bachelor",
-      "name": "Международная торговля и финансы",
+      "name": "International Trade and Finance",
       "language": "en",
       "tuition_per_year": 3200,
       "duration_years": 4,
@@ -216,7 +218,7 @@
     },
     {
       "degree_type": "bachelor",
-      "name": "Бизнес-администрирование",
+      "name": "Business Administration",
       "language": "tr",
       "tuition_per_year": 3000,
       "duration_years": 4,
@@ -224,7 +226,7 @@
     },
     {
       "degree_type": "bachelor",
-      "name": "Маркетинг и цифровые медиа",
+      "name": "Marketing and Digital Media",
       "language": "tr",
       "tuition_per_year": 3000,
       "duration_years": 4,
@@ -232,7 +234,7 @@
     },
     {
       "degree_type": "bachelor",
-      "name": "Промышленный дизайн",
+      "name": "Industrial Design",
       "language": "tr",
       "tuition_per_year": 3000,
       "duration_years": 4,
@@ -240,7 +242,7 @@
     },
     {
       "degree_type": "bachelor",
-      "name": "Мультимедиа и коммуникационный дизайн",
+      "name": "Multimedia and Communication Design",
       "language": "en",
       "tuition_per_year": 3200,
       "duration_years": 4,
