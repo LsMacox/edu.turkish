@@ -14,7 +14,15 @@
       @click="handlePlayVideo"
     >
       <div class="relative aspect-[4/3] gradient-placeholder rounded-t-2xl overflow-hidden">
-        <div class="w-full h-full flex items-center justify-center gradient-placeholder-media">
+        <img
+          v-if="isPageLoaded && videoPreviewUrl"
+          :src="videoPreviewUrl"
+          :alt="review.name"
+          :class="['w-full h-full object-cover', IMAGE_HOVER_CLASSES]"
+          loading="lazy"
+          decoding="async"
+        />
+        <div v-else class="w-full h-full flex items-center justify-center gradient-placeholder-media">
           <Icon name="mdi:video" class="text-icon-3xl icon-placeholder" />
         </div>
 
@@ -116,6 +124,20 @@ interface Props {
 const props = defineProps<Props>()
 
 const isPageLoaded = ref(false)
+
+const { getCdnUrl } = useCdn()
+const runtimeConfig = useRuntimeConfig()
+const bunnyLibraryId = Number.parseInt(runtimeConfig.public.bunnyLibraryId)
+const bunnyVideoCdnUrl = (runtimeConfig.public as any).bunnyVideoCdnUrl as string | undefined
+const videoPreviewUrl = computed(() => {
+  if (props.review.mediaType !== 'video') return ''
+  if (props.review.imageUrl) return getCdnUrl(props.review.imageUrl)
+  if (!props.review.videoId || Number.isNaN(bunnyLibraryId)) return ''
+
+  const base = bunnyVideoCdnUrl?.replace(/\/+$/, '')
+  if (base) return `${base}/${props.review.videoId}/thumbnail.jpg`
+  return `https://vz-${bunnyLibraryId}.b-cdn.net/${props.review.videoId}/thumbnail.jpg`
+})
 
 onMounted(() => {
   isPageLoaded.value = true

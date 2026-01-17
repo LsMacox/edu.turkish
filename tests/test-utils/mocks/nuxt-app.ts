@@ -15,5 +15,5 @@ export function useCookie<T = any>(name: string, _opts?: any) {
 }
 
 export function useRuntimeConfig() {
-  return { public: {} }
+  return { public: { bunnyVideoCdnUrl: '' } }
 }

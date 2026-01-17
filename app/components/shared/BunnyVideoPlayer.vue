@@ -4,17 +4,26 @@
     :class="[roundedClass, backgroundClass]"
     :style="containerStyle"
   >
+    <img
+      v-if="previewUrl && (!shouldLoad || !iframeLoaded)"
+      :src="previewUrl"
+      :alt="title"
+      class="absolute inset-0 w-full h-full object-cover"
+      loading="lazy"
+      decoding="async"
+    />
     <iframe
       v-if="shouldLoad"
       :src="embedUrl"
       :title="title"
+      loading="lazy"
+      allow="accelerometer; gyroscope; autoplay; encrypted-media; picture-in-picture"
+      allowfullscreen
       class="border-0"
       :class="[
         fit === 'cover' ? 'video-cover' : 'absolute inset-0 w-full h-full',
       ]"
-      loading="lazy"
-      allow="accelerometer; gyroscope; autoplay; encrypted-media; picture-in-picture"
-      allowfullscreen
+      @load="iframeLoaded = true"
     />
   </div>
 </template>
@@ -33,6 +42,8 @@ interface Props {
   deferred?: boolean
   backgroundClass?: string
   fit?: 'contain' | 'cover'
+  posterUrl?: string
+  videoCdnUrl?: string
 }
 
 const props = withDefaults(defineProps<Props>(), {
@@ -49,6 +60,7 @@ const props = withDefaults(defineProps<Props>(), {
 })
 
 const shouldLoad = ref(!props.deferred)
+const iframeLoaded = ref(false)
 
 onMounted(() => {
   if (props.deferred) {
@@ -64,6 +76,13 @@ onMounted(() => {
     }
   }
 })
+
+watch(
+  () => props.videoId,
+  () => {
+    iframeLoaded.value = false
+  },
+)
 
 const ROUNDED_MAP: Record<string, string> = {
   none: '',
@@ -82,6 +101,13 @@ const containerStyle = computed(() => {
   // If no aspect ratio is provided but not explicitly free/full, fallback to default behavior
   if (!props.aspectRatio) return {}
   return { aspectRatio: props.aspectRatio }
+})
+
+const previewUrl = computed(() => {
+  if (props.posterUrl) return props.posterUrl
+  const base = props.videoCdnUrl?.replace(/\/+$/, '')
+  if (base) return `${base}/${props.videoId}/thumbnail.jpg`
+  return `https://vz-${props.libraryId}.b-cdn.net/${props.videoId}/thumbnail.jpg`
 })
 
 const embedUrl = computed(() => {

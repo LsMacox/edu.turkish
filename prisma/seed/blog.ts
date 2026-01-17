@@ -94,14 +94,6 @@ export async function seedBlog(prisma: PrismaClient) {
     return
   }
 
-  // Clear existing blog data to ensure clean seeding
-  await prisma.$transaction([
-    prisma.blogArticleTranslation.deleteMany(),
-    prisma.blogArticle.deleteMany(),
-    prisma.blogCategoryTranslation.deleteMany(),
-    prisma.blogCategory.deleteMany(),
-  ])
-
   const categoryMap = new Map<string, number>()
 
   for (const category of categories) {
@@ -134,7 +126,6 @@ export async function seedBlog(prisma: PrismaClient) {
 
     categoryMap.set(category.code, cat.id)
   }
-  await prisma.blogArticle.deleteMany({})
   for (const article of articles) {
     const categoryId = categoryMap.get(article.categoryCode)
     if (!categoryId) {

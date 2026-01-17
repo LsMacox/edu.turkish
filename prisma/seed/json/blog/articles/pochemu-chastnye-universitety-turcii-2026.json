@@ -3,8 +3,8 @@
   "isFeatured": true,
   "isPowerPage": false,
   "publishedAt": "2026-01-10T00:00:00Z",
-  "coverImage": "placeholder.png",
-  "heroImage": "placeholder.png",
+  "coverImage": "a00434a5-8cd8-4d7d-af37-69bd64afd5ce.webp",
+  "heroImage": "a00434a5-8cd8-4d7d-af37-69bd64afd5ce.webp",
   "readingTimeMinutes": 10,
   "translations": [
     {
@@ -100,10 +100,6 @@
         {
           "type": "paragraph",
           "text": "Частные университеты выглядят как космические корабли или пятизвездочные отели. Здесь есть все для жизни: спортзалы, бассейны, Starbucks на территории, огромные библиотеки и коворкинги."
-        },
-        {
-          "type": "paragraph",
-          "text": "{{WIDGET:GALLERY:{\"title\":\"Жизнь в кампусе\",\"images\":[{\"url\":\"https://edu-turkish.com/assets/images/campus1.jpg\",\"alt\":\"Современная аудитория\"},{\"url\":\"https://edu-turkish.com/assets/images/campus2.jpg\",\"alt\":\"Библиотека\"},{\"url\":\"https://edu-turkish.com/assets/images/campus3.jpg\",\"alt\":\"Студенческое кафе\"},{\"url\":\"https://edu-turkish.com/assets/images/campus4.jpg\",\"alt\":\"Лаборатория\"},{\"url\":\"https://edu-turkish.com/assets/images/campus5.jpg\",\"alt\":\"Спорткомплекс\"},{\"url\":\"https://edu-turkish.com/assets/images/campus6.jpg\",\"alt\":\"Зона отдыха\"}]}}}"
         },
         {
           "type": "heading",

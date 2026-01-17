@@ -1,6 +1,6 @@
 <template>
   <LightboxLightbox v-model="currentIndex" :items="safeItems" @update:model-value="onIndexChange">
-    <template #slide="{ item }">
+    <template #slide="{ item, isActive }">
       <!-- Image -->
       <NuxtImg
         v-if="item.mediaType === 'image' && item.imageUrl"
@@ -17,12 +17,29 @@
         class="w-full max-w-4xl"
       >
         <BunnyVideoPlayer
+          v-if="isActive"
           :video-id="item.videoId"
           :library-id="bunnyLibraryId"
           aspect-ratio="16/9"
           rounded="lg"
           :title="item.name"
         />
+        <div v-else class="relative aspect-video rounded-lg overflow-hidden bg-neutral-900">
+          <img
+            v-if="getVideoPreviewUrl(item)"
+            :src="getVideoPreviewUrl(item)"
+            :alt="item.name || 'Video'"
+            class="w-full h-full object-cover"
+            loading="lazy"
+            decoding="async"
+          />
+          <div v-else class="w-full h-full flex items-center justify-center gradient-placeholder-media">
+            <Icon name="mdi:video" class="text-icon-3xl icon-placeholder" />
+          </div>
+          <div class="absolute inset-0 flex items-center justify-center bg-black/30">
+            <BaseMediaButton icon="mdi:play" size="lg" variant="play" />
+          </div>
+        </div>
       </div>
 
       <!-- Fallback -->
@@ -52,9 +69,12 @@ const props = defineProps<{
 
 const emit = defineEmits<{ close: [] }>()
 
-const bunnyLibraryId = parseInt(useRuntimeConfig().public.bunnyLibraryId)
+const runtimeConfig = useRuntimeConfig()
+const bunnyLibraryId = Number.parseInt(runtimeConfig.public.bunnyLibraryId)
+const bunnyVideoCdnUrl = (runtimeConfig.public as any).bunnyVideoCdnUrl as string | undefined
 const currentIndex = ref<number | null>(props.index)
 const safeItems = computed(() => props.items || [])
+const { getCdnUrl } = useCdn()
 
 watch(
   () => props.index,
@@ -67,5 +87,14 @@ function onIndexChange(val: number | null) {
   if (val === null) {
     emit('close')
   }
+}
+
+function getVideoPreviewUrl(item: MediaReview) {
+  if (item.imageUrl) return getCdnUrl(item.imageUrl)
+  if (!item.videoId || Number.isNaN(bunnyLibraryId)) return ''
+
+  const base = bunnyVideoCdnUrl?.replace(/\/+$/, '')
+  if (base) return `${base}/${item.videoId}/thumbnail.jpg`
+  return `https://vz-${bunnyLibraryId}.b-cdn.net/${item.videoId}/thumbnail.jpg`
 }
 </script>

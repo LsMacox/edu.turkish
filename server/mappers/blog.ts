@@ -53,7 +53,7 @@ function sanitizeContentBlocks(blocks: BlogContentBlock[]): BlogArticleContentBl
         }
         case 'quote': {
           const text = sanitizeRichText(block.text)
-          return text ? { type: 'quote', text, author: block.author } : null
+          return text ? { type: 'quote', text, author: block.author ?? undefined } : null
         }
         case 'image': {
           return block.url

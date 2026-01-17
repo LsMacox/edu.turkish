@@ -20,6 +20,7 @@ export function createRuntimeConfig(siteUrl: string): NuxtConfig['runtimeConfig'
       yandexMetrikaId: process.env.NUXT_PUBLIC_YANDEX_METRIKA_ID || '',
       gtmId: process.env.NUXT_PUBLIC_GTM_ID,
       bunnyLibraryId: process.env.NUXT_PUBLIC_BUNNY_LIBRARY_ID || '',
+      bunnyVideoCdnUrl: process.env.NUXT_PUBLIC_BUNNY_VIDEO_CDN_URL || '',
     },
   }
 }

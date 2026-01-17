@@ -69,6 +69,7 @@
             <BunnyVideoPlayer
               :video-id="ASSETS.home.heroVideoId"
               :library-id="bunnyLibraryId"
+              :video-cdn-url="bunnyVideoCdnUrl"
               aspect-ratio="4/3"
               rounded="none"
               :controls="false"
@@ -95,5 +96,7 @@ const heroNs = namespace('home.hero')
 const modal = useApplicationModal()
 const { t } = useI18n()
 
-const bunnyLibraryId = parseInt(useRuntimeConfig().public.bunnyLibraryId)
+const runtimeConfig = useRuntimeConfig()
+const bunnyLibraryId = parseInt(runtimeConfig.public.bunnyLibraryId)
+const bunnyVideoCdnUrl = (runtimeConfig.public as any).bunnyVideoCdnUrl as string | undefined
 </script>

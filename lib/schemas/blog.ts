@@ -25,7 +25,7 @@ const ListBlockSchema = z.object({
 const QuoteBlockSchema = z.object({
   type: z.literal('quote'),
   text: z.string(),
-  author: z.string().optional(),
+  author: z.string().nullish(),
 })
 
 const ImageBlockSchema = z.object({
